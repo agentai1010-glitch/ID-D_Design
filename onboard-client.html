@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Onboard New Client · Kiosk Platform</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+<div class="app-shell">
+<aside class="sidebar">
+  <a href="dashboard.html" class="sidebar-brand" style="cursor:pointer;">
+    <div class="logo-icon"><svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M12 2L21 7V17L12 22L3 17V7L12 2Z" stroke="white" stroke-width="1.6" stroke-linejoin="round"/>
+<circle cx="12" cy="12" r="3.2" fill="white"/>
+</svg></div>
+    <div class="brand-text"><div class="t1">KIOSK</div><div class="t2">PLATFORM</div></div>
+  </a>
+  <div class="sidebar-section-label">PLATFORM ADMIN <i class="fa-solid fa-chevron-up" style="font-size:9px;"></i></div>
+  <ul class="sidebar-nav">
+  <li class="nav-item " onclick="location.href='dashboard.html'"><i class="fa-solid fa-house"></i><span>Dashboard</span></li>
+<li class="nav-item active" onclick="location.href='clients.html'"><i class="fa-solid fa-user-group"></i><span>Clients</span></li>
+<li class="nav-item " onclick="location.href='projects.html'"><i class="fa-solid fa-folder-open"></i><span>Projects</span></li>
+<li class="nav-item " onclick="location.href='devices.html'"><i class="fa-solid fa-tablet-screen-button"></i><span>Devices</span></li>
+<li class="nav-item " onclick="location.href='templates.html'"><i class="fa-solid fa-table-cells-large"></i><span>Templates</span></li>
+<li class="nav-item " onclick="location.href='analytics.html'"><i class="fa-solid fa-chart-column"></i><span>Analytics</span></li>
+<li class="nav-item " onclick="location.href='monitoring.html'"><i class="fa-solid fa-heart-pulse"></i><span>Monitoring</span></li>
+<li class="nav-item " onclick="location.href='users-roles.html'"><i class="fa-solid fa-users-gear"></i><span>Users & Roles</span></li>
+<li class="nav-item " onclick="location.href='billing.html'"><i class="fa-solid fa-credit-card"></i><span>Billing & Plans</span></li>
+<li class="nav-item " onclick="location.href='audit-logs.html'"><i class="fa-solid fa-file-lines"></i><span>Audit Logs</span></li>
+<li class="nav-item " onclick="location.href='system-settings.html'"><i class="fa-solid fa-gear"></i><span>System Settings</span></li>
+
+  </ul>
+  <div class="sidebar-spacer"></div>
+  <div class="sidebar-status">
+    <div class="st-title">System Status</div>
+    <div class="st-row"><span class="st-dot"></span> All Systems Operational</div>
+    <div class="st-sub">Last checked: 2 min ago</div>
+    <a href="monitoring.html">View System Health</a>
+  </div>
+  <div class="sidebar-quick">
+    <div class="qa-title">Quick Actions</div>
+    <a class="qa-item" href="onboard-client.html"><i class="fa-solid fa-user-plus"></i> Onboard New Client</a>
+    <a class="qa-item" href="clients.html"><i class="fa-solid fa-cube"></i> View Clients</a>
+    <a class="qa-item" href="devices.html"><i class="fa-solid fa-tablet-screen-button"></i> View Devices</a>
+    <a class="qa-item" href="monitoring.html"><i class="fa-solid fa-triangle-exclamation"></i> View Alerts</a>
+  </div>
+  <div class="sidebar-footer">Kiosk Platform v1.0.0</div>
+</aside>
+<div class="main"><header class="topbar">
+  <i class="fa-solid fa-bars hamburger"></i>
+  <div class="search"><i class="fa-solid fa-magnifying-glass"></i><span>Search clients, projects, devices...</span><span class="kbd">⌘K</span></div>
+  <div class="spacer"></div>
+  <button class="icon-btn"><i class="fa-regular fa-circle-question"></i></button>
+  <button class="icon-btn"><i class="fa-regular fa-bell"></i><span class="badge-dot">12</span></button>
+  <div class="user">
+    <div class="avatar">SA</div>
+    <div><div class="u-name">Super Admin</div><div class="u-role">Platform Administrator</div></div>
+    <i class="fa-solid fa-chevron-down"></i>
+  </div>
+</header>
+<div class="content">
+<div class="page-header">
+  <div><h1>Onboard New Client</h1><p>Follow the steps below to onboard a new client to the platform</p></div>
+</div>
+
+<div class="stepper">
+  <div class="step active"><div class="circle">1</div><div class="s-title">Organization</div><div class="s-sub">Create organization</div></div>
+  <div class="step-line"></div>
+  <div class="step"><div class="circle">2</div><div class="s-title">Client Information</div><div class="s-sub">Add client details</div></div>
+  <div class="step-line"></div>
+  <div class="step"><div class="circle">3</div><div class="s-title">Client Administrator</div><div class="s-sub">Assign admin user</div></div>
+  <div class="step-line"></div>
+  <div class="step"><div class="circle">4</div><div class="s-title">Template Access</div><div class="s-sub">Select templates</div></div>
+  <div class="step-line"></div>
+  <div class="step"><div class="circle">5</div><div class="s-title">Initial Project</div><div class="s-sub">Create first project</div></div>
+  <div class="step-line"></div>
+  <div class="step"><div class="circle">6</div><div class="s-title">Review</div><div class="s-sub">Review information</div></div>
+  <div class="step-line"></div>
+  <div class="step"><div class="circle">7</div><div class="s-title">Complete</div><div class="s-sub">Finish onboarding</div></div>
+</div>
+
+<div class="onboard-layout">
+  <div class="panel" style="margin-bottom:0;">
+    <div class="panel-header"><div><h2>Organization Information</h2><p>Create the organization that will own the projects and kiosks.</p></div></div>
+    <div style="padding:22px;">
+      <div class="form-group"><label>Organization / Company Name <span class="req">*</span></label><input class="form-control" value="Phoenix Retail Group"></div>
+      <div class="form-grid">
+        <div class="form-group"><label>Organization Type <span class="req">*</span></label>
+          <select class="form-control"><option>Retail Group</option></select></div>
+        <div class="form-group"><label>Industry <span class="req">*</span></label>
+          <select class="form-control"><option>Shopping Malls</option></select></div>
+      </div>
+      <div class="form-group"><label>Website</label><input class="form-control" value="https://www.phoenixretail.com"></div>
+      <div class="form-grid">
+        <div class="form-group"><label>Country <span class="req">*</span></label>
+          <select class="form-control"><option>India</option></select></div>
+        <div class="form-group"><label>Time Zone <span class="req">*</span></label>
+          <select class="form-control"><option>(GMT+05:30) Asia/Kolkata</option></select></div>
+      </div>
+      <div class="form-group"><label>Address</label>
+        <textarea class="form-control" rows="3">Phoenix Mills, Lower Parel,
+Mumbai, Maharashtra 400013, India</textarea>
+        <div class="char-count">57/200</div>
+      </div>
+      <div class="form-grid">
+        <div class="form-group"><label>Phone Number</label><input class="form-control" value="+91 22 6731 9999"></div>
+        <div class="form-group"><label>Email</label><input class="form-control" value="contact@phoenixretail.com"></div>
+      </div>
+      <div style="display:flex;justify-content:space-between;margin-top:6px;">
+        <button class="btn">Cancel</button>
+        <button class="btn btn-primary">Save &amp; Continue <i class="fa-solid fa-arrow-right"></i></button>
+      </div>
+    </div>
+  </div>
+
+  <div>
+    <div class="side-steps">
+      <div class="qa-title" style="padding:2px 6px 10px;font-weight:800;font-size:13px;">Onboarding Steps</div>
+      <div class="side-step active"><div class="ic"><i class="fa-solid fa-building"></i></div><div><div class="t1">Organization</div><div class="t2">Create organization</div></div></div>
+      <div class="side-step"><div class="ic"><i class="fa-regular fa-circle-question"></i></div><div><div class="t1">Client Information</div><div class="t2">Add client details</div></div></div>
+      <div class="side-step"><div class="ic"><i class="fa-solid fa-user"></i></div><div><div class="t1">Client Administrator</div><div class="t2">Assign admin user</div></div></div>
+      <div class="side-step"><div class="ic"><i class="fa-regular fa-folder"></i></div><div><div class="t1">Template Access</div><div class="t2">Select available templates</div></div></div>
+      <div class="side-step"><div class="ic"><i class="fa-solid fa-cube"></i></div><div><div class="t1">Initial Project</div><div class="t2">Create first project</div></div></div>
+      <div class="side-step"><div class="ic"><i class="fa-regular fa-square-check"></i></div><div><div class="t1">Review</div><div class="t2">Review all information</div></div></div>
+      <div class="side-step"><div class="ic"><i class="fa-regular fa-circle-check"></i></div><div><div class="t1">Complete</div><div class="t2">Finish onboarding</div></div></div>
+    </div>
+    <div class="side-note">
+      <h4><i class="fa-solid fa-circle-info"></i> About Client Onboarding</h4>
+      <p style="margin:0 0 8px;">This process will:</p>
+      <ul>
+        <li>Create a new organization</li>
+        <li>Assign a client administrator</li>
+        <li>Grant access to selected templates</li>
+        <li>Create initial project (optional)</li>
+        <li>Send access invitation to client admin</li>
+      </ul>
+    </div>
+  </div>
+</div>
+</div></div>
+</div>
+</body>
+</html>

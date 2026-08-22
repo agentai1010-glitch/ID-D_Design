@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Create New Project · Kiosk Platform</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<link rel="stylesheet" href="../css/styles.css">
+</head>
+<body>
+<div class="app-shell">
+
+<!-- Client Admin Sidebar -->
+<aside class="sidebar">
+  <a href="dashboard.html" class="sidebar-brand" style="cursor:pointer;">
+    <div class="logo-icon"><svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M12 2L21 7V17L12 22L3 17V7L12 2Z" stroke="white" stroke-width="1.6" stroke-linejoin="round"/>
+<circle cx="12" cy="12" r="3.2" fill="white"/>
+</svg></div>
+    <div class="brand-text"><div class="t1">KIOSK</div><div class="t2">PLATFORM</div></div>
+  </a>
+
+  <!-- WORKSPACE Section -->
+  <div class="sidebar-section-label">WORKSPACE</div>
+  <ul class="sidebar-nav">
+    <li class="nav-item" onclick="location.href='dashboard.html'"><i class="fa-solid fa-house"></i><span>Dashboard</span></li>
+    <li class="nav-item active" onclick="location.href='projects.html'"><i class="fa-solid fa-folder-open"></i><span>Projects</span></li>
+    <li class="nav-item" onclick="location.href='devices.html'"><i class="fa-solid fa-tablet-screen-button"></i><span>Devices</span></li>
+    <li class="nav-item" onclick="location.href='analytics.html'"><i class="fa-solid fa-chart-column"></i><span>Analytics</span></li>
+  </ul>
+
+  <!-- TEAM Section -->
+  <div class="sidebar-section-label">TEAM</div>
+  <ul class="sidebar-nav">
+    <li class="nav-item" onclick="location.href='users-roles.html'"><i class="fa-solid fa-users"></i><span>Users & Roles</span></li>
+  </ul>
+
+  <!-- ACCOUNT Section -->
+  <div class="sidebar-section-label">ACCOUNT</div>
+  <ul class="sidebar-nav">
+    <li class="nav-item" onclick="location.href='settings.html'"><i class="fa-solid fa-gear"></i><span>Settings</span></li>
+  </ul>
+
+  <div class="sidebar-spacer"></div>
+
+  <!-- Organization Card -->
+  <div class="org-switcher-card">
+    <div class="org-switcher-header">
+      <div class="org-icon-box"><i class="fa-solid fa-city"></i></div>
+      <div>
+        <div class="org-name-text">Phoenix Retail Group</div>
+        <div class="org-sub-text">Organization</div>
+      </div>
+    </div>
+    <button class="org-btn-switch">
+      <span>Switch Organization</span>
+      <i class="fa-solid fa-chevron-down" style="font-size:9.5px;"></i>
+    </button>
+  </div>
+
+  <!-- Footer -->
+  <div style="display:flex;justify-content:space-between;align-items:center;padding:4px 4px 0;">
+    <span style="font-size:11px;color:#4c5c7d;">Client Admin v1.0.0</span>
+    <i class="fa-solid fa-chevron-left" style="font-size:10px;color:#4c5c7d;cursor:pointer;"></i>
+  </div>
+</aside>
+
+<!-- Main Content Area -->
+<div class="main">
+  <!-- Topbar -->
+  <header class="topbar">
+    <i class="fa-solid fa-bars hamburger"></i>
+    <div class="search">
+      <i class="fa-solid fa-magnifying-glass"></i>
+      <span>Search projects, kiosks, locations...</span>
+      <span class="kbd">⌘ K</span>
+    </div>
+    <div class="spacer"></div>
+    <button class="icon-btn"><i class="fa-regular fa-bell"></i><span class="badge-dot">8</span></button>
+    <div class="user">
+      <div class="avatar" style="background:linear-gradient(135deg,#3b82f6,#1d4ed8);">RA</div>
+      <div>
+        <div class="u-name">Rahul Arora</div>
+        <div class="u-role">Client Admin</div>
+      </div>
+      <i class="fa-solid fa-chevron-down"></i>
+    </div>
+  </header>
+
+  <!-- Content -->
+  <main class="content">
+
+    <!-- Breadcrumb & Header -->
+    <div class="breadcrumb">
+      <a href="projects.html">Projects</a>
+      <i class="fa-solid fa-chevron-right"></i>
+      <span style="color:var(--text-900);font-weight:600;">Create New Project</span>
+    </div>
+
+    <div class="page-header" style="margin-bottom:20px;">
+      <div>
+        <h1>Create New Project</h1>
+        <p>Follow the steps below to create and configure your kiosk project.</p>
+      </div>
+    </div>
+
+    <!-- Stepper Navigation -->
+    <div class="stepper-horizontal">
+      <div class="step-item-h active">
+        <div class="step-num-h">1</div>
+        <div class="step-title-h">Project Information</div>
+      </div>
+      <div class="step-connector-h"></div>
+      <div class="step-item-h">
+        <div class="step-num-h">2</div>
+        <div class="step-title-h">Select Template</div>
+      </div>
+      <div class="step-connector-h"></div>
+      <div class="step-item-h">
+        <div class="step-num-h">3</div>
+        <div class="step-title-h">Select Theme</div>
+      </div>
+      <div class="step-connector-h"></div>
+      <div class="step-item-h">
+        <div class="step-num-h">4</div>
+        <div class="step-title-h">Review & Create</div>
+      </div>
+    </div>
+
+    <!-- 3-Column Creation Layout -->
+    <div class="create-project-layout">
+
+      <!-- Column 1: Project Information Form -->
+      <div class="panel" style="padding:22px;margin-bottom:0;">
+        <h2 style="font-size:16px;font-weight:800;margin:0 0 3px;">Project Information</h2>
+        <p class="muted" style="font-size:12.5px;margin:0 0 20px;">Enter basic details about your kiosk project.</p>
+
+        <form onsubmit="return false;">
+          <!-- Project Name -->
+          <div class="form-group">
+            <label>Project Name <span class="req">*</span></label>
+            <input type="text" class="form-control" value="Phoenix Mall" placeholder="e.g. Phoenix Mall">
+            <div style="font-size:11px;color:var(--text-400);margin-top:4px;">Enter a unique name for your project.</div>
+          </div>
+
+          <!-- Project Code -->
+          <div class="form-group">
+            <label>Project Code <span style="font-size:11px;color:var(--text-400);font-weight:normal;">(Optional)</span></label>
+            <input type="text" class="form-control" value="PHX-MALL-01" placeholder="e.g. PHX-MALL-01">
+            <div style="font-size:11px;color:var(--text-400);margin-top:4px;">A short code to identify your project.</div>
+          </div>
+
+          <!-- Location & City Grid -->
+          <div class="form-grid" style="gap:14px;margin-bottom:18px;">
+            <div class="form-group" style="margin-bottom:0;">
+              <label>Venue / Location <span class="req">*</span></label>
+              <div style="position:relative;">
+                <select class="form-control" style="appearance:none;padding-right:28px;">
+                  <option selected>📍 Phoenix Mall, Mumbai</option>
+                  <option>City Center Mall, Pune</option>
+                  <option>Lakeside Mall, Bengaluru</option>
+                </select>
+                <i class="fa-solid fa-chevron-down" style="position:absolute;right:12px;top:13px;font-size:10px;color:var(--text-400);pointer-events:none;"></i>
+              </div>
+            </div>
+
+            <div class="form-group" style="margin-bottom:0;">
+              <label>City <span class="req">*</span></label>
+              <div style="position:relative;">
+                <select class="form-control" style="appearance:none;padding-right:28px;">
+                  <option selected>Mumbai</option>
+                  <option>Pune</option>
+                  <option>Bengaluru</option>
+                  <option>Delhi</option>
+                </select>
+                <i class="fa-solid fa-chevron-down" style="position:absolute;right:12px;top:13px;font-size:10px;color:var(--text-400);pointer-events:none;"></i>
+              </div>
+            </div>
+          </div>
+
+          <!-- Country & Time Zone Grid -->
+          <div class="form-grid" style="gap:14px;margin-bottom:18px;">
+            <div class="form-group" style="margin-bottom:0;">
+              <label>Country <span class="req">*</span></label>
+              <div style="position:relative;">
+                <select class="form-control" style="appearance:none;padding-right:28px;">
+                  <option selected>India</option>
+                  <option>United States</option>
+                  <option>United Arab Emirates</option>
+                  <option>Singapore</option>
+                </select>
+                <i class="fa-solid fa-chevron-down" style="position:absolute;right:12px;top:13px;font-size:10px;color:var(--text-400);pointer-events:none;"></i>
+              </div>
+            </div>
+
+            <div class="form-group" style="margin-bottom:0;">
+              <label>Time Zone <span class="req">*</span></label>
+              <div style="position:relative;">
+                <select class="form-control" style="appearance:none;padding-right:28px;">
+                  <option selected>(GMT+05:30) Asia/Kolkata</option>
+                  <option>(GMT+00:00) UTC</option>
+                  <option>(GMT+04:00) Dubai</option>
+                </select>
+                <i class="fa-solid fa-chevron-down" style="position:absolute;right:12px;top:13px;font-size:10px;color:var(--text-400);pointer-events:none;"></i>
+              </div>
+            </div>
+          </div>
+
+          <!-- Description -->
+          <div class="form-group">
+            <label>Description <span style="font-size:11px;color:var(--text-400);font-weight:normal;">(Optional)</span></label>
+            <textarea class="form-control" rows="3">Indoor kiosk project for Phoenix Mall, Mumbai.</textarea>
+            <div style="font-size:11px;color:var(--text-400);margin-top:4px;">Add any notes or details about this project.</div>
+          </div>
+
+          <!-- Buttons -->
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-top:24px;padding-top:14px;border-top:1px solid var(--border-soft);">
+            <button type="button" class="btn" onclick="location.href='projects.html'">Cancel</button>
+            <button type="button" class="btn btn-primary" onclick="location.href='project-overview.html'">Next <i class="fa-solid fa-arrow-right"></i></button>
+          </div>
+        </form>
+      </div>
+
+      <!-- Column 2: Choose Template -->
+      <div class="panel" style="padding:22px;margin-bottom:0;">
+        <h2 style="font-size:16px;font-weight:800;margin:0 0 3px;">Choose Template</h2>
+        <p class="muted" style="font-size:12.5px;margin:0 0 20px;">Select a template to define the base experience for your kiosks.</p>
+
+        <!-- Template 1: Mall / Indoor Venue (Selected) -->
+        <div class="template-card-option selected">
+          <i class="fa-solid fa-circle-dot" style="color:var(--blue-600);font-size:16px;margin-top:2px;"></i>
+          <div class="template-thumb" style="background:linear-gradient(135deg,#ca8a04,#eab308,#78350f);display:flex;align-items:center;justify-content:center;color:#fff;font-size:18px;">
+            <i class="fa-solid fa-building"></i>
+          </div>
+          <div style="flex:1;min-width:0;">
+            <div style="display:flex;align-items:center;flex-wrap:wrap;gap:6px;">
+              <span style="font-size:13.5px;font-weight:700;color:var(--text-900);">Mall / Indoor Venue</span>
+              <span class="badge badge-green" style="font-size:10px;padding:2px 7px;">Recommended</span>
+            </div>
+            <div style="font-size:11.5px;color:var(--text-500);margin-top:4px;line-height:1.4;">
+              Complete indoor experience for malls, shopping centers and large venues.
+            </div>
+            <div style="font-size:11.5px;font-weight:700;color:var(--text-700);margin-top:8px;">Includes:</div>
+            <ul class="template-feature-list">
+              <li class="template-feature-item"><i class="fa-solid fa-circle-check"></i> Indoor maps & navigation</li>
+              <li class="template-feature-item"><i class="fa-solid fa-circle-check"></i> Store directory & search</li>
+              <li class="template-feature-item"><i class="fa-solid fa-circle-check"></i> Facilities & services</li>
+              <li class="template-feature-item"><i class="fa-solid fa-circle-check"></i> Advertisements & promotions</li>
+              <li class="template-feature-item"><i class="fa-solid fa-circle-check"></i> Events & notifications</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Template 2: Corporate Campus -->
+        <div class="template-card-option">
+          <i class="fa-regular fa-circle" style="color:var(--text-400);font-size:16px;margin-top:2px;"></i>
+          <div class="template-thumb" style="background:linear-gradient(135deg,#0284c7,#0369a1,#0f172a);display:flex;align-items:center;justify-content:center;color:#fff;font-size:18px;">
+            <i class="fa-solid fa-city"></i>
+          </div>
+          <div style="flex:1;min-width:0;">
+            <div style="font-size:13.5px;font-weight:700;color:var(--text-900);">Corporate Campus</div>
+            <div style="font-size:11.5px;color:var(--text-500);margin-top:4px;line-height:1.4;">
+              For office campuses, tech parks and corporate environments.
+            </div>
+            <div style="font-size:11px;color:var(--text-500);margin-top:6px;">
+              <strong>Includes:</strong> Maps, Directory, Navigation, Facilities
+            </div>
+          </div>
+        </div>
+
+        <!-- Template 3: Exhibition / Event -->
+        <div class="template-card-option">
+          <i class="fa-regular fa-circle" style="color:var(--text-400);font-size:16px;margin-top:2px;"></i>
+          <div class="template-thumb" style="background:linear-gradient(135deg,#7c3aed,#4f46e5,#312e81);display:flex;align-items:center;justify-content:center;color:#fff;font-size:18px;">
+            <i class="fa-solid fa-users-viewfinder"></i>
+          </div>
+          <div style="flex:1;min-width:0;">
+            <div style="font-size:13.5px;font-weight:700;color:var(--text-900);">Exhibition / Event</div>
+            <div style="font-size:11.5px;color:var(--text-500);margin-top:4px;line-height:1.4;">
+              For exhibitions, conferences and temporary events.
+            </div>
+            <div style="font-size:11px;color:var(--text-500);margin-top:6px;">
+              <strong>Includes:</strong> Maps, Exhibitors, Events, Notifications
+            </div>
+          </div>
+        </div>
+
+        <!-- Footer Link -->
+        <div style="margin-top:14px;">
+          <a href="#" class="link-blue" style="font-size:12px;font-weight:600;display:inline-flex;align-items:center;gap:5px;">
+            Learn more about templates <i class="fa-solid fa-circle-info"></i>
+          </a>
+        </div>
+      </div>
+
+      <!-- Column 3: Project Summary -->
+      <div class="panel" style="padding:22px;margin-bottom:0;">
+        <h2 style="font-size:16px;font-weight:800;margin:0 0 3px;">Project Summary</h2>
+        <p class="muted" style="font-size:12.5px;margin:0 0 20px;">Review your selections.</p>
+
+        <div style="display:flex;flex-direction:column;gap:14px;margin-bottom:20px;">
+          <div>
+            <div style="font-size:11px;color:var(--text-500);margin-bottom:2px;">Project Name</div>
+            <div style="font-size:13.5px;font-weight:700;color:var(--text-900);">Phoenix Mall</div>
+          </div>
+
+          <div>
+            <div style="font-size:11px;color:var(--text-500);margin-bottom:2px;">Venue / Location</div>
+            <div style="font-size:13px;font-weight:600;color:var(--text-900);">Phoenix Mall, Mumbai</div>
+          </div>
+
+          <div>
+            <div style="font-size:11px;color:var(--text-500);margin-bottom:2px;">City</div>
+            <div style="font-size:13px;font-weight:600;color:var(--text-900);">Mumbai, India</div>
+          </div>
+
+          <div>
+            <div style="font-size:11px;color:var(--text-500);margin-bottom:2px;">Time Zone</div>
+            <div style="font-size:13px;font-weight:600;color:var(--text-900);">(GMT+05:30) Asia/Kolkata</div>
+          </div>
+        </div>
+
+        <!-- Template Selection in Summary -->
+        <div style="margin-bottom:14px;">
+          <div style="font-size:11px;color:var(--text-500);margin-bottom:6px;">Template</div>
+          <div style="display:flex;align-items:center;gap:10px;padding:8px 10px;border-radius:8px;background:var(--gray-100);">
+            <div class="icon-blue" style="width:28px;height:28px;border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:12px;">
+              <i class="fa-solid fa-building"></i>
+            </div>
+            <div style="font-size:12.5px;font-weight:700;color:var(--text-900);">Mall / Indoor Venue</div>
+          </div>
+        </div>
+
+        <!-- Theme Selection in Summary -->
+        <div style="margin-bottom:22px;">
+          <div style="font-size:11px;color:var(--text-500);margin-bottom:6px;">Theme</div>
+          <div style="display:flex;align-items:center;gap:10px;padding:8px 10px;border-radius:8px;background:var(--gray-100);">
+            <div class="icon-purple" style="width:28px;height:28px;border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:12px;background:#f1f5f9;color:var(--text-400);">
+              <i class="fa-solid fa-palette"></i>
+            </div>
+            <div style="font-size:12.5px;font-weight:500;color:var(--text-500);">To be selected</div>
+          </div>
+        </div>
+
+        <!-- What's Next Callout -->
+        <div style="background:var(--blue-50);border:1px solid var(--blue-100);border-radius:10px;padding:14px;">
+          <div style="display:flex;align-items:center;gap:6px;margin-bottom:6px;">
+            <i class="fa-solid fa-circle-info" style="color:var(--blue-600);font-size:12px;"></i>
+            <span style="font-size:12.5px;font-weight:700;color:var(--text-900);">What's Next?</span>
+          </div>
+          <div style="font-size:11.5px;color:var(--text-700);line-height:1.5;">
+            After creating your project, you'll be able to customize the theme, add content, configure maps and publish to your kiosks.
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+
+  </main>
+</div>
+</div>
+</body>
+</html>

@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Platform Overview · Kiosk Platform</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+<div class="app-shell">
+<aside class="sidebar">
+  <a href="dashboard.html" class="sidebar-brand" style="cursor:pointer;">
+    <div class="logo-icon"><svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M12 2L21 7V17L12 22L3 17V7L12 2Z" stroke="white" stroke-width="1.6" stroke-linejoin="round"/>
+<circle cx="12" cy="12" r="3.2" fill="white"/>
+</svg></div>
+    <div class="brand-text"><div class="t1">KIOSK</div><div class="t2">PLATFORM</div></div>
+  </a>
+  <div class="sidebar-section-label">PLATFORM ADMIN <i class="fa-solid fa-chevron-up" style="font-size:9px;"></i></div>
+  <ul class="sidebar-nav">
+  <li class="nav-item active" onclick="location.href='dashboard.html'"><i class="fa-solid fa-house"></i><span>Dashboard</span></li>
+<li class="nav-item " onclick="location.href='clients.html'"><i class="fa-solid fa-user-group"></i><span>Clients</span></li>
+<li class="nav-item " onclick="location.href='projects.html'"><i class="fa-solid fa-folder-open"></i><span>Projects</span></li>
+<li class="nav-item " onclick="location.href='devices.html'"><i class="fa-solid fa-tablet-screen-button"></i><span>Devices</span></li>
+<li class="nav-item " onclick="location.href='templates.html'"><i class="fa-solid fa-table-cells-large"></i><span>Templates</span></li>
+<li class="nav-item " onclick="location.href='analytics.html'"><i class="fa-solid fa-chart-column"></i><span>Analytics</span></li>
+<li class="nav-item " onclick="location.href='monitoring.html'"><i class="fa-solid fa-heart-pulse"></i><span>Monitoring</span></li>
+<li class="nav-item " onclick="location.href='users-roles.html'"><i class="fa-solid fa-users-gear"></i><span>Users & Roles</span></li>
+<li class="nav-item " onclick="location.href='billing.html'"><i class="fa-solid fa-credit-card"></i><span>Billing & Plans</span></li>
+<li class="nav-item " onclick="location.href='audit-logs.html'"><i class="fa-solid fa-file-lines"></i><span>Audit Logs</span></li>
+<li class="nav-item " onclick="location.href='system-settings.html'"><i class="fa-solid fa-gear"></i><span>System Settings</span></li>
+
+  </ul>
+  <div class="sidebar-spacer"></div>
+  <div class="sidebar-status">
+    <div class="st-title">System Status</div>
+    <div class="st-row"><span class="st-dot"></span> All Systems Operational</div>
+    <div class="st-sub">Last checked: 2 min ago</div>
+    <a href="monitoring.html">View System Health</a>
+  </div>
+  <div class="sidebar-quick">
+    <div class="qa-title">Quick Actions</div>
+    <a class="qa-item" href="onboard-client.html"><i class="fa-solid fa-user-plus"></i> Onboard New Client</a>
+    <a class="qa-item" href="clients.html"><i class="fa-solid fa-cube"></i> View Clients</a>
+    <a class="qa-item" href="devices.html"><i class="fa-solid fa-tablet-screen-button"></i> View Devices</a>
+    <a class="qa-item" href="monitoring.html"><i class="fa-solid fa-triangle-exclamation"></i> View Alerts</a>
+  </div>
+  <div class="sidebar-footer">Kiosk Platform v1.0.0</div>
+</aside>
+<div class="main"><header class="topbar">
+  <i class="fa-solid fa-bars hamburger"></i>
+  <div class="search"><i class="fa-solid fa-magnifying-glass"></i><span>Search clients, projects, devices...</span><span class="kbd">⌘K</span></div>
+  <div class="spacer"></div>
+  <button class="icon-btn"><i class="fa-regular fa-circle-question"></i></button>
+  <button class="icon-btn"><i class="fa-regular fa-bell"></i><span class="badge-dot">12</span></button>
+  <div class="user">
+    <div class="avatar">SA</div>
+    <div><div class="u-name">Super Admin</div><div class="u-role">Platform Administrator</div></div>
+    <i class="fa-solid fa-chevron-down"></i>
+  </div>
+</header>
+<div class="content">
+<div class="page-header">
+  <div>
+    <h1>Platform Overview</h1>
+    <p>System-wide overview of your kiosk platform</p>
+  </div>
+  <div class="actions">
+    <div class="select-pill"><i class="fa-regular fa-calendar"></i> Aug 14 &ndash; Aug 20, 2026 <i class="fa-solid fa-chevron-down"></i></div>
+    <button class="btn btn-primary"><i class="fa-solid fa-rotate"></i> Refresh</button>
+  </div>
+</div>
+
+<div class="stats-grid">
+  <div class="stat-card"><div class="icon icon-blue"><i class="fa-solid fa-user-group"></i></div>
+    <div class="body"><div class="label">Total Clients</div><div class="value">18</div><div class="sub up">&uarr; 3 from last month</div></div></div>
+  <div class="stat-card"><div class="icon icon-green"><i class="fa-solid fa-shield-halved"></i></div>
+    <div class="body"><div class="label">Active Clients</div><div class="value">16</div><div class="sub up">&uarr; 2 from last month</div></div></div>
+  <div class="stat-card"><div class="icon icon-blue"><i class="fa-solid fa-folder-open"></i></div>
+    <div class="body"><div class="label">Total Projects</div><div class="value">64</div><div class="sub up">&uarr; 7 from last month</div></div></div>
+  <div class="stat-card"><div class="icon icon-purple"><i class="fa-solid fa-tablet-screen-button"></i></div>
+    <div class="body"><div class="label">Deployed Kiosks</div><div class="value">156</div><div class="sub up">&uarr; 12 from last month</div></div></div>
+  <div class="stat-card"><div class="icon icon-green"><i class="fa-solid fa-wifi"></i></div>
+    <div class="body"><div class="label">Online Kiosks</div><div class="value">142</div><div class="sub">91.0% of total</div></div></div>
+  <div class="stat-card"><div class="icon icon-amber"><i class="fa-solid fa-wave-square"></i></div>
+    <div class="body"><div class="label">Platform Uptime</div><div class="value">99.98%</div><div class="sub">Last 30 days</div></div></div>
+</div>
+
+<div class="grid-3">
+  <div class="panel" style="margin-bottom:0;">
+    <div class="panel-header"><div><h2 style="font-size:15px;">Kiosk Connectivity</h2></div></div>
+    <div style="padding:20px 22px;">
+      <div class="donut-row">
+        <svg width="130" height="130" viewBox="0 0 130 130">
+          <circle cx="65" cy="65" r="52" fill="none" stroke="#e2e8f0" stroke-width="16"/>
+          <circle cx="65" cy="65" r="52" fill="none" stroke="#22c55e" stroke-width="16" stroke-dasharray="298 326" stroke-dashoffset="0" transform="rotate(-90 65 65)"/>
+          <circle cx="65" cy="65" r="52" fill="none" stroke="#ef4444" stroke-width="16" stroke-dasharray="21 326" stroke-dashoffset="-298" transform="rotate(-90 65 65)"/>
+          <circle cx="65" cy="65" r="52" fill="none" stroke="#f59e0b" stroke-width="16" stroke-dasharray="8 326" stroke-dashoffset="-319" transform="rotate(-90 65 65)"/>
+          <text x="65" y="61" text-anchor="middle" font-size="22" font-weight="800" fill="#0f172a">156</text>
+          <text x="65" y="78" text-anchor="middle" font-size="10.5" fill="#64748b">Total</text>
+        </svg>
+        <div>
+          <div class="legend-item"><span class="sw" style="background:#22c55e;"></span> Online &nbsp;142 (91.0%)</div>
+          <div class="legend-item"><span class="sw" style="background:#ef4444;"></span> Offline &nbsp;10 (6.4%)</div>
+          <div class="legend-item"><span class="sw" style="background:#f59e0b;"></span> Updating &nbsp;4 (2.6%)</div>
+        </div>
+      </div>
+      <a class="link-blue" href="devices.html" style="display:block;text-align:center;margin-top:16px;">View All Devices &rarr;</a>
+    </div>
+  </div>
+
+  <div class="panel" style="margin-bottom:0;">
+    <div class="panel-header"><div><h2 style="font-size:15px;">Kiosk Status Over Time</h2></div><div class="select-pill">Last 7 Days <i class="fa-solid fa-chevron-down"></i></div></div>
+    <div style="padding:16px 20px 4px;">
+      <svg width="100%" height="170" viewBox="0 0 320 170" preserveAspectRatio="none">
+        <polyline points="10,55 60,45 110,42 160,40 210,32 260,34" fill="none" stroke="#22c55e" stroke-width="2.5"/>
+        <polyline points="10,140 60,142 110,138 160,141 210,135 260,138" fill="none" stroke="#ef4444" stroke-width="2.5"/>
+        <polyline points="10,150 60,150 110,150 160,149 210,150 260,150" fill="none" stroke="#f59e0b" stroke-width="2.5"/>
+      </svg>
+      <div style="display:flex;justify-content:space-between;font-size:10.5px;color:var(--text-400);padding:0 4px 10px;">
+        <span>Aug 14</span><span>Aug 15</span><span>Aug 16</span><span>Aug 17</span><span>Aug 18</span><span>Aug 19</span><span>Aug 20</span>
+      </div>
+      <a class="link-blue" href="monitoring.html" style="display:block;text-align:center;margin-top:6px;">View Detailed Analytics &rarr;</a>
+    </div>
+  </div>
+
+  <div class="panel" style="margin-bottom:0;">
+    <div class="panel-header"><div><h2 style="font-size:15px;">Projects by Status</h2></div></div>
+    <div style="padding:20px 22px;">
+      <div class="donut-row">
+        <svg width="130" height="130" viewBox="0 0 130 130">
+          <circle cx="65" cy="65" r="52" fill="none" stroke="#22c55e" stroke-width="16" stroke-dasharray="193 326" transform="rotate(-90 65 65)"/>
+          <circle cx="65" cy="65" r="52" fill="none" stroke="#3b82f6" stroke-width="16" stroke-dasharray="82 326" stroke-dashoffset="-193" transform="rotate(-90 65 65)"/>
+          <circle cx="65" cy="65" r="52" fill="none" stroke="#cbd5e1" stroke-width="16" stroke-dasharray="31 326" stroke-dashoffset="-275" transform="rotate(-90 65 65)"/>
+          <circle cx="65" cy="65" r="52" fill="none" stroke="#f59e0b" stroke-width="16" stroke-dasharray="20 326" stroke-dashoffset="-306" transform="rotate(-90 65 65)"/>
+          <text x="65" y="61" text-anchor="middle" font-size="22" font-weight="800" fill="#0f172a">64</text>
+          <text x="65" y="78" text-anchor="middle" font-size="10.5" fill="#64748b">Total</text>
+        </svg>
+        <div>
+          <div class="legend-item"><span class="sw" style="background:#22c55e;"></span> Active &nbsp;38 (59.4%)</div>
+          <div class="legend-item"><span class="sw" style="background:#3b82f6;"></span> Draft &nbsp;16 (25.0%)</div>
+          <div class="legend-item"><span class="sw" style="background:#cbd5e1;"></span> Archived &nbsp;6 (9.4%)</div>
+          <div class="legend-item"><span class="sw" style="background:#f59e0b;"></span> Paused &nbsp;4 (6.2%)</div>
+        </div>
+      </div>
+      <a class="link-blue" href="projects.html" style="display:block;text-align:center;margin-top:16px;">View All Projects &rarr;</a>
+    </div>
+  </div>
+</div>
+
+<div class="grid-2">
+  <div class="panel" style="margin-bottom:0;">
+    <div class="panel-header"><h2 style="font-size:15px;">Recent Client Activity</h2><a class="link-blue" href="clients.html">View All Activity &rarr;</a></div>
+    <div style="padding:6px 22px 16px;">
+      <div class="mini-activity-row"><div class="act-icon icon-blue"><i class="fa-solid fa-building"></i></div>
+        <div style="flex:1;"><b>Phoenix Mall</b><div class="muted">Published Release 43</div></div><div class="muted">John Admin</div><div class="muted" style="white-space:nowrap;">10 min ago</div></div>
+      <div class="mini-activity-row"><div class="act-icon icon-green"><i class="fa-solid fa-arrows-rotate"></i></div>
+        <div style="flex:1;"><b>City Center Mall</b><div class="muted">Kiosk Sync Completed</div></div><div class="muted">Sarah Manager</div><div class="muted" style="white-space:nowrap;">25 min ago</div></div>
+      <div class="mini-activity-row"><div class="act-icon icon-purple"><i class="fa-solid fa-folder-plus"></i></div>
+        <div style="flex:1;"><b>Grand Plaza</b><div class="muted">New Project Created</div></div><div class="muted">Michael Admin</div><div class="muted" style="white-space:nowrap;">1 hour ago</div></div>
+      <div class="mini-activity-row"><div class="act-icon icon-amber"><i class="fa-solid fa-map"></i></div>
+        <div style="flex:1;"><b>Lakeside Mall</b><div class="muted">Map Updated for Level 2</div></div><div class="muted">Emily Editor</div><div class="muted" style="white-space:nowrap;">2 hours ago</div></div>
+      <div class="mini-activity-row"><div class="act-icon icon-blue"><i class="fa-solid fa-bullhorn"></i></div>
+        <div style="flex:1;"><b>Downtown Mall</b><div class="muted">Advertisement Campaign Updated</div></div><div class="muted">David Manager</div><div class="muted" style="white-space:nowrap;">3 hours ago</div></div>
+    </div>
+  </div>
+
+  <div class="panel" style="margin-bottom:0;">
+    <div class="panel-header"><h2 style="font-size:15px;">Top Clients by Kiosk Count</h2><a class="link-blue" href="clients.html">View All Clients &rarr;</a></div>
+    <div style="padding:14px 22px 18px;">
+      <div class="bar-item"><div class="bar-top"><span>Phoenix Mall</span><span>32</span></div><div class="bar-track"><div class="bar-fill" style="width:100%;"></div></div></div>
+      <div class="bar-item"><div class="bar-top"><span>City Center Mall</span><span>24</span></div><div class="bar-track"><div class="bar-fill" style="width:75%;"></div></div></div>
+      <div class="bar-item"><div class="bar-top"><span>Grand Plaza</span><span>20</span></div><div class="bar-track"><div class="bar-fill" style="width:62%;"></div></div></div>
+      <div class="bar-item"><div class="bar-top"><span>Lakeside Mall</span><span>16</span></div><div class="bar-track"><div class="bar-fill" style="width:50%;"></div></div></div>
+      <div class="bar-item"><div class="bar-top"><span>Downtown Mall</span><span>14</span></div><div class="bar-track"><div class="bar-fill" style="width:44%;"></div></div></div>
+      <div class="bar-item"><div class="bar-top"><span>Westfield Mall</span><span>10</span></div><div class="bar-track"><div class="bar-fill" style="width:31%;"></div></div></div>
+    </div>
+  </div>
+</div>
+
+<div class="panel">
+  <div class="panel-header"><h2 style="font-size:15px;">System Alerts</h2><a class="link-blue" href="monitoring.html">View All Alerts &rarr;</a></div>
+  <div style="padding:6px 22px 16px;">
+    <div class="alert-row"><div class="act-icon icon-red"><i class="fa-solid fa-triangle-exclamation"></i></div>
+      <div><b>4 kiosks require updates</b><div class="muted">High Priority</div></div><div class="alert-count" style="color:#dc2626;">4</div></div>
+    <div class="alert-row"><div class="act-icon icon-amber"><i class="fa-solid fa-triangle-exclamation"></i></div>
+      <div><b>2 kiosks offline &gt; 24h</b><div class="muted">Medium Priority</div></div><div class="alert-count" style="color:#d97706;">2</div></div>
+    <div class="alert-row"><div class="act-icon icon-amber"><i class="fa-solid fa-triangle-exclamation"></i></div>
+      <div><b>Low storage on 3 kiosks</b><div class="muted">Medium Priority</div></div><div class="alert-count" style="color:#d97706;">3</div></div>
+    <div class="alert-row"><div class="act-icon icon-blue"><i class="fa-solid fa-circle-info"></i></div>
+      <div><b>1 project validation failed</b><div class="muted">Low Priority</div></div><div class="alert-count" style="color:#2563eb;">1</div></div>
+  </div>
+</div>
+
+<div class="footer-stats">
+  <div class="fstat"><div class="icon icon-blue"><i class="fa-solid fa-cloud"></i></div><div><div class="label">Total Data Storage</div><div class="value">512 GB <small>/ 2 TB</small></div><div class="label">25.6% used</div></div></div>
+  <div class="fstat"><div class="icon icon-green"><i class="fa-solid fa-folder"></i></div><div><div class="label">Media Storage (S3)</div><div class="value">1.24 TB</div><div class="label">Images, videos, maps</div></div></div>
+  <div class="fstat"><div class="icon icon-purple"><i class="fa-solid fa-code"></i></div><div><div class="label">API Requests (Today)</div><div class="value">128,540</div><div class="label" style="color:#16a34a;">+18.5% vs yesterday</div></div></div>
+  <div class="fstat"><div class="icon icon-blue"><i class="fa-solid fa-wifi"></i></div><div><div class="label">Data Transfer (Today)</div><div class="value">43.2 GB</div><div class="label" style="color:#16a34a;">+12.3% vs yesterday</div></div></div>
+  <div class="fstat"><div class="icon icon-green"><i class="fa-solid fa-clock"></i></div><div><div class="label">Avg. Response Time</div><div class="value">215 ms</div><div class="label">Excellent</div></div></div>
+</div>
+</div></div>
+</div>
+</body>
+</html>

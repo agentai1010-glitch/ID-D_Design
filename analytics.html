@@ -1,0 +1,598 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Analytics · Kiosk Platform</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+<div class="app-shell">
+<aside class="sidebar">
+  <a href="dashboard.html" class="sidebar-brand" style="cursor:pointer;">
+    <div class="logo-icon"><svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M12 2L21 7V17L12 22L3 17V7L12 2Z" stroke="white" stroke-width="1.6" stroke-linejoin="round"/>
+<circle cx="12" cy="12" r="3.2" fill="white"/>
+</svg></div>
+    <div class="brand-text"><div class="t1">KIOSK</div><div class="t2">PLATFORM</div></div>
+  </a>
+  <div class="sidebar-section-label">PLATFORM ADMIN <i class="fa-solid fa-chevron-up" style="font-size:9px;"></i></div>
+  <ul class="sidebar-nav">
+  <li class="nav-item " onclick="location.href='dashboard.html'"><i class="fa-solid fa-house"></i><span>Dashboard</span></li>
+<li class="nav-item " onclick="location.href='clients.html'"><i class="fa-solid fa-user-group"></i><span>Clients</span></li>
+<li class="nav-item " onclick="location.href='projects.html'"><i class="fa-solid fa-folder-open"></i><span>Projects</span></li>
+<li class="nav-item " onclick="location.href='devices.html'"><i class="fa-solid fa-tablet-screen-button"></i><span>Devices</span></li>
+<li class="nav-item " onclick="location.href='templates.html'"><i class="fa-solid fa-table-cells-large"></i><span>Templates</span></li>
+<li class="nav-item active" onclick="location.href='analytics.html'"><i class="fa-solid fa-chart-column"></i><span>Analytics</span></li>
+<li class="nav-item " onclick="location.href='monitoring.html'"><i class="fa-solid fa-heart-pulse"></i><span>Monitoring</span></li>
+<li class="nav-item " onclick="location.href='users-roles.html'"><i class="fa-solid fa-users-gear"></i><span>Users & Roles</span></li>
+<li class="nav-item " onclick="location.href='billing.html'"><i class="fa-solid fa-credit-card"></i><span>Billing & Plans</span></li>
+<li class="nav-item " onclick="location.href='audit-logs.html'"><i class="fa-solid fa-file-lines"></i><span>Audit Logs</span></li>
+<li class="nav-item " onclick="location.href='system-settings.html'"><i class="fa-solid fa-gear"></i><span>System Settings</span></li>
+
+  </ul>
+  <div class="sidebar-spacer"></div>
+  <div class="sidebar-status">
+    <div class="st-title">System Status</div>
+    <div class="st-row"><span class="st-dot"></span> All Systems Operational</div>
+    <div class="st-sub">Last checked: 2 min ago</div>
+    <a href="monitoring.html">View System Health</a>
+  </div>
+  <div class="sidebar-quick">
+    <div class="qa-title">Quick Actions</div>
+    <a class="qa-item" href="onboard-client.html"><i class="fa-solid fa-user-plus"></i> Onboard New Client</a>
+    <a class="qa-item" href="projects.html"><i class="fa-solid fa-folder-open"></i> View Projects</a>
+    <a class="qa-item" href="devices.html"><i class="fa-solid fa-tablet-screen-button"></i> View Devices</a>
+    <a class="qa-item" href="monitoring.html"><i class="fa-solid fa-triangle-exclamation"></i> View Alerts</a>
+  </div>
+  <div class="sidebar-footer">Kiosk Platform v1.0.0</div>
+</aside>
+<div class="main"><header class="topbar">
+  <i class="fa-solid fa-bars hamburger"></i>
+  <div class="search"><i class="fa-solid fa-magnifying-glass"></i><span>Search clients, projects, devices...</span><span class="kbd">⌘ K</span></div>
+  <div class="spacer"></div>
+  <button class="icon-btn"><i class="fa-regular fa-circle-question"></i></button>
+  <button class="icon-btn"><i class="fa-regular fa-bell"></i><span class="badge-dot">12</span></button>
+  <div class="user">
+    <div class="avatar">SA</div>
+    <div>
+      <div class="u-name">Super Admin</div>
+      <div class="u-role">Platform Administrator</div>
+    </div>
+    <i class="fa-solid fa-chevron-down"></i>
+  </div>
+</header>
+<main class="content">
+
+<div class="page-header">
+  <div>
+    <h1>Analytics</h1>
+    <p>Platform performance and usage insights</p>
+  </div>
+  <div class="actions">
+    <div class="select-pill"><i class="fa-regular fa-calendar"></i> Last 30 Days <i class="fa-solid fa-chevron-down"></i></div>
+    <div class="select-pill">All Clients <i class="fa-solid fa-chevron-down"></i></div>
+    <div class="select-pill">All Projects <i class="fa-solid fa-chevron-down"></i></div>
+    <div class="select-pill">All Devices <i class="fa-solid fa-chevron-down"></i></div>
+  </div>
+</div>
+
+<!-- 6 KPI Stat Cards -->
+<div class="stats-grid-6">
+  <!-- Card 1 -->
+  <div class="stat-card-kpi">
+    <div class="icon-box icon-purple"><i class="fa-solid fa-users"></i></div>
+    <div style="flex:1;min-width:0;">
+      <div class="kpi-label">Total Kiosk Sessions</div>
+      <div class="kpi-val">24,582</div>
+      <div class="kpi-trend"><i class="fa-solid fa-arrow-up" style="font-size:9.5px;"></i> 12.4% <span class="sub-gray">vs. previous period</span></div>
+    </div>
+  </div>
+  <!-- Card 2 -->
+  <div class="stat-card-kpi">
+    <div class="icon-box icon-blue"><i class="fa-solid fa-arrow-pointer" style="transform:rotate(-45deg);"></i></div>
+    <div style="flex:1;min-width:0;">
+      <div class="kpi-label">Total Navigation Requests</div>
+      <div class="kpi-val">48,721</div>
+      <div class="kpi-trend"><i class="fa-solid fa-arrow-up" style="font-size:9.5px;"></i> 18.7% <span class="sub-gray">vs. previous period</span></div>
+    </div>
+  </div>
+  <!-- Card 3 -->
+  <div class="stat-card-kpi">
+    <div class="icon-box icon-green"><i class="fa-solid fa-magnifying-glass"></i></div>
+    <div style="flex:1;min-width:0;">
+      <div class="kpi-label">Total Searches</div>
+      <div class="kpi-val">32,416</div>
+      <div class="kpi-trend"><i class="fa-solid fa-arrow-up" style="font-size:9.5px;"></i> 14.2% <span class="sub-gray">vs. previous period</span></div>
+    </div>
+  </div>
+  <!-- Card 4 -->
+  <div class="stat-card-kpi">
+    <div class="icon-box icon-orange"><i class="fa-solid fa-bullhorn"></i></div>
+    <div style="flex:1;min-width:0;">
+      <div class="kpi-label">Ad Impressions</div>
+      <div class="kpi-val">76,294</div>
+      <div class="kpi-trend"><i class="fa-solid fa-arrow-up" style="font-size:9.5px;"></i> 22.6% <span class="sub-gray">vs. previous period</span></div>
+    </div>
+  </div>
+  <!-- Card 5 -->
+  <div class="stat-card-kpi">
+    <div class="icon-box icon-pink"><i class="fa-solid fa-mobile-screen-button"></i></div>
+    <div style="flex:1;min-width:0;">
+      <div class="kpi-label">Active Clients</div>
+      <div class="kpi-val">8</div>
+      <div class="kpi-trend trend-pink"><i class="fa-solid fa-arrow-up" style="font-size:9.5px;"></i> 1 <span class="sub-gray">vs. previous period</span></div>
+    </div>
+  </div>
+  <!-- Card 6 -->
+  <div class="stat-card-kpi">
+    <div class="icon-box icon-green"><i class="fa-solid fa-tablet-screen-button"></i></div>
+    <div style="flex:1;min-width:0;">
+      <div class="kpi-label">Total Kiosks</div>
+      <div class="kpi-val">37</div>
+      <div class="kpi-trend"><i class="fa-solid fa-arrow-up" style="font-size:9.5px;"></i> 6 <span class="sub-gray">vs. previous period</span></div>
+    </div>
+  </div>
+</div>
+
+<!-- Row 1 Charts: Platform Usage Trends & Usage by Module -->
+<div class="analytics-grid-2">
+  <!-- Left: Platform Usage Trends -->
+  <div class="panel">
+    <div class="panel-header" style="padding:16px 22px 12px;">
+      <h2>Platform Usage Trends</h2>
+      <div class="filters">
+        <div class="select-pill" style="padding:5px 10px;font-size:12px;">Last 30 Days <i class="fa-solid fa-chevron-down"></i></div>
+      </div>
+    </div>
+    <!-- Legend -->
+    <div class="chart-sub-legend">
+      <div class="legend-item"><span class="legend-line-indicator blue"></span> Kiosk Sessions</div>
+      <div class="legend-item"><span class="legend-line-indicator green"></span> Searches</div>
+      <div class="legend-item"><span class="legend-line-indicator purple"></span> Navigation Requests</div>
+    </div>
+    <!-- SVG Chart -->
+    <div style="padding:0 22px 18px;">
+      <svg viewBox="0 0 700 230" style="width:100%;height:auto;display:block;overflow:visible;">
+        <!-- Grid lines & Y Axis Labels -->
+        <g stroke="#f1f5f9" stroke-width="1">
+          <line x1="38" y1="20" x2="690" y2="20" />
+          <line x1="38" y1="56" x2="690" y2="56" />
+          <line x1="38" y1="92" x2="690" y2="92" />
+          <line x1="38" y1="128" x2="690" y2="128" />
+          <line x1="38" y1="164" x2="690" y2="164" />
+          <line x1="38" y1="200" x2="690" y2="200" />
+        </g>
+        <g fill="#94a3b8" font-size="11" font-weight="600" text-anchor="end" font-family="'Inter',sans-serif">
+          <text x="30" y="24">10K</text>
+          <text x="30" y="60">8K</text>
+          <text x="30" y="96">6K</text>
+          <text x="30" y="132">4K</text>
+          <text x="30" y="168">2K</text>
+          <text x="30" y="204">0</text>
+        </g>
+
+        <!-- X Axis Dates -->
+        <g fill="#94a3b8" font-size="11" font-weight="500" text-anchor="middle" font-family="'Inter',sans-serif">
+          <text x="48" y="222">May 10</text>
+          <text x="112" y="222">May 13</text>
+          <text x="176" y="222">May 16</text>
+          <text x="240" y="222">May 19</text>
+          <text x="304" y="222">May 22</text>
+          <text x="368" y="222">May 25</text>
+          <text x="432" y="222">May 28</text>
+          <text x="496" y="222">May 31</text>
+          <text x="560" y="222">Jun 03</text>
+          <text x="624" y="222">Jun 06</text>
+          <text x="680" y="222">Jun 09</text>
+        </g>
+
+        <!-- Curve 1: Blue - Kiosk Sessions -->
+        <path d="M 48,90 
+                 C 78,90 85,55 112,52 
+                 C 138,49 152,80 176,78 
+                 C 202,76 215,40 240,43 
+                 C 265,46 278,74 304,74 
+                 C 330,74 342,48 368,48 
+                 C 394,48 408,82 432,82 
+                 C 458,82 472,62 496,62 
+                 C 522,62 535,36 560,40 
+                 C 585,44 598,78 624,78 
+                 C 648,78 658,54 680,68" 
+              fill="none" stroke="#2563eb" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+
+        <!-- Curve 2: Purple - Navigation Requests -->
+        <path d="M 48,136 
+                 C 78,136 85,120 112,120 
+                 C 138,120 152,130 176,130 
+                 C 202,130 215,108 240,110 
+                 C 265,112 278,125 304,124 
+                 C 330,123 342,108 368,108 
+                 C 394,108 408,126 432,126 
+                 C 458,126 472,112 496,112 
+                 C 522,112 535,102 560,104 
+                 C 585,106 598,123 624,123 
+                 C 648,123 658,109 680,118" 
+              fill="none" stroke="#a855f7" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+
+        <!-- Curve 3: Green - Searches -->
+        <path d="M 48,168 
+                 C 78,168 85,152 112,152 
+                 C 138,152 152,158 176,158 
+                 C 202,158 215,145 240,147 
+                 C 265,149 278,158 304,158 
+                 C 330,158 342,148 368,148 
+                 C 394,148 408,160 432,160 
+                 C 458,160 472,150 496,150 
+                 C 522,150 535,142 560,143 
+                 C 585,144 598,155 624,155 
+                 C 648,155 658,148 680,151" 
+              fill="none" stroke="#10b981" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </div>
+  </div>
+
+  <!-- Right: Usage by Module -->
+  <div class="panel">
+    <div class="panel-header" style="padding:16px 22px 12px;">
+      <h2>Usage by Module</h2>
+    </div>
+    <div class="donut-card-content">
+      <!-- Donut SVG -->
+      <div style="position:relative;width:150px;height:150px;flex:0 0 150px;">
+        <svg viewBox="0 0 160 160" style="width:100%;height:100%;transform:rotate(-90deg);">
+          <!-- Total circumference for r=58: 2 * PI * 58 ≈ 364.42 -->
+          <!-- Background ring -->
+          <circle cx="80" cy="80" r="58" fill="none" stroke="#f1f5f9" stroke-width="24" />
+          <!-- Navigation: 40% -> 145.77 -->
+          <circle cx="80" cy="80" r="58" fill="none" stroke="#2563eb" stroke-width="24"
+                  stroke-dasharray="145.77 218.65" stroke-dashoffset="0" />
+          <!-- Search: 28% -> 102.04 -->
+          <circle cx="80" cy="80" r="58" fill="none" stroke="#10b981" stroke-width="24"
+                  stroke-dasharray="102.04 262.38" stroke-dashoffset="-145.77" />
+          <!-- POI Views: 22% -> 80.17 -->
+          <circle cx="80" cy="80" r="58" fill="none" stroke="#a855f7" stroke-width="24"
+                  stroke-dasharray="80.17 284.25" stroke-dashoffset="-247.81" />
+          <!-- Ads: 10% -> 36.44 -->
+          <circle cx="80" cy="80" r="58" fill="none" stroke="#f97316" stroke-width="24"
+                  stroke-dasharray="36.44 327.98" stroke-dashoffset="-327.98" />
+        </svg>
+        <!-- Donut center text -->
+        <div style="position:absolute;top:0;left:0;width:100%;height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;pointer-events:none;">
+          <div style="font-size:16px;font-weight:800;color:var(--text-900);line-height:1.1;">24,582</div>
+          <div style="font-size:10.5px;color:var(--text-500);font-weight:500;margin-top:2px;">Total Sessions</div>
+        </div>
+      </div>
+
+      <!-- Donut Legend -->
+      <div class="donut-legend-list">
+        <div class="donut-legend-row">
+          <span class="dot-swatch" style="background:#2563eb;"></span>
+          <span>Navigation</span>
+          <span class="pct">40%</span>
+        </div>
+        <div class="donut-legend-row">
+          <span class="dot-swatch" style="background:#10b981;"></span>
+          <span>Search</span>
+          <span class="pct">28%</span>
+        </div>
+        <div class="donut-legend-row">
+          <span class="dot-swatch" style="background:#a855f7;"></span>
+          <span>POI Views</span>
+          <span class="pct">22%</span>
+        </div>
+        <div class="donut-legend-row">
+          <span class="dot-swatch" style="background:#f97316;"></span>
+          <span>Ads</span>
+          <span class="pct">10%</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Row 2 Charts: Client Performance & Top Client Activity -->
+<div class="analytics-grid-2">
+  <!-- Left: Client Performance -->
+  <div class="panel">
+    <div class="panel-header" style="padding:16px 22px 12px;">
+      <h2>Client Performance</h2>
+      <div class="filters">
+        <div style="font-size:12px;font-weight:600;color:var(--text-500);display:flex;align-items:center;gap:4px;cursor:pointer;">
+          Top Clients
+        </div>
+      </div>
+    </div>
+    <!-- Legend -->
+    <div class="chart-sub-legend">
+      <div class="legend-item"><span class="legend-square-indicator blue"></span> Sessions</div>
+      <div class="legend-item"><span class="legend-square-indicator green"></span> Kiosks Online</div>
+    </div>
+    <!-- SVG Bar Chart -->
+    <div style="padding:0 22px 18px;">
+      <svg viewBox="0 0 700 230" style="width:100%;height:auto;display:block;overflow:visible;">
+        <!-- Grid lines & Y Axis Labels -->
+        <g stroke="#f1f5f9" stroke-width="1">
+          <line x1="38" y1="20" x2="690" y2="20" />
+          <line x1="38" y1="56" x2="690" y2="56" />
+          <line x1="38" y1="92" x2="690" y2="92" />
+          <line x1="38" y1="128" x2="690" y2="128" />
+          <line x1="38" y1="164" x2="690" y2="164" />
+          <line x1="38" y1="200" x2="690" y2="200" />
+        </g>
+        <g fill="#94a3b8" font-size="11" font-weight="600" text-anchor="end" font-family="'Inter',sans-serif">
+          <text x="30" y="24">10K</text>
+          <text x="30" y="60">8K</text>
+          <text x="30" y="96">6K</text>
+          <text x="30" y="132">4K</text>
+          <text x="30" y="168">2K</text>
+          <text x="30" y="204">0</text>
+        </g>
+
+        <!-- Client 1: Phoenix Mall -->
+        <g>
+          <!-- Blue Bar: 8,642 sessions -> height = (8642/10000)*180 = 155.5px -> y = 200 - 155.5 = 44.5 -->
+          <rect x="90" y="45" width="28" height="155" rx="3" fill="#2563eb" />
+          <text x="104" y="38" fill="#2563eb" font-size="11.5" font-weight="700" text-anchor="middle" font-family="'Inter',sans-serif">8,642</text>
+          <!-- Green Bar: 12 kiosks -->
+          <rect x="124" y="185" width="14" height="15" rx="2" fill="#10b981" />
+          <text x="131" y="178" fill="#0f172a" font-size="10.5" font-weight="700" text-anchor="middle" font-family="'Inter',sans-serif">12</text>
+          <!-- Label -->
+          <text x="110" y="218" fill="#0f172a" font-size="11.5" font-weight="600" text-anchor="middle" font-family="'Inter',sans-serif">Phoenix</text>
+          <text x="110" y="230" fill="#0f172a" font-size="11.5" font-weight="600" text-anchor="middle" font-family="'Inter',sans-serif">Mall</text>
+        </g>
+
+        <!-- Client 2: City Center Mall -->
+        <g>
+          <!-- Blue Bar: 6,421 sessions -> height = 115.5px -> y = 84.5 -->
+          <rect x="220" y="85" width="28" height="115" rx="3" fill="#2563eb" />
+          <text x="234" y="78" fill="#2563eb" font-size="11.5" font-weight="700" text-anchor="middle" font-family="'Inter',sans-serif">6,421</text>
+          <!-- Green Bar: 9 kiosks -->
+          <rect x="254" y="188" width="14" height="12" rx="2" fill="#10b981" />
+          <text x="261" y="181" fill="#0f172a" font-size="10.5" font-weight="700" text-anchor="middle" font-family="'Inter',sans-serif">9</text>
+          <!-- Label -->
+          <text x="240" y="218" fill="#0f172a" font-size="11.5" font-weight="600" text-anchor="middle" font-family="'Inter',sans-serif">City Center</text>
+          <text x="240" y="230" fill="#0f172a" font-size="11.5" font-weight="600" text-anchor="middle" font-family="'Inter',sans-serif">Mall</text>
+        </g>
+
+        <!-- Client 3: Lakeside Mall -->
+        <g>
+          <!-- Blue Bar: 4,732 sessions -> height = 85.1px -> y = 114.9 -->
+          <rect x="350" y="115" width="28" height="85" rx="3" fill="#2563eb" />
+          <text x="364" y="108" fill="#2563eb" font-size="11.5" font-weight="700" text-anchor="middle" font-family="'Inter',sans-serif">4,732</text>
+          <!-- Green Bar: 8 kiosks -->
+          <rect x="384" y="189" width="14" height="11" rx="2" fill="#10b981" />
+          <text x="391" y="182" fill="#0f172a" font-size="10.5" font-weight="700" text-anchor="middle" font-family="'Inter',sans-serif">8</text>
+          <!-- Label -->
+          <text x="370" y="218" fill="#0f172a" font-size="11.5" font-weight="600" text-anchor="middle" font-family="'Inter',sans-serif">Lakeside</text>
+          <text x="370" y="230" fill="#0f172a" font-size="11.5" font-weight="600" text-anchor="middle" font-family="'Inter',sans-serif">Mall</text>
+        </g>
+
+        <!-- Client 4: Grand Plaza -->
+        <g>
+          <!-- Blue Bar: 3,916 sessions -> height = 70.4px -> y = 129.6 -->
+          <rect x="480" y="130" width="28" height="70" rx="3" fill="#2563eb" />
+          <text x="494" y="123" fill="#2563eb" font-size="11.5" font-weight="700" text-anchor="middle" font-family="'Inter',sans-serif">3,916</text>
+          <!-- Green Bar: 7 kiosks -->
+          <rect x="514" y="191" width="14" height="9" rx="2" fill="#10b981" />
+          <text x="521" y="184" fill="#0f172a" font-size="10.5" font-weight="700" text-anchor="middle" font-family="'Inter',sans-serif">7</text>
+          <!-- Label -->
+          <text x="500" y="222" fill="#0f172a" font-size="11.5" font-weight="600" text-anchor="middle" font-family="'Inter',sans-serif">Grand Plaza</text>
+        </g>
+
+        <!-- Client 5: Westfield -->
+        <g>
+          <!-- Blue Bar: 2,764 sessions -> height = 49.7px -> y = 150.3 -->
+          <rect x="610" y="150" width="28" height="50" rx="3" fill="#2563eb" />
+          <text x="624" y="143" fill="#2563eb" font-size="11.5" font-weight="700" text-anchor="middle" font-family="'Inter',sans-serif">2,764</text>
+          <!-- Green Bar: 6 kiosks -->
+          <rect x="644" y="192" width="14" height="8" rx="2" fill="#10b981" />
+          <text x="651" y="185" fill="#0f172a" font-size="10.5" font-weight="700" text-anchor="middle" font-family="'Inter',sans-serif">6</text>
+          <!-- Label -->
+          <text x="630" y="222" fill="#0f172a" font-size="11.5" font-weight="600" text-anchor="middle" font-family="'Inter',sans-serif">Westfield</text>
+        </g>
+      </svg>
+    </div>
+  </div>
+
+  <!-- Right: Top Client Activity -->
+  <div class="panel">
+    <div class="panel-header" style="padding:16px 22px 12px;">
+      <h2>Top Client Activity</h2>
+      <a href="clients.html" class="link-blue" style="font-size:12.5px;">View All</a>
+    </div>
+    <div class="client-activity-list">
+      <!-- Item 1: Phoenix Mall -->
+      <div class="client-activity-row">
+        <div class="client-activity-icon icon-blue"><i class="fa-solid fa-store"></i></div>
+        <div class="client-activity-info">
+          <div class="name">Phoenix Mall</div>
+          <div class="sess">8,642 sessions</div>
+        </div>
+        <div class="client-bar-wrap">
+          <div class="client-bar-track">
+            <div class="client-bar-fill" style="width:55%;"></div>
+          </div>
+          <div class="client-bar-pct">24%</div>
+        </div>
+      </div>
+
+      <!-- Item 2: City Center Mall -->
+      <div class="client-activity-row">
+        <div class="client-activity-icon icon-blue"><i class="fa-solid fa-store"></i></div>
+        <div class="client-activity-info">
+          <div class="name">City Center Mall</div>
+          <div class="sess">6,421 sessions</div>
+        </div>
+        <div class="client-bar-wrap">
+          <div class="client-bar-track">
+            <div class="client-bar-fill" style="width:40%;"></div>
+          </div>
+          <div class="client-bar-pct">18%</div>
+        </div>
+      </div>
+
+      <!-- Item 3: Lakeside Mall -->
+      <div class="client-activity-row">
+        <div class="client-activity-icon icon-purple"><i class="fa-solid fa-store"></i></div>
+        <div class="client-activity-info">
+          <div class="name">Lakeside Mall</div>
+          <div class="sess">4,732 sessions</div>
+        </div>
+        <div class="client-bar-wrap">
+          <div class="client-bar-track">
+            <div class="client-bar-fill" style="width:30%;"></div>
+          </div>
+          <div class="client-bar-pct">13%</div>
+        </div>
+      </div>
+
+      <!-- Item 4: Grand Plaza -->
+      <div class="client-activity-row">
+        <div class="client-activity-icon icon-blue"><i class="fa-solid fa-store"></i></div>
+        <div class="client-activity-info">
+          <div class="name">Grand Plaza</div>
+          <div class="sess">3,916 sessions</div>
+        </div>
+        <div class="client-bar-wrap">
+          <div class="client-bar-track">
+            <div class="client-bar-fill" style="width:24%;"></div>
+          </div>
+          <div class="client-bar-pct">11%</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Row 3: Recent Platform Activity & System Health -->
+<div class="analytics-grid-2">
+  <!-- Left: Recent Platform Activity Table -->
+  <div class="panel">
+    <div class="panel-header" style="padding:16px 22px 12px;">
+      <h2>Recent Platform Activity</h2>
+      <a href="#" class="link-blue" style="font-size:12.5px;">View All</a>
+    </div>
+    <div class="table-wrap">
+      <table style="min-width:580px;">
+        <thead>
+          <tr>
+            <th style="padding:10px 22px;">Time</th>
+            <th style="padding:10px 22px;">Type</th>
+            <th style="padding:10px 22px;">Client</th>
+            <th style="padding:10px 22px;">Project</th>
+            <th style="padding:10px 22px;">Details</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td style="font-size:12.5px;color:var(--text-700);font-weight:500;">10:24 AM</td>
+            <td style="font-size:12.5px;color:var(--text-900);font-weight:600;">Deployment</td>
+            <td style="font-size:12.5px;color:var(--text-900);font-weight:600;">Phoenix Mall</td>
+            <td style="font-size:12.5px;color:var(--text-700);">Release 43</td>
+            <td><span class="act-badge green">Completed</span></td>
+          </tr>
+          <tr>
+            <td style="font-size:12.5px;color:var(--text-700);font-weight:500;">09:48 AM</td>
+            <td style="font-size:12.5px;color:var(--text-900);font-weight:600;">Device Online</td>
+            <td style="font-size:12.5px;color:var(--text-900);font-weight:600;">City Center Mall</td>
+            <td style="font-size:12.5px;color:var(--text-700);">Kiosk-12</td>
+            <td><span class="act-badge green">Device connected</span></td>
+          </tr>
+          <tr>
+            <td style="font-size:12.5px;color:var(--text-700);font-weight:500;">08:37 AM</td>
+            <td style="font-size:12.5px;color:var(--text-900);font-weight:600;">Search</td>
+            <td style="font-size:12.5px;color:var(--text-900);font-weight:600;">Lakeside Mall</td>
+            <td style="font-size:12.5px;color:var(--text-500);">-</td>
+            <td><span class="act-badge blue">412 searches</span></td>
+          </tr>
+          <tr>
+            <td style="font-size:12.5px;color:var(--text-700);font-weight:500;">07:59 AM</td>
+            <td style="font-size:12.5px;color:var(--text-900);font-weight:600;">Navigation</td>
+            <td style="font-size:12.5px;color:var(--text-900);font-weight:600;">Phoenix Mall</td>
+            <td style="font-size:12.5px;color:var(--text-500);">-</td>
+            <td><span class="act-badge blue">1,204 requests</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- Right: System Health -->
+  <div class="panel">
+    <div class="panel-header" style="padding:16px 22px 12px;">
+      <h2>System Health</h2>
+      <a href="monitoring.html" class="link-blue" style="font-size:12.5px;">View Details</a>
+    </div>
+    <div class="system-health-list">
+      <!-- 1. API Health -->
+      <div class="health-item-row">
+        <div class="health-item-icon icon-green"><i class="fa-solid fa-circle-check"></i></div>
+        <div class="health-item-name">API Health</div>
+        <div class="health-bar-wrap">
+          <div class="health-bar-track">
+            <div class="health-bar-fill" style="width:99.9%;"></div>
+          </div>
+          <div class="health-val-pct">99.9%</div>
+        </div>
+      </div>
+
+      <!-- 2. Database -->
+      <div class="health-item-row">
+        <div class="health-item-icon icon-blue"><i class="fa-solid fa-database"></i></div>
+        <div class="health-item-name">Database</div>
+        <div class="health-bar-wrap">
+          <div class="health-bar-track">
+            <div class="health-bar-fill" style="width:99.8%;"></div>
+          </div>
+          <div class="health-val-pct">99.8%</div>
+        </div>
+      </div>
+
+      <!-- 3. Storage -->
+      <div class="health-item-row">
+        <div class="health-item-icon icon-amber"><i class="fa-solid fa-box-archive"></i></div>
+        <div class="health-item-name">Storage</div>
+        <div class="health-bar-wrap">
+          <div class="health-bar-track">
+            <div class="health-bar-fill" style="width:97.6%;"></div>
+          </div>
+          <div class="health-val-pct">97.6%</div>
+        </div>
+      </div>
+
+      <!-- 4. CDN -->
+      <div class="health-item-row">
+        <div class="health-item-icon icon-red"><i class="fa-solid fa-globe"></i></div>
+        <div class="health-item-name">CDN</div>
+        <div class="health-bar-wrap">
+          <div class="health-bar-track">
+            <div class="health-bar-fill" style="width:99.7%;"></div>
+          </div>
+          <div class="health-val-pct">99.7%</div>
+        </div>
+      </div>
+
+      <!-- 5. Synchronization -->
+      <div class="health-item-row">
+        <div class="health-item-icon icon-purple"><i class="fa-solid fa-arrows-rotate"></i></div>
+        <div class="health-item-name">Synchronization</div>
+        <div class="health-bar-wrap">
+          <div class="health-bar-track">
+            <div class="health-bar-fill" style="width:98.9%;"></div>
+          </div>
+          <div class="health-val-pct">98.9%</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+</main>
+</div>
+</div>
+</body>
+</html>

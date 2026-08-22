@@ -1,0 +1,668 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Phoenix Mall · Project Overview · Kiosk Platform</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<link rel="stylesheet" href="../css/styles.css">
+</head>
+<body>
+<div class="app-shell">
+
+<!-- Client Admin Sidebar -->
+<aside class="sidebar">
+  <a href="dashboard.html" class="sidebar-brand" style="cursor:pointer;">
+    <div class="logo-icon">
+      <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M12 2L21 7V17L12 22L3 17V7L12 2Z" stroke="white" stroke-width="1.6" stroke-linejoin="round"/>
+        <circle cx="12" cy="12" r="3.2" fill="white"/>
+      </svg>
+    </div>
+    <div class="brand-text"><div class="t1">KIOSK</div><div class="t2">PLATFORM</div></div>
+  </a>
+
+  <!-- WORKSPACE Section -->
+  <div class="sidebar-section-label">WORKSPACE</div>
+  <ul class="sidebar-nav">
+    <li class="nav-item" onclick="location.href='dashboard.html'"><i class="fa-solid fa-house"></i><span>Dashboard</span></li>
+    <li class="nav-item active" onclick="location.href='projects.html'"><i class="fa-solid fa-folder-open"></i><span>Projects</span></li>
+    <li class="nav-item" onclick="location.href='devices.html'"><i class="fa-solid fa-tablet-screen-button"></i><span>Devices</span></li>
+    <li class="nav-item" onclick="location.href='analytics.html'"><i class="fa-solid fa-chart-column"></i><span>Analytics</span></li>
+  </ul>
+
+  <!-- TEAM Section -->
+  <div class="sidebar-section-label">TEAM</div>
+  <ul class="sidebar-nav">
+    <li class="nav-item" onclick="location.href='users-roles.html'"><i class="fa-solid fa-users"></i><span>Users & Roles</span></li>
+  </ul>
+
+  <!-- ACCOUNT Section -->
+  <div class="sidebar-section-label">ACCOUNT</div>
+  <ul class="sidebar-nav">
+    <li class="nav-item" onclick="location.href='settings.html'"><i class="fa-solid fa-gear"></i><span>Settings</span></li>
+  </ul>
+
+  <div class="sidebar-spacer"></div>
+
+  <!-- Organization Card -->
+  <div class="org-switcher-card">
+    <div class="org-switcher-header">
+      <div class="org-icon-box"><i class="fa-solid fa-city"></i></div>
+      <div>
+        <div class="org-name-text">Phoenix Retail Group</div>
+        <div class="org-sub-text">Organization</div>
+      </div>
+    </div>
+    <button class="org-btn-switch">
+      <span>Switch Organization</span>
+      <i class="fa-solid fa-chevron-down" style="font-size:9.5px;"></i>
+    </button>
+  </div>
+
+  <div class="sidebar-footer" style="display:flex;align-items:center;justify-content:space-between;">
+    <span>Client Admin v1.0.0</span>
+    <i class="fa-solid fa-chevron-left" style="font-size:10px;cursor:pointer;"></i>
+  </div>
+</aside>
+
+<!-- Main Area -->
+<div class="main">
+  <!-- Topbar Header -->
+  <header class="topbar">
+    <i class="fa-solid fa-bars hamburger"></i>
+    <div class="search">
+      <i class="fa-solid fa-magnifying-glass"></i>
+      <span>Search projects, kiosks, locations...</span>
+      <span class="kbd">⌘ K</span>
+    </div>
+    <div class="spacer"></div>
+    <button class="icon-btn"><i class="fa-regular fa-bell"></i><span class="badge-dot">6</span></button>
+    <div class="user">
+      <div class="avatar" style="background:linear-gradient(135deg,#3b82f6,#1d4ed8);">RA</div>
+      <div>
+        <div class="u-name">Rahul Arora</div>
+        <div class="u-role">Client Admin</div>
+      </div>
+      <i class="fa-solid fa-chevron-down"></i>
+    </div>
+  </header>
+
+  <!-- Main Content Area -->
+  <main class="content">
+
+    <!-- Project Breadcrumbs & Header -->
+    <div class="project-header-container">
+      <div class="project-breadcrumbs">
+        <a href="projects.html">Projects</a>
+        <i class="fa-solid fa-chevron-right" style="font-size:9px;color:var(--text-400);"></i>
+        <span style="font-weight:600;color:var(--text-900);">Phoenix Mall</span>
+      </div>
+
+      <div class="project-title-row">
+        <div class="project-title-left">
+          <h1>Phoenix Mall</h1>
+          <span class="badge badge-green" style="font-size:12px;padding:3px 10px;font-weight:600;">
+            <span class="dot"></span> Active
+          </span>
+        </div>
+
+        <div style="display:flex;align-items:center;gap:10px;">
+          <button class="btn" style="background:#fff;border:1px solid var(--border);color:var(--text-700);font-weight:600;padding:9px 16px;display:flex;align-items:center;gap:8px;">
+            <i class="fa-regular fa-eye"></i> Preview Kiosk
+          </button>
+          <button class="btn btn-primary" style="background:#2563eb;color:#fff;font-weight:600;padding:9px 18px;display:flex;align-items:center;gap:8px;">
+            <i class="fa-solid fa-gear"></i> Project Settings <i class="fa-solid fa-chevron-down" style="font-size:9.5px;margin-left:2px;"></i>
+          </button>
+        </div>
+      </div>
+
+      <div class="project-meta-row">
+        <div class="project-meta-item">
+          <i class="fa-solid fa-building" style="color:var(--text-400);"></i> Mall / Indoor Venue
+        </div>
+        <span style="color:var(--text-400);">•</span>
+        <div class="project-meta-item">
+          <i class="fa-solid fa-location-dot" style="color:var(--text-400);"></i> Mumbai, India
+        </div>
+        <span style="color:var(--text-400);">•</span>
+        <div class="project-meta-item">
+          <i class="fa-solid fa-tablet-screen-button" style="color:var(--text-400);"></i> 12 Kiosks
+        </div>
+        <span style="color:var(--text-400);">•</span>
+        <div class="project-meta-item" style="color:var(--green-600);font-weight:600;">
+          <i class="fa-solid fa-circle-check"></i> Release 43 (Published)
+        </div>
+      </div>
+    </div>
+
+    <!-- Project Sub-Navigation Tabs Bar -->
+    <div class="project-tabs-nav">
+      <button class="project-tab-btn active" onclick="location.href='project-overview.html'">Overview</button>
+      <button class="project-tab-btn" onclick="location.href='project-experience.html'">Experience</button>
+      <button class="project-tab-btn" onclick="location.href='project-content.html'">Content</button>
+      <button class="project-tab-btn" onclick="location.href='project-maps.html'">Maps</button>
+      <button class="project-tab-btn" onclick="location.href='project-navigation.html'">Navigation</button>
+      <button class="project-tab-btn" onclick="location.href='project-advertisements.html'">Advertisements</button>
+      <button class="project-tab-btn" onclick="location.href='project-preview.html'">Preview</button>
+      <button class="project-tab-btn" onclick="location.href='project-validation.html'">Validation</button>
+      <button class="project-tab-btn" onclick="location.href='project-releases.html'">Releases</button>
+      <button class="project-tab-btn" onclick="location.href='project-devices.html'">Devices</button>
+      <button class="project-tab-btn" onclick="location.href='project-analytics.html'">Analytics</button>
+      <button class="project-tab-btn" onclick="switchTab(this, 'settings')">Settings</button>
+    </div>
+
+    <!-- Top 6 KPI Metric Strip -->
+    <div class="kpi-strip">
+      <!-- KPI 1: Project Completion -->
+      <div class="kpi-metric-card">
+        <div class="kpi-card-header">
+          <div class="kpi-icon-box" style="background:#f5f3ff;color:#7c3aed;">
+            <i class="fa-solid fa-mobile-screen"></i>
+          </div>
+          <div class="kpi-card-label">Project Completion</div>
+        </div>
+        <div class="kpi-card-value">86%</div>
+        <div>
+          <div class="kpi-progress-bar-wrap">
+            <div class="kpi-progress-bar-fill" style="width:86%;background:#2563eb;"></div>
+          </div>
+          <div class="kpi-card-footer" style="margin-top:4px;">14% remaining</div>
+        </div>
+      </div>
+
+      <!-- KPI 2: Total Kiosks -->
+      <div class="kpi-metric-card">
+        <div class="kpi-card-header">
+          <div class="kpi-icon-box" style="background:#ecfdf5;color:#16a34a;">
+            <i class="fa-solid fa-desktop"></i>
+          </div>
+          <div class="kpi-card-label">Total Kiosks</div>
+        </div>
+        <div class="kpi-card-value">12</div>
+        <div class="kpi-card-footer" style="margin-top:auto;">
+          <span style="color:#16a34a;font-weight:600;">11 Online</span>
+          <span>•</span>
+          <span style="color:#dc2626;font-weight:600;">1 Offline</span>
+        </div>
+      </div>
+
+      <!-- KPI 3: Total Sessions -->
+      <div class="kpi-metric-card">
+        <div class="kpi-card-header">
+          <div class="kpi-icon-box" style="background:#fff7ed;color:#ea580c;">
+            <i class="fa-solid fa-users"></i>
+          </div>
+          <div class="kpi-card-label">Total Sessions</div>
+        </div>
+        <div class="kpi-card-value">24.8K</div>
+        <div class="kpi-card-footer" style="margin-top:auto;">Last 30 days</div>
+      </div>
+
+      <!-- KPI 4: Total Searches -->
+      <div class="kpi-metric-card">
+        <div class="kpi-card-header">
+          <div class="kpi-icon-box" style="background:#eff6ff;color:#2563eb;">
+            <i class="fa-solid fa-magnifying-glass"></i>
+          </div>
+          <div class="kpi-card-label">Total Searches</div>
+        </div>
+        <div class="kpi-card-value">38.7K</div>
+        <div class="kpi-card-footer" style="margin-top:auto;">Last 30 days</div>
+      </div>
+
+      <!-- KPI 5: Navigation Requests -->
+      <div class="kpi-metric-card">
+        <div class="kpi-card-header">
+          <div class="kpi-icon-box" style="background:#f5f3ff;color:#7c3aed;">
+            <i class="fa-solid fa-paper-plane"></i>
+          </div>
+          <div class="kpi-card-label">Navigation Requests</div>
+        </div>
+        <div class="kpi-card-value">12.9K</div>
+        <div class="kpi-card-footer" style="margin-top:auto;">Last 30 days</div>
+      </div>
+
+      <!-- KPI 6: Ad Impressions -->
+      <div class="kpi-metric-card">
+        <div class="kpi-card-header">
+          <div class="kpi-icon-box" style="background:#fffbeb;color:#d97706;">
+            <i class="fa-solid fa-bullhorn"></i>
+          </div>
+          <div class="kpi-card-label">Ad Impressions</div>
+        </div>
+        <div class="kpi-card-value">56.3K</div>
+        <div class="kpi-card-footer" style="margin-top:auto;">Last 30 days</div>
+      </div>
+    </div>
+
+    <!-- 3-Column Main Workspace Layout -->
+    <div class="workspace-grid-3col">
+
+      <!-- Column 1: Project Configuration Status -->
+      <div class="config-status-card">
+        <div class="config-status-header">
+          <h3>Project Configuration Status</h3>
+          <p>Track the progress of your project setup</p>
+        </div>
+
+        <div class="config-status-list">
+          <!-- Step 1: Experience -->
+          <div class="config-status-item" onclick="location.href='project-experience.html'" style="cursor:pointer;">
+            <div class="config-status-left">
+              <div class="config-item-icon-dot completed">
+                <i class="fa-solid fa-circle-check"></i>
+              </div>
+              <div>
+                <div class="config-item-title">Experience</div>
+                <div class="config-item-sub">Theme, branding and general experience</div>
+              </div>
+            </div>
+            <span class="badge badge-green" style="font-size:11.5px;padding:3px 9px;font-weight:600;">
+              <i class="fa-solid fa-check" style="font-size:9.5px;margin-right:4px;"></i> Completed
+            </span>
+          </div>
+
+          <!-- Step 2: Content -->
+          <div class="config-status-item" onclick="location.href='project-content.html'" style="cursor:pointer;">
+            <div class="config-status-left">
+              <div class="config-item-icon-dot completed">
+                <i class="fa-solid fa-circle-check"></i>
+              </div>
+              <div>
+                <div class="config-item-title">Content</div>
+                <div class="config-item-sub">Stores, categories, facilities and services</div>
+              </div>
+            </div>
+            <span class="badge badge-green" style="font-size:11.5px;padding:3px 9px;font-weight:600;">
+              <i class="fa-solid fa-check" style="font-size:9.5px;margin-right:4px;"></i> Completed
+            </span>
+          </div>
+
+          <!-- Step 3: Maps -->
+          <div class="config-status-item" onclick="location.href='project-maps.html'" style="cursor:pointer;">
+            <div class="config-status-left">
+              <div class="config-item-icon-dot completed">
+                <i class="fa-solid fa-circle-check"></i>
+              </div>
+              <div>
+                <div class="config-item-title">Maps</div>
+                <div class="config-item-sub">Floor maps and POI locations</div>
+              </div>
+            </div>
+            <span class="badge badge-green" style="font-size:11.5px;padding:3px 9px;font-weight:600;">
+              <i class="fa-solid fa-check" style="font-size:9.5px;margin-right:4px;"></i> Completed
+            </span>
+          </div>
+
+          <!-- Step 4: Navigation -->
+          <div class="config-status-item" onclick="location.href='project-navigation.html'" style="cursor:pointer;">
+            <div class="config-status-left">
+              <div class="config-item-icon-dot issues">
+                <i class="fa-solid fa-triangle-exclamation"></i>
+              </div>
+              <div>
+                <div class="config-item-title">Navigation</div>
+                <div class="config-item-sub">Paths, nodes and routing configuration</div>
+              </div>
+            </div>
+            <span class="badge badge-amber" style="font-size:11.5px;padding:3px 9px;font-weight:600;">
+              <i class="fa-solid fa-triangle-exclamation" style="font-size:9.5px;margin-right:4px;"></i> 3 Issues
+            </span>
+          </div>
+
+          <!-- Step 5: Advertisements -->
+          <div class="config-status-item" onclick="location.href='project-advertisements.html'" style="cursor:pointer;">
+            <div class="config-status-left">
+              <div class="config-item-icon-dot completed">
+                <i class="fa-solid fa-circle-check"></i>
+              </div>
+              <div>
+                <div class="config-item-title">Advertisements</div>
+                <div class="config-item-sub">Campaigns and media content</div>
+              </div>
+            </div>
+            <span class="badge badge-green" style="font-size:11.5px;padding:3px 9px;font-weight:600;">
+              <i class="fa-solid fa-check" style="font-size:9.5px;margin-right:4px;"></i> Completed
+            </span>
+          </div>
+
+          <!-- Step 6: Validation -->
+          <div class="config-status-item" onclick="location.href='project-validation.html'" style="cursor:pointer;">
+            <div class="config-status-left">
+              <div class="config-item-icon-dot issues">
+                <i class="fa-solid fa-triangle-exclamation"></i>
+              </div>
+              <div>
+                <div class="config-item-title">Validation</div>
+                <div class="config-item-sub">Project validation and quality check</div>
+              </div>
+            </div>
+            <span class="badge badge-amber" style="font-size:11.5px;padding:3px 9px;font-weight:600;">
+              <i class="fa-solid fa-triangle-exclamation" style="font-size:9.5px;margin-right:4px;"></i> 2 Issues
+            </span>
+          </div>
+
+          <!-- Step 7: Release -->
+          <div class="config-status-item">
+            <div class="config-status-left">
+              <div class="config-item-icon-dot completed">
+                <i class="fa-solid fa-circle-check"></i>
+              </div>
+              <div>
+                <div class="config-item-title">Release</div>
+                <div class="config-item-sub">Create and publish project release</div>
+              </div>
+            </div>
+            <span class="badge badge-green" style="font-size:11.5px;padding:3px 9px;font-weight:600;">
+              <i class="fa-solid fa-check" style="font-size:9.5px;margin-right:4px;"></i> Completed
+            </span>
+          </div>
+        </div>
+
+        <div class="config-status-actions">
+          <button class="btn" style="flex:1;background:#fff;border:1px solid var(--border);color:var(--text-700);font-weight:600;padding:10px 14px;">
+            View Validation Issues
+          </button>
+          <button class="btn btn-primary" onclick="location.href='project-experience.html'" style="flex:1;background:#2563eb;color:#fff;font-weight:600;padding:10px 14px;display:flex;align-items:center;justify-content:center;gap:6px;">
+            Continue Setup <i class="fa-solid fa-arrow-right" style="font-size:11px;"></i>
+          </button>
+        </div>
+      </div>
+
+      <!-- Column 2: Current Release & Active Theme -->
+      <div style="display:flex;flex-direction:column;gap:18px;">
+
+        <!-- Card: Current Release -->
+        <div class="panel" style="margin:0;padding:18px;">
+          <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;">
+            <h3 style="margin:0;font-size:15.5px;font-weight:700;color:var(--text-900);">Current Release</h3>
+            <a href="#" style="color:var(--blue-600);font-size:12px;font-weight:600;">View All Releases</a>
+          </div>
+
+          <div class="current-release-box">
+            <div style="display:flex;align-items:center;gap:8px;margin-bottom:3px;">
+              <span style="font-size:15px;font-weight:800;color:var(--text-900);">Release 43</span>
+              <span class="badge badge-green" style="font-size:11px;padding:2px 7px;font-weight:600;">Published</span>
+            </div>
+            <div style="font-size:11.5px;color:var(--text-400);">Published on May 10, 2026 10:30 AM</div>
+
+            <div class="release-meta-grid">
+              <div class="release-meta-cell">
+                <div class="release-meta-label">Version</div>
+                <div class="release-meta-val">
+                  <i class="fa-solid fa-code-branch" style="color:var(--text-400);font-size:11.5px;"></i> 1.2.3
+                </div>
+              </div>
+              <div class="release-meta-cell">
+                <div class="release-meta-label">To Kiosks</div>
+                <div class="release-meta-val">
+                  <i class="fa-solid fa-tablet-screen-button" style="color:var(--text-400);font-size:11.5px;"></i> 12 Kiosks
+                </div>
+              </div>
+              <div class="release-meta-cell">
+                <div class="release-meta-label">Status</div>
+                <div class="release-meta-val">
+                  <i class="fa-solid fa-tower-broadcast" style="color:var(--text-400);font-size:11.5px;"></i> Active
+                </div>
+              </div>
+              <div class="release-meta-cell">
+                <div class="release-meta-label">Health</div>
+                <div class="release-meta-val" style="color:var(--green-600);">
+                  <i class="fa-solid fa-circle-check" style="font-size:11.5px;"></i> Active
+                </div>
+              </div>
+            </div>
+
+            <button class="btn" style="width:100%;background:#ffffff;border:1px solid var(--border);color:var(--text-700);font-weight:600;margin-top:14px;padding:9px 0;">
+              Release Details
+            </button>
+          </div>
+        </div>
+
+        <!-- Card: Active Theme -->
+        <div class="panel" style="margin:0;padding:18px;">
+          <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;">
+            <h3 style="margin:0;font-size:15.5px;font-weight:700;color:var(--text-900);">Active Theme</h3>
+            <a href="project-experience.html" style="color:var(--blue-600);font-size:12px;font-weight:600;">Change Theme</a>
+          </div>
+
+          <div class="active-theme-card-body">
+            <!-- Theme Artwork -->
+            <div class="theme-artwork-preview">
+              <svg viewBox="0 0 100 100" style="width:100%;height:100%;">
+                <defs>
+                  <radialGradient id="diwali-glow" cx="50%" cy="50%" r="50%">
+                    <stop offset="0%" stop-color="#fbbf24" stop-opacity="0.8"/>
+                    <stop offset="60%" stop-color="#7c3aed" stop-opacity="0.9"/>
+                    <stop offset="100%" stop-color="#3b0764" stop-opacity="1"/>
+                  </radialGradient>
+                </defs>
+                <rect width="100" height="100" fill="url(#diwali-glow)"/>
+                <!-- Mandala & Diya lamp -->
+                <circle cx="50" cy="50" r="34" stroke="#fde047" stroke-width="0.8" fill="none" stroke-dasharray="2,2"/>
+                <circle cx="50" cy="50" r="22" stroke="#fbbf24" stroke-width="0.8" fill="none"/>
+                <!-- Golden Diya Flame -->
+                <path d="M50 36 C47 43 45 47 45 52 C45 56 47.5 58 50 58 C52.5 58 55 56 55 52 C55 47 53 43 50 36 Z" fill="#fbbf24"/>
+                <path d="M50 42 C48.5 46 47.5 48 47.5 51 C47.5 53 48.5 54.5 50 54.5 C51.5 54.5 52.5 53 52.5 51 C52.5 48 51.5 46 50 42 Z" fill="#fff"/>
+                <!-- Diya Base -->
+                <path d="M35 56 C37 68 63 68 65 56 C62 58 38 58 35 56 Z" fill="#f59e0b"/>
+                <text x="50" y="80" text-anchor="middle" fill="#fef08a" font-size="7.5" font-family="Inter, sans-serif" font-weight="700" letter-spacing="0.5">DIWALI</text>
+              </svg>
+            </div>
+
+            <!-- Theme Details -->
+            <div style="flex:1;">
+              <div style="font-size:14.5px;font-weight:700;color:var(--text-900);margin-bottom:2px;">Diwali Celebration</div>
+              <div style="font-size:12px;color:var(--text-500);margin-bottom:2px;">Theme v1.0</div>
+              <div style="font-size:11.5px;color:var(--text-400);margin-bottom:6px;">Applied on May 05, 2026</div>
+              <span class="badge badge-green" style="font-size:10.5px;padding:2px 8px;font-weight:600;">Active</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Column 3: Kiosk Health & Attention Required -->
+      <div style="display:flex;flex-direction:column;gap:18px;">
+
+        <!-- Card: Kiosk Health -->
+        <div class="panel" style="margin:0;padding:18px;">
+          <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;">
+            <h3 style="margin:0;font-size:15.5px;font-weight:700;color:var(--text-900);">Kiosk Health</h3>
+            <a href="devices.html" style="color:var(--blue-600);font-size:12px;font-weight:600;">View All Devices</a>
+          </div>
+
+          <div class="donut-wrapper">
+            <!-- Donut SVG -->
+            <div class="donut-svg-box">
+              <svg viewBox="0 0 100 100" style="width:100%;height:100%;transform:rotate(-90deg);">
+                <!-- Background track -->
+                <circle cx="50" cy="50" r="38" stroke="#f1f5f9" stroke-width="12" fill="none"/>
+                <!-- Green Segment (11/12 = 91.7% -> 218.9 of 238.76) -->
+                <circle cx="50" cy="50" r="38" stroke="#22c55e" stroke-width="12" fill="none"
+                        stroke-dasharray="218.9 238.76" stroke-dashoffset="0"/>
+                <!-- Red Segment (1/12 = 8.3% -> 19.8 of 238.76) -->
+                <circle cx="50" cy="50" r="38" stroke="#ef4444" stroke-width="12" fill="none"
+                        stroke-dasharray="19.8 238.76" stroke-dashoffset="-218.9"/>
+              </svg>
+              <div class="donut-center-text">
+                <div class="donut-center-val">12</div>
+                <div class="donut-center-lbl">Total</div>
+              </div>
+            </div>
+
+            <!-- Legend List -->
+            <div class="donut-legend">
+              <div class="donut-legend-row">
+                <div class="donut-legend-label">
+                  <span style="color:#22c55e;font-size:12px;">●</span> Online
+                </div>
+                <div class="donut-legend-val">11 (91.7%)</div>
+              </div>
+              <div class="donut-legend-row">
+                <div class="donut-legend-label">
+                  <span style="color:#f59e0b;font-size:12px;">●</span> Warning
+                </div>
+                <div class="donut-legend-val" style="color:var(--text-400);">0 (0%)</div>
+              </div>
+              <div class="donut-legend-row">
+                <div class="donut-legend-label">
+                  <span style="color:#ef4444;font-size:12px;">●</span> Offline
+                </div>
+                <div class="donut-legend-val">1 (8.3%)</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Card: Attention Required -->
+        <div class="panel" style="margin:0;padding:18px;">
+          <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;">
+            <h3 style="margin:0;font-size:15.5px;font-weight:700;color:var(--text-900);">Attention Required</h3>
+            <a href="#" style="color:var(--blue-600);font-size:12px;font-weight:600;">View All</a>
+          </div>
+
+          <div style="display:flex;flex-direction:column;">
+            <!-- Alert 1 -->
+            <div class="attention-item-row" onclick="location.href='devices.html'">
+              <div class="attention-item-left">
+                <div class="attention-icon-box" style="background:#fee2e2;color:#dc2626;">
+                  <i class="fa-solid fa-wifi"></i>
+                </div>
+                <div>
+                  <div class="attention-title">Kiosk-K03 is offline</div>
+                  <div class="attention-sub">Level 2 • Near Food Court</div>
+                </div>
+              </div>
+              <div class="attention-time">
+                <span>15 min ago</span>
+                <i class="fa-solid fa-chevron-right" style="font-size:9.5px;"></i>
+              </div>
+            </div>
+
+            <!-- Alert 2 -->
+            <div class="attention-item-row" onclick="location.href='#'">
+              <div class="attention-item-left">
+                <div class="attention-icon-box" style="background:#ffedd5;color:#ea580c;">
+                  <i class="fa-solid fa-arrow-down-to-bracket"></i>
+                </div>
+                <div>
+                  <div class="attention-title">Release 44 is ready to deploy</div>
+                  <div class="attention-sub">New features and content updates</div>
+                </div>
+              </div>
+              <div class="attention-time">
+                <span>1 hour ago</span>
+                <i class="fa-solid fa-chevron-right" style="font-size:9.5px;"></i>
+              </div>
+            </div>
+
+            <!-- Alert 3 -->
+            <div class="attention-item-row" onclick="location.href='#'">
+              <div class="attention-item-left">
+                <div class="attention-icon-box" style="background:#fef3c7;color:#d97706;">
+                  <i class="fa-solid fa-triangle-exclamation"></i>
+                </div>
+                <div>
+                  <div class="attention-title">2 POIs have missing map locations</div>
+                  <div class="attention-sub">Level 1 • Fashion Zone</div>
+                </div>
+              </div>
+              <div class="attention-time">
+                <span>3 hours ago</span>
+                <i class="fa-solid fa-chevron-right" style="font-size:9.5px;"></i>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+
+    <!-- Bottom Section: Recent Activity -->
+    <div class="recent-activity-panel">
+      <div class="recent-activity-header">
+        <h3>Recent Activity</h3>
+        <a href="#" style="color:var(--blue-600);font-size:12.5px;font-weight:600;">View All Activity</a>
+      </div>
+
+      <div class="activity-cards-grid">
+        <!-- Activity Card 1 -->
+        <div class="activity-single-card">
+          <div class="activity-card-top">
+            <div class="activity-icon-badge" style="background:#ecfdf5;color:#16a34a;">
+              <i class="fa-solid fa-rocket"></i>
+            </div>
+            <div class="activity-card-title">Release 43 published</div>
+          </div>
+          <div class="activity-card-sub">12 kiosks updated successfully</div>
+          <div class="activity-card-time">10 min ago</div>
+        </div>
+
+        <!-- Activity Card 2 -->
+        <div class="activity-single-card">
+          <div class="activity-card-top">
+            <div class="activity-icon-badge" style="background:#eff6ff;color:#2563eb;">
+              <i class="fa-solid fa-tablet-screen-button"></i>
+            </div>
+            <div class="activity-card-title">12 kiosks updated</div>
+          </div>
+          <div class="activity-card-sub">Phoenix Mall</div>
+          <div class="activity-card-time">30 min ago</div>
+        </div>
+
+        <!-- Activity Card 3 -->
+        <div class="activity-single-card">
+          <div class="activity-card-top">
+            <div class="activity-icon-badge" style="background:#fff7ed;color:#ea580c;">
+              <i class="fa-solid fa-bag-shopping"></i>
+            </div>
+            <div class="activity-card-title">New store added</div>
+          </div>
+          <div class="activity-card-sub">Lifestyle Store • Level 1</div>
+          <div class="activity-card-time">2 hours ago</div>
+        </div>
+
+        <!-- Activity Card 4 -->
+        <div class="activity-single-card">
+          <div class="activity-card-top">
+            <div class="activity-icon-badge" style="background:#f5f3ff;color:#7c3aed;">
+              <i class="fa-solid fa-images"></i>
+            </div>
+            <div class="activity-card-title">New advertisement uploaded</div>
+          </div>
+          <div class="activity-card-sub">Diwali Fashion Sale</div>
+          <div class="activity-card-time">Yesterday, 4:30 PM</div>
+        </div>
+
+        <!-- Activity Card 5 -->
+        <div class="activity-single-card">
+          <div class="activity-card-top">
+            <div class="activity-icon-badge" style="background:#ecfdf5;color:#16a34a;">
+              <i class="fa-solid fa-map-location-dot"></i>
+            </div>
+            <div class="activity-card-title">Map updated</div>
+          </div>
+          <div class="activity-card-sub">Level 2 floor map updated</div>
+          <div class="activity-card-time">Yesterday, 2:15 PM</div>
+        </div>
+      </div>
+    </div>
+
+  </main>
+</div>
+</div>
+
+<script>
+function switchTab(btn, tabId) {
+  document.querySelectorAll('.project-tab-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+}
+</script>
+</body>
+</html>
+

@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Projects · Kiosk Platform</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+<div class="app-shell">
+<aside class="sidebar">
+  <a href="dashboard.html" class="sidebar-brand" style="cursor:pointer;">
+    <div class="logo-icon"><svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M12 2L21 7V17L12 22L3 17V7L12 2Z" stroke="white" stroke-width="1.6" stroke-linejoin="round"/>
+<circle cx="12" cy="12" r="3.2" fill="white"/>
+</svg></div>
+    <div class="brand-text"><div class="t1">KIOSK</div><div class="t2">PLATFORM</div></div>
+  </a>
+  <div class="sidebar-section-label">PLATFORM ADMIN <i class="fa-solid fa-chevron-up" style="font-size:9px;"></i></div>
+  <ul class="sidebar-nav">
+  <li class="nav-item " onclick="location.href='dashboard.html'"><i class="fa-solid fa-house"></i><span>Dashboard</span></li>
+<li class="nav-item " onclick="location.href='clients.html'"><i class="fa-solid fa-user-group"></i><span>Clients</span></li>
+<li class="nav-item active" onclick="location.href='projects.html'"><i class="fa-solid fa-folder-open"></i><span>Projects</span></li>
+<li class="nav-item " onclick="location.href='devices.html'"><i class="fa-solid fa-tablet-screen-button"></i><span>Devices</span></li>
+<li class="nav-item " onclick="location.href='templates.html'"><i class="fa-solid fa-table-cells-large"></i><span>Templates</span></li>
+<li class="nav-item " onclick="location.href='analytics.html'"><i class="fa-solid fa-chart-column"></i><span>Analytics</span></li>
+<li class="nav-item " onclick="location.href='monitoring.html'"><i class="fa-solid fa-heart-pulse"></i><span>Monitoring</span></li>
+<li class="nav-item " onclick="location.href='users-roles.html'"><i class="fa-solid fa-users-gear"></i><span>Users & Roles</span></li>
+<li class="nav-item " onclick="location.href='billing.html'"><i class="fa-solid fa-credit-card"></i><span>Billing & Plans</span></li>
+<li class="nav-item " onclick="location.href='audit-logs.html'"><i class="fa-solid fa-file-lines"></i><span>Audit Logs</span></li>
+<li class="nav-item " onclick="location.href='system-settings.html'"><i class="fa-solid fa-gear"></i><span>System Settings</span></li>
+
+  </ul>
+  <div class="sidebar-spacer"></div>
+  <div class="sidebar-status">
+    <div class="st-title">System Status</div>
+    <div class="st-row"><span class="st-dot"></span> All Systems Operational</div>
+    <div class="st-sub">Last checked: 2 min ago</div>
+    <a href="monitoring.html">View System Health</a>
+  </div>
+  <div class="sidebar-quick">
+    <div class="qa-title">Quick Actions</div>
+    <a class="qa-item" href="onboard-client.html"><i class="fa-solid fa-user-plus"></i> Onboard New Client</a>
+    <a class="qa-item" href="clients.html"><i class="fa-solid fa-cube"></i> View Clients</a>
+    <a class="qa-item" href="devices.html"><i class="fa-solid fa-tablet-screen-button"></i> View Devices</a>
+    <a class="qa-item" href="monitoring.html"><i class="fa-solid fa-triangle-exclamation"></i> View Alerts</a>
+  </div>
+  <div class="sidebar-footer">Kiosk Platform v1.0.0</div>
+</aside>
+<div class="main"><header class="topbar">
+  <i class="fa-solid fa-bars hamburger"></i>
+  <div class="search"><i class="fa-solid fa-magnifying-glass"></i><span>Search clients, projects, devices...</span><span class="kbd">⌘K</span></div>
+  <div class="spacer"></div>
+  <button class="icon-btn"><i class="fa-regular fa-circle-question"></i></button>
+  <button class="icon-btn"><i class="fa-regular fa-bell"></i><span class="badge-dot">12</span></button>
+  <div class="user">
+    <div class="avatar">SA</div>
+    <div><div class="u-name">Super Admin</div><div class="u-role">Platform Administrator</div></div>
+    <i class="fa-solid fa-chevron-down"></i>
+  </div>
+</header>
+<div class="content">
+<div class="page-header">
+  <div><h1>Projects</h1><p>View and manage all client projects across the platform</p></div>
+  <div class="actions">
+    <div class="search-input"><i class="fa-solid fa-magnifying-glass"></i><span>Search projects...</span></div>
+    <button class="btn"><i class="fa-solid fa-filter"></i> Filter</button>
+    <button class="btn btn-primary"><i class="fa-solid fa-plus"></i> Create Project</button>
+  </div>
+</div>
+
+<div class="stats-grid">
+  <div class="stat-card"><div class="icon icon-blue"><i class="fa-solid fa-folder-open"></i></div><div class="body"><div class="label">Total Projects</div><div class="value">64</div><div class="sub">Across all clients</div></div></div>
+  <div class="stat-card"><div class="icon icon-green"><i class="fa-solid fa-shield-halved"></i></div><div class="body"><div class="label">Active Projects</div><div class="value">38</div><div class="sub">59.4% of total</div></div></div>
+  <div class="stat-card"><div class="icon icon-blue"><i class="fa-solid fa-clipboard"></i></div><div class="body"><div class="label">Draft Projects</div><div class="value">16</div><div class="sub">25.0% of total</div></div></div>
+  <div class="stat-card"><div class="icon icon-amber"><i class="fa-solid fa-box-archive"></i></div><div class="body"><div class="label">Archived Projects</div><div class="value">8</div><div class="sub">12.5% of total</div></div></div>
+  <div class="stat-card"><div class="icon icon-purple"><i class="fa-solid fa-tablet-screen-button"></i></div><div class="body"><div class="label">Total Kiosks</div><div class="value">156</div><div class="sub">Across all projects</div></div></div>
+  <div class="stat-card"><div class="icon icon-green"><i class="fa-solid fa-wifi"></i></div><div class="body"><div class="label">Online Kiosks</div><div class="value">142</div><div class="sub">91.0% of total kiosks</div></div></div>
+</div>
+
+<div class="panel">
+  <div class="panel-header">
+    <div><h2>All Projects</h2><p>Manage and monitor all projects across clients</p></div>
+    <div class="filters">
+      <div class="select-pill">All Clients <i class="fa-solid fa-chevron-down"></i></div>
+      <div class="select-pill">All Status <i class="fa-solid fa-chevron-down"></i></div>
+      <button class="btn"><i class="fa-solid fa-arrow-up-from-bracket"></i> Export</button>
+    </div>
+  </div>
+  <div class="table-wrap"><table>
+  <thead><tr><th>Project / Client</th><th>Template</th><th>Status</th><th>Kiosks</th><th>Online Kiosks</th><th>Current Release</th><th>Last Activity</th><th>Created On</th><th>Actions</th></tr></thead>
+  <tbody><tr>
+<td><div class="cell-main"><div class="cell-thumb" style="background:linear-gradient(135deg,#c4b5fd,#7c3aed);"></div>
+<div><div class="cell-title">Phoenix Mall</div><div class="cell-sub">Phoenix Retail Group</div></div></div></td>
+<td><div class="cell-main"><div class="tmpl-icon"><i class="fa-solid fa-building"></i></div><div><div class="cell-title" style="font-size:12.5px;">Mall / Indoor Venue</div><div class="cell-sub">v1.2.0</div></div></div></td>
+<td><span class="badge badge-green"><span class="dot"></span>Active</span></td>
+<td>12</td>
+<td>11 <div class="pct-green">91.7%</div></td>
+<td>Release 43<div class="cell-sub" style="color:#16a34a;font-weight:600;">Published</div></td>
+<td>Today, 10:30 AM</td>
+<td>May 10, 2026<div class="cell-sub">John Admin</div></td>
+<td class="row-actions"><a class="btn btn-sm" href="client-detail.html">View Details</a><button class="btn-icon"><i class="fa-solid fa-ellipsis"></i></button></td>
+</tr><tr>
+<td><div class="cell-main"><div class="cell-thumb" style="background:linear-gradient(135deg,#93c5fd,#2563eb);"></div>
+<div><div class="cell-title">City Center Mall</div><div class="cell-sub">City Center Group</div></div></div></td>
+<td><div class="cell-main"><div class="tmpl-icon"><i class="fa-solid fa-building"></i></div><div><div class="cell-title" style="font-size:12.5px;">Mall / Indoor Venue</div><div class="cell-sub">v1.2.0</div></div></div></td>
+<td><span class="badge badge-green"><span class="dot"></span>Active</span></td>
+<td>8</td>
+<td>7 <div class="pct-green">87.5%</div></td>
+<td>Release 42<div class="cell-sub" style="color:#16a34a;font-weight:600;">Published</div></td>
+<td>Yesterday, 4:45 PM</td>
+<td>May 08, 2026<div class="cell-sub">Sarah Manager</div></td>
+<td class="row-actions"><a class="btn btn-sm" href="client-detail.html">View Details</a><button class="btn-icon"><i class="fa-solid fa-ellipsis"></i></button></td>
+</tr><tr>
+<td><div class="cell-main"><div class="cell-thumb" style="background:linear-gradient(135deg,#67e8f9,#0891b2);"></div>
+<div><div class="cell-title">Grand Plaza</div><div class="cell-sub">Grand Plaza Ventures</div></div></div></td>
+<td><div class="cell-main"><div class="tmpl-icon"><i class="fa-solid fa-building"></i></div><div><div class="cell-title" style="font-size:12.5px;">Mall / Indoor Venue</div><div class="cell-sub">v1.2.0</div></div></div></td>
+<td><span class="badge badge-green"><span class="dot"></span>Active</span></td>
+<td>15</td>
+<td>14 <div class="pct-green">93.3%</div></td>
+<td>Release 43<div class="cell-sub" style="color:#16a34a;font-weight:600;">Published</div></td>
+<td>Today, 9:15 AM</td>
+<td>May 06, 2026<div class="cell-sub">Michael Admin</div></td>
+<td class="row-actions"><a class="btn btn-sm" href="client-detail.html">View Details</a><button class="btn-icon"><i class="fa-solid fa-ellipsis"></i></button></td>
+</tr><tr>
+<td><div class="cell-main"><div class="cell-thumb" style="background:linear-gradient(135deg,#fde68a,#f59e0b);"></div>
+<div><div class="cell-title">Lakeside Mall</div><div class="cell-sub">Lakeside Properties</div></div></div></td>
+<td><div class="cell-main"><div class="tmpl-icon"><i class="fa-solid fa-building"></i></div><div><div class="cell-title" style="font-size:12.5px;">Mall / Indoor Venue</div><div class="cell-sub">v1.2.0</div></div></div></td>
+<td><span class="badge badge-amber"><span class="dot"></span>Draft</span></td>
+<td>2</td>
+<td>0 <div class="pct-red">0%</div></td>
+<td>&mdash;<div class="cell-sub">No release</div></td>
+<td>Aug 18, 2026</td>
+<td>Aug 18, 2026<div class="cell-sub">Emily Editor</div></td>
+<td class="row-actions"><a class="btn btn-sm" href="client-detail.html">View Details</a><button class="btn-icon"><i class="fa-solid fa-ellipsis"></i></button></td>
+</tr><tr>
+<td><div class="cell-main"><div class="cell-thumb" style="background:linear-gradient(135deg,#f9a8d4,#db2777);"></div>
+<div><div class="cell-title">Downtown Mall</div><div class="cell-sub">Downtown Retail</div></div></div></td>
+<td><div class="cell-main"><div class="tmpl-icon"><i class="fa-solid fa-building"></i></div><div><div class="cell-title" style="font-size:12.5px;">Mall / Indoor Venue</div><div class="cell-sub">v1.2.0</div></div></div></td>
+<td><span class="badge badge-blue"><span class="dot"></span>Draft</span></td>
+<td>4</td>
+<td>0 <div class="pct-red">0%</div></td>
+<td>&mdash;<div class="cell-sub">No release</div></td>
+<td>Aug 17, 2026</td>
+<td>Aug 17, 2026<div class="cell-sub">David Manager</div></td>
+<td class="row-actions"><a class="btn btn-sm" href="client-detail.html">View Details</a><button class="btn-icon"><i class="fa-solid fa-ellipsis"></i></button></td>
+</tr><tr>
+<td><div class="cell-main"><div class="cell-thumb" style="background:linear-gradient(135deg,#fca5a5,#dc2626);"></div>
+<div><div class="cell-title">Westfield Mall</div><div class="cell-sub">Westfield Group</div></div></div></td>
+<td><div class="cell-main"><div class="tmpl-icon"><i class="fa-solid fa-building"></i></div><div><div class="cell-title" style="font-size:12.5px;">Mall / Indoor Venue</div><div class="cell-sub">v1.2.0</div></div></div></td>
+<td><span class="badge badge-green"><span class="dot"></span>Active</span></td>
+<td>18</td>
+<td>17 <div class="pct-green">94.4%</div></td>
+<td>Release 41<div class="cell-sub" style="color:#16a34a;font-weight:600;">Published</div></td>
+<td>Today, 8:20 AM</td>
+<td>May 04, 2026<div class="cell-sub">Chris Admin</div></td>
+<td class="row-actions"><a class="btn btn-sm" href="client-detail.html">View Details</a><button class="btn-icon"><i class="fa-solid fa-ellipsis"></i></button></td>
+</tr><tr>
+<td><div class="cell-main"><div class="cell-thumb" style="background:linear-gradient(135deg,#86efac,#16a34a);"></div>
+<div><div class="cell-title">Metro City Mall</div><div class="cell-sub">Metro City Developers</div></div></div></td>
+<td><div class="cell-main"><div class="tmpl-icon"><i class="fa-solid fa-building"></i></div><div><div class="cell-title" style="font-size:12.5px;">Mall / Indoor Venue</div><div class="cell-sub">v1.2.0</div></div></div></td>
+<td><span class="badge badge-green"><span class="dot"></span>Active</span></td>
+<td>6</td>
+<td>6 <div class="pct-green">100%</div></td>
+<td>Release 43<div class="cell-sub" style="color:#16a34a;font-weight:600;">Published</div></td>
+<td>Yesterday, 11:05 AM</td>
+<td>May 02, 2026<div class="cell-sub">Rachel Admin</div></td>
+<td class="row-actions"><a class="btn btn-sm" href="client-detail.html">View Details</a><button class="btn-icon"><i class="fa-solid fa-ellipsis"></i></button></td>
+</tr><tr>
+<td><div class="cell-main"><div class="cell-thumb" style="background:linear-gradient(135deg,#c4b5fd,#6d28d9);"></div>
+<div><div class="cell-title">Sunshine Mall</div><div class="cell-sub">Sunshine Retail Pvt. Ltd.</div></div></div></td>
+<td><div class="cell-main"><div class="tmpl-icon"><i class="fa-solid fa-building"></i></div><div><div class="cell-title" style="font-size:12.5px;">Mall / Indoor Venue</div><div class="cell-sub">v1.2.0</div></div></div></td>
+<td><span class="badge badge-gray"><span class="dot"></span>Archived</span></td>
+<td>3</td>
+<td>0 <div class="pct-red">0%</div></td>
+<td>Release 39<div class="cell-sub">Archived</div></td>
+<td>Jul 28, 2026</td>
+<td>Apr 20, 2026<div class="cell-sub">Adam Manager</div></td>
+<td class="row-actions"><a class="btn btn-sm" href="client-detail.html">View Details</a><button class="btn-icon"><i class="fa-solid fa-ellipsis"></i></button></td>
+</tr></tbody>
+  </table></div>
+  <div class="pagination-bar">
+    <div class="muted" style="font-size:12.5px;">Showing 1 to 8 of 64 projects</div>
+    <div class="pagination">
+      <div class="page-btn"><i class="fa-solid fa-chevron-left"></i></div>
+      <div class="page-btn active">1</div><div class="page-btn">2</div><div class="page-btn">3</div>
+      <div class="page-btn dots">...</div><div class="page-btn">8</div>
+      <div class="page-btn"><i class="fa-solid fa-chevron-right"></i></div>
+    </div>
+    <div class="select-pill">10 / page <i class="fa-solid fa-chevron-down"></i></div>
+  </div>
+</div>
+</div></div>
+</div>
+</body>
+</html>

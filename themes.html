@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Themes · Kiosk Platform</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+<div class="app-shell">
+<aside class="sidebar">
+  <a href="dashboard.html" class="sidebar-brand" style="cursor:pointer;">
+    <div class="logo-icon"><svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M12 2L21 7V17L12 22L3 17V7L12 2Z" stroke="white" stroke-width="1.6" stroke-linejoin="round"/>
+<circle cx="12" cy="12" r="3.2" fill="white"/>
+</svg></div>
+    <div class="brand-text"><div class="t1">KIOSK</div><div class="t2">PLATFORM</div></div>
+  </a>
+  <div class="sidebar-section-label">PLATFORM ADMIN <i class="fa-solid fa-chevron-up" style="font-size:9px;"></i></div>
+  <ul class="sidebar-nav">
+  <li class="nav-item " onclick="location.href='dashboard.html'"><i class="fa-solid fa-house"></i><span>Dashboard</span></li>
+<li class="nav-item " onclick="location.href='clients.html'"><i class="fa-solid fa-user-group"></i><span>Clients</span></li>
+<li class="nav-item " onclick="location.href='projects.html'"><i class="fa-solid fa-folder-open"></i><span>Projects</span></li>
+<li class="nav-item " onclick="location.href='devices.html'"><i class="fa-solid fa-tablet-screen-button"></i><span>Devices</span></li>
+<li class="nav-item active" onclick="location.href='templates.html'"><i class="fa-solid fa-table-cells-large"></i><span>Templates</span></li>
+<li class="nav-item " onclick="location.href='analytics.html'"><i class="fa-solid fa-chart-column"></i><span>Analytics</span></li>
+<li class="nav-item " onclick="location.href='monitoring.html'"><i class="fa-solid fa-heart-pulse"></i><span>Monitoring</span></li>
+<li class="nav-item " onclick="location.href='users-roles.html'"><i class="fa-solid fa-users-gear"></i><span>Users & Roles</span></li>
+<li class="nav-item " onclick="location.href='billing.html'"><i class="fa-solid fa-credit-card"></i><span>Billing & Plans</span></li>
+<li class="nav-item " onclick="location.href='audit-logs.html'"><i class="fa-solid fa-file-lines"></i><span>Audit Logs</span></li>
+<li class="nav-item " onclick="location.href='system-settings.html'"><i class="fa-solid fa-gear"></i><span>System Settings</span></li>
+
+  </ul>
+  <div class="sidebar-spacer"></div>
+  <div class="sidebar-status">
+    <div class="st-title">System Status</div>
+    <div class="st-row"><span class="st-dot"></span> All Systems Operational</div>
+    <div class="st-sub">Last checked: 2 min ago</div>
+    <a href="monitoring.html">View System Health</a>
+  </div>
+  <div class="sidebar-quick">
+    <div class="qa-title">Quick Actions</div>
+    <a class="qa-item" href="onboard-client.html"><i class="fa-solid fa-user-plus"></i> Onboard New Client</a>
+    <a class="qa-item" href="clients.html"><i class="fa-solid fa-cube"></i> View Clients</a>
+    <a class="qa-item" href="devices.html"><i class="fa-solid fa-tablet-screen-button"></i> View Devices</a>
+    <a class="qa-item" href="monitoring.html"><i class="fa-solid fa-triangle-exclamation"></i> View Alerts</a>
+  </div>
+  <div class="sidebar-footer">Kiosk Platform v1.0.0</div>
+</aside>
+<div class="main"><header class="topbar">
+  <i class="fa-solid fa-bars hamburger"></i>
+  <div class="search"><i class="fa-solid fa-magnifying-glass"></i><span>Search clients, projects, devices...</span><span class="kbd">⌘K</span></div>
+  <div class="spacer"></div>
+  <button class="icon-btn"><i class="fa-regular fa-circle-question"></i></button>
+  <button class="icon-btn"><i class="fa-regular fa-bell"></i><span class="badge-dot">12</span></button>
+  <div class="user">
+    <div class="avatar">SA</div>
+    <div><div class="u-name">Super Admin</div><div class="u-role">Platform Administrator</div></div>
+    <i class="fa-solid fa-chevron-down"></i>
+  </div>
+</header>
+<div class="content">
+<div class="breadcrumb"><a href="templates.html">Templates</a> <i class="fa-solid fa-chevron-right"></i> <a href="templates.html">Mall / Indoor Venue</a> <i class="fa-solid fa-chevron-right"></i> <span style="color:var(--text-900);font-weight:600;">Themes</span></div>
+<div class="page-header">
+  <div style="display:flex;gap:14px;">
+    <div class="tmpl-icon" style="width:46px;height:46px;font-size:19px;border-radius:12px;"><i class="fa-solid fa-shield"></i></div>
+    <div><h1 style="margin-bottom:2px;">Themes</h1><p>Manage themes available for the &ldquo;Mall / Indoor Venue&rdquo; template</p></div>
+  </div>
+  <div class="actions"><button class="btn"><i class="fa-solid fa-arrow-left"></i> View Template Overview</button></div>
+</div>
+
+<div class="stats-grid">
+  <div class="stat-card"><div class="icon icon-blue"><i class="fa-solid fa-palette"></i></div><div class="body"><div class="label">Total Themes</div><div class="value">5</div><div class="sub">All themes</div></div></div>
+  <div class="stat-card"><div class="icon icon-green"><i class="fa-solid fa-shield-halved"></i></div><div class="body"><div class="label">Active Themes</div><div class="value">4</div><div class="sub">Available for clients</div></div></div>
+  <div class="stat-card"><div class="icon icon-amber"><i class="fa-solid fa-clock"></i></div><div class="body"><div class="label">Draft Themes</div><div class="value">1</div><div class="sub">In development</div></div></div>
+  <div class="stat-card"><div class="icon icon-purple"><i class="fa-solid fa-arrow-down"></i></div><div class="body"><div class="label">Clients Using Themes</div><div class="value">8</div><div class="sub">Across all themes</div></div></div>
+  <div class="stat-card"><div class="icon icon-blue"><i class="fa-solid fa-table-cells"></i></div><div class="body"><div class="label">Projects Using Themes</div><div class="value">24</div><div class="sub">Across all themes</div></div></div>
+</div>
+
+<div class="info-note"><i class="fa-solid fa-circle-info"></i> Themes are reusable visual and content packages for the Mall / Indoor Venue template. Clients can select and customize theme content to match their needs.</div>
+
+<div class="panel">
+  <div class="panel-header">
+    <div class="tabs-row" style="margin:0;">
+      <div class="tab-pill active">All Themes <span class="count">5</span></div>
+      <div class="tab-pill">Active <span class="count">4</span></div>
+      <div class="tab-pill">Draft <span class="count">1</span></div>
+      <div class="tab-pill">Inactive <span class="count">0</span></div>
+    </div>
+    <div class="filters">
+      <div class="search-input"><i class="fa-solid fa-magnifying-glass"></i><span>Search themes...</span></div>
+      <button class="btn"><i class="fa-solid fa-filter"></i> Filter</button>
+    </div>
+  </div>
+  <div class="table-wrap"><table>
+  <thead><tr><th>Theme</th><th>Preview</th><th>Version</th><th>Status</th><th>Used By Clients</th><th>Used In Projects</th><th>Last Updated</th><th>Actions</th></tr></thead>
+  <tbody><tr>
+<td><div class="cell-main"><div class="cell-thumb" style="background:linear-gradient(135deg,#a855f7,#6d28d9);"></div>
+<div><div class="cell-title">Diwali Celebration</div><div class="cell-sub" style="max-width:260px;">Special theme for Diwali festive season with vibrant colors and festival promotions.</div></div></div></td>
+<td><div class="theme-preview" style="background:linear-gradient(135deg,#a855f7,#6d28d9);"></div></td>
+<td>1.0.0</td>
+<td><span class="badge badge-green"><span class="dot"></span>Active</span><div class="cell-sub" style="margin-top:3px;">Available</div></td>
+<td><a class="link-blue">3<br>View Clients</a></td>
+<td><a class="link-blue">7<br>View Projects</a></td>
+<td>Aug 10, 2026<div class="cell-sub">John Admin</div></td>
+<td class="row-actions"><button class="btn btn-sm">View Details</button><button class="btn-icon"><i class="fa-solid fa-ellipsis"></i></button></td>
+</tr><tr>
+<td><div class="cell-main"><div class="cell-thumb" style="background:linear-gradient(135deg,#16a34a,#dc2626);"></div>
+<div><div class="cell-title">Christmas</div><div class="cell-sub" style="max-width:260px;">Christmas and New Year theme with seasonal graphics and holiday promotions.</div></div></div></td>
+<td><div class="theme-preview" style="background:linear-gradient(135deg,#16a34a,#dc2626);"></div></td>
+<td>1.0.0</td>
+<td><span class="badge badge-green"><span class="dot"></span>Active</span><div class="cell-sub" style="margin-top:3px;">Available</div></td>
+<td><a class="link-blue">2<br>View Clients</a></td>
+<td><a class="link-blue">5<br>View Projects</a></td>
+<td>Aug 05, 2026<div class="cell-sub">Sarah Manager</div></td>
+<td class="row-actions"><button class="btn btn-sm">View Details</button><button class="btn-icon"><i class="fa-solid fa-ellipsis"></i></button></td>
+</tr><tr>
+<td><div class="cell-main"><div class="cell-thumb" style="background:linear-gradient(135deg,#fbbf24,#0ea5e9);"></div>
+<div><div class="cell-title">Summer Vibes</div><div class="cell-sub" style="max-width:260px;">Bright and energetic theme perfect for summer season campaigns and offers.</div></div></div></td>
+<td><div class="theme-preview" style="background:linear-gradient(135deg,#fbbf24,#0ea5e9);"></div></td>
+<td>1.0.0</td>
+<td><span class="badge badge-green"><span class="dot"></span>Active</span><div class="cell-sub" style="margin-top:3px;">Available</div></td>
+<td><a class="link-blue">2<br>View Clients</a></td>
+<td><a class="link-blue">6<br>View Projects</a></td>
+<td>Jul 28, 2026<div class="cell-sub">Mike Editor</div></td>
+<td class="row-actions"><button class="btn btn-sm">View Details</button><button class="btn-icon"><i class="fa-solid fa-ellipsis"></i></button></td>
+</tr><tr>
+<td><div class="cell-main"><div class="cell-thumb" style="background:linear-gradient(135deg,#b91c1c,#7c2d12);"></div>
+<div><div class="cell-title">Dasara Special</div><div class="cell-sub" style="max-width:260px;">Dasara festival theme with traditional elements and promotional banners.</div></div></div></td>
+<td><div class="theme-preview" style="background:linear-gradient(135deg,#b91c1c,#7c2d12);"></div></td>
+<td>1.0.0</td>
+<td><span class="badge badge-green"><span class="dot"></span>Active</span><div class="cell-sub" style="margin-top:3px;">Available</div></td>
+<td><a class="link-blue">1<br>View Clients</a></td>
+<td><a class="link-blue">3<br>View Projects</a></td>
+<td>Jul 20, 2026<div class="cell-sub">Mike Editor</div></td>
+<td class="row-actions"><button class="btn btn-sm">View Details</button><button class="btn-icon"><i class="fa-solid fa-ellipsis"></i></button></td>
+</tr><tr>
+<td><div class="cell-main"><div class="cell-thumb" style="background:linear-gradient(135deg,#c4b5fd,#7c3aed);"></div>
+<div><div class="cell-title">Default Mall Theme</div><div class="cell-sub" style="max-width:260px;">Default theme with standard layout and neutral design for everyday use.</div></div></div></td>
+<td><div class="theme-preview" style="background:linear-gradient(135deg,#c4b5fd,#7c3aed);"></div></td>
+<td>1.0.0</td>
+<td><span class="badge badge-blue"><span class="dot"></span>Draft</span><div class="cell-sub" style="margin-top:3px;">In Development</div></td>
+<td><a class="link-blue">0<br>View Clients</a></td>
+<td><a class="link-blue">0<br>View Projects</a></td>
+<td>Aug 18, 2026<div class="cell-sub">John Admin</div></td>
+<td class="row-actions"><button class="btn btn-sm">View Details</button><button class="btn-icon"><i class="fa-solid fa-ellipsis"></i></button></td>
+</tr></tbody>
+  </table></div>
+  <div class="pagination-bar">
+    <div class="muted" style="font-size:12.5px;">Showing 1 to 5 of 5 themes</div>
+    <div class="pagination">
+      <div class="page-btn"><i class="fa-solid fa-chevron-left"></i></div>
+      <div class="page-btn active">1</div>
+      <div class="page-btn"><i class="fa-solid fa-chevron-right"></i></div>
+    </div>
+    <div class="select-pill">10 / page <i class="fa-solid fa-chevron-down"></i></div>
+  </div>
+</div>
+</div></div>
+</div>
+</body>
+</html>

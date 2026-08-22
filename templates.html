@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Templates · Kiosk Platform</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+<div class="app-shell">
+<aside class="sidebar">
+  <a href="dashboard.html" class="sidebar-brand" style="cursor:pointer;">
+    <div class="logo-icon"><svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M12 2L21 7V17L12 22L3 17V7L12 2Z" stroke="white" stroke-width="1.6" stroke-linejoin="round"/>
+<circle cx="12" cy="12" r="3.2" fill="white"/>
+</svg></div>
+    <div class="brand-text"><div class="t1">KIOSK</div><div class="t2">PLATFORM</div></div>
+  </a>
+  <div class="sidebar-section-label">PLATFORM ADMIN <i class="fa-solid fa-chevron-up" style="font-size:9px;"></i></div>
+  <ul class="sidebar-nav">
+  <li class="nav-item " onclick="location.href='dashboard.html'"><i class="fa-solid fa-house"></i><span>Dashboard</span></li>
+<li class="nav-item " onclick="location.href='clients.html'"><i class="fa-solid fa-user-group"></i><span>Clients</span></li>
+<li class="nav-item " onclick="location.href='projects.html'"><i class="fa-solid fa-folder-open"></i><span>Projects</span></li>
+<li class="nav-item " onclick="location.href='devices.html'"><i class="fa-solid fa-tablet-screen-button"></i><span>Devices</span></li>
+<li class="nav-item active" onclick="location.href='templates.html'"><i class="fa-solid fa-table-cells-large"></i><span>Templates</span></li>
+<li class="nav-item " onclick="location.href='analytics.html'"><i class="fa-solid fa-chart-column"></i><span>Analytics</span></li>
+<li class="nav-item " onclick="location.href='monitoring.html'"><i class="fa-solid fa-heart-pulse"></i><span>Monitoring</span></li>
+<li class="nav-item " onclick="location.href='users-roles.html'"><i class="fa-solid fa-users-gear"></i><span>Users & Roles</span></li>
+<li class="nav-item " onclick="location.href='billing.html'"><i class="fa-solid fa-credit-card"></i><span>Billing & Plans</span></li>
+<li class="nav-item " onclick="location.href='audit-logs.html'"><i class="fa-solid fa-file-lines"></i><span>Audit Logs</span></li>
+<li class="nav-item " onclick="location.href='system-settings.html'"><i class="fa-solid fa-gear"></i><span>System Settings</span></li>
+
+  </ul>
+  <div class="sidebar-spacer"></div>
+  <div class="sidebar-status">
+    <div class="st-title">System Status</div>
+    <div class="st-row"><span class="st-dot"></span> All Systems Operational</div>
+    <div class="st-sub">Last checked: 2 min ago</div>
+    <a href="monitoring.html">View System Health</a>
+  </div>
+  <div class="sidebar-quick">
+    <div class="qa-title">Quick Actions</div>
+    <a class="qa-item" href="onboard-client.html"><i class="fa-solid fa-user-plus"></i> Onboard New Client</a>
+    <a class="qa-item" href="clients.html"><i class="fa-solid fa-cube"></i> View Clients</a>
+    <a class="qa-item" href="devices.html"><i class="fa-solid fa-tablet-screen-button"></i> View Devices</a>
+    <a class="qa-item" href="monitoring.html"><i class="fa-solid fa-triangle-exclamation"></i> View Alerts</a>
+  </div>
+  <div class="sidebar-footer">Kiosk Platform v1.0.0</div>
+</aside>
+<div class="main"><header class="topbar">
+  <i class="fa-solid fa-bars hamburger"></i>
+  <div class="search"><i class="fa-solid fa-magnifying-glass"></i><span>Search clients, projects, devices...</span><span class="kbd">⌘K</span></div>
+  <div class="spacer"></div>
+  <button class="icon-btn"><i class="fa-regular fa-circle-question"></i></button>
+  <button class="icon-btn"><i class="fa-regular fa-bell"></i><span class="badge-dot">12</span></button>
+  <div class="user">
+    <div class="avatar">SA</div>
+    <div><div class="u-name">Super Admin</div><div class="u-role">Platform Administrator</div></div>
+    <i class="fa-solid fa-chevron-down"></i>
+  </div>
+</header>
+<div class="content">
+<div class="page-header">
+  <div><h1>Templates</h1><p>Manage platform templates and their availability for clients</p></div>
+</div>
+<div class="info-note" style="margin-top:-10px;"><i class="fa-solid fa-circle-info"></i> Templates are created and maintained by the Platform team. Company Admins manage their lifecycle and availability.</div>
+
+<div class="stats-grid">
+  <div class="stat-card"><div class="icon icon-blue"><i class="fa-solid fa-folder"></i></div><div class="body"><div class="label">Total Templates</div><div class="value">1</div><div class="sub">All templates</div></div></div>
+  <div class="stat-card"><div class="icon icon-green"><i class="fa-solid fa-shield-halved"></i></div><div class="body"><div class="label">Active Templates</div><div class="value">1</div><div class="sub">Available for clients</div></div></div>
+  <div class="stat-card"><div class="icon icon-purple"><i class="fa-solid fa-people-group"></i></div><div class="body"><div class="label">Unavailable Templates</div><div class="value">0</div><div class="sub">Not available for clients</div></div></div>
+  <div class="stat-card"><div class="icon icon-amber"><i class="fa-solid fa-shield"></i></div><div class="body"><div class="label">Total Themes</div><div class="value">5</div><div class="sub">Across all templates</div></div></div>
+  <div class="stat-card"><div class="icon icon-green"><i class="fa-solid fa-table-cells"></i></div><div class="body"><div class="label">Clients Using Templates</div><div class="value">8</div><div class="sub">Active clients</div></div></div>
+</div>
+
+<div class="panel">
+  <div class="panel-header">
+    <div><h2>All Templates</h2><p>View and manage templates that are available on the platform</p></div>
+    <div class="filters">
+      <div class="search-input"><i class="fa-solid fa-magnifying-glass"></i><span>Search templates...</span></div>
+      <button class="btn"><i class="fa-solid fa-filter"></i> Filter</button>
+    </div>
+  </div>
+  <div class="table-wrap"><table>
+  <thead><tr><th>Template</th><th>Type</th><th>Version</th><th>Status</th><th>Themes</th><th>Clients</th><th>Projects</th><th>Kiosks</th><th>Last Updated</th><th>Actions</th></tr></thead>
+  <tbody>
+  <tr>
+  <td><div class="cell-main"><div class="cell-thumb" style="background:linear-gradient(135deg,#c4b5fd,#7c3aed);"></div>
+  <div><div class="cell-title">Mall / Indoor Venue</div><div class="cell-sub" style="max-width:260px;">Complete solution for malls and indoor venues with maps, navigation, directory, and more.</div></div></div></td>
+  <td><div class="cell-main"><div class="tmpl-icon"><i class="fa-solid fa-shield"></i></div><div style="font-size:12.5px;font-weight:700;">Indoor Venue</div></div></td>
+  <td>1.2.0</td>
+  <td><span class="badge badge-green"><span class="dot"></span>Active</span><div class="cell-sub" style="margin-top:3px;">Available</div></td>
+  <td><a class="link-blue" href="themes.html">5<br>View Themes</a></td>
+  <td><a class="link-blue" href="clients.html">8<br>View Clients</a></td>
+  <td><a class="link-blue" href="projects.html">24<br>View Projects</a></td>
+  <td><a class="link-blue" href="devices.html">32<br>View Devices</a></td>
+  <td>Aug 10, 2026<div class="cell-sub">John Admin</div></td>
+  <td class="row-actions"><a class="btn btn-sm" href="themes.html">View Details</a><button class="btn-icon"><i class="fa-solid fa-ellipsis"></i></button></td>
+  </tr>
+  </tbody>
+  </table></div>
+  <div class="pagination-bar">
+    <div class="muted" style="font-size:12.5px;">Showing 1 to 1 of 1 template</div>
+    <div class="pagination">
+      <div class="page-btn"><i class="fa-solid fa-chevron-left"></i></div>
+      <div class="page-btn active">1</div>
+      <div class="page-btn"><i class="fa-solid fa-chevron-right"></i></div>
+    </div>
+    <div class="select-pill">10 / page <i class="fa-solid fa-chevron-down"></i></div>
+  </div>
+</div>
+
+<div class="panel" style="padding:22px;">
+  <h2 style="font-size:17px;margin:0 0 4px;">About Templates</h2>
+  <p class="muted" style="font-size:12.5px;margin:0 0 18px;">Templates define the business structure, features, and behavior for a specific type of venue or use case.</p>
+  <div class="info-cards-grid">
+    <div class="info-card"><div class="icon icon-blue"><i class="fa-solid fa-layer-group"></i></div><h4>Built by Platform Team</h4><p>Templates are designed and built by the platform/product team based on business requirements.</p></div>
+    <div class="info-card"><div class="icon icon-green"><i class="fa-solid fa-people-group"></i></div><h4>Released &amp; Managed</h4><p>Company admins control the lifecycle, versions, and availability of templates for clients.</p></div>
+    <div class="info-card"><div class="icon icon-purple"><i class="fa-solid fa-shield"></i></div><h4>Reusable Structure</h4><p>Clients use templates as a foundation and customize content, not the underlying structure.</p></div>
+    <div class="info-card"><div class="icon icon-amber"><i class="fa-solid fa-diagram-project"></i></div><h4>Theme Based</h4><p>Templates can have multiple themes (seasons, events, etc.) that clients can apply and customize.</p></div>
+  </div>
+</div>
+
+<div class="help-card"><h4><i class="fa-solid fa-circle-info" style="color:#2563eb;"></i> Need Help?</h4><p>Learn more about templates, themes, and lifecycle management.</p><button class="btn" style="width:100%;justify-content:center;">View Documentation <i class="fa-solid fa-arrow-up-right-from-square"></i></button></div>
+</div></div>
+</div>
+</body>
+</html>

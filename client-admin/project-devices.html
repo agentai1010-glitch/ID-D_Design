@@ -1,0 +1,506 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Phoenix Mall · Devices · Kiosk Platform</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<link rel="stylesheet" href="../css/styles.css">
+<style>
+  .devices-table { width:100%; border-collapse:collapse; font-size:12.5px; min-width:900px; }
+  .devices-table th { padding:9px 12px; text-align:left; font-size:11.5px; font-weight:700; color:var(--text-500); background:#fafbfc; border-bottom:1px solid var(--border); white-space:nowrap; }
+  .devices-table td { padding:10px 12px; vertical-align:middle; border-bottom:1px solid var(--border-soft); }
+  .devices-table tr:hover td { background:#fafbfc; }
+  .devices-table tr:last-child td { border-bottom:none; }
+  .device-thumb { width:28px; height:38px; background:#0f172a; border-radius:4px; display:flex;align-items:center;justify-content:center; flex-shrink:0; }
+  .health-bar-wrap { display:flex; align-items:center; gap:6px; }
+  .health-bar { height:5px; border-radius:3px; background:#e2e8f0; flex:1; overflow:hidden; }
+  .health-bar-fill { height:100%; border-radius:3px; }
+  .top-issue-item { display:flex;align-items:flex-start;gap:9px; padding:9px 0; border-bottom:1px solid var(--border-soft); }
+  .top-issue-item:last-child { border-bottom:none; }
+  .quick-action-row { display:flex;align-items:center;justify-content:space-between; padding:10px 10px; border-radius:8px; cursor:pointer; border:1px solid transparent; transition:all 0.15s; }
+  .quick-action-row:hover { background:#f8fafc; border-color:var(--border-soft); }
+  .pagination-btn { width:30px;height:30px;border-radius:6px;border:1px solid var(--border);background:#fff;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:600;color:var(--text-700);transition:all 0.15s; }
+  .pagination-btn:hover { background:#f1f5f9; }
+  .pagination-btn.active { background:#2563eb;color:#fff;border-color:#2563eb; }
+  .filter-select { display:flex;align-items:center;gap:5px; height:32px;padding:0 10px;border:1px solid var(--border);border-radius:7px;font-size:12px;color:var(--text-700);background:#fff;cursor:pointer;white-space:nowrap; }
+  input[type=checkbox].row-check { width:14px;height:14px;cursor:pointer;accent-color:#2563eb; }
+</style>
+</head>
+<body>
+<div class="app-shell">
+
+<aside class="sidebar">
+  <a href="dashboard.html" class="sidebar-brand">
+    <div class="logo-icon">
+      <svg viewBox="0 0 24 24" fill="none"><path d="M12 2L21 7V17L12 22L3 17V7L12 2Z" stroke="white" stroke-width="1.6" stroke-linejoin="round"/><circle cx="12" cy="12" r="3.2" fill="white"/></svg>
+    </div>
+    <div class="brand-text"><div class="t1">KIOSK</div><div class="t2">PLATFORM</div></div>
+  </a>
+  <div class="sidebar-section-label">WORKSPACE</div>
+  <ul class="sidebar-nav">
+    <li class="nav-item" onclick="location.href='dashboard.html'"><i class="fa-solid fa-house"></i><span>Dashboard</span></li>
+    <li class="nav-item active"><i class="fa-solid fa-folder-open"></i><span>Projects</span></li>
+    <li class="nav-item" onclick="location.href='devices.html'"><i class="fa-solid fa-tablet-screen-button"></i><span>Devices</span></li>
+    <li class="nav-item" onclick="location.href='analytics.html'"><i class="fa-solid fa-chart-column"></i><span>Analytics</span></li>
+  </ul>
+  <div class="sidebar-section-label">TEAM</div>
+  <ul class="sidebar-nav">
+    <li class="nav-item"><i class="fa-solid fa-users"></i><span>Users & Roles</span></li>
+  </ul>
+  <div class="sidebar-section-label">ACCOUNT</div>
+  <ul class="sidebar-nav">
+    <li class="nav-item"><i class="fa-solid fa-gear"></i><span>Settings</span></li>
+  </ul>
+  <div class="sidebar-spacer"></div>
+  <div class="org-switcher-card">
+    <div class="org-switcher-header">
+      <div class="org-icon-box"><i class="fa-solid fa-city"></i></div>
+      <div><div class="org-name-text">Phoenix Retail Group</div><div class="org-sub-text">Organization</div></div>
+    </div>
+    <button class="org-btn-switch"><span>Switch Organization</span><i class="fa-solid fa-chevron-down" style="font-size:9.5px;"></i></button>
+  </div>
+  <div class="sidebar-footer" style="display:flex;align-items:center;justify-content:space-between;">
+    <span>Client Admin v1.0.0</span>
+    <i class="fa-solid fa-chevron-left" style="font-size:10px;cursor:pointer;"></i>
+  </div>
+</aside>
+
+<div class="main">
+  <header class="topbar">
+    <i class="fa-solid fa-bars hamburger"></i>
+    <div class="search"><i class="fa-solid fa-magnifying-glass"></i><span>Search projects, kiosks, locations...</span><span class="kbd">⌘ K</span></div>
+    <div class="spacer"></div>
+    <button class="icon-btn"><i class="fa-regular fa-bell"></i><span class="badge-dot">8</span></button>
+    <div class="user">
+      <div class="avatar" style="background:linear-gradient(135deg,#3b82f6,#1d4ed8);">RA</div>
+      <div><div class="u-name">Rahul Arora</div><div class="u-role">Client Admin</div></div>
+      <i class="fa-solid fa-chevron-down"></i>
+    </div>
+  </header>
+
+  <main class="content">
+    <div class="project-header-container">
+      <div class="project-breadcrumbs">
+        <a href="projects.html">Projects</a>
+        <i class="fa-solid fa-chevron-right" style="font-size:9px;color:var(--text-400);"></i>
+        <a href="project-overview.html">Phoenix Mall</a>
+        <i class="fa-solid fa-chevron-right" style="font-size:9px;color:var(--text-400);"></i>
+        <span style="font-weight:600;color:var(--text-900);">Devices</span>
+      </div>
+      <div class="project-title-row">
+        <div class="project-title-left">
+          <h1>Phoenix Mall</h1>
+          <span class="badge badge-green" style="font-size:12px;padding:3px 10px;font-weight:600;"><span class="dot"></span> Active</span>
+        </div>
+        <div style="display:flex;align-items:center;gap:10px;">
+          <button class="btn" style="background:#fff;border:1px solid var(--border);color:var(--text-700);font-weight:600;padding:9px 16px;display:flex;align-items:center;gap:8px;"><i class="fa-regular fa-eye"></i> Preview Kiosk</button>
+          <button class="btn btn-primary" style="background:#2563eb;color:#fff;font-weight:600;padding:9px 18px;display:flex;align-items:center;gap:8px;"><i class="fa-solid fa-gear"></i> Project Settings <i class="fa-solid fa-chevron-down" style="font-size:9.5px;margin-left:2px;"></i></button>
+        </div>
+      </div>
+      <div class="project-meta-row">
+        <div class="project-meta-item"><i class="fa-solid fa-building" style="color:var(--text-400);"></i> Mall / Indoor Venue</div>
+        <span style="color:var(--text-400);">•</span>
+        <div class="project-meta-item"><i class="fa-solid fa-location-dot" style="color:var(--text-400);"></i> Mumbai, India</div>
+        <span style="color:var(--text-400);">•</span>
+        <div class="project-meta-item"><i class="fa-solid fa-tablet-screen-button" style="color:var(--text-400);"></i> 12 Kiosks</div>
+        <span style="color:var(--text-400);">•</span>
+        <div class="project-meta-item" style="color:var(--green-600);font-weight:600;"><i class="fa-solid fa-circle-check"></i> Release 43 (Published)</div>
+      </div>
+    </div>
+
+    <div class="project-tabs-nav">
+      <button class="project-tab-btn" onclick="location.href='project-overview.html'">Overview</button>
+      <button class="project-tab-btn" onclick="location.href='project-experience.html'">Experience</button>
+      <button class="project-tab-btn" onclick="location.href='project-content.html'">Content</button>
+      <button class="project-tab-btn" onclick="location.href='project-maps.html'">Maps</button>
+      <button class="project-tab-btn" onclick="location.href='project-navigation.html'">Navigation</button>
+      <button class="project-tab-btn" onclick="location.href='project-advertisements.html'">Advertisements</button>
+      <button class="project-tab-btn" onclick="location.href='project-preview.html'">Preview</button>
+      <button class="project-tab-btn" onclick="location.href='project-validation.html'">Validation</button>
+      <button class="project-tab-btn" onclick="location.href='project-releases.html'">Releases</button>
+      <button class="project-tab-btn active">Devices</button>
+      <button class="project-tab-btn" onclick="location.href='project-analytics.html'">Analytics</button>
+      <button class="project-tab-btn" onclick="location.href='#'">Settings</button>
+    </div>
+
+    <!-- Section Header -->
+    <div style="margin-bottom:18px;">
+      <h2 style="font-size:17px;font-weight:800;color:var(--text-900);margin:0 0 3px;">Devices Overview</h2>
+      <p style="font-size:12.5px;color:var(--text-500);margin:0;">Monitor and manage all devices connected to your project.</p>
+    </div>
+
+    <!-- KPI Cards + Donut Chart -->
+    <div style="display:grid;grid-template-columns:minmax(0,1fr) 280px;gap:20px;align-items:flex-start;margin-bottom:22px;">
+      <!-- Left: KPI Strip -->
+      <div class="ad-metrics-strip" style="margin:0;">
+        <!-- Total -->
+        <div class="content-metric-card">
+          <div class="kpi-icon-box" style="background:#eff6ff;color:#2563eb;width:40px;height:40px;border-radius:10px;"><i class="fa-solid fa-desktop"></i></div>
+          <div>
+            <div style="font-size:22px;font-weight:800;color:var(--text-900);line-height:1.1;">128</div>
+            <div style="font-size:11.5px;font-weight:600;color:var(--text-600);margin-top:2px;">Total Devices</div>
+            <div style="font-size:11px;color:#16a34a;font-weight:600;margin-top:2px;">↑ 12 vs last month</div>
+          </div>
+        </div>
+        <!-- Online -->
+        <div class="content-metric-card">
+          <div class="kpi-icon-box" style="background:#ecfdf5;color:#059669;width:40px;height:40px;border-radius:10px;"><i class="fa-regular fa-circle-check"></i></div>
+          <div>
+            <div style="font-size:22px;font-weight:800;color:var(--text-900);line-height:1.1;">112</div>
+            <div style="font-size:11.5px;font-weight:600;color:var(--text-600);margin-top:2px;">Online</div>
+            <div style="font-size:11px;color:var(--text-400);margin-top:2px;">87.5% of total</div>
+          </div>
+        </div>
+        <!-- Offline -->
+        <div class="content-metric-card">
+          <div class="kpi-icon-box" style="background:#fff7ed;color:#ea580c;width:40px;height:40px;border-radius:10px;"><i class="fa-solid fa-triangle-exclamation"></i></div>
+          <div>
+            <div style="font-size:22px;font-weight:800;color:var(--text-900);line-height:1.1;">10</div>
+            <div style="font-size:11.5px;font-weight:600;color:var(--text-600);margin-top:2px;">Offline</div>
+            <div style="font-size:11px;color:var(--text-400);margin-top:2px;">7.8% of total</div>
+          </div>
+        </div>
+        <!-- Error -->
+        <div class="content-metric-card">
+          <div class="kpi-icon-box" style="background:#fef2f2;color:#dc2626;width:40px;height:40px;border-radius:10px;"><i class="fa-regular fa-circle-xmark"></i></div>
+          <div>
+            <div style="font-size:22px;font-weight:800;color:var(--text-900);line-height:1.1;">6</div>
+            <div style="font-size:11.5px;font-weight:600;color:var(--text-600);margin-top:2px;">Error</div>
+            <div style="font-size:11px;color:var(--text-400);margin-top:2px;">4.7% of total</div>
+          </div>
+        </div>
+        <!-- Maintenance -->
+        <div class="content-metric-card">
+          <div class="kpi-icon-box" style="background:#eff6ff;color:#2563eb;width:40px;height:40px;border-radius:10px;"><i class="fa-solid fa-circle-info"></i></div>
+          <div>
+            <div style="font-size:22px;font-weight:800;color:var(--text-900);line-height:1.1;">12</div>
+            <div style="font-size:11.5px;font-weight:600;color:var(--text-600);margin-top:2px;">Maintenance</div>
+            <div style="font-size:11px;color:var(--text-400);margin-top:2px;">9.4% of total</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right: Donut Chart -->
+      <div class="panel" style="margin:0;padding:16px;">
+        <div style="font-size:13.5px;font-weight:700;color:var(--text-900);margin-bottom:12px;">Device Status Distribution</div>
+        <div style="display:flex;align-items:center;gap:16px;">
+          <div style="position:relative;width:100px;height:100px;flex-shrink:0;">
+            <svg viewBox="0 0 100 100" style="width:100%;height:100%;transform:rotate(-90deg);">
+              <circle cx="50" cy="50" r="38" stroke="#f1f5f9" stroke-width="13" fill="none"/>
+              <!-- Green 87.5% = 209 -->
+              <circle cx="50" cy="50" r="38" stroke="#22c55e" stroke-width="13" fill="none" stroke-dasharray="208.5 238.76"/>
+              <!-- Amber 9.4% = 22.4 -->
+              <circle cx="50" cy="50" r="38" stroke="#3b82f6" stroke-width="13" fill="none" stroke-dasharray="22.4 238.76" stroke-dashoffset="-208.5"/>
+              <!-- Red 4.7% -->
+              <circle cx="50" cy="50" r="38" stroke="#ef4444" stroke-width="13" fill="none" stroke-dasharray="11.2 238.76" stroke-dashoffset="-230.9"/>
+              <!-- Blue maint -->
+              <circle cx="50" cy="50" r="38" stroke="#f59e0b" stroke-width="13" fill="none" stroke-dasharray="22.4 238.76" stroke-dashoffset="-219.7"/>
+            </svg>
+            <div style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);text-align:center;">
+              <div style="font-size:17px;font-weight:800;color:var(--text-900);line-height:1;">128</div>
+              <div style="font-size:9px;color:var(--text-400);font-weight:600;margin-top:1px;">Total</div>
+            </div>
+          </div>
+          <div style="display:flex;flex-direction:column;gap:6px;font-size:11.5px;">
+            <div style="display:flex;align-items:center;gap:6px;"><span style="width:8px;height:8px;border-radius:50%;background:#22c55e;flex-shrink:0;"></span><span style="color:var(--text-600);">112 Online (87.5%)</span></div>
+            <div style="display:flex;align-items:center;gap:6px;"><span style="width:8px;height:8px;border-radius:50%;background:#f59e0b;flex-shrink:0;"></span><span style="color:var(--text-600);">10 Offline (7.8%)</span></div>
+            <div style="display:flex;align-items:center;gap:6px;"><span style="width:8px;height:8px;border-radius:50%;background:#ef4444;flex-shrink:0;"></span><span style="color:var(--text-600);">6 Error (4.7%)</span></div>
+            <div style="display:flex;align-items:center;gap:6px;"><span style="width:8px;height:8px;border-radius:50%;background:#3b82f6;flex-shrink:0;"></span><span style="color:var(--text-600);">12 Maintenance (9.4%)</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Main 2-col: Table + Right Sidebar -->
+    <div class="content-main-layout" style="grid-template-columns:minmax(0,1fr) 260px;gap:20px;align-items:flex-start;">
+
+      <!-- Left: Devices Table -->
+      <div class="panel" style="margin:0;padding:0;overflow:hidden;">
+        <!-- Table Header -->
+        <div style="display:flex;align-items:center;justify-content:space-between;padding:13px 16px;border-bottom:1px solid var(--border-soft);">
+          <h3 style="margin:0;font-size:14px;font-weight:700;color:var(--text-900);">All Devices</h3>
+          <div style="display:flex;align-items:center;gap:8px;">
+            <button class="btn" style="height:32px;padding:0 12px;font-size:12px;font-weight:600;display:flex;align-items:center;gap:6px;"><i class="fa-solid fa-bolt"></i> Bulk Actions <i class="fa-solid fa-chevron-down" style="font-size:9px;"></i></button>
+            <button class="btn btn-primary" style="height:32px;padding:0 12px;font-size:12px;font-weight:600;background:#2563eb;color:#fff;display:flex;align-items:center;gap:6px;"><i class="fa-solid fa-plus"></i> Add Device</button>
+          </div>
+        </div>
+
+        <!-- Filter Bar -->
+        <div style="display:flex;align-items:center;gap:8px;padding:11px 16px;border-bottom:1px solid var(--border-soft);flex-wrap:wrap;">
+          <div style="display:flex;align-items:center;gap:7px;background:#f8fafc;border:1px solid var(--border);border-radius:7px;padding:0 10px;height:32px;min-width:160px;">
+            <i class="fa-solid fa-magnifying-glass" style="color:var(--text-400);font-size:11px;"></i>
+            <input type="text" placeholder="Search devices..." style="border:none;background:transparent;outline:none;font-size:12px;color:var(--text-800);font-family:inherit;flex:1;">
+          </div>
+          <div class="filter-select">All Status <i class="fa-solid fa-chevron-down" style="font-size:9px;"></i></div>
+          <div class="filter-select">All Kiosk Groups <i class="fa-solid fa-chevron-down" style="font-size:9px;"></i></div>
+          <div class="filter-select">All Locations <i class="fa-solid fa-chevron-down" style="font-size:9px;"></i></div>
+          <div class="filter-select">All Device Types <i class="fa-solid fa-chevron-down" style="font-size:9px;"></i></div>
+          <button class="btn" style="height:32px;padding:0 10px;font-size:12px;display:flex;align-items:center;gap:5px;">More Filters <i class="fa-solid fa-sliders" style="font-size:10px;"></i></button>
+        </div>
+
+        <!-- Table -->
+        <div style="overflow-x:auto;">
+          <table class="devices-table">
+            <thead>
+              <tr>
+                <th style="width:32px;padding-left:16px;"><input type="checkbox" class="row-check"></th>
+                <th>Device Name</th>
+                <th>Kiosk ID</th>
+                <th>Kiosk Group</th>
+                <th>Location</th>
+                <th>Status</th>
+                <th>Last Seen</th>
+                <th>OS / Version</th>
+                <th>Health</th>
+                <th style="text-align:right;padding-right:16px;">Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              <!-- Kiosk-01 Online Good -->
+              <tr>
+                <td style="padding-left:16px;"><input type="checkbox" class="row-check"></td>
+                <td>
+                  <div style="display:flex;align-items:center;gap:10px;">
+                    <div class="device-thumb"><i class="fa-solid fa-tablet-screen-button" style="color:#fff;font-size:14px;"></i></div>
+                    <div><div style="font-size:12.5px;font-weight:700;color:var(--text-900);">Kiosk-01</div><div style="font-size:10.5px;color:var(--text-400);">Main Entrance - Left</div></div>
+                  </div>
+                </td>
+                <td style="font-size:12px;font-weight:600;color:var(--text-700);">PM-K01</td>
+                <td><span class="badge" style="background:#eff6ff;color:#2563eb;font-size:10.5px;padding:2px 7px;font-weight:600;">Directory</span></td>
+                <td><div style="font-size:12px;font-weight:600;color:var(--text-900);">Ground Floor</div><div style="font-size:10.5px;color:var(--text-400);">Main Entrance</div></td>
+                <td><span class="badge" style="background:#ecfdf5;color:#16a34a;font-size:11px;padding:2px 8px;font-weight:600;">Online</span></td>
+                <td><div style="font-size:12px;font-weight:600;color:var(--text-900);">May 16, 2026</div><div style="font-size:10.5px;color:var(--text-400);">12:30 PM</div></td>
+                <td><div style="font-size:12px;color:var(--text-700);">Android 11</div><div style="font-size:10.5px;color:var(--text-400);">v5.3.2</div></td>
+                <td>
+                  <div class="health-bar-wrap">
+                    <div class="health-bar" style="width:60px;"><div class="health-bar-fill" style="width:99%;background:#22c55e;"></div></div>
+                    <span style="font-size:11px;font-weight:700;color:#16a34a;">Good</span>
+                  </div>
+                  <div style="font-size:10.5px;color:var(--text-400);margin-top:2px;">99%</div>
+                </td>
+                <td style="text-align:right;padding-right:16px;"><button class="icon-btn" style="color:var(--text-400);"><i class="fa-solid fa-ellipsis"></i></button></td>
+              </tr>
+
+              <!-- Kiosk-02 Online Good -->
+              <tr>
+                <td style="padding-left:16px;"><input type="checkbox" class="row-check"></td>
+                <td>
+                  <div style="display:flex;align-items:center;gap:10px;">
+                    <div class="device-thumb"><i class="fa-solid fa-tablet-screen-button" style="color:#fff;font-size:14px;"></i></div>
+                    <div><div style="font-size:12.5px;font-weight:700;color:var(--text-900);">Kiosk-02</div><div style="font-size:10.5px;color:var(--text-400);">Main Entrance - Right</div></div>
+                  </div>
+                </td>
+                <td style="font-size:12px;font-weight:600;color:var(--text-700);">PM-K02</td>
+                <td><span class="badge" style="background:#eff6ff;color:#2563eb;font-size:10.5px;padding:2px 7px;font-weight:600;">Directory</span></td>
+                <td><div style="font-size:12px;font-weight:600;color:var(--text-900);">Ground Floor</div><div style="font-size:10.5px;color:var(--text-400);">Main Entrance</div></td>
+                <td><span class="badge" style="background:#ecfdf5;color:#16a34a;font-size:11px;padding:2px 8px;font-weight:600;">Online</span></td>
+                <td><div style="font-size:12px;font-weight:600;color:var(--text-900);">May 16, 2026</div><div style="font-size:10.5px;color:var(--text-400);">12:28 PM</div></td>
+                <td><div style="font-size:12px;color:var(--text-700);">Android 11</div><div style="font-size:10.5px;color:var(--text-400);">v5.3.2</div></td>
+                <td>
+                  <div class="health-bar-wrap"><div class="health-bar" style="width:60px;"><div class="health-bar-fill" style="width:97%;background:#22c55e;"></div></div><span style="font-size:11px;font-weight:700;color:#16a34a;">Good</span></div>
+                  <div style="font-size:10.5px;color:var(--text-400);margin-top:2px;">97%</div>
+                </td>
+                <td style="text-align:right;padding-right:16px;"><button class="icon-btn" style="color:var(--text-400);"><i class="fa-solid fa-ellipsis"></i></button></td>
+              </tr>
+
+              <!-- Kiosk-03 Offline Poor -->
+              <tr>
+                <td style="padding-left:16px;"><input type="checkbox" class="row-check"></td>
+                <td>
+                  <div style="display:flex;align-items:center;gap:10px;">
+                    <div class="device-thumb" style="background:#475569;"><i class="fa-solid fa-tablet-screen-button" style="color:#94a3b8;font-size:14px;"></i></div>
+                    <div><div style="font-size:12.5px;font-weight:700;color:var(--text-900);">Kiosk-03</div><div style="font-size:10.5px;color:var(--text-400);">Food Court - 1</div></div>
+                  </div>
+                </td>
+                <td style="font-size:12px;font-weight:600;color:var(--text-700);">PM-K03</td>
+                <td><span class="badge" style="background:#fff7ed;color:#ea580c;font-size:10.5px;padding:2px 7px;font-weight:600;">Food & Dining</span></td>
+                <td><div style="font-size:12px;font-weight:600;color:var(--text-900);">First Floor</div><div style="font-size:10.5px;color:var(--text-400);">Food Court</div></td>
+                <td><span class="badge" style="background:#f1f5f9;color:#64748b;font-size:11px;padding:2px 8px;font-weight:600;">Offline</span></td>
+                <td><div style="font-size:12px;font-weight:600;color:var(--text-500);">May 16, 2026</div><div style="font-size:10.5px;color:var(--text-400);">09:15 AM</div></td>
+                <td><div style="font-size:12px;color:var(--text-700);">Android 10</div><div style="font-size:10.5px;color:var(--text-400);">v5.2.1</div></td>
+                <td>
+                  <div class="health-bar-wrap"><div class="health-bar" style="width:60px;"><div class="health-bar-fill" style="width:15%;background:#ef4444;"></div></div><span style="font-size:11px;font-weight:700;color:#dc2626;">Poor</span></div>
+                  <div style="font-size:10.5px;color:var(--text-400);margin-top:2px;">15%</div>
+                </td>
+                <td style="text-align:right;padding-right:16px;"><button class="icon-btn" style="color:var(--text-400);"><i class="fa-solid fa-ellipsis"></i></button></td>
+              </tr>
+
+              <!-- Kiosk-04 Online Good -->
+              <tr>
+                <td style="padding-left:16px;"><input type="checkbox" class="row-check"></td>
+                <td>
+                  <div style="display:flex;align-items:center;gap:10px;">
+                    <div class="device-thumb"><i class="fa-solid fa-tablet-screen-button" style="color:#fff;font-size:14px;"></i></div>
+                    <div><div style="font-size:12.5px;font-weight:700;color:var(--text-900);">Kiosk-04</div><div style="font-size:10.5px;color:var(--text-400);">Food Court - 2</div></div>
+                  </div>
+                </td>
+                <td style="font-size:12px;font-weight:600;color:var(--text-700);">PM-K04</td>
+                <td><span class="badge" style="background:#fff7ed;color:#ea580c;font-size:10.5px;padding:2px 7px;font-weight:600;">Food & Dining</span></td>
+                <td><div style="font-size:12px;font-weight:600;color:var(--text-900);">First Floor</div><div style="font-size:10.5px;color:var(--text-400);">Food Court</div></td>
+                <td><span class="badge" style="background:#ecfdf5;color:#16a34a;font-size:11px;padding:2px 8px;font-weight:600;">Online</span></td>
+                <td><div style="font-size:12px;font-weight:600;color:var(--text-900);">May 16, 2026</div><div style="font-size:10.5px;color:var(--text-400);">12:29 PM</div></td>
+                <td><div style="font-size:12px;color:var(--text-700);">Android 11</div><div style="font-size:10.5px;color:var(--text-400);">v5.3.2</div></td>
+                <td>
+                  <div class="health-bar-wrap"><div class="health-bar" style="width:60px;"><div class="health-bar-fill" style="width:94%;background:#22c55e;"></div></div><span style="font-size:11px;font-weight:700;color:#16a34a;">Good</span></div>
+                  <div style="font-size:10.5px;color:var(--text-400);margin-top:2px;">94%</div>
+                </td>
+                <td style="text-align:right;padding-right:16px;"><button class="icon-btn" style="color:var(--text-400);"><i class="fa-solid fa-ellipsis"></i></button></td>
+              </tr>
+
+              <!-- Kiosk-05 Error Critical -->
+              <tr>
+                <td style="padding-left:16px;"><input type="checkbox" class="row-check"></td>
+                <td>
+                  <div style="display:flex;align-items:center;gap:10px;">
+                    <div class="device-thumb" style="background:#7f1d1d;"><i class="fa-solid fa-tablet-screen-button" style="color:#fca5a5;font-size:14px;"></i></div>
+                    <div><div style="font-size:12.5px;font-weight:700;color:var(--text-900);">Kiosk-05</div><div style="font-size:10.5px;color:var(--text-400);">Near PVR Cinemas</div></div>
+                  </div>
+                </td>
+                <td style="font-size:12px;font-weight:600;color:var(--text-700);">PM-K05</td>
+                <td><span class="badge" style="background:#f5f3ff;color:#7c3aed;font-size:10.5px;padding:2px 7px;font-weight:600;">Entertainment</span></td>
+                <td><div style="font-size:12px;font-weight:600;color:var(--text-900);">Second Floor</div><div style="font-size:10.5px;color:var(--text-400);">PVR Lobby</div></td>
+                <td><span class="badge" style="background:#fef2f2;color:#dc2626;font-size:11px;padding:2px 8px;font-weight:600;">Error</span></td>
+                <td><div style="font-size:12px;font-weight:600;color:var(--text-500);">May 16, 2026</div><div style="font-size:10.5px;color:var(--text-400);">08:40 AM</div></td>
+                <td><div style="font-size:12px;color:var(--text-700);">Android 11</div><div style="font-size:10.5px;color:var(--text-400);">v5.3.0</div></td>
+                <td>
+                  <div class="health-bar-wrap"><div class="health-bar" style="width:60px;"><div class="health-bar-fill" style="width:5%;background:#ef4444;"></div></div><span style="font-size:11px;font-weight:700;color:#dc2626;">Critical</span></div>
+                  <div style="font-size:10.5px;color:var(--text-400);margin-top:2px;">5%</div>
+                </td>
+                <td style="text-align:right;padding-right:16px;"><button class="icon-btn" style="color:var(--text-400);"><i class="fa-solid fa-ellipsis"></i></button></td>
+              </tr>
+
+              <!-- Kiosk-06 Maintenance Fair -->
+              <tr>
+                <td style="padding-left:16px;"><input type="checkbox" class="row-check"></td>
+                <td>
+                  <div style="display:flex;align-items:center;gap:10px;">
+                    <div class="device-thumb" style="background:#1e3a5f;"><i class="fa-solid fa-tablet-screen-button" style="color:#93c5fd;font-size:14px;"></i></div>
+                    <div><div style="font-size:12.5px;font-weight:700;color:var(--text-900);">Kiosk-06</div><div style="font-size:10.5px;color:var(--text-400);">West Atrium</div></div>
+                  </div>
+                </td>
+                <td style="font-size:12px;font-weight:600;color:var(--text-700);">PM-K06</td>
+                <td><span class="badge" style="background:#eff6ff;color:#2563eb;font-size:10.5px;padding:2px 7px;font-weight:600;">Directory</span></td>
+                <td><div style="font-size:12px;font-weight:600;color:var(--text-900);">Second Floor</div><div style="font-size:10.5px;color:var(--text-400);">West Atrium</div></td>
+                <td><span class="badge" style="background:#fefce8;color:#ca8a04;font-size:11px;padding:2px 8px;font-weight:600;">Maintenance</span></td>
+                <td><div style="font-size:12px;font-weight:600;color:var(--text-500);">May 16, 2026</div><div style="font-size:10.5px;color:var(--text-400);">Yesterday, 11:20 PM</div></td>
+                <td><div style="font-size:12px;color:var(--text-700);">Android 11</div><div style="font-size:10.5px;color:var(--text-400);">v5.3.1</div></td>
+                <td>
+                  <div class="health-bar-wrap"><div class="health-bar" style="width:60px;"><div class="health-bar-fill" style="width:55%;background:#f59e0b;"></div></div><span style="font-size:11px;font-weight:700;color:#ca8a04;">Fair</span></div>
+                  <div style="font-size:10.5px;color:var(--text-400);margin-top:2px;">55%</div>
+                </td>
+                <td style="text-align:right;padding-right:16px;"><button class="icon-btn" style="color:var(--text-400);"><i class="fa-solid fa-ellipsis"></i></button></td>
+              </tr>
+
+              <!-- Kiosk-07 Online Good -->
+              <tr>
+                <td style="padding-left:16px;"><input type="checkbox" class="row-check"></td>
+                <td>
+                  <div style="display:flex;align-items:center;gap:10px;">
+                    <div class="device-thumb"><i class="fa-solid fa-tablet-screen-button" style="color:#fff;font-size:14px;"></i></div>
+                    <div><div style="font-size:12.5px;font-weight:700;color:var(--text-900);">Kiosk-07</div><div style="font-size:10.5px;color:var(--text-400);">North Entrance</div></div>
+                  </div>
+                </td>
+                <td style="font-size:12px;font-weight:600;color:var(--text-700);">PM-K07</td>
+                <td><span class="badge" style="background:#eff6ff;color:#2563eb;font-size:10.5px;padding:2px 7px;font-weight:600;">Directory</span></td>
+                <td><div style="font-size:12px;font-weight:600;color:var(--text-900);">Ground Floor</div><div style="font-size:10.5px;color:var(--text-400);">North Entrance</div></td>
+                <td><span class="badge" style="background:#ecfdf5;color:#16a34a;font-size:11px;padding:2px 8px;font-weight:600;">Online</span></td>
+                <td><div style="font-size:12px;font-weight:600;color:var(--text-900);">May 16, 2026</div><div style="font-size:10.5px;color:var(--text-400);">12:27 PM</div></td>
+                <td><div style="font-size:12px;color:var(--text-700);">Android 11</div><div style="font-size:10.5px;color:var(--text-400);">v5.3.2</div></td>
+                <td>
+                  <div class="health-bar-wrap"><div class="health-bar" style="width:60px;"><div class="health-bar-fill" style="width:96%;background:#22c55e;"></div></div><span style="font-size:11px;font-weight:700;color:#16a34a;">Good</span></div>
+                  <div style="font-size:10.5px;color:var(--text-400);margin-top:2px;">96%</div>
+                </td>
+                <td style="text-align:right;padding-right:16px;"><button class="icon-btn" style="color:var(--text-400);"><i class="fa-solid fa-ellipsis"></i></button></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <!-- Pagination -->
+        <div style="display:flex;align-items:center;justify-content:space-between;padding:11px 16px;border-top:1px solid var(--border-soft);background:#fafbfc;">
+          <div style="font-size:12px;color:var(--text-500);">Showing 1 to 10 of 128 devices</div>
+          <div style="display:flex;align-items:center;gap:4px;">
+            <button class="pagination-btn"><i class="fa-solid fa-chevron-left" style="font-size:10px;"></i></button>
+            <button class="pagination-btn active">1</button>
+            <button class="pagination-btn">2</button>
+            <button class="pagination-btn">3</button>
+            <span style="font-size:12px;color:var(--text-400);padding:0 4px;">...</span>
+            <button class="pagination-btn">13</button>
+            <button class="pagination-btn"><i class="fa-solid fa-chevron-right" style="font-size:10px;"></i></button>
+          </div>
+          <div style="display:flex;align-items:center;gap:6px;font-size:12px;color:var(--text-500);">
+            Rows per page:
+            <div class="filter-select" style="height:28px;padding:0 8px;font-size:11.5px;">10 <i class="fa-solid fa-chevron-down" style="font-size:8px;"></i></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right Sidebar -->
+      <div style="display:flex;flex-direction:column;gap:18px;">
+        <!-- Top Device Issues -->
+        <div class="panel" style="margin:0;padding:16px;">
+          <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;">
+            <h3 style="margin:0;font-size:13.5px;font-weight:700;color:var(--text-900);">Top Device Issues</h3>
+            <a href="#" style="font-size:11.5px;color:#2563eb;font-weight:600;text-decoration:none;">View All</a>
+          </div>
+          <!-- Issue 1 -->
+          <div class="top-issue-item">
+            <div style="width:28px;height:28px;border-radius:7px;background:#fef2f2;color:#dc2626;display:flex;align-items:center;justify-content:center;font-size:12px;flex-shrink:0;"><i class="fa-solid fa-wifi"></i></div>
+            <div><div style="font-size:12px;font-weight:700;color:var(--text-900);">Network Connectivity Issue</div><div style="font-size:10.5px;color:var(--text-400);margin-top:1px;">3 devices affected</div></div>
+          </div>
+          <!-- Issue 2 -->
+          <div class="top-issue-item">
+            <div style="width:28px;height:28px;border-radius:7px;background:#fefce8;color:#ca8a04;display:flex;align-items:center;justify-content:center;font-size:12px;flex-shrink:0;"><i class="fa-solid fa-hard-drive"></i></div>
+            <div><div style="font-size:12px;font-weight:700;color:var(--text-900);">Low Storage Space</div><div style="font-size:10.5px;color:var(--text-400);margin-top:1px;">2 devices affected</div></div>
+          </div>
+          <!-- Issue 3 -->
+          <div class="top-issue-item">
+            <div style="width:28px;height:28px;border-radius:7px;background:#fefce8;color:#ca8a04;display:flex;align-items:center;justify-content:center;font-size:12px;flex-shrink:0;"><i class="fa-solid fa-bug"></i></div>
+            <div><div style="font-size:12px;font-weight:700;color:var(--text-900);">App Crashed</div><div style="font-size:10.5px;color:var(--text-400);margin-top:1px;">1 device affected</div></div>
+          </div>
+        </div>
+
+        <!-- Quick Actions -->
+        <div class="panel" style="margin:0;padding:16px;">
+          <h3 style="margin:0 0 10px;font-size:13.5px;font-weight:700;color:var(--text-900);">Quick Actions</h3>
+          <div style="display:flex;flex-direction:column;gap:2px;">
+            <div class="quick-action-row">
+              <div style="display:flex;align-items:center;gap:10px;">
+                <div style="width:28px;height:28px;border-radius:7px;background:#eff6ff;color:#2563eb;display:flex;align-items:center;justify-content:center;font-size:12px;"><i class="fa-solid fa-arrow-up-from-bracket"></i></div>
+                <div><div style="font-size:12px;font-weight:700;color:var(--text-900);">Push Content Update</div><div style="font-size:10.5px;color:var(--text-400);">Update content on multiple devices</div></div>
+              </div>
+              <i class="fa-solid fa-chevron-right" style="font-size:10px;color:var(--text-400);"></i>
+            </div>
+            <div class="quick-action-row">
+              <div style="display:flex;align-items:center;gap:10px;">
+                <div style="width:28px;height:28px;border-radius:7px;background:#f5f3ff;color:#7c3aed;display:flex;align-items:center;justify-content:center;font-size:12px;"><i class="fa-solid fa-rotate"></i></div>
+                <div><div style="font-size:12px;font-weight:700;color:var(--text-900);">Restart Devices</div><div style="font-size:10.5px;color:var(--text-400);">Restart selected or all devices</div></div>
+              </div>
+              <i class="fa-solid fa-chevron-right" style="font-size:10px;color:var(--text-400);"></i>
+            </div>
+            <div class="quick-action-row">
+              <div style="display:flex;align-items:center;gap:10px;">
+                <div style="width:28px;height:28px;border-radius:7px;background:#ecfdf5;color:#059669;display:flex;align-items:center;justify-content:center;font-size:12px;"><i class="fa-regular fa-image"></i></div>
+                <div><div style="font-size:12px;font-weight:700;color:var(--text-900);">Remote Screenshot</div><div style="font-size:10.5px;color:var(--text-400);">Capture screen from devices</div></div>
+              </div>
+              <i class="fa-solid fa-chevron-right" style="font-size:10px;color:var(--text-400);"></i>
+            </div>
+            <div class="quick-action-row">
+              <div style="display:flex;align-items:center;gap:10px;">
+                <div style="width:28px;height:28px;border-radius:7px;background:#fff7ed;color:#ea580c;display:flex;align-items:center;justify-content:center;font-size:12px;"><i class="fa-solid fa-arrows-rotate"></i></div>
+                <div><div style="font-size:12px;font-weight:700;color:var(--text-900);">Check for Updates</div><div style="font-size:10.5px;color:var(--text-400);">Check and install app updates</div></div>
+              </div>
+              <i class="fa-solid fa-chevron-right" style="font-size:10px;color:var(--text-400);"></i>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+</div>
+</div>
+</body>
+</html>

@@ -1,0 +1,510 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Phoenix Mall · Experience · Kiosk Platform</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<link rel="stylesheet" href="../css/styles.css">
+</head>
+<body>
+<div class="app-shell">
+
+<!-- Client Admin Sidebar -->
+<aside class="sidebar">
+  <a href="dashboard.html" class="sidebar-brand" style="cursor:pointer;">
+    <div class="logo-icon">
+      <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M12 2L21 7V17L12 22L3 17V7L12 2Z" stroke="white" stroke-width="1.6" stroke-linejoin="round"/>
+        <circle cx="12" cy="12" r="3.2" fill="white"/>
+      </svg>
+    </div>
+    <div class="brand-text"><div class="t1">KIOSK</div><div class="t2">PLATFORM</div></div>
+  </a>
+
+  <!-- WORKSPACE Section -->
+  <div class="sidebar-section-label">WORKSPACE</div>
+  <ul class="sidebar-nav">
+    <li class="nav-item" onclick="location.href='dashboard.html'"><i class="fa-solid fa-house"></i><span>Dashboard</span></li>
+    <li class="nav-item active" onclick="location.href='projects.html'"><i class="fa-solid fa-folder-open"></i><span>Projects</span></li>
+    <li class="nav-item" onclick="location.href='devices.html'"><i class="fa-solid fa-tablet-screen-button"></i><span>Devices</span></li>
+    <li class="nav-item" onclick="location.href='analytics.html'"><i class="fa-solid fa-chart-column"></i><span>Analytics</span></li>
+  </ul>
+
+  <!-- TEAM Section -->
+  <div class="sidebar-section-label">TEAM</div>
+  <ul class="sidebar-nav">
+    <li class="nav-item" onclick="location.href='users-roles.html'"><i class="fa-solid fa-users"></i><span>Users & Roles</span></li>
+  </ul>
+
+  <!-- ACCOUNT Section -->
+  <div class="sidebar-section-label">ACCOUNT</div>
+  <ul class="sidebar-nav">
+    <li class="nav-item" onclick="location.href='settings.html'"><i class="fa-solid fa-gear"></i><span>Settings</span></li>
+  </ul>
+
+  <div class="sidebar-spacer"></div>
+
+  <!-- Organization Card -->
+  <div class="org-switcher-card">
+    <div class="org-switcher-header">
+      <div class="org-icon-box"><i class="fa-solid fa-city"></i></div>
+      <div>
+        <div class="org-name-text">Phoenix Retail Group</div>
+        <div class="org-sub-text">Organization</div>
+      </div>
+    </div>
+    <button class="org-btn-switch">
+      <span>Switch Organization</span>
+      <i class="fa-solid fa-chevron-down" style="font-size:9.5px;"></i>
+    </button>
+  </div>
+
+  <div class="sidebar-footer" style="display:flex;align-items:center;justify-content:space-between;">
+    <span>Client Admin v1.0.0</span>
+    <i class="fa-solid fa-chevron-left" style="font-size:10px;cursor:pointer;"></i>
+  </div>
+</aside>
+
+<!-- Main Area -->
+<div class="main">
+  <!-- Topbar Header -->
+  <header class="topbar">
+    <i class="fa-solid fa-bars hamburger"></i>
+    <div class="search">
+      <i class="fa-solid fa-magnifying-glass"></i>
+      <span>Search projects, kiosks, locations...</span>
+      <span class="kbd">⌘ K</span>
+    </div>
+    <div class="spacer"></div>
+    <button class="icon-btn"><i class="fa-regular fa-bell"></i><span class="badge-dot">8</span></button>
+    <div class="user">
+      <div class="avatar" style="background:linear-gradient(135deg,#3b82f6,#1d4ed8);">RA</div>
+      <div>
+        <div class="u-name">Rahul Arora</div>
+        <div class="u-role">Client Admin</div>
+      </div>
+      <i class="fa-solid fa-chevron-down"></i>
+    </div>
+  </header>
+
+  <!-- Main Content Area -->
+  <main class="content">
+
+    <!-- Project Breadcrumbs & Header -->
+    <div class="project-header-container">
+      <div class="project-breadcrumbs">
+        <a href="projects.html">Projects</a>
+        <i class="fa-solid fa-chevron-right" style="font-size:9px;color:var(--text-400);"></i>
+        <a href="project-overview.html">Phoenix Mall</a>
+        <i class="fa-solid fa-chevron-right" style="font-size:9px;color:var(--text-400);"></i>
+        <span style="font-weight:600;color:var(--text-900);">Experience</span>
+      </div>
+
+      <div class="project-title-row">
+        <div class="project-title-left">
+          <h1>Phoenix Mall</h1>
+          <span class="badge badge-green" style="font-size:12px;padding:3px 10px;font-weight:600;">
+            <span class="dot"></span> Active
+          </span>
+        </div>
+
+        <div style="display:flex;align-items:center;gap:10px;">
+          <button class="btn" style="background:#fff;border:1px solid var(--border);color:var(--text-700);font-weight:600;padding:9px 16px;display:flex;align-items:center;gap:8px;">
+            <i class="fa-regular fa-eye"></i> Preview Kiosk
+          </button>
+          <button class="btn btn-primary" style="background:#2563eb;color:#fff;font-weight:600;padding:9px 18px;display:flex;align-items:center;gap:8px;">
+            <i class="fa-solid fa-gear"></i> Project Settings <i class="fa-solid fa-chevron-down" style="font-size:9.5px;margin-left:2px;"></i>
+          </button>
+        </div>
+      </div>
+
+      <div class="project-meta-row">
+        <div class="project-meta-item">
+          <i class="fa-solid fa-building" style="color:var(--text-400);"></i> Mall / Indoor Venue
+        </div>
+        <span style="color:var(--text-400);">•</span>
+        <div class="project-meta-item">
+          <i class="fa-solid fa-location-dot" style="color:var(--text-400);"></i> Mumbai, India
+        </div>
+        <span style="color:var(--text-400);">•</span>
+        <div class="project-meta-item">
+          <i class="fa-solid fa-tablet-screen-button" style="color:var(--text-400);"></i> 12 Kiosks
+        </div>
+        <span style="color:var(--text-400);">•</span>
+        <div class="project-meta-item" style="color:var(--green-600);font-weight:600;">
+          <i class="fa-solid fa-circle-check"></i> Release 43 (Published)
+        </div>
+      </div>
+    </div>
+
+    <!-- Project Sub-Navigation Tabs Bar -->
+    <div class="project-tabs-nav">
+      <button class="project-tab-btn" onclick="location.href='project-overview.html'">Overview</button>
+      <button class="project-tab-btn active" onclick="location.href='project-experience.html'">Experience</button>
+      <button class="project-tab-btn" onclick="location.href='project-content.html'">Content</button>
+      <button class="project-tab-btn" onclick="location.href='project-maps.html'">Maps</button>
+      <button class="project-tab-btn" onclick="location.href='project-navigation.html'">Navigation</button>
+      <button class="project-tab-btn" onclick="location.href='project-advertisements.html'">Advertisements</button>
+      <button class="project-tab-btn" onclick="location.href='project-preview.html'">Preview</button>
+      <button class="project-tab-btn" onclick="location.href='project-validation.html'">Validation</button>
+      <button class="project-tab-btn" onclick="location.href='project-releases.html'">Releases</button>
+      <button class="project-tab-btn" onclick="location.href='project-devices.html'">Devices</button>
+      <button class="project-tab-btn" onclick="location.href='project-analytics.html'">Analytics</button>
+      <button class="project-tab-btn" onclick="location.href='#'">Settings</button>
+    </div>
+
+    <!-- Experience Top Banner -->
+    <div class="experience-banner">
+      <div class="experience-banner-left">
+        <div class="experience-banner-icon">
+          <i class="fa-solid fa-wand-magic-sparkles"></i>
+        </div>
+        <div>
+          <div class="experience-banner-title">Design the overall kiosk experience</div>
+          <div class="experience-banner-sub">Select a template and theme, then customize the content and branding to match your venue's identity.</div>
+        </div>
+      </div>
+      <a href="#" class="experience-banner-btn">
+        <span>Learn more about Experience</span>
+        <i class="fa-solid fa-arrow-up-right-from-square" style="font-size:10px;"></i>
+      </a>
+    </div>
+
+    <!-- Main 2-Column Layout -->
+    <div class="experience-main-layout">
+
+      <!-- Left Column (Template, Theme, Customizations) -->
+      <div>
+
+        <!-- Row 1: Template & Theme Cards -->
+        <div class="two-col-cards-row">
+
+          <!-- Card 1: 1. Template (Read Only) -->
+          <div class="panel" style="margin:0;padding:18px;display:flex;flex-direction:column;justify-content:space-between;">
+            <div>
+              <h3 style="margin:0 0 2px;font-size:14.5px;font-weight:700;color:var(--text-900);">1. Template <span style="font-weight:500;color:var(--text-500);font-size:12.5px;">(Read Only)</span></h3>
+              <p style="margin:0 0 14px;font-size:11.5px;color:var(--text-500);">The base structure and features are defined by the template.</p>
+
+              <div style="display:flex;align-items:flex-start;gap:12px;margin-bottom:12px;">
+                <div style="width:48px;height:48px;border-radius:10px;background:#eff6ff;color:#2563eb;display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0;border:1px solid #dbeafe;">
+                  <i class="fa-solid fa-building"></i>
+                </div>
+                <div>
+                  <div style="display:flex;align-items:center;gap:6px;margin-bottom:2px;">
+                    <span style="font-size:14px;font-weight:700;color:var(--text-900);">Mall / Indoor Venue</span>
+                    <span class="badge badge-green" style="font-size:10px;padding:1px 6px;">Active</span>
+                  </div>
+                  <div style="font-size:11.5px;color:var(--text-400);margin-bottom:4px;">Version 1.2.0</div>
+                  <div style="font-size:11.5px;color:var(--text-600);line-height:1.4;">
+                    Complete indoor experience for malls, shopping centers and large venues.
+                  </div>
+                </div>
+              </div>
+
+              <div style="margin-top:10px;">
+                <div style="font-size:11.5px;font-weight:700;color:var(--text-700);margin-bottom:6px;">Includes:</div>
+                <div style="display:flex;flex-wrap:wrap;gap:5px;">
+                  <span class="template-pill-tag">Indoor Maps</span>
+                  <span class="template-pill-tag">Navigation</span>
+                  <span class="template-pill-tag">Directory & Search</span>
+                  <span class="template-pill-tag">Facilities</span>
+                  <span class="template-pill-tag">Advertisements</span>
+                  <span class="template-pill-tag">Events</span>
+                  <span class="template-pill-tag">More</span>
+                </div>
+              </div>
+            </div>
+
+            <div style="margin-top:16px;padding-top:12px;border-top:1px solid var(--border-soft);">
+              <a href="#" class="link-blue" style="font-size:12px;font-weight:600;display:inline-flex;align-items:center;gap:5px;">
+                View Template Details <i class="fa-solid fa-arrow-up-right-from-square" style="font-size:10px;"></i>
+              </a>
+            </div>
+          </div>
+
+          <!-- Card 2: 2. Theme -->
+          <div class="panel" style="margin:0;padding:18px;display:flex;flex-direction:column;justify-content:space-between;">
+            <div>
+              <h3 style="margin:0 0 2px;font-size:14.5px;font-weight:700;color:var(--text-900);">2. Theme</h3>
+              <p style="margin:0 0 14px;font-size:11.5px;color:var(--text-500);">Choose a theme to apply the look and feel to your kiosk.</p>
+
+              <!-- Active Theme Row -->
+              <div style="display:flex;align-items:flex-start;gap:12px;margin-bottom:12px;">
+                <div class="theme-artwork-preview" style="width:52px;height:52px;border-radius:8px;">
+                  <svg viewBox="0 0 100 100" style="width:100%;height:100%;">
+                    <defs>
+                      <radialGradient id="th-glow" cx="50%" cy="50%" r="50%">
+                        <stop offset="0%" stop-color="#fbbf24"/>
+                        <stop offset="70%" stop-color="#7c3aed"/>
+                        <stop offset="100%" stop-color="#3b0764"/>
+                      </radialGradient>
+                    </defs>
+                    <rect width="100" height="100" fill="url(#th-glow)"/>
+                    <circle cx="50" cy="50" r="28" stroke="#fde047" stroke-width="0.8" fill="none" stroke-dasharray="2,2"/>
+                    <path d="M50 38 C47 44 45 48 45 52 C45 56 47.5 57 50 57 C52.5 57 55 56 55 52 C55 48 53 44 50 38 Z" fill="#fbbf24"/>
+                    <path d="M37 56 C39 66 61 66 63 56 Z" fill="#f59e0b"/>
+                  </svg>
+                </div>
+                <div>
+                  <div style="display:flex;align-items:center;gap:6px;margin-bottom:2px;">
+                    <span style="font-size:14px;font-weight:700;color:var(--text-900);">Diwali Celebration</span>
+                    <span class="badge badge-green" style="font-size:10px;padding:1px 6px;">Active</span>
+                  </div>
+                  <div style="font-size:11.5px;color:var(--text-400);margin-bottom:4px;">Version 1.0</div>
+                  <div style="font-size:11px;color:var(--text-600);line-height:1.35;margin-bottom:4px;">
+                    Festive theme with Diwali colors, lights and promotional layouts.
+                  </div>
+                  <div style="font-size:11px;color:var(--text-400);">Applied on May 05, 2026</div>
+                </div>
+              </div>
+
+              <!-- Available Themes -->
+              <div style="margin-top:12px;">
+                <div style="font-size:11.5px;font-weight:700;color:var(--text-700);margin-bottom:6px;">Available Themes</div>
+                <div class="theme-mini-grid">
+                  <!-- Theme 1: Default -->
+                  <div class="theme-mini-card" onclick="selectMiniTheme(this, 'Default')">
+                    <div class="theme-mini-thumb" style="background:linear-gradient(135deg,#e2e8f0,#cbd5e1,#94a3b8);">
+                      <i class="fa-solid fa-building" style="color:#475569;font-size:18px;"></i>
+                    </div>
+                    <div class="theme-mini-label">Default</div>
+                  </div>
+
+                  <!-- Theme 2: Diwali Celebration (Selected) -->
+                  <div class="theme-mini-card selected" onclick="selectMiniTheme(this, 'Diwali')">
+                    <div class="theme-check-badge"><i class="fa-solid fa-check"></i></div>
+                    <div class="theme-mini-thumb" style="background:linear-gradient(135deg,#4c1d95,#7c3aed,#fbbf24);">
+                      <i class="fa-solid fa-fire-flame-curved" style="color:#fbbf24;font-size:16px;"></i>
+                    </div>
+                    <div class="theme-mini-label">Diwali Celebration</div>
+                  </div>
+
+                  <!-- Theme 3: New Year -->
+                  <div class="theme-mini-card" onclick="selectMiniTheme(this, 'New Year')">
+                    <div class="theme-mini-thumb" style="background:linear-gradient(135deg,#1e1b4b,#312e81,#fcd34d);">
+                      <i class="fa-solid fa-champagne-glasses" style="color:#fde047;font-size:16px;"></i>
+                    </div>
+                    <div class="theme-mini-label">New Year</div>
+                  </div>
+
+                  <!-- Theme 4: Summer -->
+                  <div class="theme-mini-card" onclick="selectMiniTheme(this, 'Summer')">
+                    <div class="theme-mini-thumb" style="background:linear-gradient(135deg,#0284c7,#38bdf8,#f59e0b);">
+                      <i class="fa-solid fa-umbrella-beach" style="color:#fff;font-size:16px;"></i>
+                    </div>
+                    <div class="theme-mini-label">Summer</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <button class="btn" style="width:100%;border:1px solid var(--border);color:var(--text-700);font-weight:600;padding:8px 0;background:#fff;display:flex;align-items:center;justify-content:center;gap:6px;font-size:12.5px;">
+              <i class="fa-solid fa-palette" style="color:var(--blue-600);"></i> Change Theme
+            </button>
+          </div>
+
+        </div>
+
+        <!-- Row 2: 3. Experience Customization -->
+        <div class="panel" style="padding:20px;margin-bottom:14px;">
+          <h3 style="margin:0 0 2px;font-size:15px;font-weight:800;color:var(--text-900);">3. Experience Customization</h3>
+          <p style="margin:0 0 16px;font-size:12px;color:var(--text-500);">Customize the content and branding for your selected theme.</p>
+
+          <div class="customization-grid">
+            <!-- Item 1: Branding -->
+            <div class="customization-item-card">
+              <div class="customization-left">
+                <div class="customization-icon-box" style="background:#eff6ff;color:#2563eb;">
+                  <i class="fa-solid fa-paintbrush"></i>
+                </div>
+                <div>
+                  <div class="customization-title">Branding</div>
+                  <div class="customization-sub">Upload logo, set primary colors, fonts and brand elements.</div>
+                </div>
+              </div>
+              <i class="fa-solid fa-chevron-right" style="font-size:11px;color:var(--text-400);"></i>
+            </div>
+
+            <!-- Item 2: Promotional Content -->
+            <div class="customization-item-card">
+              <div class="customization-left">
+                <div class="customization-icon-box" style="background:#ecfdf5;color:#059669;">
+                  <i class="fa-solid fa-bullhorn"></i>
+                </div>
+                <div>
+                  <div class="customization-title">Promotional Content</div>
+                  <div class="customization-sub">Manage promotional messages and highlight content.</div>
+                </div>
+              </div>
+              <i class="fa-solid fa-chevron-right" style="font-size:11px;color:var(--text-400);"></i>
+            </div>
+
+            <!-- Item 3: Home Screen -->
+            <div class="customization-item-card">
+              <div class="customization-left">
+                <div class="customization-icon-box" style="background:#f5f3ff;color:#7c3aed;">
+                  <i class="fa-solid fa-display"></i>
+                </div>
+                <div>
+                  <div class="customization-title">Home Screen</div>
+                  <div class="customization-sub">Customize hero banner, welcome message and quick actions.</div>
+                </div>
+              </div>
+              <i class="fa-solid fa-chevron-right" style="font-size:11px;color:var(--text-400);"></i>
+            </div>
+
+            <!-- Item 4: Search & Directory -->
+            <div class="customization-item-card">
+              <div class="customization-left">
+                <div class="customization-icon-box" style="background:#eff6ff;color:#2563eb;">
+                  <i class="fa-solid fa-magnifying-glass"></i>
+                </div>
+                <div>
+                  <div class="customization-title">Search & Directory</div>
+                  <div class="customization-sub">Configure search settings and directory preferences.</div>
+                </div>
+              </div>
+              <i class="fa-solid fa-chevron-right" style="font-size:11px;color:var(--text-400);"></i>
+            </div>
+
+            <!-- Item 5: Navigation Style -->
+            <div class="customization-item-card">
+              <div class="customization-left">
+                <div class="customization-icon-box" style="background:#fdf2f8;color:#db2777;">
+                  <i class="fa-solid fa-signs-post"></i>
+                </div>
+                <div>
+                  <div class="customization-title">Navigation Style</div>
+                  <div class="customization-sub">Choose navigation preferences and interactions.</div>
+                </div>
+              </div>
+              <i class="fa-solid fa-chevron-right" style="font-size:11px;color:var(--text-400);"></i>
+            </div>
+
+            <!-- Item 6: Footer & Legal -->
+            <div class="customization-item-card">
+              <div class="customization-left">
+                <div class="customization-icon-box" style="background:#f8fafc;color:#475569;">
+                  <i class="fa-regular fa-file-lines"></i>
+                </div>
+                <div>
+                  <div class="customization-title">Footer & Legal</div>
+                  <div class="customization-sub">Manage footer links, privacy policy and terms.</div>
+                </div>
+              </div>
+              <i class="fa-solid fa-chevron-right" style="font-size:11px;color:var(--text-400);"></i>
+            </div>
+          </div>
+
+          <!-- Bottom Action Buttons in Customization Panel -->
+          <div style="display:flex;align-items:center;justify-content:space-between;margin-top:20px;padding-top:16px;border-top:1px solid var(--border-soft);">
+            <button class="btn" style="background:#fff;border:1px solid var(--border);color:var(--text-700);font-weight:600;display:flex;align-items:center;gap:6px;font-size:12.5px;padding:9px 16px;">
+              <i class="fa-solid fa-rotate-left"></i> Reset to Default
+            </button>
+            <button class="btn btn-primary" style="background:#2563eb;color:#fff;font-weight:600;display:flex;align-items:center;gap:6px;font-size:12.5px;padding:9px 18px;">
+              <i class="fa-solid fa-floppy-disk"></i> Save Customization
+            </button>
+          </div>
+        </div>
+
+        <!-- Release Publishing Notice -->
+        <div style="font-size:12px;color:var(--text-500);margin-bottom:20px;padding:0 4px;">
+          Changes made in Experience will be part of the next release. <a href="#" class="link-blue" style="font-weight:600;">Publish</a> your changes to apply them to kiosks.
+        </div>
+
+      </div>
+
+      <!-- Right Column (Theme Live Preview & Current Branding) -->
+      <div style="display:flex;flex-direction:column;gap:18px;">
+
+        <!-- Card: Theme Preview -->
+        <div class="panel" style="margin:0;padding:20px;">
+          <h3 style="margin:0 0 2px;font-size:14.5px;font-weight:700;color:var(--text-900);">Theme Preview</h3>
+          <p style="margin:0 0 16px;font-size:12px;color:var(--text-500);">See how your kiosk will look with the selected theme.</p>
+
+          <!-- Theme Preview Image -->
+          <div style="width:100%;border-radius:12px;overflow:hidden;border:1px solid var(--border-soft);">
+            <img id="theme-preview-img" src="../images/client_admin_project_theme_preview_page_0101.png" style="width:100%;height:auto;display:block;" alt="Theme Preview">
+          </div>
+        </div>
+
+        <!-- Card: Current Branding -->
+        <div class="panel" style="margin:0;padding:20px;">
+          <h3 style="margin:0 0 2px;font-size:14.5px;font-weight:700;color:var(--text-900);">Current Branding</h3>
+          <p style="margin:0 0 16px;font-size:12px;color:var(--text-500);">Your brand identity elements.</p>
+
+          <div style="display:grid;grid-template-columns:1.2fr 1fr 1fr;gap:12px;align-items:center;margin-bottom:16px;">
+            <!-- Brand Logo -->
+            <div>
+              <div style="font-size:11px;color:var(--text-400);margin-bottom:6px;font-weight:500;">Logo</div>
+              <div style="display:flex;align-items:center;gap:6px;">
+                <div style="color:#dc2626;font-size:16px;">
+                  <i class="fa-solid fa-dove"></i>
+                </div>
+                <div style="font-size:11px;font-weight:800;color:var(--text-900);line-height:1.1;">
+                  PHOENIX<br>MALL
+                </div>
+              </div>
+            </div>
+
+            <!-- Primary Color -->
+            <div>
+              <div style="font-size:11px;color:var(--text-400);margin-bottom:6px;font-weight:500;">Primary Color</div>
+              <div style="display:flex;align-items:center;gap:6px;">
+                <div class="branding-color-box" style="background:#6a1b9a;"></div>
+                <span style="font-size:11px;font-weight:700;color:var(--text-900);">#6A1B9A</span>
+              </div>
+            </div>
+
+            <!-- Secondary Color -->
+            <div>
+              <div style="font-size:11px;color:var(--text-400);margin-bottom:6px;font-weight:500;">Secondary Color</div>
+              <div style="display:flex;align-items:center;gap:6px;">
+                <div class="branding-color-box" style="background:#ffb300;"></div>
+                <span style="font-size:11px;font-weight:700;color:var(--text-900);">#FFB300</span>
+              </div>
+            </div>
+          </div>
+
+          <div style="padding-top:14px;border-top:1px solid var(--border-soft);text-align:center;">
+            <a href="#" class="link-blue" style="font-size:12.5px;font-weight:600;display:inline-flex;align-items:center;gap:5px;">
+              Manage Branding <i class="fa-solid fa-chevron-right" style="font-size:9.5px;"></i>
+            </a>
+          </div>
+        </div>
+
+      </div>
+
+  </main>
+</div>
+</div>
+
+<script>
+function selectMiniTheme(card, name) {
+  document.querySelectorAll('.theme-mini-card').forEach(c => {
+    c.classList.remove('selected');
+    const badge = c.querySelector('.theme-check-badge');
+    if (badge) badge.remove();
+  });
+  card.classList.add('selected');
+  const badge = document.createElement('div');
+  badge.className = 'theme-check-badge';
+  badge.innerHTML = '<i class="fa-solid fa-check"></i>';
+  card.appendChild(badge);
+
+  // Update theme preview image based on selection
+  const previewImg = document.getElementById('theme-preview-img');
+  if (previewImg) {
+    if (name === 'Diwali') {
+      previewImg.src = '../images/client_admin_project_theme_preview_page_0101.png';
+    } else if (name === 'New Year') {
+      previewImg.src = '../images/client_admin_project_theme_preview_page_0202.png';
+    }
+  }
+}
+</script>
+</body>
+</html>

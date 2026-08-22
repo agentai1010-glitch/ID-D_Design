@@ -1,0 +1,634 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Phoenix Mall · Navigation · Kiosk Platform</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<link rel="stylesheet" href="../css/styles.css">
+</head>
+<body>
+<div class="app-shell">
+
+<!-- Client Admin Sidebar -->
+<aside class="sidebar">
+  <a href="dashboard.html" class="sidebar-brand" style="cursor:pointer;">
+    <div class="logo-icon">
+      <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M12 2L21 7V17L12 22L3 17V7L12 2Z" stroke="white" stroke-width="1.6" stroke-linejoin="round"/>
+        <circle cx="12" cy="12" r="3.2" fill="white"/>
+      </svg>
+    </div>
+    <div class="brand-text"><div class="t1">KIOSK</div><div class="t2">PLATFORM</div></div>
+  </a>
+
+  <!-- WORKSPACE Section -->
+  <div class="sidebar-section-label">WORKSPACE</div>
+  <ul class="sidebar-nav">
+    <li class="nav-item" onclick="location.href='dashboard.html'"><i class="fa-solid fa-house"></i><span>Dashboard</span></li>
+    <li class="nav-item active" onclick="location.href='projects.html'"><i class="fa-solid fa-folder-open"></i><span>Projects</span></li>
+    <li class="nav-item" onclick="location.href='devices.html'"><i class="fa-solid fa-tablet-screen-button"></i><span>Devices</span></li>
+    <li class="nav-item" onclick="location.href='analytics.html'"><i class="fa-solid fa-chart-column"></i><span>Analytics</span></li>
+  </ul>
+
+  <!-- TEAM Section -->
+  <div class="sidebar-section-label">TEAM</div>
+  <ul class="sidebar-nav">
+    <li class="nav-item" onclick="location.href='users-roles.html'"><i class="fa-solid fa-users"></i><span>Users & Roles</span></li>
+  </ul>
+
+  <!-- ACCOUNT Section -->
+  <div class="sidebar-section-label">ACCOUNT</div>
+  <ul class="sidebar-nav">
+    <li class="nav-item" onclick="location.href='settings.html'"><i class="fa-solid fa-gear"></i><span>Settings</span></li>
+  </ul>
+
+  <div class="sidebar-spacer"></div>
+
+  <!-- Organization Card -->
+  <div class="org-switcher-card">
+    <div class="org-switcher-header">
+      <div class="org-icon-box"><i class="fa-solid fa-city"></i></div>
+      <div>
+        <div class="org-name-text">Phoenix Retail Group</div>
+        <div class="org-sub-text">Organization</div>
+      </div>
+    </div>
+    <button class="org-btn-switch">
+      <span>Switch Organization</span>
+      <i class="fa-solid fa-chevron-down" style="font-size:9.5px;"></i>
+    </button>
+  </div>
+
+  <div class="sidebar-footer" style="display:flex;align-items:center;justify-content:space-between;">
+    <span>Client Admin v1.0.0</span>
+    <i class="fa-solid fa-chevron-left" style="font-size:10px;cursor:pointer;"></i>
+  </div>
+</aside>
+
+<!-- Main Area -->
+<div class="main">
+  <!-- Topbar Header -->
+  <header class="topbar">
+    <i class="fa-solid fa-bars hamburger"></i>
+    <div class="search">
+      <i class="fa-solid fa-magnifying-glass"></i>
+      <span>Search projects, kiosks, locations...</span>
+      <span class="kbd">⌘ K</span>
+    </div>
+    <div class="spacer"></div>
+    <button class="icon-btn"><i class="fa-regular fa-bell"></i><span class="badge-dot">8</span></button>
+    <div class="user">
+      <div class="avatar" style="background:linear-gradient(135deg,#3b82f6,#1d4ed8);">RA</div>
+      <div>
+        <div class="u-name">Rahul Arora</div>
+        <div class="u-role">Client Admin</div>
+      </div>
+      <i class="fa-solid fa-chevron-down"></i>
+    </div>
+  </header>
+
+  <!-- Main Content Area -->
+  <main class="content">
+
+    <!-- Project Breadcrumbs & Header -->
+    <div class="project-header-container">
+      <div class="project-breadcrumbs">
+        <a href="projects.html">Projects</a>
+        <i class="fa-solid fa-chevron-right" style="font-size:9px;color:var(--text-400);"></i>
+        <a href="project-overview.html">Phoenix Mall</a>
+        <i class="fa-solid fa-chevron-right" style="font-size:9px;color:var(--text-400);"></i>
+        <span style="font-weight:600;color:var(--text-900);">Navigation</span>
+      </div>
+
+      <div class="project-title-row">
+        <div class="project-title-left">
+          <h1>Phoenix Mall</h1>
+          <span class="badge badge-green" style="font-size:12px;padding:3px 10px;font-weight:600;">
+            <span class="dot"></span> Active
+          </span>
+        </div>
+
+        <div style="display:flex;align-items:center;gap:10px;">
+          <button class="btn" style="background:#fff;border:1px solid var(--border);color:var(--text-700);font-weight:600;padding:9px 16px;display:flex;align-items:center;gap:8px;">
+            <i class="fa-regular fa-eye"></i> Preview Kiosk
+          </button>
+          <button class="btn btn-primary" style="background:#2563eb;color:#fff;font-weight:600;padding:9px 18px;display:flex;align-items:center;gap:8px;">
+            <i class="fa-solid fa-gear"></i> Project Settings <i class="fa-solid fa-chevron-down" style="font-size:9.5px;margin-left:2px;"></i>
+          </button>
+        </div>
+      </div>
+
+      <div class="project-meta-row">
+        <div class="project-meta-item">
+          <i class="fa-solid fa-building" style="color:var(--text-400);"></i> Mall / Indoor Venue
+        </div>
+        <span style="color:var(--text-400);">•</span>
+        <div class="project-meta-item">
+          <i class="fa-solid fa-location-dot" style="color:var(--text-400);"></i> Mumbai, India
+        </div>
+        <span style="color:var(--text-400);">•</span>
+        <div class="project-meta-item">
+          <i class="fa-solid fa-tablet-screen-button" style="color:var(--text-400);"></i> 12 Kiosks
+        </div>
+        <span style="color:var(--text-400);">•</span>
+        <div class="project-meta-item" style="color:var(--green-600);font-weight:600;">
+          <i class="fa-solid fa-circle-check"></i> Release 43 (Published)
+        </div>
+      </div>
+    </div>
+
+    <!-- Project Sub-Navigation Tabs Bar -->
+    <div class="project-tabs-nav">
+      <button class="project-tab-btn" onclick="location.href='project-overview.html'">Overview</button>
+      <button class="project-tab-btn" onclick="location.href='project-experience.html'">Experience</button>
+      <button class="project-tab-btn" onclick="location.href='project-content.html'">Content</button>
+      <button class="project-tab-btn" onclick="location.href='project-maps.html'">Maps</button>
+      <button class="project-tab-btn active" onclick="location.href='project-navigation.html'">Navigation</button>
+      <button class="project-tab-btn" onclick="location.href='project-advertisements.html'">Advertisements</button>
+      <button class="project-tab-btn" onclick="location.href='project-preview.html'">Preview</button>
+      <button class="project-tab-btn" onclick="location.href='project-validation.html'">Validation</button>
+      <button class="project-tab-btn" onclick="location.href='project-releases.html'">Releases</button>
+      <button class="project-tab-btn" onclick="location.href='project-devices.html'">Devices</button>
+      <button class="project-tab-btn" onclick="location.href='project-analytics.html'">Analytics</button>
+      <button class="project-tab-btn" onclick="location.href='#'">Settings</button>
+    </div>
+
+    <!-- Section Header Row -->
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:18px;flex-wrap:wrap;gap:12px;">
+      <div>
+        <h2 style="font-size:17px;font-weight:800;color:var(--text-900);margin:0 0 3px;">Navigation</h2>
+        <p style="font-size:12.5px;color:var(--text-500);margin:0;">Design and manage navigation paths, nodes, and connectivity across floors.</p>
+      </div>
+
+      <div style="display:flex;align-items:center;gap:10px;">
+        <div class="select-pill" style="height:36px;padding:0 12px;font-size:12.5px;">
+          <i class="fa-solid fa-layer-group" style="color:var(--text-500);margin-right:6px;"></i> Ground Floor <i class="fa-solid fa-chevron-down" style="font-size:9px;margin-left:6px;"></i>
+        </div>
+        <button class="btn" style="height:36px;padding:0 14px;font-size:12.5px;display:flex;align-items:center;gap:6px;background:#fff;font-weight:600;">
+          <i class="fa-solid fa-gear" style="color:var(--blue-600);"></i> Navigation Settings
+        </button>
+      </div>
+    </div>
+
+    <!-- 3-Column Main Area: Left Tools, Center Canvas, Right Sidebar -->
+    <div class="maps-main-grid">
+
+      <!-- LEFT COLUMN: Navigation Tools -->
+      <div class="panel" style="margin:0;padding:16px;">
+        <h3 style="margin:0 0 12px;font-size:14.5px;font-weight:700;color:var(--text-900);">Navigation Tools</h3>
+
+        <!-- Tool 1: Select (Active) -->
+        <div class="nav-tool-item active" onclick="selectNavTool(this)">
+          <div class="nav-tool-icon"><i class="fa-solid fa-arrow-pointer"></i></div>
+          <div>
+            <div style="font-size:13px;font-weight:700;color:var(--text-900);">Select</div>
+            <div style="font-size:11px;color:var(--text-500);">Select nodes and paths</div>
+          </div>
+        </div>
+
+        <!-- Tool 2: Add Node -->
+        <div class="nav-tool-item" onclick="selectNavTool(this)">
+          <div class="nav-tool-icon"><i class="fa-regular fa-circle-dot"></i></div>
+          <div>
+            <div style="font-size:13px;font-weight:700;color:var(--text-900);">Add Node</div>
+            <div style="font-size:11px;color:var(--text-500);">Add navigation node</div>
+          </div>
+        </div>
+
+        <!-- Tool 3: Add Path -->
+        <div class="nav-tool-item" onclick="selectNavTool(this)">
+          <div class="nav-tool-icon"><i class="fa-solid fa-bezier-curve"></i></div>
+          <div>
+            <div style="font-size:13px;font-weight:700;color:var(--text-900);">Add Path</div>
+            <div style="font-size:11px;color:var(--text-500);">Draw navigation path</div>
+          </div>
+        </div>
+
+        <!-- Tool 4: Add Zone -->
+        <div class="nav-tool-item" onclick="selectNavTool(this)">
+          <div class="nav-tool-icon"><i class="fa-regular fa-square"></i></div>
+          <div>
+            <div style="font-size:13px;font-weight:700;color:var(--text-900);">Add Zone</div>
+            <div style="font-size:11px;color:var(--text-500);">Define restricted or special zones</div>
+          </div>
+        </div>
+
+        <!-- Tool 5: Add Connection -->
+        <div class="nav-tool-item" onclick="selectNavTool(this)">
+          <div class="nav-tool-icon"><i class="fa-solid fa-arrows-up-down"></i></div>
+          <div>
+            <div style="font-size:13px;font-weight:700;color:var(--text-900);">Add Connection</div>
+            <div style="font-size:11px;color:var(--text-500);">Add floor connection</div>
+          </div>
+        </div>
+
+        <!-- Tool 6: Add POI Destination -->
+        <div class="nav-tool-item" onclick="selectNavTool(this)">
+          <div class="nav-tool-icon"><i class="fa-solid fa-location-dot"></i></div>
+          <div>
+            <div style="font-size:13px;font-weight:700;color:var(--text-900);">Add POI Destination</div>
+            <div style="font-size:11px;color:var(--text-500);">Link store or facility</div>
+          </div>
+        </div>
+
+        <!-- Tool 7: Edit Path -->
+        <div class="nav-tool-item" onclick="selectNavTool(this)">
+          <div class="nav-tool-icon"><i class="fa-regular fa-pen-to-square"></i></div>
+          <div>
+            <div style="font-size:13px;font-weight:700;color:var(--text-900);">Edit Path</div>
+            <div style="font-size:11px;color:var(--text-500);">Modify selected path</div>
+          </div>
+        </div>
+
+        <!-- Tool 8: Delete -->
+        <div class="nav-tool-item" onclick="selectNavTool(this)">
+          <div class="nav-tool-icon"><i class="fa-regular fa-trash-can"></i></div>
+          <div>
+            <div style="font-size:13px;font-weight:700;color:var(--text-900);">Delete</div>
+            <div style="font-size:11px;color:var(--text-500);">Remove node or path</div>
+          </div>
+        </div>
+
+        <!-- Bottom Toggle: Show Legend -->
+        <div style="margin-top:14px;padding-top:12px;border-top:1px solid var(--border-soft);display:flex;align-items:center;justify-content:space-between;">
+          <div style="display:flex;align-items:center;gap:6px;font-size:12.5px;font-weight:600;color:var(--text-700);">
+            <i class="fa-solid fa-circle-info" style="color:var(--blue-600);font-size:12px;"></i> Show Legend
+          </div>
+          <label class="switch-toggle-btn">
+            <input type="checkbox" checked id="legend-toggle" onchange="toggleBottomLegend(this)">
+            <span class="switch-slider"></span>
+          </label>
+        </div>
+      </div>
+
+      <!-- CENTER COLUMN: Interactive Navigation Map Canvas -->
+      <div class="map-viewport-container" style="min-height:560px;">
+        
+        <!-- Canvas Drawing & Navigation Graph Layer -->
+        <div class="map-canvas-area" style="position:relative;padding:12px;background:#f8fafc;display:flex;align-items:center;justify-content:center;overflow:hidden;">
+          
+          <!-- Top Floating Actions Toolbar -->
+          <div class="canvas-top-tools">
+            <button class="map-tool-btn" title="Undo"><i class="fa-solid fa-rotate-left"></i></button>
+            <button class="map-tool-btn" title="Redo"><i class="fa-solid fa-rotate-right"></i></button>
+            <button class="map-tool-btn" title="Search"><i class="fa-solid fa-magnifying-glass"></i></button>
+            <button class="map-tool-btn" title="Pan Hand"><i class="fa-regular fa-hand"></i></button>
+            <button class="map-tool-btn" title="Fit to Selection"><i class="fa-solid fa-crop-simple"></i></button>
+            <button class="map-tool-btn" title="Fullscreen"><i class="fa-solid fa-expand"></i></button>
+          </div>
+
+          <!-- Inside Left Floor Switcher Pills -->
+          <div class="canvas-floor-selector">
+            <div class="canvas-floor-btn active" onclick="switchCanvasFloor(this, 'Ground Floor')">
+              <div style="font-size:11px;font-weight:800;color:var(--blue-600);">GF</div>
+              <div style="font-size:8.5px;color:var(--text-500);">Ground Floor</div>
+            </div>
+            <div class="canvas-floor-btn" onclick="switchCanvasFloor(this, 'Level 1')">
+              <div style="font-size:11px;font-weight:800;color:var(--text-700);">L1</div>
+              <div style="font-size:8.5px;color:var(--text-500);">Level 1</div>
+            </div>
+            <div class="canvas-floor-btn" onclick="switchCanvasFloor(this, 'Level 2')">
+              <div style="font-size:11px;font-weight:800;color:var(--text-700);">L2</div>
+              <div style="font-size:8.5px;color:var(--text-500);">Level 2</div>
+            </div>
+            <div class="canvas-floor-btn" onclick="switchCanvasFloor(this, 'Parking')">
+              <div style="font-size:11px;font-weight:800;color:var(--text-700);">P</div>
+              <div style="font-size:8.5px;color:var(--text-500);">Parking</div>
+            </div>
+          </div>
+
+          <!-- Bottom Right Floating Zoom Controls -->
+          <div class="map-floating-zoom">
+            <button class="map-tool-btn" title="Zoom In"><i class="fa-solid fa-plus"></i></button>
+            <button class="map-tool-btn" title="Zoom Out"><i class="fa-solid fa-minus"></i></button>
+            <button class="map-tool-btn" title="Fit"><i class="fa-solid fa-crop-simple"></i></button>
+          </div>
+
+          <!-- Relative Map Container holding the Image and Interactive Path Graph -->
+          <div style="position:relative;width:100%;height:100%;max-height:530px;display:flex;align-items:center;justify-content:center;">
+            <!-- Background Floor Map Image -->
+            <img src="images/floor-map.png" alt="Ground Floor Map" style="width:100%;height:auto;max-height:530px;object-fit:contain;border-radius:6px;display:block;">
+
+            <!-- Overlay SVG Navigation Route Graph (Connecting corridors, food court, nodes and POIs) -->
+            <svg viewBox="0 0 920 620" style="position:absolute;top:0;left:0;width:100%;height:100%;pointer-events:none;" xmlns="http://www.w3.org/2000/svg">
+              <defs>
+                <filter id="glow-node" x="-20%" y="-20%" width="140%" height="140%">
+                  <feDropShadow dx="0" dy="1" stdDeviation="2" flood-color="#2563eb" flood-opacity="0.35"/>
+                </filter>
+              </defs>
+
+              <!-- Floor Connection Orange Path -->
+              <line x1="360" y1="375" x2="420" y2="375" stroke="#f97316" stroke-width="2.8" stroke-linecap="round"/>
+              <circle cx="360" cy="375" r="4.5" fill="#f97316"/>
+              <circle cx="420" cy="375" r="4.5" fill="#f97316"/>
+
+              <!-- Purple / Magenta Dashed Connecting Path to Food Court -->
+              <path d="M 480,265 L 530,265 L 530,310" stroke="#a855f7" stroke-width="2.5" stroke-dasharray="4,4" fill="none"/>
+              <path d="M 530,310 L 530,410" stroke="#db2777" stroke-width="2.5" stroke-dasharray="4,4" fill="none"/>
+
+              <!-- Main Navigation Loop Path (Blue Solid Network) -->
+              <path d="M 420,375 L 475,305 L 530,265 L 618,265 L 660,310 L 700,370 L 660,455 L 610,480 L 540,490 L 475,485 L 420,375 Z" 
+                    stroke="#2563eb" stroke-width="3" fill="none" stroke-linejoin="round" stroke-linecap="round"/>
+              
+              <line x1="475" y1="485" x2="475" y2="550" stroke="#2563eb" stroke-width="2.8" stroke-linecap="round"/>
+              <circle cx="475" cy="550" r="4.5" fill="#2563eb"/>
+
+              <!-- Interactive Navigation Nodes (Blue circles with white centers) -->
+              <g filter="url(#glow-node)">
+                <circle cx="420" cy="375" r="6" fill="#2563eb" stroke="#ffffff" stroke-width="2"/>
+                <circle cx="475" cy="305" r="6" fill="#2563eb" stroke="#ffffff" stroke-width="2"/>
+                <circle cx="530" cy="265" r="6" fill="#2563eb" stroke="#ffffff" stroke-width="2"/>
+                <circle cx="618" cy="265" r="6" fill="#2563eb" stroke="#ffffff" stroke-width="2"/>
+                <circle cx="660" cy="310" r="6" fill="#2563eb" stroke="#ffffff" stroke-width="2"/>
+                <circle cx="700" cy="370" r="6" fill="#2563eb" stroke="#ffffff" stroke-width="2"/>
+                <circle cx="660" cy="455" r="6" fill="#2563eb" stroke="#ffffff" stroke-width="2"/>
+                <circle cx="610" cy="480" r="6" fill="#2563eb" stroke="#ffffff" stroke-width="2"/>
+                <circle cx="540" cy="490" r="6" fill="#2563eb" stroke="#ffffff" stroke-width="2"/>
+                <circle cx="475" cy="485" r="6" fill="#2563eb" stroke="#ffffff" stroke-width="2"/>
+                <!-- Food court destination node -->
+                <circle cx="530" cy="310" r="5" fill="#f97316" stroke="#ffffff" stroke-width="1.8"/>
+              </g>
+
+              <!-- Green POI Destination Marker Pin at Concourse Node -->
+              <g transform="translate(540, 500)">
+                <path d="M 0,0 C -5,-12 -8,-15 -8,-20 C -8,-25 -4,-29 0,-29 C 4,-29 8,-25 8,-20 C 8,-15 5,-12 0,0 Z" fill="#16a34a" stroke="#ffffff" stroke-width="1.5"/>
+                <circle cx="0" cy="-20" r="3.5" fill="#ffffff"/>
+              </g>
+
+              <!-- Purple Destination Node at Food Court entrance -->
+              <circle cx="540" cy="550" r="6" fill="#9333ea" stroke="#ffffff" stroke-width="2"/>
+            </svg>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- RIGHT COLUMN: Navigation Layers & Path Details -->
+      <div class="maps-right-sidebar" style="display:flex;flex-direction:column;gap:18px;">
+
+        <!-- Navigation Layers Card -->
+        <div class="panel" style="margin:0;padding:18px;">
+          <h3 style="margin:0 0 12px;font-size:14.5px;font-weight:700;color:var(--text-900);">Navigation Layers</h3>
+
+          <!-- Layer 1: Nodes -->
+          <div class="map-layer-row">
+            <div style="display:flex;align-items:center;gap:10px;">
+              <div style="width:30px;height:30px;border-radius:6px;background:#eff6ff;color:#2563eb;display:flex;align-items:center;justify-content:center;font-size:12px;flex-shrink:0;">
+                <i class="fa-regular fa-circle-dot"></i>
+              </div>
+              <div>
+                <div style="font-size:12.5px;font-weight:700;color:var(--text-900);">Nodes</div>
+                <div style="font-size:10.5px;color:var(--text-500);">64 nodes</div>
+              </div>
+            </div>
+            <label class="switch-toggle-btn">
+              <input type="checkbox" checked>
+              <span class="switch-slider"></span>
+            </label>
+          </div>
+
+          <!-- Layer 2: Paths -->
+          <div class="map-layer-row">
+            <div style="display:flex;align-items:center;gap:10px;">
+              <div style="width:30px;height:30px;border-radius:6px;background:#eff6ff;color:#2563eb;display:flex;align-items:center;justify-content:center;font-size:12px;flex-shrink:0;">
+                <i class="fa-solid fa-bezier-curve"></i>
+              </div>
+              <div>
+                <div style="font-size:12.5px;font-weight:700;color:var(--text-900);">Paths</div>
+                <div style="font-size:10.5px;color:var(--text-500);">48 paths</div>
+              </div>
+            </div>
+            <label class="switch-toggle-btn">
+              <input type="checkbox" checked>
+              <span class="switch-slider"></span>
+            </label>
+          </div>
+
+          <!-- Layer 3: Connections -->
+          <div class="map-layer-row">
+            <div style="display:flex;align-items:center;gap:10px;">
+              <div style="width:30px;height:30px;border-radius:6px;background:#f5f3ff;color:#7c3aed;display:flex;align-items:center;justify-content:center;font-size:12px;flex-shrink:0;">
+                <i class="fa-solid fa-arrows-up-down"></i>
+              </div>
+              <div>
+                <div style="font-size:12.5px;font-weight:700;color:var(--text-900);">Connections</div>
+                <div style="font-size:10.5px;color:var(--text-500);">6 connections</div>
+              </div>
+            </div>
+            <label class="switch-toggle-btn">
+              <input type="checkbox" checked>
+              <span class="switch-slider"></span>
+            </label>
+          </div>
+
+          <!-- Layer 4: Zones -->
+          <div class="map-layer-row">
+            <div style="display:flex;align-items:center;gap:10px;">
+              <div style="width:30px;height:30px;border-radius:6px;background:#f8fafc;color:#475569;display:flex;align-items:center;justify-content:center;font-size:12px;flex-shrink:0;">
+                <i class="fa-regular fa-square"></i>
+              </div>
+              <div>
+                <div style="font-size:12.5px;font-weight:700;color:var(--text-900);">Zones</div>
+                <div style="font-size:10.5px;color:var(--text-500);">5 zones</div>
+              </div>
+            </div>
+            <label class="switch-toggle-btn">
+              <input type="checkbox" checked>
+              <span class="switch-slider"></span>
+            </label>
+          </div>
+
+          <!-- Layer 5: POI Destinations -->
+          <div class="map-layer-row">
+            <div style="display:flex;align-items:center;gap:10px;">
+              <div style="width:30px;height:30px;border-radius:6px;background:#ecfdf5;color:#059669;display:flex;align-items:center;justify-content:center;font-size:12px;flex-shrink:0;">
+                <i class="fa-solid fa-location-dot"></i>
+              </div>
+              <div>
+                <div style="font-size:12.5px;font-weight:700;color:var(--text-900);">POI Destinations</div>
+                <div style="font-size:10.5px;color:var(--text-500);">25 linked</div>
+              </div>
+            </div>
+            <label class="switch-toggle-btn">
+              <input type="checkbox" checked>
+              <span class="switch-slider"></span>
+            </label>
+          </div>
+
+          <!-- Layer 6: Restricted Areas -->
+          <div class="map-layer-row">
+            <div style="display:flex;align-items:center;gap:10px;">
+              <div style="width:30px;height:30px;border-radius:6px;background:#fee2e2;color:#dc2626;display:flex;align-items:center;justify-content:center;font-size:12px;flex-shrink:0;">
+                <i class="fa-solid fa-ban"></i>
+              </div>
+              <div>
+                <div style="font-size:12.5px;font-weight:700;color:var(--text-900);">Restricted Areas</div>
+                <div style="font-size:10.5px;color:var(--text-500);">2 areas</div>
+              </div>
+            </div>
+            <label class="switch-toggle-btn">
+              <input type="checkbox" checked>
+              <span class="switch-slider"></span>
+            </label>
+          </div>
+        </div>
+
+        <!-- Path Details Card -->
+        <div class="panel" style="margin:0;padding:18px;">
+          <h3 style="margin:0 0 12px;font-size:14.5px;font-weight:700;color:var(--text-900);">Path Details</h3>
+
+          <div style="display:flex;flex-direction:column;gap:2px;margin-bottom:14px;">
+            <div class="floor-prop-row">
+              <span style="color:var(--text-500);">Path Name</span>
+              <span style="font-weight:700;color:var(--text-900);">Path_12</span>
+            </div>
+            <div class="floor-prop-row">
+              <span style="color:var(--text-500);">From</span>
+              <span style="font-weight:600;color:var(--text-900);font-size:11.5px;">Node GF-15 (Near ZARA)</span>
+            </div>
+            <div class="floor-prop-row">
+              <span style="color:var(--text-500);">To</span>
+              <span style="font-weight:600;color:var(--text-900);font-size:11.5px;">Node GF-27 (Food Court)</span>
+            </div>
+            <div class="floor-prop-row">
+              <span style="color:var(--text-500);">Distance</span>
+              <span style="font-weight:700;color:var(--text-900);">45.6 m</span>
+            </div>
+            <div class="floor-prop-row">
+              <span style="color:var(--text-500);">Est. Time</span>
+              <span style="font-weight:700;color:var(--text-900);">~ 1 min</span>
+            </div>
+            <div class="floor-prop-row" style="align-items:center;">
+              <span style="color:var(--text-500);">Type</span>
+              <span class="badge" style="background:#ecfdf5;color:#16a34a;font-size:11px;padding:2px 7px;font-weight:600;">
+                <i class="fa-solid fa-wheelchair" style="font-size:10px;margin-right:3px;"></i> Accessible
+              </span>
+            </div>
+            <div class="floor-prop-row" style="align-items:center;">
+              <span style="color:var(--text-500);">Status</span>
+              <span style="display:inline-flex;align-items:center;gap:4px;color:#16a34a;font-size:11.5px;font-weight:600;">
+                <span style="width:6px;height:6px;border-radius:50%;background:#16a34a;"></span> Active
+              </span>
+            </div>
+          </div>
+
+          <button class="btn" style="width:100%;background:#fff;border:1px solid var(--border);color:var(--text-700);font-weight:600;font-size:12.5px;padding:8px 0;display:flex;align-items:center;justify-content:center;gap:6px;">
+            <i class="fa-regular fa-pen-to-square"></i> Edit Path
+          </button>
+        </div>
+
+      </div>
+
+    </div>
+
+    <!-- Bottom Legend Panel & Global Action Buttons -->
+    <div class="nav-bottom-panel" id="bottom-legend-panel">
+      
+      <!-- Legend Indicators -->
+      <div style="flex:1;">
+        <div style="font-size:12px;font-weight:700;color:var(--text-900);margin-bottom:8px;">Legend</div>
+        <div class="nav-legend-wrap">
+          <div class="nav-legend-item">
+            <span style="width:10px;height:10px;border-radius:50%;border:2px solid #2563eb;background:#fff;display:inline-block;"></span>
+            <span>Navigation Node</span>
+          </div>
+
+          <div class="nav-legend-item">
+            <span style="display:flex;align-items:center;gap:2px;">
+              <span style="width:6px;height:6px;border-radius:50%;background:#2563eb;"></span>
+              <span style="width:14px;height:2px;background:#2563eb;"></span>
+              <span style="width:6px;height:6px;border-radius:50%;background:#2563eb;"></span>
+            </span>
+            <span>Navigation Path</span>
+          </div>
+
+          <div class="nav-legend-item">
+            <span style="display:flex;align-items:center;gap:2px;">
+              <span style="width:6px;height:6px;border-radius:50%;background:#f97316;"></span>
+              <span style="width:14px;height:2px;background:#f97316;"></span>
+              <span style="width:6px;height:6px;border-radius:50%;background:#f97316;"></span>
+            </span>
+            <span>Floor Connection</span>
+          </div>
+
+          <div class="nav-legend-item">
+            <i class="fa-solid fa-location-dot" style="color:#16a34a;font-size:12px;"></i>
+            <span>POI Destination</span>
+          </div>
+
+          <div class="nav-legend-item">
+            <span style="width:12px;height:12px;border:1.5px dashed #dc2626;border-radius:2px;display:inline-block;"></span>
+            <span>Restricted Area</span>
+          </div>
+
+          <div class="nav-legend-item">
+            <span style="width:12px;height:12px;border:1.5px dashed #0284c7;border-radius:2px;display:inline-block;"></span>
+            <span>Zone</span>
+          </div>
+
+          <div class="nav-legend-item">
+            <span style="font-size:12px;">🛗</span>
+            <span>Elevator</span>
+          </div>
+
+          <div class="nav-legend-item">
+            <span style="font-size:12px;">🪜</span>
+            <span>Escalator</span>
+          </div>
+
+          <div class="nav-legend-item">
+            <span style="font-size:12px;">🪜</span>
+            <span>Stairs</span>
+          </div>
+
+          <div class="nav-legend-item">
+            <span style="font-size:12px;">🚻</span>
+            <span>Restrooms</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Action Buttons -->
+      <div style="display:flex;align-items:center;gap:10px;">
+        <button class="btn" style="background:#fff;border:1px solid var(--border);color:var(--text-700);font-weight:600;padding:9px 16px;display:flex;align-items:center;gap:6px;font-size:12.5px;">
+          <i class="fa-regular fa-circle-check" style="color:var(--blue-600);"></i> Validate Navigation
+        </button>
+        <button class="btn" style="background:#fff;border:1px solid var(--border);color:var(--text-700);font-weight:600;padding:9px 16px;display:flex;align-items:center;gap:6px;font-size:12.5px;">
+          <i class="fa-regular fa-floppy-disk"></i> Save Changes
+        </button>
+        <button class="btn btn-primary" style="background:#2563eb;color:#fff;font-weight:600;padding:9px 18px;display:flex;align-items:center;gap:6px;font-size:12.5px;">
+          <i class="fa-solid fa-paper-plane"></i> Publish Navigation
+        </button>
+      </div>
+
+    </div>
+
+  </main>
+</div>
+</div>
+
+<script>
+function selectNavTool(tool) {
+  document.querySelectorAll('.nav-tool-item').forEach(t => t.classList.remove('active'));
+  tool.classList.add('active');
+}
+
+function switchCanvasFloor(btn, name) {
+  document.querySelectorAll('.canvas-floor-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+}
+
+function toggleBottomLegend(input) {
+  const panel = document.getElementById('bottom-legend-panel');
+  if (panel) {
+    panel.style.display = input.checked ? 'flex' : 'none';
+  }
+}
+</script>
+</body>
+</html>
+
+

@@ -1,0 +1,650 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Phoenix Mall · Validation · Kiosk Platform</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<link rel="stylesheet" href="../css/styles.css">
+</head>
+<body>
+<div class="app-shell">
+
+<!-- Client Admin Sidebar -->
+<aside class="sidebar">
+  <a href="dashboard.html" class="sidebar-brand" style="cursor:pointer;">
+    <div class="logo-icon">
+      <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M12 2L21 7V17L12 22L3 17V7L12 2Z" stroke="white" stroke-width="1.6" stroke-linejoin="round"/>
+        <circle cx="12" cy="12" r="3.2" fill="white"/>
+      </svg>
+    </div>
+    <div class="brand-text"><div class="t1">KIOSK</div><div class="t2">PLATFORM</div></div>
+  </a>
+
+  <!-- WORKSPACE Section -->
+  <div class="sidebar-section-label">WORKSPACE</div>
+  <ul class="sidebar-nav">
+    <li class="nav-item" onclick="location.href='dashboard.html'"><i class="fa-solid fa-house"></i><span>Dashboard</span></li>
+    <li class="nav-item active" onclick="location.href='projects.html'"><i class="fa-solid fa-folder-open"></i><span>Projects</span></li>
+    <li class="nav-item" onclick="location.href='devices.html'"><i class="fa-solid fa-tablet-screen-button"></i><span>Devices</span></li>
+    <li class="nav-item" onclick="location.href='analytics.html'"><i class="fa-solid fa-chart-column"></i><span>Analytics</span></li>
+  </ul>
+
+  <!-- TEAM Section -->
+  <div class="sidebar-section-label">TEAM</div>
+  <ul class="sidebar-nav">
+    <li class="nav-item" onclick="location.href='users-roles.html'"><i class="fa-solid fa-users"></i><span>Users & Roles</span></li>
+  </ul>
+
+  <!-- ACCOUNT Section -->
+  <div class="sidebar-section-label">ACCOUNT</div>
+  <ul class="sidebar-nav">
+    <li class="nav-item" onclick="location.href='settings.html'"><i class="fa-solid fa-gear"></i><span>Settings</span></li>
+  </ul>
+
+  <div class="sidebar-spacer"></div>
+
+  <!-- Organization Card -->
+  <div class="org-switcher-card">
+    <div class="org-switcher-header">
+      <div class="org-icon-box"><i class="fa-solid fa-city"></i></div>
+      <div>
+        <div class="org-name-text">Phoenix Retail Group</div>
+        <div class="org-sub-text">Organization</div>
+      </div>
+    </div>
+    <button class="org-btn-switch">
+      <span>Switch Organization</span>
+      <i class="fa-solid fa-chevron-down" style="font-size:9.5px;"></i>
+    </button>
+  </div>
+
+  <div class="sidebar-footer" style="display:flex;align-items:center;justify-content:space-between;">
+    <span>Client Admin v1.0.0</span>
+    <i class="fa-solid fa-chevron-left" style="font-size:10px;cursor:pointer;"></i>
+  </div>
+</aside>
+
+<!-- Main Area -->
+<div class="main">
+  <!-- Topbar Header -->
+  <header class="topbar">
+    <i class="fa-solid fa-bars hamburger"></i>
+    <div class="search">
+      <i class="fa-solid fa-magnifying-glass"></i>
+      <span>Search projects, kiosks, locations...</span>
+      <span class="kbd">⌘ K</span>
+    </div>
+    <div class="spacer"></div>
+    <button class="icon-btn"><i class="fa-regular fa-bell"></i><span class="badge-dot">8</span></button>
+    <div class="user">
+      <div class="avatar" style="background:linear-gradient(135deg,#3b82f6,#1d4ed8);">RA</div>
+      <div>
+        <div class="u-name">Rahul Arora</div>
+        <div class="u-role">Client Admin</div>
+      </div>
+      <i class="fa-solid fa-chevron-down"></i>
+    </div>
+  </header>
+
+  <!-- Main Content Area -->
+  <main class="content">
+
+    <!-- Project Breadcrumbs & Header -->
+    <div class="project-header-container">
+      <div class="project-breadcrumbs">
+        <a href="projects.html">Projects</a>
+        <i class="fa-solid fa-chevron-right" style="font-size:9px;color:var(--text-400);"></i>
+        <a href="project-overview.html">Phoenix Mall</a>
+        <i class="fa-solid fa-chevron-right" style="font-size:9px;color:var(--text-400);"></i>
+        <span style="font-weight:600;color:var(--text-900);">Validation</span>
+      </div>
+
+      <div class="project-title-row">
+        <div class="project-title-left">
+          <h1>Phoenix Mall</h1>
+          <span class="badge badge-green" style="font-size:12px;padding:3px 10px;font-weight:600;">
+            <span class="dot"></span> Active
+          </span>
+        </div>
+
+        <div style="display:flex;align-items:center;gap:10px;">
+          <button class="btn" style="background:#fff;border:1px solid var(--border);color:var(--text-700);font-weight:600;padding:9px 16px;display:flex;align-items:center;gap:8px;">
+            <i class="fa-regular fa-eye"></i> Preview Kiosk
+          </button>
+          <button class="btn btn-primary" style="background:#2563eb;color:#fff;font-weight:600;padding:9px 18px;display:flex;align-items:center;gap:8px;">
+            <i class="fa-solid fa-gear"></i> Project Settings <i class="fa-solid fa-chevron-down" style="font-size:9.5px;margin-left:2px;"></i>
+          </button>
+        </div>
+      </div>
+
+      <div class="project-meta-row">
+        <div class="project-meta-item">
+          <i class="fa-solid fa-building" style="color:var(--text-400);"></i> Mall / Indoor Venue
+        </div>
+        <span style="color:var(--text-400);">•</span>
+        <div class="project-meta-item">
+          <i class="fa-solid fa-location-dot" style="color:var(--text-400);"></i> Mumbai, India
+        </div>
+        <span style="color:var(--text-400);">•</span>
+        <div class="project-meta-item">
+          <i class="fa-solid fa-tablet-screen-button" style="color:var(--text-400);"></i> 12 Kiosks
+        </div>
+        <span style="color:var(--text-400);">•</span>
+        <div class="project-meta-item" style="color:var(--green-600);font-weight:600;">
+          <i class="fa-solid fa-circle-check"></i> Release 43 (Published)
+        </div>
+      </div>
+    </div>
+
+    <!-- Project Sub-Navigation Tabs Bar (Preserved) -->
+    <div class="project-tabs-nav">
+      <button class="project-tab-btn" onclick="location.href='project-overview.html'">Overview</button>
+      <button class="project-tab-btn" onclick="location.href='project-experience.html'">Experience</button>
+      <button class="project-tab-btn" onclick="location.href='project-content.html'">Content</button>
+      <button class="project-tab-btn" onclick="location.href='project-maps.html'">Maps</button>
+      <button class="project-tab-btn" onclick="location.href='project-navigation.html'">Navigation</button>
+      <button class="project-tab-btn" onclick="location.href='project-advertisements.html'">Advertisements</button>
+      <button class="project-tab-btn" onclick="location.href='project-preview.html'">Preview</button>
+      <button class="project-tab-btn active" onclick="location.href='project-validation.html'">Validation</button>
+      <button class="project-tab-btn" onclick="location.href='project-releases.html'">Releases</button>
+      <button class="project-tab-btn" onclick="location.href='project-devices.html'">Devices</button>
+      <button class="project-tab-btn" onclick="location.href='project-analytics.html'">Analytics</button>
+      <button class="project-tab-btn" onclick="location.href='#'">Settings</button>
+    </div>
+
+    <!-- Section Header -->
+    <div style="margin-bottom:18px;">
+      <h2 style="font-size:17px;font-weight:800;color:var(--text-900);margin:0 0 3px;">Project Validation</h2>
+      <p style="font-size:12.5px;color:var(--text-500);margin:0;">Validate your project configuration, content, and settings before publishing to kiosks.</p>
+    </div>
+
+    <!-- Top 5 Validation KPI Metric Cards -->
+    <div class="ad-metrics-strip">
+      <!-- 1. Total Checks -->
+      <div class="content-metric-card">
+        <div class="kpi-icon-box" style="background:#ecfdf5;color:#059669;width:40px;height:40px;border-radius:10px;">
+          <i class="fa-regular fa-circle-check"></i>
+        </div>
+        <div>
+          <div style="font-size:22px;font-weight:800;color:var(--text-900);line-height:1.1;">126</div>
+          <div style="font-size:11.5px;font-weight:600;color:var(--text-600);margin-top:2px;">Total Checks</div>
+          <div style="font-size:11px;color:var(--text-400);margin-top:2px;">All validation rules</div>
+        </div>
+      </div>
+
+      <!-- 2. Passed -->
+      <div class="content-metric-card">
+        <div class="kpi-icon-box" style="background:#ecfdf5;color:#059669;width:40px;height:40px;border-radius:10px;">
+          <i class="fa-solid fa-check-double"></i>
+        </div>
+        <div>
+          <div style="font-size:22px;font-weight:800;color:var(--text-900);line-height:1.1;">108</div>
+          <div style="font-size:11.5px;font-weight:600;color:var(--text-600);margin-top:2px;">Passed</div>
+          <div style="font-size:11px;font-weight:600;color:var(--green-600);margin-top:2px;">85.7%</div>
+        </div>
+      </div>
+
+      <!-- 3. Warnings -->
+      <div class="content-metric-card">
+        <div class="kpi-icon-box" style="background:#fff7ed;color:#ea580c;width:40px;height:40px;border-radius:10px;">
+          <i class="fa-solid fa-triangle-exclamation"></i>
+        </div>
+        <div>
+          <div style="font-size:22px;font-weight:800;color:var(--text-900);line-height:1.1;">14</div>
+          <div style="font-size:11.5px;font-weight:600;color:var(--text-600);margin-top:2px;">Warnings</div>
+          <div style="font-size:11px;font-weight:600;color:var(--amber-600,#d97706);margin-top:2px;">11.1%</div>
+        </div>
+      </div>
+
+      <!-- 4. Errors -->
+      <div class="content-metric-card">
+        <div class="kpi-icon-box" style="background:#fef2f2;color:#dc2626;width:40px;height:40px;border-radius:10px;">
+          <i class="fa-regular fa-circle-xmark"></i>
+        </div>
+        <div>
+          <div style="font-size:22px;font-weight:800;color:var(--text-900);line-height:1.1;">4</div>
+          <div style="font-size:11.5px;font-weight:600;color:var(--text-600);margin-top:2px;">Errors</div>
+          <div style="font-size:11px;font-weight:600;color:var(--red-600,#dc2626);margin-top:2px;">3.2%</div>
+        </div>
+      </div>
+
+      <!-- 5. Validation Score -->
+      <div class="content-metric-card">
+        <div class="kpi-icon-box" style="background:#f5f3ff;color:#7c3aed;width:40px;height:40px;border-radius:10px;">
+          <i class="fa-solid fa-gauge-high"></i>
+        </div>
+        <div>
+          <div style="font-size:22px;font-weight:800;color:var(--text-900);line-height:1.1;">92%</div>
+          <div style="font-size:11.5px;font-weight:600;color:var(--text-600);margin-top:2px;">Validation Score</div>
+          <div style="font-size:11px;font-weight:600;color:var(--green-600);margin-top:2px;">Good</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Main Content 2-Column Split: Checks Table on Left & Summary Sidebar on Right -->
+    <div class="content-main-layout" style="grid-template-columns: minmax(0, 1fr) 300px; gap: 20px; align-items: flex-start;">
+
+      <!-- Left Column: Validation Checks Table -->
+      <div class="panel" style="margin:0;padding:0;overflow:hidden;">
+        
+        <!-- Secondary Sub-tabs Bar & Action -->
+        <div class="content-sub-tabs-bar" style="justify-content:space-between;">
+          <div style="display:flex;align-items:center;gap:6px;">
+            <button class="content-sub-tab-btn active">Validation Checks</button>
+            <button class="content-sub-tab-btn">Issues</button>
+            <button class="content-sub-tab-btn">History</button>
+          </div>
+
+          <button class="btn btn-sm" style="height:30px;padding:0 10px;font-size:11.5px;color:var(--blue-600);background:#eff6ff;border:1px solid #dbeafe;font-weight:600;display:flex;align-items:center;gap:5px;">
+            <i class="fa-solid fa-rotate"></i> Re-run Validation
+          </button>
+        </div>
+
+        <!-- Filter Toolbar -->
+        <div class="content-filter-toolbar" style="justify-content:space-between;">
+          <div class="content-filter-left">
+            <div class="select-pill" style="height:34px;padding:0 12px;font-size:12px;">
+              All Categories <i class="fa-solid fa-chevron-down" style="font-size:9px;margin-left:4px;"></i>
+            </div>
+
+            <div class="select-pill" style="height:34px;padding:0 12px;font-size:12px;">
+              All Status <i class="fa-solid fa-chevron-down" style="font-size:9px;margin-left:4px;"></i>
+            </div>
+          </div>
+
+          <div style="font-size:11.5px;color:var(--text-400);font-weight:500;">
+            Last run: May 16, 2026 12:30 PM
+          </div>
+        </div>
+
+        <!-- Validation Checks Table -->
+        <div class="table-wrap" style="overflow-x:auto;width:100%;">
+          <table style="width:100%;min-width:620px;border-collapse:collapse;white-space:nowrap;">
+            <thead>
+              <tr style="border-bottom:1px solid var(--border);">
+                <th style="padding:10px 18px;text-align:left;font-size:11.5px;font-weight:700;color:var(--text-500);">Check Name</th>
+                <th style="padding:10px 12px;text-align:left;font-size:11.5px;font-weight:700;color:var(--text-500);">Category</th>
+                <th style="padding:10px 12px;text-align:left;font-size:11.5px;font-weight:700;color:var(--text-500);">Status</th>
+                <th style="padding:10px 12px;text-align:left;font-size:11.5px;font-weight:700;color:var(--text-500);">Details</th>
+                <th style="padding:10px 12px;text-align:left;font-size:11.5px;font-weight:700;color:var(--text-500);">Impact</th>
+                <th style="padding:10px 18px;text-align:right;font-size:11.5px;font-weight:700;color:var(--text-500);">Action</th>
+              </tr>
+            </thead>
+            <tbody>
+              <!-- Row 1: Navigation Path Integrity -->
+              <tr style="border-bottom:1px solid var(--border-soft);">
+                <td style="padding:12px 18px;">
+                  <div style="display:flex;align-items:center;gap:12px;">
+                    <div style="width:34px;height:34px;border-radius:8px;background:#eff6ff;color:#2563eb;display:flex;align-items:center;justify-content:center;font-size:14px;flex-shrink:0;">
+                      <i class="fa-solid fa-location-dot"></i>
+                    </div>
+                    <div>
+                      <div style="font-size:13px;font-weight:700;color:var(--text-900);">Navigation Path Integrity</div>
+                      <div style="font-size:11px;color:var(--text-400);">Verify all navigation paths are valid and connected</div>
+                    </div>
+                  </div>
+                </td>
+                <td style="padding:12px 12px;">
+                  <span class="badge" style="background:#eff6ff;color:#2563eb;font-size:11px;padding:2px 8px;font-weight:600;">Navigation</span>
+                </td>
+                <td style="padding:12px 12px;">
+                  <span class="badge" style="background:#ecfdf5;color:#16a34a;font-size:11px;padding:2px 8px;font-weight:600;">Passed</span>
+                </td>
+                <td style="padding:12px 12px;font-size:12px;color:var(--text-700);">All 48 paths are valid</td>
+                <td style="padding:12px 12px;font-size:12px;font-weight:600;color:var(--text-700);">High</td>
+                <td style="padding:12px 18px;text-align:right;color:var(--text-400);">—</td>
+              </tr>
+
+              <!-- Row 2: Content Availability -->
+              <tr style="border-bottom:1px solid var(--border-soft);">
+                <td style="padding:12px 18px;">
+                  <div style="display:flex;align-items:center;gap:12px;">
+                    <div style="width:34px;height:34px;border-radius:8px;background:#f5f3ff;color:#7c3aed;display:flex;align-items:center;justify-content:center;font-size:14px;flex-shrink:0;">
+                      <i class="fa-regular fa-file-lines"></i>
+                    </div>
+                    <div>
+                      <div style="font-size:13px;font-weight:700;color:var(--text-900);">Content Availability</div>
+                      <div style="font-size:11px;color:var(--text-400);">Check for missing or unpublished content</div>
+                    </div>
+                  </div>
+                </td>
+                <td style="padding:12px 12px;">
+                  <span class="badge" style="background:#f5f3ff;color:#7c3aed;font-size:11px;padding:2px 8px;font-weight:600;">Content</span>
+                </td>
+                <td style="padding:12px 12px;">
+                  <span class="badge" style="background:#ecfdf5;color:#16a34a;font-size:11px;padding:2px 8px;font-weight:600;">Passed</span>
+                </td>
+                <td style="padding:12px 12px;font-size:12px;color:var(--text-700);">All content is available</td>
+                <td style="padding:12px 12px;font-size:12px;font-weight:600;color:var(--text-700);">High</td>
+                <td style="padding:12px 18px;text-align:right;color:var(--text-400);">—</td>
+              </tr>
+
+              <!-- Row 3: Media Optimization -->
+              <tr style="border-bottom:1px solid var(--border-soft);">
+                <td style="padding:12px 18px;">
+                  <div style="display:flex;align-items:center;gap:12px;">
+                    <div style="width:34px;height:34px;border-radius:8px;background:#fff7ed;color:#ea580c;display:flex;align-items:center;justify-content:center;font-size:14px;flex-shrink:0;">
+                      <i class="fa-regular fa-image"></i>
+                    </div>
+                    <div>
+                      <div style="font-size:13px;font-weight:700;color:var(--text-900);">Media Optimization</div>
+                      <div style="font-size:11px;color:var(--text-400);">Validate media file formats and sizes</div>
+                    </div>
+                  </div>
+                </td>
+                <td style="padding:12px 12px;">
+                  <span class="badge" style="background:#fff7ed;color:#ea580c;font-size:11px;padding:2px 8px;font-weight:600;">Media</span>
+                </td>
+                <td style="padding:12px 12px;">
+                  <span class="badge" style="background:#fff7ed;color:#ea580c;font-size:11px;padding:2px 8px;font-weight:600;">Warning</span>
+                </td>
+                <td style="padding:12px 12px;font-size:12px;color:var(--text-700);">8 images are larger than recommended</td>
+                <td style="padding:12px 12px;font-size:12px;font-weight:600;color:var(--text-700);">Medium</td>
+                <td style="padding:12px 18px;text-align:right;">
+                  <button class="btn btn-sm" style="font-size:11px;padding:3px 8px;">View</button>
+                </td>
+              </tr>
+
+              <!-- Row 4: Advertisement Schedules -->
+              <tr style="border-bottom:1px solid var(--border-soft);">
+                <td style="padding:12px 18px;">
+                  <div style="display:flex;align-items:center;gap:12px;">
+                    <div style="width:34px;height:34px;border-radius:8px;background:#ecfdf5;color:#059669;display:flex;align-items:center;justify-content:center;font-size:14px;flex-shrink:0;">
+                      <i class="fa-solid fa-bullhorn"></i>
+                    </div>
+                    <div>
+                      <div style="font-size:13px;font-weight:700;color:var(--text-900);">Advertisement Schedules</div>
+                      <div style="font-size:11px;color:var(--text-400);">Check for schedule conflicts and gaps</div>
+                    </div>
+                  </div>
+                </td>
+                <td style="padding:12px 12px;">
+                  <span class="badge" style="background:#ecfdf5;color:#059669;font-size:11px;padding:2px 8px;font-weight:600;">Advertising</span>
+                </td>
+                <td style="padding:12px 12px;">
+                  <span class="badge" style="background:#fff7ed;color:#ea580c;font-size:11px;padding:2px 8px;font-weight:600;">Warning</span>
+                </td>
+                <td style="padding:12px 12px;font-size:12px;color:var(--text-700);">2 schedules have overlapping time</td>
+                <td style="padding:12px 12px;font-size:12px;font-weight:600;color:var(--text-700);">Medium</td>
+                <td style="padding:12px 18px;text-align:right;">
+                  <button class="btn btn-sm" style="font-size:11px;padding:3px 8px;">View</button>
+                </td>
+              </tr>
+
+              <!-- Row 5: Kiosk Configuration -->
+              <tr style="border-bottom:1px solid var(--border-soft);">
+                <td style="padding:12px 18px;">
+                  <div style="display:flex;align-items:center;gap:12px;">
+                    <div style="width:34px;height:34px;border-radius:8px;background:#eff6ff;color:#2563eb;display:flex;align-items:center;justify-content:center;font-size:14px;flex-shrink:0;">
+                      <i class="fa-solid fa-tablet-screen-button"></i>
+                    </div>
+                    <div>
+                      <div style="font-size:13px;font-weight:700;color:var(--text-900);">Kiosk Configuration</div>
+                      <div style="font-size:11px;color:var(--text-400);">Validate kiosk settings and capabilities</div>
+                    </div>
+                  </div>
+                </td>
+                <td style="padding:12px 12px;">
+                  <span class="badge" style="background:#eff6ff;color:#2563eb;font-size:11px;padding:2px 8px;font-weight:600;">Devices</span>
+                </td>
+                <td style="padding:12px 12px;">
+                  <span class="badge" style="background:#ecfdf5;color:#16a34a;font-size:11px;padding:2px 8px;font-weight:600;">Passed</span>
+                </td>
+                <td style="padding:12px 12px;font-size:12px;color:var(--text-700);">All kiosks are compatible</td>
+                <td style="padding:12px 12px;font-size:12px;font-weight:600;color:var(--text-700);">High</td>
+                <td style="padding:12px 18px;text-align:right;color:var(--text-400);">—</td>
+              </tr>
+
+              <!-- Row 6: Zone & Map Validation -->
+              <tr style="border-bottom:1px solid var(--border-soft);">
+                <td style="padding:12px 18px;">
+                  <div style="display:flex;align-items:center;gap:12px;">
+                    <div style="width:34px;height:34px;border-radius:8px;background:#fdf2f8;color:#db2777;display:flex;align-items:center;justify-content:center;font-size:14px;flex-shrink:0;">
+                      <i class="fa-solid fa-map-location-dot"></i>
+                    </div>
+                    <div>
+                      <div style="font-size:13px;font-weight:700;color:var(--text-900);">Zone & Map Validation</div>
+                      <div style="font-size:11px;color:var(--text-400);">Verify zones, POIs and map data</div>
+                    </div>
+                  </div>
+                </td>
+                <td style="padding:12px 12px;">
+                  <span class="badge" style="background:#fdf2f8;color:#db2777;font-size:11px;padding:2px 8px;font-weight:600;">Maps</span>
+                </td>
+                <td style="padding:12px 12px;">
+                  <span class="badge" style="background:#ecfdf5;color:#16a34a;font-size:11px;padding:2px 8px;font-weight:600;">Passed</span>
+                </td>
+                <td style="padding:12px 12px;font-size:12px;color:var(--text-700);">All zones and POIs are valid</td>
+                <td style="padding:12px 12px;font-size:12px;font-weight:600;color:var(--text-700);">Medium</td>
+                <td style="padding:12px 18px;text-align:right;color:var(--text-400);">—</td>
+              </tr>
+
+              <!-- Row 7: Accessibility Compliance -->
+              <tr style="border-bottom:1px solid var(--border-soft);">
+                <td style="padding:12px 18px;">
+                  <div style="display:flex;align-items:center;gap:12px;">
+                    <div style="width:34px;height:34px;border-radius:8px;background:#ecfeff;color:#0891b2;display:flex;align-items:center;justify-content:center;font-size:14px;flex-shrink:0;">
+                      <i class="fa-solid fa-universal-access"></i>
+                    </div>
+                    <div>
+                      <div style="font-size:13px;font-weight:700;color:var(--text-900);">Accessibility Compliance</div>
+                      <div style="font-size:11px;color:var(--text-400);">Check accessibility best practices</div>
+                    </div>
+                  </div>
+                </td>
+                <td style="padding:12px 12px;">
+                  <span class="badge" style="background:#ecfeff;color:#0891b2;font-size:11px;padding:2px 8px;font-weight:600;">Accessibility</span>
+                </td>
+                <td style="padding:12px 12px;">
+                  <span class="badge" style="background:#fee2e2;color:#dc2626;font-size:11px;padding:2px 8px;font-weight:600;">Error</span>
+                </td>
+                <td style="padding:12px 12px;font-size:12px;color:var(--text-700);">
+                  3 issues found <i class="fa-solid fa-circle-info" style="color:var(--text-400);font-size:11px;margin-left:3px;"></i>
+                </td>
+                <td style="padding:12px 12px;font-size:12px;font-weight:600;color:var(--text-700);">High</td>
+                <td style="padding:12px 18px;text-align:right;">
+                  <button class="btn btn-sm btn-primary" style="font-size:11px;padding:3px 10px;background:#2563eb;color:#fff;">Fix</button>
+                </td>
+              </tr>
+
+              <!-- Row 8: Performance Budget -->
+              <tr style="border-bottom:1px solid var(--border-soft);">
+                <td style="padding:12px 18px;">
+                  <div style="display:flex;align-items:center;gap:12px;">
+                    <div style="width:34px;height:34px;border-radius:8px;background:#f5f3ff;color:#7c3aed;display:flex;align-items:center;justify-content:center;font-size:14px;flex-shrink:0;">
+                      <i class="fa-solid fa-gauge-high"></i>
+                    </div>
+                    <div>
+                      <div style="font-size:13px;font-weight:700;color:var(--text-900);">Performance Budget</div>
+                      <div style="font-size:11px;color:var(--text-400);">Validate performance and load times</div>
+                    </div>
+                  </div>
+                </td>
+                <td style="padding:12px 12px;">
+                  <span class="badge" style="background:#f5f3ff;color:#7c3aed;font-size:11px;padding:2px 8px;font-weight:600;">Performance</span>
+                </td>
+                <td style="padding:12px 12px;">
+                  <span class="badge" style="background:#fee2e2;color:#dc2626;font-size:11px;padding:2px 8px;font-weight:600;">Error</span>
+                </td>
+                <td style="padding:12px 12px;font-size:12px;color:var(--text-700);">
+                  Home screen load time is high (4.2s) <i class="fa-solid fa-circle-info" style="color:var(--text-400);font-size:11px;margin-left:3px;"></i>
+                </td>
+                <td style="padding:12px 12px;font-size:12px;font-weight:600;color:var(--text-700);">High</td>
+                <td style="padding:12px 18px;text-align:right;">
+                  <button class="btn btn-sm btn-primary" style="font-size:11px;padding:3px 10px;background:#2563eb;color:#fff;">Fix</button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <!-- Table Footer -->
+        <div style="padding:12px 20px;border-top:1px solid var(--border-soft);background:#fafbfc;font-size:12px;color:var(--text-500);">
+          Showing 1 to 8 of 8 checks
+        </div>
+
+      </div>
+
+      <!-- Right Column: Validation Summary Donut, Top Issues, Actions -->
+      <div style="display:flex;flex-direction:column;gap:18px;">
+
+        <!-- Card 1: Validation Summary Donut -->
+        <div class="panel" style="margin:0;padding:18px;">
+          <h3 style="margin:0 0 12px;font-size:14.5px;font-weight:700;color:var(--text-900);">Validation Summary</h3>
+
+          <div style="display:flex;align-items:center;gap:16px;">
+            <!-- Donut SVG -->
+            <div style="width:105px;height:105px;position:relative;flex-shrink:0;">
+              <svg viewBox="0 0 100 100" style="width:100%;height:100%;transform:rotate(-90deg);">
+                <circle cx="50" cy="50" r="38" stroke="#f1f5f9" stroke-width="12" fill="none"/>
+                <!-- Green (Passed 85.7% -> 204.6) -->
+                <circle cx="50" cy="50" r="38" stroke="#22c55e" stroke-width="12" fill="none"
+                        stroke-dasharray="204.6 238.76" stroke-dashoffset="0"/>
+                <!-- Amber (Warnings 11.1% -> 26.5) -->
+                <circle cx="50" cy="50" r="38" stroke="#f59e0b" stroke-width="12" fill="none"
+                        stroke-dasharray="26.5 238.76" stroke-dashoffset="-204.6"/>
+                <!-- Red (Errors 3.2% -> 7.6) -->
+                <circle cx="50" cy="50" r="38" stroke="#ef4444" stroke-width="12" fill="none"
+                        stroke-dasharray="7.6 238.76" stroke-dashoffset="-231.1"/>
+              </svg>
+              <div style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);text-align:center;">
+                <div style="font-size:18px;font-weight:800;color:var(--text-900);line-height:1;">126</div>
+                <div style="font-size:9.5px;color:var(--text-400);font-weight:600;margin-top:2px;">Total</div>
+              </div>
+            </div>
+
+            <!-- Legend -->
+            <div style="flex:1;display:flex;flex-direction:column;gap:8px;font-size:12px;">
+              <div style="display:flex;align-items:center;gap:6px;">
+                <span style="width:8px;height:8px;border-radius:50%;background:#22c55e;"></span>
+                <strong style="color:var(--text-900);">108</strong> <span style="color:var(--text-600);">Passed</span>
+              </div>
+              <div style="display:flex;align-items:center;gap:6px;">
+                <span style="width:8px;height:8px;border-radius:50%;background:#f59e0b;"></span>
+                <strong style="color:var(--text-900);">14</strong> <span style="color:var(--text-600);">Warnings</span>
+              </div>
+              <div style="display:flex;align-items:center;gap:6px;">
+                <span style="width:8px;height:8px;border-radius:50%;background:#ef4444;"></span>
+                <strong style="color:var(--text-900);">4</strong> <span style="color:var(--text-600);">Errors</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Card 2: Top Issues -->
+        <div class="panel" style="margin:0;padding:18px;">
+          <h3 style="margin:0 0 12px;font-size:14.5px;font-weight:700;color:var(--text-900);">Top Issues</h3>
+
+          <div style="display:flex;flex-direction:column;">
+            <!-- Issue 1 -->
+            <div class="issue-row-item">
+              <div style="display:flex;align-items:flex-start;gap:8px;">
+                <i class="fa-regular fa-circle-xmark" style="color:#ef4444;font-size:13px;margin-top:2px;"></i>
+                <div>
+                  <div style="font-size:12px;font-weight:700;color:var(--text-900);line-height:1.2;">Home screen load time is high (4.2s)</div>
+                  <div style="font-size:10.5px;color:var(--text-400);margin-top:2px;">Performance Budget</div>
+                </div>
+              </div>
+              <span class="badge" style="background:#fee2e2;color:#dc2626;font-size:10px;padding:2px 6px;font-weight:600;">High</span>
+            </div>
+
+            <!-- Issue 2 -->
+            <div class="issue-row-item">
+              <div style="display:flex;align-items:flex-start;gap:8px;">
+                <i class="fa-regular fa-circle-xmark" style="color:#ef4444;font-size:13px;margin-top:2px;"></i>
+                <div>
+                  <div style="font-size:12px;font-weight:700;color:var(--text-900);line-height:1.2;">Image alt text missing in 3 places</div>
+                  <div style="font-size:10.5px;color:var(--text-400);margin-top:2px;">Accessibility Compliance</div>
+                </div>
+              </div>
+              <span class="badge" style="background:#fee2e2;color:#dc2626;font-size:10px;padding:2px 6px;font-weight:600;">High</span>
+            </div>
+
+            <!-- Issue 3 -->
+            <div class="issue-row-item">
+              <div style="display:flex;align-items:flex-start;gap:8px;">
+                <i class="fa-solid fa-triangle-exclamation" style="color:#f59e0b;font-size:13px;margin-top:2px;"></i>
+                <div>
+                  <div style="font-size:12px;font-weight:700;color:var(--text-900);line-height:1.2;">2 schedules have overlapping time</div>
+                  <div style="font-size:10.5px;color:var(--text-400);margin-top:2px;">Advertisement Schedules</div>
+                </div>
+              </div>
+              <span class="badge" style="background:#fff7ed;color:#ea580c;font-size:10px;padding:2px 6px;font-weight:600;">Medium</span>
+            </div>
+          </div>
+
+          <button class="btn" style="width:100%;margin-top:12px;font-size:12px;font-weight:600;padding:8px 0;display:flex;align-items:center;justify-content:center;">
+            View All Issues
+          </button>
+        </div>
+
+        <!-- Card 3: Actions -->
+        <div class="panel" style="margin:0;padding:18px;">
+          <h3 style="margin:0 0 10px;font-size:14.5px;font-weight:700;color:var(--text-900);">Actions</h3>
+
+          <div style="display:flex;flex-direction:column;gap:4px;">
+            <!-- Action 1 -->
+            <div class="action-row-item">
+              <div style="display:flex;align-items:center;gap:10px;">
+                <div style="width:30px;height:30px;border-radius:6px;background:#f1f5f9;color:var(--text-700);display:flex;align-items:center;justify-content:center;font-size:12px;">
+                  <i class="fa-solid fa-download"></i>
+                </div>
+                <div>
+                  <div style="font-size:12px;font-weight:700;color:var(--text-900);">Download Validation Report</div>
+                  <div style="font-size:10.5px;color:var(--text-400);">Get detailed report as PDF</div>
+                </div>
+              </div>
+              <i class="fa-solid fa-chevron-right" style="font-size:10px;color:var(--text-400);"></i>
+            </div>
+
+            <!-- Action 2 -->
+            <div class="action-row-item">
+              <div style="display:flex;align-items:center;gap:10px;">
+                <div style="width:30px;height:30px;border-radius:6px;background:#f1f5f9;color:var(--text-700);display:flex;align-items:center;justify-content:center;font-size:12px;">
+                  <i class="fa-solid fa-share-nodes"></i>
+                </div>
+                <div>
+                  <div style="font-size:12px;font-weight:700;color:var(--text-900);">Share Report</div>
+                  <div style="font-size:10.5px;color:var(--text-400);">Share validation summary</div>
+                </div>
+              </div>
+              <i class="fa-solid fa-chevron-right" style="font-size:10px;color:var(--text-400);"></i>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+
+    <!-- Bottom Information Callout Card: Ready to Publish? -->
+    <div class="about-ad-card">
+      <div style="display:flex;align-items:center;gap:14px;">
+        <div style="width:36px;height:36px;border-radius:10px;background:#dbeafe;color:#2563eb;display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0;">
+          <i class="fa-solid fa-shield-halved"></i>
+        </div>
+        <div>
+          <div style="font-size:13.5px;font-weight:800;color:var(--text-900);line-height:1.2;">Ready to Publish?</div>
+          <div style="font-size:12px;color:var(--text-500);margin-top:2px;">
+            Fix the errors above to improve your validation score and ensure the best experience on your kiosks.
+          </div>
+        </div>
+      </div>
+
+      <button class="btn btn-primary" style="background:#2563eb;color:#fff;font-size:12.5px;font-weight:600;padding:8px 16px;display:flex;align-items:center;gap:6px;">
+        <i class="fa-solid fa-rocket"></i> Go to Publishing
+      </button>
+    </div>
+
+  </main>
+</div>
+</div>
+
+</body>
+</html>
+
+

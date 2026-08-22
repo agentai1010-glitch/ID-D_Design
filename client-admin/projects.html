@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Projects · Kiosk Platform</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<link rel="stylesheet" href="../css/styles.css">
+</head>
+<body>
+<div class="app-shell">
+
+<!-- Client Admin Sidebar -->
+<aside class="sidebar">
+  <a href="dashboard.html" class="sidebar-brand" style="cursor:pointer;">
+    <div class="logo-icon"><svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M12 2L21 7V17L12 22L3 17V7L12 2Z" stroke="white" stroke-width="1.6" stroke-linejoin="round"/>
+<circle cx="12" cy="12" r="3.2" fill="white"/>
+</svg></div>
+    <div class="brand-text"><div class="t1">KIOSK</div><div class="t2">PLATFORM</div></div>
+  </a>
+
+  <!-- WORKSPACE Section -->
+  <div class="sidebar-section-label">WORKSPACE</div>
+  <ul class="sidebar-nav">
+    <li class="nav-item" onclick="location.href='dashboard.html'"><i class="fa-solid fa-house"></i><span>Dashboard</span></li>
+    <li class="nav-item active" onclick="location.href='projects.html'"><i class="fa-solid fa-folder-open"></i><span>Projects</span></li>
+    <li class="nav-item" onclick="location.href='devices.html'"><i class="fa-solid fa-tablet-screen-button"></i><span>Devices</span></li>
+    <li class="nav-item" onclick="location.href='analytics.html'"><i class="fa-solid fa-chart-column"></i><span>Analytics</span></li>
+  </ul>
+
+  <!-- TEAM Section -->
+  <div class="sidebar-section-label">TEAM</div>
+  <ul class="sidebar-nav">
+    <li class="nav-item" onclick="location.href='users-roles.html'"><i class="fa-solid fa-users"></i><span>Users & Roles</span></li>
+  </ul>
+
+  <!-- ACCOUNT Section -->
+  <div class="sidebar-section-label">ACCOUNT</div>
+  <ul class="sidebar-nav">
+    <li class="nav-item" onclick="location.href='settings.html'"><i class="fa-solid fa-gear"></i><span>Settings</span></li>
+  </ul>
+
+  <div class="sidebar-spacer"></div>
+
+  <!-- Organization Card -->
+  <div class="org-switcher-card">
+    <div class="org-switcher-header">
+      <div class="org-icon-box"><i class="fa-solid fa-city"></i></div>
+      <div>
+        <div class="org-name-text">Phoenix Retail Group</div>
+        <div class="org-sub-text">Organization</div>
+      </div>
+    </div>
+    <button class="org-btn-switch">
+      <span>Switch Organization</span>
+      <i class="fa-solid fa-chevron-down" style="font-size:9.5px;"></i>
+    </button>
+  </div>
+
+  <!-- Footer -->
+  <div style="display:flex;justify-content:space-between;align-items:center;padding:4px 4px 0;">
+    <span style="font-size:11px;color:#4c5c7d;">Client Admin v1.0.0</span>
+    <i class="fa-solid fa-chevron-left" style="font-size:10px;color:#4c5c7d;cursor:pointer;"></i>
+  </div>
+</aside>
+
+<!-- Main Content Area -->
+<div class="main">
+  <!-- Topbar -->
+  <header class="topbar">
+    <i class="fa-solid fa-bars hamburger"></i>
+    <div class="search">
+      <i class="fa-solid fa-magnifying-glass"></i>
+      <span>Search projects, kiosks, locations...</span>
+      <span class="kbd">⌘ K</span>
+    </div>
+    <div class="spacer"></div>
+    <button class="icon-btn"><i class="fa-regular fa-bell"></i><span class="badge-dot">8</span></button>
+    <div class="user">
+      <div class="avatar" style="background:linear-gradient(135deg,#3b82f6,#1d4ed8);">RA</div>
+      <div>
+        <div class="u-name">Rahul Arora</div>
+        <div class="u-role">Client Admin</div>
+      </div>
+      <i class="fa-solid fa-chevron-down"></i>
+    </div>
+  </header>
+
+  <!-- Content -->
+  <main class="content">
+
+    <!-- Page Header -->
+    <div class="page-header">
+      <div>
+        <h1>Projects</h1>
+        <p>Manage and monitor all your kiosk projects</p>
+      </div>
+      <div class="actions">
+        <button class="btn btn-primary" onclick="location.href='create-project.html'"><i class="fa-solid fa-plus"></i> Create Project</button>
+      </div>
+    </div>
+
+    <!-- 5 KPI Stat Cards -->
+    <div class="stats-grid-5">
+      <!-- Card 1 -->
+      <div class="stat-card-kpi">
+        <div class="icon-box icon-blue"><i class="fa-solid fa-city"></i></div>
+        <div style="flex:1;min-width:0;">
+          <div class="kpi-label">Total Projects</div>
+          <div class="kpi-val">3</div>
+          <div style="font-size:11.5px;color:var(--text-400);font-weight:500;">2 Active, 1 Draft</div>
+        </div>
+      </div>
+      <!-- Card 2 -->
+      <div class="stat-card-kpi">
+        <div class="icon-box icon-purple"><i class="fa-solid fa-mobile-screen-button"></i></div>
+        <div style="flex:1;min-width:0;">
+          <div class="kpi-label">Total Kiosks</div>
+          <div class="kpi-val">23</div>
+          <div style="font-size:11.5px;color:var(--text-400);font-weight:500;">Across all projects</div>
+        </div>
+      </div>
+      <!-- Card 3 -->
+      <div class="stat-card-kpi">
+        <div class="icon-box icon-green"><i class="fa-solid fa-wifi"></i></div>
+        <div style="flex:1;min-width:0;">
+          <div class="kpi-label">Online Kiosks</div>
+          <div class="kpi-val">21</div>
+          <div style="font-size:11.5px;color:var(--green-600);font-weight:700;">91.3% of total</div>
+        </div>
+      </div>
+      <!-- Card 4 -->
+      <div class="stat-card-kpi">
+        <div class="icon-box icon-orange"><i class="fa-solid fa-download"></i></div>
+        <div style="flex:1;min-width:0;">
+          <div class="kpi-label">Updates Available</div>
+          <div class="kpi-val">2</div>
+          <div style="font-size:11.5px;color:var(--amber-600);font-weight:700;">Kiosks need update</div>
+        </div>
+      </div>
+      <!-- Card 5 -->
+      <div class="stat-card-kpi">
+        <div class="icon-box icon-blue"><i class="fa-solid fa-rocket"></i></div>
+        <div style="flex:1;min-width:0;">
+          <div class="kpi-label">Active Releases</div>
+          <div class="kpi-val">3</div>
+          <div style="font-size:11.5px;color:var(--text-400);font-weight:500;">Across all projects</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Main Panel: Your Projects -->
+    <div class="panel">
+      <div class="panel-header">
+        <div>
+          <h2>Your Projects</h2>
+          <p>All kiosk projects in your organization</p>
+        </div>
+        <div class="filters">
+          <div class="search-input" style="min-width:240px;">
+            <i class="fa-solid fa-magnifying-glass"></i>
+            <span>Search projects...</span>
+            <i class="fa-solid fa-rotate-right" style="margin-left:auto;font-size:11px;color:var(--text-400);cursor:pointer;"></i>
+          </div>
+          <button class="btn"><i class="fa-solid fa-filter"></i> Filter</button>
+          <div class="select-pill">Sort by: Recently Updated <i class="fa-solid fa-chevron-down"></i></div>
+        </div>
+      </div>
+
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th style="padding:12px 22px;">Project / Venue</th>
+              <th style="padding:12px 18px;">Status</th>
+              <th style="padding:12px 18px;">Kiosks</th>
+              <th style="padding:12px 18px;">Online</th>
+              <th style="padding:12px 18px;">Current Release</th>
+              <th style="padding:12px 18px;">Last Updated</th>
+              <th style="padding:12px 22px;text-align:right;">Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            <!-- Row 1: Phoenix Mall -->
+            <tr>
+              <td>
+                <div class="cell-main">
+                  <div class="cell-thumb" style="background:linear-gradient(135deg,#ca8a04,#eab308,#78350f);display:flex;align-items:center;justify-content:center;color:#fff;font-size:16px;">
+                    <i class="fa-solid fa-building"></i>
+                  </div>
+                  <div>
+                    <div class="cell-title">Phoenix Mall</div>
+                    <div class="cell-sub" style="margin-bottom:2px;">Mall / Indoor Venue</div>
+                    <div style="font-size:11.5px;color:var(--text-400);display:flex;align-items:center;gap:4px;">
+                      <i class="fa-solid fa-location-dot" style="font-size:10.5px;"></i> Mumbai, India
+                    </div>
+                  </div>
+                </div>
+              </td>
+              <td><span class="badge badge-green"><span class="dot"></span>Active</span></td>
+              <td>
+                <div style="font-size:14px;font-weight:700;color:var(--text-900);">12</div>
+                <div class="cell-sub">Total Kiosks</div>
+              </td>
+              <td>
+                <div style="font-size:14px;font-weight:700;color:var(--text-900);">11</div>
+                <div class="pct-green">91.7%</div>
+                <div class="cell-sub">Online</div>
+              </td>
+              <td>
+                <div style="font-size:13.5px;font-weight:700;color:var(--text-900);">Release 43</div>
+                <div style="color:var(--green-600);font-size:11.5px;font-weight:600;">Published</div>
+              </td>
+              <td>
+                <div style="font-size:12.5px;font-weight:700;color:var(--text-900);">10 min ago</div>
+                <div class="cell-sub">May 10, 2026 10:30 AM</div>
+              </td>
+              <td>
+                <div class="row-actions" style="justify-content:flex-end;">
+                  <a class="btn btn-sm" href="project-overview.html" style="color:var(--blue-600);border-color:var(--blue-100);background:var(--blue-50);font-weight:600;">
+                    Open Project <i class="fa-solid fa-chevron-right" style="font-size:9px;"></i>
+                  </a>
+                  <button class="btn-icon"><i class="fa-solid fa-ellipsis"></i></button>
+                </div>
+              </td>
+            </tr>
+
+            <!-- Row 2: City Center Mall -->
+            <tr>
+              <td>
+                <div class="cell-main">
+                  <div class="cell-thumb" style="background:linear-gradient(135deg,#0284c7,#0369a1,#0f172a);display:flex;align-items:center;justify-content:center;color:#fff;font-size:16px;">
+                    <i class="fa-solid fa-city"></i>
+                  </div>
+                  <div>
+                    <div class="cell-title">City Center Mall</div>
+                    <div class="cell-sub" style="margin-bottom:2px;">Mall / Indoor Venue</div>
+                    <div style="font-size:11.5px;color:var(--text-400);display:flex;align-items:center;gap:4px;">
+                      <i class="fa-solid fa-location-dot" style="font-size:10.5px;"></i> Pune, India
+                    </div>
+                  </div>
+                </div>
+              </td>
+              <td><span class="badge badge-green"><span class="dot"></span>Active</span></td>
+              <td>
+                <div style="font-size:14px;font-weight:700;color:var(--text-900);">8</div>
+                <div class="cell-sub">Total Kiosks</div>
+              </td>
+              <td>
+                <div style="font-size:14px;font-weight:700;color:var(--text-900);">8</div>
+                <div class="pct-green">100%</div>
+                <div class="cell-sub">Online</div>
+              </td>
+              <td>
+                <div style="font-size:13.5px;font-weight:700;color:var(--text-900);">Release 41</div>
+                <div style="color:var(--green-600);font-size:11.5px;font-weight:600;">Published</div>
+              </td>
+              <td>
+                <div style="font-size:12.5px;font-weight:700;color:var(--text-900);">1 hour ago</div>
+                <div class="cell-sub">May 10, 2026 09:20 AM</div>
+              </td>
+              <td>
+                <div class="row-actions" style="justify-content:flex-end;">
+                  <a class="btn btn-sm" href="project-overview.html" style="color:var(--blue-600);border-color:var(--blue-100);background:var(--blue-50);font-weight:600;">
+                    Open Project <i class="fa-solid fa-chevron-right" style="font-size:9px;"></i>
+                  </a>
+                  <button class="btn-icon"><i class="fa-solid fa-ellipsis"></i></button>
+                </div>
+              </td>
+            </tr>
+
+            <!-- Row 3: Lakeside Mall -->
+            <tr>
+              <td>
+                <div class="cell-main">
+                  <div class="cell-thumb" style="background:linear-gradient(135deg,#0d9488,#047857,#115e59);display:flex;align-items:center;justify-content:center;color:#fff;font-size:16px;">
+                    <i class="fa-solid fa-water"></i>
+                  </div>
+                  <div>
+                    <div class="cell-title">Lakeside Mall</div>
+                    <div class="cell-sub" style="margin-bottom:2px;">Mall / Indoor Venue</div>
+                    <div style="font-size:11.5px;color:var(--text-400);display:flex;align-items:center;gap:4px;">
+                      <i class="fa-solid fa-location-dot" style="font-size:10.5px;"></i> Bengaluru, India
+                    </div>
+                  </div>
+                </div>
+              </td>
+              <td><span class="badge badge-amber"><span class="dot"></span>Draft</span></td>
+              <td>
+                <div style="font-size:14px;font-weight:700;color:var(--text-900);">3</div>
+                <div class="cell-sub">Total Kiosks</div>
+              </td>
+              <td>
+                <div style="font-size:14px;font-weight:700;color:var(--text-900);">2</div>
+                <div style="color:var(--amber-600);font-weight:700;font-size:11.5px;">66.7%</div>
+                <div class="cell-sub">Online</div>
+              </td>
+              <td>
+                <div style="font-size:13.5px;font-weight:700;color:var(--text-900);">—</div>
+                <div class="cell-sub">Not Published</div>
+              </td>
+              <td>
+                <div style="font-size:12.5px;font-weight:700;color:var(--text-900);">2 days ago</div>
+                <div class="cell-sub">May 08, 2026 04:15 PM</div>
+              </td>
+              <td>
+                <div class="row-actions" style="justify-content:flex-end;">
+                  <a class="btn btn-sm" href="project-overview.html" style="color:var(--blue-600);border-color:var(--blue-100);background:var(--blue-50);font-weight:600;">
+                    Open Project <i class="fa-solid fa-chevron-right" style="font-size:9px;"></i>
+                  </a>
+                  <button class="btn-icon"><i class="fa-solid fa-ellipsis"></i></button>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- Bottom Help Banner -->
+    <div class="panel" style="background:#fff;border:1px solid var(--blue-100);padding:18px 22px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:14px;margin-bottom:0;">
+      <div style="display:flex;align-items:center;gap:14px;">
+        <div style="width:42px;height:42px;border-radius:10px;background:var(--blue-50);color:var(--blue-600);display:flex;align-items:center;justify-content:center;font-size:18px;flex:0 0 42px;">
+          <i class="fa-regular fa-lightbulb"></i>
+        </div>
+        <div>
+          <div style="font-size:13.5px;font-weight:800;color:var(--text-900);line-height:1.2;">Need help getting started?</div>
+          <div style="font-size:12px;color:var(--text-500);margin-top:2px;">Create a new project to start building your kiosk experience.</div>
+        </div>
+      </div>
+      <button class="btn" style="color:var(--blue-600);font-weight:600;font-size:12.5px;border-color:var(--border);">
+        View Documentation <i class="fa-solid fa-arrow-up-right-from-square" style="font-size:11px;margin-left:2px;"></i>
+      </button>
+    </div>
+
+  </main>
+</div>
+</div>
+</body>
+</html>

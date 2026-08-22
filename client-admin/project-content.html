@@ -1,0 +1,701 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Phoenix Mall · Content · Kiosk Platform</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<link rel="stylesheet" href="../css/styles.css">
+</head>
+<body>
+<div class="app-shell">
+
+<!-- Client Admin Sidebar -->
+<aside class="sidebar">
+  <a href="dashboard.html" class="sidebar-brand" style="cursor:pointer;">
+    <div class="logo-icon">
+      <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M12 2L21 7V17L12 22L3 17V7L12 2Z" stroke="white" stroke-width="1.6" stroke-linejoin="round"/>
+        <circle cx="12" cy="12" r="3.2" fill="white"/>
+      </svg>
+    </div>
+    <div class="brand-text"><div class="t1">KIOSK</div><div class="t2">PLATFORM</div></div>
+  </a>
+
+  <!-- WORKSPACE Section -->
+  <div class="sidebar-section-label">WORKSPACE</div>
+  <ul class="sidebar-nav">
+    <li class="nav-item" onclick="location.href='dashboard.html'"><i class="fa-solid fa-house"></i><span>Dashboard</span></li>
+    <li class="nav-item active" onclick="location.href='projects.html'"><i class="fa-solid fa-folder-open"></i><span>Projects</span></li>
+    <li class="nav-item" onclick="location.href='devices.html'"><i class="fa-solid fa-tablet-screen-button"></i><span>Devices</span></li>
+    <li class="nav-item" onclick="location.href='analytics.html'"><i class="fa-solid fa-chart-column"></i><span>Analytics</span></li>
+  </ul>
+
+  <!-- TEAM Section -->
+  <div class="sidebar-section-label">TEAM</div>
+  <ul class="sidebar-nav">
+    <li class="nav-item" onclick="location.href='users-roles.html'"><i class="fa-solid fa-users"></i><span>Users & Roles</span></li>
+  </ul>
+
+  <!-- ACCOUNT Section -->
+  <div class="sidebar-section-label">ACCOUNT</div>
+  <ul class="sidebar-nav">
+    <li class="nav-item" onclick="location.href='settings.html'"><i class="fa-solid fa-gear"></i><span>Settings</span></li>
+  </ul>
+
+  <div class="sidebar-spacer"></div>
+
+  <!-- Organization Card -->
+  <div class="org-switcher-card">
+    <div class="org-switcher-header">
+      <div class="org-icon-box"><i class="fa-solid fa-city"></i></div>
+      <div>
+        <div class="org-name-text">Phoenix Retail Group</div>
+        <div class="org-sub-text">Organization</div>
+      </div>
+    </div>
+    <button class="org-btn-switch">
+      <span>Switch Organization</span>
+      <i class="fa-solid fa-chevron-down" style="font-size:9.5px;"></i>
+    </button>
+  </div>
+
+  <div class="sidebar-footer" style="display:flex;align-items:center;justify-content:space-between;">
+    <span>Client Admin v1.0.0</span>
+    <i class="fa-solid fa-chevron-left" style="font-size:10px;cursor:pointer;"></i>
+  </div>
+</aside>
+
+<!-- Main Area -->
+<div class="main">
+  <!-- Topbar Header -->
+  <header class="topbar">
+    <i class="fa-solid fa-bars hamburger"></i>
+    <div class="search">
+      <i class="fa-solid fa-magnifying-glass"></i>
+      <span>Search projects, kiosks, locations...</span>
+      <span class="kbd">⌘ K</span>
+    </div>
+    <div class="spacer"></div>
+    <button class="icon-btn"><i class="fa-regular fa-bell"></i><span class="badge-dot">8</span></button>
+    <div class="user">
+      <div class="avatar" style="background:linear-gradient(135deg,#3b82f6,#1d4ed8);">RA</div>
+      <div>
+        <div class="u-name">Rahul Arora</div>
+        <div class="u-role">Client Admin</div>
+      </div>
+      <i class="fa-solid fa-chevron-down"></i>
+    </div>
+  </header>
+
+  <!-- Main Content Area -->
+  <main class="content">
+
+    <!-- Project Breadcrumbs & Header -->
+    <div class="project-header-container">
+      <div class="project-breadcrumbs">
+        <a href="projects.html">Projects</a>
+        <i class="fa-solid fa-chevron-right" style="font-size:9px;color:var(--text-400);"></i>
+        <a href="project-overview.html">Phoenix Mall</a>
+        <i class="fa-solid fa-chevron-right" style="font-size:9px;color:var(--text-400);"></i>
+        <span style="font-weight:600;color:var(--text-900);">Content</span>
+      </div>
+
+      <div class="project-title-row">
+        <div class="project-title-left">
+          <h1>Phoenix Mall</h1>
+          <span class="badge badge-green" style="font-size:12px;padding:3px 10px;font-weight:600;">
+            <span class="dot"></span> Active
+          </span>
+        </div>
+
+        <div style="display:flex;align-items:center;gap:10px;">
+          <button class="btn" style="background:#fff;border:1px solid var(--border);color:var(--text-700);font-weight:600;padding:9px 16px;display:flex;align-items:center;gap:8px;">
+            <i class="fa-regular fa-eye"></i> Preview Kiosk
+          </button>
+          <button class="btn btn-primary" style="background:#2563eb;color:#fff;font-weight:600;padding:9px 18px;display:flex;align-items:center;gap:8px;">
+            <i class="fa-solid fa-gear"></i> Project Settings <i class="fa-solid fa-chevron-down" style="font-size:9.5px;margin-left:2px;"></i>
+          </button>
+        </div>
+      </div>
+
+      <div class="project-meta-row">
+        <div class="project-meta-item">
+          <i class="fa-solid fa-building" style="color:var(--text-400);"></i> Mall / Indoor Venue
+        </div>
+        <span style="color:var(--text-400);">•</span>
+        <div class="project-meta-item">
+          <i class="fa-solid fa-location-dot" style="color:var(--text-400);"></i> Mumbai, India
+        </div>
+        <span style="color:var(--text-400);">•</span>
+        <div class="project-meta-item">
+          <i class="fa-solid fa-tablet-screen-button" style="color:var(--text-400);"></i> 12 Kiosks
+        </div>
+        <span style="color:var(--text-400);">•</span>
+        <div class="project-meta-item" style="color:var(--green-600);font-weight:600;">
+          <i class="fa-solid fa-circle-check"></i> Release 43 (Published)
+        </div>
+      </div>
+    </div>
+
+    <!-- Project Sub-Navigation Tabs Bar -->
+    <div class="project-tabs-nav">
+      <button class="project-tab-btn" onclick="location.href='project-overview.html'">Overview</button>
+      <button class="project-tab-btn" onclick="location.href='project-experience.html'">Experience</button>
+      <button class="project-tab-btn active" onclick="location.href='project-content.html'">Content</button>
+      <button class="project-tab-btn" onclick="location.href='project-maps.html'">Maps</button>
+      <button class="project-tab-btn" onclick="location.href='project-navigation.html'">Navigation</button>
+      <button class="project-tab-btn" onclick="location.href='project-advertisements.html'">Advertisements</button>
+      <button class="project-tab-btn" onclick="location.href='project-preview.html'">Preview</button>
+      <button class="project-tab-btn" onclick="location.href='project-validation.html'">Validation</button>
+      <button class="project-tab-btn" onclick="location.href='project-releases.html'">Releases</button>
+      <button class="project-tab-btn" onclick="location.href='project-devices.html'">Devices</button>
+      <button class="project-tab-btn" onclick="location.href='project-analytics.html'">Analytics</button>
+      <button class="project-tab-btn" onclick="location.href='#'">Settings</button>
+    </div>
+
+    <!-- Section Title Area -->
+    <div style="margin-bottom:18px;">
+      <h2 style="font-size:17px;font-weight:800;color:var(--text-900);margin:0 0 3px;">Project Content</h2>
+      <p style="font-size:12.5px;color:var(--text-500);margin:0;">Manage all stores, categories, facilities and content shown on your kiosks.</p>
+    </div>
+
+    <!-- Top 5 Content Metric Cards -->
+    <div class="content-metrics-strip">
+      <!-- 1. Categories -->
+      <div class="content-metric-card">
+        <div class="kpi-icon-box" style="background:#f5f3ff;color:#7c3aed;width:40px;height:40px;border-radius:10px;">
+          <i class="fa-solid fa-shapes"></i>
+        </div>
+        <div>
+          <div style="font-size:11.5px;font-weight:600;color:var(--text-500);margin-bottom:2px;">Categories</div>
+          <div style="font-size:22px;font-weight:800;color:var(--text-900);line-height:1.1;">18</div>
+          <div style="font-size:11px;font-weight:600;color:var(--green-600);margin-top:2px;">Active</div>
+        </div>
+      </div>
+
+      <!-- 2. Stores / POIs -->
+      <div class="content-metric-card">
+        <div class="kpi-icon-box" style="background:#eff6ff;color:#2563eb;width:40px;height:40px;border-radius:10px;">
+          <i class="fa-solid fa-store"></i>
+        </div>
+        <div>
+          <div style="font-size:11.5px;font-weight:600;color:var(--text-500);margin-bottom:2px;">Stores / POIs</div>
+          <div style="font-size:22px;font-weight:800;color:var(--text-900);line-height:1.1;">256</div>
+          <div style="font-size:11px;font-weight:600;color:var(--green-600);margin-top:2px;">Active</div>
+        </div>
+      </div>
+
+      <!-- 3. Facilities -->
+      <div class="content-metric-card">
+        <div class="kpi-icon-box" style="background:#ecfdf5;color:#059669;width:40px;height:40px;border-radius:10px;">
+          <i class="fa-solid fa-spa"></i>
+        </div>
+        <div>
+          <div style="font-size:11.5px;font-weight:600;color:var(--text-500);margin-bottom:2px;">Facilities</div>
+          <div style="font-size:22px;font-weight:800;color:var(--text-900);line-height:1.1;">42</div>
+          <div style="font-size:11px;font-weight:600;color:var(--green-600);margin-top:2px;">Active</div>
+        </div>
+      </div>
+
+      <!-- 4. Services -->
+      <div class="content-metric-card">
+        <div class="kpi-icon-box" style="background:#fff7ed;color:#ea580c;width:40px;height:40px;border-radius:10px;">
+          <i class="fa-solid fa-bell-concierge"></i>
+        </div>
+        <div>
+          <div style="font-size:11.5px;font-weight:600;color:var(--text-500);margin-bottom:2px;">Services</div>
+          <div style="font-size:22px;font-weight:800;color:var(--text-900);line-height:1.1;">28</div>
+          <div style="font-size:11px;font-weight:600;color:var(--green-600);margin-top:2px;">Active</div>
+        </div>
+      </div>
+
+      <!-- 5. Banners / Media -->
+      <div class="content-metric-card">
+        <div class="kpi-icon-box" style="background:#f5f3ff;color:#9333ea;width:40px;height:40px;border-radius:10px;">
+          <i class="fa-regular fa-image"></i>
+        </div>
+        <div>
+          <div style="font-size:11.5px;font-weight:600;color:var(--text-500);margin-bottom:2px;">Banners / Media</div>
+          <div style="font-size:22px;font-weight:800;color:var(--text-900);line-height:1.1;">36</div>
+          <div style="font-size:11px;font-weight:600;color:var(--green-600);margin-top:2px;">Active</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Main Content 2-Column Split: Table on Left & Detail Panel on Right -->
+    <div class="content-main-layout">
+
+      <!-- Left Column: Table & Filters -->
+      <div class="panel" style="margin:0;padding:0;overflow:hidden;">
+        
+        <!-- Secondary Sub-tabs Bar -->
+        <div class="content-sub-tabs-bar">
+          <button class="content-sub-tab-btn active">Stores / POIs</button>
+          <button class="content-sub-tab-btn">Categories</button>
+          <button class="content-sub-tab-btn">Facilities</button>
+          <button class="content-sub-tab-btn">Services</button>
+          <button class="content-sub-tab-btn">Media</button>
+        </div>
+
+        <!-- Filter Toolbar -->
+        <div class="content-filter-toolbar">
+          <div class="content-filter-left">
+            <div class="search-input" style="min-width:180px;height:34px;">
+              <i class="fa-solid fa-magnifying-glass"></i>
+              <input type="text" placeholder="Search stores..." style="border:none;outline:none;background:transparent;font-size:12px;width:100%;">
+            </div>
+            
+            <div class="select-pill" style="height:34px;padding:0 10px;font-size:12px;">
+              All Categories <i class="fa-solid fa-chevron-down" style="font-size:9.5px;margin-left:4px;"></i>
+            </div>
+
+            <div class="select-pill" style="height:34px;padding:0 10px;font-size:12px;">
+              All Floors <i class="fa-solid fa-chevron-down" style="font-size:9.5px;margin-left:4px;"></i>
+            </div>
+
+            <div class="select-pill" style="height:34px;padding:0 10px;font-size:12px;">
+              Status: Active <i class="fa-solid fa-chevron-down" style="font-size:9.5px;margin-left:4px;"></i>
+            </div>
+
+            <button class="btn" style="height:34px;padding:0 10px;font-size:12px;display:flex;align-items:center;gap:6px;">
+              More Filters <i class="fa-solid fa-sliders" style="font-size:10px;"></i>
+            </button>
+          </div>
+
+          <div class="content-filter-right">
+            <button class="btn" style="height:34px;padding:0 10px;font-size:12px;display:flex;align-items:center;gap:6px;">
+              <i class="fa-solid fa-download"></i> Import
+            </button>
+            <button class="btn" style="height:34px;padding:0 10px;font-size:12px;display:flex;align-items:center;gap:6px;">
+              <i class="fa-solid fa-upload"></i> Export
+            </button>
+            <button class="btn btn-primary" style="height:34px;padding:0 12px;font-size:12px;display:flex;align-items:center;gap:6px;background:#2563eb;color:#fff;">
+              <i class="fa-solid fa-plus"></i> Add Store
+            </button>
+          </div>
+        </div>
+
+        <!-- Stores Table -->
+        <div class="table-wrap">
+          <table style="width:100%;border-collapse:collapse;">
+            <thead>
+              <tr style="border-bottom:1px solid var(--border);">
+                <th style="padding:10px 18px;text-align:left;font-size:11.5px;font-weight:700;color:var(--text-500);">Store Name</th>
+                <th style="padding:10px 14px;text-align:left;font-size:11.5px;font-weight:700;color:var(--text-500);">Category</th>
+                <th style="padding:10px 14px;text-align:left;font-size:11.5px;font-weight:700;color:var(--text-500);">Floor</th>
+                <th style="padding:10px 14px;text-align:left;font-size:11.5px;font-weight:700;color:var(--text-500);">Status</th>
+                <th style="padding:10px 14px;text-align:left;font-size:11.5px;font-weight:700;color:var(--text-500);">Location on Map</th>
+                <th style="padding:10px 14px;text-align:left;font-size:11.5px;font-weight:700;color:var(--text-500);">Last Updated</th>
+                <th style="padding:10px 18px;text-align:right;font-size:11.5px;font-weight:700;color:var(--text-500);">Action</th>
+              </tr>
+            </thead>
+            <tbody>
+              <!-- Row 1: Nike (Selected) -->
+              <tr style="background:#f8faff;border-bottom:1px solid var(--border-soft);cursor:pointer;" onclick="selectStoreRow(this, 'Nike', 'GF-12', 'Fashion & Apparel', 'Ground Floor', '+91 22 1234 5678', 'nike@phoenixmall.com', 'Visit Nike for the latest in sports fashion, footwear and accessories.')">
+                <td style="padding:12px 18px;">
+                  <div style="display:flex;align-items:center;gap:12px;">
+                    <div class="store-logo-cell">
+                      <!-- Nike Swoosh SVG -->
+                      <svg viewBox="0 0 24 24" style="width:20px;height:20px;" fill="#0f172a">
+                        <path d="M21.707 5.293c-.276-.276-.704-.325-1.033-.122L5.86 14.153c-1.396.86-3.085.345-3.837-.991-.652-1.157-.423-2.61.564-3.597.163-.163.344-.306.541-.424l.023-.014c.366-.219.489-.691.272-1.057s-.691-.489-1.057-.272c-.417.25-.795.556-1.134.909-1.573 1.573-1.936 3.914-.888 5.776 1.229 2.185 3.978 3.017 6.223 1.636l14.814-9.123c.328-.202.46-.615.326-.967z"/>
+                      </svg>
+                    </div>
+                    <div>
+                      <div style="font-size:13px;font-weight:700;color:var(--text-900);">Nike</div>
+                      <div style="font-size:11px;color:var(--text-400);">#GF-12</div>
+                    </div>
+                  </div>
+                </td>
+                <td style="padding:12px 14px;">
+                  <span class="badge" style="background:#f5f3ff;color:#7c3aed;font-size:11px;padding:3px 8px;font-weight:600;">Fashion & Apparel</span>
+                </td>
+                <td style="padding:12px 14px;font-size:12.5px;color:var(--text-700);font-weight:500;">Ground Floor</td>
+                <td style="padding:12px 14px;">
+                  <span style="display:inline-flex;align-items:center;gap:4px;color:#16a34a;font-size:11.5px;font-weight:600;">
+                    <span style="width:6px;height:6px;border-radius:50%;background:#16a34a;"></span> Active
+                  </span>
+                </td>
+                <td style="padding:12px 14px;">
+                  <a href="#" style="color:#2563eb;font-size:12px;font-weight:600;display:inline-flex;align-items:center;gap:4px;">
+                    <i class="fa-solid fa-location-dot" style="font-size:10.5px;"></i> GF-12
+                  </a>
+                </td>
+                <td style="padding:12px 14px;">
+                  <div style="font-size:12px;font-weight:600;color:var(--text-900);">May 10, 2026</div>
+                  <div style="font-size:11px;color:var(--text-400);">10:30 AM</div>
+                </td>
+                <td style="padding:12px 18px;text-align:right;">
+                  <button class="btn-icon" style="background:transparent;border:none;color:var(--text-400);cursor:pointer;font-size:14px;"><i class="fa-solid fa-ellipsis"></i></button>
+                </td>
+              </tr>
+
+              <!-- Row 2: Zara -->
+              <tr style="border-bottom:1px solid var(--border-soft);cursor:pointer;" onclick="selectStoreRow(this, 'Zara', 'L1-08', 'Fashion & Apparel', 'Level 1', '+91 22 8765 4321', 'zara@phoenixmall.com', 'Spanish apparel brand featuring trendy fast-fashion clothing, accessories, and shoes.')">
+                <td style="padding:12px 18px;">
+                  <div style="display:flex;align-items:center;gap:12px;">
+                    <div class="store-logo-cell" style="font-size:9px;letter-spacing:1px;font-family:sans-serif;">
+                      ZARA
+                    </div>
+                    <div>
+                      <div style="font-size:13px;font-weight:700;color:var(--text-900);">Zara</div>
+                      <div style="font-size:11px;color:var(--text-400);">#L1-08</div>
+                    </div>
+                  </div>
+                </td>
+                <td style="padding:12px 14px;">
+                  <span class="badge" style="background:#f5f3ff;color:#7c3aed;font-size:11px;padding:3px 8px;font-weight:600;">Fashion & Apparel</span>
+                </td>
+                <td style="padding:12px 14px;font-size:12.5px;color:var(--text-700);font-weight:500;">Level 1</td>
+                <td style="padding:12px 14px;">
+                  <span style="display:inline-flex;align-items:center;gap:4px;color:#16a34a;font-size:11.5px;font-weight:600;">
+                    <span style="width:6px;height:6px;border-radius:50%;background:#16a34a;"></span> Active
+                  </span>
+                </td>
+                <td style="padding:12px 14px;">
+                  <a href="#" style="color:#2563eb;font-size:12px;font-weight:600;display:inline-flex;align-items:center;gap:4px;">
+                    <i class="fa-solid fa-location-dot" style="font-size:10.5px;"></i> L1-08
+                  </a>
+                </td>
+                <td style="padding:12px 14px;">
+                  <div style="font-size:12px;font-weight:600;color:var(--text-900);">May 09, 2026</div>
+                  <div style="font-size:11px;color:var(--text-400);">04:20 PM</div>
+                </td>
+                <td style="padding:12px 18px;text-align:right;">
+                  <button class="btn-icon" style="background:transparent;border:none;color:var(--text-400);cursor:pointer;font-size:14px;"><i class="fa-solid fa-ellipsis"></i></button>
+                </td>
+              </tr>
+
+              <!-- Row 3: Starbucks -->
+              <tr style="border-bottom:1px solid var(--border-soft);cursor:pointer;" onclick="selectStoreRow(this, 'Starbucks', 'GF-05', 'Food & Dining', 'Ground Floor', '+91 22 2345 6789', 'starbucks@phoenixmall.com', 'Seattle-based coffeehouse chain known for its signature roasts, light bites and WiFi availability.')">
+                <td style="padding:12px 18px;">
+                  <div style="display:flex;align-items:center;gap:12px;">
+                    <div class="store-logo-cell" style="background:#006241;color:#fff;border-radius:50%;width:32px;height:32px;">
+                      <i class="fa-solid fa-mug-hot" style="font-size:13px;"></i>
+                    </div>
+                    <div>
+                      <div style="font-size:13px;font-weight:700;color:var(--text-900);">Starbucks</div>
+                      <div style="font-size:11px;color:var(--text-400);">#GF-05</div>
+                    </div>
+                  </div>
+                </td>
+                <td style="padding:12px 14px;">
+                  <span class="badge" style="background:#fff7ed;color:#ea580c;font-size:11px;padding:3px 8px;font-weight:600;">Food & Dining</span>
+                </td>
+                <td style="padding:12px 14px;font-size:12.5px;color:var(--text-700);font-weight:500;">Ground Floor</td>
+                <td style="padding:12px 14px;">
+                  <span style="display:inline-flex;align-items:center;gap:4px;color:#16a34a;font-size:11.5px;font-weight:600;">
+                    <span style="width:6px;height:6px;border-radius:50%;background:#16a34a;"></span> Active
+                  </span>
+                </td>
+                <td style="padding:12px 14px;">
+                  <a href="#" style="color:#2563eb;font-size:12px;font-weight:600;display:inline-flex;align-items:center;gap:4px;">
+                    <i class="fa-solid fa-location-dot" style="font-size:10.5px;"></i> GF-05
+                  </a>
+                </td>
+                <td style="padding:12px 14px;">
+                  <div style="font-size:12px;font-weight:600;color:var(--text-900);">May 09, 2026</div>
+                  <div style="font-size:11px;color:var(--text-400);">11:15 AM</div>
+                </td>
+                <td style="padding:12px 18px;text-align:right;">
+                  <button class="btn-icon" style="background:transparent;border:none;color:var(--text-400);cursor:pointer;font-size:14px;"><i class="fa-solid fa-ellipsis"></i></button>
+                </td>
+              </tr>
+
+              <!-- Row 4: Reliance Digital -->
+              <tr style="border-bottom:1px solid var(--border-soft);cursor:pointer;" onclick="selectStoreRow(this, 'Reliance Digital', 'L2-15', 'Electronics', 'Level 2', '+91 22 3456 7890', 'reliancedigital@phoenixmall.com', 'Leading consumer electronics retailer offering smartphones, laptops, audio systems, and appliances.')">
+                <td style="padding:12px 18px;">
+                  <div style="display:flex;align-items:center;gap:12px;">
+                    <div class="store-logo-cell" style="background:#003399;color:#fff;border-radius:8px;">
+                      <i class="fa-solid fa-microchip" style="font-size:14px;"></i>
+                    </div>
+                    <div>
+                      <div style="font-size:13px;font-weight:700;color:var(--text-900);">Reliance Digital</div>
+                      <div style="font-size:11px;color:var(--text-400);">#L2-15</div>
+                    </div>
+                  </div>
+                </td>
+                <td style="padding:12px 14px;">
+                  <span class="badge" style="background:#eff6ff;color:#2563eb;font-size:11px;padding:3px 8px;font-weight:600;">Electronics</span>
+                </td>
+                <td style="padding:12px 14px;font-size:12.5px;color:var(--text-700);font-weight:500;">Level 2</td>
+                <td style="padding:12px 14px;">
+                  <span style="display:inline-flex;align-items:center;gap:4px;color:#16a34a;font-size:11.5px;font-weight:600;">
+                    <span style="width:6px;height:6px;border-radius:50%;background:#16a34a;"></span> Active
+                  </span>
+                </td>
+                <td style="padding:12px 14px;">
+                  <a href="#" style="color:#2563eb;font-size:12px;font-weight:600;display:inline-flex;align-items:center;gap:4px;">
+                    <i class="fa-solid fa-location-dot" style="font-size:10.5px;"></i> L2-15
+                  </a>
+                </td>
+                <td style="padding:12px 14px;">
+                  <div style="font-size:12px;font-weight:600;color:var(--text-900);">May 08, 2026</div>
+                  <div style="font-size:11px;color:var(--text-400);">02:45 PM</div>
+                </td>
+                <td style="padding:12px 18px;text-align:right;">
+                  <button class="btn-icon" style="background:transparent;border:none;color:var(--text-400);cursor:pointer;font-size:14px;"><i class="fa-solid fa-ellipsis"></i></button>
+                </td>
+              </tr>
+
+              <!-- Row 5: PVR Cinemas -->
+              <tr style="border-bottom:1px solid var(--border-soft);cursor:pointer;" onclick="selectStoreRow(this, 'PVR Cinemas', 'L2-01', 'Entertainment', 'Level 2', '+91 22 4567 8901', 'pvr@phoenixmall.com', 'Premium multiplex cinema offering IMAX, 4DX, and luxury reclining lounge auditoriums.')">
+                <td style="padding:12px 18px;">
+                  <div style="display:flex;align-items:center;gap:12px;">
+                    <div class="store-logo-cell" style="background:#0f172a;color:#fbbf24;border-radius:8px;font-size:9px;font-weight:900;">
+                      PVR
+                    </div>
+                    <div>
+                      <div style="font-size:13px;font-weight:700;color:var(--text-900);">PVR Cinemas</div>
+                      <div style="font-size:11px;color:var(--text-400);">#L2-01</div>
+                    </div>
+                  </div>
+                </td>
+                <td style="padding:12px 14px;">
+                  <span class="badge" style="background:#fffbeb;color:#d97706;font-size:11px;padding:3px 8px;font-weight:600;">Entertainment</span>
+                </td>
+                <td style="padding:12px 14px;font-size:12.5px;color:var(--text-700);font-weight:500;">Level 2</td>
+                <td style="padding:12px 14px;">
+                  <span style="display:inline-flex;align-items:center;gap:4px;color:#16a34a;font-size:11.5px;font-weight:600;">
+                    <span style="width:6px;height:6px;border-radius:50%;background:#16a34a;"></span> Active
+                  </span>
+                </td>
+                <td style="padding:12px 14px;">
+                  <a href="#" style="color:#2563eb;font-size:12px;font-weight:600;display:inline-flex;align-items:center;gap:4px;">
+                    <i class="fa-solid fa-location-dot" style="font-size:10.5px;"></i> L2-01
+                  </a>
+                </td>
+                <td style="padding:12px 14px;">
+                  <div style="font-size:12px;font-weight:600;color:var(--text-900);">May 07, 2026</div>
+                  <div style="font-size:11px;color:var(--text-400);">06:10 PM</div>
+                </td>
+                <td style="padding:12px 18px;text-align:right;">
+                  <button class="btn-icon" style="background:transparent;border:none;color:var(--text-400);cursor:pointer;font-size:14px;"><i class="fa-solid fa-ellipsis"></i></button>
+                </td>
+              </tr>
+
+              <!-- Row 6: H&M -->
+              <tr style="border-bottom:1px solid var(--border-soft);cursor:pointer;" onclick="selectStoreRow(this, 'H&M', 'L1-10', 'Fashion & Apparel', 'Level 1', '+91 22 5678 9012', 'hm@phoenixmall.com', 'Swedish multinational clothing retailer known for fast-fashion for men, women, and children.')">
+                <td style="padding:12px 18px;">
+                  <div style="display:flex;align-items:center;gap:12px;">
+                    <div class="store-logo-cell" style="color:#dc2626;font-size:12px;font-weight:900;font-style:italic;">
+                      H&M
+                    </div>
+                    <div>
+                      <div style="font-size:13px;font-weight:700;color:var(--text-900);">H&M</div>
+                      <div style="font-size:11px;color:var(--text-400);">#L1-10</div>
+                    </div>
+                  </div>
+                </td>
+                <td style="padding:12px 14px;">
+                  <span class="badge" style="background:#f5f3ff;color:#7c3aed;font-size:11px;padding:3px 8px;font-weight:600;">Fashion & Apparel</span>
+                </td>
+                <td style="padding:12px 14px;font-size:12.5px;color:var(--text-700);font-weight:500;">Level 1</td>
+                <td style="padding:12px 14px;">
+                  <span style="display:inline-flex;align-items:center;gap:4px;color:#16a34a;font-size:11.5px;font-weight:600;">
+                    <span style="width:6px;height:6px;border-radius:50%;background:#16a34a;"></span> Active
+                  </span>
+                </td>
+                <td style="padding:12px 14px;">
+                  <a href="#" style="color:#2563eb;font-size:12px;font-weight:600;display:inline-flex;align-items:center;gap:4px;">
+                    <i class="fa-solid fa-location-dot" style="font-size:10.5px;"></i> L1-10
+                  </a>
+                </td>
+                <td style="padding:12px 14px;">
+                  <div style="font-size:12px;font-weight:600;color:var(--text-900);">May 07, 2026</div>
+                  <div style="font-size:11px;color:var(--text-400);">12:05 PM</div>
+                </td>
+                <td style="padding:12px 18px;text-align:right;">
+                  <button class="btn-icon" style="background:transparent;border:none;color:var(--text-400);cursor:pointer;font-size:14px;"><i class="fa-solid fa-ellipsis"></i></button>
+                </td>
+              </tr>
+
+              <!-- Row 7: McDonald's -->
+              <tr style="border-bottom:1px solid var(--border-soft);cursor:pointer;" onclick="selectStoreRow(this, 'McDonald\'s', 'GF-03', 'Food & Dining', 'Ground Floor', '+91 22 6789 0123', 'mcdonalds@phoenixmall.com', 'Global fast-food chain serving burgers, french fries, milkshakes, and breakfast items.')">
+                <td style="padding:12px 18px;">
+                  <div style="display:flex;align-items:center;gap:12px;">
+                    <div class="store-logo-cell" style="background:#da291c;color:#ffc72c;border-radius:8px;font-size:15px;font-weight:900;">
+                      M
+                    </div>
+                    <div>
+                      <div style="font-size:13px;font-weight:700;color:var(--text-900);">McDonald's</div>
+                      <div style="font-size:11px;color:var(--text-400);">#GF-03</div>
+                    </div>
+                  </div>
+                </td>
+                <td style="padding:12px 14px;">
+                  <span class="badge" style="background:#fff7ed;color:#ea580c;font-size:11px;padding:3px 8px;font-weight:600;">Food & Dining</span>
+                </td>
+                <td style="padding:12px 14px;font-size:12.5px;color:var(--text-700);font-weight:500;">Ground Floor</td>
+                <td style="padding:12px 14px;">
+                  <span style="display:inline-flex;align-items:center;gap:4px;color:#16a34a;font-size:11.5px;font-weight:600;">
+                    <span style="width:6px;height:6px;border-radius:50%;background:#16a34a;"></span> Active
+                  </span>
+                </td>
+                <td style="padding:12px 14px;">
+                  <a href="#" style="color:#2563eb;font-size:12px;font-weight:600;display:inline-flex;align-items:center;gap:4px;">
+                    <i class="fa-solid fa-location-dot" style="font-size:10.5px;"></i> GF-03
+                  </a>
+                </td>
+                <td style="padding:12px 14px;">
+                  <div style="font-size:12px;font-weight:600;color:var(--text-900);">May 06, 2026</div>
+                  <div style="font-size:11px;color:var(--text-400);">09:35 AM</div>
+                </td>
+                <td style="padding:12px 18px;text-align:right;">
+                  <button class="btn-icon" style="background:transparent;border:none;color:var(--text-400);cursor:pointer;font-size:14px;"><i class="fa-solid fa-ellipsis"></i></button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <!-- Pagination Bar -->
+        <div style="padding:14px 20px;display:flex;align-items:center;justify-content:space-between;border-top:1px solid var(--border-soft);background:#fafbfc;">
+          <div style="font-size:12px;color:var(--text-500);">Showing 1 to 10 of 256 stores</div>
+          
+          <div style="display:flex;align-items:center;gap:12px;">
+            <div style="display:flex;align-items:center;gap:4px;">
+              <button class="btn btn-sm" style="padding:4px 8px;font-size:11px;"><i class="fa-solid fa-chevron-left"></i></button>
+              <button class="btn btn-sm btn-primary" style="padding:4px 10px;font-size:11px;background:#2563eb;color:#fff;">1</button>
+              <button class="btn btn-sm" style="padding:4px 10px;font-size:11px;">2</button>
+              <button class="btn btn-sm" style="padding:4px 10px;font-size:11px;">3</button>
+              <span style="color:var(--text-400);font-size:11px;padding:0 4px;">...</span>
+              <button class="btn btn-sm" style="padding:4px 10px;font-size:11px;">26</button>
+              <button class="btn btn-sm" style="padding:4px 8px;font-size:11px;"><i class="fa-solid fa-chevron-right"></i></button>
+            </div>
+
+            <div class="select-pill" style="height:30px;padding:0 8px;font-size:11.5px;">
+              10 / page <i class="fa-solid fa-chevron-down" style="font-size:9px;margin-left:4px;"></i>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Right Column: Store Details Drawer -->
+      <div class="store-detail-drawer">
+        <div class="store-detail-header">
+          <h3 style="margin:0;font-size:15px;font-weight:700;color:var(--text-900);">Store Details</h3>
+          <i class="fa-solid fa-chevron-up" style="color:var(--text-400);font-size:12px;cursor:pointer;"></i>
+        </div>
+
+        <!-- Store Header Banner -->
+        <div style="display:flex;align-items:center;gap:12px;padding:12px 14px;background:#fafbfc;border:1px solid var(--border-soft);border-radius:var(--radius-md);margin-bottom:16px;">
+          <div class="store-logo-cell" id="detail-logo" style="width:44px;height:44px;background:#fff;border-radius:10px;">
+            <svg viewBox="0 0 24 24" style="width:24px;height:24px;" fill="#0f172a">
+              <path d="M21.707 5.293c-.276-.276-.704-.325-1.033-.122L5.86 14.153c-1.396.86-3.085.345-3.837-.991-.652-1.157-.423-2.61.564-3.597.163-.163.344-.306.541-.424l.023-.014c.366-.219.489-.691.272-1.057s-.691-.489-1.057-.272c-.417.25-.795.556-1.134.909-1.573 1.573-1.936 3.914-.888 5.776 1.229 2.185 3.978 3.017 6.223 1.636l14.814-9.123c.328-.202.46-.615.326-.967z"/>
+            </svg>
+          </div>
+          <div>
+            <div style="display:flex;align-items:center;gap:6px;">
+              <span id="detail-name" style="font-size:15px;font-weight:800;color:var(--text-900);">Nike</span>
+              <span class="badge" style="background:#ecfdf5;color:#16a34a;font-size:10.5px;padding:2px 7px;font-weight:600;">
+                <span style="width:5px;height:5px;border-radius:50%;background:#16a34a;display:inline-block;margin-right:3px;"></span> Active
+              </span>
+            </div>
+            <div id="detail-code" style="font-size:12px;color:var(--text-400);margin-top:2px;">#GF-12</div>
+          </div>
+        </div>
+
+        <!-- Detail Sub-tabs -->
+        <div class="store-detail-sub-tabs">
+          <button class="store-detail-tab active">Details</button>
+          <button class="store-detail-tab">Images</button>
+          <button class="store-detail-tab">Map Location</button>
+          <button class="store-detail-tab">Hours</button>
+        </div>
+
+        <!-- Fields List -->
+        <div style="display:flex;flex-direction:column;gap:2px;margin-bottom:20px;">
+          <div class="store-info-row">
+            <div class="store-info-label">Category</div>
+            <div class="store-info-value">
+              <span id="detail-category" class="badge" style="background:#f5f3ff;color:#7c3aed;font-size:11px;padding:3px 8px;font-weight:600;">Fashion & Apparel</span>
+            </div>
+          </div>
+
+          <div class="store-info-row">
+            <div class="store-info-label">Floor</div>
+            <div class="store-info-value" id="detail-floor">Ground Floor</div>
+          </div>
+
+          <div class="store-info-row">
+            <div class="store-info-label">Store Code</div>
+            <div class="store-info-value" id="detail-code-row">GF-12</div>
+          </div>
+
+          <div class="store-info-row">
+            <div class="store-info-label">Phone</div>
+            <div class="store-info-value" id="detail-phone">+91 22 1234 5678</div>
+          </div>
+
+          <div class="store-info-row">
+            <div class="store-info-label">Email</div>
+            <div class="store-info-value" id="detail-email">nike@phoenixmall.com</div>
+          </div>
+
+          <div class="store-info-row" style="flex-direction:column;gap:6px;">
+            <div class="store-info-label">Description</div>
+            <div class="store-info-value" id="detail-desc" style="text-align:left;font-size:12px;color:var(--text-600);font-weight:400;line-height:1.45;">
+              Visit Nike for the latest in sports fashion, footwear and accessories.
+            </div>
+          </div>
+
+          <div class="store-info-row" style="align-items:center;">
+            <div class="store-info-label">Status</div>
+            <div class="store-info-value" style="display:flex;align-items:center;justify-content:flex-end;gap:8px;">
+              <label class="switch-toggle-btn">
+                <input type="checkbox" checked>
+                <span class="switch-slider"></span>
+              </label>
+              <span style="font-size:12px;font-weight:600;color:var(--green-600);">Active</span>
+            </div>
+          </div>
+
+          <div class="store-info-row">
+            <div class="store-info-label">Last Updated</div>
+            <div class="store-info-value" style="font-size:12px;">
+              <div>May 10, 2026 10:30 AM</div>
+              <div style="font-size:11px;color:var(--text-400);font-weight:400;margin-top:2px;">by Neha Sharma</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Action Buttons -->
+        <div style="display:flex;align-items:center;gap:10px;">
+          <button class="btn" style="flex:1;background:#fff;border:1px solid var(--border);color:var(--text-700);font-weight:600;padding:9px 12px;display:flex;align-items:center;justify-content:center;gap:6px;font-size:12.5px;">
+            <i class="fa-regular fa-pen-to-square"></i> Edit Store
+          </button>
+          <button class="btn" style="flex:1;background:#fff;border:1px solid #fee2e2;color:#dc2626;font-weight:600;padding:9px 12px;display:flex;align-items:center;justify-content:center;gap:6px;font-size:12.5px;">
+            <i class="fa-regular fa-trash-can"></i> Delete Store
+          </button>
+        </div>
+      </div>
+
+    </div>
+
+  </main>
+</div>
+</div>
+
+<script>
+function selectStoreRow(row, name, code, category, floor, phone, email, desc) {
+  document.querySelectorAll('tbody tr').forEach(r => r.style.background = '#ffffff');
+  row.style.background = '#f8faff';
+
+  document.getElementById('detail-name').innerText = name;
+  document.getElementById('detail-code').innerText = '#' + code;
+  document.getElementById('detail-code-row').innerText = code;
+  document.getElementById('detail-category').innerText = category;
+  document.getElementById('detail-floor').innerText = floor;
+  document.getElementById('detail-phone').innerText = phone;
+  document.getElementById('detail-email').innerText = email;
+  document.getElementById('detail-desc').innerText = desc;
+}
+</script>
+</body>
+</html>
+
+

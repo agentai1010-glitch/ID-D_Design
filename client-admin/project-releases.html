@@ -1,0 +1,876 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Phoenix Mall · Releases · Kiosk Platform</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<link rel="stylesheet" href="../css/styles.css">
+<style>
+  /* ---- Releases page specific styles ---- */
+  .releases-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 12.5px;
+    min-width: 820px;
+  }
+  .releases-table th {
+    padding: 9px 14px;
+    text-align: left;
+    font-size: 11.5px;
+    font-weight: 700;
+    color: var(--text-500);
+    background: #fafbfc;
+    border-bottom: 1px solid var(--border);
+    white-space: nowrap;
+  }
+  .releases-table td {
+    padding: 11px 14px;
+    vertical-align: middle;
+    border-bottom: 1px solid var(--border-soft);
+    white-space: nowrap;
+  }
+  .releases-table tr:hover td {
+    background: #fafbfc;
+  }
+  .releases-table tr:last-child td {
+    border-bottom: none;
+  }
+  .release-icon-box {
+    width: 32px;
+    height: 32px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 13px;
+    flex-shrink: 0;
+  }
+  .release-avatar {
+    width: 26px;
+    height: 26px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 9.5px;
+    font-weight: 700;
+    color: #fff;
+    flex-shrink: 0;
+  }
+  .workflow-step {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    padding: 10px 0;
+    position: relative;
+  }
+  .workflow-step:not(:last-child)::after {
+    content: '';
+    position: absolute;
+    left: 13px;
+    top: 32px;
+    bottom: -8px;
+    width: 1.5px;
+    background: var(--border-soft);
+  }
+  .workflow-step-num {
+    width: 26px;
+    height: 26px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 11px;
+    font-weight: 700;
+    flex-shrink: 0;
+  }
+  .activity-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    padding: 9px 0;
+    border-bottom: 1px solid var(--border-soft);
+  }
+  .activity-item:last-child {
+    border-bottom: none;
+  }
+  .activity-dot {
+    width: 28px;
+    height: 28px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 11px;
+    flex-shrink: 0;
+    margin-top: 1px;
+  }
+  .release-filter-bar {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 14px 18px;
+    border-bottom: 1px solid var(--border-soft);
+    flex-wrap: wrap;
+  }
+  .release-search-box {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: #f8fafc;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 0 10px;
+    height: 34px;
+    min-width: 170px;
+    font-size: 12px;
+    color: var(--text-500);
+  }
+  .release-search-box input {
+    border: none;
+    background: transparent;
+    outline: none;
+    font-size: 12px;
+    color: var(--text-800);
+    font-family: inherit;
+    flex: 1;
+    width: 100%;
+  }
+  .version-pill {
+    display: inline-flex;
+    align-items: center;
+    padding: 2px 7px;
+    border-radius: 4px;
+    font-size: 11px;
+    font-weight: 700;
+    background: #f1f5f9;
+    color: #475569;
+    letter-spacing: 0.2px;
+  }
+  .pagination-btn {
+    width: 30px;
+    height: 30px;
+    border-radius: 6px;
+    border: 1px solid var(--border);
+    background: #fff;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--text-700);
+    transition: all 0.15s ease;
+  }
+  .pagination-btn:hover {
+    background: #f1f5f9;
+  }
+  .pagination-btn.active {
+    background: #2563eb;
+    color: #fff;
+    border-color: #2563eb;
+  }
+</style>
+</head>
+<body>
+<div class="app-shell">
+
+<!-- ===== CLIENT ADMIN SIDEBAR ===== -->
+<aside class="sidebar">
+  <a href="dashboard.html" class="sidebar-brand">
+    <div class="logo-icon">
+      <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M12 2L21 7V17L12 22L3 17V7L12 2Z" stroke="white" stroke-width="1.6" stroke-linejoin="round"/>
+        <circle cx="12" cy="12" r="3.2" fill="white"/>
+      </svg>
+    </div>
+    <div class="brand-text"><div class="t1">KIOSK</div><div class="t2">PLATFORM</div></div>
+  </a>
+
+  <div class="sidebar-section-label">WORKSPACE</div>
+  <ul class="sidebar-nav">
+    <li class="nav-item" onclick="location.href='dashboard.html'"><i class="fa-solid fa-house"></i><span>Dashboard</span></li>
+    <li class="nav-item active" onclick="location.href='projects.html'"><i class="fa-solid fa-folder-open"></i><span>Projects</span></li>
+    <li class="nav-item" onclick="location.href='devices.html'"><i class="fa-solid fa-tablet-screen-button"></i><span>Devices</span></li>
+    <li class="nav-item" onclick="location.href='analytics.html'"><i class="fa-solid fa-chart-column"></i><span>Analytics</span></li>
+  </ul>
+
+  <div class="sidebar-section-label">TEAM</div>
+  <ul class="sidebar-nav">
+    <li class="nav-item" onclick="location.href='users-roles.html'"><i class="fa-solid fa-users"></i><span>Users & Roles</span></li>
+  </ul>
+
+  <div class="sidebar-section-label">ACCOUNT</div>
+  <ul class="sidebar-nav">
+    <li class="nav-item" onclick="location.href='settings.html'"><i class="fa-solid fa-gear"></i><span>Settings</span></li>
+  </ul>
+
+  <div class="sidebar-spacer"></div>
+
+  <div class="org-switcher-card">
+    <div class="org-switcher-header">
+      <div class="org-icon-box"><i class="fa-solid fa-city"></i></div>
+      <div>
+        <div class="org-name-text">Phoenix Retail Group</div>
+        <div class="org-sub-text">Organization</div>
+      </div>
+    </div>
+    <button class="org-btn-switch">
+      <span>Switch Organization</span>
+      <i class="fa-solid fa-chevron-down" style="font-size:9.5px;"></i>
+    </button>
+  </div>
+
+  <div class="sidebar-footer" style="display:flex;align-items:center;justify-content:space-between;">
+    <span>Client Admin v1.0.0</span>
+    <i class="fa-solid fa-chevron-left" style="font-size:10px;cursor:pointer;"></i>
+  </div>
+</aside>
+
+<!-- ===== MAIN AREA ===== -->
+<div class="main">
+
+  <!-- Topbar -->
+  <header class="topbar">
+    <i class="fa-solid fa-bars hamburger"></i>
+    <div class="search">
+      <i class="fa-solid fa-magnifying-glass"></i>
+      <span>Search projects, kiosks, locations...</span>
+      <span class="kbd">⌘ K</span>
+    </div>
+    <div class="spacer"></div>
+    <button class="icon-btn"><i class="fa-regular fa-bell"></i><span class="badge-dot">8</span></button>
+    <div class="user">
+      <div class="avatar" style="background:linear-gradient(135deg,#3b82f6,#1d4ed8);">RA</div>
+      <div>
+        <div class="u-name">Rahul Arora</div>
+        <div class="u-role">Client Admin</div>
+      </div>
+      <i class="fa-solid fa-chevron-down"></i>
+    </div>
+  </header>
+
+  <main class="content">
+
+    <!-- ===== PROJECT HEADER ===== -->
+    <div class="project-header-container">
+      <div class="project-breadcrumbs">
+        <a href="projects.html">Projects</a>
+        <i class="fa-solid fa-chevron-right" style="font-size:9px;color:var(--text-400);"></i>
+        <a href="project-overview.html">Phoenix Mall</a>
+        <i class="fa-solid fa-chevron-right" style="font-size:9px;color:var(--text-400);"></i>
+        <span style="font-weight:600;color:var(--text-900);">Releases</span>
+      </div>
+
+      <div class="project-title-row">
+        <div class="project-title-left">
+          <h1>Phoenix Mall</h1>
+          <span class="badge badge-green" style="font-size:12px;padding:3px 10px;font-weight:600;">
+            <span class="dot"></span> Active
+          </span>
+        </div>
+        <div style="display:flex;align-items:center;gap:10px;">
+          <button class="btn" style="background:#fff;border:1px solid var(--border);color:var(--text-700);font-weight:600;padding:9px 16px;display:flex;align-items:center;gap:8px;">
+            <i class="fa-regular fa-eye"></i> Preview Kiosk
+          </button>
+          <button class="btn btn-primary" style="background:#2563eb;color:#fff;font-weight:600;padding:9px 18px;display:flex;align-items:center;gap:8px;">
+            <i class="fa-solid fa-gear"></i> Project Settings <i class="fa-solid fa-chevron-down" style="font-size:9.5px;margin-left:2px;"></i>
+          </button>
+        </div>
+      </div>
+
+      <div class="project-meta-row">
+        <div class="project-meta-item"><i class="fa-solid fa-building" style="color:var(--text-400);"></i> Mall / Indoor Venue</div>
+        <span style="color:var(--text-400);">•</span>
+        <div class="project-meta-item"><i class="fa-solid fa-location-dot" style="color:var(--text-400);"></i> Mumbai, India</div>
+        <span style="color:var(--text-400);">•</span>
+        <div class="project-meta-item"><i class="fa-solid fa-tablet-screen-button" style="color:var(--text-400);"></i> 12 Kiosks</div>
+        <span style="color:var(--text-400);">•</span>
+        <div class="project-meta-item" style="color:var(--green-600);font-weight:600;">
+          <i class="fa-solid fa-circle-check"></i> Release 43 (Published)
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== PROJECT SUB-NAVIGATION TABS ===== -->
+    <div class="project-tabs-nav">
+      <button class="project-tab-btn" onclick="location.href='project-overview.html'">Overview</button>
+      <button class="project-tab-btn" onclick="location.href='project-experience.html'">Experience</button>
+      <button class="project-tab-btn" onclick="location.href='project-content.html'">Content</button>
+      <button class="project-tab-btn" onclick="location.href='project-maps.html'">Maps</button>
+      <button class="project-tab-btn" onclick="location.href='project-navigation.html'">Navigation</button>
+      <button class="project-tab-btn" onclick="location.href='project-advertisements.html'">Advertisements</button>
+      <button class="project-tab-btn" onclick="location.href='project-preview.html'">Preview</button>
+      <button class="project-tab-btn" onclick="location.href='project-validation.html'">Validation</button>
+      <button class="project-tab-btn active">Releases</button>
+      <button class="project-tab-btn" onclick="location.href='project-devices.html'">Devices</button>
+      <button class="project-tab-btn" onclick="location.href='project-analytics.html'">Analytics</button>
+      <button class="project-tab-btn" onclick="location.href='#'">Settings</button>
+    </div>
+
+    <!-- ===== SECTION HEADER ===== -->
+    <div style="margin-bottom:18px;">
+      <h2 style="font-size:17px;font-weight:800;color:var(--text-900);margin:0 0 3px;">Releases Overview</h2>
+      <p style="font-size:12.5px;color:var(--text-500);margin:0;">Track and manage all project releases and deployments.</p>
+    </div>
+
+    <!-- ===== TOP KPI METRIC CARDS ===== -->
+    <div class="ad-metrics-strip" style="margin-bottom:22px;">
+      <!-- Total Releases -->
+      <div class="content-metric-card">
+        <div class="kpi-icon-box" style="background:#eff6ff;color:#2563eb;width:40px;height:40px;border-radius:10px;">
+          <i class="fa-regular fa-rectangle-list"></i>
+        </div>
+        <div>
+          <div style="font-size:22px;font-weight:800;color:var(--text-900);line-height:1.1;">43</div>
+          <div style="font-size:11.5px;font-weight:600;color:var(--text-600);margin-top:2px;">Total Releases</div>
+          <div style="font-size:11px;color:#16a34a;font-weight:600;margin-top:2px;">↑ 5 vs last month</div>
+        </div>
+      </div>
+
+      <!-- Published -->
+      <div class="content-metric-card">
+        <div class="kpi-icon-box" style="background:#ecfdf5;color:#059669;width:40px;height:40px;border-radius:10px;">
+          <i class="fa-solid fa-paper-plane"></i>
+        </div>
+        <div>
+          <div style="font-size:22px;font-weight:800;color:var(--text-900);line-height:1.1;">28</div>
+          <div style="font-size:11.5px;font-weight:600;color:var(--text-600);margin-top:2px;">Published</div>
+          <div style="font-size:11px;color:var(--text-400);margin-top:2px;">65.1% of total</div>
+        </div>
+      </div>
+
+      <!-- Draft -->
+      <div class="content-metric-card">
+        <div class="kpi-icon-box" style="background:#fff7ed;color:#ea580c;width:40px;height:40px;border-radius:10px;">
+          <i class="fa-regular fa-calendar-days"></i>
+        </div>
+        <div>
+          <div style="font-size:22px;font-weight:800;color:var(--text-900);line-height:1.1;">10</div>
+          <div style="font-size:11.5px;font-weight:600;color:var(--text-600);margin-top:2px;">Draft</div>
+          <div style="font-size:11px;color:var(--text-400);margin-top:2px;">23.3% of total</div>
+        </div>
+      </div>
+
+      <!-- Scheduled -->
+      <div class="content-metric-card">
+        <div class="kpi-icon-box" style="background:#fefce8;color:#ca8a04;width:40px;height:40px;border-radius:10px;">
+          <i class="fa-regular fa-clock"></i>
+        </div>
+        <div>
+          <div style="font-size:22px;font-weight:800;color:var(--text-900);line-height:1.1;">3</div>
+          <div style="font-size:11.5px;font-weight:600;color:var(--text-600);margin-top:2px;">Scheduled</div>
+          <div style="font-size:11px;color:var(--text-400);margin-top:2px;">7.0% of total</div>
+        </div>
+      </div>
+
+      <!-- Deprecated -->
+      <div class="content-metric-card">
+        <div class="kpi-icon-box" style="background:#fef2f2;color:#dc2626;width:40px;height:40px;border-radius:10px;">
+          <i class="fa-regular fa-circle-xmark"></i>
+        </div>
+        <div>
+          <div style="font-size:22px;font-weight:800;color:var(--text-900);line-height:1.1;">2</div>
+          <div style="font-size:11.5px;font-weight:600;color:var(--text-600);margin-top:2px;">Deprecated</div>
+          <div style="font-size:11px;color:var(--text-400);margin-top:2px;">4.6% of total</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== MAIN CONTENT: Releases Table + Right Sidebar ===== -->
+    <div class="content-main-layout" style="grid-template-columns: minmax(0, 1fr) 290px; gap: 20px; align-items: flex-start;">
+
+      <!-- Left: Releases Table Panel -->
+      <div class="panel" style="margin:0;padding:0;overflow:hidden;">
+
+        <!-- Table Header Row -->
+        <div style="display:flex;align-items:center;justify-content:space-between;padding:14px 18px;border-bottom:1px solid var(--border-soft);">
+          <h3 style="margin:0;font-size:14.5px;font-weight:700;color:var(--text-900);">All Releases</h3>
+          <button class="btn btn-primary" style="background:#2563eb;color:#fff;font-size:12px;font-weight:600;padding:7px 14px;display:flex;align-items:center;gap:6px;">
+            <i class="fa-solid fa-plus"></i> Create Release
+          </button>
+        </div>
+
+        <!-- Filter Bar -->
+        <div class="release-filter-bar">
+          <!-- Search -->
+          <div class="release-search-box">
+            <i class="fa-solid fa-magnifying-glass" style="color:var(--text-400);font-size:11px;"></i>
+            <input type="text" placeholder="Search releases...">
+          </div>
+
+          <!-- Status Filter -->
+          <div class="select-pill" style="height:34px;padding:0 11px;font-size:12px;gap:6px;">
+            All Status <i class="fa-solid fa-chevron-down" style="font-size:9px;"></i>
+          </div>
+
+          <!-- Environment Filter -->
+          <div class="select-pill" style="height:34px;padding:0 11px;font-size:12px;gap:6px;">
+            All Environments <i class="fa-solid fa-chevron-down" style="font-size:9px;"></i>
+          </div>
+
+          <!-- Kiosks Filter -->
+          <div class="select-pill" style="height:34px;padding:0 11px;font-size:12px;gap:6px;">
+            All Kiosks <i class="fa-solid fa-chevron-down" style="font-size:9px;"></i>
+          </div>
+
+          <!-- Release Types -->
+          <div class="select-pill" style="height:34px;padding:0 11px;font-size:12px;gap:6px;">
+            All Release Types <i class="fa-solid fa-chevron-down" style="font-size:9px;"></i>
+          </div>
+
+          <!-- More Filters -->
+          <button class="btn" style="height:34px;padding:0 11px;font-size:12px;font-weight:600;display:flex;align-items:center;gap:5px;">
+            More Filters <i class="fa-solid fa-sliders" style="font-size:10px;"></i>
+          </button>
+        </div>
+
+        <!-- Scrollable Table -->
+        <div style="overflow-x:auto;">
+          <table class="releases-table">
+            <thead>
+              <tr>
+                <th style="padding-left:18px;">Release <i class="fa-solid fa-arrow-up" style="font-size:9px;margin-left:3px;color:#94a3b8;"></i></th>
+                <th>Version</th>
+                <th>Status</th>
+                <th>Release Type</th>
+                <th>Environment</th>
+                <th>Kiosks <i class="fa-solid fa-arrow-up" style="font-size:9px;margin-left:3px;color:#94a3b8;"></i></th>
+                <th>Released By</th>
+                <th>Release Date <i class="fa-solid fa-arrow-down" style="font-size:9px;margin-left:3px;color:#2563eb;"></i></th>
+                <th>Notes</th>
+                <th style="padding-right:18px;text-align:right;">Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+
+              <!-- Row 1: Release 43 (Current / Published) -->
+              <tr>
+                <td style="padding-left:18px;">
+                  <div style="display:flex;align-items:center;gap:10px;">
+                    <div class="release-icon-box" style="background:#ecfdf5;color:#059669;">
+                      <i class="fa-solid fa-rocket"></i>
+                    </div>
+                    <div>
+                      <div style="font-size:13px;font-weight:700;color:var(--text-900);">Release 43</div>
+                      <div style="font-size:10.5px;color:var(--text-400);">Summer Campaign Launch</div>
+                    </div>
+                  </div>
+                </td>
+                <td><span class="version-pill">v4.3.0</span></td>
+                <td><span class="badge" style="background:#ecfdf5;color:#16a34a;font-size:11px;padding:2px 8px;font-weight:600;">Published</span></td>
+                <td style="font-size:12px;color:var(--text-700);">Minor</td>
+                <td style="font-size:12px;color:var(--text-700);">Production</td>
+                <td>
+                  <div style="font-size:12px;font-weight:600;color:var(--text-900);">12 / 12</div>
+                  <div style="font-size:10.5px;color:#16a34a;font-weight:600;">100%</div>
+                </td>
+                <td>
+                  <div style="display:flex;align-items:center;gap:7px;">
+                    <div class="release-avatar" style="background:linear-gradient(135deg,#3b82f6,#1d4ed8);">RA</div>
+                    <div>
+                      <div style="font-size:12px;font-weight:600;color:var(--text-900);">Rahul Arora</div>
+                      <div style="font-size:10px;color:var(--text-400);">Client Admin</div>
+                    </div>
+                  </div>
+                </td>
+                <td>
+                  <div style="font-size:12px;font-weight:600;color:var(--text-900);">May 16, 2026</div>
+                  <div style="font-size:10.5px;color:var(--text-400);">12:30 PM</div>
+                </td>
+                <td style="font-size:12px;color:var(--text-600);max-width:160px;white-space:normal;">Summer sale banners, new offers & UI updates</td>
+                <td style="padding-right:18px;text-align:right;">
+                  <button class="icon-btn" style="color:var(--text-400);"><i class="fa-solid fa-ellipsis"></i></button>
+                </td>
+              </tr>
+
+              <!-- Row 2: Release 42 (Published) -->
+              <tr>
+                <td style="padding-left:18px;">
+                  <div style="display:flex;align-items:center;gap:10px;">
+                    <div class="release-icon-box" style="background:#ecfdf5;color:#059669;">
+                      <i class="fa-solid fa-rocket"></i>
+                    </div>
+                    <div>
+                      <div style="font-size:13px;font-weight:700;color:var(--text-900);">Release 42</div>
+                      <div style="font-size:10.5px;color:var(--text-400);">Feature Enhancements</div>
+                    </div>
+                  </div>
+                </td>
+                <td><span class="version-pill">v4.2.0</span></td>
+                <td><span class="badge" style="background:#ecfdf5;color:#16a34a;font-size:11px;padding:2px 8px;font-weight:600;">Published</span></td>
+                <td style="font-size:12px;color:var(--text-700);">Minor</td>
+                <td style="font-size:12px;color:var(--text-700);">Production</td>
+                <td>
+                  <div style="font-size:12px;font-weight:600;color:var(--text-900);">12 / 12</div>
+                  <div style="font-size:10.5px;color:#16a34a;font-weight:600;">100%</div>
+                </td>
+                <td>
+                  <div style="display:flex;align-items:center;gap:7px;">
+                    <div class="release-avatar" style="background:linear-gradient(135deg,#f59e0b,#d97706);">SM</div>
+                    <div>
+                      <div style="font-size:12px;font-weight:600;color:var(--text-900);">Sneha Mehta</div>
+                      <div style="font-size:10px;color:var(--text-400);">Project Manager</div>
+                    </div>
+                  </div>
+                </td>
+                <td>
+                  <div style="font-size:12px;font-weight:600;color:var(--text-900);">Apr 28, 2026</div>
+                  <div style="font-size:10.5px;color:var(--text-400);">11:15 AM</div>
+                </td>
+                <td style="font-size:12px;color:var(--text-600);max-width:160px;white-space:normal;">Navigation improvements & performance updates</td>
+                <td style="padding-right:18px;text-align:right;">
+                  <button class="icon-btn" style="color:var(--text-400);"><i class="fa-solid fa-ellipsis"></i></button>
+                </td>
+              </tr>
+
+              <!-- Row 3: Release 41 (Published - Patch) -->
+              <tr>
+                <td style="padding-left:18px;">
+                  <div style="display:flex;align-items:center;gap:10px;">
+                    <div class="release-icon-box" style="background:#f0fdf4;color:#16a34a;">
+                      <i class="fa-regular fa-file-lines"></i>
+                    </div>
+                    <div>
+                      <div style="font-size:13px;font-weight:700;color:var(--text-900);">Release 41</div>
+                      <div style="font-size:10.5px;color:var(--text-400);">Content Update</div>
+                    </div>
+                  </div>
+                </td>
+                <td><span class="version-pill">v4.1.0</span></td>
+                <td><span class="badge" style="background:#ecfdf5;color:#16a34a;font-size:11px;padding:2px 8px;font-weight:600;">Published</span></td>
+                <td style="font-size:12px;color:var(--text-700);">Patch</td>
+                <td style="font-size:12px;color:var(--text-700);">Production</td>
+                <td>
+                  <div style="font-size:12px;font-weight:600;color:var(--text-900);">12 / 12</div>
+                  <div style="font-size:10.5px;color:#16a34a;font-weight:600;">100%</div>
+                </td>
+                <td>
+                  <div style="display:flex;align-items:center;gap:7px;">
+                    <div class="release-avatar" style="background:linear-gradient(135deg,#3b82f6,#1d4ed8);">RA</div>
+                    <div>
+                      <div style="font-size:12px;font-weight:600;color:var(--text-900);">Rahul Arora</div>
+                      <div style="font-size:10px;color:var(--text-400);">Client Admin</div>
+                    </div>
+                  </div>
+                </td>
+                <td>
+                  <div style="font-size:12px;font-weight:600;color:var(--text-900);">Apr 10, 2026</div>
+                  <div style="font-size:10.5px;color:var(--text-400);">09:40 AM</div>
+                </td>
+                <td style="font-size:12px;color:var(--text-600);max-width:160px;white-space:normal;">Updated store directory & images</td>
+                <td style="padding-right:18px;text-align:right;">
+                  <button class="icon-btn" style="color:var(--text-400);"><i class="fa-solid fa-ellipsis"></i></button>
+                </td>
+              </tr>
+
+              <!-- Row 4: Release 44 (Draft) -->
+              <tr style="background:#fafbfc;">
+                <td style="padding-left:18px;">
+                  <div style="display:flex;align-items:center;gap:10px;">
+                    <div class="release-icon-box" style="background:#f1f5f9;color:#64748b;">
+                      <i class="fa-regular fa-file"></i>
+                    </div>
+                    <div>
+                      <div style="font-size:13px;font-weight:700;color:var(--text-900);">Release 44</div>
+                      <div style="font-size:10.5px;color:var(--text-400);">Festive Campaign (Draft)</div>
+                    </div>
+                  </div>
+                </td>
+                <td><span class="version-pill">v4.4.0</span></td>
+                <td><span class="badge" style="background:#f1f5f9;color:#64748b;font-size:11px;padding:2px 8px;font-weight:600;">Draft</span></td>
+                <td style="font-size:12px;color:var(--text-700);">Major</td>
+                <td style="font-size:12px;color:var(--text-700);">Staging</td>
+                <td>
+                  <div style="font-size:12px;color:var(--text-400);">—</div>
+                </td>
+                <td>
+                  <div style="display:flex;align-items:center;gap:7px;">
+                    <div class="release-avatar" style="background:linear-gradient(135deg,#8b5cf6,#6d28d9);">AP</div>
+                    <div>
+                      <div style="font-size:12px;font-weight:600;color:var(--text-900);">Amit Patel</div>
+                      <div style="font-size:10px;color:var(--text-400);">Content Lead</div>
+                    </div>
+                  </div>
+                </td>
+                <td>
+                  <div style="font-size:12px;color:var(--text-400);">—</div>
+                </td>
+                <td style="font-size:12px;color:var(--text-600);max-width:160px;white-space:normal;">Diwali campaign, new themes & content</td>
+                <td style="padding-right:18px;text-align:right;">
+                  <button class="icon-btn" style="color:var(--text-400);"><i class="fa-solid fa-ellipsis"></i></button>
+                </td>
+              </tr>
+
+              <!-- Row 5: Release 45 (Scheduled) -->
+              <tr>
+                <td style="padding-left:18px;">
+                  <div style="display:flex;align-items:center;gap:10px;">
+                    <div class="release-icon-box" style="background:#fefce8;color:#ca8a04;">
+                      <i class="fa-regular fa-clock"></i>
+                    </div>
+                    <div>
+                      <div style="font-size:13px;font-weight:700;color:var(--text-900);">Release 45</div>
+                      <div style="font-size:10.5px;color:var(--text-400);">Navigation Redesign</div>
+                    </div>
+                  </div>
+                </td>
+                <td><span class="version-pill">v4.5.0</span></td>
+                <td><span class="badge" style="background:#fefce8;color:#ca8a04;font-size:11px;padding:2px 8px;font-weight:600;">Scheduled</span></td>
+                <td style="font-size:12px;color:var(--text-700);">Major</td>
+                <td style="font-size:12px;color:var(--text-700);">Production</td>
+                <td>
+                  <div style="font-size:12px;font-weight:600;color:var(--text-900);">12 / 12</div>
+                  <div style="font-size:10.5px;color:#16a34a;font-weight:600;">100%</div>
+                </td>
+                <td>
+                  <div style="display:flex;align-items:center;gap:7px;">
+                    <div class="release-avatar" style="background:linear-gradient(135deg,#0ea5e9,#0284c7);">NK</div>
+                    <div>
+                      <div style="font-size:12px;font-weight:600;color:var(--text-900);">Neha Kapoor</div>
+                      <div style="font-size:10px;color:var(--text-400);">UX Designer</div>
+                    </div>
+                  </div>
+                </td>
+                <td>
+                  <div style="font-size:12px;font-weight:600;color:var(--text-900);">May 30, 2026</div>
+                  <div style="font-size:10.5px;color:var(--text-400);">06:00 PM</div>
+                </td>
+                <td style="font-size:12px;color:var(--text-600);max-width:160px;white-space:normal;">Complete navigation flow redesign</td>
+                <td style="padding-right:18px;text-align:right;">
+                  <button class="icon-btn" style="color:var(--text-400);"><i class="fa-solid fa-ellipsis"></i></button>
+                </td>
+              </tr>
+
+              <!-- Row 6: Release 39 (Deprecated) -->
+              <tr>
+                <td style="padding-left:18px;">
+                  <div style="display:flex;align-items:center;gap:10px;">
+                    <div class="release-icon-box" style="background:#fef2f2;color:#dc2626;">
+                      <i class="fa-solid fa-ban"></i>
+                    </div>
+                    <div>
+                      <div style="font-size:13px;font-weight:700;color:var(--text-500);">Release 39</div>
+                      <div style="font-size:10.5px;color:var(--text-400);">Old Promotions</div>
+                    </div>
+                  </div>
+                </td>
+                <td><span class="version-pill" style="background:#fef2f2;color:#dc2626;">v3.9.0</span></td>
+                <td><span class="badge" style="background:#fef2f2;color:#dc2626;font-size:11px;padding:2px 8px;font-weight:600;">Deprecated</span></td>
+                <td style="font-size:12px;color:var(--text-700);">Minor</td>
+                <td style="font-size:12px;color:var(--text-700);">Production</td>
+                <td>
+                  <div style="font-size:12px;font-weight:600;color:var(--text-500);">0 / 12</div>
+                  <div style="font-size:10.5px;color:#dc2626;font-weight:600;">0%</div>
+                </td>
+                <td>
+                  <div style="display:flex;align-items:center;gap:7px;">
+                    <div class="release-avatar" style="background:#94a3b8;">SA</div>
+                    <div>
+                      <div style="font-size:12px;font-weight:600;color:var(--text-500);">System</div>
+                      <div style="font-size:10px;color:var(--text-400);">Automated</div>
+                    </div>
+                  </div>
+                </td>
+                <td>
+                  <div style="font-size:12px;font-weight:600;color:var(--text-500);">Mar 02, 2026</div>
+                  <div style="font-size:10.5px;color:var(--text-400);">10:20 AM</div>
+                </td>
+                <td style="font-size:12px;color:var(--text-400);max-width:160px;white-space:normal;font-style:italic;">Deprecated due to newer release</td>
+                <td style="padding-right:18px;text-align:right;">
+                  <button class="icon-btn" style="color:var(--text-400);"><i class="fa-solid fa-ellipsis"></i></button>
+                </td>
+              </tr>
+
+            </tbody>
+          </table>
+        </div>
+
+        <!-- Pagination Footer -->
+        <div style="display:flex;align-items:center;justify-content:space-between;padding:12px 18px;border-top:1px solid var(--border-soft);background:#fafbfc;">
+          <div style="font-size:12px;color:var(--text-500);">Showing 1 to 6 of 43 releases</div>
+          <div style="display:flex;align-items:center;gap:4px;">
+            <button class="pagination-btn"><i class="fa-solid fa-chevron-left" style="font-size:10px;"></i></button>
+            <button class="pagination-btn active">1</button>
+            <button class="pagination-btn">2</button>
+            <button class="pagination-btn">3</button>
+            <span style="font-size:12px;color:var(--text-400);padding:0 4px;">...</span>
+            <button class="pagination-btn">8</button>
+            <button class="pagination-btn"><i class="fa-solid fa-chevron-right" style="font-size:10px;"></i></button>
+          </div>
+          <div style="display:flex;align-items:center;gap:6px;">
+            <div class="select-pill" style="height:30px;padding:0 10px;font-size:11.5px;gap:5px;">
+              10 / page <i class="fa-solid fa-chevron-down" style="font-size:8px;"></i>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Right Sidebar: Workflow + Activity -->
+      <div style="display:flex;flex-direction:column;gap:18px;">
+
+        <!-- Release Workflow Card -->
+        <div class="panel" style="margin:0;padding:18px;">
+          <h3 style="margin:0 0 14px;font-size:14.5px;font-weight:700;color:var(--text-900);">Release Workflow</h3>
+
+          <!-- Step 1: Create Release -->
+          <div class="workflow-step">
+            <div class="workflow-step-num" style="background:#ecfdf5;color:#059669;">
+              <i class="fa-solid fa-check" style="font-size:10px;"></i>
+            </div>
+            <div>
+              <div style="font-size:12.5px;font-weight:700;color:var(--text-900);">Create Release</div>
+              <div style="font-size:11px;color:var(--text-400);margin-top:2px;">Define version, type & notes</div>
+            </div>
+          </div>
+
+          <!-- Step 2: Review & Validate -->
+          <div class="workflow-step">
+            <div class="workflow-step-num" style="background:#ecfdf5;color:#059669;">
+              <i class="fa-solid fa-check" style="font-size:10px;"></i>
+            </div>
+            <div>
+              <div style="font-size:12.5px;font-weight:700;color:var(--text-900);">Review & Validate</div>
+              <div style="font-size:11px;color:var(--text-400);margin-top:2px;">Validate content and settings</div>
+            </div>
+          </div>
+
+          <!-- Step 3: Approve -->
+          <div class="workflow-step">
+            <div class="workflow-step-num" style="background:#ecfdf5;color:#059669;">
+              <i class="fa-solid fa-check" style="font-size:10px;"></i>
+            </div>
+            <div>
+              <div style="font-size:12.5px;font-weight:700;color:var(--text-900);">Approve</div>
+              <div style="font-size:11px;color:var(--text-400);margin-top:2px;">Approve for publishing</div>
+            </div>
+          </div>
+
+          <!-- Step 4: Publish (Active) -->
+          <div class="workflow-step">
+            <div class="workflow-step-num" style="background:#2563eb;color:#fff;">4</div>
+            <div>
+              <div style="font-size:12.5px;font-weight:700;color:#2563eb;">Publish</div>
+              <div style="font-size:11px;color:var(--text-400);margin-top:2px;">Deploy to selected kiosks</div>
+            </div>
+          </div>
+
+          <!-- Step 5: Monitor -->
+          <div class="workflow-step" style="opacity:0.55;">
+            <div class="workflow-step-num" style="background:#f1f5f9;color:#94a3b8;">5</div>
+            <div>
+              <div style="font-size:12.5px;font-weight:700;color:var(--text-500);">Monitor</div>
+              <div style="font-size:11px;color:var(--text-400);margin-top:2px;">Track deployment & performance</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Release Activity Card -->
+        <div class="panel" style="margin:0;padding:18px;">
+          <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;">
+            <h3 style="margin:0;font-size:14.5px;font-weight:700;color:var(--text-900);">Release Activity</h3>
+            <a href="#" style="font-size:11.5px;color:#2563eb;font-weight:600;text-decoration:none;">View All</a>
+          </div>
+
+          <!-- Activity Item 1 -->
+          <div class="activity-item">
+            <div class="activity-dot" style="background:#ecfdf5;color:#059669;">
+              <i class="fa-solid fa-rocket"></i>
+            </div>
+            <div>
+              <div style="font-size:12.5px;font-weight:700;color:var(--text-900);">Release 43 published</div>
+              <div style="font-size:11px;color:var(--text-500);margin-top:2px;">by Rahul Arora</div>
+              <div style="font-size:10.5px;color:var(--text-400);margin-top:1px;">May 16, 2026 12:30 PM</div>
+            </div>
+          </div>
+
+          <!-- Activity Item 2 -->
+          <div class="activity-item">
+            <div class="activity-dot" style="background:#ecfdf5;color:#059669;">
+              <i class="fa-solid fa-rocket"></i>
+            </div>
+            <div>
+              <div style="font-size:12.5px;font-weight:700;color:var(--text-900);">Release 42 published</div>
+              <div style="font-size:11px;color:var(--text-500);margin-top:2px;">by Sneha Mehta</div>
+              <div style="font-size:10.5px;color:var(--text-400);margin-top:1px;">Apr 28, 2026 11:15 AM</div>
+            </div>
+          </div>
+
+          <!-- Activity Item 3 -->
+          <div class="activity-item">
+            <div class="activity-dot" style="background:#eff6ff;color:#2563eb;">
+              <i class="fa-regular fa-file-lines"></i>
+            </div>
+            <div>
+              <div style="font-size:12.5px;font-weight:700;color:var(--text-900);">Release 41 published</div>
+              <div style="font-size:11px;color:var(--text-500);margin-top:2px;">by Rahul Arora</div>
+              <div style="font-size:10.5px;color:var(--text-400);margin-top:1px;">Apr 10, 2026 09:40 AM</div>
+            </div>
+          </div>
+
+          <!-- Activity Item 4 -->
+          <div class="activity-item">
+            <div class="activity-dot" style="background:#f5f3ff;color:#7c3aed;">
+              <i class="fa-regular fa-file"></i>
+            </div>
+            <div>
+              <div style="font-size:12.5px;font-weight:700;color:var(--text-900);">Release 44 created</div>
+              <div style="font-size:11px;color:var(--text-500);margin-top:2px;">by Amit Patel</div>
+              <div style="font-size:10.5px;color:var(--text-400);margin-top:1px;">May 18, 2026 04:20 PM</div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+
+    <!-- ===== BOTTOM CALLOUT: About Releases ===== -->
+    <div class="about-ad-card" style="margin-top:20px;">
+      <div style="display:flex;align-items:center;gap:14px;">
+        <div style="width:36px;height:36px;border-radius:10px;background:#dbeafe;color:#2563eb;display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0;">
+          <i class="fa-solid fa-circle-info"></i>
+        </div>
+        <div>
+          <div style="font-size:13.5px;font-weight:800;color:var(--text-900);line-height:1.2;">About Releases</div>
+          <div style="font-size:12px;color:var(--text-500);margin-top:2px;">
+            Releases help you version, track and deploy changes to your kiosks in a controlled and reliable way.
+          </div>
+        </div>
+      </div>
+
+      <button class="btn" style="background:#fff;font-size:12px;font-weight:600;display:flex;align-items:center;gap:6px;white-space:nowrap;">
+        View Documentation <i class="fa-solid fa-arrow-up-right-from-square" style="font-size:10px;"></i>
+      </button>
+    </div>
+
+  </main>
+</div>
+</div>
+
+<script>
+// Filter interactions
+document.querySelectorAll('.select-pill').forEach(pill => {
+  pill.style.cursor = 'pointer';
+  pill.addEventListener('click', function() {
+    this.style.borderColor = '#2563eb';
+    setTimeout(() => { this.style.borderColor = ''; }, 800);
+  });
+});
+
+// Ellipsis menu interactions
+document.querySelectorAll('.releases-table .icon-btn').forEach(btn => {
+  btn.addEventListener('click', function(e) {
+    e.stopPropagation();
+    // In real app this would open a dropdown
+  });
+});
+</script>
+
+</body>
+</html>
+

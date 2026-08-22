@@ -1,0 +1,537 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Phoenix Mall · Maps · Kiosk Platform</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<link rel="stylesheet" href="../css/styles.css">
+</head>
+<body>
+<div class="app-shell">
+
+<!-- Client Admin Sidebar -->
+<aside class="sidebar">
+  <a href="dashboard.html" class="sidebar-brand" style="cursor:pointer;">
+    <div class="logo-icon">
+      <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M12 2L21 7V17L12 22L3 17V7L12 2Z" stroke="white" stroke-width="1.6" stroke-linejoin="round"/>
+        <circle cx="12" cy="12" r="3.2" fill="white"/>
+      </svg>
+    </div>
+    <div class="brand-text"><div class="t1">KIOSK</div><div class="t2">PLATFORM</div></div>
+  </a>
+
+  <!-- WORKSPACE Section -->
+  <div class="sidebar-section-label">WORKSPACE</div>
+  <ul class="sidebar-nav">
+    <li class="nav-item" onclick="location.href='dashboard.html'"><i class="fa-solid fa-house"></i><span>Dashboard</span></li>
+    <li class="nav-item active" onclick="location.href='projects.html'"><i class="fa-solid fa-folder-open"></i><span>Projects</span></li>
+    <li class="nav-item" onclick="location.href='devices.html'"><i class="fa-solid fa-tablet-screen-button"></i><span>Devices</span></li>
+    <li class="nav-item" onclick="location.href='analytics.html'"><i class="fa-solid fa-chart-column"></i><span>Analytics</span></li>
+  </ul>
+
+  <!-- TEAM Section -->
+  <div class="sidebar-section-label">TEAM</div>
+  <ul class="sidebar-nav">
+    <li class="nav-item" onclick="location.href='users-roles.html'"><i class="fa-solid fa-users"></i><span>Users & Roles</span></li>
+  </ul>
+
+  <!-- ACCOUNT Section -->
+  <div class="sidebar-section-label">ACCOUNT</div>
+  <ul class="sidebar-nav">
+    <li class="nav-item" onclick="location.href='settings.html'"><i class="fa-solid fa-gear"></i><span>Settings</span></li>
+  </ul>
+
+  <div class="sidebar-spacer"></div>
+
+  <!-- Organization Card -->
+  <div class="org-switcher-card">
+    <div class="org-switcher-header">
+      <div class="org-icon-box"><i class="fa-solid fa-city"></i></div>
+      <div>
+        <div class="org-name-text">Phoenix Retail Group</div>
+        <div class="org-sub-text">Organization</div>
+      </div>
+    </div>
+    <button class="org-btn-switch">
+      <span>Switch Organization</span>
+      <i class="fa-solid fa-chevron-down" style="font-size:9.5px;"></i>
+    </button>
+  </div>
+
+  <div class="sidebar-footer" style="display:flex;align-items:center;justify-content:space-between;">
+    <span>Client Admin v1.0.0</span>
+    <i class="fa-solid fa-chevron-left" style="font-size:10px;cursor:pointer;"></i>
+  </div>
+</aside>
+
+<!-- Main Area -->
+<div class="main">
+  <!-- Topbar Header -->
+  <header class="topbar">
+    <i class="fa-solid fa-bars hamburger"></i>
+    <div class="search">
+      <i class="fa-solid fa-magnifying-glass"></i>
+      <span>Search projects, kiosks, locations...</span>
+      <span class="kbd">⌘ K</span>
+    </div>
+    <div class="spacer"></div>
+    <button class="icon-btn"><i class="fa-regular fa-bell"></i><span class="badge-dot">8</span></button>
+    <div class="user">
+      <div class="avatar" style="background:linear-gradient(135deg,#3b82f6,#1d4ed8);">RA</div>
+      <div>
+        <div class="u-name">Rahul Arora</div>
+        <div class="u-role">Client Admin</div>
+      </div>
+      <i class="fa-solid fa-chevron-down"></i>
+    </div>
+  </header>
+
+  <!-- Main Content Area -->
+  <main class="content">
+
+    <!-- Project Breadcrumbs & Header -->
+    <div class="project-header-container">
+      <div class="project-breadcrumbs">
+        <a href="projects.html">Projects</a>
+        <i class="fa-solid fa-chevron-right" style="font-size:9px;color:var(--text-400);"></i>
+        <a href="project-overview.html">Phoenix Mall</a>
+        <i class="fa-solid fa-chevron-right" style="font-size:9px;color:var(--text-400);"></i>
+        <span style="font-weight:600;color:var(--text-900);">Maps</span>
+      </div>
+
+      <div class="project-title-row">
+        <div class="project-title-left">
+          <h1>Phoenix Mall</h1>
+          <span class="badge badge-green" style="font-size:12px;padding:3px 10px;font-weight:600;">
+            <span class="dot"></span> Active
+          </span>
+        </div>
+
+        <div style="display:flex;align-items:center;gap:10px;">
+          <button class="btn" style="background:#fff;border:1px solid var(--border);color:var(--text-700);font-weight:600;padding:9px 16px;display:flex;align-items:center;gap:8px;">
+            <i class="fa-regular fa-eye"></i> Preview Kiosk
+          </button>
+          <button class="btn btn-primary" style="background:#2563eb;color:#fff;font-weight:600;padding:9px 18px;display:flex;align-items:center;gap:8px;">
+            <i class="fa-solid fa-gear"></i> Project Settings <i class="fa-solid fa-chevron-down" style="font-size:9.5px;margin-left:2px;"></i>
+          </button>
+        </div>
+      </div>
+
+      <div class="project-meta-row">
+        <div class="project-meta-item">
+          <i class="fa-solid fa-building" style="color:var(--text-400);"></i> Mall / Indoor Venue
+        </div>
+        <span style="color:var(--text-400);">•</span>
+        <div class="project-meta-item">
+          <i class="fa-solid fa-location-dot" style="color:var(--text-400);"></i> Mumbai, India
+        </div>
+        <span style="color:var(--text-400);">•</span>
+        <div class="project-meta-item">
+          <i class="fa-solid fa-tablet-screen-button" style="color:var(--text-400);"></i> 12 Kiosks
+        </div>
+        <span style="color:var(--text-400);">•</span>
+        <div class="project-meta-item" style="color:var(--green-600);font-weight:600;">
+          <i class="fa-solid fa-circle-check"></i> Release 43 (Published)
+        </div>
+      </div>
+    </div>
+
+    <!-- Project Sub-Navigation Tabs Bar -->
+    <div class="project-tabs-nav">
+      <button class="project-tab-btn" onclick="location.href='project-overview.html'">Overview</button>
+      <button class="project-tab-btn" onclick="location.href='project-experience.html'">Experience</button>
+      <button class="project-tab-btn" onclick="location.href='project-content.html'">Content</button>
+      <button class="project-tab-btn active" onclick="location.href='project-maps.html'">Maps</button>
+      <button class="project-tab-btn" onclick="location.href='project-navigation.html'">Navigation</button>
+      <button class="project-tab-btn" onclick="location.href='project-advertisements.html'">Advertisements</button>
+      <button class="project-tab-btn" onclick="location.href='project-preview.html'">Preview</button>
+      <button class="project-tab-btn" onclick="location.href='project-validation.html'">Validation</button>
+      <button class="project-tab-btn" onclick="location.href='project-releases.html'">Releases</button>
+      <button class="project-tab-btn" onclick="location.href='project-devices.html'">Devices</button>
+      <button class="project-tab-btn" onclick="location.href='project-analytics.html'">Analytics</button>
+      <button class="project-tab-btn" onclick="location.href='#'">Settings</button>
+    </div>
+
+    <!-- Section Header -->
+    <div style="margin-bottom:18px;">
+      <h2 style="font-size:17px;font-weight:800;color:var(--text-900);margin:0 0 3px;">Maps</h2>
+      <p style="font-size:12.5px;color:var(--text-500);margin:0;">Manage floor maps, POIs, and spatial data for your venue.</p>
+    </div>
+
+    <!-- 3-Column Main Area: Left Sidebar, Center Canvas, Right Sidebar -->
+    <div class="maps-main-grid">
+
+      <!-- LEFT COLUMN (Floors & Actions) -->
+      <div style="display:flex;flex-direction:column;gap:18px;">
+        
+        <!-- Floors Card -->
+        <div class="panel" style="margin:0;padding:18px;">
+          <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;">
+            <h3 style="margin:0;font-size:14.5px;font-weight:700;color:var(--text-900);">Floors</h3>
+            <a href="#" class="link-blue" style="font-size:12px;font-weight:600;display:flex;align-items:center;gap:4px;">
+              <i class="fa-solid fa-plus"></i> Add Floor
+            </a>
+          </div>
+
+          <!-- Floor 1: Ground Floor (Active) -->
+          <div class="floor-item-card active" onclick="switchFloor(this, 'Ground Floor')">
+            <div style="display:flex;align-items:center;gap:10px;">
+              <div style="color:var(--blue-600);font-size:14px;"><i class="fa-solid fa-layer-group"></i></div>
+              <div>
+                <div style="font-size:13px;font-weight:700;color:var(--text-900);">Ground Floor</div>
+                <div style="font-size:11px;color:var(--text-500);">25 POIs</div>
+              </div>
+            </div>
+            <i class="fa-solid fa-ellipsis" style="color:var(--text-400);font-size:12px;"></i>
+          </div>
+
+          <!-- Floor 2: Level 1 -->
+          <div class="floor-item-card" onclick="switchFloor(this, 'Level 1')">
+            <div style="display:flex;align-items:center;gap:10px;">
+              <div style="color:var(--text-400);font-size:14px;"><i class="fa-solid fa-layer-group"></i></div>
+              <div>
+                <div style="font-size:13px;font-weight:700;color:var(--text-900);">Level 1</div>
+                <div style="font-size:11px;color:var(--text-500);">38 POIs</div>
+              </div>
+            </div>
+            <i class="fa-solid fa-ellipsis" style="color:var(--text-400);font-size:12px;"></i>
+          </div>
+
+          <!-- Floor 3: Level 2 -->
+          <div class="floor-item-card" onclick="switchFloor(this, 'Level 2')">
+            <div style="display:flex;align-items:center;gap:10px;">
+              <div style="color:var(--text-400);font-size:14px;"><i class="fa-solid fa-layer-group"></i></div>
+              <div>
+                <div style="font-size:13px;font-weight:700;color:var(--text-900);">Level 2</div>
+                <div style="font-size:11px;color:var(--text-500);">32 POIs</div>
+              </div>
+            </div>
+            <i class="fa-solid fa-ellipsis" style="color:var(--text-400);font-size:12px;"></i>
+          </div>
+
+          <!-- Floor 4: Parking Level -->
+          <div class="floor-item-card" onclick="switchFloor(this, 'Parking Level')">
+            <div style="display:flex;align-items:center;gap:10px;">
+              <div style="color:var(--text-400);font-size:14px;"><i class="fa-solid fa-layer-group"></i></div>
+              <div>
+                <div style="font-size:13px;font-weight:700;color:var(--text-900);">Parking Level</div>
+                <div style="font-size:11px;color:var(--text-500);">18 POIs</div>
+              </div>
+            </div>
+            <i class="fa-solid fa-ellipsis" style="color:var(--text-400);font-size:12px;"></i>
+          </div>
+        </div>
+
+        <!-- Map Actions Card -->
+        <div class="panel" style="margin:0;padding:18px;">
+          <h3 style="margin:0 0 12px;font-size:14.5px;font-weight:700;color:var(--text-900);">Map Actions</h3>
+
+          <div class="map-action-item">
+            <div style="width:32px;height:32px;border-radius:8px;background:#f5f3ff;color:#7c3aed;display:flex;align-items:center;justify-content:center;font-size:13px;flex-shrink:0;">
+              <i class="fa-solid fa-cloud-arrow-up"></i>
+            </div>
+            <div>
+              <div style="font-size:12.5px;font-weight:700;color:var(--text-900);">Upload New Map</div>
+              <div style="font-size:11px;color:var(--text-500);">Upload or replace floor map</div>
+            </div>
+          </div>
+
+          <div class="map-action-item">
+            <div style="width:32px;height:32px;border-radius:8px;background:#eff6ff;color:#2563eb;display:flex;align-items:center;justify-content:center;font-size:13px;flex-shrink:0;">
+              <i class="fa-solid fa-compass-drafting"></i>
+            </div>
+            <div>
+              <div style="font-size:12.5px;font-weight:700;color:var(--text-900);">Calibrate Map</div>
+              <div style="font-size:11px;color:var(--text-500);">Set scale and calibration</div>
+            </div>
+          </div>
+
+          <div class="map-action-item">
+            <div style="width:32px;height:32px;border-radius:8px;background:#f8fafc;color:#475569;display:flex;align-items:center;justify-content:center;font-size:13px;flex-shrink:0;">
+              <i class="fa-solid fa-gear"></i>
+            </div>
+            <div>
+              <div style="font-size:12.5px;font-weight:700;color:var(--text-900);">Map Settings</div>
+              <div style="font-size:11px;color:var(--text-500);">Configure floor properties</div>
+            </div>
+          </div>
+
+          <div class="map-action-item">
+            <div style="width:32px;height:32px;border-radius:8px;background:#ecfdf5;color:#059669;display:flex;align-items:center;justify-content:center;font-size:13px;flex-shrink:0;">
+              <i class="fa-solid fa-download"></i>
+            </div>
+            <div>
+              <div style="font-size:12.5px;font-weight:700;color:var(--text-900);">Export Map Data</div>
+              <div style="font-size:11px;color:var(--text-500);">Export POIs and paths</div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- CENTER COLUMN: Interactive Floor Map Viewport -->
+      <div class="map-viewport-container">
+        
+        <!-- Viewport Header -->
+        <div class="map-viewport-header">
+          <div>
+            <div style="display:flex;align-items:center;gap:8px;">
+              <span id="active-floor-title" style="font-size:15px;font-weight:800;color:var(--text-900);">Ground Floor</span>
+              <span class="badge badge-green" style="font-size:10.5px;padding:2px 7px;font-weight:600;">Active</span>
+            </div>
+            <div style="font-size:11.5px;color:var(--text-400);margin-top:2px;">Last updated: May 10, 2026 10:30 AM</div>
+          </div>
+
+          <div style="display:flex;align-items:center;gap:8px;">
+            <button class="btn" style="height:34px;padding:0 12px;font-size:12px;display:flex;align-items:center;gap:6px;background:#fff;">
+              <i class="fa-regular fa-eye"></i> View POIs
+            </button>
+            <button class="btn" style="height:34px;padding:0 12px;font-size:12px;display:flex;align-items:center;gap:6px;background:#fff;">
+              <i class="fa-solid fa-route"></i> View Paths
+            </button>
+            <button class="btn btn-primary" style="height:34px;padding:0 12px;font-size:12px;display:flex;align-items:center;gap:6px;background:#2563eb;color:#fff;">
+              <i class="fa-solid fa-pen-ruler"></i> Edit Map <i class="fa-solid fa-chevron-down" style="font-size:9px;"></i>
+            </button>
+          </div>
+        </div>
+
+        <!-- Canvas Drawing Area with Floor Plan Image -->
+        <div class="map-canvas-area" style="padding:14px;background:#f8fafc;display:flex;align-items:center;justify-content:center;overflow:hidden;">
+          <img src="images/floor-map.png" alt="Ground Floor Map" style="width:100%;height:auto;max-height:540px;object-fit:contain;border-radius:6px;box-shadow:0 1px 3px rgba(0,0,0,0.05);display:block;">
+        </div>
+      </div>
+
+      <!-- RIGHT COLUMN: Map Layers & Floor Properties -->
+      <div class="maps-right-sidebar" style="display:flex;flex-direction:column;gap:18px;">
+
+        <!-- Map Layers Card -->
+        <div class="panel" style="margin:0;padding:18px;">
+          <h3 style="margin:0 0 12px;font-size:14.5px;font-weight:700;color:var(--text-900);">Map Layers</h3>
+
+          <!-- Layer 1: Stores / POIs -->
+          <div class="map-layer-row">
+            <div style="display:flex;align-items:center;gap:10px;">
+              <div style="width:30px;height:30px;border-radius:6px;background:#eff6ff;color:#2563eb;display:flex;align-items:center;justify-content:center;font-size:12px;flex-shrink:0;">
+                <i class="fa-regular fa-bookmark"></i>
+              </div>
+              <div>
+                <div style="font-size:12.5px;font-weight:700;color:var(--text-900);">Stores / POIs</div>
+                <div style="font-size:10.5px;color:var(--text-500);">25 visible</div>
+              </div>
+            </div>
+            <label class="switch-toggle-btn">
+              <input type="checkbox" checked>
+              <span class="switch-slider"></span>
+            </label>
+          </div>
+
+          <!-- Layer 2: Facilities -->
+          <div class="map-layer-row">
+            <div style="display:flex;align-items:center;gap:10px;">
+              <div style="width:30px;height:30px;border-radius:6px;background:#ecfdf5;color:#059669;display:flex;align-items:center;justify-content:center;font-size:12px;flex-shrink:0;">
+                <i class="fa-solid fa-spa"></i>
+              </div>
+              <div>
+                <div style="font-size:12.5px;font-weight:700;color:var(--text-900);">Facilities</div>
+                <div style="font-size:10.5px;color:var(--text-500);">12 visible</div>
+              </div>
+            </div>
+            <label class="switch-toggle-btn">
+              <input type="checkbox" checked>
+              <span class="switch-slider"></span>
+            </label>
+          </div>
+
+          <!-- Layer 3: Navigation Paths -->
+          <div class="map-layer-row">
+            <div style="display:flex;align-items:center;gap:10px;">
+              <div style="width:30px;height:30px;border-radius:6px;background:#eff6ff;color:#2563eb;display:flex;align-items:center;justify-content:center;font-size:12px;flex-shrink:0;">
+                <i class="fa-solid fa-route"></i>
+              </div>
+              <div>
+                <div style="font-size:12.5px;font-weight:700;color:var(--text-900);">Navigation Paths</div>
+                <div style="font-size:10.5px;color:var(--text-500);">48 paths</div>
+              </div>
+            </div>
+            <label class="switch-toggle-btn">
+              <input type="checkbox" checked>
+              <span class="switch-slider"></span>
+            </label>
+          </div>
+
+          <!-- Layer 4: Zones -->
+          <div class="map-layer-row">
+            <div style="display:flex;align-items:center;gap:10px;">
+              <div style="width:30px;height:30px;border-radius:6px;background:#f5f3ff;color:#7c3aed;display:flex;align-items:center;justify-content:center;font-size:12px;flex-shrink:0;">
+                <i class="fa-solid fa-draw-polygon"></i>
+              </div>
+              <div>
+                <div style="font-size:12.5px;font-weight:700;color:var(--text-900);">Zones</div>
+                <div style="font-size:10.5px;color:var(--text-500);">6 zones</div>
+              </div>
+            </div>
+            <label class="switch-toggle-btn">
+              <input type="checkbox" checked>
+              <span class="switch-slider"></span>
+            </label>
+          </div>
+
+          <!-- Layer 5: Labels -->
+          <div class="map-layer-row">
+            <div style="display:flex;align-items:center;gap:10px;">
+              <div style="width:30px;height:30px;border-radius:6px;background:#f0fdf4;color:#16a34a;display:flex;align-items:center;justify-content:center;font-size:12px;flex-shrink:0;">
+                <i class="fa-regular fa-comment-dots"></i>
+              </div>
+              <div>
+                <div style="font-size:12.5px;font-weight:700;color:var(--text-900);">Labels</div>
+                <div style="font-size:10.5px;color:var(--text-500);">Visible</div>
+              </div>
+            </div>
+            <label class="switch-toggle-btn">
+              <input type="checkbox" checked>
+              <span class="switch-slider"></span>
+            </label>
+          </div>
+
+          <!-- Layer 6: Background Map -->
+          <div class="map-layer-row">
+            <div style="display:flex;align-items:center;gap:10px;">
+              <div style="width:30px;height:30px;border-radius:6px;background:#f8fafc;color:#475569;display:flex;align-items:center;justify-content:center;font-size:12px;flex-shrink:0;">
+                <i class="fa-regular fa-image"></i>
+              </div>
+              <div>
+                <div style="font-size:12.5px;font-weight:700;color:var(--text-900);">Background Map</div>
+                <div style="font-size:10.5px;color:var(--text-500);">Ground Floor Map</div>
+              </div>
+            </div>
+            <div style="display:flex;align-items:center;gap:6px;">
+              <i class="fa-solid fa-lock" style="font-size:11px;color:var(--text-400);"></i>
+              <label class="switch-toggle-btn">
+                <input type="checkbox" checked>
+                <span class="switch-slider"></span>
+              </label>
+            </div>
+          </div>
+        </div>
+
+        <!-- Floor Properties Card -->
+        <div class="panel" style="margin:0;padding:18px;">
+          <h3 style="margin:0 0 12px;font-size:14.5px;font-weight:700;color:var(--text-900);">Floor Properties</h3>
+
+          <div style="display:flex;flex-direction:column;gap:2px;margin-bottom:14px;">
+            <div class="floor-prop-row">
+              <span style="color:var(--text-500);">Floor Name</span>
+              <span id="prop-floor-name" style="font-weight:700;color:var(--text-900);">Ground Floor</span>
+            </div>
+            <div class="floor-prop-row">
+              <span style="color:var(--text-500);">Floor Code</span>
+              <span id="prop-floor-code" style="font-weight:700;color:var(--text-900);">GF</span>
+            </div>
+            <div class="floor-prop-row">
+              <span style="color:var(--text-500);">Map Scale</span>
+              <span style="font-weight:700;color:var(--text-900);">1 px = 0.05 m</span>
+            </div>
+            <div class="floor-prop-row">
+              <span style="color:var(--text-500);">Map Resolution</span>
+              <span style="font-weight:700;color:var(--text-900);">4096 x 4096 px</span>
+            </div>
+            <div class="floor-prop-row">
+              <span style="color:var(--text-500);">Last Updated</span>
+              <span style="font-weight:700;color:var(--text-900);">May 10, 2026 10:30 AM</span>
+            </div>
+          </div>
+
+          <button class="btn" style="width:100%;background:#fff;border:1px solid var(--border);color:var(--text-700);font-weight:600;font-size:12.5px;padding:8px 0;display:flex;align-items:center;justify-content:center;gap:6px;">
+            <i class="fa-regular fa-pen-to-square"></i> Edit Floor Properties
+          </button>
+        </div>
+
+      </div>
+
+    </div>
+
+    <!-- Bottom Metrics Strip (5 Cards) -->
+    <div class="maps-bottom-metrics">
+      <!-- 1. Total POIs -->
+      <div class="content-metric-card">
+        <div class="kpi-icon-box" style="background:#eff6ff;color:#2563eb;width:40px;height:40px;border-radius:10px;">
+          <i class="fa-solid fa-layer-group"></i>
+        </div>
+        <div>
+          <div style="font-size:20px;font-weight:800;color:var(--text-900);line-height:1.1;">25</div>
+          <div style="font-size:12px;font-weight:700;color:var(--text-900);margin-top:2px;">Total POIs</div>
+          <div style="font-size:11px;color:var(--text-400);">Active on this floor</div>
+        </div>
+      </div>
+
+      <!-- 2. Facilities -->
+      <div class="content-metric-card">
+        <div class="kpi-icon-box" style="background:#f5f3ff;color:#7c3aed;width:40px;height:40px;border-radius:10px;">
+          <i class="fa-solid fa-store"></i>
+        </div>
+        <div>
+          <div style="font-size:20px;font-weight:800;color:var(--text-900);line-height:1.1;">12</div>
+          <div style="font-size:12px;font-weight:700;color:var(--text-900);margin-top:2px;">Facilities</div>
+          <div style="font-size:11px;color:var(--text-400);">Restrooms, elevators, etc.</div>
+        </div>
+      </div>
+
+      <!-- 3. Navigation Paths -->
+      <div class="content-metric-card">
+        <div class="kpi-icon-box" style="background:#fff7ed;color:#ea580c;width:40px;height:40px;border-radius:10px;">
+          <i class="fa-solid fa-utensils"></i>
+        </div>
+        <div>
+          <div style="font-size:20px;font-weight:800;color:var(--text-900);line-height:1.1;">48</div>
+          <div style="font-size:12px;font-weight:700;color:var(--text-900);margin-top:2px;">Navigation Paths</div>
+          <div style="font-size:11px;color:var(--text-400);">Active paths</div>
+        </div>
+      </div>
+
+      <!-- 4. Zones -->
+      <div class="content-metric-card">
+        <div class="kpi-icon-box" style="background:#ecfdf5;color:#059669;width:40px;height:40px;border-radius:10px;">
+          <i class="fa-solid fa-draw-polygon"></i>
+        </div>
+        <div>
+          <div style="font-size:20px;font-weight:800;color:var(--text-900);line-height:1.1;">6</div>
+          <div style="font-size:12px;font-weight:700;color:var(--text-900);margin-top:2px;">Zones</div>
+          <div style="font-size:11px;color:var(--text-400);">Defined areas</div>
+        </div>
+      </div>
+
+      <!-- 5. Map Resolution -->
+      <div class="content-metric-card">
+        <div class="kpi-icon-box" style="background:#fffbeb;color:#d97706;width:40px;height:40px;border-radius:10px;">
+          <i class="fa-regular fa-file-image"></i>
+        </div>
+        <div>
+          <div style="font-size:17px;font-weight:800;color:var(--text-900);line-height:1.1;">4096 x 4096 px</div>
+          <div style="font-size:12px;font-weight:700;color:var(--text-900);margin-top:2px;">Map Resolution</div>
+          <div style="font-size:11px;color:var(--text-400);">High quality map</div>
+        </div>
+      </div>
+    </div>
+
+  </main>
+</div>
+</div>
+
+<script>
+function switchFloor(card, name) {
+  document.querySelectorAll('.floor-item-card').forEach(c => c.classList.remove('active'));
+  card.classList.add('active');
+  document.getElementById('active-floor-title').innerText = name;
+  document.getElementById('prop-floor-name').innerText = name;
+  const codes = { 'Ground Floor': 'GF', 'Level 1': 'L1', 'Level 2': 'L2', 'Parking Level': 'P1' };
+  document.getElementById('prop-floor-code').innerText = codes[name] || 'GF';
+}
+</script>
+</body>
+</html>
+
+

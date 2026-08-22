@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Client Detail · Kiosk Platform</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+<div class="app-shell">
+<aside class="sidebar">
+  <a href="dashboard.html" class="sidebar-brand" style="cursor:pointer;">
+    <div class="logo-icon"><svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M12 2L21 7V17L12 22L3 17V7L12 2Z" stroke="white" stroke-width="1.6" stroke-linejoin="round"/>
+<circle cx="12" cy="12" r="3.2" fill="white"/>
+</svg></div>
+    <div class="brand-text"><div class="t1">KIOSK</div><div class="t2">PLATFORM</div></div>
+  </a>
+  <div class="sidebar-section-label">PLATFORM ADMIN <i class="fa-solid fa-chevron-up" style="font-size:9px;"></i></div>
+  <ul class="sidebar-nav">
+  <li class="nav-item " onclick="location.href='dashboard.html'"><i class="fa-solid fa-house"></i><span>Dashboard</span></li>
+<li class="nav-item active" onclick="location.href='clients.html'"><i class="fa-solid fa-user-group"></i><span>Clients</span></li>
+<li class="nav-item " onclick="location.href='projects.html'"><i class="fa-solid fa-folder-open"></i><span>Projects</span></li>
+<li class="nav-item " onclick="location.href='devices.html'"><i class="fa-solid fa-tablet-screen-button"></i><span>Devices</span></li>
+<li class="nav-item " onclick="location.href='templates.html'"><i class="fa-solid fa-table-cells-large"></i><span>Templates</span></li>
+<li class="nav-item " onclick="location.href='analytics.html'"><i class="fa-solid fa-chart-column"></i><span>Analytics</span></li>
+<li class="nav-item " onclick="location.href='monitoring.html'"><i class="fa-solid fa-heart-pulse"></i><span>Monitoring</span></li>
+<li class="nav-item " onclick="location.href='users-roles.html'"><i class="fa-solid fa-users-gear"></i><span>Users & Roles</span></li>
+<li class="nav-item " onclick="location.href='billing.html'"><i class="fa-solid fa-credit-card"></i><span>Billing & Plans</span></li>
+<li class="nav-item " onclick="location.href='audit-logs.html'"><i class="fa-solid fa-file-lines"></i><span>Audit Logs</span></li>
+<li class="nav-item " onclick="location.href='system-settings.html'"><i class="fa-solid fa-gear"></i><span>System Settings</span></li>
+
+  </ul>
+  <div class="sidebar-spacer"></div>
+  <div class="sidebar-status">
+    <div class="st-title">System Status</div>
+    <div class="st-row"><span class="st-dot"></span> All Systems Operational</div>
+    <div class="st-sub">Last checked: 2 min ago</div>
+    <a href="monitoring.html">View System Health</a>
+  </div>
+  <div class="sidebar-quick">
+    <div class="qa-title">Quick Actions</div>
+    <a class="qa-item" href="onboard-client.html"><i class="fa-solid fa-user-plus"></i> Onboard New Client</a>
+    <a class="qa-item" href="clients.html"><i class="fa-solid fa-cube"></i> View Clients</a>
+    <a class="qa-item" href="devices.html"><i class="fa-solid fa-tablet-screen-button"></i> View Devices</a>
+    <a class="qa-item" href="monitoring.html"><i class="fa-solid fa-triangle-exclamation"></i> View Alerts</a>
+  </div>
+  <div class="sidebar-footer">Kiosk Platform v1.0.0</div>
+</aside>
+<div class="main"><header class="topbar">
+  <i class="fa-solid fa-bars hamburger"></i>
+  <div class="search"><i class="fa-solid fa-magnifying-glass"></i><span>Search clients, projects, devices...</span><span class="kbd">⌘K</span></div>
+  <div class="spacer"></div>
+  <button class="icon-btn"><i class="fa-regular fa-circle-question"></i></button>
+  <button class="icon-btn"><i class="fa-regular fa-bell"></i><span class="badge-dot">12</span></button>
+  <div class="user">
+    <div class="avatar">SA</div>
+    <div><div class="u-name">Super Admin</div><div class="u-role">Platform Administrator</div></div>
+    <i class="fa-solid fa-chevron-down"></i>
+  </div>
+</header>
+<div class="content">
+<div class="breadcrumb"><a href="clients.html">Clients</a> <i class="fa-solid fa-chevron-right"></i> <span style="color:var(--text-900);font-weight:600;">Client Detail</span></div>
+<div class="client-hero">
+  <div>
+    <h1>Phoenix Retail Group <span class="badge badge-green"><span class="dot"></span>Active</span></h1>
+    <div class="meta">Client ID: CLT-0007 &nbsp;&middot;&nbsp; Onboarded on May 10, 2026 &nbsp;&middot;&nbsp; <span style="color:#16a34a;font-weight:600;">Onboarding Complete</span></div>
+  </div>
+  <div class="actions">
+    <button class="btn-icon"><i class="fa-solid fa-ellipsis"></i></button>
+    <button class="btn"><i class="fa-solid fa-pen"></i> Edit Client</button>
+    <button class="btn btn-primary"><i class="fa-solid fa-bolt"></i> Actions <i class="fa-solid fa-chevron-down"></i></button>
+  </div>
+</div>
+
+<div class="tabbar">
+  <div class="tab active">Overview</div>
+  <div class="tab">Projects</div>
+  <div class="tab">Devices</div>
+  <div class="tab">Template Access</div>
+  <div class="tab">Activity</div>
+</div>
+
+<div class="stats-grid" style="grid-template-columns:repeat(6,1fr);">
+  <div class="stat-card"><div class="icon icon-blue"><i class="fa-solid fa-folder-open"></i></div><div class="body"><div class="label">Projects</div><div class="value">3</div><div class="sub">2 Active, 1 Draft</div></div></div>
+  <div class="stat-card"><div class="icon icon-purple"><i class="fa-solid fa-tablet-screen-button"></i></div><div class="body"><div class="label">Kiosks</div><div class="value">12</div><div class="sub">11 Online, 1 Offline</div></div></div>
+  <div class="stat-card"><div class="icon icon-green"><i class="fa-solid fa-wifi"></i></div><div class="body"><div class="label">Online Kiosks</div><div class="value">11</div><div class="sub">91.7% of total</div></div></div>
+  <div class="stat-card"><div class="icon icon-amber"><i class="fa-solid fa-box"></i></div><div class="body"><div class="label">Current Release</div><div class="value" style="font-size:16px;">Release 43</div><div class="sub">Published on May 08, 2026</div></div></div>
+  <div class="stat-card"><div class="icon icon-blue"><i class="fa-solid fa-clipboard"></i></div><div class="body"><div class="label">Template</div><div class="value" style="font-size:16px;">Mall / Indoor Venue</div><div class="sub">v1.2.0</div></div></div>
+</div>
+
+<div class="detail-grid">
+  <div class="detail-panel">
+    <h3>Client Information</h3>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:0 14px;">
+      <div class="kv-row"><div class="k">Organization Name</div><div class="v">Phoenix Retail Group</div></div>
+      <div class="kv-row"><div class="k">Country</div><div class="v">India</div></div>
+      <div class="kv-row"><div class="k">Organization Type</div><div class="v">Retail Group</div></div>
+      <div class="kv-row"><div class="k">Time Zone</div><div class="v">(GMT+05:30) Asia/Kolkata</div></div>
+      <div class="kv-row"><div class="k">Industry</div><div class="v">Shopping Malls</div></div>
+      <div class="kv-row"><div class="k">Address</div><div class="v">Phoenix Mills, Lower Parel, Mumbai, Maharashtra 400013, India</div></div>
+      <div class="kv-row"><div class="k">Website</div><div class="v">https://www.phoenixretail.com</div></div>
+      <div class="kv-row"><div class="k">Status</div><div class="v"><span class="badge badge-green"><span class="dot"></span>Active</span></div></div>
+      <div class="kv-row"><div class="k">Phone</div><div class="v">+91 22 6731 9999</div></div>
+      <div class="kv-row"><div class="k">Onboarding Status</div><div class="v"><span class="badge badge-green">Complete</span></div></div>
+    </div>
+  </div>
+
+  <div class="detail-panel">
+    <h3>Client Administrator</h3>
+    <div class="admin-block">
+      <div class="admin-avatar">RA</div>
+      <div><div style="font-weight:700;font-size:14px;">Rahul Arora</div><div class="muted" style="font-size:12.5px;">rahul.arora@phoenixretail.com</div>
+      <div class="muted" style="font-size:12px;">+91 22 6731 9991</div></div>
+    </div>
+    <span class="badge badge-blue" style="margin-bottom:16px;">Client Admin</span>
+    <div class="kv-row"><div class="k">Last Login</div><div class="v">Today, 9:25 AM</div></div>
+    <button class="btn" style="width:100%;justify-content:center;margin-top:10px;">Manage Admins <i class="fa-solid fa-chevron-down"></i></button>
+  </div>
+
+  <div class="detail-panel">
+    <h3>Template Access</h3>
+    <p class="muted" style="font-size:12px;margin-top:-10px;">Templates available to this client</p>
+    <div class="tmpl-access-card">
+      <div class="tmpl-icon"><i class="fa-solid fa-clipboard"></i></div>
+      <div style="flex:1;"><div style="font-weight:700;font-size:13.5px;">Mall / Indoor Venue</div><div class="muted" style="font-size:12px;">v1.2.0</div><div class="muted" style="font-size:11.5px;">Access since May 10, 2026</div></div>
+      <span class="badge badge-green">Enabled</span>
+    </div>
+    <a class="link-blue" href="#"><i class="fa-solid fa-lock"></i> Manage Template Access</a>
+  </div>
+</div>
+
+<div class="detail-grid" style="margin-top:20px;grid-template-columns:2fr 1fr;">
+  <div class="detail-panel">
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;">
+      <h3 style="margin:0;">Projects</h3><a class="link-blue" href="projects.html">View All &rarr;</a>
+    </div>
+    <div class="table-wrap"><table style="min-width:0;">
+    <thead><tr><th>Project Name</th><th>Template</th><th>Status</th><th>Kiosks</th><th>Online Kiosks</th><th>Current Release</th><th>Last Activity</th></tr></thead>
+    <tbody>
+    <tr><td><div class="cell-main"><div class="cell-thumb" style="background:linear-gradient(135deg,#c4b5fd,#7c3aed);"></div><div><div class="cell-title">Phoenix Mall</div><div class="cell-sub">Main Branch</div></div></div></td>
+    <td><div style="font-size:12.5px;font-weight:700;">Mall / Indoor Venue</div><div class="cell-sub">v1.2.0</div></td>
+    <td><span class="badge badge-green"><span class="dot"></span>Active</span></td><td>12</td><td>11<div class="pct-green">91.7%</div></td><td>Release 43<div class="cell-sub" style="color:#16a34a;">Published</div></td><td>Today, 10:30 AM</td></tr>
+    <tr><td><div class="cell-main"><div class="cell-thumb" style="background:linear-gradient(135deg,#93c5fd,#2563eb);"></div><div><div class="cell-title">Phoenix Marketcity</div><div class="cell-sub">Kurla</div></div></div></td>
+    <td><div style="font-size:12.5px;font-weight:700;">Mall / Indoor Venue</div><div class="cell-sub">v1.2.0</div></td>
+    <td><span class="badge badge-green"><span class="dot"></span>Active</span></td><td>6</td><td>6<div class="pct-green">100%</div></td><td>Release 42<div class="cell-sub" style="color:#16a34a;">Published</div></td><td>Yesterday, 6:45 PM</td></tr>
+    <tr><td><div class="cell-main"><div class="cell-thumb" style="background:linear-gradient(135deg,#fde68a,#f59e0b);"></div><div><div class="cell-title">Phoenix Palladium</div><div class="cell-sub">Lower Parel</div></div></div></td>
+    <td><div style="font-size:12.5px;font-weight:700;">Mall / Indoor Venue</div><div class="cell-sub">v1.2.0</div></td>
+    <td><span class="badge badge-amber"><span class="dot"></span>Draft</span></td><td>2</td><td>0<div class="pct-red">0%</div></td><td>&mdash;<div class="cell-sub">No release</div></td><td>May 08, 2026</td></tr>
+    </tbody></table></div>
+    <div class="muted" style="font-size:12px;margin-top:10px;">Showing 1 to 3 of 3 projects</div>
+  </div>
+
+  <div>
+    <div class="detail-panel" style="margin-bottom:16px;">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;"><h3 style="margin:0;">Recent Activity</h3><a class="link-blue">View All</a></div>
+      <div class="mini-activity-row"><div class="act-icon icon-green"><i class="fa-solid fa-check"></i></div><div><b style="font-size:12.5px;">Release 43 deployed to 12 kiosks</b><div class="muted" style="font-size:11px;">Today, 10:30 AM</div></div></div>
+      <div class="mini-activity-row"><div class="act-icon icon-red"><i class="fa-solid fa-circle-exclamation"></i></div><div><b style="font-size:12.5px;">Kiosk Kiosk-03 went offline</b><div class="muted" style="font-size:11px;">Today, 8:15 AM</div></div></div>
+      <div class="mini-activity-row"><div class="act-icon icon-blue"><i class="fa-solid fa-folder"></i></div><div><b style="font-size:12.5px;">Project Phoenix Mall updated</b><div class="muted" style="font-size:11px;">Yesterday, 11:20 PM</div></div></div>
+      <div class="mini-activity-row"><div class="act-icon icon-purple"><i class="fa-solid fa-user-plus"></i></div><div><b style="font-size:12.5px;">New admin Rahul Arora invited</b><div class="muted" style="font-size:11px;">May 10, 2026, 09:12 AM</div></div></div>
+      <div class="mini-activity-row"><div class="act-icon icon-green"><i class="fa-solid fa-check"></i></div><div><b style="font-size:12.5px;">Client onboarded successfully</b><div class="muted" style="font-size:11px;">May 10, 2026, 09:00 AM</div></div></div>
+    </div>
+    <div class="detail-panel">
+      <h3>Additional Information</h3>
+      <div class="kv-row"><div class="k">Created On</div><div class="v">May 10, 2026, 09:00 AM</div></div>
+      <div class="kv-row"><div class="k">Created By</div><div class="v">Super Admin</div></div>
+      <div class="kv-row"><div class="k">Last Updated</div><div class="v">May 11, 2026, 10:30 AM</div></div>
+      <div class="kv-row" style="margin-bottom:0;"><div class="k">Updated By</div><div class="v">Super Admin</div></div>
+    </div>
+  </div>
+</div>
+</div></div>
+</div>
+</body>
+</html>

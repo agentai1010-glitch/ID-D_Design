@@ -1,0 +1,701 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Phoenix Mall · Media Library · Kiosk Platform</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<link rel="stylesheet" href="../css/styles.css">
+</head>
+<body>
+<div class="app-shell">
+
+<!-- Client Admin Sidebar -->
+<aside class="sidebar">
+  <a href="dashboard.html" class="sidebar-brand" style="cursor:pointer;">
+    <div class="logo-icon">
+      <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M12 2L21 7V17L12 22L3 17V7L12 2Z" stroke="white" stroke-width="1.6" stroke-linejoin="round"/>
+        <circle cx="12" cy="12" r="3.2" fill="white"/>
+      </svg>
+    </div>
+    <div class="brand-text"><div class="t1">KIOSK</div><div class="t2">PLATFORM</div></div>
+  </a>
+
+  <!-- WORKSPACE Section -->
+  <div class="sidebar-section-label">WORKSPACE</div>
+  <ul class="sidebar-nav">
+    <li class="nav-item" onclick="location.href='dashboard.html'"><i class="fa-solid fa-house"></i><span>Dashboard</span></li>
+    <li class="nav-item active" onclick="location.href='projects.html'"><i class="fa-solid fa-folder-open"></i><span>Projects</span></li>
+    <li class="nav-item" onclick="location.href='devices.html'"><i class="fa-solid fa-tablet-screen-button"></i><span>Devices</span></li>
+    <li class="nav-item" onclick="location.href='analytics.html'"><i class="fa-solid fa-chart-column"></i><span>Analytics</span></li>
+  </ul>
+
+  <!-- TEAM Section -->
+  <div class="sidebar-section-label">TEAM</div>
+  <ul class="sidebar-nav">
+    <li class="nav-item" onclick="location.href='users-roles.html'"><i class="fa-solid fa-users"></i><span>Users & Roles</span></li>
+  </ul>
+
+  <!-- ACCOUNT Section -->
+  <div class="sidebar-section-label">ACCOUNT</div>
+  <ul class="sidebar-nav">
+    <li class="nav-item" onclick="location.href='settings.html'"><i class="fa-solid fa-gear"></i><span>Settings</span></li>
+  </ul>
+
+  <div class="sidebar-spacer"></div>
+
+  <!-- Organization Card -->
+  <div class="org-switcher-card">
+    <div class="org-switcher-header">
+      <div class="org-icon-box"><i class="fa-solid fa-city"></i></div>
+      <div>
+        <div class="org-name-text">Phoenix Retail Group</div>
+        <div class="org-sub-text">Organization</div>
+      </div>
+    </div>
+    <button class="org-btn-switch">
+      <span>Switch Organization</span>
+      <i class="fa-solid fa-chevron-down" style="font-size:9.5px;"></i>
+    </button>
+  </div>
+
+  <div class="sidebar-footer" style="display:flex;align-items:center;justify-content:space-between;">
+    <span>Client Admin v1.0.0</span>
+    <i class="fa-solid fa-chevron-left" style="font-size:10px;cursor:pointer;"></i>
+  </div>
+</aside>
+
+<!-- Main Area -->
+<div class="main">
+  <!-- Topbar Header -->
+  <header class="topbar">
+    <i class="fa-solid fa-bars hamburger"></i>
+    <div class="search">
+      <i class="fa-solid fa-magnifying-glass"></i>
+      <span>Search projects, kiosks, locations...</span>
+      <span class="kbd">⌘ K</span>
+    </div>
+    <div class="spacer"></div>
+    <button class="icon-btn"><i class="fa-regular fa-bell"></i><span class="badge-dot">8</span></button>
+    <div class="user">
+      <div class="avatar" style="background:linear-gradient(135deg,#3b82f6,#1d4ed8);">RA</div>
+      <div>
+        <div class="u-name">Rahul Arora</div>
+        <div class="u-role">Client Admin</div>
+      </div>
+      <i class="fa-solid fa-chevron-down"></i>
+    </div>
+  </header>
+
+  <!-- Main Content Area -->
+  <main class="content">
+
+    <!-- Project Breadcrumbs & Header -->
+    <div class="project-header-container">
+      <div class="project-breadcrumbs">
+        <a href="projects.html">Projects</a>
+        <i class="fa-solid fa-chevron-right" style="font-size:9px;color:var(--text-400);"></i>
+        <a href="project-overview.html">Phoenix Mall</a>
+        <i class="fa-solid fa-chevron-right" style="font-size:9px;color:var(--text-400);"></i>
+        <a href="project-advertisements.html">Advertisements</a>
+        <i class="fa-solid fa-chevron-right" style="font-size:9px;color:var(--text-400);"></i>
+        <span style="font-weight:600;color:var(--text-900);">Media Library</span>
+      </div>
+
+      <div class="project-title-row">
+        <div class="project-title-left">
+          <h1>Phoenix Mall</h1>
+          <span class="badge badge-green" style="font-size:12px;padding:3px 10px;font-weight:600;">
+            <span class="dot"></span> Active
+          </span>
+        </div>
+
+        <div style="display:flex;align-items:center;gap:10px;">
+          <button class="btn" style="background:#fff;border:1px solid var(--border);color:var(--text-700);font-weight:600;padding:9px 16px;display:flex;align-items:center;gap:8px;">
+            <i class="fa-regular fa-eye"></i> Preview Kiosk
+          </button>
+          <button class="btn btn-primary" style="background:#2563eb;color:#fff;font-weight:600;padding:9px 18px;display:flex;align-items:center;gap:8px;">
+            <i class="fa-solid fa-gear"></i> Project Settings <i class="fa-solid fa-chevron-down" style="font-size:9.5px;margin-left:2px;"></i>
+          </button>
+        </div>
+      </div>
+
+      <div class="project-meta-row">
+        <div class="project-meta-item">
+          <i class="fa-solid fa-building" style="color:var(--text-400);"></i> Mall / Indoor Venue
+        </div>
+        <span style="color:var(--text-400);">•</span>
+        <div class="project-meta-item">
+          <i class="fa-solid fa-location-dot" style="color:var(--text-400);"></i> Mumbai, India
+        </div>
+        <span style="color:var(--text-400);">•</span>
+        <div class="project-meta-item">
+          <i class="fa-solid fa-tablet-screen-button" style="color:var(--text-400);"></i> 12 Kiosks
+        </div>
+        <span style="color:var(--text-400);">•</span>
+        <div class="project-meta-item" style="color:var(--green-600);font-weight:600;">
+          <i class="fa-solid fa-circle-check"></i> Release 43 (Published)
+        </div>
+      </div>
+    </div>
+
+    <!-- Project Sub-Navigation Tabs Bar (Preserved) -->
+    <div class="project-tabs-nav">
+      <button class="project-tab-btn" onclick="location.href='project-overview.html'">Overview</button>
+      <button class="project-tab-btn" onclick="location.href='project-experience.html'">Experience</button>
+      <button class="project-tab-btn" onclick="location.href='project-content.html'">Content</button>
+      <button class="project-tab-btn" onclick="location.href='project-maps.html'">Maps</button>
+      <button class="project-tab-btn" onclick="location.href='project-navigation.html'">Navigation</button>
+      <button class="project-tab-btn active" onclick="location.href='project-advertisements.html'">Advertisements</button>
+      <button class="project-tab-btn" onclick="location.href='project-preview.html'">Preview</button>
+      <button class="project-tab-btn" onclick="location.href='project-validation.html'">Validation</button>
+      <button class="project-tab-btn" onclick="location.href='project-releases.html'">Releases</button>
+      <button class="project-tab-btn" onclick="location.href='project-devices.html'">Devices</button>
+      <button class="project-tab-btn" onclick="location.href='project-analytics.html'">Analytics</button>
+      <button class="project-tab-btn" onclick="location.href='#'">Settings</button>
+    </div>
+
+    <!-- Section Header -->
+    <div style="margin-bottom:18px;">
+      <h2 style="font-size:17px;font-weight:800;color:var(--text-900);margin:0 0 3px;">Media Library</h2>
+      <p style="font-size:12.5px;color:var(--text-500);margin:0;">Manage all media assets used in your advertisement campaigns.</p>
+    </div>
+
+    <!-- Top 5 Media Metric Cards -->
+    <div class="ad-metrics-strip">
+      <!-- 1. Total Assets -->
+      <div class="content-metric-card">
+        <div class="kpi-icon-box" style="background:#f5f3ff;color:#7c3aed;width:40px;height:40px;border-radius:10px;">
+          <i class="fa-solid fa-arrow-up-from-bracket"></i>
+        </div>
+        <div>
+          <div style="font-size:22px;font-weight:800;color:var(--text-900);line-height:1.1;">248</div>
+          <div style="font-size:11.5px;font-weight:600;color:var(--text-600);margin-top:2px;">Total Assets</div>
+        </div>
+      </div>
+
+      <!-- 2. Images -->
+      <div class="content-metric-card">
+        <div class="kpi-icon-box" style="background:#eff6ff;color:#2563eb;width:40px;height:40px;border-radius:10px;">
+          <i class="fa-regular fa-image"></i>
+        </div>
+        <div>
+          <div style="font-size:22px;font-weight:800;color:var(--text-900);line-height:1.1;">132</div>
+          <div style="font-size:11.5px;font-weight:600;color:var(--text-600);margin-top:2px;">Images</div>
+        </div>
+      </div>
+
+      <!-- 3. Videos -->
+      <div class="content-metric-card">
+        <div class="kpi-icon-box" style="background:#ecfdf5;color:#059669;width:40px;height:40px;border-radius:10px;">
+          <i class="fa-regular fa-circle-play"></i>
+        </div>
+        <div>
+          <div style="font-size:22px;font-weight:800;color:var(--text-900);line-height:1.1;">48</div>
+          <div style="font-size:11.5px;font-weight:600;color:var(--text-600);margin-top:2px;">Videos</div>
+        </div>
+      </div>
+
+      <!-- 4. HTML5 / Animated -->
+      <div class="content-metric-card">
+        <div class="kpi-icon-box" style="background:#fff7ed;color:#ea580c;width:40px;height:40px;border-radius:10px;">
+          <i class="fa-solid fa-code"></i>
+        </div>
+        <div>
+          <div style="font-size:22px;font-weight:800;color:var(--text-900);line-height:1.1;">32</div>
+          <div style="font-size:11.5px;font-weight:600;color:var(--text-600);margin-top:2px;">HTML5 / Animated</div>
+        </div>
+      </div>
+
+      <!-- 5. Documents -->
+      <div class="content-metric-card">
+        <div class="kpi-icon-box" style="background:#fef2f2;color:#dc2626;width:40px;height:40px;border-radius:10px;">
+          <i class="fa-regular fa-file-pdf"></i>
+        </div>
+        <div>
+          <div style="font-size:22px;font-weight:800;color:var(--text-900);line-height:1.1;">36</div>
+          <div style="font-size:11.5px;font-weight:600;color:var(--text-600);margin-top:2px;">Documents</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Main Content 2-Column Split: Gallery on Left & Detail Panel on Right -->
+    <div class="media-main-layout">
+
+      <!-- Left Column: Gallery & Filters -->
+      <div class="panel" style="margin:0;padding:0;overflow:hidden;">
+        
+        <!-- Advertisements Sub-nav Bar (Campaigns, Media Library, Schedules, Zones, Settings) -->
+        <div class="content-sub-tabs-bar" style="justify-content:space-between;">
+          <div style="display:flex;align-items:center;gap:6px;">
+            <button class="content-sub-tab-btn" onclick="location.href='project-advertisements.html'">Campaigns</button>
+            <button class="content-sub-tab-btn active" onclick="location.href='project-advertisements-media.html'">Media Library</button>
+            <button class="content-sub-tab-btn" onclick="location.href='project-advertisements-schedules.html'">Schedules</button>
+            <button class="content-sub-tab-btn">Zones</button>
+            <button class="content-sub-tab-btn">Settings</button>
+          </div>
+
+          <!-- Secondary Type Tabs & Right Actions -->
+          <div style="display:flex;align-items:center;gap:8px;padding-right:4px;">
+            <button class="btn" style="height:32px;padding:0 10px;font-size:12px;display:flex;align-items:center;gap:4px;">
+              Bulk Actions <i class="fa-solid fa-chevron-down" style="font-size:8px;"></i>
+            </button>
+            <button class="btn btn-primary" style="height:32px;padding:0 12px;font-size:12px;display:flex;align-items:center;gap:6px;background:#2563eb;color:#fff;">
+              <i class="fa-solid fa-upload"></i> Upload Media
+            </button>
+          </div>
+        </div>
+
+        <!-- Filter Toolbar -->
+        <div class="content-filter-toolbar">
+          <div class="content-filter-left">
+            <div class="search-input" style="min-width:170px;height:34px;">
+              <i class="fa-solid fa-magnifying-glass"></i>
+              <input type="text" placeholder="Search media..." style="border:none;outline:none;background:transparent;font-size:12px;width:100%;">
+            </div>
+
+            <div class="select-pill" style="height:34px;padding:0 10px;font-size:12px;">
+              All Types <i class="fa-solid fa-chevron-down" style="font-size:9.5px;margin-left:4px;"></i>
+            </div>
+
+            <div class="select-pill" style="height:34px;padding:0 10px;font-size:12px;">
+              All Campaigns <i class="fa-solid fa-chevron-down" style="font-size:9.5px;margin-left:4px;"></i>
+            </div>
+
+            <div class="select-pill" style="height:34px;padding:0 10px;font-size:12px;">
+              All Zones <i class="fa-solid fa-chevron-down" style="font-size:9.5px;margin-left:4px;"></i>
+            </div>
+
+            <div class="select-pill" style="height:34px;padding:0 10px;font-size:12px;">
+              All Kiosks <i class="fa-solid fa-chevron-down" style="font-size:9.5px;margin-left:4px;"></i>
+            </div>
+
+            <div class="select-pill" style="height:34px;padding:0 10px;font-size:12px;">
+              Uploaded By <i class="fa-solid fa-chevron-down" style="font-size:9.5px;margin-left:4px;"></i>
+            </div>
+
+            <button class="btn" style="height:34px;padding:0 10px;font-size:12px;display:flex;align-items:center;gap:4px;">
+              More Filters <i class="fa-solid fa-sliders" style="font-size:10px;"></i>
+            </button>
+          </div>
+        </div>
+
+        <!-- Result count & View toggle bar -->
+        <div style="padding:10px 20px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--border-soft);background:#fafbfc;">
+          <div style="font-size:12px;color:var(--text-500);font-weight:500;">Showing 1 to 20 of 248 assets</div>
+          
+          <div style="display:flex;align-items:center;gap:10px;">
+            <div style="display:flex;align-items:center;border:1px solid var(--border);border-radius:6px;overflow:hidden;background:#fff;">
+              <button style="border:none;background:#eff6ff;color:var(--blue-600);padding:5px 8px;cursor:pointer;font-size:12px;"><i class="fa-solid fa-table-cells-large"></i></button>
+              <button style="border:none;background:transparent;color:var(--text-500);padding:5px 8px;cursor:pointer;font-size:12px;"><i class="fa-solid fa-list"></i></button>
+            </div>
+
+            <div class="select-pill" style="height:28px;padding:0 8px;font-size:11.5px;">
+              Newest First <i class="fa-solid fa-chevron-down" style="font-size:8.5px;margin-left:4px;"></i>
+            </div>
+          </div>
+        </div>
+
+        <!-- Media Grid (5x3 = 15 Assets) -->
+        <div class="media-cards-grid">
+
+          <!-- Asset 1: diwali_offer_banner.jpg (Selected) -->
+          <div class="media-grid-card selected" onclick="selectMediaCard(this, 'diwali_offer_banner.jpg', 'Image (JPG)', '1920 x 1080 px', '320 KB', 'Diwali Special Offers Banner')">
+            <div class="media-thumb-area" style="background:linear-gradient(135deg,#3b0764,#7c3aed);">
+              <div class="media-thumb-checkbox"><i class="fa-solid fa-check"></i></div>
+              <span class="media-type-badge-pill">Image</span>
+              <svg viewBox="0 0 100 60" style="width:100%;height:100%;">
+                <circle cx="50" cy="30" r="20" fill="#fbbf24" opacity="0.3"/>
+                <path d="M50 15 C47 22 45 27 45 32 C45 36 47.5 38 50 38 C52.5 38 55 36 55 32 C55 27 53 22 50 15 Z" fill="#fbbf24"/>
+                <path d="M40 36 C42 44 58 44 60 36 Z" fill="#f59e0b"/>
+              </svg>
+            </div>
+            <div class="media-card-info">
+              <div style="overflow:hidden;">
+                <div class="media-card-name">diwali_offer_banner.jpg</div>
+                <div class="media-card-meta">1920 x 1080 • 320 KB</div>
+              </div>
+              <button class="btn-icon" style="background:transparent;border:none;color:var(--text-400);cursor:pointer;font-size:12px;"><i class="fa-solid fa-ellipsis-vertical"></i></button>
+            </div>
+          </div>
+
+          <!-- Asset 2: summer_sale_2026.jpg -->
+          <div class="media-grid-card" onclick="selectMediaCard(this, 'summer_sale_2026.jpg', 'Image (JPG)', '1920 x 1080 px', '280 KB', 'Summer Sale Fashion Promotion')">
+            <div class="media-thumb-area" style="background:linear-gradient(135deg,#fed7aa,#fef08a);">
+              <div class="media-thumb-checkbox"></div>
+              <span class="media-type-badge-pill">Image</span>
+              <div style="text-align:center;">
+                <div style="font-size:11px;font-weight:900;color:#c2410c;">SUMMER<br>SALE</div>
+              </div>
+            </div>
+            <div class="media-card-info">
+              <div style="overflow:hidden;">
+                <div class="media-card-name">summer_sale_2026.jpg</div>
+                <div class="media-card-meta">1920 x 1080 • 280 KB</div>
+              </div>
+              <button class="btn-icon" style="background:transparent;border:none;color:var(--text-400);cursor:pointer;font-size:12px;"><i class="fa-solid fa-ellipsis-vertical"></i></button>
+            </div>
+          </div>
+
+          <!-- Asset 3: new_arrivals_fashion.jpg -->
+          <div class="media-grid-card" onclick="selectMediaCard(this, 'new_arrivals_fashion.jpg', 'Image (JPG)', '1920 x 1080 px', '310 KB', 'Fashion Apparel New Collection')">
+            <div class="media-thumb-area" style="background:linear-gradient(135deg,#e2e8f0,#cbd5e1);">
+              <div class="media-thumb-checkbox"></div>
+              <span class="media-type-badge-pill">Image</span>
+              <i class="fa-solid fa-person-dress" style="font-size:32px;color:#475569;"></i>
+            </div>
+            <div class="media-card-info">
+              <div style="overflow:hidden;">
+                <div class="media-card-name">new_arrivals_fashion.jpg</div>
+                <div class="media-card-meta">1920 x 1080 • 310 KB</div>
+              </div>
+              <button class="btn-icon" style="background:transparent;border:none;color:var(--text-400);cursor:pointer;font-size:12px;"><i class="fa-solid fa-ellipsis-vertical"></i></button>
+            </div>
+          </div>
+
+          <!-- Asset 4: food_court_delights.mp4 (Video) -->
+          <div class="media-grid-card" onclick="selectMediaCard(this, 'food_court_delights.mp4', 'Video (MP4)', '1920 x 1080 px', '24.5 MB', 'Food Court Video Promo')">
+            <div class="media-thumb-area" style="background:linear-gradient(135deg,#7c2d12,#ea580c);">
+              <div class="media-thumb-checkbox"></div>
+              <span class="media-type-badge-pill">Video</span>
+              <div class="media-play-overlay"><i class="fa-solid fa-play"></i></div>
+              <span class="media-duration-pill">00:30</span>
+            </div>
+            <div class="media-card-info">
+              <div style="overflow:hidden;">
+                <div class="media-card-name">food_court_delights.mp4</div>
+                <div class="media-card-meta">1920 x 1080 • 24.5 MB</div>
+              </div>
+              <button class="btn-icon" style="background:transparent;border:none;color:var(--text-400);cursor:pointer;font-size:12px;"><i class="fa-solid fa-ellipsis-vertical"></i></button>
+            </div>
+          </div>
+
+          <!-- Asset 5: electronics_mega_sale.jpg -->
+          <div class="media-grid-card" onclick="selectMediaCard(this, 'electronics_mega_sale.jpg', 'Image (JPG)', '1920 x 1080 px', '330 KB', 'Electronics Gadget Sale')">
+            <div class="media-thumb-area" style="background:linear-gradient(135deg,#0f172a,#0284c7);">
+              <div class="media-thumb-checkbox"></div>
+              <span class="media-type-badge-pill">Image</span>
+              <i class="fa-solid fa-laptop" style="font-size:28px;color:#38bdf8;"></i>
+            </div>
+            <div class="media-card-info">
+              <div style="overflow:hidden;">
+                <div class="media-card-name">electronics_mega_sale.jpg</div>
+                <div class="media-card-meta">1920 x 1080 • 330 KB</div>
+              </div>
+              <button class="btn-icon" style="background:transparent;border:none;color:var(--text-400);cursor:pointer;font-size:12px;"><i class="fa-solid fa-ellipsis-vertical"></i></button>
+            </div>
+          </div>
+
+          <!-- Asset 6: winter_collection.html5 (HTML5) -->
+          <div class="media-grid-card" onclick="selectMediaCard(this, 'winter_collection.html5', 'HTML5 / Animated', '1920 x 1080 px', '1.2 MB', 'Winter Collection Animation')">
+            <div class="media-thumb-area" style="background:linear-gradient(135deg,#bae6fd,#0284c7);">
+              <div class="media-thumb-checkbox"></div>
+              <span class="media-type-badge-pill">HTML5</span>
+              <i class="fa-solid fa-snowflake" style="font-size:28px;color:#fff;"></i>
+            </div>
+            <div class="media-card-info">
+              <div style="overflow:hidden;">
+                <div class="media-card-name">winter_collection.html5</div>
+                <div class="media-card-meta">1920 x 1080 • 1.2 MB</div>
+              </div>
+              <button class="btn-icon" style="background:transparent;border:none;color:var(--text-400);cursor:pointer;font-size:12px;"><i class="fa-solid fa-ellipsis-vertical"></i></button>
+            </div>
+          </div>
+
+          <!-- Asset 7: pizza_promo.mp4 (Video) -->
+          <div class="media-grid-card" onclick="selectMediaCard(this, 'pizza_promo.mp4', 'Video (MP4)', '1920 x 1080 px', '18.6 MB', 'Pizza Promo Video')">
+            <div class="media-thumb-area" style="background:linear-gradient(135deg,#b91c1c,#f97316);">
+              <div class="media-thumb-checkbox"></div>
+              <span class="media-type-badge-pill">Video</span>
+              <div class="media-play-overlay"><i class="fa-solid fa-play"></i></div>
+              <span class="media-duration-pill">00:20</span>
+            </div>
+            <div class="media-card-info">
+              <div style="overflow:hidden;">
+                <div class="media-card-name">pizza_promo.mp4</div>
+                <div class="media-card-meta">1920 x 1080 • 18.6 MB</div>
+              </div>
+              <button class="btn-icon" style="background:transparent;border:none;color:var(--text-400);cursor:pointer;font-size:12px;"><i class="fa-solid fa-ellipsis-vertical"></i></button>
+            </div>
+          </div>
+
+          <!-- Asset 8: kids_carnival.jpg -->
+          <div class="media-grid-card" onclick="selectMediaCard(this, 'kids_carnival.jpg', 'Image (JPG)', '1920 x 1080 px', '275 KB', 'Kids Carnival Banner')">
+            <div class="media-thumb-area" style="background:linear-gradient(135deg,#fbcfe8,#67e8f9);">
+              <div class="media-thumb-checkbox"></div>
+              <span class="media-type-badge-pill">Image</span>
+              <i class="fa-solid fa-shapes" style="font-size:28px;color:#db2777;"></i>
+            </div>
+            <div class="media-card-info">
+              <div style="overflow:hidden;">
+                <div class="media-card-name">kids_carnival.jpg</div>
+                <div class="media-card-meta">1920 x 1080 • 275 KB</div>
+              </div>
+              <button class="btn-icon" style="background:transparent;border:none;color:var(--text-400);cursor:pointer;font-size:12px;"><i class="fa-solid fa-ellipsis-vertical"></i></button>
+            </div>
+          </div>
+
+          <!-- Asset 9: campaign_guidelines.pdf (Document) -->
+          <div class="media-grid-card" onclick="selectMediaCard(this, 'campaign_guidelines.pdf', 'Document (PDF)', '—', '1.8 MB', 'Campaign Guidelines PDF')">
+            <div class="media-thumb-area" style="background:#f8fafc;">
+              <div class="media-thumb-checkbox"></div>
+              <span class="media-type-badge-pill">Document</span>
+              <i class="fa-solid fa-file-pdf" style="font-size:36px;color:#dc2626;"></i>
+            </div>
+            <div class="media-card-info">
+              <div style="overflow:hidden;">
+                <div class="media-card-name">campaign_guidelines.pdf</div>
+                <div class="media-card-meta">1.8 MB</div>
+              </div>
+              <button class="btn-icon" style="background:transparent;border:none;color:var(--text-400);cursor:pointer;font-size:12px;"><i class="fa-solid fa-ellipsis-vertical"></i></button>
+            </div>
+          </div>
+
+          <!-- Asset 10: burger_king_offer.mp4 (Video) -->
+          <div class="media-grid-card" onclick="selectMediaCard(this, 'burger_king_offer.mp4', 'Video (MP4)', '1920 x 1080 px', '15.3 MB', 'Burger King Video Ad')">
+            <div class="media-thumb-area" style="background:linear-gradient(135deg,#78350f,#f59e0b);">
+              <div class="media-thumb-checkbox"></div>
+              <span class="media-type-badge-pill">Video</span>
+              <div class="media-play-overlay"><i class="fa-solid fa-play"></i></div>
+              <span class="media-duration-pill">00:15</span>
+            </div>
+            <div class="media-card-info">
+              <div style="overflow:hidden;">
+                <div class="media-card-name">burger_king_offer.mp4</div>
+                <div class="media-card-meta">1920 x 1080 • 15.3 MB</div>
+              </div>
+              <button class="btn-icon" style="background:transparent;border:none;color:var(--text-400);cursor:pointer;font-size:12px;"><i class="fa-solid fa-ellipsis-vertical"></i></button>
+            </div>
+          </div>
+
+          <!-- Asset 11: nike_just_do_it.jpg -->
+          <div class="media-grid-card" onclick="selectMediaCard(this, 'nike_just_do_it.jpg', 'Image (JPG)', '1920 x 1080 px', '290 KB', 'Nike Just Do It')">
+            <div class="media-thumb-area" style="background:#0f172a;">
+              <div class="media-thumb-checkbox"></div>
+              <span class="media-type-badge-pill">Image</span>
+              <i class="fa-solid fa-shoe-prints" style="font-size:28px;color:#fff;"></i>
+            </div>
+            <div class="media-card-info">
+              <div style="overflow:hidden;">
+                <div class="media-card-name">nike_just_do_it.jpg</div>
+                <div class="media-card-meta">1920 x 1080 • 290 KB</div>
+              </div>
+              <button class="btn-icon" style="background:transparent;border:none;color:var(--text-400);cursor:pointer;font-size:12px;"><i class="fa-solid fa-ellipsis-vertical"></i></button>
+            </div>
+          </div>
+
+          <!-- Asset 12: mall_grand_opening.jpg -->
+          <div class="media-grid-card" onclick="selectMediaCard(this, 'mall_grand_opening.jpg', 'Image (JPG)', '1920 x 1080 px', '305 KB', 'Grand Opening Banner')">
+            <div class="media-thumb-area" style="background:linear-gradient(135deg,#047857,#10b981);">
+              <div class="media-thumb-checkbox"></div>
+              <span class="media-type-badge-pill">Image</span>
+              <i class="fa-solid fa-ribbon" style="font-size:28px;color:#fef08a;"></i>
+            </div>
+            <div class="media-card-info">
+              <div style="overflow:hidden;">
+                <div class="media-card-name">mall_grand_opening.jpg</div>
+                <div class="media-card-meta">1920 x 1080 • 305 KB</div>
+              </div>
+              <button class="btn-icon" style="background:transparent;border:none;color:var(--text-400);cursor:pointer;font-size:12px;"><i class="fa-solid fa-ellipsis-vertical"></i></button>
+            </div>
+          </div>
+
+          <!-- Asset 13: diwali_dhamaka.html5 -->
+          <div class="media-grid-card" onclick="selectMediaCard(this, 'diwali_dhamaka.html5', 'HTML5 / Animated', '1920 x 1080 px', '1.1 MB', 'Diwali Dhamaka HTML5')">
+            <div class="media-thumb-area" style="background:linear-gradient(135deg,#581c87,#a855f7);">
+              <div class="media-thumb-checkbox"></div>
+              <span class="media-type-badge-pill">HTML5</span>
+              <i class="fa-solid fa-wand-magic-sparkles" style="font-size:28px;color:#fbbf24;"></i>
+            </div>
+            <div class="media-card-info">
+              <div style="overflow:hidden;">
+                <div class="media-card-name">diwali_dhamaka.html5</div>
+                <div class="media-card-meta">1920 x 1080 • 1.1 MB</div>
+              </div>
+              <button class="btn-icon" style="background:transparent;border:none;color:var(--text-400);cursor:pointer;font-size:12px;"><i class="fa-solid fa-ellipsis-vertical"></i></button>
+            </div>
+          </div>
+
+          <!-- Asset 14: beauty_sale_banner.jpg -->
+          <div class="media-grid-card" onclick="selectMediaCard(this, 'beauty_sale_banner.jpg', 'Image (JPG)', '1920 x 1080 px', '310 KB', 'Beauty Sale Cosmetics')">
+            <div class="media-thumb-area" style="background:linear-gradient(135deg,#f43f5e,#fda4af);">
+              <div class="media-thumb-checkbox"></div>
+              <span class="media-type-badge-pill">Image</span>
+              <i class="fa-solid fa-spa" style="font-size:28px;color:#fff;"></i>
+            </div>
+            <div class="media-card-info">
+              <div style="overflow:hidden;">
+                <div class="media-card-name">beauty_sale_banner.jpg</div>
+                <div class="media-card-meta">1920 x 1080 • 310 KB</div>
+              </div>
+              <button class="btn-icon" style="background:transparent;border:none;color:var(--text-400);cursor:pointer;font-size:12px;"><i class="fa-solid fa-ellipsis-vertical"></i></button>
+            </div>
+          </div>
+
+          <!-- Asset 15: ad_schedule_may2026.xlsx (Document) -->
+          <div class="media-grid-card" onclick="selectMediaCard(this, 'ad_schedule_may2026.xlsx', 'Document (XLSX)', '—', '240 KB', 'May Ad Schedules Spreadsheets')">
+            <div class="media-thumb-area" style="background:#f8fafc;">
+              <div class="media-thumb-checkbox"></div>
+              <span class="media-type-badge-pill">Document</span>
+              <i class="fa-solid fa-file-excel" style="font-size:36px;color:#16a34a;"></i>
+            </div>
+            <div class="media-card-info">
+              <div style="overflow:hidden;">
+                <div class="media-card-name">ad_schedule_may2026.xlsx</div>
+                <div class="media-card-meta">240 KB</div>
+              </div>
+              <button class="btn-icon" style="background:transparent;border:none;color:var(--text-400);cursor:pointer;font-size:12px;"><i class="fa-solid fa-ellipsis-vertical"></i></button>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Pagination Bar -->
+        <div style="padding:14px 20px;display:flex;align-items:center;justify-content:space-between;border-top:1px solid var(--border-soft);background:#fafbfc;">
+          <div style="display:flex;align-items:center;gap:6px;font-size:12px;color:var(--text-500);">
+            <span>Rows per page:</span>
+            <div class="select-pill" style="height:28px;padding:0 8px;font-size:11.5px;">
+              20 <i class="fa-solid fa-chevron-down" style="font-size:8px;margin-left:4px;"></i>
+            </div>
+          </div>
+          
+          <div style="display:flex;align-items:center;gap:4px;">
+            <button class="btn btn-sm" style="padding:4px 8px;font-size:11px;"><i class="fa-solid fa-chevron-left"></i></button>
+            <button class="btn btn-sm btn-primary" style="padding:4px 10px;font-size:11px;background:#2563eb;color:#fff;">1</button>
+            <button class="btn btn-sm" style="padding:4px 10px;font-size:11px;">2</button>
+            <button class="btn btn-sm" style="padding:4px 10px;font-size:11px;">3</button>
+            <span style="color:var(--text-400);font-size:11px;padding:0 4px;">...</span>
+            <button class="btn btn-sm" style="padding:4px 10px;font-size:11px;">13</button>
+            <button class="btn btn-sm" style="padding:4px 8px;font-size:11px;"><i class="fa-solid fa-chevron-right"></i></button>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Right Column: Media Details Inspector Drawer -->
+      <div class="store-detail-drawer" style="padding:18px;">
+        <div class="store-detail-header" style="margin-bottom:12px;">
+          <h3 style="margin:0;font-size:14.5px;font-weight:700;color:var(--text-900);">Media Details</h3>
+          <i class="fa-solid fa-xmark" style="color:var(--text-400);font-size:13px;cursor:pointer;"></i>
+        </div>
+
+        <!-- Big Thumbnail Preview -->
+        <div style="height:120px;border-radius:10px;overflow:hidden;background:linear-gradient(135deg,#3b0764,#7c3aed);display:flex;align-items:center;justify-content:center;position:relative;margin-bottom:12px;">
+          <svg viewBox="0 0 100 60" style="width:100%;height:100%;">
+            <circle cx="50" cy="30" r="22" fill="#fbbf24" opacity="0.35"/>
+            <path d="M50 14 C47 22 45 27 45 32 C45 36 47.5 38 50 38 C52.5 38 55 36 55 32 C55 27 53 22 50 14 Z" fill="#fbbf24"/>
+            <path d="M40 36 C42 44 58 44 60 36 Z" fill="#f59e0b"/>
+          </svg>
+        </div>
+
+        <!-- Filename & Badge Row -->
+        <div style="display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:2px;">
+          <span id="detail-filename" style="font-size:13.5px;font-weight:800;color:var(--text-900);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">diwali_offer_banner.jpg</span>
+          <span class="badge" style="background:#ecfdf5;color:#16a34a;font-size:10.5px;padding:2px 7px;font-weight:600;">Image</span>
+        </div>
+        <div id="detail-dim" style="font-size:11px;color:var(--text-400);margin-bottom:14px;">1920 x 1080 • 320 KB</div>
+
+        <!-- Metadata Field Rows -->
+        <div style="display:flex;flex-direction:column;gap:1px;margin-bottom:18px;">
+          <div class="store-info-row">
+            <div class="store-info-label">Type</div>
+            <div class="store-info-value" id="detail-type">Image (JPG)</div>
+          </div>
+
+          <div class="store-info-row">
+            <div class="store-info-label">Dimensions</div>
+            <div class="store-info-value" id="detail-dimensions">1920 x 1080 px</div>
+          </div>
+
+          <div class="store-info-row">
+            <div class="store-info-label">File Size</div>
+            <div class="store-info-value" id="detail-filesize">320 KB</div>
+          </div>
+
+          <div class="store-info-row">
+            <div class="store-info-label">Uploaded By</div>
+            <div class="store-info-value">Rahul Arora</div>
+          </div>
+
+          <div class="store-info-row">
+            <div class="store-info-label">Uploaded On</div>
+            <div class="store-info-value">May 10, 2026 10:30 AM</div>
+          </div>
+
+          <div class="store-info-row">
+            <div class="store-info-label">Used In</div>
+            <div class="store-info-value"><a href="#" class="link-blue" style="font-weight:600;">2 Campaigns</a></div>
+          </div>
+
+          <div class="store-info-row">
+            <div class="store-info-label">Zones</div>
+            <div class="store-info-value" style="display:flex;gap:4px;justify-content:flex-end;flex-wrap:wrap;">
+              <span class="badge" style="background:#f1f5f9;color:var(--text-700);font-size:10.5px;">All Zones</span>
+              <span class="badge" style="background:#f5f3ff;color:#7c3aed;font-size:10.5px;">Festival Zone</span>
+            </div>
+          </div>
+
+          <div class="store-info-row">
+            <div class="store-info-label">Kiosks</div>
+            <div class="store-info-value">
+              <span class="badge" style="background:#eff6ff;color:#2563eb;font-size:10.5px;">12 Kiosks</span>
+            </div>
+          </div>
+
+          <div class="store-info-row">
+            <div class="store-info-label">Alt Text</div>
+            <div class="store-info-value" id="detail-alt" style="font-size:11.5px;color:var(--text-600);">Diwali Special Offers Banner</div>
+          </div>
+
+          <div class="store-info-row" style="align-items:center;">
+            <div class="store-info-label">Status</div>
+            <div class="store-info-value" style="display:flex;align-items:center;justify-content:flex-end;gap:4px;color:#16a34a;font-size:11.5px;">
+              <span style="width:6px;height:6px;border-radius:50%;background:#16a34a;"></span> Active
+            </div>
+          </div>
+        </div>
+
+        <!-- Drawer Action Buttons -->
+        <div style="display:flex;flex-direction:column;gap:8px;">
+          <button class="btn" style="width:100%;background:#fff;border:1px solid var(--border);color:var(--text-700);font-weight:600;padding:8px 0;font-size:12.5px;display:flex;align-items:center;justify-content:center;gap:6px;">
+            <i class="fa-regular fa-pen-to-square"></i> Edit Details
+          </button>
+          <button class="btn" style="width:100%;background:#fff;border:1px solid #fee2e2;color:#dc2626;font-weight:600;padding:8px 0;font-size:12.5px;display:flex;align-items:center;justify-content:center;gap:6px;">
+            <i class="fa-regular fa-trash-can"></i> Delete Media
+          </button>
+        </div>
+
+      </div>
+
+    </div>
+
+  </main>
+</div>
+</div>
+
+<script>
+function selectMediaCard(card, filename, type, dims, size, alt) {
+  document.querySelectorAll('.media-grid-card').forEach(c => {
+    c.classList.remove('selected');
+    const chk = c.querySelector('.media-thumb-checkbox');
+    if (chk) chk.innerHTML = '';
+  });
+  card.classList.add('selected');
+  const chk = card.querySelector('.media-thumb-checkbox');
+  if (chk) chk.innerHTML = '<i class="fa-solid fa-check"></i>';
+
+  document.getElementById('detail-filename').innerText = filename;
+  document.getElementById('detail-type').innerText = type;
+  document.getElementById('detail-dimensions').innerText = dims;
+  document.getElementById('detail-filesize').innerText = size;
+  document.getElementById('detail-dim').innerText = (dims !== '—' ? dims + ' • ' : '') + size;
+  document.getElementById('detail-alt').innerText = alt;
+}
+</script>
+</body>
+</html>
+
+

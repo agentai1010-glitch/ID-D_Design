@@ -1,0 +1,750 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Phoenix Mall · Schedules · Kiosk Platform</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<link rel="stylesheet" href="../css/styles.css">
+</head>
+<body>
+<div class="app-shell">
+
+<!-- Client Admin Sidebar -->
+<aside class="sidebar">
+  <a href="dashboard.html" class="sidebar-brand" style="cursor:pointer;">
+    <div class="logo-icon">
+      <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M12 2L21 7V17L12 22L3 17V7L12 2Z" stroke="white" stroke-width="1.6" stroke-linejoin="round"/>
+        <circle cx="12" cy="12" r="3.2" fill="white"/>
+      </svg>
+    </div>
+    <div class="brand-text"><div class="t1">KIOSK</div><div class="t2">PLATFORM</div></div>
+  </a>
+
+  <!-- WORKSPACE Section -->
+  <div class="sidebar-section-label">WORKSPACE</div>
+  <ul class="sidebar-nav">
+    <li class="nav-item" onclick="location.href='dashboard.html'"><i class="fa-solid fa-house"></i><span>Dashboard</span></li>
+    <li class="nav-item active" onclick="location.href='projects.html'"><i class="fa-solid fa-folder-open"></i><span>Projects</span></li>
+    <li class="nav-item" onclick="location.href='devices.html'"><i class="fa-solid fa-tablet-screen-button"></i><span>Devices</span></li>
+    <li class="nav-item" onclick="location.href='analytics.html'"><i class="fa-solid fa-chart-column"></i><span>Analytics</span></li>
+  </ul>
+
+  <!-- TEAM Section -->
+  <div class="sidebar-section-label">TEAM</div>
+  <ul class="sidebar-nav">
+    <li class="nav-item" onclick="location.href='users-roles.html'"><i class="fa-solid fa-users"></i><span>Users & Roles</span></li>
+  </ul>
+
+  <!-- ACCOUNT Section -->
+  <div class="sidebar-section-label">ACCOUNT</div>
+  <ul class="sidebar-nav">
+    <li class="nav-item" onclick="location.href='settings.html'"><i class="fa-solid fa-gear"></i><span>Settings</span></li>
+  </ul>
+
+  <div class="sidebar-spacer"></div>
+
+  <!-- Organization Card -->
+  <div class="org-switcher-card">
+    <div class="org-switcher-header">
+      <div class="org-icon-box"><i class="fa-solid fa-city"></i></div>
+      <div>
+        <div class="org-name-text">Phoenix Retail Group</div>
+        <div class="org-sub-text">Organization</div>
+      </div>
+    </div>
+    <button class="org-btn-switch">
+      <span>Switch Organization</span>
+      <i class="fa-solid fa-chevron-down" style="font-size:9.5px;"></i>
+    </button>
+  </div>
+
+  <div class="sidebar-footer" style="display:flex;align-items:center;justify-content:space-between;">
+    <span>Client Admin v1.0.0</span>
+    <i class="fa-solid fa-chevron-left" style="font-size:10px;cursor:pointer;"></i>
+  </div>
+</aside>
+
+<!-- Main Area -->
+<div class="main">
+  <!-- Topbar Header -->
+  <header class="topbar">
+    <i class="fa-solid fa-bars hamburger"></i>
+    <div class="search">
+      <i class="fa-solid fa-magnifying-glass"></i>
+      <span>Search projects, kiosks, locations...</span>
+      <span class="kbd">⌘ K</span>
+    </div>
+    <div class="spacer"></div>
+    <button class="icon-btn"><i class="fa-regular fa-bell"></i><span class="badge-dot">8</span></button>
+    <div class="user">
+      <div class="avatar" style="background:linear-gradient(135deg,#3b82f6,#1d4ed8);">RA</div>
+      <div>
+        <div class="u-name">Rahul Arora</div>
+        <div class="u-role">Client Admin</div>
+      </div>
+      <i class="fa-solid fa-chevron-down"></i>
+    </div>
+  </header>
+
+  <!-- Main Content Area -->
+  <main class="content">
+
+    <!-- Project Breadcrumbs & Header -->
+    <div class="project-header-container">
+      <div class="project-breadcrumbs">
+        <a href="projects.html">Projects</a>
+        <i class="fa-solid fa-chevron-right" style="font-size:9px;color:var(--text-400);"></i>
+        <a href="project-overview.html">Phoenix Mall</a>
+        <i class="fa-solid fa-chevron-right" style="font-size:9px;color:var(--text-400);"></i>
+        <a href="project-advertisements.html">Advertisements</a>
+        <i class="fa-solid fa-chevron-right" style="font-size:9px;color:var(--text-400);"></i>
+        <span style="font-weight:600;color:var(--text-900);">Schedules</span>
+      </div>
+
+      <div class="project-title-row">
+        <div class="project-title-left">
+          <h1>Phoenix Mall</h1>
+          <span class="badge badge-green" style="font-size:12px;padding:3px 10px;font-weight:600;">
+            <span class="dot"></span> Active
+          </span>
+        </div>
+
+        <div style="display:flex;align-items:center;gap:10px;">
+          <button class="btn" style="background:#fff;border:1px solid var(--border);color:var(--text-700);font-weight:600;padding:9px 16px;display:flex;align-items:center;gap:8px;">
+            <i class="fa-regular fa-eye"></i> Preview Kiosk
+          </button>
+          <button class="btn btn-primary" style="background:#2563eb;color:#fff;font-weight:600;padding:9px 18px;display:flex;align-items:center;gap:8px;">
+            <i class="fa-solid fa-gear"></i> Project Settings <i class="fa-solid fa-chevron-down" style="font-size:9.5px;margin-left:2px;"></i>
+          </button>
+        </div>
+      </div>
+
+      <div class="project-meta-row">
+        <div class="project-meta-item">
+          <i class="fa-solid fa-building" style="color:var(--text-400);"></i> Mall / Indoor Venue
+        </div>
+        <span style="color:var(--text-400);">•</span>
+        <div class="project-meta-item">
+          <i class="fa-solid fa-location-dot" style="color:var(--text-400);"></i> Mumbai, India
+        </div>
+        <span style="color:var(--text-400);">•</span>
+        <div class="project-meta-item">
+          <i class="fa-solid fa-tablet-screen-button" style="color:var(--text-400);"></i> 12 Kiosks
+        </div>
+        <span style="color:var(--text-400);">•</span>
+        <div class="project-meta-item" style="color:var(--green-600);font-weight:600;">
+          <i class="fa-solid fa-circle-check"></i> Release 43 (Published)
+        </div>
+      </div>
+    </div>
+
+    <!-- Project Sub-Navigation Tabs Bar (Preserved) -->
+    <div class="project-tabs-nav">
+      <button class="project-tab-btn" onclick="location.href='project-overview.html'">Overview</button>
+      <button class="project-tab-btn" onclick="location.href='project-experience.html'">Experience</button>
+      <button class="project-tab-btn" onclick="location.href='project-content.html'">Content</button>
+      <button class="project-tab-btn" onclick="location.href='project-maps.html'">Maps</button>
+      <button class="project-tab-btn" onclick="location.href='project-navigation.html'">Navigation</button>
+      <button class="project-tab-btn active" onclick="location.href='project-advertisements.html'">Advertisements</button>
+      <button class="project-tab-btn" onclick="location.href='project-preview.html'">Preview</button>
+      <button class="project-tab-btn" onclick="location.href='project-validation.html'">Validation</button>
+      <button class="project-tab-btn" onclick="location.href='project-releases.html'">Releases</button>
+      <button class="project-tab-btn" onclick="location.href='project-devices.html'">Devices</button>
+      <button class="project-tab-btn" onclick="location.href='project-analytics.html'">Analytics</button>
+      <button class="project-tab-btn" onclick="location.href='#'">Settings</button>
+    </div>
+
+    <!-- Section Header -->
+    <div style="margin-bottom:18px;">
+      <h2 style="font-size:17px;font-weight:800;color:var(--text-900);margin:0 0 3px;">Advertisement Schedules</h2>
+      <p style="font-size:12.5px;color:var(--text-500);margin:0;">Create and manage schedules for your advertisement campaigns.</p>
+    </div>
+
+    <!-- Top 5 Schedules Metric Cards -->
+    <div class="ad-metrics-strip">
+      <!-- 1. Total Schedules -->
+      <div class="content-metric-card">
+        <div class="kpi-icon-box" style="background:#eff6ff;color:#2563eb;width:40px;height:40px;border-radius:10px;">
+          <i class="fa-regular fa-calendar-days"></i>
+        </div>
+        <div>
+          <div style="font-size:22px;font-weight:800;color:var(--text-900);line-height:1.1;">24</div>
+          <div style="font-size:11.5px;font-weight:600;color:var(--text-600);margin-top:2px;">Total Schedules</div>
+          <div style="font-size:11px;font-weight:600;color:var(--green-600);margin-top:2px;">↑ 3 vs last month</div>
+        </div>
+      </div>
+
+      <!-- 2. Active Schedules -->
+      <div class="content-metric-card">
+        <div class="kpi-icon-box" style="background:#eff6ff;color:#2563eb;width:40px;height:40px;border-radius:10px;">
+          <i class="fa-regular fa-circle-play"></i>
+        </div>
+        <div>
+          <div style="font-size:22px;font-weight:800;color:var(--text-900);line-height:1.1;">18</div>
+          <div style="font-size:11.5px;font-weight:600;color:var(--text-600);margin-top:2px;">Active Schedules</div>
+          <div style="font-size:11px;font-weight:600;color:var(--green-600);margin-top:2px;">↑ 2 vs last month</div>
+        </div>
+      </div>
+
+      <!-- 3. Paused Schedules -->
+      <div class="content-metric-card">
+        <div class="kpi-icon-box" style="background:#fff7ed;color:#ea580c;width:40px;height:40px;border-radius:10px;">
+          <i class="fa-regular fa-circle-pause"></i>
+        </div>
+        <div>
+          <div style="font-size:22px;font-weight:800;color:var(--text-900);line-height:1.1;">3</div>
+          <div style="font-size:11.5px;font-weight:600;color:var(--text-600);margin-top:2px;">Paused Schedules</div>
+          <div style="font-size:11px;font-weight:600;color:var(--red-600,#dc2626);margin-top:2px;">↓ 1 vs last month</div>
+        </div>
+      </div>
+
+      <!-- 4. Schedule Coverage -->
+      <div class="content-metric-card">
+        <div class="kpi-icon-box" style="background:#ecfdf5;color:#059669;width:40px;height:40px;border-radius:10px;">
+          <i class="fa-regular fa-circle-check"></i>
+        </div>
+        <div>
+          <div style="font-size:22px;font-weight:800;color:var(--text-900);line-height:1.1;">98.4%</div>
+          <div style="font-size:11.5px;font-weight:600;color:var(--text-600);margin-top:2px;">Schedule Coverage</div>
+          <div style="font-size:11px;font-weight:600;color:var(--green-600);margin-top:2px;">↑ 5.8% vs last month</div>
+        </div>
+      </div>
+
+      <!-- 5. Total Ad Plays (Today) -->
+      <div class="content-metric-card">
+        <div class="kpi-icon-box" style="background:#fdf2f8;color:#db2777;width:40px;height:40px;border-radius:10px;">
+          <i class="fa-regular fa-clock"></i>
+        </div>
+        <div>
+          <div style="font-size:22px;font-weight:800;color:var(--text-900);line-height:1.1;">2,450</div>
+          <div style="font-size:11.5px;font-weight:600;color:var(--text-600);margin-top:2px;">Total Ad Plays (Today)</div>
+          <div style="font-size:11px;font-weight:600;color:var(--green-600);margin-top:2px;">↑ 18% vs yesterday</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Main Content 2-Column Split: Schedules Table on Left & Calendar Widget on Right -->
+    <div class="content-main-layout">
+
+      <!-- Left Column: Schedules Table & Filters -->
+      <div class="panel" style="margin:0;padding:0;overflow:hidden;">
+        
+        <!-- Advertisements Sub-nav Bar -->
+        <div class="content-sub-tabs-bar">
+          <button class="content-sub-tab-btn" onclick="location.href='project-advertisements.html'">Campaigns</button>
+          <button class="content-sub-tab-btn" onclick="location.href='project-advertisements-media.html'">Media Library</button>
+          <button class="content-sub-tab-btn active" onclick="location.href='project-advertisements-schedules.html'">Schedules</button>
+          <button class="content-sub-tab-btn">Zones</button>
+          <button class="content-sub-tab-btn">Settings</button>
+        </div>
+
+        <!-- Status Filter Tabs -->
+        <div style="padding:10px 20px 0;display:flex;align-items:center;gap:6px;border-bottom:1px solid var(--border-soft);background:#ffffff;">
+          <button class="btn btn-sm" style="border:none;background:transparent;color:var(--blue-600);font-weight:700;border-bottom:2px solid var(--blue-600);border-radius:0;padding:6px 10px;">All Schedules</button>
+          <button class="btn btn-sm" style="border:none;background:transparent;color:var(--text-600);font-weight:600;padding:6px 10px;">Active</button>
+          <button class="btn btn-sm" style="border:none;background:transparent;color:var(--text-600);font-weight:600;padding:6px 10px;">Paused</button>
+          <button class="btn btn-sm" style="border:none;background:transparent;color:var(--text-600);font-weight:600;padding:6px 10px;">Completed</button>
+          <button class="btn btn-sm" style="border:none;background:transparent;color:var(--text-600);font-weight:600;padding:6px 10px;">Draft</button>
+        </div>
+
+        <!-- Filter Toolbar -->
+        <div class="content-filter-toolbar">
+          <div class="content-filter-left">
+            <div class="search-input" style="min-width:160px;height:34px;">
+              <i class="fa-solid fa-magnifying-glass"></i>
+              <input type="text" placeholder="Search schedules..." style="border:none;outline:none;background:transparent;font-size:12px;width:100%;">
+            </div>
+
+            <div class="select-pill" style="height:34px;padding:0 10px;font-size:12px;">
+              Status: All <i class="fa-solid fa-chevron-down" style="font-size:9.5px;margin-left:4px;"></i>
+            </div>
+
+            <div class="select-pill" style="height:34px;padding:0 10px;font-size:12px;">
+              All Campaigns <i class="fa-solid fa-chevron-down" style="font-size:9.5px;margin-left:4px;"></i>
+            </div>
+
+            <div class="select-pill" style="height:34px;padding:0 10px;font-size:12px;">
+              All Zones <i class="fa-solid fa-chevron-down" style="font-size:9.5px;margin-left:4px;"></i>
+            </div>
+
+            <div class="select-pill" style="height:34px;padding:0 10px;font-size:12px;">
+              All Kiosks <i class="fa-solid fa-chevron-down" style="font-size:9.5px;margin-left:4px;"></i>
+            </div>
+
+            <div class="select-pill" style="height:34px;padding:0 10px;font-size:12px;">
+              May 10 - May 16, 2026 <i class="fa-regular fa-calendar" style="font-size:11px;margin-left:4px;color:var(--text-500);"></i>
+            </div>
+
+            <button class="btn" style="height:34px;padding:0 10px;font-size:12px;display:flex;align-items:center;gap:4px;">
+              More Filters <i class="fa-solid fa-sliders" style="font-size:10px;"></i>
+            </button>
+          </div>
+        </div>
+
+        <!-- Schedules Table -->
+        <div class="table-wrap" style="overflow-x:auto;width:100%;max-width:100%;">
+          <table style="width:100%;min-width:640px;border-collapse:collapse;white-space:nowrap;">
+            <thead>
+              <tr style="border-bottom:1px solid var(--border);">
+                <th style="padding:10px 18px;text-align:left;font-size:11.5px;font-weight:700;color:var(--text-500);">Schedule Name</th>
+                <th style="padding:10px 12px;text-align:left;font-size:11.5px;font-weight:700;color:var(--text-500);">Campaign</th>
+                <th style="padding:10px 12px;text-align:left;font-size:11.5px;font-weight:700;color:var(--text-500);">Status</th>
+                <th style="padding:10px 12px;text-align:left;font-size:11.5px;font-weight:700;color:var(--text-500);">Zones</th>
+                <th style="padding:10px 12px;text-align:left;font-size:11.5px;font-weight:700;color:var(--text-500);">Kiosks</th>
+                <th style="padding:10px 12px;text-align:left;font-size:11.5px;font-weight:700;color:var(--text-500);">Date & Time</th>
+                <th style="padding:10px 12px;text-align:left;font-size:11.5px;font-weight:700;color:var(--text-500);">Frequency</th>
+                <th style="padding:10px 12px;text-align:left;font-size:11.5px;font-weight:700;color:var(--text-500);">Priority</th>
+                <th style="padding:10px 18px;text-align:right;font-size:11.5px;font-weight:700;color:var(--text-500);">Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              <!-- Row 1: Weekend Special Schedule -->
+              <tr style="border-bottom:1px solid var(--border-soft);">
+                <td style="padding:12px 18px;">
+                  <div style="display:flex;align-items:center;gap:12px;">
+                    <div style="width:34px;height:34px;border-radius:8px;background:#f5f3ff;color:#7c3aed;display:flex;align-items:center;justify-content:center;font-size:14px;flex-shrink:0;">
+                      <i class="fa-regular fa-calendar-days"></i>
+                    </div>
+                    <div>
+                      <div style="font-size:13px;font-weight:700;color:var(--text-900);">Weekend Special Schedule</div>
+                      <div style="font-size:11px;color:var(--text-400);">Weekend Campaign</div>
+                    </div>
+                  </div>
+                </td>
+                <td style="padding:12px 12px;">
+                  <div style="display:flex;align-items:center;gap:8px;">
+                    <div class="campaign-thumb-box" style="background:linear-gradient(135deg,#3b0764,#7c3aed);width:26px;height:26px;border-radius:4px;">
+                      <i class="fa-solid fa-fire-flame-curved" style="color:#fbbf24;font-size:10px;"></i>
+                    </div>
+                    <span style="font-size:12px;font-weight:600;color:var(--text-800);">Diwali Special Offers</span>
+                  </div>
+                </td>
+                <td style="padding:12px 12px;">
+                  <span class="badge" style="background:#ecfdf5;color:#16a34a;font-size:11px;padding:2px 7px;font-weight:600;">
+                    Active
+                  </span>
+                </td>
+                <td style="padding:12px 12px;">
+                  <div style="font-size:12px;font-weight:600;color:var(--text-900);">All Zones</div>
+                  <div style="font-size:11px;color:var(--text-400);">5 zones</div>
+                </td>
+                <td style="padding:12px 12px;font-size:12px;color:var(--text-700);font-weight:600;">
+                  <div>All Kiosks</div>
+                  <div style="font-size:11px;color:var(--text-400);font-weight:400;">12 kiosks</div>
+                </td>
+                <td style="padding:12px 12px;">
+                  <div style="font-size:12px;font-weight:600;color:var(--text-900);">May 10 - May 16, 2026</div>
+                  <div style="font-size:11px;color:var(--text-400);">10:00 AM - 10:00 PM</div>
+                </td>
+                <td style="padding:12px 12px;font-size:12px;color:var(--text-700);">Every Weekend</td>
+                <td style="padding:12px 12px;">
+                  <span class="badge" style="background:#fee2e2;color:#dc2626;font-size:10.5px;padding:2px 7px;font-weight:600;">High</span>
+                </td>
+                <td style="padding:12px 18px;text-align:right;">
+                  <button class="btn-icon" style="background:transparent;border:none;color:var(--text-400);cursor:pointer;font-size:14px;"><i class="fa-solid fa-ellipsis"></i></button>
+                </td>
+              </tr>
+
+              <!-- Row 2: Summer Sale Weekdays -->
+              <tr style="border-bottom:1px solid var(--border-soft);">
+                <td style="padding:12px 18px;">
+                  <div style="display:flex;align-items:center;gap:12px;">
+                    <div style="width:34px;height:34px;border-radius:8px;background:#eff6ff;color:#2563eb;display:flex;align-items:center;justify-content:center;font-size:14px;flex-shrink:0;">
+                      <i class="fa-regular fa-calendar-days"></i>
+                    </div>
+                    <div>
+                      <div style="font-size:13px;font-weight:700;color:var(--text-900);">Summer Sale Weekdays</div>
+                      <div style="font-size:11px;color:var(--text-400);">Seasonal Campaign</div>
+                    </div>
+                  </div>
+                </td>
+                <td style="padding:12px 12px;">
+                  <div style="display:flex;align-items:center;gap:8px;">
+                    <div class="campaign-thumb-box" style="background:linear-gradient(135deg,#0284c7,#f59e0b);width:26px;height:26px;border-radius:4px;">
+                      <i class="fa-solid fa-umbrella-beach" style="color:#fff;font-size:10px;"></i>
+                    </div>
+                    <span style="font-size:12px;font-weight:600;color:var(--text-800);">Summer Sale 2026</span>
+                  </div>
+                </td>
+                <td style="padding:12px 12px;">
+                  <span class="badge" style="background:#ecfdf5;color:#16a34a;font-size:11px;padding:2px 7px;font-weight:600;">
+                    Active
+                  </span>
+                </td>
+                <td style="padding:12px 12px;">
+                  <div style="font-size:12px;font-weight:600;color:var(--text-900);">Fashion Zone</div>
+                  <div style="font-size:11px;color:var(--text-400);">2 zones</div>
+                </td>
+                <td style="padding:12px 12px;font-size:12px;color:var(--text-700);font-weight:600;">
+                  8 Kiosks
+                </td>
+                <td style="padding:12px 12px;">
+                  <div style="font-size:12px;font-weight:600;color:var(--text-900);">May 11 - May 15, 2026</div>
+                  <div style="font-size:11px;color:var(--text-400);">11:00 AM - 09:00 PM</div>
+                </td>
+                <td style="padding:12px 12px;font-size:12px;color:var(--text-700);">Weekdays</td>
+                <td style="padding:12px 12px;">
+                  <span class="badge" style="background:#fff7ed;color:#ea580c;font-size:10.5px;padding:2px 7px;font-weight:600;">Medium</span>
+                </td>
+                <td style="padding:12px 18px;text-align:right;">
+                  <button class="btn-icon" style="background:transparent;border:none;color:var(--text-400);cursor:pointer;font-size:14px;"><i class="fa-solid fa-ellipsis"></i></button>
+                </td>
+              </tr>
+
+              <!-- Row 3: Food Court Lunch Time -->
+              <tr style="border-bottom:1px solid var(--border-soft);">
+                <td style="padding:12px 18px;">
+                  <div style="display:flex;align-items:center;gap:12px;">
+                    <div style="width:34px;height:34px;border-radius:8px;background:#ecfdf5;color:#059669;display:flex;align-items:center;justify-content:center;font-size:14px;flex-shrink:0;">
+                      <i class="fa-regular fa-calendar-days"></i>
+                    </div>
+                    <div>
+                      <div style="font-size:13px;font-weight:700;color:var(--text-900);">Food Court Lunch Time</div>
+                      <div style="font-size:11px;color:var(--text-400);">Food & Dining</div>
+                    </div>
+                  </div>
+                </td>
+                <td style="padding:12px 12px;">
+                  <div style="display:flex;align-items:center;gap:8px;">
+                    <div class="campaign-thumb-box" style="background:linear-gradient(135deg,#c2410c,#f97316);width:26px;height:26px;border-radius:4px;">
+                      <i class="fa-solid fa-utensils" style="color:#fff;font-size:10px;"></i>
+                    </div>
+                    <span style="font-size:12px;font-weight:600;color:var(--text-800);">Food Court Delights</span>
+                  </div>
+                </td>
+                <td style="padding:12px 12px;">
+                  <span class="badge" style="background:#ecfdf5;color:#16a34a;font-size:11px;padding:2px 7px;font-weight:600;">
+                    Active
+                  </span>
+                </td>
+                <td style="padding:12px 12px;">
+                  <div style="font-size:12px;font-weight:600;color:var(--text-900);">Food Court</div>
+                  <div style="font-size:11px;color:var(--text-400);">1 zone</div>
+                </td>
+                <td style="padding:12px 12px;font-size:12px;color:var(--text-700);font-weight:600;">
+                  4 Kiosks
+                </td>
+                <td style="padding:12px 12px;">
+                  <div style="font-size:12px;font-weight:600;color:var(--text-900);">May 10 - May 16, 2026</div>
+                  <div style="font-size:11px;color:var(--text-400);">12:00 PM - 03:00 PM</div>
+                </td>
+                <td style="padding:12px 12px;font-size:12px;color:var(--text-700);">Daily</td>
+                <td style="padding:12px 12px;">
+                  <span class="badge" style="background:#fee2e2;color:#dc2626;font-size:10.5px;padding:2px 7px;font-weight:600;">High</span>
+                </td>
+                <td style="padding:12px 18px;text-align:right;">
+                  <button class="btn-icon" style="background:transparent;border:none;color:var(--text-400);cursor:pointer;font-size:14px;"><i class="fa-solid fa-ellipsis"></i></button>
+                </td>
+              </tr>
+
+              <!-- Row 4: Evening Entertainment -->
+              <tr style="border-bottom:1px solid var(--border-soft);">
+                <td style="padding:12px 18px;">
+                  <div style="display:flex;align-items:center;gap:12px;">
+                    <div style="width:34px;height:34px;border-radius:8px;background:#fff7ed;color:#ea580c;display:flex;align-items:center;justify-content:center;font-size:14px;flex-shrink:0;">
+                      <i class="fa-regular fa-calendar-days"></i>
+                    </div>
+                    <div>
+                      <div style="font-size:13px;font-weight:700;color:var(--text-900);">Evening Entertainment</div>
+                      <div style="font-size:11px;color:var(--text-400);">Entertainment Campaign</div>
+                    </div>
+                  </div>
+                </td>
+                <td style="padding:12px 12px;">
+                  <div style="display:flex;align-items:center;gap:8px;">
+                    <div class="campaign-thumb-box" style="background:linear-gradient(135deg,#0f172a,#475569);width:26px;height:26px;border-radius:4px;">
+                      <i class="fa-solid fa-film" style="color:#fbbf24;font-size:10px;"></i>
+                    </div>
+                    <span style="font-size:12px;font-weight:600;color:var(--text-800);">Movie Magic</span>
+                  </div>
+                </td>
+                <td style="padding:12px 12px;">
+                  <span class="badge" style="background:#fee2e2;color:#dc2626;font-size:11px;padding:2px 7px;font-weight:600;">
+                    Paused
+                  </span>
+                </td>
+                <td style="padding:12px 12px;">
+                  <div style="font-size:12px;font-weight:600;color:var(--text-900);">All Zones</div>
+                  <div style="font-size:11px;color:var(--text-400);">5 zones</div>
+                </td>
+                <td style="padding:12px 12px;font-size:12px;color:var(--text-700);font-weight:600;">
+                  <div>All Kiosks</div>
+                  <div style="font-size:11px;color:var(--text-400);font-weight:400;">12 kiosks</div>
+                </td>
+                <td style="padding:12px 12px;">
+                  <div style="font-size:12px;font-weight:600;color:var(--text-900);">May 10 - May 16, 2026</div>
+                  <div style="font-size:11px;color:var(--text-400);">06:00 PM - 11:00 PM</div>
+                </td>
+                <td style="padding:12px 12px;font-size:12px;color:var(--text-700);">Daily</td>
+                <td style="padding:12px 12px;">
+                  <span class="badge" style="background:#fff7ed;color:#ea580c;font-size:10.5px;padding:2px 7px;font-weight:600;">Medium</span>
+                </td>
+                <td style="padding:12px 18px;text-align:right;">
+                  <button class="btn-icon" style="background:transparent;border:none;color:var(--text-400);cursor:pointer;font-size:14px;"><i class="fa-solid fa-ellipsis"></i></button>
+                </td>
+              </tr>
+
+              <!-- Row 5: New Arrivals Rotation -->
+              <tr style="border-bottom:1px solid var(--border-soft);">
+                <td style="padding:12px 18px;">
+                  <div style="display:flex;align-items:center;gap:12px;">
+                    <div style="width:34px;height:34px;border-radius:8px;background:#f1f5f9;color:var(--text-600);display:flex;align-items:center;justify-content:center;font-size:14px;flex-shrink:0;">
+                      <i class="fa-regular fa-calendar-days"></i>
+                    </div>
+                    <div>
+                      <div style="font-size:13px;font-weight:700;color:var(--text-900);">New Arrivals Rotation</div>
+                      <div style="font-size:11px;color:var(--text-400);">Promotional Campaign</div>
+                    </div>
+                  </div>
+                </td>
+                <td style="padding:12px 12px;">
+                  <div style="display:flex;align-items:center;gap:8px;">
+                    <div class="campaign-thumb-box" style="background:linear-gradient(135deg,#0d9488,#14b8a6);width:26px;height:26px;border-radius:4px;">
+                      <i class="fa-solid fa-vest" style="color:#fff;font-size:10px;"></i>
+                    </div>
+                    <span style="font-size:12px;font-weight:600;color:var(--text-800);">New Arrivals</span>
+                  </div>
+                </td>
+                <td style="padding:12px 12px;">
+                  <span class="badge" style="background:#f1f5f9;color:var(--text-600);font-size:11px;padding:2px 7px;font-weight:600;">
+                    Draft
+                  </span>
+                </td>
+                <td style="padding:12px 12px;">
+                  <div style="font-size:12px;font-weight:600;color:var(--text-900);">Fashion Zone</div>
+                  <div style="font-size:11px;color:var(--text-400);">2 zones</div>
+                </td>
+                <td style="padding:12px 12px;font-size:12px;color:var(--text-700);font-weight:600;">
+                  6 Kiosks
+                </td>
+                <td style="padding:12px 12px;">
+                  <div style="font-size:12px;font-weight:600;color:var(--text-900);">May 17 - May 23, 2026</div>
+                  <div style="font-size:11px;color:var(--text-400);">10:00 AM - 10:00 PM</div>
+                </td>
+                <td style="padding:12px 12px;font-size:12px;color:var(--text-700);">Daily</td>
+                <td style="padding:12px 12px;">
+                  <span class="badge" style="background:#ecfdf5;color:#16a34a;font-size:10.5px;padding:2px 7px;font-weight:600;">Low</span>
+                </td>
+                <td style="padding:12px 18px;text-align:right;">
+                  <button class="btn-icon" style="background:transparent;border:none;color:var(--text-400);cursor:pointer;font-size:14px;"><i class="fa-solid fa-ellipsis"></i></button>
+                </td>
+              </tr>
+
+              <!-- Row 6: Holiday Special -->
+              <tr style="border-bottom:1px solid var(--border-soft);">
+                <td style="padding:12px 18px;">
+                  <div style="display:flex;align-items:center;gap:12px;">
+                    <div style="width:34px;height:34px;border-radius:8px;background:#f5f3ff;color:#7c3aed;display:flex;align-items:center;justify-content:center;font-size:14px;flex-shrink:0;">
+                      <i class="fa-regular fa-calendar-days"></i>
+                    </div>
+                    <div>
+                      <div style="font-size:13px;font-weight:700;color:var(--text-900);">Holiday Special</div>
+                      <div style="font-size:11px;color:var(--text-400);">Festival Campaign</div>
+                    </div>
+                  </div>
+                </td>
+                <td style="padding:12px 12px;">
+                  <div style="display:flex;align-items:center;gap:8px;">
+                    <div class="campaign-thumb-box" style="background:linear-gradient(135deg,#047857,#10b981);width:26px;height:26px;border-radius:4px;">
+                      <i class="fa-solid fa-gifts" style="color:#fff;font-size:10px;"></i>
+                    </div>
+                    <span style="font-size:12px;font-weight:600;color:var(--text-800);">Holiday Bonanza</span>
+                  </div>
+                </td>
+                <td style="padding:12px 12px;">
+                  <span class="badge" style="background:#f1f5f9;color:var(--text-600);font-size:11px;padding:2px 7px;font-weight:600;">
+                    Completed
+                  </span>
+                </td>
+                <td style="padding:12px 12px;">
+                  <div style="font-size:12px;font-weight:600;color:var(--text-900);">All Zones</div>
+                  <div style="font-size:11px;color:var(--text-400);">5 zones</div>
+                </td>
+                <td style="padding:12px 12px;font-size:12px;color:var(--text-700);font-weight:600;">
+                  <div>All Kiosks</div>
+                  <div style="font-size:11px;color:var(--text-400);font-weight:400;">12 kiosks</div>
+                </td>
+                <td style="padding:12px 12px;">
+                  <div style="font-size:12px;font-weight:600;color:var(--text-900);">May 01 - May 09, 2026</div>
+                  <div style="font-size:11px;color:var(--text-400);">All Day</div>
+                </td>
+                <td style="padding:12px 12px;font-size:12px;color:var(--text-700);">All Day</td>
+                <td style="padding:12px 12px;">
+                  <span class="badge" style="background:#fee2e2;color:#dc2626;font-size:10.5px;padding:2px 7px;font-weight:600;">High</span>
+                </td>
+                <td style="padding:12px 18px;text-align:right;">
+                  <button class="btn-icon" style="background:transparent;border:none;color:var(--text-400);cursor:pointer;font-size:14px;"><i class="fa-solid fa-ellipsis"></i></button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <!-- Pagination Bar -->
+        <div style="padding:14px 20px;display:flex;align-items:center;justify-content:space-between;border-top:1px solid var(--border-soft);background:#fafbfc;">
+          <div style="font-size:12px;color:var(--text-500);">Showing 1 to 6 of 24 schedules</div>
+          
+          <div style="display:flex;align-items:center;gap:12px;">
+            <div style="display:flex;align-items:center;gap:4px;">
+              <button class="btn btn-sm" style="padding:4px 8px;font-size:11px;"><i class="fa-solid fa-chevron-left"></i></button>
+              <button class="btn btn-sm btn-primary" style="padding:4px 10px;font-size:11px;background:#2563eb;color:#fff;">1</button>
+              <button class="btn btn-sm" style="padding:4px 10px;font-size:11px;">2</button>
+              <button class="btn btn-sm" style="padding:4px 10px;font-size:11px;">3</button>
+              <span style="color:var(--text-400);font-size:11px;padding:0 4px;">...</span>
+              <button class="btn btn-sm" style="padding:4px 10px;font-size:11px;">4</button>
+              <button class="btn btn-sm" style="padding:4px 8px;font-size:11px;"><i class="fa-solid fa-chevron-right"></i></button>
+            </div>
+
+            <div class="select-pill" style="height:30px;padding:0 8px;font-size:11.5px;">
+              10 / page <i class="fa-solid fa-chevron-down" style="font-size:9px;margin-left:4px;"></i>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Right Column: Top Actions, Mini Calendar, Schedule Summary, Help Card -->
+      <div style="display:flex;flex-direction:column;gap:18px;">
+
+        <!-- Top Actions -->
+        <div style="display:flex;align-items:center;gap:10px;">
+          <button class="btn" style="flex:1;background:#fff;border:1px solid var(--border);color:var(--text-700);font-weight:600;padding:9px 12px;display:flex;align-items:center;justify-content:center;gap:6px;font-size:12.5px;">
+            <i class="fa-regular fa-calendar" style="color:var(--blue-600);"></i> Calendar View
+          </button>
+          <button class="btn btn-primary" style="flex:1;background:#2563eb;color:#fff;font-weight:600;padding:9px 12px;display:flex;align-items:center;justify-content:center;gap:6px;font-size:12.5px;">
+            <i class="fa-solid fa-plus"></i> Create Schedule
+          </button>
+        </div>
+
+        <!-- Card 1: Interactive Mini Calendar Widget -->
+        <div class="panel" style="margin:0;padding:18px;">
+          <div class="calendar-month-header">
+            <button class="btn-icon" style="background:transparent;border:none;color:var(--text-600);cursor:pointer;font-size:12px;"><i class="fa-solid fa-chevron-left"></i></button>
+            <span style="font-size:13.5px;font-weight:700;color:var(--text-900);">May 2026</span>
+            <div style="display:flex;align-items:center;gap:6px;">
+              <button class="btn-icon" style="background:transparent;border:none;color:var(--text-600);cursor:pointer;font-size:12px;"><i class="fa-solid fa-chevron-right"></i></button>
+              <button class="btn btn-sm" style="padding:2px 7px;font-size:11px;background:#f1f5f9;border:none;color:var(--text-700);font-weight:600;">Today</button>
+            </div>
+          </div>
+
+          <div class="calendar-card-body">
+            <table class="calendar-grid-table">
+              <thead>
+                <tr>
+                  <th>Su</th><th>Mo</th><th>Tu</th><th>We</th><th>Th</th><th>Fr</th><th>Sa</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><span class="calendar-date-cell other-month">27</span></td>
+                  <td><span class="calendar-date-cell other-month">28</span></td>
+                  <td><span class="calendar-date-cell other-month">29</span></td>
+                  <td><span class="calendar-date-cell other-month">30</span></td>
+                  <td><span class="calendar-date-cell">1</span></td>
+                  <td><span class="calendar-date-cell">2</span></td>
+                  <td><span class="calendar-date-cell">3</span></td>
+                </tr>
+                <tr>
+                  <td><span class="calendar-date-cell">4</span></td>
+                  <td><span class="calendar-date-cell">5</span></td>
+                  <td><span class="calendar-date-cell">6</span></td>
+                  <td><span class="calendar-date-cell">7</span></td>
+                  <td><span class="calendar-date-cell">8</span></td>
+                  <td><span class="calendar-date-cell">9</span></td>
+                  <td>
+                    <span class="calendar-date-cell active-today">10</span>
+                  </td>
+                </tr>
+                <tr>
+                  <td><span class="calendar-date-cell">11<span class="cal-dot green"></span></span></td>
+                  <td><span class="calendar-date-cell">12</span></td>
+                  <td><span class="calendar-date-cell">13</span></td>
+                  <td><span class="calendar-date-cell">14</span></td>
+                  <td><span class="calendar-date-cell">15</span></td>
+                  <td><span class="calendar-date-cell">16</span></td>
+                  <td><span class="calendar-date-cell">17</span></td>
+                </tr>
+                <tr>
+                  <td><span class="calendar-date-cell">18<span class="cal-dot green"></span></span></td>
+                  <td><span class="calendar-date-cell">19</span></td>
+                  <td><span class="calendar-date-cell">20</span></td>
+                  <td><span class="calendar-date-cell">21</span></td>
+                  <td><span class="calendar-date-cell">22</span></td>
+                  <td><span class="calendar-date-cell">23</span></td>
+                  <td><span class="calendar-date-cell">24</span></td>
+                </tr>
+                <tr>
+                  <td><span class="calendar-date-cell">25</span></td>
+                  <td><span class="calendar-date-cell">26</span></td>
+                  <td><span class="calendar-date-cell">27</span></td>
+                  <td><span class="calendar-date-cell">28</span></td>
+                  <td><span class="calendar-date-cell">29</span></td>
+                  <td><span class="calendar-date-cell">30</span></td>
+                  <td><span class="calendar-date-cell">31</span></td>
+                </tr>
+              </tbody>
+            </table>
+
+            <!-- Mini Legend under calendar -->
+            <div style="display:flex;align-items:center;justify-content:center;gap:12px;margin-top:10px;padding-top:10px;border-top:1px solid var(--border-soft);font-size:11px;color:var(--text-600);flex-wrap:wrap;">
+              <span style="display:inline-flex;align-items:center;gap:4px;"><span style="width:6px;height:6px;border-radius:50%;background:#22c55e;"></span> Active</span>
+              <span style="display:inline-flex;align-items:center;gap:4px;"><span style="width:6px;height:6px;border-radius:50%;background:#f59e0b;"></span> Paused</span>
+              <span style="display:inline-flex;align-items:center;gap:4px;"><span style="width:6px;height:6px;border-radius:50%;background:#94a3b8;"></span> Draft</span>
+              <span style="display:inline-flex;align-items:center;gap:4px;"><span style="width:6px;height:6px;border-radius:50%;background:#2563eb;"></span> Completed</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Card 2: Schedule Summary -->
+        <div class="panel" style="margin:0;padding:18px;">
+          <h3 style="margin:0 0 12px;font-size:14.5px;font-weight:700;color:var(--text-900);">Schedule Summary</h3>
+
+          <div style="display:flex;flex-direction:column;gap:6px;font-size:12px;">
+            <div style="display:flex;align-items:center;justify-content:space-between;padding-bottom:6px;border-bottom:1px solid var(--border-soft);">
+              <span style="color:var(--text-600);">Total Schedules</span>
+              <span style="font-weight:700;color:var(--text-900);">24</span>
+            </div>
+            <div style="display:flex;align-items:center;justify-content:space-between;">
+              <span style="color:var(--text-600);">Active</span>
+              <span style="font-weight:700;color:var(--text-900);">18 (75%)</span>
+            </div>
+            <div style="display:flex;align-items:center;justify-content:space-between;">
+              <span style="color:var(--text-600);">Paused</span>
+              <span style="font-weight:700;color:var(--text-900);">3 (12.5%)</span>
+            </div>
+            <div style="display:flex;align-items:center;justify-content:space-between;">
+              <span style="color:var(--text-600);">Completed</span>
+              <span style="font-weight:700;color:var(--text-900);">2 (8.3%)</span>
+            </div>
+            <div style="display:flex;align-items:center;justify-content:space-between;">
+              <span style="color:var(--text-600);">Draft</span>
+              <span style="font-weight:700;color:var(--text-900);">1 (4.2%)</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Card 3: Need Help? -->
+        <div class="panel" style="margin:0;padding:18px;background:#fafbfc;">
+          <h4 style="margin:0 0 4px;font-size:13.5px;font-weight:700;color:var(--text-900);">Need Help?</h4>
+          <p style="margin:0 0 12px;font-size:11.5px;color:var(--text-500);">Learn how to create effective ad schedules.</p>
+          <a href="#" class="btn" style="width:100%;background:#fff;border:1px solid var(--border);color:var(--blue-600);font-weight:600;font-size:12px;padding:8px 0;display:flex;align-items:center;justify-content:center;gap:6px;">
+            View Documentation <i class="fa-solid fa-arrow-up-right-from-square" style="font-size:10px;"></i>
+          </a>
+        </div>
+
+      </div>
+
+    </div>
+
+  </main>
+</div>
+</div>
+
+</body>
+</html>
+
+

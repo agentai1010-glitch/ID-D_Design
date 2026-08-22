@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Monitoring · Kiosk Platform</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+<div class="app-shell">
+<aside class="sidebar">
+  <a href="dashboard.html" class="sidebar-brand" style="cursor:pointer;">
+    <div class="logo-icon"><svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M12 2L21 7V17L12 22L3 17V7L12 2Z" stroke="white" stroke-width="1.6" stroke-linejoin="round"/>
+<circle cx="12" cy="12" r="3.2" fill="white"/>
+</svg></div>
+    <div class="brand-text"><div class="t1">KIOSK</div><div class="t2">PLATFORM</div></div>
+  </a>
+  <div class="sidebar-section-label">PLATFORM ADMIN <i class="fa-solid fa-chevron-up" style="font-size:9px;"></i></div>
+  <ul class="sidebar-nav">
+  <li class="nav-item " onclick="location.href='dashboard.html'"><i class="fa-solid fa-house"></i><span>Dashboard</span></li>
+<li class="nav-item " onclick="location.href='clients.html'"><i class="fa-solid fa-user-group"></i><span>Clients</span></li>
+<li class="nav-item " onclick="location.href='projects.html'"><i class="fa-solid fa-folder-open"></i><span>Projects</span></li>
+<li class="nav-item " onclick="location.href='devices.html'"><i class="fa-solid fa-tablet-screen-button"></i><span>Devices</span></li>
+<li class="nav-item " onclick="location.href='templates.html'"><i class="fa-solid fa-table-cells-large"></i><span>Templates</span></li>
+<li class="nav-item " onclick="location.href='analytics.html'"><i class="fa-solid fa-chart-column"></i><span>Analytics</span></li>
+<li class="nav-item active" onclick="location.href='monitoring.html'"><i class="fa-solid fa-heart-pulse"></i><span>Monitoring</span></li>
+<li class="nav-item " onclick="location.href='users-roles.html'"><i class="fa-solid fa-users-gear"></i><span>Users & Roles</span></li>
+<li class="nav-item " onclick="location.href='billing.html'"><i class="fa-solid fa-credit-card"></i><span>Billing & Plans</span></li>
+<li class="nav-item " onclick="location.href='audit-logs.html'"><i class="fa-solid fa-file-lines"></i><span>Audit Logs</span></li>
+<li class="nav-item " onclick="location.href='system-settings.html'"><i class="fa-solid fa-gear"></i><span>System Settings</span></li>
+
+  </ul>
+  <div class="sidebar-spacer"></div>
+  <div class="sidebar-status">
+    <div class="st-title">System Status</div>
+    <div class="st-row"><span class="st-dot"></span> All Systems Operational</div>
+    <div class="st-sub">Last checked: 2 min ago</div>
+    <a href="monitoring.html">View System Health</a>
+  </div>
+  <div class="sidebar-quick">
+    <div class="qa-title">Quick Actions</div>
+    <a class="qa-item" href="onboard-client.html"><i class="fa-solid fa-user-plus"></i> Onboard New Client</a>
+    <a class="qa-item" href="clients.html"><i class="fa-solid fa-cube"></i> View Clients</a>
+    <a class="qa-item" href="devices.html"><i class="fa-solid fa-tablet-screen-button"></i> View Devices</a>
+    <a class="qa-item" href="monitoring.html"><i class="fa-solid fa-triangle-exclamation"></i> View Alerts</a>
+  </div>
+  <div class="sidebar-footer">Kiosk Platform v1.0.0</div>
+</aside>
+<div class="main"><header class="topbar">
+  <i class="fa-solid fa-bars hamburger"></i>
+  <div class="search"><i class="fa-solid fa-magnifying-glass"></i><span>Search clients, projects, devices...</span><span class="kbd">⌘K</span></div>
+  <div class="spacer"></div>
+  <button class="icon-btn"><i class="fa-regular fa-circle-question"></i></button>
+  <button class="icon-btn"><i class="fa-regular fa-bell"></i><span class="badge-dot">12</span></button>
+  <div class="user">
+    <div class="avatar">SA</div>
+    <div><div class="u-name">Super Admin</div><div class="u-role">Platform Administrator</div></div>
+    <i class="fa-solid fa-chevron-down"></i>
+  </div>
+</header>
+<div class="content">
+<div class="page-header">
+  <div><h1>Monitoring</h1><p>Real-time platform monitoring and system health overview</p></div>
+  <div class="actions">
+    <div class="select-pill"><i class="fa-regular fa-calendar"></i> Last 30 Minutes <i class="fa-solid fa-chevron-down"></i></div>
+    <button class="btn"><i class="fa-solid fa-rotate"></i></button>
+    <button class="btn btn-primary"><i class="fa-solid fa-sliders"></i> Customize</button>
+  </div>
+</div>
+
+<div class="subtabs">
+  <div class="subtab active">Overview</div>
+  <div class="subtab">Platform Health</div>
+  <div class="subtab">Device Health</div>
+  <div class="subtab">Synchronization</div>
+  <div class="subtab">Deployments</div>
+  <div class="subtab">System Errors</div>
+</div>
+
+<div class="stats-grid">
+  <div class="stat-card"><div class="icon icon-red"><i class="fa-solid fa-circle-exclamation"></i></div><div class="body"><div class="label">Critical Alerts</div><div class="value">3</div><div class="sub" style="color:#dc2626;">&uarr; 1 from last 30 min</div></div></div>
+  <div class="stat-card"><div class="icon icon-amber"><i class="fa-solid fa-triangle-exclamation"></i></div><div class="body"><div class="label">Warning Alerts</div><div class="value">7</div><div class="sub" style="color:#d97706;">&uarr; 2 from last 30 min</div></div></div>
+  <div class="stat-card"><div class="icon icon-green"><i class="fa-solid fa-wifi"></i></div><div class="body"><div class="label">Offline Devices</div><div class="value">10</div><div class="sub">6.4% of total devices</div></div></div>
+  <div class="stat-card"><div class="icon icon-purple"><i class="fa-solid fa-cloud-arrow-up"></i></div><div class="body"><div class="label">Failed Deployments</div><div class="value">2</div><div class="sub" style="color:#dc2626;">&uarr; 1 from last 30 min</div></div></div>
+  <div class="stat-card"><div class="icon icon-amber"><i class="fa-solid fa-rotate"></i></div><div class="body"><div class="label">Sync Failures</div><div class="value">5</div><div class="sub" style="color:#dc2626;">&uarr; 2 from last 30 min</div></div></div>
+  <div class="stat-card"><div class="icon icon-blue"><i class="fa-solid fa-wave-square"></i></div><div class="body"><div class="label">System Health</div><div class="value">98.7%</div><div class="sub">Overall uptime</div></div></div>
+</div>
+
+<div class="grid-3">
+  <div class="panel" style="margin-bottom:0;">
+    <div class="panel-header"><h2 style="font-size:15px;">Active Alerts</h2><a class="link-blue">View All Alerts &rarr;</a></div>
+    <div style="padding:4px 22px 16px;">
+      <div class="alert-row"><div class="act-icon icon-red"><i class="fa-solid fa-circle-exclamation"></i></div>
+        <div style="flex:1;"><b style="font-size:12.5px;">Kiosk Offline</b><div class="muted" style="font-size:11.5px;">Kiosk-03 at Phoenix Mall has been offline for 2 hours</div><div class="muted" style="font-size:11px;">2 min ago</div></div>
+        <span class="badge badge-red">Critical</span></div>
+      <div class="alert-row"><div class="act-icon icon-red"><i class="fa-solid fa-circle-exclamation"></i></div>
+        <div style="flex:1;"><b style="font-size:12.5px;">Deployment Failed</b><div class="muted" style="font-size:11.5px;">Release 43 deployment failed for 2 devices</div><div class="muted" style="font-size:11px;">8 min ago</div></div>
+        <span class="badge badge-red">Critical</span></div>
+      <div class="alert-row"><div class="act-icon icon-amber"><i class="fa-solid fa-triangle-exclamation"></i></div>
+        <div style="flex:1;"><b style="font-size:12.5px;">Synchronization Failure</b><div class="muted" style="font-size:11.5px;">Content sync failed for City Center Mall project</div><div class="muted" style="font-size:11px;">15 min ago</div></div>
+        <span class="badge badge-amber">Warning</span></div>
+      <div class="alert-row"><div class="act-icon icon-amber"><i class="fa-solid fa-circle-exclamation"></i></div>
+        <div style="flex:1;"><b style="font-size:12.5px;">Low Storage Space</b><div class="muted" style="font-size:11.5px;">Kiosk-07 at Grand Plaza has only 8% storage left</div><div class="muted" style="font-size:11px;">18 min ago</div></div>
+        <span class="badge badge-amber">Warning</span></div>
+      <div class="alert-row"><div class="act-icon icon-amber"><i class="fa-solid fa-triangle-exclamation"></i></div>
+        <div style="flex:1;"><b style="font-size:12.5px;">High Memory Usage</b><div class="muted" style="font-size:11.5px;">Kiosk-11 memory usage is above 85%</div><div class="muted" style="font-size:11px;">25 min ago</div></div>
+        <span class="badge badge-amber">Warning</span></div>
+      <div class="muted" style="font-size:12px;margin-top:8px;">Showing 1 to 5 of 8 alerts</div>
+    </div>
+  </div>
+
+  <div class="panel" style="margin-bottom:0;">
+    <div class="panel-header"><h2 style="font-size:15px;">Platform Health</h2><a class="link-blue">View Details &rarr;</a></div>
+    <div style="padding:10px 22px 18px;">
+      <div class="health-cols">
+        <div>
+          <div class="health-row"><div class="h-name"><i class="fa-solid fa-circle"></i>API Gateway</div></div>
+          <div style="margin:-8px 0 12px;font-size:11px;color:#16a34a;font-weight:600;">Healthy</div>
+          <div class="muted" style="font-size:11px;margin:-10px 0 12px;">120 ms Response Time</div>
+          <div class="health-row"><div class="h-name"><i class="fa-solid fa-circle"></i>Authentication Service</div></div>
+          <div style="margin:-8px 0 12px;font-size:11px;color:#16a34a;font-weight:600;">Healthy</div>
+          <div class="muted" style="font-size:11px;margin:-10px 0 12px;">98 ms Response Time</div>
+          <div class="health-row"><div class="h-name"><i class="fa-solid fa-circle"></i>Project Service</div></div>
+          <div style="margin:-8px 0 12px;font-size:11px;color:#16a34a;font-weight:600;">Healthy</div>
+          <div class="muted" style="font-size:11px;margin:-10px 0 12px;">110 ms Response Time</div>
+          <div class="health-row"><div class="h-name"><i class="fa-solid fa-circle"></i>Device Service</div></div>
+          <div style="margin:-8px 0 0;font-size:11px;color:#16a34a;font-weight:600;">Healthy</div>
+          <div class="muted" style="font-size:11px;margin:2px 0 0;">115 ms Response Time</div>
+        </div>
+        <div>
+          <div class="health-row"><div class="h-name"><i class="fa-solid fa-circle"></i>Database</div></div>
+          <div style="margin:-8px 0 12px;font-size:11px;color:#16a34a;font-weight:600;">Uptime</div>
+          <div class="health-row"><div class="h-name"><i class="fa-solid fa-circle"></i>Storage Service</div></div>
+          <div style="margin:-8px 0 12px;font-size:11px;color:#16a34a;font-weight:600;">Uptime</div>
+          <div class="health-row"><div class="h-name"><i class="fa-solid fa-circle"></i>CDN</div></div>
+          <div style="margin:-8px 0 12px;font-size:11px;color:#16a34a;font-weight:600;">Uptime</div>
+          <div class="health-row"><div class="h-name"><i class="fa-solid fa-circle"></i>Message Queue</div></div>
+          <div style="margin:-8px 0 0;font-size:11px;color:#16a34a;font-weight:600;">Healthy</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="panel" style="margin-bottom:0;">
+    <div class="panel-header"><h2 style="font-size:15px;">System Health Trend</h2><a class="link-blue">View Full Report &rarr;</a></div>
+    <div style="padding:16px 22px;">
+      <svg width="100%" height="130" viewBox="0 0 300 130" preserveAspectRatio="none">
+        <polyline points="0,40 20,35 40,42 60,30 80,38 100,25 120,32 140,20 160,28 180,18 200,26 220,15 240,22 260,18 280,24 300,20" fill="none" stroke="#22c55e" stroke-width="2"/>
+      </svg>
+      <div style="display:flex;justify-content:space-between;font-size:10px;color:var(--text-400);margin-top:6px;">
+        <span>30m ago</span><span>24m ago</span><span>18m ago</span><span>12m ago</span><span>6m ago</span><span>Now</span>
+      </div>
+      <div style="margin-top:16px;padding:14px;background:var(--gray-100);border-radius:10px;">
+        <div class="muted" style="font-size:11.5px;">Current Uptime</div>
+        <div style="font-size:20px;font-weight:800;">98.7% <span style="font-size:12px;font-weight:700;color:#16a34a;">&uarr; 0.6% from last 30 min</span></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="grid-3">
+  <div class="panel" style="margin-bottom:0;">
+    <div class="panel-header"><h2 style="font-size:15px;">Top Offline Devices</h2><a class="link-blue">View All &rarr;</a></div>
+    <div style="padding:6px 22px 14px;">
+      <table style="min-width:0;"><thead><tr><th style="padding:8px 0;">Device</th><th style="padding:8px 0;">Project / Venue</th><th style="padding:8px 0;">Offline Since</th></tr></thead>
+      <tbody>
+      <tr><td style="padding:9px 0;">Kiosk-03</td><td style="padding:9px 0;">Phoenix Mall</td><td style="padding:9px 0;color:#dc2626;font-weight:600;">2 hours ago</td></tr>
+      <tr><td style="padding:9px 0;">Kiosk-08</td><td style="padding:9px 0;">Lakeside Mall</td><td style="padding:9px 0;color:#dc2626;font-weight:600;">1 day ago</td></tr>
+      <tr><td style="padding:9px 0;">Kiosk-12</td><td style="padding:9px 0;">City Center Mall</td><td style="padding:9px 0;color:#dc2626;font-weight:600;">18 hours ago</td></tr>
+      <tr><td style="padding:9px 0;">Kiosk-21</td><td style="padding:9px 0;">Downtown Mall</td><td style="padding:9px 0;color:#dc2626;font-weight:600;">12 hours ago</td></tr>
+      <tr><td style="padding:9px 0;border-bottom:none;">Kiosk-27</td><td style="padding:9px 0;border-bottom:none;">Westfield Mall</td><td style="padding:9px 0;border-bottom:none;color:#dc2626;font-weight:600;">9 hours ago</td></tr>
+      </tbody></table>
+      <div class="muted" style="font-size:12px;margin-top:6px;">Showing 1 to 5 of 10 devices</div>
+    </div>
+  </div>
+
+  <div class="panel" style="margin-bottom:0;">
+    <div class="panel-header"><h2 style="font-size:15px;">Failed Deployments</h2><a class="link-blue">View All &rarr;</a></div>
+    <div style="padding:6px 22px 14px;">
+      <table style="min-width:0;"><thead><tr><th style="padding:8px 0;">Release</th><th style="padding:8px 0;">Project / Venue</th><th style="padding:8px 0;">Failed</th><th style="padding:8px 0;">Time</th></tr></thead>
+      <tbody>
+      <tr><td style="padding:9px 0;">Release 43</td><td style="padding:9px 0;">Phoenix Mall</td><td style="padding:9px 0;">2</td><td style="padding:9px 0;">8 min ago</td></tr>
+      <tr><td style="padding:9px 0;">Release 42</td><td style="padding:9px 0;">City Center Mall</td><td style="padding:9px 0;">1</td><td style="padding:9px 0;">3 hours ago</td></tr>
+      <tr><td style="padding:9px 0;">Release 41</td><td style="padding:9px 0;">Grand Plaza</td><td style="padding:9px 0;">1</td><td style="padding:9px 0;">1 day ago</td></tr>
+      <tr><td style="padding:9px 0;border-bottom:none;">Release 40</td><td style="padding:9px 0;border-bottom:none;">Westfield Mall</td><td style="padding:9px 0;border-bottom:none;">2</td><td style="padding:9px 0;border-bottom:none;">2 days ago</td></tr>
+      </tbody></table>
+      <div class="muted" style="font-size:12px;margin-top:6px;">Showing 1 to 4 of 4 deployments</div>
+    </div>
+  </div>
+
+  <div class="panel" style="margin-bottom:0;">
+    <div class="panel-header"><h2 style="font-size:15px;">Synchronization Failures</h2><a class="link-blue">View All &rarr;</a></div>
+    <div style="padding:6px 22px 14px;">
+      <table style="min-width:0;"><thead><tr><th style="padding:8px 0;">Project / Venue</th><th style="padding:8px 0;">Error</th><th style="padding:8px 0;">Last Occurred</th></tr></thead>
+      <tbody>
+      <tr><td style="padding:9px 0;">City Center Mall</td><td style="padding:9px 0;">Content sync timeout</td><td style="padding:9px 0;">15 min ago</td></tr>
+      <tr><td style="padding:9px 0;">Grand Plaza</td><td style="padding:9px 0;">POI data sync failed</td><td style="padding:9px 0;">45 min ago</td></tr>
+      <tr><td style="padding:9px 0;">Downtown Mall</td><td style="padding:9px 0;">Map data sync failed</td><td style="padding:9px 0;">1 hour ago</td></tr>
+      <tr><td style="padding:9px 0;">Lakeside Mall</td><td style="padding:9px 0;">Media sync failed</td><td style="padding:9px 0;">2 hours ago</td></tr>
+      <tr><td style="padding:9px 0;border-bottom:none;">Metro City Mall</td><td style="padding:9px 0;border-bottom:none;">Configuration sync failed</td><td style="padding:9px 0;border-bottom:none;">3 hours ago</td></tr>
+      </tbody></table>
+      <div class="muted" style="font-size:12px;margin-top:6px;">Showing 1 to 5 of 5 failures</div>
+    </div>
+  </div>
+</div>
+
+<div class="info-note"><i class="fa-solid fa-circle-info"></i> All times shown are in your local timezone. Data auto-refreshes every 30 seconds.</div>
+</div></div>
+</div>
+</body>
+</html>

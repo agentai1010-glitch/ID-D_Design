@@ -1,0 +1,583 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Client Admin Dashboard · Kiosk Platform</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<link rel="stylesheet" href="../css/styles.css">
+</head>
+<body>
+<div class="app-shell">
+
+<!-- Client Admin Sidebar -->
+<aside class="sidebar">
+  <a href="dashboard.html" class="sidebar-brand" style="cursor:pointer;">
+    <div class="logo-icon"><svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M12 2L21 7V17L12 22L3 17V7L12 2Z" stroke="white" stroke-width="1.6" stroke-linejoin="round"/>
+<circle cx="12" cy="12" r="3.2" fill="white"/>
+</svg></div>
+    <div class="brand-text"><div class="t1">KIOSK</div><div class="t2">PLATFORM</div></div>
+  </a>
+
+  <!-- WORKSPACE Section -->
+  <div class="sidebar-section-label">WORKSPACE</div>
+  <ul class="sidebar-nav">
+    <li class="nav-item active" onclick="location.href='dashboard.html'"><i class="fa-solid fa-house"></i><span>Dashboard</span></li>
+    <li class="nav-item" onclick="location.href='projects.html'"><i class="fa-solid fa-folder-open"></i><span>Projects</span></li>
+    <li class="nav-item" onclick="location.href='devices.html'"><i class="fa-solid fa-tablet-screen-button"></i><span>Devices</span></li>
+    <li class="nav-item" onclick="location.href='analytics.html'"><i class="fa-solid fa-chart-column"></i><span>Analytics</span></li>
+  </ul>
+
+  <!-- TEAM Section -->
+  <div class="sidebar-section-label">TEAM</div>
+  <ul class="sidebar-nav">
+    <li class="nav-item" onclick="location.href='users-roles.html'"><i class="fa-solid fa-users"></i><span>Users & Roles</span></li>
+  </ul>
+
+  <!-- ACCOUNT Section -->
+  <div class="sidebar-section-label">ACCOUNT</div>
+  <ul class="sidebar-nav">
+    <li class="nav-item" onclick="location.href='settings.html'"><i class="fa-solid fa-gear"></i><span>Settings</span></li>
+  </ul>
+
+  <div class="sidebar-spacer"></div>
+
+  <!-- Organization Card -->
+  <div class="org-switcher-card">
+    <div class="org-switcher-header">
+      <div class="org-icon-box"><i class="fa-solid fa-city"></i></div>
+      <div>
+        <div class="org-name-text">Phoenix Retail Group</div>
+        <div class="org-sub-text">Organization</div>
+      </div>
+    </div>
+    <button class="org-btn-switch">
+      <span>Switch Organization</span>
+      <i class="fa-solid fa-chevron-down" style="font-size:9.5px;"></i>
+    </button>
+  </div>
+
+  <!-- Footer -->
+  <div style="display:flex;justify-content:space-between;align-items:center;padding:4px 4px 0;">
+    <span style="font-size:11px;color:#4c5c7d;">Client Admin v1.0.0</span>
+    <i class="fa-solid fa-chevron-left" style="font-size:10px;color:#4c5c7d;cursor:pointer;"></i>
+  </div>
+</aside>
+
+<!-- Main Area -->
+<div class="main">
+  <!-- Topbar -->
+  <header class="topbar">
+    <i class="fa-solid fa-bars hamburger"></i>
+    <div class="search">
+      <i class="fa-solid fa-magnifying-glass"></i>
+      <span>Search projects, kiosks, locations...</span>
+      <span class="kbd">⌘ K</span>
+    </div>
+    <div class="spacer"></div>
+    <button class="icon-btn"><i class="fa-regular fa-bell"></i><span class="badge-dot">8</span></button>
+    <div class="user">
+      <div class="avatar" style="background:linear-gradient(135deg,#3b82f6,#1d4ed8);">RA</div>
+      <div>
+        <div class="u-name">Rahul Arora</div>
+        <div class="u-role">Client Admin</div>
+      </div>
+      <i class="fa-solid fa-chevron-down"></i>
+    </div>
+  </header>
+
+  <!-- Page Content -->
+  <main class="content">
+
+    <!-- Page Header -->
+    <div class="page-header">
+      <div>
+        <h1>Good morning, Rahul! 👋</h1>
+        <p>Here's what's happening across your projects today.</p>
+      </div>
+      <div class="actions">
+        <button class="btn btn-primary" onclick="location.href='create-project.html'"><i class="fa-solid fa-plus"></i> Create Project</button>
+      </div>
+    </div>
+
+    <!-- 6 KPI Stat Cards -->
+    <div class="stats-grid-6">
+      <!-- Card 1 -->
+      <div class="stat-card-kpi">
+        <div class="icon-box icon-blue"><i class="fa-solid fa-city"></i></div>
+        <div style="flex:1;min-width:0;">
+          <div class="kpi-label">Projects</div>
+          <div class="kpi-val">3</div>
+          <div style="font-size:11.5px;color:var(--text-400);font-weight:500;">2 Active, 1 Draft</div>
+        </div>
+      </div>
+      <!-- Card 2 -->
+      <div class="stat-card-kpi">
+        <div class="icon-box icon-purple"><i class="fa-solid fa-mobile-screen-button"></i></div>
+        <div style="flex:1;min-width:0;">
+          <div class="kpi-label">Total Kiosks</div>
+          <div class="kpi-val">23</div>
+          <div style="font-size:11.5px;color:var(--text-400);font-weight:500;">Across all projects</div>
+        </div>
+      </div>
+      <!-- Card 3 -->
+      <div class="stat-card-kpi">
+        <div class="icon-box icon-green"><i class="fa-solid fa-wifi"></i></div>
+        <div style="flex:1;min-width:0;">
+          <div class="kpi-label">Online Kiosks</div>
+          <div class="kpi-val">21</div>
+          <div style="font-size:11.5px;color:var(--green-600);font-weight:700;">91.3% of total</div>
+        </div>
+      </div>
+      <!-- Card 4 -->
+      <div class="stat-card-kpi">
+        <div class="icon-box icon-orange"><i class="fa-solid fa-download"></i></div>
+        <div style="flex:1;min-width:0;">
+          <div class="kpi-label">Updates Available</div>
+          <div class="kpi-val">2</div>
+          <div style="font-size:11.5px;color:var(--amber-600);font-weight:700;">Kiosks need update</div>
+        </div>
+      </div>
+      <!-- Card 5 -->
+      <div class="stat-card-kpi">
+        <div class="icon-box icon-blue"><i class="fa-solid fa-rocket"></i></div>
+        <div style="flex:1;min-width:0;">
+          <div class="kpi-label">Active Releases</div>
+          <div class="kpi-val">3</div>
+          <div style="font-size:11.5px;color:var(--text-400);font-weight:500;">Across all projects</div>
+        </div>
+      </div>
+      <!-- Card 6 -->
+      <div class="stat-card-kpi">
+        <div class="icon-box icon-purple"><i class="fa-solid fa-eye"></i></div>
+        <div style="flex:1;min-width:0;">
+          <div class="kpi-label">Total Sessions</div>
+          <div class="kpi-val">48.2K</div>
+          <div style="font-size:11.5px;color:var(--text-400);font-weight:500;">Last 30 days</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Middle Row: Projects Overview (Left) & Kiosk Health + Attention Required (Right) -->
+    <div class="analytics-grid-2">
+      
+      <!-- Left Column: Projects Overview -->
+      <div class="panel">
+        <div class="panel-header" style="padding:16px 22px 12px;">
+          <h2>Projects Overview</h2>
+          <a href="projects.html" class="link-blue" style="font-size:12.5px;font-weight:600;">View All Projects <i class="fa-solid fa-chevron-right" style="font-size:10px;"></i></a>
+        </div>
+        <div class="table-wrap">
+          <table style="min-width:620px;">
+            <thead>
+              <tr>
+                <th style="padding:10px 22px;">Project / Venue</th>
+                <th style="padding:10px 16px;">Status</th>
+                <th style="padding:10px 16px;">Kiosks</th>
+                <th style="padding:10px 16px;">Online</th>
+                <th style="padding:10px 16px;">Current Release</th>
+                <th style="padding:10px 16px;">Last Activity</th>
+                <th style="padding:10px 22px;text-align:right;">Action</th>
+              </tr>
+            </thead>
+            <tbody>
+              <!-- Row 1: Phoenix Mall -->
+              <tr>
+                <td>
+                  <div class="cell-main">
+                    <div class="cell-thumb" style="background:linear-gradient(135deg,#60a5fa,#2563eb);display:flex;align-items:center;justify-content:center;color:#fff;font-size:16px;">
+                      <i class="fa-solid fa-building"></i>
+                    </div>
+                    <div>
+                      <div class="cell-title">Phoenix Mall</div>
+                      <div class="cell-sub">Mumbai, India</div>
+                    </div>
+                  </div>
+                </td>
+                <td><span class="badge badge-green"><span class="dot"></span>Active</span></td>
+                <td style="font-weight:700;">12</td>
+                <td>
+                  <div style="font-weight:700;color:var(--text-900);">11</div>
+                  <div class="pct-green">91.7%</div>
+                </td>
+                <td>
+                  <div style="font-weight:700;color:var(--text-900);">Release 43</div>
+                  <div style="color:var(--green-600);font-size:11px;font-weight:600;">Published</div>
+                </td>
+                <td>
+                  <div style="font-weight:600;color:var(--text-900);">10 min ago</div>
+                  <div class="cell-sub">Release deployed</div>
+                </td>
+                <td style="text-align:right;">
+                  <a href="project-overview.html" class="link-blue" style="font-size:12px;font-weight:600;">Open Project <i class="fa-solid fa-chevron-right" style="font-size:9px;"></i></a>
+                </td>
+              </tr>
+
+              <!-- Row 2: City Center Mall -->
+              <tr>
+                <td>
+                  <div class="cell-main">
+                    <div class="cell-thumb" style="background:linear-gradient(135deg,#34d399,#059669);display:flex;align-items:center;justify-content:center;color:#fff;font-size:16px;">
+                      <i class="fa-solid fa-city"></i>
+                    </div>
+                    <div>
+                      <div class="cell-title">City Center Mall</div>
+                      <div class="cell-sub">Pune, India</div>
+                    </div>
+                  </div>
+                </td>
+                <td><span class="badge badge-green"><span class="dot"></span>Active</span></td>
+                <td style="font-weight:700;">8</td>
+                <td>
+                  <div style="font-weight:700;color:var(--text-900);">8</div>
+                  <div class="pct-green">100%</div>
+                </td>
+                <td>
+                  <div style="font-weight:700;color:var(--text-900);">Release 41</div>
+                  <div style="color:var(--green-600);font-size:11px;font-weight:600;">Published</div>
+                </td>
+                <td>
+                  <div style="font-weight:600;color:var(--text-900);">1 hour ago</div>
+                  <div class="cell-sub">Content updated</div>
+                </td>
+                <td style="text-align:right;">
+                  <a href="projects.html" class="link-blue" style="font-size:12px;font-weight:600;">Open Project <i class="fa-solid fa-chevron-right" style="font-size:9px;"></i></a>
+                </td>
+              </tr>
+
+              <!-- Row 3: Lakeside Mall -->
+              <tr>
+                <td>
+                  <div class="cell-main">
+                    <div class="cell-thumb" style="background:linear-gradient(135deg,#fbbf24,#d97706);display:flex;align-items:center;justify-content:center;color:#fff;font-size:16px;">
+                      <i class="fa-solid fa-water"></i>
+                    </div>
+                    <div>
+                      <div class="cell-title">Lakeside Mall</div>
+                      <div class="cell-sub">Bengaluru, India</div>
+                    </div>
+                  </div>
+                </td>
+                <td><span class="badge badge-amber"><span class="dot"></span>Draft</span></td>
+                <td style="font-weight:700;">3</td>
+                <td>
+                  <div style="font-weight:700;color:var(--text-900);">2</div>
+                  <div style="color:var(--amber-600);font-weight:700;font-size:11.5px;">66.7%</div>
+                </td>
+                <td>
+                  <div style="font-weight:700;color:var(--text-900);">—</div>
+                  <div class="cell-sub">Not Published</div>
+                </td>
+                <td>
+                  <div style="font-weight:600;color:var(--text-900);">2 days ago</div>
+                  <div class="cell-sub">Project created</div>
+                </td>
+                <td style="text-align:right;">
+                  <a href="projects.html" class="link-blue" style="font-size:12px;font-weight:600;">Open Project <i class="fa-solid fa-chevron-right" style="font-size:9px;"></i></a>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Right Column: Kiosk Health + Attention Required -->
+      <div style="display:flex;flex-direction:column;gap:20px;">
+        
+        <!-- Kiosk Health -->
+        <div class="panel" style="margin-bottom:0;">
+          <div class="panel-header" style="padding:16px 22px 12px;">
+            <h2>Kiosk Health</h2>
+            <a href="devices.html" class="link-blue" style="font-size:12.5px;">View All Devices</a>
+          </div>
+          <div class="donut-card-content" style="padding:16px 22px;">
+            <!-- Donut SVG -->
+            <div style="position:relative;width:130px;height:130px;flex:0 0 130px;">
+              <svg viewBox="0 0 160 160" style="width:100%;height:100%;transform:rotate(-90deg);">
+                <!-- Circumference for r=58: 364.42 -->
+                <circle cx="80" cy="80" r="58" fill="none" stroke="#f1f5f9" stroke-width="20" />
+                <!-- Online: 21/23 = 91.3% -> 332.7 -->
+                <circle cx="80" cy="80" r="58" fill="none" stroke="#10b981" stroke-width="20"
+                        stroke-dasharray="332.7 31.72" stroke-dashoffset="0" />
+                <!-- Warning: 1/23 = 4.35% -> 15.85 -->
+                <circle cx="80" cy="80" r="58" fill="none" stroke="#f59e0b" stroke-width="20"
+                        stroke-dasharray="15.85 348.57" stroke-dashoffset="-332.7" />
+                <!-- Offline: 1/23 = 4.35% -> 15.85 -->
+                <circle cx="80" cy="80" r="58" fill="none" stroke="#ef4444" stroke-width="20"
+                        stroke-dasharray="15.85 348.57" stroke-dashoffset="-348.55" />
+              </svg>
+              <!-- Center Text -->
+              <div style="position:absolute;top:0;left:0;width:100%;height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;pointer-events:none;">
+                <div style="font-size:20px;font-weight:800;color:var(--text-900);line-height:1.1;">23</div>
+                <div style="font-size:11px;color:var(--text-500);font-weight:500;margin-top:2px;">Total</div>
+              </div>
+            </div>
+
+            <!-- Legend -->
+            <div class="donut-legend-list">
+              <div class="donut-legend-row">
+                <span class="dot-swatch" style="background:#10b981;"></span>
+                <span>Online</span>
+                <span class="pct">21 (91.3%)</span>
+              </div>
+              <div class="donut-legend-row">
+                <span class="dot-swatch" style="background:#f59e0b;"></span>
+                <span>Warning</span>
+                <span class="pct">1 (4.3%)</span>
+              </div>
+              <div class="donut-legend-row">
+                <span class="dot-swatch" style="background:#ef4444;"></span>
+                <span>Offline</span>
+                <span class="pct">1 (4.3%)</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Attention Required -->
+        <div class="panel" style="margin-bottom:0;">
+          <div class="panel-header" style="padding:16px 22px 12px;">
+            <h2>Attention Required</h2>
+            <a href="#" class="link-blue" style="font-size:12.5px;">View All</a>
+          </div>
+          <div class="attention-list">
+            <!-- Item 1 -->
+            <div class="attention-item" onclick="location.href='devices.html'">
+              <div class="attention-icon-box icon-pink"><i class="fa-solid fa-wifi"></i></div>
+              <div class="attention-details">
+                <div class="attention-title">Kiosk-03 is offline</div>
+                <div class="attention-sub">Phoenix Mall • Level 2</div>
+              </div>
+              <div class="attention-time">15 min ago <i class="fa-solid fa-chevron-right" style="font-size:9.5px;"></i></div>
+            </div>
+
+            <!-- Item 2 -->
+            <div class="attention-item" onclick="location.href='projects.html'">
+              <div class="attention-icon-box icon-orange"><i class="fa-solid fa-download"></i></div>
+              <div class="attention-details">
+                <div class="attention-title">Release 44 is ready to deploy</div>
+                <div class="attention-sub">City Center Mall</div>
+              </div>
+              <div class="attention-time">1 hour ago <i class="fa-solid fa-chevron-right" style="font-size:9.5px;"></i></div>
+            </div>
+
+            <!-- Item 3 -->
+            <div class="attention-item" onclick="location.href='projects.html'">
+              <div class="attention-icon-box icon-amber"><i class="fa-solid fa-triangle-exclamation"></i></div>
+              <div class="attention-details">
+                <div class="attention-title">2 POIs have missing map locations</div>
+                <div class="attention-sub">Phoenix Mall • Level 1</div>
+              </div>
+              <div class="attention-time">3 hours ago <i class="fa-solid fa-chevron-right" style="font-size:9.5px;"></i></div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Bottom Row: Recent Activity (Left) & Kiosk Usage Overview (Right) -->
+    <div class="analytics-grid-2" style="grid-template-columns: 1fr 1.6fr; margin-bottom: 0;">
+      
+      <!-- Left: Recent Activity -->
+      <div class="panel" style="margin-bottom:0;">
+        <div class="panel-header" style="padding:16px 22px 12px;">
+          <h2>Recent Activity</h2>
+          <a href="#" class="link-blue" style="font-size:12.5px;">View All</a>
+        </div>
+        <div style="padding:10px 22px 18px;display:flex;flex-direction:column;gap:14px;">
+          
+          <!-- Item 1 -->
+          <div style="display:flex;align-items:center;gap:12px;">
+            <div class="act-icon icon-green" style="width:34px;height:34px;border-radius:8px;font-size:13px;flex:0 0 34px;"><i class="fa-solid fa-rocket"></i></div>
+            <div style="flex:1;min-width:0;">
+              <div style="font-size:12.5px;font-weight:700;color:var(--text-900);line-height:1.2;">Release 43 published</div>
+              <div style="font-size:11.5px;color:var(--text-500);margin-top:2px;">Phoenix Mall • 12 kiosks updated</div>
+            </div>
+            <div style="font-size:11px;color:var(--text-400);font-weight:500;text-align:right;white-space:nowrap;">10 min ago</div>
+          </div>
+
+          <!-- Item 2 -->
+          <div style="display:flex;align-items:center;gap:12px;">
+            <div class="act-icon icon-blue" style="width:34px;height:34px;border-radius:8px;font-size:13px;flex:0 0 34px;"><i class="fa-solid fa-mobile-screen-button"></i></div>
+            <div style="flex:1;min-width:0;">
+              <div style="font-size:12.5px;font-weight:700;color:var(--text-900);line-height:1.2;">12 kiosks updated successfully</div>
+              <div style="font-size:11.5px;color:var(--text-500);margin-top:2px;">Phoenix Mall</div>
+            </div>
+            <div style="font-size:11px;color:var(--text-400);font-weight:500;text-align:right;white-space:nowrap;">30 min ago</div>
+          </div>
+
+          <!-- Item 3 -->
+          <div style="display:flex;align-items:center;gap:12px;">
+            <div class="act-icon icon-purple" style="width:34px;height:34px;border-radius:8px;font-size:13px;flex:0 0 34px;"><i class="fa-solid fa-palette"></i></div>
+            <div style="flex:1;min-width:0;">
+              <div style="font-size:12.5px;font-weight:700;color:var(--text-900);line-height:1.2;">Diwali Theme selected</div>
+              <div style="font-size:11.5px;color:var(--text-500);margin-top:2px;">City Center Mall</div>
+            </div>
+            <div style="font-size:11px;color:var(--text-400);font-weight:500;text-align:right;white-space:nowrap;">Yesterday, 4:30 PM</div>
+          </div>
+
+          <!-- Item 4 -->
+          <div style="display:flex;align-items:center;gap:12px;">
+            <div class="act-icon icon-orange" style="width:34px;height:34px;border-radius:8px;font-size:13px;flex:0 0 34px;"><i class="fa-solid fa-bag-shopping"></i></div>
+            <div style="flex:1;min-width:0;">
+              <div style="font-size:12.5px;font-weight:700;color:var(--text-900);line-height:1.2;">New store added: Lifestyle</div>
+              <div style="font-size:11.5px;color:var(--text-500);margin-top:2px;">Phoenix Mall • Level 1</div>
+            </div>
+            <div style="font-size:11px;color:var(--text-400);font-weight:500;text-align:right;white-space:nowrap;">Yesterday, 11:20 AM</div>
+          </div>
+
+          <!-- Item 5 -->
+          <div style="display:flex;align-items:center;gap:12px;">
+            <div class="act-icon icon-green" style="width:34px;height:34px;border-radius:8px;font-size:13px;flex:0 0 34px;"><i class="fa-solid fa-map-location-dot"></i></div>
+            <div style="flex:1;min-width:0;">
+              <div style="font-size:12.5px;font-weight:700;color:var(--text-900);line-height:1.2;">Map updated</div>
+              <div style="font-size:11.5px;color:var(--text-500);margin-top:2px;">Lakeside Mall • Level 1</div>
+            </div>
+            <div style="font-size:11px;color:var(--text-400);font-weight:500;text-align:right;white-space:nowrap;">May 08, 2026</div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- Right: Kiosk Usage Overview -->
+      <div class="panel" style="margin-bottom:0;">
+        <div class="panel-header" style="padding:16px 22px 12px;">
+          <h2>Kiosk Usage Overview</h2>
+          <div class="pills-switch">
+            <button class="pill-btn">7 Days</button>
+            <button class="pill-btn active">30 Days</button>
+            <button class="pill-btn">90 Days</button>
+          </div>
+        </div>
+        
+        <!-- Legend -->
+        <div class="chart-sub-legend" style="padding:0 22px 10px;">
+          <div class="legend-item"><span class="legend-line-indicator blue"></span> Sessions</div>
+          <div class="legend-item"><span class="legend-line-indicator green"></span> Searches</div>
+          <div class="legend-item"><span class="legend-line-indicator purple"></span> Navigation Requests</div>
+          <div class="legend-item"><span class="legend-line-indicator" style="background:#f97316;"></span> Ad Impressions</div>
+        </div>
+
+        <!-- SVG Line Chart -->
+        <div style="padding:0 22px 18px;">
+          <svg viewBox="0 0 650 200" style="width:100%;height:auto;display:block;overflow:visible;">
+            <!-- Grid lines & Y Axis Labels -->
+            <g stroke="#f1f5f9" stroke-width="1">
+              <line x1="38" y1="15" x2="640" y2="15" />
+              <line x1="38" y1="48" x2="640" y2="48" />
+              <line x1="38" y1="81" x2="640" y2="81" />
+              <line x1="38" y1="114" x2="640" y2="114" />
+              <line x1="38" y1="147" x2="640" y2="147" />
+              <line x1="38" y1="180" x2="640" y2="180" />
+            </g>
+            <g fill="#94a3b8" font-size="10.5" font-weight="600" text-anchor="end" font-family="'Inter',sans-serif">
+              <text x="30" y="19">50K</text>
+              <text x="30" y="52">40K</text>
+              <text x="30" y="85">30K</text>
+              <text x="30" y="118">20K</text>
+              <text x="30" y="151">10K</text>
+              <text x="30" y="184">0</text>
+            </g>
+
+            <!-- X Axis Dates -->
+            <g fill="#94a3b8" font-size="10.5" font-weight="500" text-anchor="middle" font-family="'Inter',sans-serif">
+              <text x="48" y="197">May 12</text>
+              <text x="132" y="197">May 16</text>
+              <text x="216" y="197">May 20</text>
+              <text x="300" y="197">May 24</text>
+              <text x="384" y="197">May 28</text>
+              <text x="468" y="197">Jun 01</text>
+              <text x="552" y="197">Jun 05</text>
+              <text x="630" y="197">Jun 09</text>
+            </g>
+
+            <!-- 1. Blue Line (Sessions) -->
+            <path d="M 48,110 
+                     C 90,110 100,82 132,82 
+                     C 164,82 180,95 216,74 
+                     C 252,53 268,85 300,78 
+                     C 332,71 350,60 384,60 
+                     C 418,60 435,54 468,52 
+                     C 502,50 520,38 552,36 
+                     C 584,34 605,18 630,12" 
+                  fill="none" stroke="#2563eb" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+            <circle cx="48" cy="110" r="3" fill="#2563eb" />
+            <circle cx="132" cy="82" r="3" fill="#2563eb" />
+            <circle cx="216" cy="74" r="3" fill="#2563eb" />
+            <circle cx="300" cy="78" r="3" fill="#2563eb" />
+            <circle cx="384" cy="60" r="3" fill="#2563eb" />
+            <circle cx="468" cy="52" r="3" fill="#2563eb" />
+            <circle cx="552" cy="36" r="3" fill="#2563eb" />
+            <circle cx="630" cy="12" r="3" fill="#2563eb" />
+
+            <!-- 2. Green Line (Searches) -->
+            <path d="M 48,135 
+                     C 90,135 100,120 132,120 
+                     C 164,120 180,135 216,115 
+                     C 252,95 268,110 300,105 
+                     C 332,100 350,92 384,92 
+                     C 418,92 435,88 468,86 
+                     C 502,84 520,74 552,72 
+                     C 584,70 605,62 630,55" 
+                  fill="none" stroke="#10b981" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+            <circle cx="48" cy="135" r="3" fill="#10b981" />
+            <circle cx="132" cy="120" r="3" fill="#10b981" />
+            <circle cx="216" cy="115" r="3" fill="#10b981" />
+            <circle cx="300" cy="105" r="3" fill="#10b981" />
+            <circle cx="384" cy="92" r="3" fill="#10b981" />
+            <circle cx="468" cy="86" r="3" fill="#10b981" />
+            <circle cx="552" cy="72" r="3" fill="#10b981" />
+            <circle cx="630" cy="55" r="3" fill="#10b981" />
+
+            <!-- 3. Purple Line (Navigation Requests) -->
+            <path d="M 48,155 
+                     C 90,155 100,145 132,145 
+                     C 164,145 180,154 216,140 
+                     C 252,126 268,136 300,130 
+                     C 332,124 350,120 384,120 
+                     C 418,120 435,116 468,114 
+                     C 502,112 520,105 552,102 
+                     C 584,99 605,92 630,85" 
+                  fill="none" stroke="#a855f7" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+            <circle cx="48" cy="155" r="3" fill="#a855f7" />
+            <circle cx="132" cy="145" r="3" fill="#a855f7" />
+            <circle cx="216" cy="140" r="3" fill="#a855f7" />
+            <circle cx="300" cy="130" r="3" fill="#a855f7" />
+            <circle cx="384" cy="120" r="3" fill="#a855f7" />
+            <circle cx="468" cy="114" r="3" fill="#a855f7" />
+            <circle cx="552" cy="102" r="3" fill="#a855f7" />
+            <circle cx="630" cy="85" r="3" fill="#a855f7" />
+
+            <!-- 4. Orange Line (Ad Impressions) -->
+            <path d="M 48,170 
+                     C 90,170 100,168 132,168 
+                     C 164,168 180,172 216,165 
+                     C 252,158 268,162 300,158 
+                     C 332,154 350,150 384,150 
+                     C 418,150 435,148 468,146 
+                     C 502,144 520,138 552,135 
+                     C 584,132 605,128 630,122" 
+                  fill="none" stroke="#f97316" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+            <circle cx="48" cy="170" r="3" fill="#f97316" />
+            <circle cx="132" cy="168" r="3" fill="#f97316" />
+            <circle cx="216" cy="165" r="3" fill="#f97316" />
+            <circle cx="300" cy="158" r="3" fill="#f97316" />
+            <circle cx="384" cy="150" r="3" fill="#f97316" />
+            <circle cx="468" cy="146" r="3" fill="#f97316" />
+            <circle cx="552" cy="135" r="3" fill="#f97316" />
+            <circle cx="630" cy="122" r="3" fill="#f97316" />
+          </svg>
+        </div>
+      </div>
+
+    </div>
+
+  </main>
+</div>
+</div>
+</body>
+</html>
