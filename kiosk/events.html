@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Grand Metro Mall · Events & Entertainment</title>
+  <!-- Google Fonts & Font Awesome -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700;800;900&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="stylesheet" href="kiosk.css">
+</head>
+<body>
+
+  <!-- Kiosk Viewport Wrapper -->
+  <div class="kiosk-viewport-wrapper">
+    <div class="kiosk-frame">
+      <div class="kiosk-screen">
+
+        <!-- Top Header -->
+        <header class="kiosk-header">
+          <!-- Back to Home Left -->
+          <div class="kiosk-header-left">
+            <a href="home.html" class="btn-back-home">
+              <i class="fa-solid fa-arrow-left"></i>
+              <span>BACK TO HOME</span>
+            </a>
+          </div>
+
+          <!-- Brand Logo Center -->
+          <a href="home.html" class="kiosk-brand">
+            <svg class="brand-emblem-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+              <path d="M4 21V9l8-6 8 6v12H4z" />
+              <path d="M9 21V12h6v9" />
+              <path d="M12 3v4" />
+            </svg>
+            <div class="brand-name-grand">GRAND</div>
+            <div class="brand-name-sub">METRO MALL</div>
+          </a>
+
+          <!-- Clock Right -->
+          <div class="kiosk-header-right">
+            <span class="kiosk-time" id="kioskLiveTime">04:25 PM</span>
+            <span class="kiosk-date" id="kioskLiveDate">Tue, 20 May 2025</span>
+          </div>
+        </header>
+
+        <!-- Main Content Area -->
+        <main class="kiosk-main-content">
+
+          <!-- Section Title Ornate -->
+          <div class="section-title-wrap">
+            <div class="section-title-ornate">
+              <span class="ornate-line">✦ ───</span>
+              <span>EVENTS</span>
+              <span class="ornate-line">─── ✦</span>
+            </div>
+            <p class="section-subtitle">Exciting events. Unforgettable experiences.</p>
+          </div>
+
+          <!-- Top CTA View All Events -->
+          <div class="events-top-cta-row">
+            <button class="btn-view-all-events" onclick="openKioskModal('allEventsModal')">
+              <span>VIEW ALL EVENTS</span>
+              <i class="fa-solid fa-arrow-right"></i>
+            </button>
+          </div>
+
+          <!-- 3-Card Stage Carousel -->
+          <div class="events-stage-carousel" id="eventsStage">
+            
+            <!-- 1. Left Card: Bhajjan Therapy -->
+            <div class="event-stage-card side-card" id="eventCardLeft" onclick="shiftEvent(0)">
+              <img src="../images/event_,image_03.jpg" alt="Bhajjan Therapy Event" class="event-poster-img">
+            </div>
+
+            <!-- 2. Center Card: Altaf Raja LIVE (Hero) -->
+            <div class="event-stage-card featured-center" id="eventCardCenter">
+              <img src="../images/event imahe _01.jpg" alt="Altaf Raja Live Concert" class="event-poster-img">
+              
+              <!-- Center Overlay Info Box -->
+              <div class="event-center-overlay-box">
+                <div class="event-date-box">
+                  <div class="event-date-day">SAT</div>
+                  <div class="event-date-num">12</div>
+                  <div class="event-date-month">SEP</div>
+                </div>
+                <div class="event-overlay-info">
+                  <div class="event-overlay-time">08:00 PM Onwards</div>
+                  <div class="event-overlay-venue">Liberty Square, Phoenix Avenue of Stars</div>
+                  <button class="btn-book-now-event" onclick="bookEvent('Altaf Raja - LIVE')">
+                    <span>BOOK NOW</span>
+                    <i class="fa-solid fa-arrow-right"></i>
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <!-- 3. Right Card: Mehfil-e-Mir -->
+            <div class="event-stage-card side-card" id="eventCardRight" onclick="shiftEvent(2)">
+              <img src="../images/event_image_02.jpg" alt="Mehfil-e-Mir Sufi Night" class="event-poster-img">
+            </div>
+
+          </div>
+
+          <!-- Carousel Controls Bottom -->
+          <div class="kiosk-carousel-nav-row" style="margin-top:10px;">
+            <button class="carousel-arrow-btn carousel-arrow-btn-dark" onclick="cycleEvents(-1)"><i class="fa-solid fa-arrow-left"></i></button>
+            <div class="carousel-dots-group">
+              <span class="carousel-dot-circle carousel-dot-circle-dark"></span>
+              <span class="carousel-dot-circle carousel-dot-circle-dark active"></span>
+              <span class="carousel-dot-circle carousel-dot-circle-dark"></span>
+              <span class="carousel-dot-circle carousel-dot-circle-dark"></span>
+            </div>
+            <button class="carousel-arrow-btn carousel-arrow-btn-dark" onclick="cycleEvents(1)"><i class="fa-solid fa-arrow-right"></i></button>
+          </div>
+
+        </main>
+
+        <!-- Bottom Sticky Navigation Bar -->
+        <footer class="kiosk-footer-nav">
+          <button class="footer-nav-btn" onclick="openKioskModal('languageModal')">
+            <i class="fa-solid fa-globe"></i>
+            <span>ENGLISH</span>
+          </button>
+
+          <a href="home.html" class="footer-home-circle-btn" title="Home Screen">
+            <i class="fa-solid fa-house"></i>
+          </a>
+
+          <button class="footer-nav-btn" onclick="openKioskModal('helpModal')">
+            <span>NEED HELP?</span>
+            <i class="fa-solid fa-circle-question"></i>
+          </button>
+        </footer>
+
+      </div>
+
+      <!-- Kiosk Bezel Bottom Logo -->
+      <div class="kiosk-bezel-bottom">MALL GUIDE</div>
+    </div>
+  </div>
+
+  <!-- Event Booking QR Modal -->
+  <div class="kiosk-modal-backdrop" id="eventBookingModal">
+    <div class="kiosk-modal-box" style="max-width:480px;">
+      <div class="kiosk-modal-icon"><i class="fa-solid fa-ticket"></i></div>
+      <div class="kiosk-modal-title" id="eventModalTitle">Altaf Raja - LIVE</div>
+      <div class="kiosk-modal-text">Scan the QR code on your mobile phone to book tickets via BookMyShow.</div>
+      
+      <!-- Mockup QR Box -->
+      <div style="background:#ffffff;padding:16px;border-radius:16px;display:inline-block;margin-bottom:18px;">
+        <svg viewBox="0 0 100 100" style="width:140px;height:140px;">
+          <!-- QR pattern -->
+          <rect width="100" height="100" fill="#ffffff"/>
+          <rect x="10" y="10" width="28" height="28" fill="#000000"/>
+          <rect x="14" y="14" width="20" height="20" fill="#ffffff"/>
+          <rect x="18" y="18" width="12" height="12" fill="#000000"/>
+          <rect x="62" y="10" width="28" height="28" fill="#000000"/>
+          <rect x="66" y="14" width="20" height="20" fill="#ffffff"/>
+          <rect x="70" y="18" width="12" height="12" fill="#000000"/>
+          <rect x="10" y="62" width="28" height="28" fill="#000000"/>
+          <rect x="14" y="66" width="20" height="20" fill="#ffffff"/>
+          <rect x="18" y="70" width="12" height="12" fill="#000000"/>
+          <!-- Random blocks -->
+          <rect x="44" y="12" width="10" height="6" fill="#000"/>
+          <rect x="44" y="24" width="8" height="8" fill="#000"/>
+          <rect x="12" y="44" width="16" height="8" fill="#000"/>
+          <rect x="36" y="40" width="28" height="24" fill="#000"/>
+          <rect x="70" y="44" width="18" height="12" fill="#000"/>
+          <rect x="44" y="70" width="12" height="18" fill="#000"/>
+          <rect x="64" y="66" width="24" height="22" fill="#000"/>
+        </svg>
+      </div>
+
+      <div style="font-size:12px;color:var(--gold-300);font-weight:700;margin-bottom:16px;">
+        📍 Venue: Liberty Square, Ground Floor
+      </div>
+
+      <button class="btn-modal-close" onclick="closeKioskModal('eventBookingModal')">Done</button>
+    </div>
+  </div>
+
+  <!-- All Events Modal List -->
+  <div class="kiosk-modal-backdrop" id="allEventsModal">
+    <div class="kiosk-modal-box" style="max-width:540px;">
+      <div class="kiosk-modal-icon"><i class="fa-solid fa-calendar-star"></i></div>
+      <div class="kiosk-modal-title">Upcoming Mall Events</div>
+      <div class="kiosk-modal-text">Select any event for details and ticket bookings:</div>
+      
+      <div style="display:flex;flex-direction:column;gap:10px;text-align:left;margin-bottom:20px;max-height:280px;overflow-y:auto;padding-right:4px;">
+        <div style="background:rgba(255,255,255,0.06);padding:12px 16px;border-radius:14px;display:flex;align-items:center;justify-content:space-between;border:1px solid rgba(226,176,98,0.3);">
+          <div>
+            <div style="font-weight:700;color:#ffffff;font-size:13px;">Altaf Raja - LIVE Concert</div>
+            <div style="font-size:11px;color:var(--gold-300);">Sat, 12 Sep · 08:00 PM · Liberty Square</div>
+          </div>
+          <button class="btn-shop-now-hero" style="padding:6px 14px;font-size:10px;background:var(--gold-gradient-btn);color:#1a1205;" onclick="closeKioskModal('allEventsModal'); bookEvent('Altaf Raja - LIVE')">Book</button>
+        </div>
+
+        <div style="background:rgba(255,255,255,0.04);padding:12px 16px;border-radius:14px;display:flex;align-items:center;justify-content:space-between;">
+          <div>
+            <div style="font-weight:700;color:#ffffff;font-size:13px;">Mehfil-e-Mir (Sufi & Ghazal Night)</div>
+            <div style="font-size:11px;color:var(--text-muted);">Sun, 06 Sep · 07:30 PM · Liberty Square</div>
+          </div>
+          <button class="btn-shop-now-hero" style="padding:6px 14px;font-size:10px;" onclick="closeKioskModal('allEventsModal'); bookEvent('Mehfil-e-Mir')">Book</button>
+        </div>
+
+        <div style="background:rgba(255,255,255,0.04);padding:12px 16px;border-radius:14px;display:flex;align-items:center;justify-content:space-between;">
+          <div>
+            <div style="font-weight:700;color:#ffffff;font-size:13px;">Bhajjan Therapy & Jamming</div>
+            <div style="font-size:11px;color:var(--text-muted);">Sun, 27 Sep · 07:00 PM · Liberty Square</div>
+          </div>
+          <button class="btn-shop-now-hero" style="padding:6px 14px;font-size:10px;" onclick="closeKioskModal('allEventsModal'); bookEvent('Bhajjan Therapy')">Book</button>
+        </div>
+      </div>
+
+      <button class="btn-modal-close" onclick="closeKioskModal('allEventsModal')">Close</button>
+    </div>
+  </div>
+
+  <!-- Help & Language Modals -->
+  <div class="kiosk-modal-backdrop" id="languageModal">
+    <div class="kiosk-modal-box">
+      <div class="kiosk-modal-icon"><i class="fa-solid fa-globe"></i></div>
+      <div class="kiosk-modal-title">Select Language</div>
+      <div class="kiosk-modal-text">Choose your preferred language for the interactive kiosk.</div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:20px;">
+        <button class="btn-shop-now-hero" style="background:var(--gold-gradient-btn);color:#1a1205;" onclick="closeKioskModal('languageModal')">English</button>
+        <button class="btn-shop-now-hero" onclick="closeKioskModal('languageModal')">हिंदी (Hindi)</button>
+        <button class="btn-shop-now-hero" onclick="closeKioskModal('languageModal')">मराठी (Marathi)</button>
+        <button class="btn-shop-now-hero" onclick="closeKioskModal('languageModal')">ગુજરાતી (Gujarati)</button>
+      </div>
+      <button class="btn-modal-close" onclick="closeKioskModal('languageModal')">Close</button>
+    </div>
+  </div>
+
+  <div class="kiosk-modal-backdrop" id="helpModal">
+    <div class="kiosk-modal-box">
+      <div class="kiosk-modal-icon"><i class="fa-solid fa-circle-question"></i></div>
+      <div class="kiosk-modal-title">Need Help?</div>
+      <div class="kiosk-modal-text">
+        Visit our Information Desk at Ground Floor Atrium or call concierge.
+      </div>
+      <div style="margin-bottom:20px;">
+        <div style="font-size:16px;color:#f7dfb8;font-weight:700;margin-bottom:6px;">Concierge: +91 20 6645 8888</div>
+        <div style="font-size:12px;color:#94a3b8;">Available: 10:00 AM - 10:00 PM Daily</div>
+      </div>
+      <button class="btn-modal-close" onclick="closeKioskModal('helpModal')">Close</button>
+    </div>
+  </div>
+
+  <!-- Quick Floating Links Switcher -->
+  <div class="quick-kiosk-switcher">
+    <span style="color:#e2b062;font-weight:700;">KIOSK:</span>
+    <a href="home.html">Home</a>
+    <a href="shop.html">Shops</a>
+    <a href="map.html">Map</a>
+    <a href="food.html">Food & Dining</a>
+    <a href="events.html" class="active-link">Events</a>
+    <a href="feedback.html">Feedback</a>
+  </div>
+
+  <script src="kiosk.js"></script>
+  <script>
+    function cycleEvents(direction) {
+      const dots = document.querySelectorAll('.carousel-dot-circle-dark');
+      let activeIndex = 0;
+      dots.forEach((d, i) => { if(d.classList.contains('active')) activeIndex = i; });
+      dots[activeIndex].classList.remove('active');
+      let nextIndex = (activeIndex + direction + dots.length) % dots.length;
+      dots[nextIndex].classList.add('active');
+    }
+  </script>
+</body>
+</html>

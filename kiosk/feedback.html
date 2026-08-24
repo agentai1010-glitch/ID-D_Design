@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Grand Metro Mall · Guest Feedback & Experience</title>
+  <!-- Google Fonts & Font Awesome -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700;800;900&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="stylesheet" href="kiosk.css">
+</head>
+<body>
+
+  <!-- Kiosk Viewport Wrapper -->
+  <div class="kiosk-viewport-wrapper">
+    <div class="kiosk-frame">
+      <div class="kiosk-screen">
+
+        <!-- Top Header -->
+        <header class="kiosk-header">
+          <!-- Back to Home Left -->
+          <div class="kiosk-header-left">
+            <a href="home.html" class="btn-back-home">
+              <i class="fa-solid fa-arrow-left"></i>
+              <span>BACK TO HOME</span>
+            </a>
+          </div>
+
+          <!-- Brand Logo Center -->
+          <a href="home.html" class="kiosk-brand">
+            <svg class="brand-emblem-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+              <path d="M4 21V9l8-6 8 6v12H4z" />
+              <path d="M9 21V12h6v9" />
+              <path d="M12 3v4" />
+            </svg>
+            <div class="brand-name-grand">GRAND</div>
+            <div class="brand-name-sub">METRO MALL</div>
+          </a>
+
+          <!-- Clock Right -->
+          <div class="kiosk-header-right">
+            <span class="kiosk-time" id="kioskLiveTime">04:25 PM</span>
+            <span class="kiosk-date" id="kioskLiveDate">Tue, 20 May 2025</span>
+          </div>
+        </header>
+
+        <!-- Main Content Area -->
+        <main class="kiosk-main-content">
+
+          <!-- Section Title Ornate with Decorative Speech Bubble -->
+          <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:4px;">
+            <div style="width:70px;"></div>
+
+            <div class="section-title-wrap" style="flex:1;">
+              <div class="section-title-ornate" style="font-size:22px;">
+                <span class="ornate-line">✦ ──</span>
+                <span>WE VALUE YOUR FEEDBACK</span>
+                <span class="ornate-line">── ✦</span>
+              </div>
+              <p class="section-subtitle">Your feedback helps us improve and serve you better.</p>
+            </div>
+
+            <!-- Golden Speech Bubble + Pencil Icon -->
+            <div style="width:70px;display:flex;justify-content:flex-end;">
+              <svg viewBox="0 0 60 50" style="width:54px;height:45px;color:var(--gold-400);">
+                <!-- Speech bubble outline -->
+                <rect x="2" y="2" width="44" height="32" rx="10" fill="none" stroke="currentColor" stroke-width="2"/>
+                <circle cx="16" cy="18" r="2.5" fill="currentColor"/>
+                <circle cx="24" cy="18" r="2.5" fill="currentColor"/>
+                <circle cx="32" cy="18" r="2.5" fill="currentColor"/>
+                <!-- Pencil -->
+                <path d="M38 34 L54 18 L58 22 L42 38 Z" fill="currentColor"/>
+                <path d="M38 34 L36 42 L42 38 Z" fill="#ffffff"/>
+                <!-- Rays -->
+                <line x1="50" y1="8" x2="54" y2="4" stroke="currentColor" stroke-width="1.5"/>
+                <line x1="56" y1="12" x2="60" y2="10" stroke="currentColor" stroke-width="1.5"/>
+              </svg>
+            </div>
+          </div>
+
+          <!-- Main Dark Charcoal Feedback Container -->
+          <form class="feedback-panel-card" onsubmit="submitKioskFeedback(event)">
+
+            <!-- Question 1: Rating Faces -->
+            <div>
+              <h2 class="feedback-question-title">HOW WAS YOUR EXPERIENCE AT GRAND METRO MALL?</h2>
+              
+              <div class="rating-faces-row">
+                <!-- 1. Very Poor -->
+                <button type="button" class="rating-face-btn" title="Very Poor">
+                  <div class="rating-face-circle">
+                    <i class="fa-regular fa-face-frown"></i>
+                  </div>
+                  <span class="rating-face-label">Very Poor</span>
+                </button>
+
+                <!-- 2. Poor -->
+                <button type="button" class="rating-face-btn" title="Poor">
+                  <div class="rating-face-circle">
+                    <i class="fa-regular fa-face-frown-open"></i>
+                  </div>
+                  <span class="rating-face-label">Poor</span>
+                </button>
+
+                <!-- 3. Average -->
+                <button type="button" class="rating-face-btn" title="Average">
+                  <div class="rating-face-circle">
+                    <i class="fa-regular fa-face-meh"></i>
+                  </div>
+                  <span class="rating-face-label">Average</span>
+                </button>
+
+                <!-- 4. Good -->
+                <button type="button" class="rating-face-btn" title="Good">
+                  <div class="rating-face-circle">
+                    <i class="fa-regular fa-face-smile"></i>
+                  </div>
+                  <span class="rating-face-label">Good</span>
+                </button>
+
+                <!-- 5. Excellent (Active / Selected) -->
+                <button type="button" class="rating-face-btn selected" title="Excellent">
+                  <div class="rating-face-circle">
+                    <i class="fa-solid fa-face-grin-stars"></i>
+                  </div>
+                  <span class="rating-face-label">Excellent</span>
+                </button>
+              </div>
+            </div>
+
+            <!-- Question 2: Tell Us More Textarea -->
+            <div>
+              <div class="feedback-section-label">TELL US MORE <span>(OPTIONAL)</span></div>
+              <div class="feedback-textarea-wrap">
+                <textarea 
+                  class="feedback-textarea" 
+                  id="feedbackComment" 
+                  maxlength="500"
+                  placeholder="Share your experience, suggestions or anything you would like us to know..."
+                ></textarea>
+                <div class="feedback-char-count" id="feedbackCharCounter">0/500</div>
+              </div>
+            </div>
+
+            <!-- Question 3: Category Multi-Select -->
+            <div>
+              <div class="feedback-section-label">WHAT DID YOU VISIT TODAY? <span>(SELECT ALL THAT APPLY)</span></div>
+              <div class="feedback-categories-row">
+                <!-- 1. Shopping -->
+                <div class="feedback-cat-pill selected">
+                  <i class="fa-solid fa-bag-shopping"></i>
+                  <span>Shopping</span>
+                </div>
+
+                <!-- 2. Food & Dining -->
+                <div class="feedback-cat-pill selected">
+                  <i class="fa-solid fa-utensils"></i>
+                  <span>Food & Dining</span>
+                </div>
+
+                <!-- 3. Entertainment -->
+                <div class="feedback-cat-pill">
+                  <i class="fa-solid fa-film"></i>
+                  <span>Entertainment</span>
+                </div>
+
+                <!-- 4. Services -->
+                <div class="feedback-cat-pill">
+                  <i class="fa-solid fa-bell-concierge"></i>
+                  <span>Services</span>
+                </div>
+
+                <!-- 5. Events -->
+                <div class="feedback-cat-pill">
+                  <i class="fa-solid fa-calendar-days"></i>
+                  <span>Events</span>
+                </div>
+
+                <!-- 6. Other -->
+                <div class="feedback-cat-pill">
+                  <i class="fa-solid fa-ellipsis"></i>
+                  <span>Other</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Big Gold Submit Button -->
+            <button type="submit" class="btn-submit-feedback">
+              <i class="fa-solid fa-paper-plane"></i>
+              <span>SUBMIT FEEDBACK</span>
+            </button>
+
+            <!-- Bottom Thank You Message -->
+            <div class="feedback-bottom-thankyou">
+              Thank you for helping us serve you better! <span style="color:var(--gold-400);font-size:14px;">♡</span>
+            </div>
+
+          </form>
+
+        </main>
+
+        <!-- Bottom Sticky Navigation Bar -->
+        <footer class="kiosk-footer-nav">
+          <button class="footer-nav-btn" onclick="openKioskModal('languageModal')">
+            <i class="fa-solid fa-globe"></i>
+            <span>ENGLISH</span>
+          </button>
+
+          <a href="home.html" class="footer-home-circle-btn" title="Home Screen">
+            <i class="fa-solid fa-house"></i>
+          </a>
+
+          <button class="footer-nav-btn" onclick="openKioskModal('helpModal')">
+            <span>NEED HELP?</span>
+            <i class="fa-solid fa-circle-question"></i>
+          </button>
+        </footer>
+
+      </div>
+
+      <!-- Kiosk Bezel Bottom Logo -->
+      <div class="kiosk-bezel-bottom">MALL GUIDE</div>
+    </div>
+  </div>
+
+  <!-- Feedback Success Modal -->
+  <div class="kiosk-modal-backdrop" id="feedbackSuccessModal">
+    <div class="kiosk-modal-box">
+      <div class="kiosk-modal-icon" style="background:rgba(16,185,129,0.15);border-color:#10b981;color:#10b981;">
+        <i class="fa-solid fa-check"></i>
+      </div>
+      <div class="kiosk-modal-title">Feedback Received!</div>
+      <div class="kiosk-modal-text">
+        Thank you for sharing your thoughts. Your feedback has been recorded and will help us improve your next visit to Grand Metro Mall.
+      </div>
+      <div style="display:flex;gap:12px;justify-content:center;">
+        <a href="home.html" class="btn-shop-now-hero" style="background:var(--gold-gradient-btn);color:#1a1205;">Return to Home</a>
+        <button class="btn-modal-close" onclick="closeKioskModal('feedbackSuccessModal')">Close</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Help & Language Modals -->
+  <div class="kiosk-modal-backdrop" id="languageModal">
+    <div class="kiosk-modal-box">
+      <div class="kiosk-modal-icon"><i class="fa-solid fa-globe"></i></div>
+      <div class="kiosk-modal-title">Select Language</div>
+      <div class="kiosk-modal-text">Choose your preferred language for the interactive kiosk.</div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:20px;">
+        <button class="btn-shop-now-hero" style="background:var(--gold-gradient-btn);color:#1a1205;" onclick="closeKioskModal('languageModal')">English</button>
+        <button class="btn-shop-now-hero" onclick="closeKioskModal('languageModal')">हिंदी (Hindi)</button>
+        <button class="btn-shop-now-hero" onclick="closeKioskModal('languageModal')">मराठी (Marathi)</button>
+        <button class="btn-shop-now-hero" onclick="closeKioskModal('languageModal')">ગુજરાતી (Gujarati)</button>
+      </div>
+      <button class="btn-modal-close" onclick="closeKioskModal('languageModal')">Close</button>
+    </div>
+  </div>
+
+  <div class="kiosk-modal-backdrop" id="helpModal">
+    <div class="kiosk-modal-box">
+      <div class="kiosk-modal-icon"><i class="fa-solid fa-circle-question"></i></div>
+      <div class="kiosk-modal-title">Need Help?</div>
+      <div class="kiosk-modal-text">
+        Visit our Information Desk at Ground Floor Atrium or call concierge.
+      </div>
+      <div style="margin-bottom:20px;">
+        <div style="font-size:16px;color:#f7dfb8;font-weight:700;margin-bottom:6px;">Concierge: +91 20 6645 8888</div>
+        <div style="font-size:12px;color:#94a3b8;">Available: 10:00 AM - 10:00 PM Daily</div>
+      </div>
+      <button class="btn-modal-close" onclick="closeKioskModal('helpModal')">Close</button>
+    </div>
+  </div>
+
+  <!-- Quick Floating Links Switcher -->
+  <div class="quick-kiosk-switcher">
+    <span style="color:#e2b062;font-weight:700;">KIOSK:</span>
+    <a href="home.html">Home</a>
+    <a href="shop.html">Shops</a>
+    <a href="map.html">Map</a>
+    <a href="food.html">Food & Dining</a>
+    <a href="events.html">Events</a>
+    <a href="feedback.html" class="active-link">Feedback</a>
+  </div>
+
+  <script src="kiosk.js"></script>
+</body>
+</html>

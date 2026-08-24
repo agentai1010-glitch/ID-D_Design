@@ -1,0 +1,763 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Grand Metro Mall · Shops & Store Directory</title>
+  <!-- Google Fonts & Font Awesome -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700;800;900&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Playfair+Display:ital,wght@0,600;0,700;1,400;1,600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="stylesheet" href="kiosk.css">
+  <style>
+    /* Specific Styles for Shop Directory */
+    .shop-hero-banner {
+      background: linear-gradient(90deg, rgba(8, 14, 24, 0.95) 0%, rgba(8, 14, 24, 0.75) 45%, rgba(8, 14, 24, 0.3) 100%), 
+                  linear-gradient(135deg, #1e293b, #0f172a);
+      border: 1px solid rgba(226, 176, 98, 0.25);
+      border-radius: 20px;
+      padding: 24px 30px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: relative;
+      overflow: hidden;
+      min-height: 200px;
+      box-shadow: 0 16px 40px rgba(0, 0, 0, 0.5);
+    }
+
+    .shop-hero-media-wrap {
+      position: absolute;
+      right: 0;
+      top: 0;
+      bottom: 0;
+      width: 50%;
+      background: radial-gradient(circle at center, rgba(30, 41, 59, 0.5), #080e18);
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      padding-right: 30px;
+    }
+
+    .shop-hero-brand-sign {
+      background: rgba(0, 0, 0, 0.75);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      padding: 10px 22px;
+      border-radius: 10px;
+      font-family: 'Cinzel', serif;
+      font-size: 22px;
+      font-weight: 800;
+      letter-spacing: 4px;
+      color: #ffffff;
+      backdrop-filter: blur(8px);
+    }
+
+    /* Category Circular Tabs Bar */
+    .shop-category-circles-bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      overflow-x: auto;
+      padding: 2px 0;
+    }
+
+    .shop-cat-btn {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 6px;
+      background: transparent;
+      border: none;
+      cursor: pointer;
+      min-width: 54px;
+      transition: all 0.25s ease;
+    }
+
+    .shop-cat-circle {
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.04);
+      border: 1.5px solid rgba(255, 255, 255, 0.12);
+      color: #94a3b8;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+      transition: all 0.25s ease;
+    }
+
+    .shop-cat-btn:hover .shop-cat-circle {
+      border-color: var(--gold-400);
+      color: var(--gold-300);
+      transform: translateY(-2px);
+    }
+
+    .shop-cat-btn.active .shop-cat-circle {
+      background: rgba(226, 176, 98, 0.15);
+      border-color: var(--gold-400);
+      color: var(--gold-400);
+      box-shadow: 0 0 18px rgba(226, 176, 98, 0.4);
+      transform: scale(1.05);
+    }
+
+    .shop-cat-label {
+      font-size: 10.5px;
+      font-weight: 600;
+      color: var(--text-muted);
+      letter-spacing: 0.5px;
+    }
+
+    .shop-cat-btn.active .shop-cat-label {
+      color: var(--gold-400);
+      font-weight: 700;
+    }
+
+    /* 2-Column Split: Filter Sidebar & Stores Grid */
+    .shop-main-layout-split {
+      display: grid;
+      grid-template-columns: 180px 1fr;
+      gap: 16px;
+      align-items: start;
+    }
+
+    .shop-filter-panel {
+      background: rgba(14, 20, 32, 0.85);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 18px;
+      padding: 14px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .filter-group-header {
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: 0.8px;
+      color: #ffffff;
+      text-transform: uppercase;
+      margin-bottom: 6px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .filter-radio-item, .filter-checkbox-item {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 11px;
+      color: #cbd5e1;
+      cursor: pointer;
+      padding: 3px 0;
+      transition: color 0.2s ease;
+    }
+
+    .filter-radio-item:hover, .filter-checkbox-item:hover {
+      color: var(--gold-300);
+    }
+
+    .custom-radio-dot {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      border: 1.5px solid rgba(255, 255, 255, 0.3);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .filter-radio-item.selected .custom-radio-dot {
+      border-color: var(--gold-400);
+    }
+
+    .filter-radio-item.selected .custom-radio-dot::after {
+      content: '';
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--gold-400);
+    }
+
+    .custom-checkbox-box {
+      width: 12px;
+      height: 12px;
+      border-radius: 3px;
+      border: 1.5px solid rgba(255, 255, 255, 0.3);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 8px;
+    }
+
+    .filter-checkbox-item.selected .custom-checkbox-box {
+      background: var(--gold-400);
+      border-color: var(--gold-400);
+      color: #000;
+    }
+
+    /* 3x3 Stores Grid */
+    .stores-catalog-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+    }
+
+    .store-catalog-card {
+      background: rgba(14, 20, 32, 0.85);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 16px;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      cursor: pointer;
+      transition: all 0.25s ease;
+      position: relative;
+    }
+
+    .store-catalog-card:hover {
+      transform: translateY(-3px);
+      border-color: var(--gold-400);
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5), 0 0 15px rgba(226, 176, 98, 0.2);
+    }
+
+    .store-card-photo-banner {
+      height: 100px;
+      background: #0d1320;
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+
+    .store-card-brand-title {
+      font-family: 'Cinzel', serif;
+      font-size: 18px;
+      font-weight: 800;
+      letter-spacing: 2px;
+      color: #ffffff;
+      text-shadow: 0 2px 10px rgba(0, 0, 0, 0.8);
+      z-index: 2;
+    }
+
+    .store-featured-badge {
+      position: absolute;
+      top: 8px;
+      right: 8px;
+      background: rgba(226, 176, 98, 0.2);
+      border: 1px solid var(--gold-400);
+      color: var(--gold-300);
+      font-size: 8px;
+      font-weight: 700;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      padding: 2px 6px;
+      border-radius: 999px;
+      z-index: 3;
+    }
+
+    .store-heart-fav {
+      position: absolute;
+      top: 8px;
+      right: 8px;
+      color: rgba(255, 255, 255, 0.5);
+      font-size: 13px;
+      z-index: 3;
+      transition: color 0.2s ease;
+    }
+
+    .store-heart-fav:hover {
+      color: #f43f5e;
+    }
+
+    .store-card-tags-bar {
+      padding: 8px 10px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: rgba(10, 15, 24, 0.6);
+      border-top: 1px solid rgba(255, 255, 255, 0.05);
+      font-size: 9.5px;
+      color: var(--text-muted);
+      font-weight: 600;
+    }
+
+    .store-tag-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 3px;
+    }
+
+    .store-tag-pill i {
+      font-size: 8.5px;
+      color: var(--gold-400);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Kiosk Viewport Wrapper -->
+  <div class="kiosk-viewport-wrapper">
+    <div class="kiosk-frame">
+      <div class="kiosk-screen">
+
+        <!-- Top Header -->
+        <header class="kiosk-header">
+          <!-- Back to Home Left -->
+          <div class="kiosk-header-left">
+            <a href="home.html" class="btn-back-home">
+              <i class="fa-solid fa-arrow-left"></i>
+              <span>BACK TO HOME</span>
+            </a>
+          </div>
+
+          <!-- Brand Logo Center -->
+          <a href="home.html" class="kiosk-brand">
+            <svg class="brand-emblem-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+              <path d="M4 21V9l8-6 8 6v12H4z" />
+              <path d="M9 21V12h6v9" />
+              <path d="M12 3v4" />
+            </svg>
+            <div class="brand-name-grand">GRAND</div>
+            <div class="brand-name-sub">METRO MALL</div>
+          </a>
+
+          <!-- Clock Right -->
+          <div class="kiosk-header-right">
+            <span class="kiosk-time" id="kioskLiveTime">04:25 PM</span>
+            <span class="kiosk-date" id="kioskLiveDate">Tue, 20 May 2025</span>
+          </div>
+        </header>
+
+        <!-- Main Content Area -->
+        <main class="kiosk-main-content">
+
+          <!-- Section Title Ornate with Top Right Search -->
+          <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:2px;">
+            <div style="width:160px;"></div>
+
+            <div class="section-title-wrap" style="flex:1;">
+              <div class="section-title-ornate" style="font-size:22px;">
+                <span class="ornate-line">✦ ──</span>
+                <i class="fa-solid fa-bag-shopping" style="color:var(--gold-400);font-size:18px;"></i>
+                <span>SHOPS</span>
+                <span class="ornate-line">── ✦</span>
+              </div>
+              <p class="section-subtitle" style="font-size:12px;">Explore 200+ Brands Under One Roof</p>
+            </div>
+
+            <!-- Search input on top right -->
+            <div style="width:200px;position:relative;">
+              <input 
+                type="text" 
+                class="kiosk-search-input-box" 
+                placeholder="Search for stores, brands..." 
+                style="padding:8px 34px 8px 14px;font-size:11.5px;"
+                id="shopSearchInput"
+                oninput="filterStoreCatalog(this.value)"
+              >
+              <i class="fa-solid fa-magnifying-glass" style="position:absolute;right:12px;top:50%;transform:translateY(-50%);color:#64748b;font-size:11px;"></i>
+            </div>
+          </div>
+
+          <!-- 1. Hero Fashion Collection Banner -->
+          <div class="shop-hero-banner">
+            <div style="max-width:52%;z-index:2;">
+              <div style="font-size:10px;font-weight:800;letter-spacing:2px;color:var(--gold-300);text-transform:uppercase;margin-bottom:4px;">NEW SEASON</div>
+              <h1 style="font-family:'Cinzel',serif;font-size:24px;font-weight:800;letter-spacing:1px;color:#ffffff;line-height:1.15;margin-bottom:4px;">
+                FASHION<br>COLLECTION
+              </h1>
+              <p style="font-size:12px;color:#94a3b8;margin-bottom:14px;">Style for Everyone</p>
+              <a href="map.html" class="btn-shop-now-hero" style="padding:6px 18px;font-size:10px;background:var(--gold-gradient-btn);color:#1a1205;">
+                EXPLORE NOW →
+              </a>
+            </div>
+
+            <!-- Right Visual Store Display -->
+            <div class="shop-hero-media-wrap">
+              <div class="shop-hero-brand-sign">ZARA</div>
+            </div>
+
+            <!-- Carousel Dots -->
+            <div class="ad-carousel-dots">
+              <span class="ad-dot active"></span>
+              <span class="ad-dot"></span>
+              <span class="ad-dot"></span>
+              <span class="ad-dot"></span>
+              <span class="ad-dot"></span>
+              <span class="ad-dot"></span>
+            </div>
+          </div>
+
+          <!-- 2. Horizontal Category Circles -->
+          <div class="shop-category-circles-bar">
+            <!-- 1. All -->
+            <button class="shop-cat-btn active" onclick="filterByCategory(this, 'all')">
+              <div class="shop-cat-circle"><i class="fa-solid fa-border-all"></i></div>
+              <span class="shop-cat-label">All</span>
+            </button>
+            <!-- 2. Fashion -->
+            <button class="shop-cat-btn" onclick="filterByCategory(this, 'fashion')">
+              <div class="shop-cat-circle"><i class="fa-solid fa-shirt"></i></div>
+              <span class="shop-cat-label">Fashion</span>
+            </button>
+            <!-- 3. Lifestyle -->
+            <button class="shop-cat-btn" onclick="filterByCategory(this, 'lifestyle')">
+              <div class="shop-cat-circle"><i class="fa-solid fa-couch"></i></div>
+              <span class="shop-cat-label">Lifestyle</span>
+            </button>
+            <!-- 4. Electronics -->
+            <button class="shop-cat-btn" onclick="filterByCategory(this, 'electronics')">
+              <div class="shop-cat-circle"><i class="fa-solid fa-laptop"></i></div>
+              <span class="shop-cat-label">Electronics</span>
+            </button>
+            <!-- 5. Footwear -->
+            <button class="shop-cat-btn" onclick="filterByCategory(this, 'footwear')">
+              <div class="shop-cat-circle"><i class="fa-solid fa-shoe-prints"></i></div>
+              <span class="shop-cat-label">Footwear</span>
+            </button>
+            <!-- 6. Beauty -->
+            <button class="shop-cat-btn" onclick="filterByCategory(this, 'beauty')">
+              <div class="shop-cat-circle"><i class="fa-solid fa-spray-can-sparkles"></i></div>
+              <span class="shop-cat-label">Beauty</span>
+            </button>
+            <!-- 7. Accessories -->
+            <button class="shop-cat-btn" onclick="filterByCategory(this, 'accessories')">
+              <div class="shop-cat-circle"><i class="fa-solid fa-bag-shopping"></i></div>
+              <span class="shop-cat-label">Accessories</span>
+            </button>
+            <!-- 8. Sports -->
+            <button class="shop-cat-btn" onclick="filterByCategory(this, 'sports')">
+              <div class="shop-cat-circle"><i class="fa-solid fa-baseball-bat-ball"></i></div>
+              <span class="shop-cat-label">Sports</span>
+            </button>
+            <!-- 9. Kids -->
+            <button class="shop-cat-btn" onclick="filterByCategory(this, 'kids')">
+              <div class="shop-cat-circle"><i class="fa-solid fa-shapes"></i></div>
+              <span class="shop-cat-label">Kids</span>
+            </button>
+            <!-- 10. Home -->
+            <button class="shop-cat-btn" onclick="filterByCategory(this, 'home')">
+              <div class="shop-cat-circle"><i class="fa-solid fa-house"></i></div>
+              <span class="shop-cat-label">Home</span>
+            </button>
+          </div>
+
+          <!-- 3. Main 2-Column Split (Filters Left + Stores Right) -->
+          <div class="shop-main-layout-split">
+            
+            <!-- Left Filter Sidebar -->
+            <aside class="shop-filter-panel">
+              <!-- Floor Filter -->
+              <div>
+                <div class="filter-group-header">
+                  <span>Floor</span>
+                  <i class="fa-solid fa-chevron-up" style="font-size:9px;color:var(--text-muted);"></i>
+                </div>
+                <div class="filter-radio-item selected" onclick="toggleRadio(this)">
+                  <span class="custom-radio-dot"></span>
+                  <span>All Floors</span>
+                </div>
+                <div class="filter-radio-item" onclick="toggleRadio(this)">
+                  <span class="custom-radio-dot"></span>
+                  <span>Ground Floor</span>
+                </div>
+                <div class="filter-radio-item" onclick="toggleRadio(this)">
+                  <span class="custom-radio-dot"></span>
+                  <span>First Floor</span>
+                </div>
+                <div class="filter-radio-item" onclick="toggleRadio(this)">
+                  <span class="custom-radio-dot"></span>
+                  <span>Second Floor</span>
+                </div>
+              </div>
+
+              <!-- Brands Filter -->
+              <div style="border-top:1px solid rgba(255,255,255,0.06);padding-top:10px;">
+                <div class="filter-group-header">
+                  <span>Brands</span>
+                  <i class="fa-solid fa-chevron-up" style="font-size:9px;color:var(--text-muted);"></i>
+                </div>
+                <div class="filter-checkbox-item" onclick="toggleCheckbox(this)">
+                  <span class="custom-checkbox-box"><i class="fa-solid fa-check"></i></span>
+                  <span>ZARA</span>
+                </div>
+                <div class="filter-checkbox-item" onclick="toggleCheckbox(this)">
+                  <span class="custom-checkbox-box"><i class="fa-solid fa-check"></i></span>
+                  <span>H&M</span>
+                </div>
+                <div class="filter-checkbox-item" onclick="toggleCheckbox(this)">
+                  <span class="custom-checkbox-box"><i class="fa-solid fa-check"></i></span>
+                  <span>Trends</span>
+                </div>
+                <div class="filter-checkbox-item selected" onclick="toggleCheckbox(this)">
+                  <span class="custom-checkbox-box"><i class="fa-solid fa-check"></i></span>
+                  <span>Lifestyle</span>
+                </div>
+                <div class="filter-checkbox-item" onclick="toggleCheckbox(this)">
+                  <span class="custom-checkbox-box"><i class="fa-solid fa-check"></i></span>
+                  <span>Pantaloons</span>
+                </div>
+                <div class="filter-checkbox-item" onclick="toggleCheckbox(this)">
+                  <span class="custom-checkbox-box"><i class="fa-solid fa-check"></i></span>
+                  <span>PVR (Cinema)</span>
+                </div>
+                <div style="font-size:10px;color:var(--gold-400);font-weight:600;margin-top:4px;cursor:pointer;">
+                  More...
+                </div>
+              </div>
+
+              <!-- Clear Filters -->
+              <button class="btn-shop-now-hero" style="width:100%;font-size:9.5px;padding:6px 0;margin-top:2px;" onclick="resetAllShopFilters()">
+                <i class="fa-solid fa-rotate-left"></i> Clear Filters
+              </button>
+            </aside>
+
+            <!-- Right Stores Catalog Column -->
+            <div>
+              <!-- Top Row: Counter & Sort -->
+              <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;">
+                <div>
+                  <h3 style="font-size:13.5px;font-weight:700;color:#ffffff;margin:0;">Popular Stores</h3>
+                  <div style="font-size:10.5px;color:var(--text-muted);">Showing 12 of 200+ stores</div>
+                </div>
+
+                <div class="kiosk-segmented-tabs" style="margin:0;padding:2px;">
+                  <span style="font-size:10.5px;color:var(--text-muted);padding:3px 8px;font-weight:600;">
+                    Sort: <strong style="color:#ffffff;">Popularity ▾</strong>
+                  </span>
+                </div>
+              </div>
+
+              <!-- 3x3 Stores Grid -->
+              <div class="stores-catalog-grid" id="storesGrid">
+                
+                <!-- 1. ZARA -->
+                <div class="store-catalog-card" onclick="location.href='map.html?store=ZARA'">
+                  <div class="store-card-photo-banner">
+                    <span class="store-featured-badge">Featured</span>
+                    <div class="store-card-brand-title">ZARA</div>
+                  </div>
+                  <div class="store-card-tags-bar">
+                    <span class="store-tag-pill"><i class="fa-solid fa-tag"></i> Fashion</span>
+                    <span class="store-tag-pill"><i class="fa-solid fa-location-dot"></i> Ground Floor</span>
+                    <span style="color:#ffffff;">G-01</span>
+                  </div>
+                </div>
+
+                <!-- 2. H&M -->
+                <div class="store-catalog-card" onclick="location.href='map.html?store=H&M'">
+                  <div class="store-card-photo-banner">
+                    <span class="store-featured-badge">Featured</span>
+                    <div class="store-card-brand-title" style="color:#ef4444;">H&M</div>
+                  </div>
+                  <div class="store-card-tags-bar">
+                    <span class="store-tag-pill"><i class="fa-solid fa-tag"></i> Fashion</span>
+                    <span class="store-tag-pill"><i class="fa-solid fa-location-dot"></i> Ground Floor</span>
+                    <span style="color:#ffffff;">G-12</span>
+                  </div>
+                </div>
+
+                <!-- 3. Lifestyle -->
+                <div class="store-catalog-card" onclick="location.href='map.html?store=Lifestyle'">
+                  <div class="store-card-photo-banner">
+                    <span class="store-featured-badge">Featured</span>
+                    <div class="store-card-brand-title" style="font-size:16px;">lifestyle</div>
+                  </div>
+                  <div class="store-card-tags-bar">
+                    <span class="store-tag-pill"><i class="fa-solid fa-tag"></i> Lifestyle</span>
+                    <span class="store-tag-pill"><i class="fa-solid fa-location-dot"></i> Ground Floor</span>
+                    <span style="color:#ffffff;">G-18</span>
+                  </div>
+                </div>
+
+                <!-- 4. TRENDS -->
+                <div class="store-catalog-card" onclick="location.href='map.html?store=TRENDS'">
+                  <div class="store-card-photo-banner">
+                    <i class="fa-regular fa-heart store-heart-fav"></i>
+                    <div class="store-card-brand-title">TRENDS</div>
+                  </div>
+                  <div class="store-card-tags-bar">
+                    <span class="store-tag-pill"><i class="fa-solid fa-tag"></i> Fashion</span>
+                    <span class="store-tag-pill"><i class="fa-solid fa-location-dot"></i> First Floor</span>
+                    <span style="color:#ffffff;">F-06</span>
+                  </div>
+                </div>
+
+                <!-- 5. PANTALOONS -->
+                <div class="store-catalog-card" onclick="location.href='map.html?store=PANTALOONS'">
+                  <div class="store-card-photo-banner">
+                    <i class="fa-regular fa-heart store-heart-fav"></i>
+                    <div class="store-card-brand-title" style="font-size:15px;letter-spacing:1px;color:#38bdf8;">PANTALOONS</div>
+                  </div>
+                  <div class="store-card-tags-bar">
+                    <span class="store-tag-pill"><i class="fa-solid fa-tag"></i> Fashion</span>
+                    <span class="store-tag-pill"><i class="fa-solid fa-location-dot"></i> First Floor</span>
+                    <span style="color:#ffffff;">F-10</span>
+                  </div>
+                </div>
+
+                <!-- 6. PVR CINEMAS -->
+                <div class="store-catalog-card" onclick="location.href='map.html?store=PVR Cinemas'">
+                  <div class="store-card-photo-banner">
+                    <i class="fa-regular fa-heart store-heart-fav"></i>
+                    <div class="store-card-brand-title" style="font-size:15px;color:#fbbf24;">PVR CINEMAS</div>
+                  </div>
+                  <div class="store-card-tags-bar">
+                    <span class="store-tag-pill"><i class="fa-solid fa-film"></i> Cinema</span>
+                    <span class="store-tag-pill"><i class="fa-solid fa-location-dot"></i> Second Floor</span>
+                    <span style="color:#ffffff;">S-01</span>
+                  </div>
+                </div>
+
+                <!-- 7. SEPHORA -->
+                <div class="store-catalog-card" onclick="location.href='map.html?store=SEPHORA'">
+                  <div class="store-card-photo-banner">
+                    <i class="fa-regular fa-heart store-heart-fav"></i>
+                    <div class="store-card-brand-title" style="font-size:16px;">SEPHORA</div>
+                  </div>
+                  <div class="store-card-tags-bar">
+                    <span class="store-tag-pill"><i class="fa-solid fa-spray-can"></i> Beauty</span>
+                    <span class="store-tag-pill"><i class="fa-solid fa-location-dot"></i> Ground Floor</span>
+                    <span style="color:#ffffff;">G-22</span>
+                  </div>
+                </div>
+
+                <!-- 8. JACK & JONES -->
+                <div class="store-catalog-card" onclick="location.href='map.html?store=JACK & JONES'">
+                  <div class="store-card-photo-banner">
+                    <i class="fa-regular fa-heart store-heart-fav"></i>
+                    <div class="store-card-brand-title" style="font-size:15px;">JACK & JONES</div>
+                  </div>
+                  <div class="store-card-tags-bar">
+                    <span class="store-tag-pill"><i class="fa-solid fa-tag"></i> Fashion</span>
+                    <span class="store-tag-pill"><i class="fa-solid fa-location-dot"></i> First Floor</span>
+                    <span style="color:#ffffff;">F-14</span>
+                  </div>
+                </div>
+
+                <!-- 9. SKECHERS -->
+                <div class="store-catalog-card" onclick="location.href='map.html?store=SKECHERS'">
+                  <div class="store-card-photo-banner">
+                    <i class="fa-regular fa-heart store-heart-fav"></i>
+                    <div class="store-card-brand-title" style="font-size:15px;color:#60a5fa;">SKECHERS</div>
+                  </div>
+                  <div class="store-card-tags-bar">
+                    <span class="store-tag-pill"><i class="fa-solid fa-shoe-prints"></i> Footwear</span>
+                    <span class="store-tag-pill"><i class="fa-solid fa-location-dot"></i> First Floor</span>
+                    <span style="color:#ffffff;">F-20</span>
+                  </div>
+                </div>
+
+              </div>
+
+              <!-- View All Stores CTA -->
+              <div style="text-align:center;margin-top:14px;">
+                <button class="btn-shop-now-hero" style="background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.15);padding:8px 26px;font-size:11px;" onclick="location.href='map.html'">
+                  VIEW ALL STORES → →
+                </button>
+              </div>
+            </div>
+
+          </div>
+
+        </main>
+
+        <!-- Bottom Sticky Navigation Bar -->
+        <footer class="kiosk-footer-nav">
+          <button class="footer-nav-btn" onclick="openKioskModal('languageModal')">
+            <i class="fa-solid fa-globe"></i>
+            <span>ENGLISH</span>
+          </button>
+
+          <a href="home.html" class="footer-home-circle-btn" title="Home Screen">
+            <i class="fa-solid fa-house"></i>
+          </a>
+
+          <button class="footer-nav-btn" onclick="openKioskModal('helpModal')">
+            <span>NEED HELP?</span>
+            <i class="fa-solid fa-circle-question"></i>
+          </button>
+        </footer>
+
+      </div>
+
+      <!-- Kiosk Bezel Bottom Logo -->
+      <div class="kiosk-bezel-bottom">MALL GUIDE</div>
+    </div>
+  </div>
+
+  <!-- Help & Language Modals -->
+  <div class="kiosk-modal-backdrop" id="languageModal">
+    <div class="kiosk-modal-box">
+      <div class="kiosk-modal-icon"><i class="fa-solid fa-globe"></i></div>
+      <div class="kiosk-modal-title">Select Language</div>
+      <div class="kiosk-modal-text">Choose your preferred language for the interactive kiosk.</div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:20px;">
+        <button class="btn-shop-now-hero" style="background:var(--gold-gradient-btn);color:#1a1205;" onclick="closeKioskModal('languageModal')">English</button>
+        <button class="btn-shop-now-hero" onclick="closeKioskModal('languageModal')">हिंदी (Hindi)</button>
+        <button class="btn-shop-now-hero" onclick="closeKioskModal('languageModal')">मराठी (Marathi)</button>
+        <button class="btn-shop-now-hero" onclick="closeKioskModal('languageModal')">ગુજરાતી (Gujarati)</button>
+      </div>
+      <button class="btn-modal-close" onclick="closeKioskModal('languageModal')">Close</button>
+    </div>
+  </div>
+
+  <div class="kiosk-modal-backdrop" id="helpModal">
+    <div class="kiosk-modal-box">
+      <div class="kiosk-modal-icon"><i class="fa-solid fa-headset"></i></div>
+      <div class="kiosk-modal-title">Need Assistance?</div>
+      <div class="kiosk-modal-text">
+        Visit our Information Desk at Ground Floor Atrium or call concierge.
+      </div>
+      <div style="margin-bottom:20px;">
+        <div style="font-size:16px;color:#f7dfb8;font-weight:700;margin-bottom:6px;">Helpdesk: +91 20 6645 8888</div>
+        <div style="font-size:12px;color:#94a3b8;">Available: 10:00 AM - 10:00 PM Daily</div>
+      </div>
+      <button class="btn-modal-close" onclick="closeKioskModal('helpModal')">Close</button>
+    </div>
+  </div>
+
+  <!-- Quick Floating Links Switcher -->
+  <div class="quick-kiosk-switcher">
+    <span style="color:#e2b062;font-weight:700;">KIOSK:</span>
+    <a href="home.html">Home</a>
+    <a href="shop.html" class="active-link">Shops</a>
+    <a href="map.html">Map</a>
+    <a href="food.html">Food</a>
+    <a href="events.html">Events</a>
+    <a href="feedback.html">Feedback</a>
+  </div>
+
+  <script src="kiosk.js"></script>
+  <script>
+    function filterByCategory(btn, cat) {
+      document.querySelectorAll('.shop-cat-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+    }
+    function toggleRadio(item) {
+      document.querySelectorAll('.filter-radio-item').forEach(i => i.classList.remove('selected'));
+      item.classList.add('selected');
+    }
+    function toggleCheckbox(item) {
+      item.classList.toggle('selected');
+    }
+    function resetAllShopFilters() {
+      document.querySelectorAll('.filter-checkbox-item').forEach(i => i.classList.remove('selected'));
+      const firstRadio = document.querySelector('.filter-radio-item');
+      if (firstRadio) toggleRadio(firstRadio);
+    }
+    function filterStoreCatalog(query) {
+      const q = query.toLowerCase();
+      document.querySelectorAll('.store-catalog-card').forEach(card => {
+        const text = card.textContent.toLowerCase();
+        card.style.display = text.includes(q) ? 'flex' : 'none';
+      });
+    }
+  </script>
+</body>
+</html>

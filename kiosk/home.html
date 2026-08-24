@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Grand Metro Mall · Interactive Kiosk Guide</title>
+  <!-- Google Fonts & Font Awesome -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700;800;900&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Playfair+Display:ital,wght@0,600;0,700;1,400;1,600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="stylesheet" href="kiosk.css">
+</head>
+<body>
+
+  <!-- Kiosk Viewport Wrapper -->
+  <div class="kiosk-viewport-wrapper">
+    <div class="kiosk-frame">
+      <div class="kiosk-screen">
+
+        <!-- Top Header -->
+        <header class="kiosk-header">
+          <!-- Weather Left -->
+          <div class="kiosk-header-left">
+            <i class="fa-solid fa-sun weather-icon-sun"></i>
+            <div class="weather-text">
+              <span class="weather-temp">28°C</span>
+              <span class="weather-desc">Sunny</span>
+            </div>
+          </div>
+
+          <!-- Brand Logo Center -->
+          <a href="home.html" class="kiosk-brand">
+            <svg class="brand-emblem-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+              <path d="M4 21V9l8-6 8 6v12H4z" />
+              <path d="M9 21V12h6v9" />
+              <path d="M12 3v4" />
+            </svg>
+            <div class="brand-name-grand">GRAND</div>
+            <div class="brand-name-sub">METRO MALL</div>
+          </a>
+
+          <!-- Clock Right -->
+          <div class="kiosk-header-right">
+            <span class="kiosk-time" id="kioskLiveTime">04:25 PM</span>
+            <span class="kiosk-date" id="kioskLiveDate">Tue, 20 May 2025</span>
+          </div>
+        </header>
+
+        <!-- Main Content Area -->
+        <main class="kiosk-main-content">
+
+          <!-- 1. Hero Ad Carousel Banner -->
+          <div class="home-hero-ad-card" style="background: linear-gradient(90deg, rgba(6, 12, 22, 0.95) 0%, rgba(6, 12, 22, 0.65) 45%, rgba(6, 12, 22, 0.1) 100%), url('../images/blue_chanel_image.jpg') center right / cover no-repeat; min-height: 290px;">
+            <div class="hero-ad-content">
+              <span class="badge-new-arrival">NEW ARRIVAL</span>
+              <h1 class="hero-ad-title">ELEVATE<br>EVERY MOMENT</h1>
+              <p class="hero-ad-desc">Discover the new signature fragrance for men.</p>
+              <a href="map.html" class="btn-shop-now-hero">SHOP NOW</a>
+            </div>
+
+            <!-- Carousel Indicators -->
+            <div class="ad-carousel-dots">
+              <span class="ad-dot active"></span>
+              <span class="ad-dot"></span>
+              <span class="ad-dot"></span>
+              <span class="ad-dot"></span>
+              <span class="ad-dot"></span>
+            </div>
+          </div>
+
+          <!-- 2. Global Search Bar -->
+          <div class="kiosk-search-container">
+            <i class="fa-solid fa-magnifying-glass search-icon-left"></i>
+            <input 
+              type="text" 
+              class="kiosk-search-input-box" 
+              id="kioskSearchInput" 
+              placeholder="Search for stores, brands, dining and more..."
+            >
+            <i class="fa-solid fa-microphone search-mic-right" onclick="simulateVoiceSearch()" title="Voice Search"></i>
+          </div>
+
+          <!-- 3. 8-Grid Category Tiles -->
+          <div class="home-categories-grid">
+            <!-- 1. Shop Directory -->
+            <a href="shop.html" class="category-tile-card">
+              <div class="category-icon-wrap">
+                <i class="fa-solid fa-bag-shopping"></i>
+              </div>
+              <div class="category-title">SHOP</div>
+              <div class="category-sub">DIRECTORY</div>
+            </a>
+
+            <!-- 2. Food & Dining -->
+            <a href="food.html" class="category-tile-card">
+              <div class="category-icon-wrap">
+                <i class="fa-solid fa-utensils"></i>
+              </div>
+              <div class="category-title">FOOD &</div>
+              <div class="category-sub">DINING</div>
+            </a>
+
+            <!-- 3. Offers & Deals -->
+            <a href="events.html" class="category-tile-card">
+              <div class="category-icon-wrap">
+                <i class="fa-solid fa-tags"></i>
+              </div>
+              <div class="category-title">OFFERS &</div>
+              <div class="category-sub">DEALS</div>
+            </a>
+
+            <!-- 4. Events & News -->
+            <a href="events.html" class="category-tile-card">
+              <div class="category-icon-wrap">
+                <i class="fa-solid fa-calendar-days"></i>
+              </div>
+              <div class="category-title">EVENTS</div>
+              <div class="category-sub">& NEWS</div>
+            </a>
+
+            <!-- 5. Mall Map -->
+            <a href="map.html" class="category-tile-card">
+              <div class="category-icon-wrap">
+                <i class="fa-solid fa-location-dot"></i>
+              </div>
+              <div class="category-title">MALL</div>
+              <div class="category-sub">MAP</div>
+            </a>
+
+            <!-- 6. Movies & Cinema -->
+            <a href="events.html" class="category-tile-card">
+              <div class="category-icon-wrap">
+                <i class="fa-solid fa-film"></i>
+              </div>
+              <div class="category-title">MOVIES</div>
+              <div class="category-sub">& CINEMA</div>
+            </a>
+
+            <!-- 7. Parking Info -->
+            <a href="map.html" class="category-tile-card">
+              <div class="category-icon-wrap">
+                <i class="fa-solid fa-square-parking"></i>
+              </div>
+              <div class="category-title">PARKING</div>
+              <div class="category-sub">INFO</div>
+            </a>
+
+            <!-- 8. Services & Facilities -->
+            <a href="feedback.html" class="category-tile-card">
+              <div class="category-icon-wrap">
+                <i class="fa-solid fa-bell-concierge"></i>
+              </div>
+              <div class="category-title">SERVICES</div>
+              <div class="category-sub">& FACILITIES</div>
+            </a>
+          </div>
+
+          <!-- 4. Bottom Summer Sale Banner -->
+          <div class="home-summer-banner" onclick="location.href='events.html'">
+            <div class="summer-banner-left">
+              <div class="summer-title">SUMMER<br>SALE</div>
+              <div class="summer-subtitle">UP TO 50% OFF</div>
+              <span class="btn-summer-explore">EXPLORE NOW</span>
+            </div>
+            <div class="summer-banner-media">
+              <!-- Decorative SVG Couple / Aesthetics -->
+              <svg viewBox="0 0 160 90" style="width:160px;height:85px;border-radius:12px;overflow:hidden;">
+                <defs>
+                  <linearGradient id="summerBg" x1="0" y1="0" x2="1" y2="1">
+                    <stop offset="0%" stop-color="#f472b6"/>
+                    <stop offset="100%" stop-color="#fb923c"/>
+                  </linearGradient>
+                </defs>
+                <rect width="160" height="90" fill="url(#summerBg)" rx="8"/>
+                <!-- Palm leaf & summer silhouettes -->
+                <path d="M140 10 C120 30 130 70 150 90 C130 80 110 50 120 20 Z" fill="#047857" opacity="0.4"/>
+                <circle cx="55" cy="30" r="14" fill="#fed7aa"/>
+                <path d="M40 70 C40 50 70 50 70 70 Z" fill="#7c2d12"/>
+                <circle cx="100" cy="32" r="13" fill="#fed7aa"/>
+                <path d="M85 70 C85 52 115 52 115 70 Z" fill="#431407"/>
+                <!-- Sunglasses -->
+                <rect x="47" y="27" width="7" height="4" rx="1" fill="#1e1b4b"/>
+                <rect x="56" y="27" width="7" height="4" rx="1" fill="#1e1b4b"/>
+                <rect x="93" y="29" width="6" height="4" rx="1" fill="#1e1b4b"/>
+                <rect x="101" y="29" width="6" height="4" rx="1" fill="#1e1b4b"/>
+              </svg>
+            </div>
+          </div>
+
+        </main>
+
+        <!-- Bottom Sticky Navigation Bar -->
+        <footer class="kiosk-footer-nav">
+          <button class="footer-nav-btn" onclick="openKioskModal('languageModal')">
+            <i class="fa-solid fa-globe"></i>
+            <span>ENGLISH</span>
+          </button>
+
+          <a href="home.html" class="footer-home-circle-btn active" title="Home Screen">
+            <i class="fa-solid fa-house"></i>
+          </a>
+
+          <button class="footer-nav-btn" onclick="openKioskModal('helpModal')">
+            <span>HELP</span>
+            <i class="fa-solid fa-circle-question"></i>
+          </button>
+        </footer>
+
+      </div>
+
+      <!-- Kiosk Bezel Bottom Logo -->
+      <div class="kiosk-bezel-bottom">MALL GUIDE</div>
+    </div>
+  </div>
+
+  <!-- Language Selection Modal -->
+  <div class="kiosk-modal-backdrop" id="languageModal">
+    <div class="kiosk-modal-box">
+      <div class="kiosk-modal-icon"><i class="fa-solid fa-globe"></i></div>
+      <div class="kiosk-modal-title">Select Language</div>
+      <div class="kiosk-modal-text">Choose your preferred language for the interactive kiosk.</div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:20px;">
+        <button class="btn-shop-now-hero" style="background:var(--gold-gradient-btn);color:#1a1205;" onclick="closeKioskModal('languageModal')">English</button>
+        <button class="btn-shop-now-hero" onclick="closeKioskModal('languageModal')">हिंदी (Hindi)</button>
+        <button class="btn-shop-now-hero" onclick="closeKioskModal('languageModal')">मराठी (Marathi)</button>
+        <button class="btn-shop-now-hero" onclick="closeKioskModal('languageModal')">ગુજરાતી (Gujarati)</button>
+      </div>
+      <button class="btn-modal-close" onclick="closeKioskModal('languageModal')">Close</button>
+    </div>
+  </div>
+
+  <!-- Help Modal -->
+  <div class="kiosk-modal-backdrop" id="helpModal">
+    <div class="kiosk-modal-box">
+      <div class="kiosk-modal-icon"><i class="fa-solid fa-headset"></i></div>
+      <div class="kiosk-modal-title">Need Assistance?</div>
+      <div class="kiosk-modal-text">
+        Visit our Information Desk at Ground Floor Atrium or press below to connect with mall concierge.
+      </div>
+      <div style="margin-bottom:20px;">
+        <div style="font-size:16px;color:#f7dfb8;font-weight:700;margin-bottom:6px;">Helpdesk Helpline: +91 20 6645 8888</div>
+        <div style="font-size:12px;color:#94a3b8;">Available: 10:00 AM - 10:00 PM Daily</div>
+      </div>
+      <div style="display:flex;gap:10px;justify-content:center;">
+        <a href="feedback.html" class="btn-shop-now-hero" style="background:var(--gold-gradient-btn);color:#1a1205;">Feedback</a>
+        <button class="btn-modal-close" onclick="closeKioskModal('helpModal')">Close</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Voice Search Modal -->
+  <div class="kiosk-modal-backdrop" id="voiceSearchModal">
+    <div class="kiosk-modal-box">
+      <div class="kiosk-modal-icon" style="animation:pulse-sun 1.5s infinite;"><i class="fa-solid fa-microphone"></i></div>
+      <div class="kiosk-modal-title">Voice Assistant</div>
+      <div class="kiosk-modal-text" id="voiceStatusText">Speak now... (e.g. "Find Zara", "Food Court", "Washrooms")</div>
+    </div>
+  </div>
+
+  <!-- Quick Floating Links Switcher for Easy Navigation -->
+  <div class="quick-kiosk-switcher">
+    <span style="color:#e2b062;font-weight:700;">KIOSK:</span>
+    <a href="home.html" class="active-link">Home</a>
+    <a href="shop.html">Shops</a>
+    <a href="map.html">Map</a>
+    <a href="food.html">Food & Dining</a>
+    <a href="events.html">Events</a>
+    <a href="feedback.html">Feedback</a>
+  </div>
+
+  <script src="kiosk.js"></script>
+</body>
+</html>
