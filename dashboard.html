@@ -1,208 +1,826 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Platform Overview · Kiosk Platform</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-<link rel="stylesheet" href="css/styles.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Company Dashboard · Mall Kiosk Platform</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="stylesheet" href="css/styles.css">
+  <style>
+    /* Specific styling refinements for Company Dashboard matching reference image */
+    .company-stats-grid {
+      display: grid;
+      grid-template-columns: repeat(6, 1fr);
+      gap: 16px;
+      margin-bottom: 20px;
+    }
+    @media (max-width: 1400px) {
+      .company-stats-grid {
+        grid-template-columns: repeat(3, 1fr);
+      }
+    }
+    @media (max-width: 800px) {
+      .company-stats-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    .kpi-card {
+      background: #ffffff;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 16px 18px;
+      display: flex;
+      gap: 14px;
+      align-items: center;
+      box-shadow: 0 1px 3px rgba(15, 23, 42, 0.04);
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+    .kpi-card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(15, 23, 42, 0.08);
+    }
+    .kpi-icon-box {
+      width: 44px;
+      height: 44px;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 19px;
+      flex-shrink: 0;
+    }
+    .kpi-content {
+      flex: 1;
+      min-width: 0;
+    }
+    .kpi-title {
+      font-size: 12px;
+      color: var(--text-500);
+      font-weight: 600;
+      margin-bottom: 2px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .kpi-number {
+      font-size: 24px;
+      font-weight: 800;
+      color: var(--text-900);
+      line-height: 1.1;
+      margin-bottom: 4px;
+    }
+    .kpi-subtext {
+      font-size: 11.5px;
+      color: var(--text-500);
+      white-space: nowrap;
+    }
+
+    /* 3-Column Operational Row */
+    .operational-grid-3 {
+      display: grid;
+      grid-template-columns: 1.15fr 1fr 1.05fr;
+      gap: 18px;
+      margin-bottom: 20px;
+    }
+    @media (max-width: 1200px) {
+      .operational-grid-3 {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .op-panel {
+      background: #ffffff;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      box-shadow: 0 1px 3px rgba(15, 23, 42, 0.04);
+      display: flex;
+      flex-direction: column;
+    }
+    .op-panel-header {
+      padding: 16px 20px;
+      border-bottom: 1px solid var(--border-soft);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .op-panel-title {
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--text-900);
+      margin: 0;
+    }
+    .op-panel-body {
+      padding: 16px 20px;
+      flex: 1;
+    }
+
+    /* Recent Activity Item */
+    .activity-item-row {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 11px 0;
+      border-bottom: 1px solid var(--border-soft);
+    }
+    .activity-item-row:last-child {
+      border-bottom: none;
+      padding-bottom: 0;
+    }
+    .activity-item-row:first-child {
+      padding-top: 0;
+    }
+    .act-circle-icon {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 14px;
+      flex-shrink: 0;
+    }
+    .act-title {
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--text-900);
+      line-height: 1.3;
+    }
+    .act-sub {
+      font-size: 11.5px;
+      color: var(--text-500);
+      margin-top: 1px;
+    }
+    .act-time {
+      font-size: 11.5px;
+      color: var(--text-400);
+      white-space: nowrap;
+      margin-left: auto;
+    }
+
+    /* Platform Health Row */
+    .health-service-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 12px 0;
+      border-bottom: 1px solid var(--border-soft);
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--text-900);
+    }
+    .health-service-row:last-child {
+      border-bottom: none;
+      padding-bottom: 0;
+    }
+    .health-service-row:first-child {
+      padding-top: 0;
+    }
+
+    /* Kiosk Connectivity Donut */
+    .connectivity-wrap {
+      display: flex;
+      align-items: center;
+      justify-content: space-around;
+      gap: 16px;
+      height: 100%;
+      padding: 10px 0;
+    }
+
+    /* Bottom 2-Column Row */
+    .bottom-grid-2 {
+      display: grid;
+      grid-template-columns: 1.6fr 1fr;
+      gap: 18px;
+      margin-bottom: 20px;
+    }
+    @media (max-width: 1100px) {
+      .bottom-grid-2 {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    /* Quick Actions 2x3 Grid */
+    .quick-actions-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 12px;
+    }
+    .quick-action-card {
+      background: #ffffff;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 18px 10px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      gap: 10px;
+      cursor: pointer;
+      text-decoration: none;
+      transition: all 0.2s ease;
+    }
+    .quick-action-card:hover {
+      border-color: var(--blue-500);
+      background: #fafcff;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(37, 99, 235, 0.08);
+    }
+    .quick-action-icon {
+      font-size: 24px;
+      color: var(--blue-600);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 32px;
+    }
+    .quick-action-label {
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--text-900);
+      line-height: 1.2;
+    }
+
+    /* Clean Table Styling */
+    .ads-table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+    .ads-table th {
+      text-align: left;
+      font-size: 11.5px;
+      font-weight: 700;
+      color: var(--text-500);
+      padding: 10px 14px;
+      border-bottom: 1px solid var(--border-soft);
+      white-space: nowrap;
+    }
+    .ads-table td {
+      padding: 12px 14px;
+      font-size: 12.5px;
+      color: var(--text-700);
+      border-bottom: 1px solid var(--border-soft);
+    }
+    .ads-table tr:last-child td {
+      border-bottom: none;
+    }
+    .ads-table tr:hover td {
+      background: #fafbfd;
+    }
+
+    /* Page Footer */
+    .company-footer-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 20px 4px 10px 4px;
+      border-top: 1px solid var(--border);
+      font-size: 12px;
+      color: var(--text-500);
+      margin-top: 10px;
+    }
+  </style>
 </head>
 <body>
 <div class="app-shell">
-<aside class="sidebar">
-  <a href="dashboard.html" class="sidebar-brand" style="cursor:pointer;">
-    <div class="logo-icon"><svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-<path d="M12 2L21 7V17L12 22L3 17V7L12 2Z" stroke="white" stroke-width="1.6" stroke-linejoin="round"/>
-<circle cx="12" cy="12" r="3.2" fill="white"/>
-</svg></div>
-    <div class="brand-text"><div class="t1">KIOSK</div><div class="t2">PLATFORM</div></div>
-  </a>
-  <div class="sidebar-section-label">PLATFORM ADMIN <i class="fa-solid fa-chevron-up" style="font-size:9px;"></i></div>
-  <ul class="sidebar-nav">
-  <li class="nav-item active" onclick="location.href='dashboard.html'"><i class="fa-solid fa-house"></i><span>Dashboard</span></li>
-<li class="nav-item " onclick="location.href='clients.html'"><i class="fa-solid fa-user-group"></i><span>Clients</span></li>
-<li class="nav-item " onclick="location.href='projects.html'"><i class="fa-solid fa-folder-open"></i><span>Projects</span></li>
-<li class="nav-item " onclick="location.href='devices.html'"><i class="fa-solid fa-tablet-screen-button"></i><span>Devices</span></li>
-<li class="nav-item " onclick="location.href='templates.html'"><i class="fa-solid fa-table-cells-large"></i><span>Templates</span></li>
-<li class="nav-item " onclick="location.href='analytics.html'"><i class="fa-solid fa-chart-column"></i><span>Analytics</span></li>
-<li class="nav-item " onclick="location.href='monitoring.html'"><i class="fa-solid fa-heart-pulse"></i><span>Monitoring</span></li>
-<li class="nav-item " onclick="location.href='users-roles.html'"><i class="fa-solid fa-users-gear"></i><span>Users & Roles</span></li>
-<li class="nav-item " onclick="location.href='billing.html'"><i class="fa-solid fa-credit-card"></i><span>Billing & Plans</span></li>
-<li class="nav-item " onclick="location.href='audit-logs.html'"><i class="fa-solid fa-file-lines"></i><span>Audit Logs</span></li>
-<li class="nav-item " onclick="location.href='system-settings.html'"><i class="fa-solid fa-gear"></i><span>System Settings</span></li>
 
-  </ul>
-  <div class="sidebar-spacer"></div>
-  <div class="sidebar-status">
-    <div class="st-title">System Status</div>
-    <div class="st-row"><span class="st-dot"></span> All Systems Operational</div>
-    <div class="st-sub">Last checked: 2 min ago</div>
-    <a href="monitoring.html">View System Health</a>
-  </div>
-  <div class="sidebar-quick">
-    <div class="qa-title">Quick Actions</div>
-    <a class="qa-item" href="onboard-client.html"><i class="fa-solid fa-user-plus"></i> Onboard New Client</a>
-    <a class="qa-item" href="clients.html"><i class="fa-solid fa-cube"></i> View Clients</a>
-    <a class="qa-item" href="devices.html"><i class="fa-solid fa-tablet-screen-button"></i> View Devices</a>
-    <a class="qa-item" href="monitoring.html"><i class="fa-solid fa-triangle-exclamation"></i> View Alerts</a>
-  </div>
-  <div class="sidebar-footer">Kiosk Platform v1.0.0</div>
-</aside>
-<div class="main"><header class="topbar">
-  <i class="fa-solid fa-bars hamburger"></i>
-  <div class="search"><i class="fa-solid fa-magnifying-glass"></i><span>Search clients, projects, devices...</span><span class="kbd">⌘K</span></div>
-  <div class="spacer"></div>
-  <button class="icon-btn"><i class="fa-regular fa-circle-question"></i></button>
-  <button class="icon-btn"><i class="fa-regular fa-bell"></i><span class="badge-dot">12</span></button>
-  <div class="user">
-    <div class="avatar">SA</div>
-    <div><div class="u-name">Super Admin</div><div class="u-role">Platform Administrator</div></div>
-    <i class="fa-solid fa-chevron-down"></i>
-  </div>
-</header>
-<div class="content">
-<div class="page-header">
-  <div>
-    <h1>Platform Overview</h1>
-    <p>System-wide overview of your kiosk platform</p>
-  </div>
-  <div class="actions">
-    <div class="select-pill"><i class="fa-regular fa-calendar"></i> Aug 14 &ndash; Aug 20, 2026 <i class="fa-solid fa-chevron-down"></i></div>
-    <button class="btn btn-primary"><i class="fa-solid fa-rotate"></i> Refresh</button>
-  </div>
-</div>
-
-<div class="stats-grid">
-  <div class="stat-card"><div class="icon icon-blue"><i class="fa-solid fa-user-group"></i></div>
-    <div class="body"><div class="label">Total Clients</div><div class="value">18</div><div class="sub up">&uarr; 3 from last month</div></div></div>
-  <div class="stat-card"><div class="icon icon-green"><i class="fa-solid fa-shield-halved"></i></div>
-    <div class="body"><div class="label">Active Clients</div><div class="value">16</div><div class="sub up">&uarr; 2 from last month</div></div></div>
-  <div class="stat-card"><div class="icon icon-blue"><i class="fa-solid fa-folder-open"></i></div>
-    <div class="body"><div class="label">Total Projects</div><div class="value">64</div><div class="sub up">&uarr; 7 from last month</div></div></div>
-  <div class="stat-card"><div class="icon icon-purple"><i class="fa-solid fa-tablet-screen-button"></i></div>
-    <div class="body"><div class="label">Deployed Kiosks</div><div class="value">156</div><div class="sub up">&uarr; 12 from last month</div></div></div>
-  <div class="stat-card"><div class="icon icon-green"><i class="fa-solid fa-wifi"></i></div>
-    <div class="body"><div class="label">Online Kiosks</div><div class="value">142</div><div class="sub">91.0% of total</div></div></div>
-  <div class="stat-card"><div class="icon icon-amber"><i class="fa-solid fa-wave-square"></i></div>
-    <div class="body"><div class="label">Platform Uptime</div><div class="value">99.98%</div><div class="sub">Last 30 days</div></div></div>
-</div>
-
-<div class="grid-3">
-  <div class="panel" style="margin-bottom:0;">
-    <div class="panel-header"><div><h2 style="font-size:15px;">Kiosk Connectivity</h2></div></div>
-    <div style="padding:20px 22px;">
-      <div class="donut-row">
-        <svg width="130" height="130" viewBox="0 0 130 130">
-          <circle cx="65" cy="65" r="52" fill="none" stroke="#e2e8f0" stroke-width="16"/>
-          <circle cx="65" cy="65" r="52" fill="none" stroke="#22c55e" stroke-width="16" stroke-dasharray="298 326" stroke-dashoffset="0" transform="rotate(-90 65 65)"/>
-          <circle cx="65" cy="65" r="52" fill="none" stroke="#ef4444" stroke-width="16" stroke-dasharray="21 326" stroke-dashoffset="-298" transform="rotate(-90 65 65)"/>
-          <circle cx="65" cy="65" r="52" fill="none" stroke="#f59e0b" stroke-width="16" stroke-dasharray="8 326" stroke-dashoffset="-319" transform="rotate(-90 65 65)"/>
-          <text x="65" y="61" text-anchor="middle" font-size="22" font-weight="800" fill="#0f172a">156</text>
-          <text x="65" y="78" text-anchor="middle" font-size="10.5" fill="#64748b">Total</text>
+  <!-- Left Sidebar (Company Admin) -->
+  <aside class="sidebar" id="companySidebar">
+    <!-- Brand Header -->
+    <a href="dashboard.html" class="sidebar-brand" style="cursor:pointer;text-decoration:none;">
+      <div class="logo-icon" style="background:linear-gradient(135deg,#3b82f6,#1d4ed8);border-radius:10px;">
+        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style="width:20px;height:20px;">
+          <path d="M4 21V9l8-6 8 6v12H4z" stroke="white" stroke-width="1.8" stroke-linejoin="round"/>
+          <path d="M9 21V12h6v9" stroke="white" stroke-width="1.8"/>
+          <path d="M12 3v4" stroke="white" stroke-width="1.8"/>
         </svg>
-        <div>
-          <div class="legend-item"><span class="sw" style="background:#22c55e;"></span> Online &nbsp;142 (91.0%)</div>
-          <div class="legend-item"><span class="sw" style="background:#ef4444;"></span> Offline &nbsp;10 (6.4%)</div>
-          <div class="legend-item"><span class="sw" style="background:#f59e0b;"></span> Updating &nbsp;4 (2.6%)</div>
+      </div>
+      <div class="brand-text">
+        <div class="t1" style="font-size:14px;font-weight:700;color:#ffffff;line-height:1.2;">Mall Kiosk Platform</div>
+        <div class="t2" style="font-size:11px;color:#94a3b8;font-weight:500;">Company Admin</div>
+      </div>
+    </a>
+
+    <!-- Navigation Items -->
+    <ul class="sidebar-nav">
+      <li class="nav-item active" onclick="location.href='dashboard.html'">
+        <i class="fa-solid fa-house"></i>
+        <span>Dashboard</span>
+      </li>
+      <li class="nav-item" onclick="location.href='clients.html'">
+        <i class="fa-solid fa-user-group"></i>
+        <span>Clients</span>
+      </li>
+      <li class="nav-item" onclick="location.href='onboard-client.html'">
+        <i class="fa-solid fa-wand-magic-sparkles"></i>
+        <span>Onboarding</span>
+      </li>
+      <li class="nav-item" onclick="location.href='templates.html'">
+        <i class="fa-regular fa-file-lines"></i>
+        <span>Templates</span>
+      </li>
+      <li class="nav-item" onclick="location.href='projects.html'">
+        <i class="fa-solid fa-folder-open"></i>
+        <span>Projects</span>
+      </li>
+      <li class="nav-item" onclick="location.href='requests.html'" style="display:flex;align-items:center;justify-content:space-between;">
+        <div style="display:flex;align-items:center;gap:10px;">
+          <i class="fa-regular fa-clipboard"></i>
+          <span>Requests</span>
         </div>
-      </div>
-      <a class="link-blue" href="devices.html" style="display:block;text-align:center;margin-top:16px;">View All Devices &rarr;</a>
-    </div>
-  </div>
+        <span class="badge" style="background:#2563eb;color:#fff;font-size:10px;padding:2px 7px;border-radius:999px;font-weight:700;">16</span>
+      </li>
+      <li class="nav-item" onclick="location.href='experience-studio.html'">
+        <i class="fa-solid fa-palette"></i>
+        <span>Experience Studio</span>
+      </li>
+      <li class="nav-item" onclick="location.href='releases.html'">
+        <i class="fa-solid fa-rocket"></i>
+        <span>Releases</span>
+      </li>
+      <li class="nav-item" onclick="location.href='devices.html'">
+        <i class="fa-solid fa-display"></i>
+        <span>Devices</span>
+      </li>
+      <li class="nav-item" onclick="location.href='monitoring.html'">
+        <i class="fa-solid fa-chart-line"></i>
+        <span>Monitoring</span>
+      </li>
+      <li class="nav-item" onclick="location.href='analytics.html'">
+        <i class="fa-solid fa-chart-column"></i>
+        <span>Analytics</span>
+      </li>
+      <li class="nav-item" onclick="location.href='system-settings.html'">
+        <i class="fa-solid fa-gear"></i>
+        <span>Settings</span>
+      </li>
+      <li class="nav-item" onclick="location.href='users-roles.html'">
+        <i class="fa-solid fa-user-shield"></i>
+        <span>Users & Roles</span>
+      </li>
+    </ul>
 
-  <div class="panel" style="margin-bottom:0;">
-    <div class="panel-header"><div><h2 style="font-size:15px;">Kiosk Status Over Time</h2></div><div class="select-pill">Last 7 Days <i class="fa-solid fa-chevron-down"></i></div></div>
-    <div style="padding:16px 20px 4px;">
-      <svg width="100%" height="170" viewBox="0 0 320 170" preserveAspectRatio="none">
-        <polyline points="10,55 60,45 110,42 160,40 210,32 260,34" fill="none" stroke="#22c55e" stroke-width="2.5"/>
-        <polyline points="10,140 60,142 110,138 160,141 210,135 260,138" fill="none" stroke="#ef4444" stroke-width="2.5"/>
-        <polyline points="10,150 60,150 110,150 160,149 210,150 260,150" fill="none" stroke="#f59e0b" stroke-width="2.5"/>
-      </svg>
-      <div style="display:flex;justify-content:space-between;font-size:10.5px;color:var(--text-400);padding:0 4px 10px;">
-        <span>Aug 14</span><span>Aug 15</span><span>Aug 16</span><span>Aug 17</span><span>Aug 18</span><span>Aug 19</span><span>Aug 20</span>
-      </div>
-      <a class="link-blue" href="monitoring.html" style="display:block;text-align:center;margin-top:6px;">View Detailed Analytics &rarr;</a>
-    </div>
-  </div>
+    <div class="sidebar-spacer"></div>
 
-  <div class="panel" style="margin-bottom:0;">
-    <div class="panel-header"><div><h2 style="font-size:15px;">Projects by Status</h2></div></div>
-    <div style="padding:20px 22px;">
-      <div class="donut-row">
-        <svg width="130" height="130" viewBox="0 0 130 130">
-          <circle cx="65" cy="65" r="52" fill="none" stroke="#22c55e" stroke-width="16" stroke-dasharray="193 326" transform="rotate(-90 65 65)"/>
-          <circle cx="65" cy="65" r="52" fill="none" stroke="#3b82f6" stroke-width="16" stroke-dasharray="82 326" stroke-dashoffset="-193" transform="rotate(-90 65 65)"/>
-          <circle cx="65" cy="65" r="52" fill="none" stroke="#cbd5e1" stroke-width="16" stroke-dasharray="31 326" stroke-dashoffset="-275" transform="rotate(-90 65 65)"/>
-          <circle cx="65" cy="65" r="52" fill="none" stroke="#f59e0b" stroke-width="16" stroke-dasharray="20 326" stroke-dashoffset="-306" transform="rotate(-90 65 65)"/>
-          <text x="65" y="61" text-anchor="middle" font-size="22" font-weight="800" fill="#0f172a">64</text>
-          <text x="65" y="78" text-anchor="middle" font-size="10.5" fill="#64748b">Total</text>
-        </svg>
-        <div>
-          <div class="legend-item"><span class="sw" style="background:#22c55e;"></span> Active &nbsp;38 (59.4%)</div>
-          <div class="legend-item"><span class="sw" style="background:#3b82f6;"></span> Draft &nbsp;16 (25.0%)</div>
-          <div class="legend-item"><span class="sw" style="background:#cbd5e1;"></span> Archived &nbsp;6 (9.4%)</div>
-          <div class="legend-item"><span class="sw" style="background:#f59e0b;"></span> Paused &nbsp;4 (6.2%)</div>
+    <!-- Collapse Toggle -->
+    <div class="sidebar-collapse-btn" onclick="toggleSidebarCollapse()" style="display:flex;align-items:center;gap:8px;padding:10px 12px;color:#94a3b8;font-size:13px;cursor:pointer;border-radius:8px;transition:all 0.2s ease;">
+      <i class="fa-solid fa-chevron-left" style="font-size:11px;"></i>
+      <span>Collapse</span>
+    </div>
+  </aside>
+
+  <!-- Main Content Wrapper -->
+  <div class="main">
+    
+    <!-- Top Header Bar -->
+    <header class="topbar" style="background:#ffffff;border-bottom:1px solid var(--border);padding:14px 28px;">
+      <div style="display:flex;align-items:center;gap:14px;">
+        <i class="fa-solid fa-bars hamburger" onclick="toggleSidebarCollapse()" style="color:var(--text-500);cursor:pointer;font-size:17px;"></i>
+        <h1 style="font-size:19px;font-weight:800;color:var(--text-900);margin:0;">Company Dashboard</h1>
+      </div>
+
+      <div class="spacer"></div>
+
+      <!-- Search Box -->
+      <div style="position:relative;width:340px;">
+        <input 
+          type="text" 
+          placeholder="Search anything..." 
+          style="width:100%;padding:9px 38px 9px 14px;border:1px solid var(--border);border-radius:9px;font-size:13px;outline:none;background:#fafbfc;color:var(--text-700);"
+        >
+        <i class="fa-solid fa-magnifying-glass" style="position:absolute;right:14px;top:50%;transform:translateY(-50%);color:var(--text-400);font-size:13px;"></i>
+      </div>
+
+      <!-- Notification Bell -->
+      <button class="icon-btn" style="position:relative;width:38px;height:38px;border-radius:9px;border:1px solid transparent;">
+        <i class="fa-regular fa-bell" style="font-size:18px;color:var(--text-700);"></i>
+        <span style="position:absolute;top:2px;right:2px;background:#ef4444;color:#fff;font-size:9.5px;font-weight:700;border-radius:50%;width:16px;height:16px;display:flex;align-items:center;justify-content:center;border:2px solid #fff;">12</span>
+      </button>
+
+      <!-- User Profile -->
+      <div class="user" style="display:flex;align-items:center;gap:10px;cursor:pointer;padding:4px 8px;border-radius:8px;">
+        <div class="avatar" style="width:34px;height:34px;border-radius:50%;background:#1e293b;color:#fff;font-weight:700;font-size:12px;display:flex;align-items:center;justify-content:center;">
+          CA
         </div>
+        <span style="font-size:13.5px;font-weight:700;color:var(--text-900);">Company Admin</span>
+        <i class="fa-solid fa-chevron-down" style="font-size:10px;color:var(--text-400);margin-left:2px;"></i>
       </div>
-      <a class="link-blue" href="projects.html" style="display:block;text-align:center;margin-top:16px;">View All Projects &rarr;</a>
+    </header>
+
+    <!-- Page Content Container -->
+    <div class="content" style="padding:22px 28px 40px 28px;background:var(--bg);flex:1;">
+
+      <!-- ROW 1: 6 KPI Cards Grid -->
+      <div class="company-stats-grid">
+        
+        <!-- KPI 1: Total Clients -->
+        <div class="kpi-card" onclick="location.href='clients.html'" style="cursor:pointer;">
+          <div class="kpi-icon-box" style="background:#f5f3ff;color:#7c3aed;border:1px solid #ede9fe;">
+            <i class="fa-solid fa-users"></i>
+          </div>
+          <div class="kpi-content">
+            <div class="kpi-title">Total Clients</div>
+            <div class="kpi-number">18</div>
+            <div class="kpi-subtext">Active: 16 &nbsp; Inactive: 2</div>
+          </div>
+        </div>
+
+        <!-- KPI 2: Active Projects -->
+        <div class="kpi-card" onclick="location.href='projects.html'" style="cursor:pointer;">
+          <div class="kpi-icon-box" style="background:#eff6ff;color:#2563eb;border:1px solid #dbeafe;">
+            <i class="fa-solid fa-building"></i>
+          </div>
+          <div class="kpi-content">
+            <div class="kpi-title">Active Projects</div>
+            <div class="kpi-number">27</div>
+            <div class="kpi-subtext">Draft: 3 &nbsp; Paused: 2</div>
+          </div>
+        </div>
+
+        <!-- KPI 3: Total Kiosks -->
+        <div class="kpi-card" onclick="location.href='devices.html'" style="cursor:pointer;">
+          <div class="kpi-icon-box" style="background:#ecfdf5;color:#059669;border:1px solid #d1fae5;">
+            <i class="fa-solid fa-desktop"></i>
+          </div>
+          <div class="kpi-content">
+            <div class="kpi-title">Total Kiosks</div>
+            <div class="kpi-number">156</div>
+            <div class="kpi-subtext">Online: 142 &nbsp; Offline: 14</div>
+          </div>
+        </div>
+
+        <!-- KPI 4: Pending Requests -->
+        <div class="kpi-card" onclick="location.href='requests.html'" style="cursor:pointer;">
+          <div class="kpi-icon-box" style="background:#fff7ed;color:#ea580c;border:1px solid #ffedd5;">
+            <i class="fa-solid fa-arrow-trend-up"></i>
+          </div>
+          <div class="kpi-content">
+            <div class="kpi-title">Pending Requests</div>
+            <div class="kpi-number">24</div>
+            <div class="kpi-subtext">New: 8 &nbsp; In Progress: 16</div>
+          </div>
+        </div>
+
+        <!-- KPI 5: Pending Releases -->
+        <div class="kpi-card" onclick="location.href='releases.html'" style="cursor:pointer;">
+          <div class="kpi-icon-box" style="background:#fdf2f8;color:#db2777;border:1px solid #fce7f3;">
+            <i class="fa-solid fa-rocket"></i>
+          </div>
+          <div class="kpi-content">
+            <div class="kpi-title">Pending Releases</div>
+            <div class="kpi-number">5</div>
+            <div class="kpi-subtext">Ready: 3 &nbsp; Deploying: 2</div>
+          </div>
+        </div>
+
+        <!-- KPI 6: System Health -->
+        <div class="kpi-card" onclick="location.href='monitoring.html'" style="cursor:pointer;">
+          <div class="kpi-icon-box" style="background:#f0fdfa;color:#0d9488;border:1px solid #ccfbf1;">
+            <i class="fa-solid fa-heart-pulse"></i>
+          </div>
+          <div class="kpi-content">
+            <div class="kpi-title">System Health</div>
+            <div class="kpi-number" style="color:#16a34a;font-size:20px;">Healthy</div>
+            <div class="kpi-subtext">All Systems Operational</div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- ROW 2: 3-Column Operational Section -->
+      <div class="operational-grid-3">
+
+        <!-- Column 1: Recent Activity -->
+        <div class="op-panel">
+          <div class="op-panel-header">
+            <h2 class="op-panel-title">Recent Activity</h2>
+            <a href="clients.html" class="link-blue" style="font-size:12px;font-weight:600;">View All</a>
+          </div>
+          <div class="op-panel-body">
+            
+            <!-- Item 1 -->
+            <div class="activity-item-row">
+              <div class="act-circle-icon" style="background:#f5f3ff;color:#7c3aed;">
+                <i class="fa-solid fa-users"></i>
+              </div>
+              <div style="flex:1;">
+                <div class="act-title">New client "Phoenix Mall" onboarded</div>
+                <div class="act-sub">By Company Admin</div>
+              </div>
+              <div class="act-time">10:30 AM</div>
+            </div>
+
+            <!-- Item 2 -->
+            <div class="activity-item-row">
+              <div class="act-circle-icon" style="background:#fee2e2;color:#dc2626;">
+                <i class="fa-regular fa-file-lines"></i>
+              </div>
+              <div style="flex:1;">
+                <div class="act-title">Request #REQ-4821 submitted by Orion Mall</div>
+                <div class="act-sub">Advertisement Campaign</div>
+              </div>
+              <div class="act-time">09:45 AM</div>
+            </div>
+
+            <!-- Item 3 -->
+            <div class="activity-item-row">
+              <div class="act-circle-icon" style="background:#eff6ff;color:#2563eb;">
+                <i class="fa-solid fa-paper-plane"></i>
+              </div>
+              <div style="flex:1;">
+                <div class="act-title">Release v1.42 published for Phoenix Mall</div>
+                <div class="act-sub">By Release Manager</div>
+              </div>
+              <div class="act-time">Yesterday</div>
+            </div>
+
+            <!-- Item 4 -->
+            <div class="activity-item-row">
+              <div class="act-circle-icon" style="background:#ecfdf5;color:#059669;">
+                <i class="fa-solid fa-desktop"></i>
+              </div>
+              <div style="flex:1;">
+                <div class="act-title">Kiosk K-104 (Phoenix Mall) came back online</div>
+                <div class="act-sub">Status updated to active</div>
+              </div>
+              <div class="act-time">Today, 08:15 AM</div>
+            </div>
+
+            <!-- Item 5 -->
+            <div class="activity-item-row">
+              <div class="act-circle-icon" style="background:#fff7ed;color:#ea580c;">
+                <i class="fa-solid fa-palette"></i>
+              </div>
+              <div style="flex:1;">
+                <div class="act-title">Theme "Diwali 2024" assigned to Orion Mall</div>
+                <div class="act-sub">By Company Admin</div>
+              </div>
+              <div class="act-time">Yesterday</div>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- Column 2: Platform Health -->
+        <div class="op-panel">
+          <div class="op-panel-header">
+            <h2 class="op-panel-title">Platform Health</h2>
+            <a href="monitoring.html" class="link-blue" style="font-size:12px;font-weight:600;">View Details</a>
+          </div>
+          <div class="op-panel-body" style="display:flex;flex-direction:column;justify-content:space-between;">
+            
+            <div class="health-service-row">
+              <span>API Service</span>
+              <span class="badge badge-green" style="font-size:11.5px;padding:3px 10px;border-radius:6px;font-weight:700;">Healthy</span>
+            </div>
+
+            <div class="health-service-row">
+              <span>Database</span>
+              <span class="badge badge-green" style="font-size:11.5px;padding:3px 10px;border-radius:6px;font-weight:700;">Healthy</span>
+            </div>
+
+            <div class="health-service-row">
+              <span>Storage (S3)</span>
+              <span class="badge badge-green" style="font-size:11.5px;padding:3px 10px;border-radius:6px;font-weight:700;">Healthy</span>
+            </div>
+
+            <div class="health-service-row">
+              <span>CDN (CloudFront)</span>
+              <span class="badge badge-green" style="font-size:11.5px;padding:3px 10px;border-radius:6px;font-weight:700;">Healthy</span>
+            </div>
+
+            <div class="health-service-row">
+              <span>Release Service</span>
+              <span class="badge badge-amber" style="font-size:11.5px;padding:3px 10px;border-radius:6px;font-weight:700;background:#fff7ed;color:#ea580c;border:1px solid #ffedd5;">Warning</span>
+            </div>
+
+            <div class="health-service-row">
+              <span>Analytics Service</span>
+              <span class="badge badge-green" style="font-size:11.5px;padding:3px 10px;border-radius:6px;font-weight:700;">Healthy</span>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- Column 3: Kiosk Connectivity -->
+        <div class="op-panel">
+          <div class="op-panel-header">
+            <h2 class="op-panel-title">Kiosk Connectivity</h2>
+            <a href="devices.html" class="link-blue" style="font-size:12px;font-weight:600;">View All</a>
+          </div>
+          <div class="op-panel-body">
+            <div class="connectivity-wrap">
+              
+              <!-- Donut Chart -->
+              <svg width="150" height="150" viewBox="0 0 150 150">
+                <!-- Base Background Ring -->
+                <circle cx="75" cy="75" r="54" fill="none" stroke="#e2e8f0" stroke-width="16"/>
+                <!-- Green Online Segment: 91% (308 of 339.29) -->
+                <circle cx="75" cy="75" r="54" fill="none" stroke="#22c55e" stroke-width="16" 
+                        stroke-dasharray="308.7 339.3" stroke-dashoffset="0" transform="rotate(-90 75 75)"/>
+                <!-- Red Offline Segment: 9% (30.6 of 339.29) -->
+                <circle cx="75" cy="75" r="54" fill="none" stroke="#ef4444" stroke-width="16" 
+                        stroke-dasharray="30.6 339.3" stroke-dashoffset="-308.7" transform="rotate(-90 75 75)"/>
+                
+                <!-- Center Typography -->
+                <text x="75" y="72" text-anchor="middle" font-size="24" font-weight="800" fill="#0f172a" font-family="'Inter', sans-serif">156</text>
+                <text x="75" y="88" text-anchor="middle" font-size="11.5" font-weight="500" fill="#64748b" font-family="'Inter', sans-serif">Total</text>
+              </svg>
+
+              <!-- Legend List -->
+              <div style="display:flex;flex-direction:column;gap:12px;">
+                <div style="display:flex;align-items:flex-start;gap:8px;">
+                  <span style="width:10px;height:10px;border-radius:50%;background:#22c55e;margin-top:4px;flex-shrink:0;"></span>
+                  <div>
+                    <div style="font-size:13px;font-weight:700;color:var(--text-900);">Online</div>
+                    <div style="font-size:12px;color:var(--text-500);">142 (91.0%)</div>
+                  </div>
+                </div>
+
+                <div style="display:flex;align-items:flex-start;gap:8px;">
+                  <span style="width:10px;height:10px;border-radius:50%;background:#ef4444;margin-top:4px;flex-shrink:0;"></span>
+                  <div>
+                    <div style="font-size:13px;font-weight:700;color:var(--text-900);">Offline</div>
+                    <div style="font-size:12px;color:var(--text-500);">14 (9.0%)</div>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- ROW 3: Bottom 2-Column Section (Top Performing Advertisements & Quick Actions) -->
+      <div class="bottom-grid-2">
+
+        <!-- Column 1: Top Performing Advertisements (Last 7 Days) -->
+        <div class="op-panel">
+          <div class="op-panel-header">
+            <div>
+              <h2 class="op-panel-title" style="display:inline-block;">Top Performing Advertisements</h2>
+              <span style="font-size:12px;color:var(--text-500);font-weight:500;margin-left:4px;">(Last 7 Days)</span>
+            </div>
+            <a href="analytics.html" class="link-blue" style="font-size:12px;font-weight:600;">View All</a>
+          </div>
+          <div class="op-panel-body" style="padding:4px 12px 14px 12px;overflow-x:auto;">
+            <table class="ads-table">
+              <thead>
+                <tr>
+                  <th style="width:30px;">#</th>
+                  <th>Campaign Name</th>
+                  <th>Client</th>
+                  <th style="text-align:right;">Impressions</th>
+                  <th style="text-align:right;">Clicks</th>
+                  <th style="text-align:right;">CTR</th>
+                  <th style="text-align:right;">Interactions</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td style="font-weight:600;color:var(--text-400);">1</td>
+                  <td style="font-weight:600;color:var(--text-900);">Adidas Festival Offer</td>
+                  <td style="color:var(--text-600);">Phoenix Mall</td>
+                  <td style="text-align:right;font-weight:600;">12,845</td>
+                  <td style="text-align:right;">2,314</td>
+                  <td style="text-align:right;font-weight:700;color:var(--text-900);">18.02%</td>
+                  <td style="text-align:right;color:var(--text-600);">3,421</td>
+                </tr>
+                <tr>
+                  <td style="font-weight:600;color:var(--text-400);">2</td>
+                  <td style="font-weight:600;color:var(--text-900);">Food Court Combo Offer</td>
+                  <td style="color:var(--text-600);">Orion Mall</td>
+                  <td style="text-align:right;font-weight:600;">9,532</td>
+                  <td style="text-align:right;">1,623</td>
+                  <td style="text-align:right;font-weight:700;color:var(--text-900);">17.03%</td>
+                  <td style="text-align:right;color:var(--text-600);">2,310</td>
+                </tr>
+                <tr>
+                  <td style="font-weight:600;color:var(--text-400);">3</td>
+                  <td style="font-weight:600;color:var(--text-900);">Diwali Mega Sale</td>
+                  <td style="color:var(--text-600);">Skyline Mall</td>
+                  <td style="text-align:right;font-weight:600;">8,421</td>
+                  <td style="text-align:right;">1,402</td>
+                  <td style="text-align:right;font-weight:700;color:var(--text-900);">16.65%</td>
+                  <td style="text-align:right;color:var(--text-600);">1,985</td>
+                </tr>
+                <tr>
+                  <td style="font-weight:600;color:var(--text-400);">4</td>
+                  <td style="font-weight:600;color:var(--text-900);">Weekend Special Offer</td>
+                  <td style="color:var(--text-600);">Phoenix Mall</td>
+                  <td style="text-align:right;font-weight:600;">6,954</td>
+                  <td style="text-align:right;">1,108</td>
+                  <td style="text-align:right;font-weight:700;color:var(--text-900);">15.94%</td>
+                  <td style="text-align:right;color:var(--text-600);">1,702</td>
+                </tr>
+                <tr>
+                  <td style="font-weight:600;color:var(--text-400);">5</td>
+                  <td style="font-weight:600;color:var(--text-900);">New Store Launch</td>
+                  <td style="color:var(--text-600);">Orion Mall</td>
+                  <td style="text-align:right;font-weight:600;">6,210</td>
+                  <td style="text-align:right;">987</td>
+                  <td style="text-align:right;font-weight:700;color:var(--text-900);">15.90%</td>
+                  <td style="text-align:right;color:var(--text-600);">1,455</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- Column 2: Quick Actions -->
+        <div class="op-panel">
+          <div class="op-panel-header">
+            <h2 class="op-panel-title">Quick Actions</h2>
+          </div>
+          <div class="op-panel-body" style="padding:16px;">
+            <div class="quick-actions-grid">
+              
+              <!-- Action 1: Onboard Client -->
+              <a href="onboard-client.html" class="quick-action-card">
+                <div class="quick-action-icon">
+                  <i class="fa-solid fa-user-plus"></i>
+                </div>
+                <div class="quick-action-label">Onboard Client</div>
+              </a>
+
+              <!-- Action 2: Create Project -->
+              <a href="projects.html" class="quick-action-card">
+                <div class="quick-action-icon">
+                  <i class="fa-solid fa-building-circle-check"></i>
+                </div>
+                <div class="quick-action-label">Create Project</div>
+              </a>
+
+              <!-- Action 3: New Request -->
+              <a href="requests.html" class="quick-action-card">
+                <div class="quick-action-icon">
+                  <i class="fa-solid fa-file-circle-plus"></i>
+                </div>
+                <div class="quick-action-label">New Request</div>
+              </a>
+
+              <!-- Action 4: Experience Studio -->
+              <a href="experience-studio.html" class="quick-action-card">
+                <div class="quick-action-icon">
+                  <i class="fa-solid fa-palette"></i>
+                </div>
+                <div class="quick-action-label">Experience Studio</div>
+              </a>
+
+              <!-- Action 5: Create Release -->
+              <a href="releases.html" class="quick-action-card">
+                <div class="quick-action-icon">
+                  <i class="fa-solid fa-rocket"></i>
+                </div>
+                <div class="quick-action-label">Create Release</div>
+              </a>
+
+              <!-- Action 6: Add Device -->
+              <a href="devices.html" class="quick-action-card">
+                <div class="quick-action-icon">
+                  <i class="fa-solid fa-display"></i>
+                </div>
+                <div class="quick-action-label">Add Device</div>
+              </a>
+
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Page Footer Row -->
+      <div class="company-footer-row">
+        <div>&copy; 2025 Mall Kiosk Platform. All rights reserved.</div>
+        <div style="color:var(--text-400);">v1.0.0 &nbsp;|&nbsp; May 2025</div>
+      </div>
+
     </div>
   </div>
+
 </div>
 
-<div class="grid-2">
-  <div class="panel" style="margin-bottom:0;">
-    <div class="panel-header"><h2 style="font-size:15px;">Recent Client Activity</h2><a class="link-blue" href="clients.html">View All Activity &rarr;</a></div>
-    <div style="padding:6px 22px 16px;">
-      <div class="mini-activity-row"><div class="act-icon icon-blue"><i class="fa-solid fa-building"></i></div>
-        <div style="flex:1;"><b>Phoenix Mall</b><div class="muted">Published Release 43</div></div><div class="muted">John Admin</div><div class="muted" style="white-space:nowrap;">10 min ago</div></div>
-      <div class="mini-activity-row"><div class="act-icon icon-green"><i class="fa-solid fa-arrows-rotate"></i></div>
-        <div style="flex:1;"><b>City Center Mall</b><div class="muted">Kiosk Sync Completed</div></div><div class="muted">Sarah Manager</div><div class="muted" style="white-space:nowrap;">25 min ago</div></div>
-      <div class="mini-activity-row"><div class="act-icon icon-purple"><i class="fa-solid fa-folder-plus"></i></div>
-        <div style="flex:1;"><b>Grand Plaza</b><div class="muted">New Project Created</div></div><div class="muted">Michael Admin</div><div class="muted" style="white-space:nowrap;">1 hour ago</div></div>
-      <div class="mini-activity-row"><div class="act-icon icon-amber"><i class="fa-solid fa-map"></i></div>
-        <div style="flex:1;"><b>Lakeside Mall</b><div class="muted">Map Updated for Level 2</div></div><div class="muted">Emily Editor</div><div class="muted" style="white-space:nowrap;">2 hours ago</div></div>
-      <div class="mini-activity-row"><div class="act-icon icon-blue"><i class="fa-solid fa-bullhorn"></i></div>
-        <div style="flex:1;"><b>Downtown Mall</b><div class="muted">Advertisement Campaign Updated</div></div><div class="muted">David Manager</div><div class="muted" style="white-space:nowrap;">3 hours ago</div></div>
-    </div>
-  </div>
-
-  <div class="panel" style="margin-bottom:0;">
-    <div class="panel-header"><h2 style="font-size:15px;">Top Clients by Kiosk Count</h2><a class="link-blue" href="clients.html">View All Clients &rarr;</a></div>
-    <div style="padding:14px 22px 18px;">
-      <div class="bar-item"><div class="bar-top"><span>Phoenix Mall</span><span>32</span></div><div class="bar-track"><div class="bar-fill" style="width:100%;"></div></div></div>
-      <div class="bar-item"><div class="bar-top"><span>City Center Mall</span><span>24</span></div><div class="bar-track"><div class="bar-fill" style="width:75%;"></div></div></div>
-      <div class="bar-item"><div class="bar-top"><span>Grand Plaza</span><span>20</span></div><div class="bar-track"><div class="bar-fill" style="width:62%;"></div></div></div>
-      <div class="bar-item"><div class="bar-top"><span>Lakeside Mall</span><span>16</span></div><div class="bar-track"><div class="bar-fill" style="width:50%;"></div></div></div>
-      <div class="bar-item"><div class="bar-top"><span>Downtown Mall</span><span>14</span></div><div class="bar-track"><div class="bar-fill" style="width:44%;"></div></div></div>
-      <div class="bar-item"><div class="bar-top"><span>Westfield Mall</span><span>10</span></div><div class="bar-track"><div class="bar-fill" style="width:31%;"></div></div></div>
-    </div>
-  </div>
-</div>
-
-<div class="panel">
-  <div class="panel-header"><h2 style="font-size:15px;">System Alerts</h2><a class="link-blue" href="monitoring.html">View All Alerts &rarr;</a></div>
-  <div style="padding:6px 22px 16px;">
-    <div class="alert-row"><div class="act-icon icon-red"><i class="fa-solid fa-triangle-exclamation"></i></div>
-      <div><b>4 kiosks require updates</b><div class="muted">High Priority</div></div><div class="alert-count" style="color:#dc2626;">4</div></div>
-    <div class="alert-row"><div class="act-icon icon-amber"><i class="fa-solid fa-triangle-exclamation"></i></div>
-      <div><b>2 kiosks offline &gt; 24h</b><div class="muted">Medium Priority</div></div><div class="alert-count" style="color:#d97706;">2</div></div>
-    <div class="alert-row"><div class="act-icon icon-amber"><i class="fa-solid fa-triangle-exclamation"></i></div>
-      <div><b>Low storage on 3 kiosks</b><div class="muted">Medium Priority</div></div><div class="alert-count" style="color:#d97706;">3</div></div>
-    <div class="alert-row"><div class="act-icon icon-blue"><i class="fa-solid fa-circle-info"></i></div>
-      <div><b>1 project validation failed</b><div class="muted">Low Priority</div></div><div class="alert-count" style="color:#2563eb;">1</div></div>
-  </div>
-</div>
-
-<div class="footer-stats">
-  <div class="fstat"><div class="icon icon-blue"><i class="fa-solid fa-cloud"></i></div><div><div class="label">Total Data Storage</div><div class="value">512 GB <small>/ 2 TB</small></div><div class="label">25.6% used</div></div></div>
-  <div class="fstat"><div class="icon icon-green"><i class="fa-solid fa-folder"></i></div><div><div class="label">Media Storage (S3)</div><div class="value">1.24 TB</div><div class="label">Images, videos, maps</div></div></div>
-  <div class="fstat"><div class="icon icon-purple"><i class="fa-solid fa-code"></i></div><div><div class="label">API Requests (Today)</div><div class="value">128,540</div><div class="label" style="color:#16a34a;">+18.5% vs yesterday</div></div></div>
-  <div class="fstat"><div class="icon icon-blue"><i class="fa-solid fa-wifi"></i></div><div><div class="label">Data Transfer (Today)</div><div class="value">43.2 GB</div><div class="label" style="color:#16a34a;">+12.3% vs yesterday</div></div></div>
-  <div class="fstat"><div class="icon icon-green"><i class="fa-solid fa-clock"></i></div><div><div class="label">Avg. Response Time</div><div class="value">215 ms</div><div class="label">Excellent</div></div></div>
-</div>
-</div></div>
-</div>
+<script>
+function toggleSidebarCollapse() {
+  const sidebar = document.getElementById('companySidebar');
+  if (sidebar) {
+    sidebar.classList.toggle('collapsed');
+    if (sidebar.classList.contains('collapsed')) {
+      sidebar.style.width = '70px';
+      sidebar.style.flex = '0 0 70px';
+      document.querySelectorAll('.sidebar .brand-text, .sidebar-nav span, .sidebar-nav .badge, .sidebar-collapse-btn span').forEach(el => el.style.display = 'none');
+    } else {
+      sidebar.style.width = '240px';
+      sidebar.style.flex = '0 0 240px';
+      document.querySelectorAll('.sidebar .brand-text, .sidebar-nav span, .sidebar-nav .badge, .sidebar-collapse-btn span').forEach(el => el.style.display = '');
+    }
+  }
+}
+</script>
 </body>
 </html>

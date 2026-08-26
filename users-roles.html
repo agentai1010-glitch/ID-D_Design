@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Users & Roles · Mall Kiosk Platform</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+<div class="app-shell">
+
+  <!-- Left Sidebar -->
+  <aside class="sidebar">
+    <a href="dashboard.html" class="sidebar-brand" style="cursor:pointer;text-decoration:none;">
+      <div class="logo-icon" style="background:linear-gradient(135deg,#3b82f6,#1d4ed8);border-radius:10px;">
+        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style="width:20px;height:20px;">
+          <path d="M4 21V9l8-6 8 6v12H4z" stroke="white" stroke-width="1.8" stroke-linejoin="round"/>
+          <path d="M9 21V12h6v9" stroke="white" stroke-width="1.8"/>
+          <path d="M12 3v4" stroke="white" stroke-width="1.8"/>
+        </svg>
+      </div>
+      <div class="brand-text">
+        <div class="t1" style="font-size:14px;font-weight:700;color:#ffffff;line-height:1.2;">Mall Kiosk Platform</div>
+        <div class="t2" style="font-size:11px;color:#94a3b8;font-weight:500;">Company Admin</div>
+      </div>
+    </a>
+
+    <ul class="sidebar-nav">
+      <li class="nav-item" onclick="location.href='dashboard.html'"><i class="fa-solid fa-house"></i><span>Dashboard</span></li>
+      <li class="nav-item" onclick="location.href='clients.html'"><i class="fa-solid fa-user-group"></i><span>Clients</span></li>
+      <li class="nav-item" onclick="location.href='onboard-client.html'"><i class="fa-solid fa-wand-magic-sparkles"></i><span>Onboarding</span></li>
+      <li class="nav-item" onclick="location.href='templates.html'"><i class="fa-regular fa-file-lines"></i><span>Templates</span></li>
+      <li class="nav-item" onclick="location.href='projects.html'"><i class="fa-solid fa-folder-open"></i><span>Projects</span></li>
+      <li class="nav-item" onclick="location.href='requests.html'" style="display:flex;align-items:center;justify-content:space-between;">
+        <div style="display:flex;align-items:center;gap:10px;"><i class="fa-regular fa-clipboard"></i><span>Requests</span></div>
+        <span class="badge" style="background:#2563eb;color:#fff;font-size:10px;padding:2px 7px;border-radius:999px;font-weight:700;">16</span>
+      </li>
+      <li class="nav-item" onclick="location.href='experience-studio.html'"><i class="fa-solid fa-palette"></i><span>Experience Studio</span></li>
+      <li class="nav-item" onclick="location.href='releases.html'"><i class="fa-solid fa-rocket"></i><span>Releases</span></li>
+      <li class="nav-item" onclick="location.href='devices.html'"><i class="fa-solid fa-display"></i><span>Devices</span></li>
+      <li class="nav-item" onclick="location.href='monitoring.html'"><i class="fa-solid fa-chart-line"></i><span>Monitoring</span></li>
+      <li class="nav-item" onclick="location.href='analytics.html'"><i class="fa-solid fa-chart-column"></i><span>Analytics</span></li>
+      <li class="nav-item" onclick="location.href='system-settings.html'"><i class="fa-solid fa-gear"></i><span>Settings</span></li>
+      <li class="nav-item active" onclick="location.href='users-roles.html'"><i class="fa-solid fa-user-shield"></i><span>Users & Roles</span></li>
+    </ul>
+
+    <div class="sidebar-spacer"></div>
+    <div class="sidebar-collapse-btn" style="display:flex;align-items:center;gap:8px;padding:10px 12px;color:#94a3b8;font-size:13px;cursor:pointer;">
+      <i class="fa-solid fa-chevron-left" style="font-size:11px;"></i>
+      <span>Collapse</span>
+    </div>
+  </aside>
+
+  <!-- Main Content -->
+  <div class="main">
+    <header class="topbar">
+      <div style="display:flex;align-items:center;gap:14px;">
+        <i class="fa-solid fa-bars hamburger"></i>
+        <h1 style="font-size:19px;font-weight:800;color:var(--text-900);margin:0;">Users & Access Roles</h1>
+      </div>
+      <div class="spacer"></div>
+      <div class="user">
+        <div class="avatar" style="background:#1e293b;color:#fff;font-weight:700;font-size:12px;">CA</div>
+        <span style="font-size:13.5px;font-weight:700;">Company Admin</span>
+      </div>
+    </header>
+
+    <div class="content" style="padding:24px 28px;">
+      <div class="page-header" style="margin-bottom:20px;">
+        <div>
+          <div class="breadcrumb"><a href="dashboard.html">Dashboard</a> <i class="fa-solid fa-chevron-right"></i> <span>Users & Roles</span></div>
+          <h1>Platform User Management</h1>
+          <p>Manage Company Administrators, Venue Managers, and support staff access levels</p>
+        </div>
+        <div class="actions">
+          <button class="btn btn-primary"><i class="fa-solid fa-user-plus"></i> Invite User</button>
+        </div>
+      </div>
+
+      <!-- Users Table -->
+      <div class="panel">
+        <div class="panel-header">
+          <h2>Platform Users</h2>
+          <div class="search-input"><i class="fa-solid fa-magnifying-glass"></i> Search users...</div>
+        </div>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>User</th>
+                <th>Role</th>
+                <th>Assigned Venues</th>
+                <th>Status</th>
+                <th>Last Active</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>
+                  <div class="cell-main">
+                    <div class="avatar" style="background:#3b82f6;color:#fff;font-weight:700;width:36px;height:36px;border-radius:50%;display:flex;align-items:center;justify-content:center;">CA</div>
+                    <div>
+                      <div class="cell-title">Company Super Admin</div>
+                      <div class="cell-sub">admin@mallkioskplatform.com</div>
+                    </div>
+                  </div>
+                </td>
+                <td><span class="badge badge-purple">Super Admin</span></td>
+                <td>Global (All 18 Venues)</td>
+                <td><span class="badge badge-green"><span class="dot"></span> Active</span></td>
+                <td>Just now</td>
+                <td><button class="btn btn-sm">Edit</button></td>
+              </tr>
+              <tr>
+                <td>
+                  <div class="cell-main">
+                    <div class="avatar" style="background:#10b981;color:#fff;font-weight:700;width:36px;height:36px;border-radius:50%;display:flex;align-items:center;justify-content:center;">RA</div>
+                    <div>
+                      <div class="cell-title">Rahul Arora</div>
+                      <div class="cell-sub">rahul.arora@phoenixmall.com</div>
+                    </div>
+                  </div>
+                </td>
+                <td><span class="badge badge-blue">Client Admin</span></td>
+                <td>Phoenix Mall Mumbai</td>
+                <td><span class="badge badge-green"><span class="dot"></span> Active</span></td>
+                <td>10 min ago</td>
+                <td><button class="btn btn-sm">Edit</button></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</body>
+</html>
