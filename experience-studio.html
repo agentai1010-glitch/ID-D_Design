@@ -4,16 +4,210 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Experience Studio · Mall Kiosk Platform</title>
+  <!-- Google Fonts & Font Awesome -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
   <link rel="stylesheet" href="css/styles.css">
+  <style>
+    /* Workflow Domain 6 - Experience Studio Styling */
+    .studio-kpi-grid {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 16px;
+      margin-bottom: 20px;
+    }
+
+    .kpi-stat-box {
+      background: #ffffff;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 16px;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+    }
+
+    .kpi-icon-square {
+      width: 44px;
+      height: 44px;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+      flex-shrink: 0;
+    }
+
+    /* Main Row 2: 2-Column Split */
+    .studio-main-split {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) 350px;
+      gap: 20px;
+      align-items: start;
+      margin-bottom: 20px;
+    }
+
+    /* Experience Structure Internal Sub-Split */
+    .exp-structure-container {
+      display: grid;
+      grid-template-columns: 240px minmax(0, 1fr);
+      gap: 20px;
+      align-items: start;
+    }
+
+    /* Screen Map Canvas & Visual Tree */
+    .screen-map-canvas {
+      background: #f8fafc;
+      border: 1px solid #e2e8f0;
+      border-radius: 12px;
+      padding: 20px 16px;
+      position: relative;
+      overflow-x: auto;
+      min-height: 380px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .map-node {
+      background: #ffffff;
+      border: 1px solid #cbd5e1;
+      border-radius: 10px;
+      padding: 10px 12px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      position: relative;
+      z-index: 2;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.04);
+      user-select: none;
+    }
+
+    .map-node:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 14px rgba(37,99,235,0.12);
+      border-color: #3b82f6;
+    }
+
+    .map-node.active-root {
+      border: 2px solid #2563eb;
+      box-shadow: 0 0 0 3px rgba(37,99,235,0.15);
+      background: #ffffff;
+    }
+
+    .map-node.selected-node {
+      border: 2px solid #7c3aed;
+      box-shadow: 0 0 0 3px rgba(124,58,237,0.15);
+    }
+
+    .node-num {
+      font-size: 9.5px;
+      font-weight: 700;
+      color: #64748b;
+      margin-bottom: 2px;
+    }
+
+    .node-title {
+      font-size: 11px;
+      font-weight: 700;
+      color: #0f172a;
+      line-height: 1.2;
+      white-space: nowrap;
+    }
+
+    .node-icon {
+      font-size: 16px;
+      margin-bottom: 4px;
+    }
+
+    /* Screen Map Connections (SVG Overlay) */
+    .tree-connector-bus {
+      width: 100%;
+      height: 20px;
+      position: relative;
+      display: flex;
+      justify-content: center;
+    }
+
+    /* Bottom 3-Column Operations Grid */
+    .studio-bottom-grid {
+      display: grid;
+      grid-template-columns: 1.25fr 0.85fr 0.9fr;
+      gap: 20px;
+      align-items: start;
+    }
+
+    /* Context Tabs */
+    .context-tab-btn {
+      background: none;
+      border: none;
+      border-bottom: 2px solid transparent;
+      padding: 8px 12px 10px;
+      font-size: 12.5px;
+      font-weight: 600;
+      color: var(--text-500);
+      cursor: pointer;
+      transition: all 0.2s ease;
+      white-space: nowrap;
+    }
+
+    .context-tab-btn:hover {
+      color: var(--text-900);
+    }
+
+    .context-tab-btn.active {
+      color: #2563eb;
+      border-bottom-color: #2563eb;
+      font-weight: 700;
+    }
+
+    .quick-action-card-tile {
+      background: #ffffff;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 14px 8px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      gap: 8px;
+      text-decoration: none;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .quick-action-card-tile:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.06);
+      border-color: #93c5fd;
+    }
+
+    .quick-action-card-tile i {
+      font-size: 18px;
+      color: #2563eb;
+    }
+
+    .quick-action-card-tile span {
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--text-900);
+      line-height: 1.2;
+    }
+  </style>
 </head>
 <body>
 <div class="app-shell">
 
-  <!-- Left Sidebar -->
+  <!-- =========================================================================
+       COMPANY ADMIN GLOBAL SIDEBAR
+       ========================================================================= -->
   <aside class="sidebar">
     <a href="dashboard.html" class="sidebar-brand" style="cursor:pointer;text-decoration:none;">
       <div class="logo-icon" style="background:linear-gradient(135deg,#3b82f6,#1d4ed8);border-radius:10px;">
@@ -55,75 +249,806 @@
     </div>
   </aside>
 
-  <!-- Main Content -->
+  <!-- =========================================================================
+       MAIN WORKSPACE
+       ========================================================================= -->
   <div class="main">
+
+    <!-- Topbar Header -->
     <header class="topbar">
       <div style="display:flex;align-items:center;gap:14px;">
         <i class="fa-solid fa-bars hamburger"></i>
-        <h1 style="font-size:19px;font-weight:800;color:var(--text-900);margin:0;">Experience Studio</h1>
+        <div>
+          <h1 style="font-size:19px;font-weight:800;color:var(--text-900);margin:0;line-height:1.2;">Experience Studio</h1>
+          <div style="font-size:11.5px;color:var(--text-500);display:flex;align-items:center;gap:6px;margin-top:2px;">
+            <a href="dashboard.html" style="color:var(--text-500);text-decoration:none;">Dashboard</a>
+            <i class="fa-solid fa-chevron-right" style="font-size:8px;"></i>
+            <span style="color:var(--text-500);">Experience Studio</span>
+            <i class="fa-solid fa-chevron-right" style="font-size:8px;"></i>
+            <span style="color:var(--text-900);font-weight:600;">Mall / Indoor Venue</span>
+          </div>
+        </div>
       </div>
+
       <div class="spacer"></div>
+
+      <!-- Search Input -->
+      <div style="position:relative;width:340px;">
+        <input type="text" class="form-control" placeholder="Search experiences, screens, features..." style="padding-right:36px;border-radius:8px;font-size:13px;">
+        <i class="fa-solid fa-magnifying-glass" style="position:absolute;right:12px;top:50%;transform:translateY(-50%);color:var(--text-400);font-size:13px;"></i>
+      </div>
+
+      <!-- Notification Bell -->
+      <button class="icon-btn" style="position:relative;">
+        <i class="fa-regular fa-bell"></i>
+        <span class="badge-dot" style="position:absolute;top:3px;right:3px;background:#ef4444;color:#fff;font-size:9px;font-weight:700;border-radius:50%;width:15px;height:15px;display:flex;align-items:center;justify-content:center;">12</span>
+      </button>
+
+      <!-- Profile -->
       <div class="user">
         <div class="avatar" style="background:#1e293b;color:#fff;font-weight:700;font-size:12px;">CA</div>
-        <span style="font-size:13.5px;font-weight:700;">Company Admin</span>
+        <div>
+          <div class="u-name" style="font-size:13px;font-weight:700;color:var(--text-900);">Company Admin</div>
+        </div>
+        <i class="fa-solid fa-chevron-down" style="font-size:10px;color:var(--text-400);"></i>
       </div>
     </header>
 
+    <!-- Page Content Container -->
     <div class="content" style="padding:24px 28px;">
-      <div class="page-header" style="margin-bottom:20px;">
-        <div>
-          <div class="breadcrumb"><a href="dashboard.html">Dashboard</a> <i class="fa-solid fa-chevron-right"></i> <span>Experience Studio</span></div>
-          <h1>Experience Studio</h1>
-          <p>Manage and distribute premium kiosk themes, UI components and visual layouts</p>
-        </div>
-        <div class="actions">
-          <a href="themes.html" class="btn"><i class="fa-solid fa-palette"></i> Manage Themes</a>
-          <a href="templates.html" class="btn"><i class="fa-solid fa-table-cells-large"></i> View Templates</a>
-        </div>
-      </div>
 
-      <!-- Studio Themes Grid -->
-      <div class="info-cards-grid" style="grid-template-columns:repeat(3,1fr);margin-bottom:24px;">
+      <!-- =====================================================================
+           ROW 1: 5 OPERATIONAL KPI SUMMARY CARDS
+           ===================================================================== -->
+      <div class="studio-kpi-grid">
         
-        <div class="info-card" style="padding:20px;">
-          <div style="height:140px;border-radius:10px;background:linear-gradient(135deg,#4c1d95,#7c3aed,#fbbf24);display:flex;align-items:center;justify-content:center;color:#fff;font-size:24px;margin-bottom:14px;">
-            <i class="fa-solid fa-fire-flame-curved" style="color:#fbbf24;"></i>
+        <!-- 1. Total Experiences -->
+        <div class="kpi-stat-box">
+          <div class="kpi-icon-square" style="background:#eff6ff;color:#2563eb;border:1px solid #dbeafe;">
+            <i class="fa-solid fa-cube"></i>
           </div>
-          <h4>Diwali Festive 2024 Theme</h4>
-          <p>Warm festive gold & royal purple palette with seasonal animations and Diwali promotional cards.</p>
-          <div style="display:flex;justify-content:space-between;align-items:center;margin-top:14px;padding-top:12px;border-top:1px solid var(--border-soft);">
-            <span class="badge badge-green">Assigned to 4 Malls</span>
-            <a href="themes.html" class="link-blue">Edit Theme &rarr;</a>
-          </div>
-        </div>
-
-        <div class="info-card" style="padding:20px;">
-          <div style="height:140px;border-radius:10px;background:linear-gradient(135deg,#0284c7,#38bdf8,#f59e0b);display:flex;align-items:center;justify-content:center;color:#fff;font-size:24px;margin-bottom:14px;">
-            <i class="fa-solid fa-umbrella-beach"></i>
-          </div>
-          <h4>Summer Carnival Theme</h4>
-          <p>Bright tropical aesthetic with custom typography for high-energy shopping festivals.</p>
-          <div style="display:flex;justify-content:space-between;align-items:center;margin-top:14px;padding-top:12px;border-top:1px solid var(--border-soft);">
-            <span class="badge badge-blue">Assigned to 8 Malls</span>
-            <a href="themes.html" class="link-blue">Edit Theme &rarr;</a>
+          <div>
+            <div style="font-size:11px;font-weight:600;color:var(--text-500);text-transform:uppercase;letter-spacing:0.4px;">Total Experiences</div>
+            <div style="font-size:22px;font-weight:800;color:var(--text-900);line-height:1.1;margin:2px 0;">1</div>
+            <div style="font-size:11px;color:var(--text-400);">Active: 1 &nbsp; Draft: 0</div>
           </div>
         </div>
 
-        <div class="info-card" style="padding:20px;">
-          <div style="height:140px;border-radius:10px;background:linear-gradient(135deg,#1e293b,#0f172a);display:flex;align-items:center;justify-content:center;color:#fff;font-size:24px;margin-bottom:14px;">
-            <i class="fa-solid fa-crown" style="color:#e2b062;"></i>
+        <!-- 2. Total Screens -->
+        <div class="kpi-stat-box">
+          <div class="kpi-icon-square" style="background:#ecfdf5;color:#10b981;border:1px solid #d1fae5;">
+            <i class="fa-solid fa-display"></i>
           </div>
-          <h4>Grand Luxury Theme</h4>
-          <p>Timeless dark luxury design system with gold accents, tailored for high-end boutique malls.</p>
-          <div style="display:flex;justify-content:space-between;align-items:center;margin-top:14px;padding-top:12px;border-top:1px solid var(--border-soft);">
-            <span class="badge badge-purple">Active Default</span>
-            <a href="themes.html" class="link-blue">Edit Theme &rarr;</a>
+          <div>
+            <div style="font-size:11px;font-weight:600;color:var(--text-500);text-transform:uppercase;letter-spacing:0.4px;">Total Screens</div>
+            <div style="font-size:22px;font-weight:800;color:var(--text-900);line-height:1.1;margin:2px 0;" id="kpiTotalScreens">42</div>
+            <div style="font-size:11px;color:var(--text-400);">Published: 38 &nbsp; Draft: <span id="kpiDraftScreens">4</span></div>
+          </div>
+        </div>
+
+        <!-- 3. Components -->
+        <div class="kpi-stat-box">
+          <div class="kpi-icon-square" style="background:#fff7ed;color:#ea580c;border:1px solid #ffedd5;">
+            <i class="fa-solid fa-shapes"></i>
+          </div>
+          <div>
+            <div style="font-size:11px;font-weight:600;color:var(--text-500);text-transform:uppercase;letter-spacing:0.4px;">Components</div>
+            <div style="font-size:22px;font-weight:800;color:var(--text-900);line-height:1.1;margin:2px 0;">126</div>
+            <div style="font-size:11px;color:var(--text-400);">Reusable: 96 &nbsp; Custom: 30</div>
+          </div>
+        </div>
+
+        <!-- 4. Content Items -->
+        <div class="kpi-stat-box">
+          <div class="kpi-icon-square" style="background:#f5f3ff;color:#7c3aed;border:1px solid #ede9fe;">
+            <i class="fa-regular fa-folder-open"></i>
+          </div>
+          <div>
+            <div style="font-size:11px;font-weight:600;color:var(--text-500);text-transform:uppercase;letter-spacing:0.4px;">Content Items</div>
+            <div style="font-size:22px;font-weight:800;color:var(--text-900);line-height:1.1;margin:2px 0;">2,548</div>
+            <div style="font-size:11px;color:var(--text-400);">Published: 2,312 &nbsp; Draft: 236</div>
+          </div>
+        </div>
+
+        <!-- 5. Experience Health -->
+        <div class="kpi-stat-box">
+          <div class="kpi-icon-square" style="background:#f0fdfa;color:#0d9488;border:1px solid #ccfbf1;">
+            <i class="fa-solid fa-heart-pulse"></i>
+          </div>
+          <div>
+            <div style="font-size:11px;font-weight:600;color:var(--text-500);text-transform:uppercase;letter-spacing:0.4px;">Experience Health</div>
+            <div style="font-size:22px;font-weight:800;color:var(--text-900);line-height:1.1;margin:2px 0;">98%</div>
+            <div style="font-size:11px;color:#10b981;font-weight:700;">Excellent</div>
           </div>
         </div>
 
       </div>
+
+      <!-- =====================================================================
+           ROW 2: 2-COLUMN SPLIT (EXPERIENCE STRUCTURE & EXPERIENCE DETAILS)
+           ===================================================================== -->
+      <div class="studio-main-split">
+
+        <!-- Left Experience Structure Container -->
+        <div class="panel" style="margin:0;padding:20px;">
+          <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;">
+            <h2 style="font-size:15px;font-weight:800;color:var(--text-900);margin:0;">Experience Structure</h2>
+            <a href="javascript:void(0)" onclick="switchContextTab('screens')" class="link-blue" style="font-size:12px;font-weight:700;">View All Screens</a>
+          </div>
+
+          <div class="exp-structure-container">
+
+            <!-- Left Sub-card: Mall / Indoor Venue Info -->
+            <div style="background:#ffffff;border:1px solid var(--border);border-radius:12px;padding:16px;display:flex;flex-direction:column;gap:12px;box-shadow:0 1px 3px rgba(0,0,0,0.02);">
+              <h3 style="font-size:14px;font-weight:800;color:var(--text-900);margin:0;">Mall / Indoor Venue</h3>
+              
+              <!-- Thumbnail -->
+              <div style="height:95px;border-radius:8px;overflow:hidden;background:linear-gradient(135deg,#1e293b,#0f172a);display:flex;align-items:center;justify-content:center;color:#fff;position:relative;">
+                <div style="text-align:center;padding:8px;">
+                  <i class="fa-solid fa-building" style="font-size:18px;color:#fde047;margin-bottom:2px;"></i>
+                  <div style="font-size:11px;font-weight:700;">Mall Experience</div>
+                </div>
+              </div>
+
+              <div style="display:flex;align-items:center;justify-content:space-between;">
+                <span style="font-size:11.5px;color:var(--text-600);font-weight:600;">Version 2.1.0</span>
+                <span class="badge badge-green" style="font-size:10px;">Active</span>
+              </div>
+
+              <p style="font-size:11px;color:var(--text-500);line-height:1.4;margin:0;">
+                Complete kiosk experience for shopping malls and indoor venues covering discovery, navigation, engagement and services.
+              </p>
+
+              <div style="border-top:1px solid var(--border-soft);padding-top:10px;display:flex;flex-direction:column;gap:6px;font-size:11px;">
+                <div style="display:flex;justify-content:space-between;">
+                  <span style="color:var(--text-500);">Template</span>
+                  <span class="badge badge-purple" style="font-size:9.5px;font-weight:600;">Mall / Indoor Venue</span>
+                </div>
+                <div style="display:flex;justify-content:space-between;">
+                  <span style="color:var(--text-500);">Screens</span>
+                  <span style="font-weight:700;color:var(--text-900);">42</span>
+                </div>
+                <div style="display:flex;justify-content:space-between;">
+                  <span style="color:var(--text-500);">Components</span>
+                  <span style="font-weight:700;color:var(--text-900);">126</span>
+                </div>
+                <div style="display:flex;justify-content:space-between;">
+                  <span style="color:var(--text-500);">Last Updated</span>
+                  <span style="font-weight:600;color:var(--text-800);">Today, 10:15 AM</span>
+                </div>
+                <div style="display:flex;justify-content:space-between;">
+                  <span style="color:var(--text-500);">Updated By</span>
+                  <span style="font-weight:600;color:var(--text-800);">Rahul Mehta</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Right Sub-area: Screen Map Visual Tree -->
+            <div class="screen-map-canvas" id="screenMapCanvas">
+              
+              <!-- Map Canvas Header & Zoom Controls -->
+              <div style="width:100%;display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;">
+                <div style="display:flex;align-items:center;gap:6px;font-size:12px;font-weight:700;color:var(--text-700);">
+                  <span>Screen Map</span>
+                  <i class="fa-solid fa-circle-info" style="color:var(--text-400);font-size:11px;" title="Visual kiosk screen hierarchy & workflow graph"></i>
+                </div>
+                <div style="display:flex;align-items:center;gap:6px;">
+                  <button class="btn" style="padding:3px 7px;font-size:11px;"><i class="fa-solid fa-minus"></i></button>
+                  <span style="font-size:11px;font-weight:700;color:var(--text-600);min-width:32px;text-align:center;">100%</span>
+                  <button class="btn" style="padding:3px 7px;font-size:11px;"><i class="fa-solid fa-plus"></i></button>
+                  <button class="btn" style="padding:3px 7px;font-size:11px;"><i class="fa-solid fa-expand"></i></button>
+                </div>
+              </div>
+
+              <!-- ================= TREE LEVEL 0: ROOT (HOME) ================= -->
+              <div style="display:flex;justify-content:center;margin-bottom:8px;">
+                <div class="map-node active-root" id="node-01" onclick="selectScreenNode('01', 'Home', 'SCR-001', 'Published', 'Root Landing Screen', '6 Child Destinations', 'Rahul Mehta', 'Today, 10:15 AM')" style="width:100px;padding:8px 6px;">
+                  <div style="width:100%;height:32px;border-radius:4px;background:linear-gradient(135deg,#2563eb,#1d4ed8);margin-bottom:4px;display:flex;align-items:center;justify-content:center;color:#fff;font-size:11px;">
+                    <i class="fa-solid fa-house"></i>
+                  </div>
+                  <span class="node-num">01</span>
+                  <span class="node-title">Home</span>
+                </div>
+              </div>
+
+              <!-- Connecting Branch Down from Home -->
+              <div style="width:2px;height:14px;background:#94a3b8;margin:0 auto;"></div>
+              <!-- Horizontal Bus for 6 Level-1 Children -->
+              <div style="width:82%;height:2px;background:#94a3b8;margin:0 auto;"></div>
+
+              <!-- ================= TREE LEVEL 1: 6 MAIN DESTINATIONS ================= -->
+              <div style="display:grid;grid-template-columns:repeat(6, 1fr);gap:10px;width:100%;margin-top:0;">
+                
+                <!-- 02 Search & Directory -->
+                <div style="display:flex;flex-direction:column;align-items:center;">
+                  <div style="width:2px;height:12px;background:#94a3b8;"></div>
+                  <div class="map-node" id="node-02" onclick="selectScreenNode('02', 'Search & Directory', 'SCR-002', 'Published', 'Global Search & Category Filters', 'Home', 'Rahul Mehta', 'Yesterday, 06:40 PM')" style="width:84px;padding:8px 4px;">
+                    <i class="fa-solid fa-magnifying-glass node-icon" style="color:#0284c7;"></i>
+                    <span class="node-num">02</span>
+                    <span class="node-title" style="font-size:10px;">Search & Dir</span>
+                  </div>
+                </div>
+
+                <!-- 03 Stores & Brands -->
+                <div style="display:flex;flex-direction:column;align-items:center;">
+                  <div style="width:2px;height:12px;background:#94a3b8;"></div>
+                  <div class="map-node" id="node-03" onclick="selectScreenNode('03', 'Stores & Brands', 'SCR-003', 'Published', 'Complete Tenant Directory with 184 Stores', 'Home', 'Anjali Sharma', 'Today, 09:20 AM')" style="width:84px;padding:8px 4px;">
+                    <i class="fa-solid fa-bag-shopping node-icon" style="color:#ea580c;"></i>
+                    <span class="node-num">03</span>
+                    <span class="node-title" style="font-size:10px;">Stores & Brands</span>
+                  </div>
+                </div>
+
+                <!-- 04 Map & Navigation -->
+                <div style="display:flex;flex-direction:column;align-items:center;">
+                  <div style="width:2px;height:12px;background:#94a3b8;"></div>
+                  <div class="map-node" id="node-04" onclick="selectScreenNode('04', 'Map & Navigation', 'SCR-004', 'Published', '2.5D Interactive Wayfinding Floorplans', 'Home', 'Rahul Mehta', 'Today, 08:30 AM')" style="width:84px;padding:8px 4px;">
+                    <i class="fa-solid fa-location-dot node-icon" style="color:#10b981;"></i>
+                    <span class="node-num">04</span>
+                    <span class="node-title" style="font-size:10px;">Map & Nav</span>
+                  </div>
+                </div>
+
+                <!-- 05 Amenities -->
+                <div style="display:flex;flex-direction:column;align-items:center;">
+                  <div style="width:2px;height:12px;background:#94a3b8;"></div>
+                  <div class="map-node" id="node-05" onclick="selectScreenNode('05', 'Amenities', 'SCR-005', 'Published', 'Services, ATMs, Washrooms, Wheelchair Info', 'Home', 'Anjali Sharma', 'Yesterday, 05:10 PM')" style="width:84px;padding:8px 4px;">
+                    <i class="fa-solid fa-restroom node-icon" style="color:#6366f1;"></i>
+                    <span class="node-num">05</span>
+                    <span class="node-title" style="font-size:10px;">Amenities</span>
+                  </div>
+                </div>
+
+                <!-- 06 Events -->
+                <div style="display:flex;flex-direction:column;align-items:center;">
+                  <div style="width:2px;height:12px;background:#94a3b8;"></div>
+                  <div class="map-node" id="node-06" onclick="selectScreenNode('06', 'Events', 'SCR-006', 'Published', 'Promotions, Mall Happenings, Live Concerts', 'Home', 'Rahul Mehta', '25 Apr 2025')" style="width:84px;padding:8px 4px;">
+                    <i class="fa-regular fa-calendar-star node-icon" style="color:#ec4899;"></i>
+                    <span class="node-num">06</span>
+                    <span class="node-title" style="font-size:10px;">Events</span>
+                  </div>
+                </div>
+
+                <!-- 07 Movies -->
+                <div style="display:flex;flex-direction:column;align-items:center;">
+                  <div style="width:2px;height:12px;background:#94a3b8;"></div>
+                  <div class="map-node" id="node-07" onclick="selectScreenNode('07', 'Movies', 'SCR-007', 'Published', 'Cinema Schedules, Screen Timings, Trailers', 'Home', 'Anjali Sharma', '20 Apr 2025')" style="width:84px;padding:8px 4px;">
+                    <i class="fa-solid fa-film node-icon" style="color:#8b5cf6;"></i>
+                    <span class="node-num">07</span>
+                    <span class="node-title" style="font-size:10px;">Movies</span>
+                  </div>
+                </div>
+
+              </div>
+
+              <!-- ================= TREE LEVEL 2: SUB-DESTINATIONS ================= -->
+              <div style="width:100%;margin-top:12px;border-top:1px dashed #cbd5e1;padding-top:14px;display:flex;justify-content:space-around;gap:8px;">
+                
+                <!-- Under Stores & Brands: 08 Store Detail -->
+                <div class="map-node" id="node-08" onclick="selectScreenNode('08', 'Store Detail', 'SCR-008', 'Published', 'Store Profile, Gallery, Phone, Take Me There', '03 Stores & Brands', 'Rahul Mehta', 'Today, 10:15 AM')" style="width:86px;padding:6px 4px;">
+                  <div style="width:100%;height:26px;border-radius:4px;background:#f1f5f9;margin-bottom:3px;display:flex;align-items:center;justify-content:center;color:#475569;font-size:10px;">
+                    <i class="fa-solid fa-store"></i>
+                  </div>
+                  <span class="node-num">08</span>
+                  <span class="node-title" style="font-size:9.5px;">Store Detail</span>
+                </div>
+
+                <!-- 09 Offers & Deals -->
+                <div class="map-node" id="node-09" onclick="selectScreenNode('09', 'Offers & Deals', 'SCR-009', 'Published', 'Tenant Discounts, Vouchers, Promo Banners', '08 Store Detail', 'Rahul Mehta', 'Yesterday, 04:00 PM')" style="width:86px;padding:6px 4px;">
+                  <i class="fa-solid fa-tag node-icon" style="color:#f59e0b;font-size:14px;"></i>
+                  <span class="node-num">09</span>
+                  <span class="node-title" style="font-size:9.5px;">Offers & Deals</span>
+                </div>
+
+                <!-- 10 Product Detail -->
+                <div class="map-node" id="node-10" onclick="selectScreenNode('10', 'Product Detail', 'SCR-010', 'Published', 'Featured Products, Specs, Price, Stock', '08 Store Detail', 'Anjali Sharma', '28 Apr 2025')" style="width:86px;padding:6px 4px;">
+                  <div style="width:100%;height:26px;border-radius:4px;background:#fef2f2;margin-bottom:3px;display:flex;align-items:center;justify-content:center;color:#dc2626;font-size:10px;">
+                    <i class="fa-solid fa-shoe-prints"></i>
+                  </div>
+                  <span class="node-num">10</span>
+                  <span class="node-title" style="font-size:9.5px;">Product Detail</span>
+                </div>
+
+                <!-- 11 Services -->
+                <div class="map-node" id="node-11" onclick="selectScreenNode('11', 'Services', 'SCR-011', 'Published', 'Lost & Found, Valet, Wheelchair Assistance', '05 Amenities', 'Rahul Mehta', '22 Apr 2025')" style="width:86px;padding:6px 4px;">
+                  <i class="fa-solid fa-bell-concierge node-icon" style="color:#0d9488;font-size:14px;"></i>
+                  <span class="node-num">11</span>
+                  <span class="node-title" style="font-size:9.5px;">Services</span>
+                </div>
+
+                <!-- 12 Feedback -->
+                <div class="map-node" id="node-12" onclick="selectScreenNode('12', 'Feedback', 'SCR-012', 'Published', 'Visitor Ratings, Suggestions, Complaints', 'Home', 'Anjali Sharma', '18 Apr 2025')" style="width:86px;padding:6px 4px;">
+                  <i class="fa-regular fa-comment-dots node-icon" style="color:#0284c7;font-size:14px;"></i>
+                  <span class="node-num">12</span>
+                  <span class="node-title" style="font-size:9.5px;">Feedback</span>
+                </div>
+
+                <!-- 13 QR / Share -->
+                <div class="map-node" id="node-13" onclick="selectScreenNode('13', 'QR / Share', 'SCR-013', 'Published', 'Mobile Route Transfer via Dynamic QR Code', '04 Map & Navigation', 'Rahul Mehta', 'Today, 10:15 AM')" style="width:86px;padding:6px 4px;">
+                  <i class="fa-solid fa-qrcode node-icon" style="color:#1e293b;font-size:14px;"></i>
+                  <span class="node-num">13</span>
+                  <span class="node-title" style="font-size:9.5px;">QR / Share</span>
+                </div>
+
+              </div>
+
+            </div>
+
+          </div>
+        </div>
+
+        <!-- Right Experience Details Card -->
+        <div class="panel" style="margin:0;padding:20px;display:flex;flex-direction:column;justify-content:space-between;" id="experienceDetailsPanel">
+          <div>
+            <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;">
+              <h3 style="font-size:14px;font-weight:800;color:var(--text-900);margin:0;">Experience Details</h3>
+              <span class="badge badge-green" id="expStatusBadge" style="font-size:10px;">Active</span>
+            </div>
+
+            <!-- Banner Photo -->
+            <div style="height:120px;border-radius:10px;overflow:hidden;margin-bottom:14px;background:linear-gradient(135deg, #1e293b, #0f172a);display:flex;align-items:center;justify-content:center;position:relative;border:1px solid var(--border);">
+              <div style="text-align:center;padding:16px;">
+                <div style="font-size:24px;color:#fde047;margin-bottom:4px;"><i class="fa-solid fa-palette"></i></div>
+                <div style="font-size:15px;font-weight:800;color:#ffffff;letter-spacing:0.5px;" id="expBannerTitle">Mall / Indoor Venue</div>
+                <div style="font-size:11px;color:rgba(255,255,255,0.7);">Kiosk Experience System</div>
+              </div>
+            </div>
+
+            <!-- Experience Metadata List -->
+            <div style="display:flex;flex-direction:column;gap:8px;font-size:12px;">
+              <div style="display:flex;justify-content:space-between;">
+                <span style="color:var(--text-500);">Experience Name</span>
+                <span style="font-weight:700;color:var(--text-900);" id="expName">Mall / Indoor Venue</span>
+              </div>
+              <div style="display:flex;justify-content:space-between;">
+                <span style="color:var(--text-500);">Version</span>
+                <span style="font-weight:700;color:var(--text-900);" id="expVersion">v2.1.0</span>
+              </div>
+              <div style="display:flex;justify-content:space-between;">
+                <span style="color:var(--text-500);">Status</span>
+                <span style="font-weight:700;color:#10b981;" id="expStatusText">● Active</span>
+              </div>
+              <div style="display:flex;justify-content:space-between;">
+                <span style="color:var(--text-500);">Template</span>
+                <span style="font-weight:600;color:var(--text-800);" id="expTemplate">Mall / Indoor Venue</span>
+              </div>
+              <div style="display:flex;justify-content:space-between;">
+                <span style="color:var(--text-500);">Assigned Projects</span>
+                <span style="font-weight:700;color:var(--text-900);" id="expAssignedProjects">27</span>
+              </div>
+              <div style="display:flex;justify-content:space-between;">
+                <span style="color:var(--text-500);">Published Screens</span>
+                <span style="font-weight:700;color:#10b981;" id="expPubScreens">38</span>
+              </div>
+              <div style="display:flex;justify-content:space-between;">
+                <span style="color:var(--text-500);">Draft Screens</span>
+                <span style="font-weight:700;color:#ea580c;" id="expDraftScreens">4</span>
+              </div>
+              <div style="display:flex;justify-content:space-between;">
+                <span style="color:var(--text-500);">Last Published</span>
+                <span style="font-weight:600;color:var(--text-800);" id="expLastPub">28 Apr 2025</span>
+              </div>
+              <div style="display:flex;justify-content:space-between;">
+                <span style="color:var(--text-500);">Experience Owner</span>
+                <span style="font-weight:600;color:var(--text-800);" id="expOwner">Rahul Mehta</span>
+              </div>
+              <div style="display:flex;flex-direction:column;gap:3px;border-top:1px solid var(--border-soft);padding-top:8px;margin-top:2px;">
+                <span style="color:var(--text-500);font-size:11px;">Description</span>
+                <span style="font-size:11px;color:var(--text-700);line-height:1.4;" id="expDesc">
+                  End-to-end kiosk experience designed for shopping malls and indoor venues with discovery, navigation, engagement, information and services.
+                </span>
+              </div>
+            </div>
+          </div>
+
+          <div style="margin-top:16px;padding-top:14px;border-top:1px solid var(--border-soft);">
+            <a href="kiosk/home.html" target="_blank" class="btn btn-primary" id="btnPreviewExperience" style="width:100%;justify-content:center;font-weight:700;font-size:13px;padding:9px 0;background:#2563eb;color:#fff;text-decoration:none;display:flex;align-items:center;gap:6px;">
+              Preview Experience <i class="fa-solid fa-arrow-up-right-from-square" style="font-size:11px;"></i>
+            </a>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- =====================================================================
+           ROW 3: 3 OPERATIONAL BOTTOM PANELS
+           ===================================================================== -->
+      <div class="studio-bottom-grid">
+
+        <!-- Panel 1: Context Tabs & Screens Table -->
+        <div class="panel" style="margin:0;padding:18px;">
+          
+          <div style="display:flex;align-items:center;gap:4px;border-bottom:1px solid var(--border-soft);margin-bottom:14px;overflow-x:auto;padding-bottom:2px;">
+            <button class="context-tab-btn active" id="tabBtnScreens" onclick="switchContextTab('screens')">Screens</button>
+            <button class="context-tab-btn" id="tabBtnComponents" onclick="switchContextTab('components')">Components</button>
+            <button class="context-tab-btn" id="tabBtnContent" onclick="switchContextTab('content')">Content</button>
+            <button class="context-tab-btn" id="tabBtnNavigation" onclick="switchContextTab('navigation')">Navigation Flow</button>
+            <button class="context-tab-btn" id="tabBtnIntegrations" onclick="switchContextTab('integrations')">Integrations</button>
+            <button class="context-tab-btn" id="tabBtnLocalization" onclick="switchContextTab('localization')">Localization</button>
+          </div>
+
+          <!-- PANE 1: SCREENS TABLE -->
+          <div class="context-tab-pane" id="paneScreens">
+            <div class="table-wrap">
+              <table id="screensDataTable">
+                <thead>
+                  <tr>
+                    <th>Screen Name</th>
+                    <th>Screen ID</th>
+                    <th>Status</th>
+                    <th>Updated On</th>
+                    <th>Updated By</th>
+                    <th style="text-align:right;">Actions</th>
+                  </tr>
+                </thead>
+                <tbody id="screensTableBody">
+                  <tr onclick="selectScreenNode('01', 'Home', 'SCR-001', 'Published', 'Root Landing Screen', '6 Child Destinations', 'Rahul Mehta', 'Today, 10:15 AM')" style="cursor:pointer;">
+                    <td style="font-weight:700;color:var(--text-900);font-size:12.5px;">Home</td>
+                    <td style="font-size:11.5px;color:var(--text-600);">SCR-001</td>
+                    <td><span class="badge badge-green" style="font-size:10px;padding:2px 8px;">Published</span></td>
+                    <td style="font-size:11.5px;color:var(--text-500);">Today, 10:15 AM</td>
+                    <td style="font-size:11.5px;color:var(--text-700);">Rahul Mehta</td>
+                    <td style="text-align:right;color:var(--text-400);"><i class="fa-solid fa-ellipsis-vertical"></i></td>
+                  </tr>
+
+                  <tr onclick="selectScreenNode('02', 'Search & Directory', 'SCR-002', 'Published', 'Global Search & Category Filters', 'Home', 'Rahul Mehta', 'Yesterday, 06:40 PM')" style="cursor:pointer;">
+                    <td style="font-weight:700;color:var(--text-900);font-size:12.5px;">Search & Directory</td>
+                    <td style="font-size:11.5px;color:var(--text-600);">SCR-002</td>
+                    <td><span class="badge badge-green" style="font-size:10px;padding:2px 8px;">Published</span></td>
+                    <td style="font-size:11.5px;color:var(--text-500);">Yesterday, 06:40 PM</td>
+                    <td style="font-size:11.5px;color:var(--text-700);">Rahul Mehta</td>
+                    <td style="text-align:right;color:var(--text-400);"><i class="fa-solid fa-ellipsis-vertical"></i></td>
+                  </tr>
+
+                  <tr onclick="selectScreenNode('03', 'Stores & Brands', 'SCR-003', 'Published', 'Complete Tenant Directory with 184 Stores', 'Home', 'Anjali Sharma', 'Today, 09:20 AM')" style="cursor:pointer;">
+                    <td style="font-weight:700;color:var(--text-900);font-size:12.5px;">Stores & Brands</td>
+                    <td style="font-size:11.5px;color:var(--text-600);">SCR-003</td>
+                    <td><span class="badge badge-green" style="font-size:10px;padding:2px 8px;">Published</span></td>
+                    <td style="font-size:11.5px;color:var(--text-500);">Today, 09:20 AM</td>
+                    <td style="font-size:11.5px;color:var(--text-700);">Anjali Sharma</td>
+                    <td style="text-align:right;color:var(--text-400);"><i class="fa-solid fa-ellipsis-vertical"></i></td>
+                  </tr>
+
+                  <tr onclick="selectScreenNode('04', 'Map & Navigation', 'SCR-004', 'Published', '2.5D Interactive Wayfinding Floorplans', 'Home', 'Rahul Mehta', 'Today, 08:30 AM')" style="cursor:pointer;">
+                    <td style="font-weight:700;color:var(--text-900);font-size:12.5px;">Map & Navigation</td>
+                    <td style="font-size:11.5px;color:var(--text-600);">SCR-004</td>
+                    <td><span class="badge badge-green" style="font-size:10px;padding:2px 8px;">Published</span></td>
+                    <td style="font-size:11.5px;color:var(--text-500);">Today, 08:30 AM</td>
+                    <td style="font-size:11.5px;color:var(--text-700);">Rahul Mehta</td>
+                    <td style="text-align:right;color:var(--text-400);"><i class="fa-solid fa-ellipsis-vertical"></i></td>
+                  </tr>
+
+                  <tr onclick="selectScreenNode('05', 'Amenities', 'SCR-005', 'Published', 'Services, ATMs, Washrooms, Wheelchair Info', 'Home', 'Anjali Sharma', 'Yesterday, 05:10 PM')" style="cursor:pointer;">
+                    <td style="font-weight:700;color:var(--text-900);font-size:12.5px;">Amenities</td>
+                    <td style="font-size:11.5px;color:var(--text-600);">SCR-005</td>
+                    <td><span class="badge badge-green" style="font-size:10px;padding:2px 8px;">Published</span></td>
+                    <td style="font-size:11.5px;color:var(--text-500);">Yesterday, 05:10 PM</td>
+                    <td style="font-size:11.5px;color:var(--text-700);">Anjali Sharma</td>
+                    <td style="text-align:right;color:var(--text-400);"><i class="fa-solid fa-ellipsis-vertical"></i></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            <!-- Pagination Bar -->
+            <div style="display:flex;align-items:center;justify-content:space-between;margin-top:12px;padding-top:10px;border-top:1px solid var(--border-soft);font-size:11.5px;color:var(--text-400);">
+              <div id="screensPaginationText">Showing 1 to 5 of 42 screens</div>
+              <div style="display:flex;align-items:center;gap:4px;">
+                <button class="btn" style="padding:2px 6px;font-size:10px;" disabled><i class="fa-solid fa-chevron-left"></i></button>
+                <button class="btn btn-primary" style="padding:2px 8px;font-size:10px;background:#2563eb;color:#fff;">1</button>
+                <button class="btn" style="padding:2px 8px;font-size:10px;">2</button>
+                <button class="btn" style="padding:2px 8px;font-size:10px;">3</button>
+                <button class="btn" style="padding:2px 8px;font-size:10px;">4</button>
+                <button class="btn" style="padding:2px 8px;font-size:10px;">5</button>
+                <button class="btn" style="padding:2px 6px;font-size:10px;"><i class="fa-solid fa-chevron-right"></i></button>
+              </div>
+            </div>
+          </div>
+
+          <!-- PANE 2: COMPONENTS -->
+          <div class="context-tab-pane" id="paneComponents" style="display:none;">
+            <div style="display:grid;grid-template-columns:repeat(3, 1fr);gap:10px;font-size:11.5px;">
+              <div style="background:#f8fafc;border:1px solid #e2e8f0;border-radius:8px;padding:10px;">
+                <div style="font-weight:700;color:#0f172a;">Store Card</div>
+                <div style="color:#64748b;font-size:10.5px;">Used across 4 screens</div>
+              </div>
+              <div style="background:#f8fafc;border:1px solid #e2e8f0;border-radius:8px;padding:10px;">
+                <div style="font-weight:700;color:#0f172a;">Ad Banner Hero</div>
+                <div style="color:#64748b;font-size:10.5px;">Used across 3 screens</div>
+              </div>
+              <div style="background:#f8fafc;border:1px solid #e2e8f0;border-radius:8px;padding:10px;">
+                <div style="font-weight:700;color:#0f172a;">Wayfinding Route Map</div>
+                <div style="color:#64748b;font-size:10.5px;">Used across 2 screens</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- PANE 3: CONTENT -->
+          <div class="context-tab-pane" id="paneContent" style="display:none;">
+            <p style="font-size:12px;color:var(--text-600);margin:0 0 10px;">How Experience Studio screens consume Project Content data:</p>
+            <div style="font-size:12px;display:flex;flex-direction:column;gap:6px;">
+              <div>✔ <strong>Store Detail Screen</strong> consumes <em>Tenants Catalog + Promotions Feed</em></div>
+              <div>✔ <strong>Events Screen</strong> consumes <em>Mall Event Calendar</em></div>
+              <div>✔ <strong>Amenities Screen</strong> consumes <em>Venue Facilities & Services</em></div>
+            </div>
+          </div>
+
+          <!-- PANE 4: NAVIGATION FLOW -->
+          <div class="context-tab-pane" id="paneNavigation" style="display:none;">
+            <p style="font-size:12px;color:var(--text-600);margin:0 0 10px;">Screen-to-screen visitor routing paths:</p>
+            <div style="background:#f8fafc;padding:12px;border-radius:8px;font-size:12px;color:var(--text-700);line-height:1.6;">
+              <code>Home &rarr; Stores & Brands &rarr; Store Detail &rarr; Take Me There (Map & Navigation) &rarr; QR Code Share</code>
+            </div>
+          </div>
+
+          <!-- PANE 5: INTEGRATIONS -->
+          <div class="context-tab-pane" id="paneIntegrations" style="display:none;">
+            <div style="display:flex;flex-direction:column;gap:8px;font-size:12px;">
+              <div>⚡ <strong>Project Content Sync:</strong> Active (2,548 entities synced)</div>
+              <div>⚡ <strong>Indoor Spatial Map Engine:</strong> Active (4 Floors connected)</div>
+              <div>⚡ <strong>Ad Campaign Engine:</strong> Active (Hero + Banner slots)</div>
+              <div>⚡ <strong>Analytics Tracker:</strong> Active (Touch journey logging)</div>
+            </div>
+          </div>
+
+          <!-- PANE 6: LOCALIZATION -->
+          <div class="context-tab-pane" id="paneLocalization" style="display:none;">
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;font-size:11.5px;">
+              <div>🌐 <strong>English:</strong> 100% Complete</div>
+              <div>🌐 <strong>Hindi:</strong> 100% Complete</div>
+              <div>🌐 <strong>Marathi:</strong> 95% Complete</div>
+              <div>🌐 <strong>Arabic:</strong> 90% Complete</div>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Panel 2: Experience Health Breakdown -->
+        <div class="panel" style="margin:0;padding:18px;">
+          <h3 style="font-size:13.5px;font-weight:800;color:var(--text-900);margin:0 0 12px;">Experience Health Breakdown</h3>
+          
+          <div style="display:flex;flex-direction:column;align-items:center;padding:6px 0;">
+            <!-- SVG Donut Chart for Health -->
+            <div style="position:relative;width:110px;height:110px;margin-bottom:12px;">
+              <svg viewBox="0 0 36 36" style="width:100%;height:100%;transform:rotate(-90deg);">
+                <circle cx="18" cy="18" r="15.915" fill="none" stroke="#f1f5f9" stroke-width="3.6"/>
+                <!-- Functional: 94% (Green) -->
+                <circle cx="18" cy="18" r="15.915" fill="none" stroke="#10b981" stroke-width="3.6" stroke-dasharray="98, 100" stroke-dashoffset="0"/>
+              </svg>
+              <div style="position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;">
+                <span style="font-size:18px;font-weight:800;color:var(--text-900);line-height:1;">98%</span>
+                <span style="font-size:9.5px;color:var(--text-400);">Overall</span>
+              </div>
+            </div>
+
+            <!-- Health Categories Breakdown -->
+            <div style="width:100%;display:flex;flex-direction:column;gap:6px;font-size:11.5px;">
+              <div style="display:flex;justify-content:space-between;align-items:center;">
+                <span style="display:flex;align-items:center;gap:6px;color:var(--text-700);"><span style="width:8px;height:8px;border-radius:50%;background:#10b981;"></span> Functional</span>
+                <span style="font-weight:700;color:var(--text-900);">94%</span>
+              </div>
+              <div style="display:flex;justify-content:space-between;align-items:center;">
+                <span style="display:flex;align-items:center;gap:6px;color:var(--text-700);"><span style="width:8px;height:8px;border-radius:50%;background:#3b82f6;"></span> Content</span>
+                <span style="font-weight:700;color:var(--text-900);">98%</span>
+              </div>
+              <div style="display:flex;justify-content:space-between;align-items:center;">
+                <span style="display:flex;align-items:center;gap:6px;color:var(--text-700);"><span style="width:8px;height:8px;border-radius:50%;background:#8b5cf6;"></span> Performance</span>
+                <span style="font-weight:700;color:var(--text-900);">97%</span>
+              </div>
+              <div style="display:flex;justify-content:space-between;align-items:center;">
+                <span style="display:flex;align-items:center;gap:6px;color:var(--text-700);"><span style="width:8px;height:8px;border-radius:50%;background:#f59e0b;"></span> Accessibility</span>
+                <span style="font-weight:700;color:var(--text-900);">99%</span>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- Panel 3: Quick Actions (6 Tiles) -->
+        <div class="panel" style="margin:0;padding:18px;">
+          <h3 style="font-size:13.5px;font-weight:800;color:var(--text-900);margin:0 0 12px;">Quick Actions</h3>
+          
+          <div style="display:grid;grid-template-columns:repeat(3, 1fr);gap:8px;">
+            
+            <div class="quick-action-card-tile" id="qaCreateNewScreen" onclick="openCreateScreenModal()">
+              <i class="fa-solid fa-square-plus"></i>
+              <span>Create New Screen</span>
+            </div>
+
+            <div class="quick-action-card-tile" onclick="switchContextTab('components')">
+              <i class="fa-solid fa-sliders"></i>
+              <span>Add Component</span>
+            </div>
+
+            <div class="quick-action-card-tile" onclick="switchContextTab('content')">
+              <i class="fa-regular fa-folder-open"></i>
+              <span>Manage Content</span>
+            </div>
+
+            <div class="quick-action-card-tile" onclick="switchContextTab('navigation')">
+              <i class="fa-solid fa-rocket"></i>
+              <span>Navigation Flow</span>
+            </div>
+
+            <div class="quick-action-card-tile" onclick="window.open('kiosk/home.html','_blank')">
+              <i class="fa-regular fa-eye"></i>
+              <span>Preview Experience</span>
+            </div>
+
+            <div class="quick-action-card-tile" onclick="location.href='releases.html'">
+              <i class="fa-solid fa-paper-plane"></i>
+              <span>Publish Experience</span>
+            </div>
+
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Footer Bar -->
+      <footer style="display:flex;align-items:center;justify-content:space-between;padding-top:20px;margin-top:24px;border-top:1px solid var(--border-soft);font-size:12px;color:var(--text-400);">
+        <div>© 2025 Mall Kiosk Platform. All rights reserved.</div>
+        <div style="display:flex;gap:16px;">
+          <span>v1.0.0</span>
+          <span>|</span>
+          <span>May 2025</span>
+        </div>
+      </footer>
+
     </div>
   </div>
 </div>
+
+<!-- =========================================================================
+     COMPANY ADMIN: CREATE NEW SCREEN MODAL
+     ========================================================================= -->
+<div class="modal-backdrop" id="createScreenModal" style="display:none;position:fixed;inset:0;background:rgba(15,23,42,0.7);backdrop-filter:blur(6px);z-index:9999;align-items:center;justify-content:center;">
+  <div style="background:#ffffff;border-radius:18px;max-width:540px;width:100%;padding:26px;box-shadow:0 25px 60px rgba(0,0,0,0.3);position:relative;">
+    
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;">
+      <div>
+        <h3 style="font-size:17px;font-weight:800;color:var(--text-900);margin:0;">Create New Screen</h3>
+        <p style="font-size:12px;color:var(--text-500);margin:2px 0 0;">Company Admin screen editor for Mall / Indoor Venue Experience.</p>
+      </div>
+      <button onclick="closeCreateScreenModal()" style="background:none;border:none;font-size:18px;color:var(--text-400);cursor:pointer;">&times;</button>
+    </div>
+
+    <!-- Screen Builder Form Fields -->
+    <div style="display:flex;flex-direction:column;gap:12px;margin-bottom:18px;">
+      <div style="display:grid;grid-template-columns:2fr 1fr;gap:10px;">
+        <div>
+          <label style="display:block;font-size:12px;font-weight:700;color:var(--text-700);margin-bottom:4px;">1. Screen Name</label>
+          <input type="text" class="form-control" id="newScreenNameInput" value="Brand Spotlight Promo" style="width:100%;font-size:13px;padding:8px 12px;">
+        </div>
+        <div>
+          <label style="display:block;font-size:12px;font-weight:700;color:var(--text-700);margin-bottom:4px;">Screen ID</label>
+          <input type="text" class="form-control" id="newScreenIdInput" value="SCR-043" style="width:100%;font-size:13px;padding:8px 12px;" readonly>
+        </div>
+      </div>
+
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;">
+        <div>
+          <label style="display:block;font-size:12px;font-weight:700;color:var(--text-700);margin-bottom:4px;">2. Screen Category / Purpose</label>
+          <select class="form-control" style="width:100%;font-size:13px;padding:8px 12px;">
+            <option>Promotions & Offers</option>
+            <option>Tenant Spotlight</option>
+            <option>Special Event Journey</option>
+            <option>Interactive Game / Quiz</option>
+          </select>
+        </div>
+        <div>
+          <label style="display:block;font-size:12px;font-weight:700;color:var(--text-700);margin-bottom:4px;">3. Parent Destination</label>
+          <select class="form-control" style="width:100%;font-size:13px;padding:8px 12px;">
+            <option>08 Store Detail</option>
+            <option>01 Home</option>
+            <option>03 Stores & Brands</option>
+            <option>06 Events</option>
+          </select>
+        </div>
+      </div>
+
+      <div>
+        <label style="display:block;font-size:12px;font-weight:700;color:var(--text-700);margin-bottom:4px;">4. Select Approved Reusable Components</label>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:6px;font-size:12px;background:#f8fafc;padding:10px;border-radius:8px;border:1px solid #e2e8f0;">
+          <label><input type="checkbox" checked> Hero Promotion Carousel</label>
+          <label><input type="checkbox" checked> Store Action CTA Button</label>
+          <label><input type="checkbox" checked> Take Me There Routing</label>
+          <label><input type="checkbox"> Dynamic QR Code Share</label>
+        </div>
+      </div>
+    </div>
+
+    <!-- Company boundary note -->
+    <div style="background:#eff6ff;padding:10px 14px;border-radius:8px;font-size:11.5px;color:#1e40af;margin-bottom:18px;">
+      <i class="fa-solid fa-circle-info"></i> <strong>Draft Rule:</strong> This screen will be created in <strong>Draft</strong> state. It will not affect the published kiosk experience until approved and released through the Release pipeline.
+    </div>
+
+    <div style="display:flex;gap:10px;justify-content:flex-end;">
+      <button class="btn" onclick="closeCreateScreenModal()">Cancel</button>
+      <button class="btn btn-primary" id="btnSaveScreenDraft" onclick="saveNewScreenDraft()" style="background:#2563eb;color:#fff;font-weight:700;">
+        Save Screen as Draft
+      </button>
+    </div>
+
+  </div>
+</div>
+
+<!-- =========================================================================
+     JAVASCRIPT INTERACTIVITY & CANVAS LOGIC
+     ========================================================================= -->
+<script>
+  let totalScreensCount = 42;
+  let draftScreensCount = 4;
+
+  function selectScreenNode(num, name, id, status, desc, parent, author, updated) {
+    document.querySelectorAll('.map-node').forEach(n => n.classList.remove('selected-node'));
+    const targetNode = document.getElementById(`node-${num}`);
+    if (targetNode) targetNode.classList.add('selected-node');
+
+    // Update Right Side Details
+    document.getElementById('expName').textContent = `${name} (${id})`;
+    document.getElementById('expDesc').textContent = desc;
+    document.getElementById('expOwner').textContent = author;
+    document.getElementById('expLastPub').textContent = updated;
+  }
+
+  function switchContextTab(tabName) {
+    const tabs = ['screens', 'components', 'content', 'navigation', 'integrations', 'localization'];
+    tabs.forEach(t => {
+      const btn = document.getElementById(`tabBtn${capitalize(t)}`);
+      const pane = document.getElementById(`pane${capitalize(t)}`);
+      if (btn) btn.classList.remove('active');
+      if (pane) pane.style.display = 'none';
+    });
+
+    const activeBtn = document.getElementById(`tabBtn${capitalize(tabName)}`);
+    const activePane = document.getElementById(`pane${capitalize(tabName)}`);
+    if (activeBtn) activeBtn.classList.add('active');
+    if (activePane) activePane.style.display = 'block';
+  }
+
+  function capitalize(s) {
+    return s.charAt(0).toUpperCase() + s.slice(1);
+  }
+
+  function openCreateScreenModal() {
+    document.getElementById('createScreenModal').style.display = 'flex';
+  }
+
+  function closeCreateScreenModal() {
+    document.getElementById('createScreenModal').style.display = 'none';
+  }
+
+  function saveNewScreenDraft() {
+    const screenName = document.getElementById('newScreenNameInput').value.trim() || 'Custom Promo Screen';
+    const screenId = document.getElementById('newScreenIdInput').value;
+
+    totalScreensCount++;
+    draftScreensCount++;
+
+    document.getElementById('kpiTotalScreens').textContent = totalScreensCount;
+    document.getElementById('kpiDraftScreens').textContent = draftScreensCount;
+    document.getElementById('expDraftScreens').textContent = draftScreensCount;
+
+    // Add new draft row to table
+    const tableBody = document.getElementById('screensTableBody');
+    const newRow = document.createElement('tr');
+    newRow.style.cursor = 'pointer';
+    newRow.innerHTML = `
+      <td style="font-weight:700;color:var(--text-900);font-size:12.5px;">${screenName}</td>
+      <td style="font-size:11.5px;color:var(--text-600);">${screenId}</td>
+      <td><span class="badge badge-amber" style="font-size:10px;padding:2px 8px;">Draft</span></td>
+      <td style="font-size:11.5px;color:var(--text-500);">Just now</td>
+      <td style="font-size:11.5px;color:var(--text-700);">Company Admin</td>
+      <td style="text-align:right;color:var(--text-400);"><i class="fa-solid fa-ellipsis-vertical"></i></td>
+    `;
+    tableBody.insertBefore(newRow, tableBody.firstChild);
+
+    document.getElementById('screensPaginationText').textContent = `Showing 1 to 6 of ${totalScreensCount} screens`;
+
+    closeCreateScreenModal();
+    switchContextTab('screens');
+  }
+</script>
 </body>
 </html>

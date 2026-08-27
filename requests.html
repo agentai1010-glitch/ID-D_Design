@@ -3,17 +3,220 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Client Requests · Mall Kiosk Platform</title>
+  <title>Company Request Management · Mall Kiosk Platform</title>
+  <!-- Google Fonts & Font Awesome -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
   <link rel="stylesheet" href="css/styles.css">
+  <style>
+    /* Workflow Domain 11 - Request Management Specific Styling */
+    .requests-kpi-grid {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 16px;
+      margin-bottom: 20px;
+    }
+
+    .kpi-stat-box {
+      background: #ffffff;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 16px;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .kpi-stat-box:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.06);
+    }
+
+    .kpi-icon-square {
+      width: 44px;
+      height: 44px;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+      flex-shrink: 0;
+    }
+
+    /* Main Row 2: 2-Column Split (Table ~70%, Selected Request Panel ~30%) */
+    .requests-main-split {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) 360px;
+      gap: 20px;
+      align-items: start;
+      margin-bottom: 20px;
+    }
+
+    .request-row {
+      cursor: pointer;
+      transition: background 0.15s ease;
+    }
+
+    .request-row:hover {
+      background: #f8fafc;
+    }
+
+    .request-row.selected {
+      background: #eff6ff !important;
+      border-left: 3px solid #2563eb;
+    }
+
+    /* Bottom 4-Column Operations & Analytics Grid */
+    .requests-bottom-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1.25fr 0.9fr;
+      gap: 18px;
+      align-items: start;
+    }
+
+    .quick-action-card-tile {
+      background: #ffffff;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 14px 8px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      gap: 8px;
+      text-decoration: none;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .quick-action-card-tile:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.06);
+      border-color: #93c5fd;
+    }
+
+    .quick-action-card-tile i {
+      font-size: 18px;
+      color: #2563eb;
+    }
+
+    .quick-action-card-tile span {
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--text-900);
+      line-height: 1.2;
+    }
+
+    /* Pill Badges */
+    .badge-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      padding: 3px 10px;
+      border-radius: 999px;
+      font-size: 11px;
+      font-weight: 700;
+      white-space: nowrap;
+    }
+
+    .badge-content { background: #eff6ff; color: #2563eb; border: 1px solid #dbeafe; }
+    .badge-map { background: #ecfeff; color: #0891b2; border: 1px solid #cffafe; }
+    .badge-advertisement { background: #fdf4ff; color: #9333ea; border: 1px solid #f5d0fe; }
+    .badge-events { background: #fdf2f8; color: #db2777; border: 1px solid #fce7f3; }
+    .badge-feature { background: #fff7ed; color: #ea580c; border: 1px solid #ffedd5; }
+    .badge-theme { background: #f0fdf4; color: #16a34a; border: 1px solid #dcfce7; }
+    .badge-amenities { background: #f8fafc; color: #475569; border: 1px solid #e2e8f0; }
+
+    .priority-high { background: #fef2f2; color: #dc2626; border: 1px solid #fee2e2; }
+    .priority-medium { background: #fffbeb; color: #d97706; border: 1px solid #fef3c7; }
+    .priority-low { background: #f0fdf4; color: #16a34a; border: 1px solid #dcfce7; }
+
+    .status-pending { background: #fffbeb; color: #d97706; border: 1px solid #fef3c7; }
+    .status-inprogress { background: #eff6ff; color: #2563eb; border: 1px solid #dbeafe; }
+    .status-approved { background: #f0fdf4; color: #16a34a; border: 1px solid #dcfce7; }
+    .status-rejected { background: #fef2f2; color: #dc2626; border: 1px solid #fee2e2; }
+    .status-clarification { background: #fdf4ff; color: #9333ea; border: 1px solid #f5d0fe; }
+    .status-readyrelease { background: #ecfeff; color: #0891b2; border: 1px solid #cffafe; }
+    .status-released { background: #f8fafc; color: #334155; border: 1px solid #cbd5e1; }
+
+    /* Timeline Styling */
+    .timeline-item {
+      display: flex;
+      gap: 12px;
+      position: relative;
+      padding-bottom: 16px;
+    }
+    .timeline-item:not(:last-child)::before {
+      content: '';
+      position: absolute;
+      left: 11px;
+      top: 24px;
+      bottom: 0;
+      width: 2px;
+      background: #e2e8f0;
+    }
+    .timeline-bullet {
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      background: #ffffff;
+      border: 2px solid #2563eb;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 10px;
+      color: #2563eb;
+      flex-shrink: 0;
+      z-index: 1;
+    }
+    .timeline-bullet.success { border-color: #10b981; color: #10b981; }
+    .timeline-bullet.warning { border-color: #f59e0b; color: #f59e0b; }
+    .timeline-bullet.danger { border-color: #ef4444; color: #ef4444; }
+
+    /* Modal Backdrop & Box */
+    .modal-backdrop {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(15, 23, 42, 0.6);
+      backdrop-filter: blur(4px);
+      z-index: 9999;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+    .modal-box {
+      background: #ffffff;
+      border-radius: 16px;
+      box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+      width: 100%;
+      max-width: 820px;
+      max-height: 90vh;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      animation: modalFadeIn 0.2s ease-out;
+    }
+    @keyframes modalFadeIn {
+      from { opacity: 0; transform: scale(0.96); }
+      to { opacity: 1; transform: scale(1); }
+    }
+  </style>
 </head>
 <body>
 <div class="app-shell">
 
-  <!-- Left Sidebar -->
+  <!-- =========================================================================
+       COMPANY ADMIN GLOBAL SIDEBAR
+       ========================================================================= -->
   <aside class="sidebar">
     <a href="dashboard.html" class="sidebar-brand" style="cursor:pointer;text-decoration:none;">
       <div class="logo-icon" style="background:linear-gradient(135deg,#3b82f6,#1d4ed8);border-radius:10px;">
@@ -37,7 +240,7 @@
       <li class="nav-item" onclick="location.href='projects.html'"><i class="fa-solid fa-folder-open"></i><span>Projects</span></li>
       <li class="nav-item active" onclick="location.href='requests.html'" style="display:flex;align-items:center;justify-content:space-between;">
         <div style="display:flex;align-items:center;gap:10px;"><i class="fa-regular fa-clipboard"></i><span>Requests</span></div>
-        <span class="badge" style="background:#fff;color:#2563eb;font-size:10px;padding:2px 7px;border-radius:999px;font-weight:700;">16</span>
+        <span class="badge" style="background:#2563eb;color:#fff;font-size:10px;padding:2px 7px;border-radius:999px;font-weight:700;">16</span>
       </li>
       <li class="nav-item" onclick="location.href='experience-studio.html'"><i class="fa-solid fa-palette"></i><span>Experience Studio</span></li>
       <li class="nav-item" onclick="location.href='releases.html'"><i class="fa-solid fa-rocket"></i><span>Releases</span></li>
@@ -55,86 +258,1472 @@
     </div>
   </aside>
 
-  <!-- Main Content -->
+  <!-- =========================================================================
+       MAIN WORKSPACE
+       ========================================================================= -->
   <div class="main">
-    <header class="topbar">
+
+    <!-- Topbar Header -->
+    <header class="topbar" style="background:#ffffff;border-bottom:1px solid var(--border);padding:14px 28px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:20;">
       <div style="display:flex;align-items:center;gap:14px;">
-        <i class="fa-solid fa-bars hamburger"></i>
-        <h1 style="font-size:19px;font-weight:800;color:var(--text-900);margin:0;">Client Requests</h1>
+        <i class="fa-solid fa-bars hamburger" style="font-size:16px;color:var(--text-600);cursor:pointer;"></i>
+        <div>
+          <div style="font-size:12px;color:var(--text-500);display:flex;align-items:center;gap:6px;">
+            <a href="dashboard.html" style="color:var(--text-500);text-decoration:none;">Dashboard</a>
+            <i class="fa-solid fa-chevron-right" style="font-size:9px;color:var(--text-400);"></i>
+            <span style="color:var(--text-900);font-weight:600;">Requests</span>
+          </div>
+          <h1 style="font-size:19px;font-weight:800;color:var(--text-900);margin:2px 0 0 0;">Request Management</h1>
+        </div>
       </div>
-      <div class="spacer"></div>
-      <div class="user">
-        <div class="avatar" style="background:#1e293b;color:#fff;font-weight:700;font-size:12px;">CA</div>
-        <span style="font-size:13.5px;font-weight:700;">Company Admin</span>
+
+      <!-- Topbar Actions -->
+      <div style="display:flex;align-items:center;gap:16px;">
+        <!-- Global Search -->
+        <div style="position:relative;width:280px;">
+          <input type="text" id="globalSearchInput" placeholder="Search requests, clients, projects..." style="width:100%;height:38px;padding:0 36px 0 14px;border-radius:8px;border:1px solid var(--border);font-size:13px;outline:none;background:#f8fafc;">
+          <i class="fa-solid fa-magnifying-glass" style="position:absolute;right:12px;top:50%;transform:translateY(-50%);color:var(--text-400);font-size:13px;"></i>
+        </div>
+
+        <!-- Notification Bell -->
+        <button style="position:relative;width:38px;height:38px;border-radius:8px;border:1px solid var(--border);background:#fff;display:flex;align-items:center;justify-content:center;cursor:pointer;">
+          <i class="fa-regular fa-bell" style="font-size:16px;color:var(--text-600);"></i>
+          <span style="position:absolute;top:3px;right:3px;background:#ef4444;color:#fff;font-size:9px;font-weight:700;border-radius:50%;width:15px;height:15px;display:flex;align-items:center;justify-content:center;">12</span>
+        </button>
+
+        <!-- User Profile -->
+        <div style="display:flex;align-items:center;gap:10px;cursor:pointer;">
+          <div style="width:34px;height:34px;border-radius:50%;background:#1e293b;color:#fff;font-weight:700;font-size:12px;display:flex;align-items:center;justify-content:center;">CA</div>
+          <span style="font-size:13.5px;font-weight:700;color:var(--text-900);">Company Admin</span>
+          <i class="fa-solid fa-chevron-down" style="font-size:10px;color:var(--text-400);"></i>
+        </div>
       </div>
     </header>
 
-    <div class="content" style="padding:24px 28px;">
-      <div class="page-header" style="margin-bottom:20px;">
-        <div>
-          <div class="breadcrumb"><a href="dashboard.html">Dashboard</a> <i class="fa-solid fa-chevron-right"></i> <span>Requests</span></div>
-          <h1>Client Requests & Tickets</h1>
-          <p>Review, process and approve incoming requests from client venues</p>
+    <!-- Page Content Container -->
+    <div class="content" style="padding:22px 28px 40px 28px;background:#f8fafc;flex:1;">
+
+      <!-- =======================================================================
+           ROW 1: 5 REQUEST KPI CARDS
+           ======================================================================= -->
+      <div class="requests-kpi-grid">
+        
+        <!-- Total Requests -->
+        <div class="kpi-stat-box" onclick="filterByStatus('All')" style="cursor:pointer;">
+          <div class="kpi-icon-square" style="background:#f5f3ff;color:#7c3aed;border:1px solid #ede9fe;">
+            <i class="fa-solid fa-clipboard-list"></i>
+          </div>
+          <div>
+            <div style="font-size:11.5px;color:var(--text-500);font-weight:600;">Total Requests</div>
+            <div style="font-size:22px;font-weight:800;color:var(--text-900);line-height:1.2;">156</div>
+            <div style="font-size:11px;color:#10b981;font-weight:700;">↑ 18.6% <span style="font-weight:500;color:var(--text-500);">vs last 30 days</span></div>
+          </div>
         </div>
-        <div class="actions">
-          <div class="select-pill"><i class="fa-solid fa-filter"></i> All Statuses (24) <i class="fa-solid fa-chevron-down"></i></div>
-          <button class="btn btn-primary"><i class="fa-solid fa-plus"></i> New Request</button>
+
+        <!-- Pending Review -->
+        <div class="kpi-stat-box" onclick="filterByStatus('Pending Review')" style="cursor:pointer;">
+          <div class="kpi-icon-square" style="background:#f0fdf4;color:#16a34a;border:1px solid #dcfce7;">
+            <i class="fa-solid fa-circle-check"></i>
+          </div>
+          <div>
+            <div style="font-size:11.5px;color:var(--text-500);font-weight:600;">Pending Review</div>
+            <div style="font-size:22px;font-weight:800;color:var(--text-900);line-height:1.2;">42</div>
+            <div style="font-size:11px;color:#f59e0b;font-weight:700;">Needs attention</div>
+          </div>
+        </div>
+
+        <!-- In Progress -->
+        <div class="kpi-stat-box" onclick="filterByStatus('In Progress')" style="cursor:pointer;">
+          <div class="kpi-icon-square" style="background:#fff7ed;color:#ea580c;border:1px solid #ffedd5;">
+            <i class="fa-solid fa-clock"></i>
+          </div>
+          <div>
+            <div style="font-size:11.5px;color:var(--text-500);font-weight:600;">In Progress</div>
+            <div style="font-size:22px;font-weight:800;color:var(--text-900);line-height:1.2;">28</div>
+            <div style="font-size:11px;color:#3b82f6;font-weight:700;">Active work</div>
+          </div>
+        </div>
+
+        <!-- Approved -->
+        <div class="kpi-stat-box" onclick="filterByStatus('Approved')" style="cursor:pointer;">
+          <div class="kpi-icon-square" style="background:#eff6ff;color:#2563eb;border:1px solid #dbeafe;">
+            <i class="fa-solid fa-paper-plane"></i>
+          </div>
+          <div>
+            <div style="font-size:11.5px;color:var(--text-500);font-weight:600;">Approved</div>
+            <div style="font-size:22px;font-weight:800;color:var(--text-900);line-height:1.2;">62</div>
+            <div style="font-size:11px;color:#10b981;font-weight:700;">Ready for implementation</div>
+          </div>
+        </div>
+
+        <!-- Rejected -->
+        <div class="kpi-stat-box" onclick="filterByStatus('Rejected')" style="cursor:pointer;">
+          <div class="kpi-icon-square" style="background:#fef2f2;color:#dc2626;border:1px solid #fee2e2;">
+            <i class="fa-solid fa-circle-xmark"></i>
+          </div>
+          <div>
+            <div style="font-size:11.5px;color:var(--text-500);font-weight:600;">Rejected</div>
+            <div style="font-size:22px;font-weight:800;color:var(--text-900);line-height:1.2;">14</div>
+            <div style="font-size:11px;color:#ef4444;font-weight:700;">↓ 5.3% <span style="font-weight:500;color:var(--text-500);">vs last 30 days</span></div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- =======================================================================
+           ROW 2: MAIN 2-COLUMN SPLIT (Requests Table + Selected Request Card)
+           ======================================================================= -->
+      <div class="requests-main-split">
+        
+        <!-- Left: All Requests Table -->
+        <div style="background:#ffffff;border:1px solid var(--border);border-radius:14px;box-shadow:0 1px 3px rgba(0,0,0,0.04);overflow:hidden;">
+          
+          <!-- Table Header Controls -->
+          <div style="padding:16px 20px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;gap:14px;">
+            <h2 style="font-size:15px;font-weight:700;color:var(--text-900);margin:0;">All Requests</h2>
+            
+            <div style="display:flex;align-items:center;gap:10px;">
+              <div style="position:relative;width:230px;">
+                <input type="text" id="requestsTableSearch" onkeyup="filterRequestsTable()" placeholder="Search requests..." style="width:100%;height:34px;padding:0 30px 0 12px;border-radius:7px;border:1px solid var(--border);font-size:12px;outline:none;background:#fff;">
+                <i class="fa-solid fa-magnifying-glass" style="position:absolute;right:10px;top:50%;transform:translateY(-50%);color:var(--text-400);font-size:12px;"></i>
+              </div>
+
+              <!-- Filters Dropdown -->
+              <div style="position:relative;">
+                <button onclick="toggleFilterMenu()" style="display:flex;align-items:center;gap:6px;height:34px;padding:0 12px;border-radius:7px;border:1px solid var(--border);background:#fff;font-size:12px;font-weight:600;color:var(--text-700);cursor:pointer;">
+                  <i class="fa-solid fa-filter" style="font-size:11px;color:var(--text-500);"></i>
+                  <span>Filters</span>
+                  <i class="fa-solid fa-chevron-down" style="font-size:9px;color:var(--text-400);"></i>
+                </button>
+              </div>
+
+              <!-- Export Button -->
+              <button onclick="exportRequestsReport()" style="display:flex;align-items:center;gap:6px;height:34px;padding:0 12px;border-radius:7px;border:1px solid var(--border);background:#fff;font-size:12px;font-weight:600;color:var(--text-700);cursor:pointer;">
+                <i class="fa-solid fa-download" style="font-size:11px;color:var(--text-500);"></i>
+                <span>Export</span>
+                <i class="fa-solid fa-chevron-down" style="font-size:9px;color:var(--text-400);"></i>
+              </button>
+            </div>
+          </div>
+
+          <!-- Table Container -->
+          <div style="overflow-x:auto;">
+            <table style="width:100%;border-collapse:collapse;" id="requestsMainTable">
+              <thead>
+                <tr style="background:#f8fafc;border-bottom:1px solid var(--border);">
+                  <th style="padding:10px 14px;font-size:11px;font-weight:700;color:var(--text-500);text-align:left;">Request ID</th>
+                  <th style="padding:10px 14px;font-size:11px;font-weight:700;color:var(--text-500);text-align:left;">Title</th>
+                  <th style="padding:10px 14px;font-size:11px;font-weight:700;color:var(--text-500);text-align:left;">Client / Project</th>
+                  <th style="padding:10px 14px;font-size:11px;font-weight:700;color:var(--text-500);text-align:left;">Category</th>
+                  <th style="padding:10px 14px;font-size:11px;font-weight:700;color:var(--text-500);text-align:left;">Priority</th>
+                  <th style="padding:10px 14px;font-size:11px;font-weight:700;color:var(--text-500);text-align:left;">Status</th>
+                  <th style="padding:10px 14px;font-size:11px;font-weight:700;color:var(--text-500);text-align:left;">Requested On</th>
+                  <th style="padding:10px 14px;font-size:11px;font-weight:700;color:var(--text-500);text-align:left;">Target Release</th>
+                  <th style="padding:10px 14px;font-size:11px;font-weight:700;color:var(--text-500);text-align:center;">Actions</th>
+                </tr>
+              </thead>
+              <tbody id="requestsTableBody">
+                
+                <!-- Row 1: REQ-2025-0156 (Selected by default) -->
+                <tr class="request-row selected" onclick="selectRequestRow(this, 'REQ-2025-0156')">
+                  <td style="padding:12px 14px;border-bottom:1px solid var(--border);">
+                    <div style="display:flex;align-items:center;gap:8px;">
+                      <i class="fa-regular fa-clipboard" style="color:#2563eb;font-size:13px;"></i>
+                      <span style="font-weight:700;font-size:12.5px;color:var(--text-900);">REQ-2025-0156</span>
+                    </div>
+                  </td>
+                  <td style="padding:12px 14px;border-bottom:1px solid var(--border);">
+                    <div style="font-weight:700;font-size:13px;color:var(--text-900);">Add New Retailer: Miniso</div>
+                    <div style="font-size:11px;color:var(--text-500);">Add Miniso store on LG Floor</div>
+                  </td>
+                  <td style="padding:12px 14px;border-bottom:1px solid var(--border);">
+                    <div style="font-weight:700;font-size:12.5px;color:var(--text-900);">Phoenix Mall</div>
+                    <div style="font-size:11px;color:var(--text-500);">Phoenix Mall Project</div>
+                  </td>
+                  <td style="padding:12px 14px;border-bottom:1px solid var(--border);">
+                    <span class="badge-pill badge-content">Content</span>
+                  </td>
+                  <td style="padding:12px 14px;border-bottom:1px solid var(--border);">
+                    <span class="badge-pill priority-high">High</span>
+                  </td>
+                  <td style="padding:12px 14px;border-bottom:1px solid var(--border);">
+                    <span class="badge-pill status-pending">Pending Review</span>
+                  </td>
+                  <td style="padding:12px 14px;border-bottom:1px solid var(--border);">
+                    <div style="font-weight:600;font-size:12px;color:var(--text-900);">18 May 2025</div>
+                    <div style="font-size:10.5px;color:var(--text-500);">10:15 AM</div>
+                  </td>
+                  <td style="padding:12px 14px;border-bottom:1px solid var(--border);">
+                    <div style="font-weight:700;font-size:12px;color:var(--text-900);">v2.2.0</div>
+                    <div style="font-size:10.5px;color:var(--text-500);">(Planned)</div>
+                  </td>
+                  <td style="padding:12px 14px;border-bottom:1px solid var(--border);text-align:center;">
+                    <i class="fa-solid fa-ellipsis-vertical" style="color:var(--text-400);cursor:pointer;"></i>
+                  </td>
+                </tr>
+
+                <!-- Row 2: REQ-2025-0155 -->
+                <tr class="request-row" onclick="selectRequestRow(this, 'REQ-2025-0155')">
+                  <td style="padding:12px 14px;border-bottom:1px solid var(--border);">
+                    <div style="display:flex;align-items:center;gap:8px;">
+                      <i class="fa-regular fa-clipboard" style="color:#d97706;font-size:13px;"></i>
+                      <span style="font-weight:700;font-size:12.5px;color:var(--text-900);">REQ-2025-0155</span>
+                    </div>
+                  </td>
+                  <td style="padding:12px 14px;border-bottom:1px solid var(--border);">
+                    <div style="font-weight:700;font-size:13px;color:var(--text-900);">Update Food Court Map</div>
+                    <div style="font-size:11px;color:var(--text-500);">Revise food court layout</div>
+                  </td>
+                  <td style="padding:12px 14px;border-bottom:1px solid var(--border);">
+                    <div style="font-weight:700;font-size:12.5px;color:var(--text-900);">Orion Mall</div>
+                    <div style="font-size:11px;color:var(--text-500);">Orion Mall Project</div>
+                  </td>
+                  <td style="padding:12px 14px;border-bottom:1px solid var(--border);">
+                    <span class="badge-pill badge-map">Map</span>
+                  </td>
+                  <td style="padding:12px 14px;border-bottom:1px solid var(--border);">
+                    <span class="badge-pill priority-medium">Medium</span>
+                  </td>
+                  <td style="padding:12px 14px;border-bottom:1px solid var(--border);">
+                    <span class="badge-pill status-inprogress">In Progress</span>
+                  </td>
+                  <td style="padding:12px 14px;border-bottom:1px solid var(--border);">
+                    <div style="font-weight:600;font-size:12px;color:var(--text-900);">17 May 2025</div>
+                    <div style="font-size:10.5px;color:var(--text-500);">03:42 PM</div>
+                  </td>
+                  <td style="padding:12px 14px;border-bottom:1px solid var(--border);">
+                    <div style="font-weight:700;font-size:12px;color:var(--text-900);">v2.1.1</div>
+                    <div style="font-size:10.5px;color:var(--text-500);">(In Progress)</div>
+                  </td>
+                  <td style="padding:12px 14px;border-bottom:1px solid var(--border);text-align:center;">
+                    <i class="fa-solid fa-ellipsis-vertical" style="color:var(--text-400);cursor:pointer;"></i>
+                  </td>
+                </tr>
+
+                <!-- Row 3: REQ-2025-0154 -->
+                <tr class="request-row" onclick="selectRequestRow(this, 'REQ-2025-0154')">
+                  <td style="padding:12px 14px;border-bottom:1px solid var(--border);">
+                    <div style="display:flex;align-items:center;gap:8px;">
+                      <i class="fa-regular fa-clipboard" style="color:#f59e0b;font-size:13px;"></i>
+                      <span style="font-weight:700;font-size:12.5px;color:var(--text-900);">REQ-2025-0154</span>
+                    </div>
+                  </td>
+                  <td style="padding:12px 14px;border-bottom:1px solid var(--border);">
+                    <div style="font-weight:700;font-size:13px;color:var(--text-900);">Add Summer Sale Banner</div>
+                    <div style="font-size:11px;color:var(--text-500);">Promote summer sale 2025</div>
+                  </td>
+                  <td style="padding:12px 14px;border-bottom:1px solid var(--border);">
+                    <div style="font-weight:700;font-size:12.5px;color:var(--text-900);">Skyline Mall</div>
+                    <div style="font-size:11px;color:var(--text-500);">Skyline Mall Project</div>
+                  </td>
+                  <td style="padding:12px 14px;border-bottom:1px solid var(--border);">
+                    <span class="badge-pill badge-advertisement">Advertisement</span>
+                  </td>
+                  <td style="padding:12px 14px;border-bottom:1px solid var(--border);">
+                    <span class="badge-pill priority-medium">Medium</span>
+                  </td>
+                  <td style="padding:12px 14px;border-bottom:1px solid var(--border);">
+                    <span class="badge-pill status-approved">Approved</span>
+                  </td>
+                  <td style="padding:12px 14px;border-bottom:1px solid var(--border);">
+                    <div style="font-weight:600;font-size:12px;color:var(--text-900);">16 May 2025</div>
+                    <div style="font-size:10.5px;color:var(--text-500);">11:20 AM</div>
+                  </td>
+                  <td style="padding:12px 14px;border-bottom:1px solid var(--border);">
+                    <div style="font-weight:700;font-size:12px;color:var(--text-900);">v2.2.0</div>
+                    <div style="font-size:10.5px;color:var(--text-500);">(Planned)</div>
+                  </td>
+                  <td style="padding:12px 14px;border-bottom:1px solid var(--border);text-align:center;">
+                    <i class="fa-solid fa-ellipsis-vertical" style="color:var(--text-400);cursor:pointer;"></i>
+                  </td>
+                </tr>
+
+                <!-- Row 4: REQ-2025-0153 -->
+                <tr class="request-row" onclick="selectRequestRow(this, 'REQ-2025-0153')">
+                  <td style="padding:12px 14px;border-bottom:1px solid var(--border);">
+                    <div style="display:flex;align-items:center;gap:8px;">
+                      <i class="fa-regular fa-clipboard" style="color:#2563eb;font-size:13px;"></i>
+                      <span style="font-weight:700;font-size:12.5px;color:var(--text-900);">REQ-2025-0153</span>
+                    </div>
+                  </td>
+                  <td style="padding:12px 14px;border-bottom:1px solid var(--border);">
+                    <div style="font-weight:700;font-size:13px;color:var(--text-900);">New Event: Music Night</div>
+                    <div style="font-size:11px;color:var(--text-500);">Add event in events section</div>
+                  </td>
+                  <td style="padding:12px 14px;border-bottom:1px solid var(--border);">
+                    <div style="font-weight:700;font-size:12.5px;color:var(--text-900);">Westend Mall</div>
+                    <div style="font-size:11px;color:var(--text-500);">Westend Mall Project</div>
+                  </td>
+                  <td style="padding:12px 14px;border-bottom:1px solid var(--border);">
+                    <span class="badge-pill badge-events">Events</span>
+                  </td>
+                  <td style="padding:12px 14px;border-bottom:1px solid var(--border);">
+                    <span class="badge-pill priority-low">Low</span>
+                  </td>
+                  <td style="padding:12px 14px;border-bottom:1px solid var(--border);">
+                    <span class="badge-pill status-inprogress">In Progress</span>
+                  </td>
+                  <td style="padding:12px 14px;border-bottom:1px solid var(--border);">
+                    <div style="font-weight:600;font-size:12px;color:var(--text-900);">15 May 2025</div>
+                    <div style="font-size:10.5px;color:var(--text-500);">04:05 PM</div>
+                  </td>
+                  <td style="padding:12px 14px;border-bottom:1px solid var(--border);">
+                    <div style="font-weight:700;font-size:12px;color:var(--text-900);">v2.1.1</div>
+                    <div style="font-size:10.5px;color:var(--text-500);">(In Progress)</div>
+                  </td>
+                  <td style="padding:12px 14px;border-bottom:1px solid var(--border);text-align:center;">
+                    <i class="fa-solid fa-ellipsis-vertical" style="color:var(--text-400);cursor:pointer;"></i>
+                  </td>
+                </tr>
+
+                <!-- Row 5: REQ-2025-0152 -->
+                <tr class="request-row" onclick="selectRequestRow(this, 'REQ-2025-0152')">
+                  <td style="padding:12px 14px;border-bottom:1px solid var(--border);">
+                    <div style="display:flex;align-items:center;gap:8px;">
+                      <i class="fa-solid fa-circle-check" style="color:#10b981;font-size:13px;"></i>
+                      <span style="font-weight:700;font-size:12.5px;color:var(--text-900);">REQ-2025-0152</span>
+                    </div>
+                  </td>
+                  <td style="padding:12px 14px;border-bottom:1px solid var(--border);">
+                    <div style="font-weight:700;font-size:13px;color:var(--text-900);">Enable WhatsApp QR Share</div>
+                    <div style="font-size:11px;color:var(--text-500);">Allow map sharing via WhatsApp</div>
+                  </td>
+                  <td style="padding:12px 14px;border-bottom:1px solid var(--border);">
+                    <div style="font-weight:700;font-size:12.5px;color:var(--text-900);">Phoenix Mall</div>
+                    <div style="font-size:11px;color:var(--text-500);">Phoenix Mall Project</div>
+                  </td>
+                  <td style="padding:12px 14px;border-bottom:1px solid var(--border);">
+                    <span class="badge-pill badge-feature">Feature</span>
+                  </td>
+                  <td style="padding:12px 14px;border-bottom:1px solid var(--border);">
+                    <span class="badge-pill priority-high">High</span>
+                  </td>
+                  <td style="padding:12px 14px;border-bottom:1px solid var(--border);">
+                    <span class="badge-pill status-approved">Approved</span>
+                  </td>
+                  <td style="padding:12px 14px;border-bottom:1px solid var(--border);">
+                    <div style="font-weight:600;font-size:12px;color:var(--text-900);">14 May 2025</div>
+                    <div style="font-size:10.5px;color:var(--text-500);">09:30 AM</div>
+                  </td>
+                  <td style="padding:12px 14px;border-bottom:1px solid var(--border);">
+                    <div style="font-weight:700;font-size:12px;color:var(--text-900);">v2.2.0</div>
+                    <div style="font-size:10.5px;color:var(--text-500);">(Planned)</div>
+                  </td>
+                  <td style="padding:12px 14px;border-bottom:1px solid var(--border);text-align:center;">
+                    <i class="fa-solid fa-ellipsis-vertical" style="color:var(--text-400);cursor:pointer;"></i>
+                  </td>
+                </tr>
+
+                <!-- Row 6: REQ-2025-0151 -->
+                <tr class="request-row" onclick="selectRequestRow(this, 'REQ-2025-0151')">
+                  <td style="padding:12px 14px;border-bottom:1px solid var(--border);">
+                    <div style="display:flex;align-items:center;gap:8px;">
+                      <i class="fa-regular fa-circle-down" style="color:#8b5cf6;font-size:13px;"></i>
+                      <span style="font-weight:700;font-size:12.5px;color:var(--text-900);">REQ-2025-0151</span>
+                    </div>
+                  </td>
+                  <td style="padding:12px 14px;border-bottom:1px solid var(--border);">
+                    <div style="font-weight:700;font-size:13px;color:var(--text-900);">Change Home Screen Theme</div>
+                    <div style="font-size:11px;color:var(--text-500);">Use Diwali theme in Nov</div>
+                  </td>
+                  <td style="padding:12px 14px;border-bottom:1px solid var(--border);">
+                    <div style="font-weight:700;font-size:12.5px;color:var(--text-900);">Lakeside Mall</div>
+                    <div style="font-size:11px;color:var(--text-500);">Lakeside Mall Project</div>
+                  </td>
+                  <td style="padding:12px 14px;border-bottom:1px solid var(--border);">
+                    <span class="badge-pill badge-theme">Theme</span>
+                  </td>
+                  <td style="padding:12px 14px;border-bottom:1px solid var(--border);">
+                    <span class="badge-pill priority-low">Low</span>
+                  </td>
+                  <td style="padding:12px 14px;border-bottom:1px solid var(--border);">
+                    <span class="badge-pill status-pending">Pending Review</span>
+                  </td>
+                  <td style="padding:12px 14px;border-bottom:1px solid var(--border);">
+                    <div style="font-weight:600;font-size:12px;color:var(--text-900);">13 May 2025</div>
+                    <div style="font-size:10.5px;color:var(--text-500);">02:18 PM</div>
+                  </td>
+                  <td style="padding:12px 14px;border-bottom:1px solid var(--border);">
+                    <span style="color:var(--text-400);font-weight:600;">—</span>
+                  </td>
+                  <td style="padding:12px 14px;border-bottom:1px solid var(--border);text-align:center;">
+                    <i class="fa-solid fa-ellipsis-vertical" style="color:var(--text-400);cursor:pointer;"></i>
+                  </td>
+                </tr>
+
+                <!-- Row 7: REQ-2025-0150 -->
+                <tr class="request-row" onclick="selectRequestRow(this, 'REQ-2025-0150')">
+                  <td style="padding:12px 14px;border-bottom:1px solid var(--border);">
+                    <div style="display:flex;align-items:center;gap:8px;">
+                      <i class="fa-regular fa-circle-xmark" style="color:#ef4444;font-size:13px;"></i>
+                      <span style="font-weight:700;font-size:12.5px;color:var(--text-900);">REQ-2025-0150</span>
+                    </div>
+                  </td>
+                  <td style="padding:12px 14px;border-bottom:1px solid var(--border);">
+                    <div style="font-weight:700;font-size:13px;color:var(--text-900);">Add Parking Section</div>
+                    <div style="font-size:11px;color:var(--text-500);">Add multi-level parking info</div>
+                  </td>
+                  <td style="padding:12px 14px;border-bottom:1px solid var(--border);">
+                    <div style="font-weight:700;font-size:12.5px;color:var(--text-900);">Orion Mall</div>
+                    <div style="font-size:11px;color:var(--text-500);">Orion Mall Project</div>
+                  </td>
+                  <td style="padding:12px 14px;border-bottom:1px solid var(--border);">
+                    <span class="badge-pill badge-content">Content</span>
+                  </td>
+                  <td style="padding:12px 14px;border-bottom:1px solid var(--border);">
+                    <span class="badge-pill priority-medium">Medium</span>
+                  </td>
+                  <td style="padding:12px 14px;border-bottom:1px solid var(--border);">
+                    <span class="badge-pill status-rejected">Rejected</span>
+                  </td>
+                  <td style="padding:12px 14px;border-bottom:1px solid var(--border);">
+                    <div style="font-weight:600;font-size:12px;color:var(--text-900);">12 May 2025</div>
+                    <div style="font-size:10.5px;color:var(--text-500);">01:10 PM</div>
+                  </td>
+                  <td style="padding:12px 14px;border-bottom:1px solid var(--border);">
+                    <span style="color:var(--text-400);font-weight:600;">—</span>
+                  </td>
+                  <td style="padding:12px 14px;border-bottom:1px solid var(--border);text-align:center;">
+                    <i class="fa-solid fa-ellipsis-vertical" style="color:var(--text-400);cursor:pointer;"></i>
+                  </td>
+                </tr>
+
+              </tbody>
+            </table>
+          </div>
+
+          <!-- Pagination Footer -->
+          <div style="padding:14px 20px;display:flex;align-items:center;justify-content:space-between;border-top:1px solid var(--border);background:#fff;font-size:12px;color:var(--text-500);">
+            <span>Showing 1 to 7 of 156 requests</span>
+            <div style="display:flex;align-items:center;gap:6px;">
+              <button style="width:28px;height:28px;border:1px solid var(--border);background:#fff;border-radius:6px;display:flex;align-items:center;justify-content:center;cursor:pointer;color:var(--text-600);"><i class="fa-solid fa-chevron-left" style="font-size:9px;"></i></button>
+              <button style="width:28px;height:28px;border:1px solid #2563eb;background:#2563eb;color:#fff;border-radius:6px;font-weight:700;cursor:pointer;">1</button>
+              <button style="width:28px;height:28px;border:1px solid var(--border);background:#fff;border-radius:6px;cursor:pointer;color:var(--text-700);font-weight:600;">2</button>
+              <button style="width:28px;height:28px;border:1px solid var(--border);background:#fff;border-radius:6px;cursor:pointer;color:var(--text-700);font-weight:600;">3</button>
+              <span style="padding:0 4px;color:var(--text-400);">...</span>
+              <button style="width:28px;height:28px;border:1px solid var(--border);background:#fff;border-radius:6px;cursor:pointer;color:var(--text-700);font-weight:600;">23</button>
+              <button style="width:28px;height:28px;border:1px solid var(--border);background:#fff;border-radius:6px;display:flex;align-items:center;justify-content:center;cursor:pointer;color:var(--text-600);"><i class="fa-solid fa-chevron-right" style="font-size:9px;"></i></button>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Right: Selected Request Card -->
+        <div id="selectedRequestCard" style="background:#ffffff;border:1px solid var(--border);border-radius:14px;padding:20px;box-shadow:0 1px 3px rgba(0,0,0,0.04);display:flex;flex-direction:column;gap:14px;">
+          
+          <!-- Card Top Bar -->
+          <div style="display:flex;align-items:center;justify-content:space-between;">
+            <span style="font-size:12px;font-weight:700;color:var(--text-500);text-transform:uppercase;letter-spacing:0.5px;">Selected Request</span>
+            <span class="badge-pill status-pending" id="selReqStatusBadge">Pending Review</span>
+          </div>
+
+          <!-- Request Title & ID -->
+          <div>
+            <h3 id="selReqTitle" style="font-size:16px;font-weight:800;color:var(--text-900);margin:0 0 4px 0;">Add New Retailer: Miniso</h3>
+            <div id="selReqId" style="font-size:12px;font-weight:700;color:#2563eb;">REQ-2025-0156</div>
+          </div>
+
+          <hr style="border:none;border-top:1px solid var(--border);margin:0;">
+
+          <!-- Metadata List -->
+          <div style="display:flex;flex-direction:column;gap:9px;font-size:12px;">
+            <div style="display:flex;align-items:center;justify-content:space-between;">
+              <span style="color:var(--text-500);display:flex;align-items:center;gap:6px;"><i class="fa-solid fa-gear" style="font-size:11px;"></i> Client:</span>
+              <span id="selReqClient" style="font-weight:700;color:var(--text-900);">Phoenix Mall</span>
+            </div>
+            <div style="display:flex;align-items:center;justify-content:space-between;">
+              <span style="color:var(--text-500);display:flex;align-items:center;gap:6px;"><i class="fa-solid fa-building" style="font-size:11px;"></i> Project:</span>
+              <span id="selReqProject" style="font-weight:700;color:var(--text-900);">Phoenix Mall Project</span>
+            </div>
+            <div style="display:flex;align-items:center;justify-content:space-between;">
+              <span style="color:var(--text-500);display:flex;align-items:center;gap:6px;"><i class="fa-solid fa-tag" style="font-size:11px;"></i> Category:</span>
+              <span id="selReqCategory" style="font-weight:700;color:var(--text-900);">Content</span>
+            </div>
+            <div style="display:flex;align-items:center;justify-content:space-between;">
+              <span style="color:var(--text-500);display:flex;align-items:center;gap:6px;"><i class="fa-solid fa-bolt" style="font-size:11px;"></i> Priority:</span>
+              <span id="selReqPriority" style="font-weight:800;color:#dc2626;">High</span>
+            </div>
+            <div style="display:flex;align-items:center;justify-content:space-between;">
+              <span style="color:var(--text-500);display:flex;align-items:center;gap:6px;"><i class="fa-solid fa-clock" style="font-size:11px;"></i> Status:</span>
+              <span id="selReqStatusText" style="font-weight:700;color:#d97706;">Pending Review</span>
+            </div>
+            <div style="display:flex;align-items:center;justify-content:space-between;">
+              <span style="color:var(--text-500);display:flex;align-items:center;gap:6px;"><i class="fa-solid fa-calendar" style="font-size:11px;"></i> Requested On:</span>
+              <span id="selReqDate" style="font-weight:600;color:var(--text-800);">18 May 2025, 10:15 AM</span>
+            </div>
+            <div style="display:flex;align-items:center;justify-content:space-between;">
+              <span style="color:var(--text-500);display:flex;align-items:center;gap:6px;"><i class="fa-solid fa-user" style="font-size:11px;"></i> Requested By:</span>
+              <span id="selReqUser" style="font-weight:700;color:var(--text-900);">Rahul Mehta <span style="font-weight:500;color:var(--text-500);">(Client Admin)</span></span>
+            </div>
+            <div style="display:flex;align-items:center;justify-content:space-between;">
+              <span style="color:var(--text-500);display:flex;align-items:center;gap:6px;"><i class="fa-solid fa-bullseye" style="font-size:11px;"></i> Target Release:</span>
+              <span id="selReqRelease" style="font-weight:700;color:var(--text-900);">v2.2.0 (Planned)</span>
+            </div>
+            <div style="display:flex;align-items:center;justify-content:space-between;">
+              <span style="color:var(--text-500);display:flex;align-items:center;gap:6px;"><i class="fa-solid fa-hourglass-half" style="font-size:11px;"></i> Estimated Effort:</span>
+              <span id="selReqEffort" style="font-weight:700;color:var(--text-900);">2 - 3 Days</span>
+            </div>
+          </div>
+
+          <hr style="border:none;border-top:1px solid var(--border);margin:0;">
+
+          <!-- Description -->
+          <div>
+            <div style="font-size:11.5px;font-weight:700;color:var(--text-700);margin-bottom:4px;">Description</div>
+            <p id="selReqDesc" style="font-size:12px;color:var(--text-600);line-height:1.4;margin:0;">
+              Request to add Miniso store on Lower Ground Floor near Entry Gate 2. Store details and logo attached.
+            </p>
+          </div>
+
+          <!-- Attachments (2) -->
+          <div>
+            <div style="font-size:11.5px;font-weight:700;color:var(--text-700);margin-bottom:6px;">Attachments (2)</div>
+            <div style="display:flex;flex-direction:column;gap:6px;" id="selReqAttachments">
+              <div style="display:flex;align-items:center;justify-content:space-between;padding:8px 10px;border:1px solid var(--border);border-radius:8px;background:#f8fafc;">
+                <div style="display:flex;align-items:center;gap:8px;">
+                  <span style="background:#fee2e2;color:#dc2626;font-size:9px;font-weight:800;padding:2px 5px;border-radius:4px;">PNG</span>
+                  <div>
+                    <div style="font-size:11.5px;font-weight:700;color:var(--text-900);">Miniso_Store_Logo.png</div>
+                    <div style="font-size:10px;color:var(--text-500);">245 KB</div>
+                  </div>
+                </div>
+                <i class="fa-solid fa-download" style="color:var(--text-400);cursor:pointer;" onclick="alert('Downloading Miniso_Store_Logo.png (245 KB)...')"></i>
+              </div>
+              <div style="display:flex;align-items:center;justify-content:space-between;padding:8px 10px;border:1px solid var(--border);border-radius:8px;background:#f8fafc;">
+                <div style="display:flex;align-items:center;gap:8px;">
+                  <span style="background:#fee2e2;color:#dc2626;font-size:9px;font-weight:800;padding:2px 5px;border-radius:4px;">PDF</span>
+                  <div>
+                    <div style="font-size:11.5px;font-weight:700;color:var(--text-900);">Miniso_Store_Details.pdf</div>
+                    <div style="font-size:10px;color:var(--text-500);">1.2 MB</div>
+                  </div>
+                </div>
+                <i class="fa-solid fa-download" style="color:var(--text-400);cursor:pointer;" onclick="alert('Downloading Miniso_Store_Details.pdf (1.2 MB)...')"></i>
+              </div>
+            </div>
+          </div>
+
+          <!-- Bottom Action Buttons -->
+          <div style="display:flex;gap:10px;margin-top:6px;">
+            <button id="btnViewDetails" onclick="openRequestDetailsModal()" style="flex:1;height:38px;border-radius:8px;border:1px solid var(--border);background:#fff;font-size:12.5px;font-weight:700;color:var(--text-800);cursor:pointer;display:flex;align-items:center;justify-content:center;gap:6px;">
+              <i class="fa-regular fa-file-lines"></i>
+              <span>View Details</span>
+            </button>
+            <button id="btnReviewRequest" onclick="openReviewModal()" style="flex:1.2;height:38px;border-radius:8px;border:none;background:#2563eb;color:#fff;font-size:12.5px;font-weight:700;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:6px;box-shadow:0 2px 4px rgba(37,99,235,0.2);">
+              <span>Review Request</span>
+              <i class="fa-solid fa-arrow-right"></i>
+            </button>
+          </div>
+
+        </div>
+
+      </div>
+
+      <!-- =======================================================================
+           ROW 3: BOTTOM OPERATIONS & ANALYTICS PANELS (4 COLUMNS)
+           ======================================================================= -->
+      <div class="requests-bottom-grid">
+        
+        <!-- Panel 1: Requests by Status Donut -->
+        <div style="background:#ffffff;border:1px solid var(--border);border-radius:14px;padding:16px;box-shadow:0 1px 3px rgba(0,0,0,0.04);">
+          <div style="font-size:14px;font-weight:700;color:var(--text-900);margin-bottom:14px;">Requests by Status</div>
+          
+          <div style="display:flex;align-items:center;gap:14px;">
+            <!-- SVG Donut -->
+            <div style="position:relative;width:105px;height:105px;flex-shrink:0;">
+              <svg viewBox="0 0 36 36" style="width:100%;height:100%;transform:rotate(-90deg);">
+                <!-- Background -->
+                <circle cx="18" cy="18" r="15.915" fill="none" stroke="#f1f5f9" stroke-width="4.5"/>
+                <!-- Pending Review: 26.9% (Orange) -->
+                <circle cx="18" cy="18" r="15.915" fill="none" stroke="#f59e0b" stroke-width="4.5" stroke-dasharray="26.9 73.1" stroke-dashoffset="0"/>
+                <!-- In Progress: 17.9% (Blue) -->
+                <circle cx="18" cy="18" r="15.915" fill="none" stroke="#3b82f6" stroke-width="4.5" stroke-dasharray="17.9 82.1" stroke-dashoffset="-26.9"/>
+                <!-- Approved: 39.7% (Green) -->
+                <circle cx="18" cy="18" r="15.915" fill="none" stroke="#10b981" stroke-width="4.5" stroke-dasharray="39.7 60.3" stroke-dashoffset="-44.8"/>
+                <!-- Rejected: 9.0% (Red) -->
+                <circle cx="18" cy="18" r="15.915" fill="none" stroke="#ef4444" stroke-width="4.5" stroke-dasharray="9.0 91.0" stroke-dashoffset="-84.5"/>
+                <!-- Completed: 6.5% (Slate) -->
+                <circle cx="18" cy="18" r="15.915" fill="none" stroke="#64748b" stroke-width="4.5" stroke-dasharray="6.5 93.5" stroke-dashoffset="-93.5"/>
+              </svg>
+              <div style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);text-align:center;">
+                <div style="font-size:14px;font-weight:800;color:var(--text-900);line-height:1;">156</div>
+                <div style="font-size:9.5px;color:var(--text-500);font-weight:600;">Total</div>
+              </div>
+            </div>
+
+            <!-- Legend -->
+            <div style="flex:1;display:flex;flex-direction:column;gap:5px;font-size:11px;">
+              <div style="display:flex;align-items:center;justify-content:space-between;">
+                <span style="display:flex;align-items:center;gap:5px;"><span style="width:7px;height:7px;border-radius:50%;background:#f59e0b;"></span> Pending Review</span>
+                <span style="font-weight:700;color:var(--text-900);">42 (26.9%)</span>
+              </div>
+              <div style="display:flex;align-items:center;justify-content:space-between;">
+                <span style="display:flex;align-items:center;gap:5px;"><span style="width:7px;height:7px;border-radius:50%;background:#3b82f6;"></span> In Progress</span>
+                <span style="font-weight:700;color:var(--text-900);">28 (17.9%)</span>
+              </div>
+              <div style="display:flex;align-items:center;justify-content:space-between;">
+                <span style="display:flex;align-items:center;gap:5px;"><span style="width:7px;height:7px;border-radius:50%;background:#10b981;"></span> Approved</span>
+                <span style="font-weight:700;color:var(--text-900);">62 (39.7%)</span>
+              </div>
+              <div style="display:flex;align-items:center;justify-content:space-between;">
+                <span style="display:flex;align-items:center;gap:5px;"><span style="width:7px;height:7px;border-radius:50%;background:#ef4444;"></span> Rejected</span>
+                <span style="font-weight:700;color:var(--text-900);">14 (9.0%)</span>
+              </div>
+              <div style="display:flex;align-items:center;justify-content:space-between;">
+                <span style="display:flex;align-items:center;gap:5px;"><span style="width:7px;height:7px;border-radius:50%;background:#64748b;"></span> Completed</span>
+                <span style="font-weight:700;color:var(--text-900);">10 (6.5%)</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Panel 2: Requests by Category Donut -->
+        <div style="background:#ffffff;border:1px solid var(--border);border-radius:14px;padding:16px;box-shadow:0 1px 3px rgba(0,0,0,0.04);">
+          <div style="font-size:14px;font-weight:700;color:var(--text-900);margin-bottom:14px;">Requests by Category</div>
+          
+          <div style="display:flex;align-items:center;gap:14px;">
+            <!-- SVG Donut -->
+            <div style="position:relative;width:105px;height:105px;flex-shrink:0;">
+              <svg viewBox="0 0 36 36" style="width:100%;height:100%;transform:rotate(-90deg);">
+                <circle cx="18" cy="18" r="15.915" fill="none" stroke="#f1f5f9" stroke-width="4.5"/>
+                <!-- Content: 30.8% (Blue) -->
+                <circle cx="18" cy="18" r="15.915" fill="none" stroke="#2563eb" stroke-width="4.5" stroke-dasharray="30.8 69.2" stroke-dashoffset="0"/>
+                <!-- Map: 15.4% (Cyan) -->
+                <circle cx="18" cy="18" r="15.915" fill="none" stroke="#0891b2" stroke-width="4.5" stroke-dasharray="15.4 84.6" stroke-dashoffset="-30.8"/>
+                <!-- Advertisement: 12.8% (Purple) -->
+                <circle cx="18" cy="18" r="15.915" fill="none" stroke="#9333ea" stroke-width="4.5" stroke-dasharray="12.8 87.2" stroke-dashoffset="-46.2"/>
+                <!-- Feature: 11.5% (Orange) -->
+                <circle cx="18" cy="18" r="15.915" fill="none" stroke="#ea580c" stroke-width="4.5" stroke-dasharray="11.5 88.5" stroke-dashoffset="-59.0"/>
+                <!-- Theme: 10.3% (Green) -->
+                <circle cx="18" cy="18" r="15.915" fill="none" stroke="#16a34a" stroke-width="4.5" stroke-dasharray="10.3 89.7" stroke-dashoffset="-70.5"/>
+                <!-- Events: 7.7% (Pink) -->
+                <circle cx="18" cy="18" r="15.915" fill="none" stroke="#db2777" stroke-width="4.5" stroke-dasharray="7.7 92.3" stroke-dashoffset="-80.8"/>
+                <!-- Others: 11.5% (Grey) -->
+                <circle cx="18" cy="18" r="15.915" fill="none" stroke="#94a3b8" stroke-width="4.5" stroke-dasharray="11.5 88.5" stroke-dashoffset="-88.5"/>
+              </svg>
+              <div style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);text-align:center;">
+                <div style="font-size:14px;font-weight:800;color:var(--text-900);line-height:1;">156</div>
+                <div style="font-size:9.5px;color:var(--text-500);font-weight:600;">Total</div>
+              </div>
+            </div>
+
+            <!-- Legend -->
+            <div style="flex:1;display:flex;flex-direction:column;gap:4px;font-size:10.5px;">
+              <div style="display:flex;align-items:center;justify-content:space-between;">
+                <span style="display:flex;align-items:center;gap:4px;"><span style="width:6px;height:6px;border-radius:50%;background:#2563eb;"></span> Content</span>
+                <span style="font-weight:700;color:var(--text-900);">48 (30.8%)</span>
+              </div>
+              <div style="display:flex;align-items:center;justify-content:space-between;">
+                <span style="display:flex;align-items:center;gap:4px;"><span style="width:6px;height:6px;border-radius:50%;background:#0891b2;"></span> Map</span>
+                <span style="font-weight:700;color:var(--text-900);">24 (15.4%)</span>
+              </div>
+              <div style="display:flex;align-items:center;justify-content:space-between;">
+                <span style="display:flex;align-items:center;gap:4px;"><span style="width:6px;height:6px;border-radius:50%;background:#9333ea;"></span> Advertisement</span>
+                <span style="font-weight:700;color:var(--text-900);">20 (12.8%)</span>
+              </div>
+              <div style="display:flex;align-items:center;justify-content:space-between;">
+                <span style="display:flex;align-items:center;gap:4px;"><span style="width:6px;height:6px;border-radius:50%;background:#ea580c;"></span> Feature</span>
+                <span style="font-weight:700;color:var(--text-900);">18 (11.5%)</span>
+              </div>
+              <div style="display:flex;align-items:center;justify-content:space-between;">
+                <span style="display:flex;align-items:center;gap:4px;"><span style="width:6px;height:6px;border-radius:50%;background:#16a34a;"></span> Theme</span>
+                <span style="font-weight:700;color:var(--text-900);">16 (10.3%)</span>
+              </div>
+              <div style="display:flex;align-items:center;justify-content:space-between;">
+                <span style="display:flex;align-items:center;gap:4px;"><span style="width:6px;height:6px;border-radius:50%;background:#db2777;"></span> Events</span>
+                <span style="font-weight:700;color:var(--text-900);">12 (7.7%)</span>
+              </div>
+              <div style="display:flex;align-items:center;justify-content:space-between;">
+                <span style="display:flex;align-items:center;gap:4px;"><span style="width:6px;height:6px;border-radius:50%;background:#94a3b8;"></span> Others</span>
+                <span style="font-weight:700;color:var(--text-900);">18 (11.5%)</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Panel 3: Requests Over Time (Area Chart) -->
+        <div style="background:#ffffff;border:1px solid var(--border);border-radius:14px;padding:16px;box-shadow:0 1px 3px rgba(0,0,0,0.04);">
+          <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;">
+            <div style="font-size:14px;font-weight:700;color:var(--text-900);">Requests Over Time</div>
+            <select style="font-size:11.5px;padding:3px 8px;border-radius:6px;border:1px solid var(--border);background:#fff;color:var(--text-700);outline:none;">
+              <option>Last 30 Days</option>
+              <option>Last 90 Days</option>
+              <option>Year to Date</option>
+            </select>
+          </div>
+
+          <!-- Line chart SVG -->
+          <div style="height:110px;width:100%;">
+            <svg viewBox="0 0 320 100" style="width:100%;height:100%;overflow:visible;">
+              <defs>
+                <linearGradient id="reqPurpleGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+                  <stop offset="0%" stop-color="#8b5cf6" stop-opacity="0.3"/>
+                  <stop offset="100%" stop-color="#8b5cf6" stop-opacity="0.0"/>
+                </linearGradient>
+              </defs>
+              <!-- Grid Lines -->
+              <line x1="25" y1="20" x2="310" y2="20" stroke="#f1f5f9" stroke-width="1"/>
+              <line x1="25" y1="45" x2="310" y2="45" stroke="#f1f5f9" stroke-width="1"/>
+              <line x1="25" y1="70" x2="310" y2="70" stroke="#f1f5f9" stroke-width="1"/>
+              
+              <!-- Y Axis labels -->
+              <text x="5" y="24" font-size="8.5" fill="#94a3b8" font-family="sans-serif">60</text>
+              <text x="5" y="49" font-size="8.5" fill="#94a3b8" font-family="sans-serif">45</text>
+              <text x="5" y="74" font-size="8.5" fill="#94a3b8" font-family="sans-serif">30</text>
+              <text x="5" y="99" font-size="8.5" fill="#94a3b8" font-family="sans-serif">0</text>
+
+              <!-- Filled Area -->
+              <polygon points="35,95 35,80 80,72 125,50 170,30 215,55 260,35 305,75 305,95" fill="url(#reqPurpleGrad)"/>
+
+              <!-- Purple Line -->
+              <polyline points="35,80 80,72 125,50 170,30 215,55 260,35 305,75" fill="none" stroke="#7c3aed" stroke-width="2" stroke-linejoin="round"/>
+
+              <!-- Points -->
+              <circle cx="35" cy="80" r="3" fill="#7c3aed"/>
+              <circle cx="80" cy="72" r="3" fill="#7c3aed"/>
+              <circle cx="125" cy="50" r="3" fill="#7c3aed"/>
+              <circle cx="170" cy="30" r="3.5" fill="#7c3aed" stroke="#ffffff" stroke-width="1.5"/>
+              <circle cx="215" cy="55" r="3" fill="#7c3aed"/>
+              <circle cx="260" cy="35" r="3.5" fill="#7c3aed" stroke="#ffffff" stroke-width="1.5"/>
+              <circle cx="305" cy="75" r="3" fill="#7c3aed"/>
+
+              <!-- Dates along bottom -->
+              <text x="30" y="108" font-size="8" fill="#64748b" font-family="sans-serif">18 Apr</text>
+              <text x="90" y="108" font-size="8" fill="#64748b" font-family="sans-serif">25 Apr</text>
+              <text x="155" y="108" font-size="8" fill="#64748b" font-family="sans-serif">02 May</text>
+              <text x="220" y="108" font-size="8" fill="#64748b" font-family="sans-serif">09 May</text>
+              <text x="285" y="108" font-size="8" fill="#64748b" font-family="sans-serif">16 May</text>
+            </svg>
+          </div>
+        </div>
+
+        <!-- Panel 4: Quick Actions (6 Tiles) -->
+        <div style="background:#ffffff;border:1px solid var(--border);border-radius:14px;padding:16px;box-shadow:0 1px 3px rgba(0,0,0,0.04);">
+          <div style="font-size:14px;font-weight:700;color:var(--text-900);margin-bottom:12px;">Quick Actions</div>
+          
+          <div style="display:grid;grid-template-columns:repeat(3, 1fr);gap:8px;">
+            
+            <div class="quick-action-card-tile" id="qaCreateNewRequest" onclick="openClientRequestCreationModal()">
+              <i class="fa-solid fa-plus" style="color:#2563eb;"></i>
+              <span>Create New Request</span>
+            </div>
+
+            <div class="quick-action-card-tile" id="qaViewAllRequests" onclick="filterByStatus('All')">
+              <i class="fa-solid fa-list-check" style="color:#2563eb;"></i>
+              <span>View All Requests</span>
+            </div>
+
+            <div class="quick-action-card-tile" id="qaMyReviewQueue" onclick="filterByStatus('Pending Review')">
+              <i class="fa-regular fa-clipboard" style="color:#2563eb;"></i>
+              <span>My Review Queue</span>
+            </div>
+
+            <div class="quick-action-card-tile" id="qaRequestReports" onclick="exportRequestsReport()">
+              <i class="fa-solid fa-chart-column" style="color:#2563eb;"></i>
+              <span>Request Reports</span>
+            </div>
+
+            <div class="quick-action-card-tile" id="qaCategorySettings" onclick="alert('Category Settings: Content (48), Map (24), Advertisement (20), Feature (18), Theme (16), Events (12)')">
+              <i class="fa-solid fa-gear" style="color:#2563eb;"></i>
+              <span>Category Settings</span>
+            </div>
+
+            <div class="quick-action-card-tile" id="qaWorkflowSettings" onclick="alert('Workflow Routing: Review -> Approval -> Execution Domain (Experience Studio, Project Maps, Releases)')">
+              <i class="fa-solid fa-sliders" style="color:#2563eb;"></i>
+              <span>Workflow Settings</span>
+            </div>
+
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+
+    <!-- Company Footer -->
+    <footer style="padding:16px 28px;background:#ffffff;border-top:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;font-size:12px;color:var(--text-500);">
+      <div>© 2025 Mall Kiosk Platform. All rights reserved.</div>
+      <div style="display:flex;gap:18px;">
+        <span>v1.0.0</span>
+        <span>May 2025</span>
+      </div>
+    </footer>
+
+  </div>
+</div>
+
+<!-- ===========================================================================
+     MODAL 1: REQUEST DETAILS DEEP INSPECTOR MODAL
+     =========================================================================== -->
+<div class="modal-backdrop" id="requestDetailsModal">
+  <div class="modal-box" style="max-width:850px;">
+    
+    <!-- Modal Header -->
+    <div style="padding:18px 24px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;background:#f8fafc;">
+      <div>
+        <div style="display:flex;align-items:center;gap:10px;">
+          <span style="font-size:18px;font-weight:800;color:var(--text-900);" id="dtlReqTitle">Add New Retailer: Miniso</span>
+          <span class="badge-pill status-pending" id="dtlReqStatusBadge">Pending Review</span>
+        </div>
+        <div style="font-size:12px;color:var(--text-500);margin-top:2px;">
+          <span id="dtlReqId">REQ-2025-0156</span> · Client: <strong id="dtlReqClient">Phoenix Mall</strong> · Project: <strong id="dtlReqProject">Phoenix Mall Project</strong>
+        </div>
+      </div>
+      <button onclick="closeModals()" style="background:none;border:none;font-size:18px;color:var(--text-400);cursor:pointer;">&times;</button>
+    </div>
+
+    <!-- Modal Body with Tabs -->
+    <div style="padding:20px 24px;overflow-y:auto;flex:1;display:flex;flex-direction:column;gap:18px;">
+      
+      <!-- Section 1: Overview & Change Definition -->
+      <div style="background:#f8fafc;border:1px solid var(--border);border-radius:12px;padding:16px;">
+        <div style="font-size:13px;font-weight:700;color:var(--text-900);margin-bottom:10px;display:flex;align-items:center;gap:8px;">
+          <i class="fa-solid fa-arrows-split-up-and-left" style="color:#2563eb;"></i>
+          <span>Existing State vs. Requested Change</span>
+        </div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;font-size:12px;">
+          <div style="background:#ffffff;border:1px solid var(--border);border-radius:8px;padding:12px;">
+            <div style="font-weight:700;color:var(--text-500);margin-bottom:4px;">EXISTING STATE</div>
+            <div style="color:var(--text-800);" id="dtlExistingState">No existing retailer record on Lower Ground Floor near Entry Gate 2. Empty space in zone LG-04.</div>
+          </div>
+          <div style="background:#eff6ff;border:1px solid #bfdbfe;border-radius:8px;padding:12px;">
+            <div style="font-weight:700;color:#1d4ed8;margin-bottom:4px;">REQUESTED CHANGE</div>
+            <div style="color:var(--text-900);font-weight:600;" id="dtlRequestedState">Create new store profile for 'Miniso', configure store details, place destination node on LG Floor map, and link navigation route.</div>
+          </div>
         </div>
       </div>
 
-      <!-- Requests Table Panel -->
-      <div class="panel">
-        <div class="panel-header">
-          <h2>Active Requests Queue</h2>
-          <div class="search-input"><i class="fa-solid fa-magnifying-glass"></i> Filter requests...</div>
+      <!-- Section 2: Execution Routing & Dependencies -->
+      <div>
+        <div style="font-size:13px;font-weight:700;color:var(--text-900);margin-bottom:10px;display:flex;align-items:center;gap:8px;">
+          <i class="fa-solid fa-diagram-project" style="color:#2563eb;"></i>
+          <span>Execution Workflow Routing & Dependencies</span>
         </div>
-        <div class="table-wrap">
-          <table>
-            <thead>
-              <tr>
-                <th>Request ID</th>
-                <th>Client / Venue</th>
-                <th>Category</th>
-                <th>Description</th>
-                <th>Status</th>
-                <th>Submitted</th>
-                <th>Actions</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td style="font-weight:700;color:var(--blue-600);">#REQ-4821</td>
-                <td><strong>Orion Mall</strong><div style="font-size:11.5px;color:var(--text-400);">Bangalore</div></td>
-                <td><span class="badge badge-purple">Advertisement Campaign</span></td>
-                <td>Approval for Diwali Mega Sale digital banners on 8 atrium kiosks</td>
-                <td><span class="badge badge-amber"><span class="dot"></span> In Progress</span></td>
-                <td>09:45 AM</td>
-                <td><button class="btn btn-sm btn-primary">Review</button></td>
-              </tr>
-              <tr>
-                <td style="font-weight:700;color:var(--blue-600);">#REQ-4819</td>
-                <td><strong>Phoenix Mall</strong><div style="font-size:11.5px;color:var(--text-400);">Mumbai</div></td>
-                <td><span class="badge badge-blue">Theme Update</span></td>
-                <td>Request custom Festive Diwali Theme for Kiosk Group A</td>
-                <td><span class="badge badge-green"><span class="dot"></span> Approved</span></td>
-                <td>Yesterday</td>
-                <td><button class="btn btn-sm">View</button></td>
-              </tr>
-              <tr>
-                <td style="font-weight:700;color:var(--blue-600);">#REQ-4815</td>
-                <td><strong>Skyline Mall</strong><div style="font-size:11.5px;color:var(--text-400);">Delhi NCR</div></td>
-                <td><span class="badge badge-gray">Device Replacement</span></td>
-                <td>Kiosk K-03 screen hardware maintenance request</td>
-                <td><span class="badge badge-amber"><span class="dot"></span> In Progress</span></td>
-                <td>2 days ago</td>
-                <td><button class="btn btn-sm">View</button></td>
-              </tr>
-            </tbody>
-          </table>
+        <div style="display:grid;grid-template-columns:repeat(4, 1fr);gap:10px;font-size:11.5px;">
+          <div style="border:1px solid var(--border);border-radius:8px;padding:10px;background:#ffffff;">
+            <div style="color:var(--text-500);font-weight:600;">1. Store Experience</div>
+            <div style="font-weight:700;color:var(--text-900);margin-top:2px;">Experience Studio</div>
+            <a href="experience-studio.html" style="color:#2563eb;font-size:11px;text-decoration:none;font-weight:600;">Open Studio →</a>
+          </div>
+          <div style="border:1px solid var(--border);border-radius:8px;padding:10px;background:#ffffff;">
+            <div style="color:var(--text-500);font-weight:600;">2. Map Placement</div>
+            <div style="font-weight:700;color:var(--text-900);margin-top:2px;">Project Maps</div>
+            <a href="projects.html" style="color:#2563eb;font-size:11px;text-decoration:none;font-weight:600;">Open Maps →</a>
+          </div>
+          <div style="border:1px solid var(--border);border-radius:8px;padding:10px;background:#ffffff;">
+            <div style="color:var(--text-500);font-weight:600;">3. Route Graph</div>
+            <div style="font-weight:700;color:var(--text-900);margin-top:2px;">Shortest Path Logic</div>
+            <span style="color:#10b981;font-size:11px;font-weight:700;">Automatic Calc</span>
+          </div>
+          <div style="border:1px solid var(--border);border-radius:8px;padding:10px;background:#ffffff;">
+            <div style="color:var(--text-500);font-weight:600;">4. Target Release</div>
+            <div style="font-weight:700;color:var(--text-900);margin-top:2px;">v2.2.0 (Planned)</div>
+            <a href="releases.html" style="color:#2563eb;font-size:11px;text-decoration:none;font-weight:600;">View Releases →</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Section 3: Activity & Clarification Timeline -->
+      <div>
+        <div style="font-size:13px;font-weight:700;color:var(--text-900);margin-bottom:10px;display:flex;align-items:center;gap:8px;">
+          <i class="fa-solid fa-clock-rotate-left" style="color:#2563eb;"></i>
+          <span>Activity & Clarification Timeline</span>
+        </div>
+        <div style="padding-left:4px;" id="dtlTimelineList">
+          <div class="timeline-item">
+            <div class="timeline-bullet success"><i class="fa-solid fa-check"></i></div>
+            <div>
+              <div style="font-size:12px;font-weight:700;color:var(--text-900);">Request Submitted by Client Admin (Rahul Mehta)</div>
+              <div style="font-size:11px;color:var(--text-500);">18 May 2025, 10:15 AM · Provided initial store brief and logo files.</div>
+            </div>
+          </div>
+          <div class="timeline-item">
+            <div class="timeline-bullet warning"><i class="fa-solid fa-eye"></i></div>
+            <div>
+              <div style="font-size:12px;font-weight:700;color:var(--text-900);">Company Technical Assessment Started</div>
+              <div style="font-size:11px;color:var(--text-500);">18 May 2025, 11:30 AM · Verified architectural feasibility and LG floor spatial coordinates.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Modal Footer -->
+    <div style="padding:14px 24px;border-top:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;background:#f8fafc;">
+      <button onclick="closeModals()" style="height:36px;padding:0 16px;border-radius:8px;border:1px solid var(--border);background:#fff;font-size:12.5px;font-weight:600;color:var(--text-700);cursor:pointer;">Close</button>
+      <button onclick="closeModals(); openReviewModal();" style="height:36px;padding:0 20px;border-radius:8px;border:none;background:#2563eb;color:#fff;font-size:12.5px;font-weight:700;cursor:pointer;">Proceed to Review & Decision</button>
+    </div>
+
+  </div>
+</div>
+
+<!-- ===========================================================================
+     MODAL 2: COMPANY REVIEW & DECISION WORKFLOW MODAL
+     =========================================================================== -->
+<div class="modal-backdrop" id="reviewDecisionModal">
+  <div class="modal-box" style="max-width:680px;">
+    
+    <!-- Modal Header -->
+    <div style="padding:18px 24px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;background:#f8fafc;">
+      <div>
+        <h3 style="font-size:17px;font-weight:800;color:var(--text-900);margin:0;">Company Request Decision</h3>
+        <div style="font-size:12px;color:var(--text-500);margin-top:2px;">Reviewing <span id="revReqId">REQ-2025-0156</span>: <strong id="revReqTitle">Add New Retailer: Miniso</strong></div>
+      </div>
+      <button onclick="closeModals()" style="background:none;border:none;font-size:18px;color:var(--text-400);cursor:pointer;">&times;</button>
+    </div>
+
+    <!-- Modal Body -->
+    <div style="padding:20px 24px;display:flex;flex-direction:column;gap:16px;">
+      
+      <!-- Action Selection Tabs -->
+      <div>
+        <label style="font-size:12px;font-weight:700;color:var(--text-700);display:block;margin-bottom:8px;">Choose Decision Action:</label>
+        <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;">
+          <button type="button" id="tabApprove" onclick="switchDecisionTab('approve')" style="padding:12px;border-radius:8px;border:2px solid #2563eb;background:#eff6ff;color:#1d4ed8;font-size:13px;font-weight:700;cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:4px;">
+            <i class="fa-solid fa-circle-check" style="font-size:16px;"></i>
+            <span>Approve Request</span>
+          </button>
+          <button type="button" id="tabClarify" onclick="switchDecisionTab('clarify')" style="padding:12px;border-radius:8px;border:1px solid var(--border);background:#fff;color:var(--text-700);font-size:13px;font-weight:700;cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:4px;">
+            <i class="fa-solid fa-question-circle" style="font-size:16px;color:#f59e0b;"></i>
+            <span>Request Clarification</span>
+          </button>
+          <button type="button" id="tabReject" onclick="switchDecisionTab('reject')" style="padding:12px;border-radius:8px;border:1px solid var(--border);background:#fff;color:var(--text-700);font-size:13px;font-weight:700;cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:4px;">
+            <i class="fa-solid fa-circle-xmark" style="font-size:16px;color:#ef4444;"></i>
+            <span>Reject Request</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Tab Content 1: Approve Form -->
+      <div id="decisionApproveForm" style="display:flex;flex-direction:column;gap:12px;">
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;">
+          <div>
+            <label style="font-size:11.5px;font-weight:700;color:var(--text-700);display:block;margin-bottom:4px;">Assign Team</label>
+            <select id="selAssignTeam" style="width:100%;height:36px;border-radius:7px;border:1px solid var(--border);padding:0 10px;font-size:12.5px;">
+              <option>Experience Team</option>
+              <option>Engineering Team</option>
+              <option>Map & Navigation Team</option>
+              <option>Content Operations</option>
+            </select>
+          </div>
+          <div>
+            <label style="font-size:11.5px;font-weight:700;color:var(--text-700);display:block;margin-bottom:4px;">Target Release</label>
+            <select id="selTargetRelease" style="width:100%;height:36px;border-radius:7px;border:1px solid var(--border);padding:0 10px;font-size:12.5px;">
+              <option>v2.2.0 (Next Minor)</option>
+              <option>v2.1.2 (Patch Release)</option>
+              <option>v2.3.0 (Major Release)</option>
+            </select>
+          </div>
+        </div>
+
+        <div>
+          <label style="font-size:11.5px;font-weight:700;color:var(--text-700);display:block;margin-bottom:4px;">Execution Workflow Routing</label>
+          <div style="background:#f8fafc;border:1px solid var(--border);border-radius:8px;padding:10px;font-size:12px;color:var(--text-700);">
+            <i class="fa-solid fa-circle-info" style="color:#2563eb;margin-right:4px;"></i>
+            Approving this request will create an execution task in <strong>Experience Studio</strong> and <strong>Project Maps</strong>, targeted for <strong>v2.2.0</strong>.
+          </div>
+        </div>
+      </div>
+
+      <!-- Tab Content 2: Clarification Form (Hidden by default) -->
+      <div id="decisionClarifyForm" style="display:none;flex-direction:column;gap:12px;">
+        <div>
+          <label style="font-size:11.5px;font-weight:700;color:var(--text-700);display:block;margin-bottom:4px;">Missing Information / Asset Required</label>
+          <select style="width:100%;height:36px;border-radius:7px;border:1px solid var(--border);padding:0 10px;font-size:12.5px;">
+            <option>High-Resolution Vector Store Logo (SVG / AI)</option>
+            <option>Exact Spatial CAD Coordinates on Lower Ground Floor</option>
+            <option>Brand Identity Guidelines & Hex Palette</option>
+            <option>Campaign Schedule & Promo Expiry Date</option>
+          </select>
+        </div>
+        <div>
+          <label style="font-size:11.5px;font-weight:700;color:var(--text-700);display:block;margin-bottom:4px;">Clarification Note to Client Admin</label>
+          <textarea id="txtClarificationNote" rows="3" style="width:100%;border-radius:7px;border:1px solid var(--border);padding:8px 10px;font-size:12.5px;outline:none;" placeholder="Please upload the high-res vector logo and confirm the store operating hours..."></textarea>
+        </div>
+      </div>
+
+      <!-- Tab Content 3: Rejection Form (Hidden by default) -->
+      <div id="decisionRejectForm" style="display:none;flex-direction:column;gap:12px;">
+        <div>
+          <label style="font-size:11.5px;font-weight:700;color:var(--text-700);display:block;margin-bottom:4px;">Rejection Reason</label>
+          <select style="width:100%;height:36px;border-radius:7px;border:1px solid var(--border);padding:0 10px;font-size:12.5px;">
+            <option>Outside Scope of Current Template Contract</option>
+            <option>Architectural Incompatibility with Hardware Specs</option>
+            <option>Duplicate Request Already Under Execution</option>
+            <option>Venue Space Not Leased / Unavailable</option>
+          </select>
+        </div>
+        <div>
+          <label style="font-size:11.5px;font-weight:700;color:var(--text-700);display:block;margin-bottom:4px;">Rejection Note Visible to Client</label>
+          <textarea id="txtRejectionNote" rows="3" style="width:100%;border-radius:7px;border:1px solid var(--border);padding:8px 10px;font-size:12.5px;outline:none;" placeholder="This requested custom experience requires template-level modifications not supported in v2.1..."></textarea>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Modal Footer -->
+    <div style="padding:14px 24px;border-top:1px solid var(--border);display:flex;align-items:center;justify-content:flex-end;gap:10px;background:#f8fafc;">
+      <button onclick="closeModals()" style="height:36px;padding:0 16px;border-radius:8px;border:1px solid var(--border);background:#fff;font-size:12.5px;font-weight:600;color:var(--text-700);cursor:pointer;">Cancel</button>
+      <button id="btnConfirmDecision" onclick="executeDecisionAction()" style="height:36px;padding:0 22px;border-radius:8px;border:none;background:#2563eb;color:#fff;font-size:12.5px;font-weight:700;cursor:pointer;">Confirm Approval</button>
+    </div>
+
+  </div>
+</div>
+
+<!-- ===========================================================================
+     MODAL 3: GUIDED CLIENT-SIDE REQUEST CREATION SIMULATOR
+     =========================================================================== -->
+<div class="modal-backdrop" id="clientCreateRequestModal">
+  <div class="modal-box" style="max-width:700px;">
+    
+    <div style="padding:18px 24px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;background:#f8fafc;">
+      <div>
+        <h3 style="font-size:17px;font-weight:800;color:var(--text-900);margin:0;">Create Structured Request</h3>
+        <div style="font-size:12px;color:var(--text-500);margin-top:2px;">Client Admin Request Submission Portal</div>
+      </div>
+      <button onclick="closeModals()" style="background:none;border:none;font-size:18px;color:var(--text-400);cursor:pointer;">&times;</button>
+    </div>
+
+    <div style="padding:20px 24px;display:flex;flex-direction:column;gap:14px;">
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;">
+        <div>
+          <label style="font-size:11.5px;font-weight:700;color:var(--text-700);display:block;margin-bottom:4px;">Request Category</label>
+          <select id="reqCategorySelect" onchange="updateDynamicFormCategory()" style="width:100%;height:36px;border-radius:7px;border:1px solid var(--border);padding:0 10px;font-size:12.5px;">
+            <option value="Store / Brand">Store / Brand (New Retailer)</option>
+            <option value="Advertisement">Advertisement (New Campaign / Section)</option>
+            <option value="Map">Map & Layout Update</option>
+            <option value="Theme">Custom Theme Request</option>
+            <option value="Events">New Event Experience</option>
+            <option value="Amenities">New Amenity</option>
+          </select>
+        </div>
+        <div>
+          <label style="font-size:11.5px;font-weight:700;color:var(--text-700);display:block;margin-bottom:4px;">Target Project</label>
+          <select style="width:100%;height:36px;border-radius:7px;border:1px solid var(--border);padding:0 10px;font-size:12.5px;">
+            <option>Phoenix Mall Project</option>
+            <option>Orion Mall Project</option>
+            <option>Skyline Mall Project</option>
+          </select>
+        </div>
+      </div>
+
+      <div>
+        <label style="font-size:11.5px;font-weight:700;color:var(--text-700);display:block;margin-bottom:4px;">Request Title</label>
+        <input type="text" id="newReqTitleInput" placeholder="e.g., Add New Retailer: Miniso" value="Add New Retailer: Miniso" style="width:100%;height:36px;border-radius:7px;border:1px solid var(--border);padding:0 12px;font-size:12.5px;">
+      </div>
+
+      <div id="dynamicFormFields">
+        <div style="background:#f8fafc;border:1px solid var(--border);border-radius:8px;padding:12px;display:flex;flex-direction:column;gap:10px;">
+          <div style="font-size:12px;font-weight:700;color:#2563eb;">Store & Map Placement Details</div>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;">
+            <input type="text" placeholder="Floor: Lower Ground" value="Floor: Lower Ground" style="height:32px;border:1px solid var(--border);border-radius:6px;padding:0 8px;font-size:12px;">
+            <input type="text" placeholder="Store Zone: LG-04" value="Store Zone: LG-04" style="height:32px;border:1px solid var(--border);border-radius:6px;padding:0 8px;font-size:12px;">
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <label style="font-size:11.5px;font-weight:700;color:var(--text-700);display:block;margin-bottom:4px;">Upload Attachments / Creative Assets</label>
+        <div style="border:2px dashed #cbd5e1;border-radius:8px;padding:16px;text-align:center;background:#f8fafc;cursor:pointer;" onclick="alert('File Upload Simulator: Miniso_Store_Logo.png & Miniso_Store_Details.pdf attached!')">
+          <i class="fa-solid fa-cloud-arrow-up" style="font-size:22px;color:#2563eb;margin-bottom:6px;"></i>
+          <div style="font-size:12px;font-weight:700;color:var(--text-900);">Drag & Drop Brand Logo, Floor Reference or PDF Brief</div>
+          <div style="font-size:11px;color:var(--text-500);">Supported: PNG, SVG, PDF, JPG (Max 25MB)</div>
         </div>
       </div>
     </div>
+
+    <div style="padding:14px 24px;border-top:1px solid var(--border);display:flex;align-items:center;justify-content:flex-end;gap:10px;background:#f8fafc;">
+      <button onclick="closeModals()" style="height:36px;padding:0 16px;border-radius:8px;border:1px solid var(--border);background:#fff;font-size:12.5px;font-weight:600;color:var(--text-700);cursor:pointer;">Cancel</button>
+      <button onclick="submitNewClientRequest()" style="height:36px;padding:0 22px;border-radius:8px;border:none;background:#2563eb;color:#fff;font-size:12.5px;font-weight:700;cursor:pointer;">Submit Request</button>
+    </div>
+
   </div>
 </div>
+
+<!-- ===========================================================================
+     JAVASCRIPT LOGIC
+     =========================================================================== -->
+<script>
+  let activeDecisionTab = 'approve';
+
+  // Request Prototype Data Store
+  const requestsData = {
+    'REQ-2025-0156': {
+      id: 'REQ-2025-0156',
+      title: 'Add New Retailer: Miniso',
+      subtitle: 'Add Miniso store on LG Floor',
+      client: 'Phoenix Mall',
+      project: 'Phoenix Mall Project',
+      category: 'Content',
+      priority: 'High',
+      priorityClass: 'priority-high',
+      status: 'Pending Review',
+      statusClass: 'status-pending',
+      date: '18 May 2025, 10:15 AM',
+      user: 'Rahul Mehta (Client Admin)',
+      release: 'v2.2.0 (Planned)',
+      effort: '2 - 3 Days',
+      desc: 'Request to add Miniso store on Lower Ground Floor near Entry Gate 2. Store details and logo attached.',
+      existingState: 'No existing retailer record on Lower Ground Floor near Entry Gate 2. Empty space in zone LG-04.',
+      requestedState: 'Create new store profile for Miniso, configure store details, place destination node on LG Floor map, and link navigation route.',
+      attachments: [
+        { name: 'Miniso_Store_Logo.png', size: '245 KB', ext: 'PNG' },
+        { name: 'Miniso_Store_Details.pdf', size: '1.2 MB', ext: 'PDF' }
+      ]
+    },
+    'REQ-2025-0155': {
+      id: 'REQ-2025-0155',
+      title: 'Update Food Court Map',
+      subtitle: 'Revise food court layout',
+      client: 'Orion Mall',
+      project: 'Orion Mall Project',
+      category: 'Map',
+      priority: 'Medium',
+      priorityClass: 'priority-medium',
+      status: 'In Progress',
+      statusClass: 'status-inprogress',
+      date: '17 May 2025, 03:42 PM',
+      user: 'Kavita Rao (Client Admin)',
+      release: 'v2.1.1 (In Progress)',
+      effort: '1 - 2 Days',
+      desc: 'Reconfigure Level 3 Food Court seating zones and add 2 new quick-service counters (Subway, Taco Bell).',
+      existingState: 'Level 3 Food Court has 14 food stalls mapped with 2024 seating boundaries.',
+      requestedState: 'Update polygon coordinates for 2 new stalls and revise walkway routing paths.',
+      attachments: [
+        { name: 'FoodCourt_CAD_Rev2.pdf', size: '3.4 MB', ext: 'PDF' }
+      ]
+    },
+    'REQ-2025-0154': {
+      id: 'REQ-2025-0154',
+      title: 'Add Summer Sale Banner',
+      subtitle: 'Promote summer sale 2025',
+      client: 'Skyline Mall',
+      project: 'Skyline Mall Project',
+      category: 'Advertisement',
+      priority: 'Medium',
+      priorityClass: 'priority-medium',
+      status: 'Approved',
+      statusClass: 'status-approved',
+      date: '16 May 2025, 11:20 AM',
+      user: 'Ananya Deshmukh (Client Admin)',
+      release: 'v2.2.0 (Planned)',
+      effort: '1 Day',
+      desc: 'Deploy high-impact hero banner for Skyline Summer Gala across all 43" portrait kiosks.',
+      existingState: 'Current campaign running Spring Collection 2025.',
+      requestedState: 'Replace spring hero banner with Summer Gala interactive section and QR coupon flow.',
+      attachments: [
+        { name: 'SummerGala_Creative_4K.png', size: '8.1 MB', ext: 'PNG' },
+        { name: 'Offer_Details.pdf', size: '512 KB', ext: 'PDF' }
+      ]
+    },
+    'REQ-2025-0153': {
+      id: 'REQ-2025-0153',
+      title: 'New Event: Music Night',
+      subtitle: 'Add event in events section',
+      client: 'Westend Mall',
+      project: 'Westend Mall Project',
+      category: 'Events',
+      priority: 'Low',
+      priorityClass: 'priority-low',
+      status: 'In Progress',
+      statusClass: 'status-inprogress',
+      date: '15 May 2025, 04:05 PM',
+      user: 'Vikram Seth (Client Admin)',
+      release: 'v2.1.1 (In Progress)',
+      effort: '1 Day',
+      desc: 'Publish upcoming Live Acoustic Night at Main Atrium on May 24th from 6 PM to 9 PM.',
+      existingState: 'Events section currently shows past Weekend Magic Show.',
+      requestedState: 'Add Acoustic Night tile with date, artist info, and atrium waypoint navigation.',
+      attachments: [
+        { name: 'MusicNight_Poster.png', size: '1.8 MB', ext: 'PNG' }
+      ]
+    },
+    'REQ-2025-0152': {
+      id: 'REQ-2025-0152',
+      title: 'Enable WhatsApp QR Share',
+      subtitle: 'Allow map sharing via WhatsApp',
+      client: 'Phoenix Mall',
+      project: 'Phoenix Mall Project',
+      category: 'Feature',
+      priority: 'High',
+      priorityClass: 'priority-high',
+      status: 'Approved',
+      statusClass: 'status-approved',
+      date: '14 May 2025, 09:30 AM',
+      user: 'Rahul Mehta (Client Admin)',
+      release: 'v2.2.0 (Planned)',
+      effort: '3 - 4 Days',
+      desc: 'Enable visitor QR code scanning on Wayfinding screen to send turn-by-turn map directions to visitor mobile WhatsApp.',
+      existingState: 'Wayfinding currently only displays step-by-step route on kiosk screen.',
+      requestedState: 'Integrate dynamic WhatsApp URL generator & QR display component upon reaching destination.',
+      attachments: [
+        { name: 'WhatsApp_API_Integration_Spec.pdf', size: '940 KB', ext: 'PDF' }
+      ]
+    },
+    'REQ-2025-0151': {
+      id: 'REQ-2025-0151',
+      title: 'Change Home Screen Theme',
+      subtitle: 'Use Diwali theme in Nov',
+      client: 'Lakeside Mall',
+      project: 'Lakeside Mall Project',
+      category: 'Theme',
+      priority: 'Low',
+      priorityClass: 'priority-low',
+      status: 'Pending Review',
+      statusClass: 'status-pending',
+      date: '13 May 2025, 02:18 PM',
+      user: 'Pooja Hegde (Client Admin)',
+      release: '—',
+      effort: '2 Days',
+      desc: 'Request custom festive Diwali theme for Lakeside Mall with gold/crimson palette and diya micro-animations.',
+      existingState: 'Currently active on Standard Mall Dark Theme.',
+      requestedState: 'Engineering to build Diwali Festive Theme asset pack and configure scheduled activation in November.',
+      attachments: [
+        { name: 'Diwali_Color_Reference.png', size: '1.1 MB', ext: 'PNG' }
+      ]
+    },
+    'REQ-2025-0150': {
+      id: 'REQ-2025-0150',
+      title: 'Add Parking Section',
+      subtitle: 'Add multi-level parking info',
+      client: 'Orion Mall',
+      project: 'Orion Mall Project',
+      category: 'Content',
+      priority: 'Medium',
+      priorityClass: 'priority-medium',
+      status: 'Rejected',
+      statusClass: 'status-rejected',
+      date: '12 May 2025, 01:10 PM',
+      user: 'Kavita Rao (Client Admin)',
+      release: '—',
+      effort: '—',
+      desc: 'Request real-time live sensor integration for multi-level parking lot availability.',
+      existingState: 'Static amenities page with parking icon.',
+      requestedState: 'Hardware IoT sensor telemetry feed on kiosk screen.',
+      attachments: [
+        { name: 'Parking_Sensor_Tech_Spec.pdf', size: '2.8 MB', ext: 'PDF' }
+      ]
+    }
+  };
+
+  let currentSelectedReqId = 'REQ-2025-0156';
+
+  function selectRequestRow(rowEl, reqId) {
+    document.querySelectorAll('.request-row').forEach(r => r.classList.remove('selected'));
+    rowEl.classList.add('selected');
+    currentSelectedReqId = reqId;
+
+    const data = requestsData[reqId];
+    if (!data) return;
+
+    document.getElementById('selReqTitle').innerText = data.title;
+    document.getElementById('selReqId').innerText = data.id;
+    document.getElementById('selReqClient').innerText = data.client;
+    document.getElementById('selReqProject').innerText = data.project;
+    document.getElementById('selReqCategory').innerText = data.category;
+    
+    const prioEl = document.getElementById('selReqPriority');
+    prioEl.innerText = data.priority;
+    prioEl.style.color = data.priority === 'High' ? '#dc2626' : (data.priority === 'Medium' ? '#d97706' : '#16a34a');
+
+    document.getElementById('selReqStatusBadge').className = `badge-pill ${data.statusClass}`;
+    document.getElementById('selReqStatusBadge').innerText = data.status;
+    document.getElementById('selReqStatusText').innerText = data.status;
+    document.getElementById('selReqDate').innerText = data.date;
+    document.getElementById('selReqUser').innerHTML = `${data.user.split('(')[0]} <span style="font-weight:500;color:var(--text-500);">(Client Admin)</span>`;
+    document.getElementById('selReqRelease').innerText = data.release;
+    document.getElementById('selReqEffort').innerText = data.effort;
+    document.getElementById('selReqDesc').innerText = data.desc;
+
+    // Attachments
+    const attContainer = document.getElementById('selReqAttachments');
+    attContainer.innerHTML = '';
+    data.attachments.forEach(att => {
+      attContainer.innerHTML += `
+        <div style="display:flex;align-items:center;justify-content:space-between;padding:8px 10px;border:1px solid var(--border);border-radius:8px;background:#f8fafc;">
+          <div style="display:flex;align-items:center;gap:8px;">
+            <span style="background:#fee2e2;color:#dc2626;font-size:9px;font-weight:800;padding:2px 5px;border-radius:4px;">${att.ext}</span>
+            <div>
+              <div style="font-size:11.5px;font-weight:700;color:var(--text-900);">${att.name}</div>
+              <div style="font-size:10px;color:var(--text-500);">${att.size}</div>
+            </div>
+          </div>
+          <i class="fa-solid fa-download" style="color:var(--text-400);cursor:pointer;" onclick="alert('Downloading ${att.name} (${att.size})...')"></i>
+        </div>
+      `;
+    });
+  }
+
+  function openRequestDetailsModal() {
+    const data = requestsData[currentSelectedReqId] || requestsData['REQ-2025-0156'];
+    document.getElementById('dtlReqTitle').innerText = data.title;
+    document.getElementById('dtlReqId').innerText = data.id;
+    document.getElementById('dtlReqClient').innerText = data.client;
+    document.getElementById('dtlReqProject').innerText = data.project;
+    document.getElementById('dtlReqStatusBadge').className = `badge-pill ${data.statusClass}`;
+    document.getElementById('dtlReqStatusBadge').innerText = data.status;
+    document.getElementById('dtlExistingState').innerText = data.existingState;
+    document.getElementById('dtlRequestedState').innerText = data.requestedState;
+
+    document.getElementById('requestDetailsModal').style.display = 'flex';
+  }
+
+  function openReviewModal() {
+    const data = requestsData[currentSelectedReqId] || requestsData['REQ-2025-0156'];
+    document.getElementById('revReqId').innerText = data.id;
+    document.getElementById('revReqTitle').innerText = data.title;
+    switchDecisionTab('approve');
+    document.getElementById('reviewDecisionModal').style.display = 'flex';
+  }
+
+  function switchDecisionTab(tab) {
+    activeDecisionTab = tab;
+    
+    // Reset buttons
+    document.getElementById('tabApprove').style.borderColor = tab === 'approve' ? '#2563eb' : 'var(--border)';
+    document.getElementById('tabApprove').style.background = tab === 'approve' ? '#eff6ff' : '#fff';
+    
+    document.getElementById('tabClarify').style.borderColor = tab === 'clarify' ? '#f59e0b' : 'var(--border)';
+    document.getElementById('tabClarify').style.background = tab === 'clarify' ? '#fffbeb' : '#fff';
+    
+    document.getElementById('tabReject').style.borderColor = tab === 'reject' ? '#ef4444' : 'var(--border)';
+    document.getElementById('tabReject').style.background = tab === 'reject' ? '#fef2f2' : '#fff';
+
+    document.getElementById('decisionApproveForm').style.display = tab === 'approve' ? 'flex' : 'none';
+    document.getElementById('decisionClarifyForm').style.display = tab === 'clarify' ? 'flex' : 'none';
+    document.getElementById('decisionRejectForm').style.display = tab === 'reject' ? 'flex' : 'none';
+
+    const confirmBtn = document.getElementById('btnConfirmDecision');
+    if (tab === 'approve') {
+      confirmBtn.innerText = 'Confirm Approval & Route';
+      confirmBtn.style.background = '#2563eb';
+    } else if (tab === 'clarify') {
+      confirmBtn.innerText = 'Send Clarification Request';
+      confirmBtn.style.background = '#f59e0b';
+    } else {
+      confirmBtn.innerText = 'Confirm Rejection';
+      confirmBtn.style.background = '#ef4444';
+    }
+  }
+
+  function executeDecisionAction() {
+    const data = requestsData[currentSelectedReqId];
+    if (activeDecisionTab === 'approve') {
+      data.status = 'Approved';
+      data.statusClass = 'status-approved';
+      alert(`Request ${data.id} APPROVED!
+
+Routed to: Experience Team
+Target Release: v2.2.0 (Planned)
+Execution task initialized.`);
+    } else if (activeDecisionTab === 'clarify') {
+      data.status = 'Clarification Required';
+      data.statusClass = 'status-clarification';
+      alert(`Request ${data.id} updated to CLARIFICATION REQUIRED.
+
+Notification dispatched to Client Admin (Rahul Mehta).`);
+    } else if (activeDecisionTab === 'reject') {
+      data.status = 'Rejected';
+      data.statusClass = 'status-rejected';
+      alert(`Request ${data.id} REJECTED.
+
+Rejection rationale recorded and visible to client.`);
+    }
+    
+    closeModals();
+    selectRequestRow(document.querySelector(`.request-row.selected`), currentSelectedReqId);
+  }
+
+  function openClientRequestCreationModal() {
+    document.getElementById('clientCreateRequestModal').style.display = 'flex';
+  }
+
+  function updateDynamicFormCategory() {
+    const cat = document.getElementById('reqCategorySelect').value;
+    const dynamicDiv = document.getElementById('dynamicFormFields');
+    if (cat === 'Advertisement') {
+      dynamicDiv.innerHTML = `
+        <div style="background:#f8fafc;border:1px solid var(--border);border-radius:8px;padding:12px;display:flex;flex-direction:column;gap:10px;">
+          <div style="font-size:12px;font-weight:700;color:#9333ea;">Advertisement & Campaign Config</div>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;">
+            <input type="text" placeholder="Brand Name: Zara" style="height:32px;border:1px solid var(--border);border-radius:6px;padding:0 8px;font-size:12px;">
+            <input type="text" placeholder="Campaign: Summer Collection" style="height:32px;border:1px solid var(--border);border-radius:6px;padding:0 8px;font-size:12px;">
+          </div>
+        </div>
+      `;
+    } else if (cat === 'Map') {
+      dynamicDiv.innerHTML = `
+        <div style="background:#f8fafc;border:1px solid var(--border);border-radius:8px;padding:12px;display:flex;flex-direction:column;gap:10px;">
+          <div style="font-size:12px;font-weight:700;color:#0891b2;">Map Coordinate & Navigation Routing</div>
+          <input type="text" placeholder="Floor / Area Zone: Level 3 Food Court" style="height:32px;border:1px solid var(--border);border-radius:6px;padding:0 8px;font-size:12px;">
+        </div>
+      `;
+    } else if (cat === 'Theme') {
+      dynamicDiv.innerHTML = `
+        <div style="background:#f8fafc;border:1px solid var(--border);border-radius:8px;padding:12px;display:flex;flex-direction:column;gap:10px;">
+          <div style="font-size:12px;font-weight:700;color:#16a34a;">Custom Theme Requirements</div>
+          <input type="text" placeholder="Theme Concept: Festive Gold Diwali 2025" style="height:32px;border:1px solid var(--border);border-radius:6px;padding:0 8px;font-size:12px;">
+        </div>
+      `;
+    } else {
+      dynamicDiv.innerHTML = `
+        <div style="background:#f8fafc;border:1px solid var(--border);border-radius:8px;padding:12px;display:flex;flex-direction:column;gap:10px;">
+          <div style="font-size:12px;font-weight:700;color:#2563eb;">Store & Map Placement Details</div>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;">
+            <input type="text" placeholder="Floor: Lower Ground" value="Floor: Lower Ground" style="height:32px;border:1px solid var(--border);border-radius:6px;padding:0 8px;font-size:12px;">
+            <input type="text" placeholder="Store Zone: LG-04" value="Store Zone: LG-04" style="height:32px;border:1px solid var(--border);border-radius:6px;padding:0 8px;font-size:12px;">
+          </div>
+        </div>
+      `;
+    }
+  }
+
+  function submitNewClientRequest() {
+    const title = document.getElementById('newReqTitleInput').value;
+    alert(`New Request '${title}' submitted successfully!
+
+Assigned ID: REQ-2025-0157
+Status: Pending Review
+Dispatched to Company Admin Queue.`);
+    closeModals();
+  }
+
+  function filterByStatus(status) {
+    const rows = document.querySelectorAll('#requestsTableBody tr');
+    rows.forEach(r => {
+      if (status === 'All' || r.innerText.includes(status)) {
+        r.style.display = '';
+      } else {
+        r.style.display = 'none';
+      }
+    });
+  }
+
+  function filterRequestsTable() {
+    const val = document.getElementById('requestsTableSearch').value.toLowerCase();
+    const rows = document.querySelectorAll('#requestsTableBody tr');
+    rows.forEach(r => {
+      r.style.display = r.innerText.toLowerCase().includes(val) ? '' : 'none';
+    });
+  }
+
+  function toggleFilterMenu() {
+    alert('Filters Available: Status (Pending, In Progress, Approved, Rejected), Priority (High, Medium, Low), Category (Content, Map, Advertisement, Theme, Feature, Events)');
+  }
+
+  function exportRequestsReport() {
+    alert('Exporting consolidated Request Management Report (CSV / PDF)... Download initiated!');
+  }
+
+  function closeModals() {
+    document.querySelectorAll('.modal-backdrop').forEach(m => m.style.display = 'none');
+  }
+
+  // Close modals on Escape key
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') closeModals();
+  });
+</script>
+
 </body>
 </html>

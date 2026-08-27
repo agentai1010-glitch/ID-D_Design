@@ -1,0 +1,562 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Phoenix Mall Project · Project Details · Mall Kiosk Platform</title>
+  <!-- Google Fonts & Font Awesome -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="stylesheet" href="css/styles.css">
+  <style>
+    .project-tab-nav {
+      display: flex;
+      align-items: center;
+      gap: 18px;
+      border-bottom: 1px solid var(--border);
+      padding: 0 4px;
+      margin-bottom: 20px;
+      overflow-x: auto;
+      white-space: nowrap;
+    }
+
+    .proj-tab-btn {
+      background: transparent;
+      border: none;
+      border-bottom: 2px solid transparent;
+      padding: 10px 4px 12px 4px;
+      font-size: 13.5px;
+      font-weight: 600;
+      color: var(--text-500);
+      cursor: pointer;
+      transition: all 0.2s ease;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .proj-tab-btn:hover {
+      color: var(--text-900);
+    }
+
+    .proj-tab-btn.active {
+      color: #2563eb;
+      border-bottom-color: #2563eb;
+      font-weight: 700;
+    }
+
+    .proj-kpi-row {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 16px;
+      margin-bottom: 20px;
+    }
+
+    .proj-child-entry-card {
+      background: #ffffff;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 18px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: 12px;
+      transition: all 0.2s ease;
+      cursor: pointer;
+    }
+
+    .proj-child-entry-card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 16px rgba(0,0,0,0.06);
+      border-color: #93c5fd;
+    }
+  </style>
+</head>
+<body>
+<div class="app-shell">
+
+  <!-- =========================================================================
+       COMPANY ADMIN GLOBAL SIDEBAR
+       ========================================================================= -->
+  <aside class="sidebar">
+    <a href="dashboard.html" class="sidebar-brand" style="cursor:pointer;text-decoration:none;">
+      <div class="logo-icon" style="background:linear-gradient(135deg,#3b82f6,#1d4ed8);border-radius:10px;">
+        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style="width:20px;height:20px;">
+          <path d="M4 21V9l8-6 8 6v12H4z" stroke="white" stroke-width="1.8" stroke-linejoin="round"/>
+          <path d="M9 21V12h6v9" stroke="white" stroke-width="1.8"/>
+          <path d="M12 3v4" stroke="white" stroke-width="1.8"/>
+        </svg>
+      </div>
+      <div class="brand-text">
+        <div class="t1" style="font-size:14px;font-weight:700;color:#ffffff;line-height:1.2;">Mall Kiosk Platform</div>
+        <div class="t2" style="font-size:11px;color:#94a3b8;font-weight:500;">Company Admin</div>
+      </div>
+    </a>
+
+    <ul class="sidebar-nav">
+      <li class="nav-item" onclick="location.href='dashboard.html'"><i class="fa-solid fa-house"></i><span>Dashboard</span></li>
+      <li class="nav-item" onclick="location.href='clients.html'"><i class="fa-solid fa-user-group"></i><span>Clients</span></li>
+      <li class="nav-item" onclick="location.href='onboard-client.html'"><i class="fa-solid fa-wand-magic-sparkles"></i><span>Onboarding</span></li>
+      <li class="nav-item" onclick="location.href='templates.html'"><i class="fa-regular fa-file-lines"></i><span>Templates</span></li>
+      <li class="nav-item active" onclick="location.href='projects.html'"><i class="fa-solid fa-folder-open"></i><span>Projects</span></li>
+      <li class="nav-item" onclick="location.href='requests.html'" style="display:flex;align-items:center;justify-content:space-between;">
+        <div style="display:flex;align-items:center;gap:10px;"><i class="fa-regular fa-clipboard"></i><span>Requests</span></div>
+        <span class="badge" style="background:#2563eb;color:#fff;font-size:10px;padding:2px 7px;border-radius:999px;font-weight:700;">16</span>
+      </li>
+      <li class="nav-item" onclick="location.href='experience-studio.html'"><i class="fa-solid fa-palette"></i><span>Experience Studio</span></li>
+      <li class="nav-item" onclick="location.href='releases.html'"><i class="fa-solid fa-rocket"></i><span>Releases</span></li>
+      <li class="nav-item" onclick="location.href='devices.html'"><i class="fa-solid fa-display"></i><span>Devices</span></li>
+      <li class="nav-item" onclick="location.href='monitoring.html'"><i class="fa-solid fa-chart-line"></i><span>Monitoring</span></li>
+      <li class="nav-item" onclick="location.href='analytics.html'"><i class="fa-solid fa-chart-column"></i><span>Analytics</span></li>
+      <li class="nav-item" onclick="location.href='system-settings.html'"><i class="fa-solid fa-gear"></i><span>Settings</span></li>
+      <li class="nav-item" onclick="location.href='users-roles.html'"><i class="fa-solid fa-user-shield"></i><span>Users & Roles</span></li>
+    </ul>
+
+    <div class="sidebar-spacer"></div>
+    <div class="sidebar-collapse-btn" style="display:flex;align-items:center;gap:8px;padding:10px 12px;color:#94a3b8;font-size:13px;cursor:pointer;">
+      <i class="fa-solid fa-chevron-left" style="font-size:11px;"></i>
+      <span>Collapse</span>
+    </div>
+  </aside>
+
+  <!-- =========================================================================
+       MAIN WORKSPACE
+       ========================================================================= -->
+  <div class="main">
+
+    <!-- Topbar Header -->
+    <header class="topbar">
+      <div style="display:flex;align-items:center;gap:14px;">
+        <i class="fa-solid fa-bars hamburger"></i>
+        <div>
+          <h1 style="font-size:19px;font-weight:800;color:var(--text-900);margin:0;line-height:1.2;">Project Details</h1>
+          <div style="font-size:11.5px;color:var(--text-500);display:flex;align-items:center;gap:6px;margin-top:2px;">
+            <a href="dashboard.html" style="color:var(--text-500);text-decoration:none;">Dashboard</a>
+            <i class="fa-solid fa-chevron-right" style="font-size:8px;"></i>
+            <a href="projects.html" style="color:var(--text-500);text-decoration:none;">Projects</a>
+            <i class="fa-solid fa-chevron-right" style="font-size:8px;"></i>
+            <span style="color:var(--text-900);font-weight:600;">Phoenix Mall Project</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="spacer"></div>
+
+      <!-- Notification Bell -->
+      <button class="icon-btn" style="position:relative;">
+        <i class="fa-regular fa-bell"></i>
+        <span class="badge-dot" style="position:absolute;top:3px;right:3px;background:#ef4444;color:#fff;font-size:9px;font-weight:700;border-radius:50%;width:15px;height:15px;display:flex;align-items:center;justify-content:center;">12</span>
+      </button>
+
+      <!-- Profile -->
+      <div class="user">
+        <div class="avatar" style="background:#1e293b;color:#fff;font-weight:700;font-size:12px;">CA</div>
+        <div>
+          <div class="u-name" style="font-size:13px;font-weight:700;color:var(--text-900);">Company Admin</div>
+        </div>
+        <i class="fa-solid fa-chevron-down" style="font-size:10px;color:var(--text-400);"></i>
+      </div>
+    </header>
+
+    <!-- Page Content Container -->
+    <div class="content" style="padding:24px 28px;">
+
+      <!-- Project Header Card -->
+      <div class="panel" style="padding:22px;margin-bottom:20px;display:flex;align-items:center;justify-content:space-between;">
+        <div style="display:flex;align-items:center;gap:18px;">
+          <div style="width:52px;height:52px;border-radius:12px;background:linear-gradient(135deg,#3b82f6,#1d4ed8);display:flex;align-items:center;justify-content:center;color:#fff;font-size:22px;">
+            <i class="fa-solid fa-building"></i>
+          </div>
+          <div>
+            <div style="display:flex;align-items:center;gap:10px;">
+              <h2 style="font-size:18px;font-weight:800;color:var(--text-900);margin:0;">Phoenix Mall Project</h2>
+              <span class="badge badge-green" style="font-size:11px;"><span class="dot"></span> Active</span>
+            </div>
+            <div style="font-size:12px;color:var(--text-500);margin-top:3px;">
+              Client: <a href="client-detail.html" style="color:#2563eb;font-weight:700;text-decoration:none;">Phoenix Mills Ltd. (Phoenix Mall)</a> &nbsp;•&nbsp; 
+              Venue: Lower Parel, Mumbai &nbsp;•&nbsp; 
+              Template: <a href="templates.html" style="color:#2563eb;font-weight:700;text-decoration:none;">Mall / Indoor Venue (v2.1)</a>
+            </div>
+          </div>
+        </div>
+
+        <div style="display:flex;align-items:center;gap:10px;">
+          <a href="kiosk/home.html" target="_blank" class="btn btn-primary" style="background:#2563eb;color:#fff;font-weight:700;font-size:13px;display:flex;align-items:center;gap:6px;text-decoration:none;">
+            <i class="fa-solid fa-expand"></i> Launch Live Kiosk
+          </a>
+          <a href="projects.html" class="btn" style="font-size:13px;">
+            <i class="fa-solid fa-arrow-left"></i> Back to Projects
+          </a>
+        </div>
+      </div>
+
+      <!-- =====================================================================
+           PROJECT WORKFLOW TABS (11 Parent Context Tabs)
+           ===================================================================== -->
+      <div class="panel" style="padding:22px;">
+        
+        <div class="project-tab-nav">
+          <button class="proj-tab-btn active" id="pTabOverview" onclick="switchProjTab('overview')"><i class="fa-solid fa-layer-group"></i> Overview</button>
+          <button class="proj-tab-btn" id="pTabExperience" onclick="switchProjTab('experience')"><i class="fa-solid fa-palette"></i> Experience</button>
+          <button class="proj-tab-btn" id="pTabContent" onclick="switchProjTab('content')"><i class="fa-solid fa-file-pen"></i> Content</button>
+          <button class="proj-tab-btn" id="pTabMaps" onclick="switchProjTab('maps')"><i class="fa-solid fa-map-location-dot"></i> Maps</button>
+          <button class="proj-tab-btn" id="pTabNavigation" onclick="switchProjTab('navigation')"><i class="fa-solid fa-route"></i> Navigation</button>
+          <button class="proj-tab-btn" id="pTabAdvertisements" onclick="switchProjTab('advertisements')"><i class="fa-solid fa-bullhorn"></i> Advertisements</button>
+          <button class="proj-tab-btn" id="pTabPreview" onclick="switchProjTab('preview')"><i class="fa-solid fa-desktop"></i> Preview</button>
+          <button class="proj-tab-btn" id="pTabValidation" onclick="switchProjTab('validation')"><i class="fa-solid fa-clipboard-check"></i> Validation</button>
+          <button class="proj-tab-btn" id="pTabReleases" onclick="switchProjTab('releases')"><i class="fa-solid fa-rocket"></i> Releases</button>
+          <button class="proj-tab-btn" id="pTabDevices" onclick="switchProjTab('devices')"><i class="fa-solid fa-display"></i> Devices</button>
+          <button class="proj-tab-btn" id="pTabAnalytics" onclick="switchProjTab('analytics')"><i class="fa-solid fa-chart-column"></i> Analytics</button>
+        </div>
+
+        <!-- ===================================================================
+             PANE 1: OVERVIEW
+             =================================================================== -->
+        <div class="proj-tab-pane" id="pPaneOverview">
+          
+          <!-- 4 Project Summary KPI Boxes -->
+          <div class="proj-kpi-row">
+            <div class="kpi-stat-box">
+              <div class="kpi-icon-square" style="background:#eff6ff;color:#2563eb;">
+                <i class="fa-solid fa-display"></i>
+              </div>
+              <div>
+                <div style="font-size:11px;font-weight:600;color:var(--text-500);text-transform:uppercase;">Total Kiosks</div>
+                <div style="font-size:20px;font-weight:800;color:var(--text-900);">28 Devices</div>
+                <div style="font-size:11px;color:#10b981;">26 Online · 2 Offline</div>
+              </div>
+            </div>
+
+            <div class="kpi-stat-box">
+              <div class="kpi-icon-square" style="background:#f5f3ff;color:#7c3aed;">
+                <i class="fa-solid fa-rocket"></i>
+              </div>
+              <div>
+                <div style="font-size:11px;font-weight:600;color:var(--text-500);text-transform:uppercase;">Current Release</div>
+                <div style="font-size:20px;font-weight:800;color:var(--text-900);">v2.1.0</div>
+                <div style="font-size:11px;color:var(--text-400);">Released 28 Apr 2025</div>
+              </div>
+            </div>
+
+            <div class="kpi-stat-box">
+              <div class="kpi-icon-square" style="background:#fdf2f8;color:#db2777;">
+                <i class="fa-solid fa-palette"></i>
+              </div>
+              <div>
+                <div style="font-size:11px;font-weight:600;color:var(--text-500);text-transform:uppercase;">Assigned Theme</div>
+                <div style="font-size:20px;font-weight:800;color:var(--text-900);">Default Mall</div>
+                <div style="font-size:11px;color:var(--text-400);">Luxury Palette</div>
+              </div>
+            </div>
+
+            <div class="kpi-stat-box">
+              <div class="kpi-icon-square" style="background:#f0fdfa;color:#0d9488;">
+                <i class="fa-solid fa-heart-pulse"></i>
+              </div>
+              <div>
+                <div style="font-size:11px;font-weight:600;color:var(--text-500);text-transform:uppercase;">Experience Health</div>
+                <div style="font-size:20px;font-weight:800;color:var(--text-900);">98%</div>
+                <div style="font-size:11px;color:#10b981;font-weight:700;">Optimal Performance</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Project Child Workflow Entry Points Grid -->
+          <h3 style="font-size:14px;font-weight:800;color:var(--text-900);margin:0 0 14px;">Project Implementation Modules</h3>
+          
+          <div style="display:grid;grid-template-columns:repeat(3, 1fr);gap:16px;">
+            
+            <div class="proj-child-entry-card" onclick="switchProjTab('experience')">
+              <div>
+                <div style="display:flex;align-items:center;gap:10px;margin-bottom:8px;">
+                  <div style="width:36px;height:36px;border-radius:8px;background:#eff6ff;color:#2563eb;display:flex;align-items:center;justify-content:center;font-size:16px;">
+                    <i class="fa-solid fa-palette"></i>
+                  </div>
+                  <div>
+                    <h4 style="font-size:13.5px;font-weight:700;color:var(--text-900);margin:0;">Experience Configuration</h4>
+                    <span class="badge badge-green" style="font-size:9px;">Active</span>
+                  </div>
+                </div>
+                <p style="font-size:11.5px;color:var(--text-600);margin:0;line-height:1.4;">
+                  Configured kiosk layout, home banners, color theme, and 5-screen interactive visitor journey.
+                </p>
+              </div>
+              <div style="display:flex;justify-content:space-between;align-items:center;font-size:11px;color:#2563eb;font-weight:700;border-top:1px solid #f1f5f9;padding-top:10px;">
+                <span>Manage Experience &rarr;</span>
+              </div>
+            </div>
+
+            <div class="proj-child-entry-card" onclick="switchProjTab('content')">
+              <div>
+                <div style="display:flex;align-items:center;gap:10px;margin-bottom:8px;">
+                  <div style="width:36px;height:36px;border-radius:8px;background:#f5f3ff;color:#7c3aed;display:flex;align-items:center;justify-content:center;font-size:16px;">
+                    <i class="fa-solid fa-file-pen"></i>
+                  </div>
+                  <div>
+                    <h4 style="font-size:13.5px;font-weight:700;color:var(--text-900);margin:0;">Venue Content</h4>
+                    <span class="badge badge-blue" style="font-size:9px;">248 Listings</span>
+                  </div>
+                </div>
+                <p style="font-size:11.5px;color:var(--text-600);margin:0;line-height:1.4;">
+                  Directory of stores, dining restaurants, event calendars, services, and amenities.
+                </p>
+              </div>
+              <div style="display:flex;justify-content:space-between;align-items:center;font-size:11px;color:#7c3aed;font-weight:700;border-top:1px solid #f1f5f9;padding-top:10px;">
+                <span>Manage Content &rarr;</span>
+              </div>
+            </div>
+
+            <div class="proj-child-entry-card" onclick="switchProjTab('maps')">
+              <div>
+                <div style="display:flex;align-items:center;gap:10px;margin-bottom:8px;">
+                  <div style="width:36px;height:36px;border-radius:8px;background:#ecfdf5;color:#059669;display:flex;align-items:center;justify-content:center;font-size:16px;">
+                    <i class="fa-solid fa-map-location-dot"></i>
+                  </div>
+                  <div>
+                    <h4 style="font-size:13.5px;font-weight:700;color:var(--text-900);margin:0;">2.5D Indoor Maps</h4>
+                    <span class="badge badge-green" style="font-size:9px;">4 Floors Mapped</span>
+                  </div>
+                </div>
+                <p style="font-size:11.5px;color:var(--text-600);margin:0;line-height:1.4;">
+                  Isometric venue floorplans, POI pins, escalators, lifts, and wayfinding routes.
+                </p>
+              </div>
+              <div style="display:flex;justify-content:space-between;align-items:center;font-size:11px;color:#059669;font-weight:700;border-top:1px solid #f1f5f9;padding-top:10px;">
+                <span>Manage Maps &rarr;</span>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- ===================================================================
+             PANE 2: EXPERIENCE
+             =================================================================== -->
+        <div class="proj-tab-pane" id="pPaneExperience" style="display:none;">
+          <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;">
+            <div>
+              <h3 style="font-size:15px;font-weight:800;color:var(--text-900);margin:0 0 2px;">Project Experience Configuration</h3>
+              <p style="font-size:12px;color:var(--text-500);margin:0;">Template: Mall / Indoor Venue · Assigned Theme: Default Mall Luxury</p>
+            </div>
+            <a href="kiosk/home.html" target="_blank" class="btn btn-primary" style="background:#2563eb;color:#fff;font-weight:700;">
+              <i class="fa-solid fa-expand"></i> Launch Simulator
+            </a>
+          </div>
+          <div style="background:#f8fafc;padding:20px;border-radius:12px;border:1px solid #e2e8f0;text-align:center;">
+            <i class="fa-solid fa-palette" style="font-size:32px;color:#2563eb;margin-bottom:10px;"></i>
+            <h4 style="margin:0 0 6px;color:var(--text-900);">Experience Studio Link</h4>
+            <p style="font-size:12px;color:var(--text-600);max-width:500px;margin:0 auto 16px;">
+              Manage screen branding, hero promotion banners, footer shortcuts, and theme attributes for Phoenix Mall Project.
+            </p>
+            <a href="experience-studio.html" class="btn"><i class="fa-solid fa-arrow-up-right-from-square"></i> Open in Experience Studio</a>
+          </div>
+        </div>
+
+        <!-- ===================================================================
+             PANE 3: CONTENT
+             =================================================================== -->
+        <div class="proj-tab-pane" id="pPaneContent" style="display:none;">
+          <h3 style="font-size:15px;font-weight:800;color:var(--text-900);margin:0 0 10px;">Project Content Catalog</h3>
+          <p style="font-size:12px;color:var(--text-500);margin:0 0 16px;">Directory of active tenant listings, restaurants, and amenities in Phoenix Mall.</p>
+          <div class="table-wrap">
+            <table>
+              <thead><tr><th>Category</th><th>Total Items</th><th>Last Synced</th><th>Status</th></tr></thead>
+              <tbody>
+                <tr><td><strong>Stores & Brands</strong></td><td>184 Stores</td><td>Today, 10:30 AM</td><td><span class="badge badge-green">Synced</span></td></tr>
+                <tr><td><strong>Food & Dining</strong></td><td>42 Restaurants</td><td>Today, 09:15 AM</td><td><span class="badge badge-green">Synced</span></td></tr>
+                <tr><td><strong>Events & Offers</strong></td><td>12 Active Campaigns</td><td>Yesterday, 04:00 PM</td><td><span class="badge badge-green">Synced</span></td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- ===================================================================
+             PANE 4: MAPS
+             =================================================================== -->
+        <div class="proj-tab-pane" id="pPaneMaps" style="display:none;">
+          <h3 style="font-size:15px;font-weight:800;color:var(--text-900);margin:0 0 10px;">Indoor Spatial Maps & Levels</h3>
+          <p style="font-size:12px;color:var(--text-500);margin:0 0 16px;">Multi-floor 2.5D spatial layout for Lower Parel venue.</p>
+          <div style="display:grid;grid-template-columns:repeat(4, 1fr);gap:12px;">
+            <div style="background:#f8fafc;border:1px solid #e2e8f0;border-radius:10px;padding:14px;text-align:center;">
+              <i class="fa-solid fa-layer-group" style="color:#2563eb;font-size:20px;margin-bottom:6px;"></i>
+              <div style="font-weight:700;font-size:13px;">Ground Floor</div>
+              <div style="font-size:11px;color:var(--text-400);">64 Stores · 8 Kiosks</div>
+            </div>
+            <div style="background:#f8fafc;border:1px solid #e2e8f0;border-radius:10px;padding:14px;text-align:center;">
+              <i class="fa-solid fa-layer-group" style="color:#2563eb;font-size:20px;margin-bottom:6px;"></i>
+              <div style="font-weight:700;font-size:13px;">First Floor</div>
+              <div style="font-size:11px;color:var(--text-400);">58 Stores · 8 Kiosks</div>
+            </div>
+            <div style="background:#f8fafc;border:1px solid #e2e8f0;border-radius:10px;padding:14px;text-align:center;">
+              <i class="fa-solid fa-layer-group" style="color:#2563eb;font-size:20px;margin-bottom:6px;"></i>
+              <div style="font-weight:700;font-size:13px;">Second Floor</div>
+              <div style="font-size:11px;color:var(--text-400);">42 Stores · 6 Kiosks</div>
+            </div>
+            <div style="background:#f8fafc;border:1px solid #e2e8f0;border-radius:10px;padding:14px;text-align:center;">
+              <i class="fa-solid fa-layer-group" style="color:#2563eb;font-size:20px;margin-bottom:6px;"></i>
+              <div style="font-weight:700;font-size:13px;">Food Court (L3)</div>
+              <div style="font-size:11px;color:var(--text-400);">24 Outlets · 6 Kiosks</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ===================================================================
+             PANE 5: NAVIGATION
+             =================================================================== -->
+        <div class="proj-tab-pane" id="pPaneNavigation" style="display:none;">
+          <h3 style="font-size:15px;font-weight:800;color:var(--text-900);margin:0 0 10px;">Wayfinding & Routing Configuration</h3>
+          <p style="font-size:12px;color:var(--text-500);margin:0 0 16px;">Navigation graph nodes, shortest path route calculation, and accessible paths.</p>
+          <div style="background:#f8fafc;padding:16px;border-radius:10px;font-size:12.5px;color:var(--text-700);">
+            <div>✔ <strong>Navigation Graph:</strong> 342 Nodes · 512 Interconnected Segments</div>
+            <div style="margin:6px 0;">✔ <strong>Vertical Transit:</strong> 8 Escalator Banks · 6 Passenger Elevators</div>
+            <div>✔ <strong>ADA Accessibility Mode:</strong> Fully enabled with elevator-first routing.</div>
+          </div>
+        </div>
+
+        <!-- ===================================================================
+             PANE 6: ADVERTISEMENTS
+             =================================================================== -->
+        <div class="proj-tab-pane" id="pPaneAdvertisements" style="display:none;">
+          <h3 style="font-size:15px;font-weight:800;color:var(--text-900);margin:0 0 10px;">Advertisement Schedules & Campaigns</h3>
+          <p style="font-size:12px;color:var(--text-500);margin:0 0 16px;">Active brand banners, hero promotions, and full-screen video campaigns.</p>
+          <div class="table-wrap">
+            <table>
+              <thead><tr><th>Campaign Name</th><th>Brand / Sponsor</th><th>Slot</th><th>Impressions</th><th>Status</th></tr></thead>
+              <tbody>
+                <tr><td><strong>Summer Grand Sale 2025</strong></td><td>Zara & H&M</td><td>Hero Carousel</td><td>48,200</td><td><span class="badge badge-green">Active</span></td></tr>
+                <tr><td><strong>Festive Dining Deals</strong></td><td>Food Court Tenants</td><td>Footer Strip</td><td>32,100</td><td><span class="badge badge-green">Active</span></td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- ===================================================================
+             PANE 7: PREVIEW
+             =================================================================== -->
+        <div class="proj-tab-pane" id="pPanePreview" style="display:none;">
+          <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;">
+            <h3 style="font-size:15px;font-weight:800;color:var(--text-900);margin:0;">Interactive Kiosk Preview</h3>
+            <a href="kiosk/home.html" target="_blank" class="btn btn-primary"><i class="fa-solid fa-expand"></i> Launch Simulator</a>
+          </div>
+          <iframe src="kiosk/home.html" style="width:100%;height:500px;border-radius:12px;border:1px solid var(--border);" title="Kiosk Simulator"></iframe>
+        </div>
+
+        <!-- ===================================================================
+             PANE 8: VALIDATION
+             =================================================================== -->
+        <div class="proj-tab-pane" id="pPaneValidation" style="display:none;">
+          <h3 style="font-size:15px;font-weight:800;color:var(--text-900);margin:0 0 10px;">Pre-Flight Release Validation</h3>
+          <p style="font-size:12px;color:var(--text-500);margin:0 0 16px;">Automated system checks verifying project release readiness.</p>
+          <div style="display:flex;flex-direction:column;gap:10px;">
+            <div style="display:flex;align-items:center;gap:10px;font-size:12.5px;color:var(--text-800);background:#f8fafc;padding:12px;border-radius:8px;">
+              <i class="fa-solid fa-circle-check" style="color:#10b981;font-size:16px;"></i>
+              <div><strong>Content Integrity:</strong> All 248 listings have valid thumbnails and metadata.</div>
+            </div>
+            <div style="display:flex;align-items:center;gap:10px;font-size:12.5px;color:var(--text-800);background:#f8fafc;padding:12px;border-radius:8px;">
+              <i class="fa-solid fa-circle-check" style="color:#10b981;font-size:16px;"></i>
+              <div><strong>Map Navigation Graph:</strong> No disconnected nodes detected across 4 floors.</div>
+            </div>
+            <div style="display:flex;align-items:center;gap:10px;font-size:12.5px;color:var(--text-800);background:#f8fafc;padding:12px;border-radius:8px;">
+              <i class="fa-solid fa-circle-check" style="color:#10b981;font-size:16px;"></i>
+              <div><strong>Device Sync Readiness:</strong> 26 connected kiosk endpoints ready for deployment.</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ===================================================================
+             PANE 9: RELEASES
+             =================================================================== -->
+        <div class="proj-tab-pane" id="pPaneReleases" style="display:none;">
+          <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;">
+            <h3 style="font-size:15px;font-weight:800;color:var(--text-900);margin:0;">Project Release History</h3>
+            <a href="releases.html" class="btn"><i class="fa-solid fa-rocket"></i> Open Release Pipeline</a>
+          </div>
+          <div class="table-wrap">
+            <table>
+              <thead><tr><th>Release Tag</th><th>Published On</th><th>Target Devices</th><th>Status</th></tr></thead>
+              <tbody>
+                <tr><td><strong>Release v2.1.0</strong></td><td>Today, 10:30 AM</td><td>28 Kiosks</td><td><span class="badge badge-green">Published</span></td></tr>
+                <tr><td><strong>Release v2.0.3</strong></td><td>15 Apr 2025</td><td>28 Kiosks</td><td><span class="badge badge-gray">Superseded</span></td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- ===================================================================
+             PANE 10: DEVICES
+             =================================================================== -->
+        <div class="proj-tab-pane" id="pPaneDevices" style="display:none;">
+          <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;">
+            <h3 style="font-size:15px;font-weight:800;color:var(--text-900);margin:0;">Assigned Kiosk Devices (28)</h3>
+            <a href="devices.html" class="btn"><i class="fa-solid fa-display"></i> View All Devices</a>
+          </div>
+          <div class="table-wrap">
+            <table>
+              <thead><tr><th>Device ID</th><th>Location</th><th>IP Address</th><th>App Version</th><th>Status</th></tr></thead>
+              <tbody>
+                <tr><td><strong>PHX-K-001</strong></td><td>Ground Floor Main Atrium</td><td>192.168.10.11</td><td>v2.1.0</td><td><span class="badge badge-green">Online</span></td></tr>
+                <tr><td><strong>PHX-K-002</strong></td><td>Ground Floor North Entry</td><td>192.168.10.12</td><td>v2.1.0</td><td><span class="badge badge-green">Online</span></td></tr>
+                <tr><td><strong>PHX-K-028</strong></td><td>Level 3 Food Court East</td><td>192.168.10.38</td><td>v2.1.0</td><td><span class="badge badge-red">Offline</span></td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- ===================================================================
+             PANE 11: ANALYTICS
+             =================================================================== -->
+        <div class="proj-tab-pane" id="pPaneAnalytics" style="display:none;">
+          <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;">
+            <h3 style="font-size:15px;font-weight:800;color:var(--text-900);margin:0;">Project Performance & Insights</h3>
+            <a href="analytics.html" class="btn"><i class="fa-solid fa-chart-column"></i> Open Analytics Dashboard</a>
+          </div>
+          <div style="display:grid;grid-template-columns:repeat(3, 1fr);gap:14px;">
+            <div class="kpi-stat-box"><div class="body"><div class="label">Total Searches</div><div class="value" style="font-size:22px;font-weight:800;">14,820</div><div class="sub" style="color:#10b981;">+18.4% vs last week</div></div></div>
+            <div class="kpi-stat-box"><div class="body"><div class="label">Navigation Requests</div><div class="value" style="font-size:22px;font-weight:800;">8,450</div><div class="sub" style="color:#10b981;">+12.1% vs last week</div></div></div>
+            <div class="kpi-stat-box"><div class="body"><div class="label">Ad Impressions</div><div class="value" style="font-size:22px;font-weight:800;">80,300</div><div class="sub" style="color:#10b981;">99.4% delivery rate</div></div></div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Footer Bar -->
+      <footer style="display:flex;align-items:center;justify-content:space-between;padding-top:20px;margin-top:24px;border-top:1px solid var(--border-soft);font-size:12px;color:var(--text-400);">
+        <div>© 2025 Mall Kiosk Platform. All rights reserved.</div>
+        <div style="display:flex;gap:16px;">
+          <span>v1.0.0</span>
+          <span>|</span>
+          <span>May 2025</span>
+        </div>
+      </footer>
+
+    </div>
+  </div>
+</div>
+
+<!-- =========================================================================
+     JAVASCRIPT WORKSPACE INTERACTION
+     ========================================================================= -->
+<script>
+  function switchProjTab(tabName) {
+    const tabs = ['overview', 'experience', 'content', 'maps', 'navigation', 'advertisements', 'preview', 'validation', 'releases', 'devices', 'analytics'];
+    tabs.forEach(t => {
+      const btn = document.getElementById(`pTab${capitalize(t)}`);
+      const pane = document.getElementById(`pPane${capitalize(t)}`);
+      if (btn) btn.classList.remove('active');
+      if (pane) pane.style.display = 'none';
+    });
+
+    const activeBtn = document.getElementById(`pTab${capitalize(tabName)}`);
+    const activePane = document.getElementById(`pPane${capitalize(tabName)}`);
+    if (activeBtn) activeBtn.classList.add('active');
+    if (activePane) activePane.style.display = 'block';
+  }
+
+  function capitalize(s) {
+    return s.charAt(0).toUpperCase() + s.slice(1);
+  }
+</script>
+</body>
+</html>

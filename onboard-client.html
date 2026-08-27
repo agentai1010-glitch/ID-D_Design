@@ -1,147 +1,1474 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Onboard New Client · Kiosk Platform</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-<link rel="stylesheet" href="css/styles.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Client Onboarding · Mall Kiosk Platform</title>
+  <!-- Google Fonts & Font Awesome -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="stylesheet" href="css/styles.css">
+  <style>
+    /* Workflow Domain 3 - Custom Client Onboarding Styling */
+    .onboarding-main-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) 340px;
+      gap: 24px;
+      align-items: start;
+      margin-bottom: 24px;
+    }
+    
+    .wizard-card {
+      background: #ffffff;
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 24px 28px 28px 28px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+    }
+    
+    /* 6-Step Horizontal Progress Stepper */
+    .onboard-stepper-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: relative;
+      padding-bottom: 24px;
+      margin-bottom: 24px;
+      border-bottom: 1px solid var(--border-soft);
+    }
+    
+    .stepper-node {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      position: relative;
+      z-index: 2;
+      cursor: pointer;
+      min-width: 80px;
+    }
+    
+    .stepper-circle {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background: #ffffff;
+      border: 2px solid #cbd5e1;
+      color: #64748b;
+      font-weight: 700;
+      font-size: 13px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 6px;
+      transition: all 0.25s ease;
+    }
+    
+    .stepper-node.active .stepper-circle {
+      background: #2563eb;
+      border-color: #2563eb;
+      color: #ffffff;
+      box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.15);
+    }
+    
+    .stepper-node.completed .stepper-circle {
+      background: #10b981;
+      border-color: #10b981;
+      color: #ffffff;
+    }
+    
+    .stepper-title {
+      font-size: 11.5px;
+      font-weight: 700;
+      color: var(--text-700);
+      line-height: 1.2;
+    }
+    
+    .stepper-sub {
+      font-size: 10px;
+      color: var(--text-400);
+      font-weight: 500;
+      margin-top: 1px;
+    }
+    
+    .stepper-node.active .stepper-title {
+      color: #2563eb;
+    }
+    
+    .stepper-connector-line {
+      position: absolute;
+      top: 18px;
+      left: 45px;
+      right: 45px;
+      height: 2px;
+      background: #e2e8f0;
+      z-index: 1;
+    }
+    
+    .stepper-connector-progress {
+      height: 100%;
+      background: #2563eb;
+      transition: width 0.3s ease;
+      width: 0%;
+    }
+    
+    /* Right Side Progress Panel */
+    .progress-summary-card {
+      background: #ffffff;
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 22px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+    }
+    
+    .progress-gauge-wrap {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      padding-bottom: 14px;
+      border-bottom: 1px solid var(--border-soft);
+    }
+    
+    .progress-circular-donut {
+      width: 60px;
+      height: 60px;
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    
+    .progress-circular-donut svg {
+      width: 100%;
+      height: 100%;
+      transform: rotate(-90deg);
+    }
+    
+    .progress-donut-bg {
+      fill: none;
+      stroke: #f1f5f9;
+      stroke-width: 6;
+    }
+    
+    .progress-donut-fill {
+      fill: none;
+      stroke: #2563eb;
+      stroke-width: 6;
+      stroke-linecap: round;
+      transition: stroke-dashoffset 0.4s ease;
+    }
+    
+    .progress-donut-text {
+      position: absolute;
+      font-size: 13px;
+      font-weight: 800;
+      color: var(--text-900);
+    }
+    
+    .progress-step-list {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    
+    .progress-step-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 10px 12px;
+      border-radius: 10px;
+      background: #f8fafc;
+      border: 1px solid transparent;
+      transition: all 0.2s ease;
+    }
+    
+    .progress-step-item.active {
+      background: #eff6ff;
+      border-color: #bfdbfe;
+    }
+    
+    .progress-step-item.completed {
+      background: #f0fdf4;
+      border-color: #bbf7d0;
+    }
+    
+    .progress-step-icon {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 12px;
+      background: #e2e8f0;
+      color: #64748b;
+      flex-shrink: 0;
+    }
+    
+    .progress-step-item.active .progress-step-icon {
+      background: #2563eb;
+      color: #ffffff;
+    }
+    
+    .progress-step-item.completed .progress-step-icon {
+      background: #10b981;
+      color: #ffffff;
+    }
+    
+    .progress-step-info {
+      flex: 1;
+    }
+    
+    .progress-step-name {
+      font-size: 12.5px;
+      font-weight: 700;
+      color: var(--text-800);
+      line-height: 1.2;
+    }
+    
+    .progress-step-status {
+      font-size: 10.5px;
+      font-weight: 600;
+      color: #64748b;
+    }
+    
+    .progress-step-item.active .progress-step-status {
+      color: #2563eb;
+    }
+    
+    .progress-step-item.completed .progress-step-status {
+      color: #10b981;
+    }
+    
+    /* Upload Box */
+    .logo-upload-box {
+      border: 2px dashed #cbd5e1;
+      border-radius: 10px;
+      padding: 16px;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      background: #f8fafc;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+    
+    .logo-upload-box:hover {
+      border-color: #2563eb;
+      background: #eff6ff;
+    }
+    
+    .logo-upload-icon {
+      width: 42px;
+      height: 42px;
+      border-radius: 8px;
+      background: #ffffff;
+      border: 1px solid #e2e8f0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+      color: #2563eb;
+    }
+    
+    /* Template & Theme Selection Cards */
+    .selection-grid-cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      gap: 16px;
+      margin-top: 14px;
+    }
+    
+    .catalog-item-card {
+      background: #ffffff;
+      border: 1.5px solid var(--border);
+      border-radius: 12px;
+      padding: 16px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+    
+    .catalog-item-card:hover {
+      border-color: #93c5fd;
+      transform: translateY(-2px);
+      box-shadow: 0 6px 16px rgba(0,0,0,0.06);
+    }
+    
+    .catalog-item-card.selected {
+      border-color: #2563eb;
+      background: #f8faff;
+      box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.2);
+    }
+    
+    .catalog-check-badge {
+      position: absolute;
+      top: 12px;
+      right: 12px;
+      width: 22px;
+      height: 22px;
+      border-radius: 50%;
+      background: #2563eb;
+      color: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 11px;
+    }
+    
+    /* Review Summary Box */
+    .review-section-box {
+      background: #f8fafc;
+      border: 1px solid #e2e8f0;
+      border-radius: 12px;
+      padding: 18px;
+      margin-bottom: 14px;
+    }
+    
+    .review-grid-2col {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px 20px;
+      margin-top: 10px;
+    }
+    
+    .review-item-label {
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--text-500);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+    
+    .review-item-value {
+      font-size: 13.5px;
+      font-weight: 700;
+      color: var(--text-900);
+      margin-top: 2px;
+    }
+  </style>
 </head>
 <body>
 <div class="app-shell">
-<aside class="sidebar">
-  <a href="dashboard.html" class="sidebar-brand" style="cursor:pointer;">
-    <div class="logo-icon"><svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-<path d="M12 2L21 7V17L12 22L3 17V7L12 2Z" stroke="white" stroke-width="1.6" stroke-linejoin="round"/>
-<circle cx="12" cy="12" r="3.2" fill="white"/>
-</svg></div>
-    <div class="brand-text"><div class="t1">KIOSK</div><div class="t2">PLATFORM</div></div>
-  </a>
-  <div class="sidebar-section-label">PLATFORM ADMIN <i class="fa-solid fa-chevron-up" style="font-size:9px;"></i></div>
-  <ul class="sidebar-nav">
-  <li class="nav-item " onclick="location.href='dashboard.html'"><i class="fa-solid fa-house"></i><span>Dashboard</span></li>
-<li class="nav-item active" onclick="location.href='clients.html'"><i class="fa-solid fa-user-group"></i><span>Clients</span></li>
-<li class="nav-item " onclick="location.href='projects.html'"><i class="fa-solid fa-folder-open"></i><span>Projects</span></li>
-<li class="nav-item " onclick="location.href='devices.html'"><i class="fa-solid fa-tablet-screen-button"></i><span>Devices</span></li>
-<li class="nav-item " onclick="location.href='templates.html'"><i class="fa-solid fa-table-cells-large"></i><span>Templates</span></li>
-<li class="nav-item " onclick="location.href='analytics.html'"><i class="fa-solid fa-chart-column"></i><span>Analytics</span></li>
-<li class="nav-item " onclick="location.href='monitoring.html'"><i class="fa-solid fa-heart-pulse"></i><span>Monitoring</span></li>
-<li class="nav-item " onclick="location.href='users-roles.html'"><i class="fa-solid fa-users-gear"></i><span>Users & Roles</span></li>
-<li class="nav-item " onclick="location.href='billing.html'"><i class="fa-solid fa-credit-card"></i><span>Billing & Plans</span></li>
-<li class="nav-item " onclick="location.href='audit-logs.html'"><i class="fa-solid fa-file-lines"></i><span>Audit Logs</span></li>
-<li class="nav-item " onclick="location.href='system-settings.html'"><i class="fa-solid fa-gear"></i><span>System Settings</span></li>
 
-  </ul>
-  <div class="sidebar-spacer"></div>
-  <div class="sidebar-status">
-    <div class="st-title">System Status</div>
-    <div class="st-row"><span class="st-dot"></span> All Systems Operational</div>
-    <div class="st-sub">Last checked: 2 min ago</div>
-    <a href="monitoring.html">View System Health</a>
-  </div>
-  <div class="sidebar-quick">
-    <div class="qa-title">Quick Actions</div>
-    <a class="qa-item" href="onboard-client.html"><i class="fa-solid fa-user-plus"></i> Onboard New Client</a>
-    <a class="qa-item" href="clients.html"><i class="fa-solid fa-cube"></i> View Clients</a>
-    <a class="qa-item" href="devices.html"><i class="fa-solid fa-tablet-screen-button"></i> View Devices</a>
-    <a class="qa-item" href="monitoring.html"><i class="fa-solid fa-triangle-exclamation"></i> View Alerts</a>
-  </div>
-  <div class="sidebar-footer">Kiosk Platform v1.0.0</div>
-</aside>
-<div class="main"><header class="topbar">
-  <i class="fa-solid fa-bars hamburger"></i>
-  <div class="search"><i class="fa-solid fa-magnifying-glass"></i><span>Search clients, projects, devices...</span><span class="kbd">⌘K</span></div>
-  <div class="spacer"></div>
-  <button class="icon-btn"><i class="fa-regular fa-circle-question"></i></button>
-  <button class="icon-btn"><i class="fa-regular fa-bell"></i><span class="badge-dot">12</span></button>
-  <div class="user">
-    <div class="avatar">SA</div>
-    <div><div class="u-name">Super Admin</div><div class="u-role">Platform Administrator</div></div>
-    <i class="fa-solid fa-chevron-down"></i>
-  </div>
-</header>
-<div class="content">
-<div class="page-header">
-  <div><h1>Onboard New Client</h1><p>Follow the steps below to onboard a new client to the platform</p></div>
-</div>
+  <!-- =========================================================================
+       COMPANY ADMIN GLOBAL SIDEBAR
+       ========================================================================= -->
+  <aside class="sidebar">
+    <a href="dashboard.html" class="sidebar-brand" style="cursor:pointer;text-decoration:none;">
+      <div class="logo-icon" style="background:linear-gradient(135deg,#3b82f6,#1d4ed8);border-radius:10px;">
+        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style="width:20px;height:20px;">
+          <path d="M4 21V9l8-6 8 6v12H4z" stroke="white" stroke-width="1.8" stroke-linejoin="round"/>
+          <path d="M9 21V12h6v9" stroke="white" stroke-width="1.8"/>
+          <path d="M12 3v4" stroke="white" stroke-width="1.8"/>
+        </svg>
+      </div>
+      <div class="brand-text">
+        <div class="t1" style="font-size:14px;font-weight:700;color:#ffffff;line-height:1.2;">Mall Kiosk Platform</div>
+        <div class="t2" style="font-size:11px;color:#94a3b8;font-weight:500;">Company Admin</div>
+      </div>
+    </a>
 
-<div class="stepper">
-  <div class="step active"><div class="circle">1</div><div class="s-title">Organization</div><div class="s-sub">Create organization</div></div>
-  <div class="step-line"></div>
-  <div class="step"><div class="circle">2</div><div class="s-title">Client Information</div><div class="s-sub">Add client details</div></div>
-  <div class="step-line"></div>
-  <div class="step"><div class="circle">3</div><div class="s-title">Client Administrator</div><div class="s-sub">Assign admin user</div></div>
-  <div class="step-line"></div>
-  <div class="step"><div class="circle">4</div><div class="s-title">Template Access</div><div class="s-sub">Select templates</div></div>
-  <div class="step-line"></div>
-  <div class="step"><div class="circle">5</div><div class="s-title">Initial Project</div><div class="s-sub">Create first project</div></div>
-  <div class="step-line"></div>
-  <div class="step"><div class="circle">6</div><div class="s-title">Review</div><div class="s-sub">Review information</div></div>
-  <div class="step-line"></div>
-  <div class="step"><div class="circle">7</div><div class="s-title">Complete</div><div class="s-sub">Finish onboarding</div></div>
-</div>
+    <ul class="sidebar-nav">
+      <li class="nav-item" onclick="location.href='dashboard.html'"><i class="fa-solid fa-house"></i><span>Dashboard</span></li>
+      <li class="nav-item" onclick="location.href='clients.html'"><i class="fa-solid fa-user-group"></i><span>Clients</span></li>
+      <li class="nav-item active" onclick="location.href='onboard-client.html'"><i class="fa-solid fa-wand-magic-sparkles"></i><span>Onboarding</span></li>
+      <li class="nav-item" onclick="location.href='templates.html'"><i class="fa-regular fa-file-lines"></i><span>Templates</span></li>
+      <li class="nav-item" onclick="location.href='projects.html'"><i class="fa-solid fa-folder-open"></i><span>Projects</span></li>
+      <li class="nav-item" onclick="location.href='requests.html'" style="display:flex;align-items:center;justify-content:space-between;">
+        <div style="display:flex;align-items:center;gap:10px;"><i class="fa-regular fa-clipboard"></i><span>Requests</span></div>
+        <span class="badge" style="background:#2563eb;color:#fff;font-size:10px;padding:2px 7px;border-radius:999px;font-weight:700;">16</span>
+      </li>
+      <li class="nav-item" onclick="location.href='experience-studio.html'"><i class="fa-solid fa-palette"></i><span>Experience Studio</span></li>
+      <li class="nav-item" onclick="location.href='releases.html'"><i class="fa-solid fa-rocket"></i><span>Releases</span></li>
+      <li class="nav-item" onclick="location.href='devices.html'"><i class="fa-solid fa-display"></i><span>Devices</span></li>
+      <li class="nav-item" onclick="location.href='monitoring.html'"><i class="fa-solid fa-chart-line"></i><span>Monitoring</span></li>
+      <li class="nav-item" onclick="location.href='analytics.html'"><i class="fa-solid fa-chart-column"></i><span>Analytics</span></li>
+      <li class="nav-item" onclick="location.href='system-settings.html'"><i class="fa-solid fa-gear"></i><span>Settings</span></li>
+      <li class="nav-item" onclick="location.href='users-roles.html'"><i class="fa-solid fa-user-shield"></i><span>Users & Roles</span></li>
+    </ul>
 
-<div class="onboard-layout">
-  <div class="panel" style="margin-bottom:0;">
-    <div class="panel-header"><div><h2>Organization Information</h2><p>Create the organization that will own the projects and kiosks.</p></div></div>
-    <div style="padding:22px;">
-      <div class="form-group"><label>Organization / Company Name <span class="req">*</span></label><input class="form-control" value="Phoenix Retail Group"></div>
-      <div class="form-grid">
-        <div class="form-group"><label>Organization Type <span class="req">*</span></label>
-          <select class="form-control"><option>Retail Group</option></select></div>
-        <div class="form-group"><label>Industry <span class="req">*</span></label>
-          <select class="form-control"><option>Shopping Malls</option></select></div>
+    <div class="sidebar-spacer"></div>
+    <div class="sidebar-collapse-btn" style="display:flex;align-items:center;gap:8px;padding:10px 12px;color:#94a3b8;font-size:13px;cursor:pointer;">
+      <i class="fa-solid fa-chevron-left" style="font-size:11px;"></i>
+      <span>Collapse</span>
+    </div>
+  </aside>
+
+  <!-- =========================================================================
+       MAIN CONTENT CONTAINER
+       ========================================================================= -->
+  <div class="main">
+    
+    <!-- Topbar Header matching exact visual reference -->
+    <header class="topbar">
+      <div style="display:flex;align-items:center;gap:14px;">
+        <i class="fa-solid fa-bars hamburger"></i>
+        <div>
+          <h1 style="font-size:19px;font-weight:800;color:var(--text-900);margin:0;line-height:1.2;">Client Onboarding</h1>
+          <div style="font-size:11.5px;color:var(--text-500);display:flex;align-items:center;gap:6px;margin-top:2px;">
+            <a href="dashboard.html" style="color:var(--text-500);text-decoration:none;">Dashboard</a>
+            <i class="fa-solid fa-chevron-right" style="font-size:8px;"></i>
+            <a href="onboard-client.html" style="color:var(--text-500);text-decoration:none;">Onboarding</a>
+            <i class="fa-solid fa-chevron-right" style="font-size:8px;"></i>
+            <span style="color:var(--text-900);font-weight:600;">New Client</span>
+          </div>
+        </div>
       </div>
-      <div class="form-group"><label>Website</label><input class="form-control" value="https://www.phoenixretail.com"></div>
-      <div class="form-grid">
-        <div class="form-group"><label>Country <span class="req">*</span></label>
-          <select class="form-control"><option>India</option></select></div>
-        <div class="form-group"><label>Time Zone <span class="req">*</span></label>
-          <select class="form-control"><option>(GMT+05:30) Asia/Kolkata</option></select></div>
+
+      <div class="spacer"></div>
+
+      <!-- Search Box on Right -->
+      <div style="position:relative;width:320px;">
+        <input type="text" class="form-control" placeholder="Search clients, projects, requests..." style="padding-right:36px;border-radius:8px;font-size:13px;">
+        <i class="fa-solid fa-magnifying-glass" style="position:absolute;right:12px;top:50%;transform:translateY(-50%);color:var(--text-400);font-size:13px;"></i>
       </div>
-      <div class="form-group"><label>Address</label>
-        <textarea class="form-control" rows="3">Phoenix Mills, Lower Parel,
-Mumbai, Maharashtra 400013, India</textarea>
-        <div class="char-count">57/200</div>
+
+      <!-- Notification Bell with Red Badge 12 -->
+      <button class="icon-btn" style="position:relative;">
+        <i class="fa-regular fa-bell"></i>
+        <span class="badge-dot" style="position:absolute;top:3px;right:3px;background:#ef4444;color:#fff;font-size:9px;font-weight:700;border-radius:50%;width:15px;height:15px;display:flex;align-items:center;justify-content:center;">12</span>
+      </button>
+
+      <!-- User Profile Dropdown -->
+      <div class="user">
+        <div class="avatar" style="background:#1e293b;color:#fff;font-weight:700;font-size:12px;">CA</div>
+        <div>
+          <div class="u-name" style="font-size:13px;font-weight:700;color:var(--text-900);">Company Admin</div>
+        </div>
+        <i class="fa-solid fa-chevron-down" style="font-size:10px;color:var(--text-400);"></i>
       </div>
-      <div class="form-grid">
-        <div class="form-group"><label>Phone Number</label><input class="form-control" value="+91 22 6731 9999"></div>
-        <div class="form-group"><label>Email</label><input class="form-control" value="contact@phoenixretail.com"></div>
+    </header>
+
+    <!-- Page Content -->
+    <div class="content" style="padding:24px 28px;">
+
+      <!-- Main Onboarding 2-Column Split -->
+      <div class="onboarding-main-grid">
+
+        <!-- =====================================================================
+             LEFT COLUMN: 6-STEP ONBOARDING WIZARD CARD
+             ===================================================================== -->
+        <div class="wizard-card" id="onboardingWizardContainer">
+
+          <!-- 6-Step Horizontal Progress Stepper -->
+          <div class="onboard-stepper-header">
+            <div class="stepper-connector-line">
+              <div class="stepper-connector-progress" id="stepperProgressBar"></div>
+            </div>
+
+            <!-- Step 1: Organization Information -->
+            <div class="stepper-node active" id="stepperNode1" onclick="jumpToStep(1)">
+              <div class="stepper-circle">1</div>
+              <div class="stepper-title">Organization</div>
+              <div class="stepper-sub">Client Information</div>
+            </div>
+
+            <!-- Step 2: Client Admin Setup -->
+            <div class="stepper-node" id="stepperNode2" onclick="jumpToStep(2)">
+              <div class="stepper-circle">2</div>
+              <div class="stepper-title">Client Admin</div>
+              <div class="stepper-sub">Setup</div>
+            </div>
+
+            <!-- Step 3: Template Assignment -->
+            <div class="stepper-node" id="stepperNode3" onclick="jumpToStep(3)">
+              <div class="stepper-circle">3</div>
+              <div class="stepper-title">Template</div>
+              <div class="stepper-sub">Assignment</div>
+            </div>
+
+            <!-- Step 4: Theme Assignment -->
+            <div class="stepper-node" id="stepperNode4" onclick="jumpToStep(4)">
+              <div class="stepper-circle">4</div>
+              <div class="stepper-title">Theme</div>
+              <div class="stepper-sub">Assignment</div>
+            </div>
+
+            <!-- Step 5: Initial Project Setup -->
+            <div class="stepper-node" id="stepperNode5" onclick="jumpToStep(5)">
+              <div class="stepper-circle">5</div>
+              <div class="stepper-title">Initial Project</div>
+              <div class="stepper-sub">Setup</div>
+            </div>
+
+            <!-- Step 6: Review & Complete -->
+            <div class="stepper-node" id="stepperNode6" onclick="jumpToStep(6)">
+              <div class="stepper-circle">6</div>
+              <div class="stepper-title">Review &</div>
+              <div class="stepper-sub">Complete</div>
+            </div>
+          </div>
+
+          <!-- Wizard Form Container -->
+          <form id="onboardingForm" onsubmit="event.preventDefault(); nextStep();">
+
+            <!-- ===============================================================
+                 STEP 1: ORGANIZATION INFORMATION
+                 =============================================================== -->
+            <div class="wizard-step-pane" id="stepPane1">
+              <div style="margin-bottom:20px;">
+                <h2 style="font-size:17px;font-weight:800;color:var(--text-900);margin:0 0 4px;">Organization Information</h2>
+                <p style="font-size:12.5px;color:var(--text-500);margin:0;">Enter the organization and primary business details for the new client.</p>
+              </div>
+
+              <!-- Section 1: Organization Details -->
+              <div style="font-size:13px;font-weight:700;color:var(--text-900);margin-bottom:14px;">Organization Details</div>
+              
+              <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:14px;">
+                <div class="form-group" style="margin:0;">
+                  <label style="font-size:12px;font-weight:600;color:var(--text-700);display:block;margin-bottom:6px;">Organization Name <span style="color:#ef4444;">*</span></label>
+                  <input type="text" class="form-control" id="orgNameInput" value="Phoenix Mills Ltd." required placeholder="e.g. Phoenix Mills Ltd.">
+                </div>
+                <div class="form-group" style="margin:0;">
+                  <label style="font-size:12px;font-weight:600;color:var(--text-700);display:block;margin-bottom:6px;">Short Name / Brand Name <span style="color:#ef4444;">*</span></label>
+                  <input type="text" class="form-control" id="orgBrandInput" value="Phoenix Mall" required placeholder="e.g. Phoenix Mall">
+                </div>
+              </div>
+
+              <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:14px;">
+                <div class="form-group" style="margin:0;">
+                  <label style="font-size:12px;font-weight:600;color:var(--text-700);display:block;margin-bottom:6px;">Business Type <span style="color:#ef4444;">*</span></label>
+                  <select class="form-control" id="orgTypeSelect" required>
+                    <option selected>Shopping Mall</option>
+                    <option>Retail Chain</option>
+                    <option>Airport Terminal</option>
+                    <option>Commercial Hub</option>
+                    <option>Hospitality & Resort</option>
+                  </select>
+                </div>
+                <div class="form-group" style="margin:0;">
+                  <label style="font-size:12px;font-weight:600;color:var(--text-700);display:block;margin-bottom:6px;">Industry <span style="color:#ef4444;">*</span></label>
+                  <select class="form-control" id="orgIndustrySelect" required>
+                    <option selected>Retail</option>
+                    <option>Real Estate & Commercial</option>
+                    <option>Transit & Aviation</option>
+                    <option>Entertainment</option>
+                  </select>
+                </div>
+              </div>
+
+              <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:14px;">
+                <div class="form-group" style="margin:0;">
+                  <label style="font-size:12px;font-weight:600;color:var(--text-700);display:block;margin-bottom:6px;">Country <span style="color:#ef4444;">*</span></label>
+                  <select class="form-control" id="orgCountrySelect" required>
+                    <option selected>India</option>
+                    <option>United States</option>
+                    <option>United Arab Emirates</option>
+                    <option>Singapore</option>
+                    <option>United Kingdom</option>
+                  </select>
+                </div>
+                <div class="form-group" style="margin:0;">
+                  <label style="font-size:12px;font-weight:600;color:var(--text-700);display:block;margin-bottom:6px;">City <span style="color:#ef4444;">*</span></label>
+                  <input type="text" class="form-control" id="orgCityInput" value="Mumbai" required placeholder="e.g. Mumbai">
+                </div>
+              </div>
+
+              <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:24px;">
+                <div class="form-group" style="margin:0;">
+                  <label style="font-size:12px;font-weight:600;color:var(--text-700);display:block;margin-bottom:6px;">Company Logo (Optional)</label>
+                  <div class="logo-upload-box" onclick="document.getElementById('logoFileInput').click()">
+                    <div class="logo-upload-icon"><i class="fa-solid fa-cloud-arrow-up"></i></div>
+                    <div>
+                      <div style="font-size:12.5px;font-weight:700;color:#2563eb;" id="logoUploadText">Upload logo</div>
+                      <div style="font-size:11px;color:var(--text-400);">PNG, JPG up to 2MB</div>
+                    </div>
+                    <input type="file" id="logoFileInput" style="display:none;" onchange="handleLogoUpload(this)">
+                  </div>
+                </div>
+                <div class="form-group" style="margin:0;">
+                  <label style="font-size:12px;font-weight:600;color:var(--text-700);display:block;margin-bottom:6px;">Website (Optional)</label>
+                  <input type="url" class="form-control" id="orgWebsiteInput" value="https://www.phoenixmalls.com" placeholder="https://www.example.com">
+                </div>
+              </div>
+
+              <!-- Section 2: Contact Information -->
+              <div style="font-size:13px;font-weight:700;color:var(--text-900);margin-bottom:14px;padding-top:14px;border-top:1px solid var(--border-soft);">Contact Information</div>
+
+              <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:14px;">
+                <div class="form-group" style="margin:0;">
+                  <label style="font-size:12px;font-weight:600;color:var(--text-700);display:block;margin-bottom:6px;">Primary Contact Name <span style="color:#ef4444;">*</span></label>
+                  <input type="text" class="form-control" id="primaryContactName" value="Rahul Mehta" required placeholder="e.g. Rahul Mehta">
+                </div>
+                <div class="form-group" style="margin:0;">
+                  <label style="font-size:12px;font-weight:600;color:var(--text-700);display:block;margin-bottom:6px;">Primary Contact Email <span style="color:#ef4444;">*</span></label>
+                  <input type="email" class="form-control" id="primaryContactEmail" value="rahul.mehta@phoenixmall.com" required placeholder="e.g. rahul.mehta@phoenixmall.com">
+                </div>
+              </div>
+
+              <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:24px;">
+                <div class="form-group" style="margin:0;">
+                  <label style="font-size:12px;font-weight:600;color:var(--text-700);display:block;margin-bottom:6px;">Phone Number <span style="color:#ef4444;">*</span></label>
+                  <div style="display:flex;gap:8px;">
+                    <select class="form-control" style="width:90px;flex-shrink:0;">
+                      <option>🇮🇳 +91</option>
+                      <option>🇺🇸 +1</option>
+                      <option>🇦🇪 +971</option>
+                      <option>🇸🇬 +65</option>
+                    </select>
+                    <input type="text" class="form-control" id="primaryPhoneInput" value="98765 43210" required placeholder="98765 43210">
+                  </div>
+                </div>
+                <div class="form-group" style="margin:0;">
+                  <label style="font-size:12px;font-weight:600;color:var(--text-700);display:block;margin-bottom:6px;">Alternate Email (Optional)</label>
+                  <input type="email" class="form-control" id="altEmailInput" value="it.support@phoenixmall.com" placeholder="e.g. support@phoenixmall.com">
+                </div>
+              </div>
+
+              <!-- Step 1 Footer Actions -->
+              <div style="display:flex;justify-content:space-between;align-items:center;padding-top:16px;border-top:1px solid var(--border-soft);">
+                <button type="button" class="btn" onclick="confirmCancelOnboarding()">Cancel</button>
+                <button type="button" class="btn btn-primary" style="padding:10px 22px;background:#2563eb;color:#fff;font-weight:700;" onclick="validateAndNext(1)">
+                  <span>Save & Continue</span>
+                  <i class="fa-solid fa-arrow-right"></i>
+                </button>
+              </div>
+            </div>
+
+            <!-- ===============================================================
+                 STEP 2: CLIENT ADMIN SETUP
+                 =============================================================== -->
+            <div class="wizard-step-pane" id="stepPane2" style="display:none;">
+              <div style="margin-bottom:20px;">
+                <h2 style="font-size:17px;font-weight:800;color:var(--text-900);margin:0 0 4px;">Client Admin Setup</h2>
+                <p style="font-size:12.5px;color:var(--text-500);margin:0;">Configure primary administrative credentials and access for the client venue portal.</p>
+              </div>
+
+              <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:14px;">
+                <div class="form-group" style="margin:0;">
+                  <label style="font-size:12px;font-weight:600;color:var(--text-700);display:block;margin-bottom:6px;">Administrator Full Name <span style="color:#ef4444;">*</span></label>
+                  <input type="text" class="form-control" id="adminNameInput" value="Rahul Mehta" required>
+                </div>
+                <div class="form-group" style="margin:0;">
+                  <label style="font-size:12px;font-weight:600;color:var(--text-700);display:block;margin-bottom:6px;">Administrator Work Email <span style="color:#ef4444;">*</span></label>
+                  <input type="email" class="form-control" id="adminEmailInput" value="admin@phoenixmall.com" required>
+                </div>
+              </div>
+
+              <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:14px;">
+                <div class="form-group" style="margin:0;">
+                  <label style="font-size:12px;font-weight:600;color:var(--text-700);display:block;margin-bottom:6px;">Role & Access Level <span style="color:#ef4444;">*</span></label>
+                  <select class="form-control" id="adminRoleSelect" required>
+                    <option selected>Client Admin (Full Venue Access)</option>
+                    <option>Operations Manager</option>
+                    <option>Content & Marketing Manager</option>
+                  </select>
+                </div>
+                <div class="form-group" style="margin:0;">
+                  <label style="font-size:12px;font-weight:600;color:var(--text-700);display:block;margin-bottom:6px;">Account Status <span style="color:#ef4444;">*</span></label>
+                  <select class="form-control" id="adminStatusSelect" required>
+                    <option selected>Active / Invite on Completion</option>
+                    <option>Pending Manual Review</option>
+                  </select>
+                </div>
+              </div>
+
+              <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:20px;">
+                <div class="form-group" style="margin:0;">
+                  <label style="font-size:12px;font-weight:600;color:var(--text-700);display:block;margin-bottom:6px;">Department / Team</label>
+                  <input type="text" class="form-control" value="Mall Operations & IT">
+                </div>
+                <div class="form-group" style="margin:0;">
+                  <label style="font-size:12px;font-weight:600;color:var(--text-700);display:block;margin-bottom:6px;">Temporary Password Policy</label>
+                  <input type="text" class="form-control" value="Secure Auto-Generated on Activation" readonly style="background:#f8fafc;color:var(--text-500);">
+                </div>
+              </div>
+
+              <div style="background:#f8fafc;border:1px solid #e2e8f0;border-radius:10px;padding:14px;margin-bottom:24px;">
+                <label style="display:flex;align-items:center;gap:10px;cursor:pointer;margin:0;font-size:13px;font-weight:600;color:var(--text-800);">
+                  <input type="checkbox" checked style="width:16px;height:16px;accent-color:#2563eb;">
+                  <span>Enforce Two-Factor Authentication (2FA) for Client Admin login</span>
+                </label>
+              </div>
+
+              <!-- Step 2 Footer Actions -->
+              <div style="display:flex;justify-content:space-between;align-items:center;padding-top:16px;border-top:1px solid var(--border-soft);">
+                <button type="button" class="btn" onclick="prevStep(2)"><i class="fa-solid fa-arrow-left"></i> Back</button>
+                <button type="button" class="btn btn-primary" style="padding:10px 22px;background:#2563eb;color:#fff;font-weight:700;" onclick="validateAndNext(2)">
+                  <span>Save & Continue</span>
+                  <i class="fa-solid fa-arrow-right"></i>
+                </button>
+              </div>
+            </div>
+
+            <!-- ===============================================================
+                 STEP 3: TEMPLATE ASSIGNMENT
+                 =============================================================== -->
+            <div class="wizard-step-pane" id="stepPane3" style="display:none;">
+              <div style="margin-bottom:20px;">
+                <h2 style="font-size:17px;font-weight:800;color:var(--text-900);margin:0 0 4px;">Template Assignment</h2>
+                <p style="font-size:12.5px;color:var(--text-500);margin:0;">Select and assign an approved kiosk template from the company platform catalog.</p>
+              </div>
+
+              <div class="selection-grid-cards">
+                <!-- Template 1: Mall / Indoor Venue (Primary & Selected) -->
+                <div class="catalog-item-card selected" id="templateCardMall" onclick="selectTemplate('Mall / Indoor Venue', this)">
+                  <div class="catalog-check-badge"><i class="fa-solid fa-check"></i></div>
+                  <div>
+                    <div style="width:40px;height:40px;border-radius:10px;background:#eff6ff;color:#2563eb;display:flex;align-items:center;justify-content:center;font-size:18px;margin-bottom:12px;border:1px solid #dbeafe;">
+                      <i class="fa-solid fa-building"></i>
+                    </div>
+                    <div style="display:flex;align-items:center;gap:6px;margin-bottom:2px;">
+                      <h4 style="font-size:14px;font-weight:800;color:var(--text-900);margin:0;">Mall / Indoor Venue</h4>
+                      <span class="badge badge-green" style="font-size:9.5px;padding:2px 6px;">Active</span>
+                    </div>
+                    <div style="font-size:11px;color:var(--text-400);margin-bottom:6px;">Version 1.2.0 (Stable Production)</div>
+                    <p style="font-size:12px;color:var(--text-600);line-height:1.4;margin:0 0 10px;">
+                      Complete indoor experience including 3D maps, multi-floor wayfinding, directory search, events, food dining and promotional ads.
+                    </p>
+                  </div>
+                  <div style="border-top:1px solid #f1f5f9;padding-top:10px;display:flex;flex-wrap:wrap;gap:4px;">
+                    <span class="badge badge-gray" style="font-size:9.5px;">3D Maps</span>
+                    <span class="badge badge-gray" style="font-size:9.5px;">Directory</span>
+                    <span class="badge badge-gray" style="font-size:9.5px;">Events</span>
+                    <span class="badge badge-gray" style="font-size:9.5px;">Ads Manager</span>
+                  </div>
+                </div>
+
+                <!-- Template 2: Airport Terminal Guide -->
+                <div class="catalog-item-card" id="templateCardAirport" onclick="selectTemplate('Airport Terminal Guide', this)">
+                  <div>
+                    <div style="width:40px;height:40px;border-radius:10px;background:#f0fdfa;color:#0d9488;display:flex;align-items:center;justify-content:center;font-size:18px;margin-bottom:12px;border:1px solid #ccfbf1;">
+                      <i class="fa-solid fa-plane-departure"></i>
+                    </div>
+                    <div style="display:flex;align-items:center;gap:6px;margin-bottom:2px;">
+                      <h4 style="font-size:14px;font-weight:800;color:var(--text-900);margin:0;">Airport Terminal Guide</h4>
+                      <span class="badge badge-blue" style="font-size:9.5px;padding:2px 6px;">Enterprise</span>
+                    </div>
+                    <div style="font-size:11px;color:var(--text-400);margin-bottom:6px;">Version 2.0.1</div>
+                    <p style="font-size:12px;color:var(--text-600);line-height:1.4;margin:0 0 10px;">
+                      Transit and gate navigation with live flight status integration, baggage claim wayfinding and duty-free retail directory.
+                    </p>
+                  </div>
+                  <div style="border-top:1px solid #f1f5f9;padding-top:10px;display:flex;flex-wrap:wrap;gap:4px;">
+                    <span class="badge badge-gray" style="font-size:9.5px;">Gate Wayfinding</span>
+                    <span class="badge badge-gray" style="font-size:9.5px;">Flight Status</span>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Step 3 Footer Actions -->
+              <div style="display:flex;justify-content:space-between;align-items:center;margin-top:24px;padding-top:16px;border-top:1px solid var(--border-soft);">
+                <button type="button" class="btn" onclick="prevStep(3)"><i class="fa-solid fa-arrow-left"></i> Back</button>
+                <button type="button" class="btn btn-primary" style="padding:10px 22px;background:#2563eb;color:#fff;font-weight:700;" onclick="validateAndNext(3)">
+                  <span>Save & Continue</span>
+                  <i class="fa-solid fa-arrow-right"></i>
+                </button>
+              </div>
+            </div>
+
+            <!-- ===============================================================
+                 STEP 4: THEME ASSIGNMENT
+                 =============================================================== -->
+            <div class="wizard-step-pane" id="stepPane4" style="display:none;">
+              <div style="margin-bottom:20px;">
+                <h2 style="font-size:17px;font-weight:800;color:var(--text-900);margin:0 0 4px;">Theme Assignment</h2>
+                <p style="font-size:12.5px;color:var(--text-500);margin:0;">Select approved themes associated with the Mall / Indoor Venue template to make available for this client.</p>
+              </div>
+
+              <div class="selection-grid-cards">
+                <!-- Theme 1: Default Mall Luxury (Active & Enabled) -->
+                <div class="catalog-item-card selected" id="themeCardLuxury" onclick="toggleThemeSelection(this, 'Default Mall Luxury')">
+                  <div class="catalog-check-badge"><i class="fa-solid fa-check"></i></div>
+                  <div style="height:100px;border-radius:8px;background:linear-gradient(135deg,#1e293b,#0f172a);display:flex;align-items:center;justify-content:center;color:#e2b062;font-size:24px;margin-bottom:10px;">
+                    <i class="fa-solid fa-crown"></i>
+                  </div>
+                  <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:4px;">
+                    <h4 style="font-size:13.5px;font-weight:700;color:var(--text-900);margin:0;">Default Mall Luxury</h4>
+                    <span class="badge badge-purple" style="font-size:9px;">Default Active</span>
+                  </div>
+                  <p style="font-size:11.5px;color:var(--text-500);margin:0 0 8px;">Dark navy & gold premium styling for high-end boutique mall kiosks.</p>
+                </div>
+
+                <!-- Theme 2: Diwali Festive 2024 (Enabled) -->
+                <div class="catalog-item-card selected" id="themeCardDiwali" onclick="toggleThemeSelection(this, 'Diwali Festive 2024')">
+                  <div class="catalog-check-badge"><i class="fa-solid fa-check"></i></div>
+                  <div style="height:100px;border-radius:8px;background:linear-gradient(135deg,#4c1d95,#7c3aed,#fbbf24);display:flex;align-items:center;justify-content:center;color:#fbbf24;font-size:24px;margin-bottom:10px;">
+                    <i class="fa-solid fa-fire-flame-curved"></i>
+                  </div>
+                  <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:4px;">
+                    <h4 style="font-size:13.5px;font-weight:700;color:var(--text-900);margin:0;">Diwali Festive 2024</h4>
+                    <span class="badge badge-green" style="font-size:9px;">Assigned</span>
+                  </div>
+                  <p style="font-size:11.5px;color:var(--text-500);margin:0 0 8px;">Royal festive purple & gold colors with Diwali lights and promo layouts.</p>
+                </div>
+
+                <!-- Theme 3: Summer Carnival -->
+                <div class="catalog-item-card" id="themeCardSummer" onclick="toggleThemeSelection(this, 'Summer Carnival')">
+                  <div style="height:100px;border-radius:8px;background:linear-gradient(135deg,#0284c7,#38bdf8,#f59e0b);display:flex;align-items:center;justify-content:center;color:#fff;font-size:24px;margin-bottom:10px;">
+                    <i class="fa-solid fa-umbrella-beach"></i>
+                  </div>
+                  <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:4px;">
+                    <h4 style="font-size:13.5px;font-weight:700;color:var(--text-900);margin:0;">Summer Carnival</h4>
+                    <span class="badge badge-gray" style="font-size:9px;">Available</span>
+                  </div>
+                  <p style="font-size:11.5px;color:var(--text-500);margin:0 0 8px;">Bright tropical summer palette for promotional retail seasons.</p>
+                </div>
+              </div>
+
+              <!-- Step 4 Footer Actions -->
+              <div style="display:flex;justify-content:space-between;align-items:center;margin-top:24px;padding-top:16px;border-top:1px solid var(--border-soft);">
+                <button type="button" class="btn" onclick="prevStep(4)"><i class="fa-solid fa-arrow-left"></i> Back</button>
+                <button type="button" class="btn btn-primary" style="padding:10px 22px;background:#2563eb;color:#fff;font-weight:700;" onclick="validateAndNext(4)">
+                  <span>Save & Continue</span>
+                  <i class="fa-solid fa-arrow-right"></i>
+                </button>
+              </div>
+            </div>
+
+            <!-- ===============================================================
+                 STEP 5: INITIAL PROJECT SETUP
+                 =============================================================== -->
+            <div class="wizard-step-pane" id="stepPane5" style="display:none;">
+              <div style="margin-bottom:20px;">
+                <h2 style="font-size:17px;font-weight:800;color:var(--text-900);margin:0 0 4px;">Initial Project Setup</h2>
+                <p style="font-size:12.5px;color:var(--text-500);margin:0;">Initialize the client's primary project workspace and venue profile for deployment.</p>
+              </div>
+
+              <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:14px;">
+                <div class="form-group" style="margin:0;">
+                  <label style="font-size:12px;font-weight:600;color:var(--text-700);display:block;margin-bottom:6px;">Initial Project Name <span style="color:#ef4444;">*</span></label>
+                  <input type="text" class="form-control" id="projNameInput" value="Phoenix Mall" required>
+                </div>
+                <div class="form-group" style="margin:0;">
+                  <label style="font-size:12px;font-weight:600;color:var(--text-700);display:block;margin-bottom:6px;">Venue Location / Branch <span style="color:#ef4444;">*</span></label>
+                  <input type="text" class="form-control" id="projVenueInput" value="Lower Parel, Mumbai" required>
+                </div>
+              </div>
+
+              <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:14px;">
+                <div class="form-group" style="margin:0;">
+                  <label style="font-size:12px;font-weight:600;color:var(--text-700);display:block;margin-bottom:6px;">Assigned Template (Locked)</label>
+                  <input type="text" class="form-control" id="projTemplateInput" value="Mall / Indoor Venue (v1.2.0)" readonly style="background:#f8fafc;font-weight:600;color:var(--text-800);">
+                </div>
+                <div class="form-group" style="margin:0;">
+                  <label style="font-size:12px;font-weight:600;color:var(--text-700);display:block;margin-bottom:6px;">Default Active Theme</label>
+                  <select class="form-control" id="projThemeSelect">
+                    <option selected>Default Mall Luxury</option>
+                    <option>Diwali Festive 2024</option>
+                    <option>Summer Carnival</option>
+                  </select>
+                </div>
+              </div>
+
+              <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:20px;">
+                <div class="form-group" style="margin:0;">
+                  <label style="font-size:12px;font-weight:600;color:var(--text-700);display:block;margin-bottom:6px;">Initial Planned Kiosks</label>
+                  <input type="number" class="form-control" id="projKiosksInput" value="12" min="1" max="100">
+                </div>
+                <div class="form-group" style="margin:0;">
+                  <label style="font-size:12px;font-weight:600;color:var(--text-700);display:block;margin-bottom:6px;">Initial Project Status</label>
+                  <select class="form-control" id="projStatusSelect">
+                    <option selected>Active / Provisioning</option>
+                    <option>Draft Setup</option>
+                  </select>
+                </div>
+              </div>
+
+              <!-- Step 5 Footer Actions -->
+              <div style="display:flex;justify-content:space-between;align-items:center;padding-top:16px;border-top:1px solid var(--border-soft);">
+                <button type="button" class="btn" onclick="prevStep(5)"><i class="fa-solid fa-arrow-left"></i> Back</button>
+                <button type="button" class="btn btn-primary" style="padding:10px 22px;background:#2563eb;color:#fff;font-weight:700;" onclick="validateAndNext(5)">
+                  <span>Save & Continue</span>
+                  <i class="fa-solid fa-arrow-right"></i>
+                </button>
+              </div>
+            </div>
+
+            <!-- ===============================================================
+                 STEP 6: REVIEW & COMPLETE
+                 =============================================================== -->
+            <div class="wizard-step-pane" id="stepPane6" style="display:none;">
+              <div style="margin-bottom:20px;">
+                <h2 style="font-size:17px;font-weight:800;color:var(--text-900);margin:0 0 4px;">Review & Complete Onboarding</h2>
+                <p style="font-size:12.5px;color:var(--text-500);margin:0;">Verify all client organization, administration, template and project parameters before activation.</p>
+              </div>
+
+              <!-- Review Box 1: Organization Details -->
+              <div class="review-section-box">
+                <div style="display:flex;align-items:center;justify-content:space-between;">
+                  <div style="font-size:13px;font-weight:800;color:var(--text-900);">1. Organization & Contact</div>
+                  <button type="button" class="link-blue" style="background:none;border:none;cursor:pointer;font-size:12px;font-weight:600;" onclick="jumpToStep(1)">Edit</button>
+                </div>
+                <div class="review-grid-2col">
+                  <div>
+                    <div class="review-item-label">Organization Name</div>
+                    <div class="review-item-value" id="revOrgName">Phoenix Mills Ltd.</div>
+                  </div>
+                  <div>
+                    <div class="review-item-label">Brand / Short Name</div>
+                    <div class="review-item-value" id="revOrgBrand">Phoenix Mall</div>
+                  </div>
+                  <div>
+                    <div class="review-item-label">Business & Industry</div>
+                    <div class="review-item-value" id="revOrgType">Shopping Mall · Retail</div>
+                  </div>
+                  <div>
+                    <div class="review-item-label">Location</div>
+                    <div class="review-item-value" id="revOrgLocation">Mumbai, India</div>
+                  </div>
+                  <div>
+                    <div class="review-item-label">Primary Contact</div>
+                    <div class="review-item-value" id="revContact">Rahul Mehta (rahul.mehta@phoenixmall.com)</div>
+                  </div>
+                  <div>
+                    <div class="review-item-label">Website</div>
+                    <div class="review-item-value" id="revWebsite">https://www.phoenixmalls.com</div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Review Box 2: Administrator -->
+              <div class="review-section-box">
+                <div style="display:flex;align-items:center;justify-content:space-between;">
+                  <div style="font-size:13px;font-weight:800;color:var(--text-900);">2. Client Administrator Access</div>
+                  <button type="button" class="link-blue" style="background:none;border:none;cursor:pointer;font-size:12px;font-weight:600;" onclick="jumpToStep(2)">Edit</button>
+                </div>
+                <div class="review-grid-2col">
+                  <div>
+                    <div class="review-item-label">Administrator Name</div>
+                    <div class="review-item-value" id="revAdminName">Rahul Mehta</div>
+                  </div>
+                  <div>
+                    <div class="review-item-label">Administrator Email</div>
+                    <div class="review-item-value" id="revAdminEmail">admin@phoenixmall.com</div>
+                  </div>
+                  <div>
+                    <div class="review-item-label">Role & Permissions</div>
+                    <div class="review-item-value">Client Admin (Full Venue Access)</div>
+                  </div>
+                  <div>
+                    <div class="review-item-label">Account Status</div>
+                    <div class="review-item-value"><span class="badge badge-green">Ready for Activation</span></div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Review Box 3: Template & Themes -->
+              <div class="review-section-box">
+                <div style="display:flex;align-items:center;justify-content:space-between;">
+                  <div style="font-size:13px;font-weight:800;color:var(--text-900);">3. Assigned Template & Themes</div>
+                  <button type="button" class="link-blue" style="background:none;border:none;cursor:pointer;font-size:12px;font-weight:600;" onclick="jumpToStep(3)">Edit</button>
+                </div>
+                <div class="review-grid-2col">
+                  <div>
+                    <div class="review-item-label">Approved Template</div>
+                    <div class="review-item-value">Mall / Indoor Venue (v1.2.0)</div>
+                  </div>
+                  <div>
+                    <div class="review-item-label">Assigned Themes</div>
+                    <div class="review-item-value">Default Mall Luxury, Diwali Festive 2024</div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Review Box 4: Initial Project -->
+              <div class="review-section-box">
+                <div style="display:flex;align-items:center;justify-content:space-between;">
+                  <div style="font-size:13px;font-weight:800;color:var(--text-900);">4. Initial Project Workspace</div>
+                  <button type="button" class="link-blue" style="background:none;border:none;cursor:pointer;font-size:12px;font-weight:600;" onclick="jumpToStep(5)">Edit</button>
+                </div>
+                <div class="review-grid-2col">
+                  <div>
+                    <div class="review-item-label">Initial Project Name</div>
+                    <div class="review-item-value" id="revProjName">Phoenix Mall</div>
+                  </div>
+                  <div>
+                    <div class="review-item-label">Planned Kiosks</div>
+                    <div class="review-item-value" id="revProjKiosks">12 Kiosks</div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Step 6 Footer Actions -->
+              <div style="display:flex;justify-content:space-between;align-items:center;margin-top:20px;padding-top:16px;border-top:1px solid var(--border-soft);">
+                <button type="button" class="btn" onclick="prevStep(6)"><i class="fa-solid fa-arrow-left"></i> Back</button>
+                <button type="button" class="btn btn-primary" id="btnCompleteOnboarding" style="padding:11px 26px;background:#10b981;color:#fff;font-weight:800;font-size:13.5px;box-shadow:0 4px 14px rgba(16,185,129,0.35);" onclick="completeClientOnboarding()">
+                  <i class="fa-solid fa-circle-check"></i>
+                  <span>Complete Onboarding & Activate Client</span>
+                </button>
+              </div>
+            </div>
+
+          </form>
+
+        </div>
+
+        <!-- =====================================================================
+             RIGHT COLUMN: ONBOARDING PROGRESS SIDEBAR PANEL
+             ===================================================================== -->
+        <div class="progress-summary-card">
+          <div style="font-size:14px;font-weight:800;color:var(--text-900);">Onboarding Progress</div>
+
+          <!-- Circular Donut Progress Header -->
+          <div class="progress-gauge-wrap">
+            <div class="progress-circular-donut">
+              <svg viewBox="0 0 36 36">
+                <path class="progress-donut-bg" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" />
+                <path class="progress-donut-fill" id="donutProgressArc" stroke-dasharray="100, 100" stroke-dashoffset="84" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" />
+              </svg>
+              <div class="progress-donut-text" id="donutProgressText">16%</div>
+            </div>
+            <div>
+              <div style="font-size:13px;font-weight:800;color:var(--text-900);" id="sideStepTitle">Step 1 of 6</div>
+              <div style="font-size:11.5px;color:var(--text-500);font-weight:500;" id="sideStepDesc">Organization Information</div>
+            </div>
+          </div>
+
+          <!-- Vertical Step Checklist -->
+          <div class="progress-step-list">
+            <div class="progress-step-item active" id="progItem1" onclick="jumpToStep(1)">
+              <div class="progress-step-icon"><i class="fa-solid fa-users"></i></div>
+              <div class="progress-step-info">
+                <div class="progress-step-name">Organization Information</div>
+                <div class="progress-step-status" id="progStatus1">In Progress</div>
+              </div>
+            </div>
+
+            <div class="progress-step-item" id="progItem2" onclick="jumpToStep(2)">
+              <div class="progress-step-icon"><i class="fa-solid fa-user-shield"></i></div>
+              <div class="progress-step-info">
+                <div class="progress-step-name">Client Admin Setup</div>
+                <div class="progress-step-status" id="progStatus2">Pending</div>
+              </div>
+            </div>
+
+            <div class="progress-step-item" id="progItem3" onclick="jumpToStep(3)">
+              <div class="progress-step-icon"><i class="fa-regular fa-file-lines"></i></div>
+              <div class="progress-step-info">
+                <div class="progress-step-name">Template Assignment</div>
+                <div class="progress-step-status" id="progStatus3">Pending</div>
+              </div>
+            </div>
+
+            <div class="progress-step-item" id="progItem4" onclick="jumpToStep(4)">
+              <div class="progress-step-icon"><i class="fa-solid fa-palette"></i></div>
+              <div class="progress-step-info">
+                <div class="progress-step-name">Theme Assignment</div>
+                <div class="progress-step-status" id="progStatus4">Pending</div>
+              </div>
+            </div>
+
+            <div class="progress-step-item" id="progItem5" onclick="jumpToStep(5)">
+              <div class="progress-step-icon"><i class="fa-solid fa-cubes"></i></div>
+              <div class="progress-step-info">
+                <div class="progress-step-name">Initial Project Setup</div>
+                <div class="progress-step-status" id="progStatus5">Pending</div>
+              </div>
+            </div>
+
+            <div class="progress-step-item" id="progItem6" onclick="jumpToStep(6)">
+              <div class="progress-step-icon"><i class="fa-regular fa-circle-check"></i></div>
+              <div class="progress-step-info">
+                <div class="progress-step-name">Review & Complete</div>
+                <div class="progress-step-status" id="progStatus6">Pending</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Need Help Info Box -->
+          <div style="background:#eff6ff;border:1px solid #dbeafe;border-radius:10px;padding:14px;">
+            <div style="display:flex;align-items:center;gap:8px;color:#1e40af;font-size:12.5px;font-weight:700;margin-bottom:4px;">
+              <i class="fa-solid fa-circle-info"></i>
+              <span>Need Help?</span>
+            </div>
+            <p style="font-size:11.5px;color:#3b82f6;line-height:1.4;margin:0 0 8px;">
+              Onboarding a new client will create the required foundation in our platform and assign access.
+            </p>
+            <a href="#" class="link-blue" style="font-size:11.5px;font-weight:700;display:inline-flex;align-items:center;gap:4px;">
+              View Onboarding Guide <i class="fa-solid fa-arrow-up-right-from-square" style="font-size:9px;"></i>
+            </a>
+          </div>
+        </div>
+
       </div>
-      <div style="display:flex;justify-content:space-between;margin-top:6px;">
-        <button class="btn">Cancel</button>
-        <button class="btn btn-primary">Save &amp; Continue <i class="fa-solid fa-arrow-right"></i></button>
+
+      <!-- =======================================================================
+           BOTTOM SUPPORTING PANELS ROW matching exact reference
+           ======================================================================= -->
+      <div style="display:grid;grid-template-columns:1.35fr 1fr 1fr;gap:20px;align-items:stretch;">
+
+        <!-- 1. Recently Onboarded Clients -->
+        <div class="panel" style="margin:0;padding:18px;">
+          <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;">
+            <h3 style="font-size:14px;font-weight:800;color:var(--text-900);margin:0;">Recently Onboarded Clients</h3>
+            <a href="clients.html" class="link-blue" style="font-size:12px;font-weight:700;">View All</a>
+          </div>
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>Client Name</th>
+                  <th>Organization</th>
+                  <th>Onboarded On</th>
+                  <th>Status</th>
+                  <th>Projects</th>
+                  <th>Kiosks</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>
+                    <div style="display:flex;align-items:center;gap:8px;">
+                      <div style="width:24px;height:24px;border-radius:6px;background:#fee2e2;color:#dc2626;display:flex;align-items:center;justify-content:center;font-size:11px;">
+                        <i class="fa-solid fa-building"></i>
+                      </div>
+                      <span style="font-weight:700;color:var(--text-900);">Orion Mall</span>
+                    </div>
+                  </td>
+                  <td style="font-size:11.5px;color:var(--text-600);">Orion Retail Pvt. Ltd.</td>
+                  <td style="font-size:11.5px;color:var(--text-500);">10 May 2025</td>
+                  <td><span class="badge badge-green" style="font-size:10px;">Completed</span></td>
+                  <td style="font-weight:700;text-align:center;">3</td>
+                  <td style="font-weight:700;text-align:center;">18</td>
+                </tr>
+                <tr>
+                  <td>
+                    <div style="display:flex;align-items:center;gap:8px;">
+                      <div style="width:24px;height:24px;border-radius:6px;background:#e0f2fe;color:#0284c7;display:flex;align-items:center;justify-content:center;font-size:11px;">
+                        <i class="fa-solid fa-city"></i>
+                      </div>
+                      <span style="font-weight:700;color:var(--text-900);">Skyline Mall</span>
+                    </div>
+                  </td>
+                  <td style="font-size:11.5px;color:var(--text-600);">Skyline Group</td>
+                  <td style="font-size:11.5px;color:var(--text-500);">08 May 2025</td>
+                  <td><span class="badge badge-green" style="font-size:10px;">Completed</span></td>
+                  <td style="font-weight:700;text-align:center;">2</td>
+                  <td style="font-weight:700;text-align:center;">12</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- 2. Onboarding Overview (This Month) -->
+        <div class="panel" style="margin:0;padding:18px;">
+          <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;">
+            <h3 style="font-size:14px;font-weight:800;color:var(--text-900);margin:0;">Onboarding Overview <span style="font-size:11.5px;font-weight:500;color:var(--text-400);">(This Month)</span></h3>
+          </div>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;">
+            <div style="background:#f8fafc;border:1px solid #e2e8f0;border-radius:10px;padding:12px;text-align:center;">
+              <div style="width:28px;height:28px;border-radius:50%;background:#eff6ff;color:#2563eb;display:flex;align-items:center;justify-content:center;font-size:12px;margin:0 auto 4px auto;">
+                <i class="fa-solid fa-users"></i>
+              </div>
+              <div style="font-size:18px;font-weight:800;color:var(--text-900);">3</div>
+              <div style="font-size:10.5px;font-weight:600;color:var(--text-500);">In Progress</div>
+            </div>
+
+            <div style="background:#f8fafc;border:1px solid #e2e8f0;border-radius:10px;padding:12px;text-align:center;">
+              <div style="width:28px;height:28px;border-radius:50%;background:#ecfdf5;color:#10b981;display:flex;align-items:center;justify-content:center;font-size:12px;margin:0 auto 4px auto;">
+                <i class="fa-solid fa-circle-check"></i>
+              </div>
+              <div style="font-size:18px;font-weight:800;color:var(--text-900);">5</div>
+              <div style="font-size:10.5px;font-weight:600;color:var(--text-500);">Completed</div>
+            </div>
+
+            <div style="background:#f8fafc;border:1px solid #e2e8f0;border-radius:10px;padding:12px;text-align:center;">
+              <div style="width:28px;height:28px;border-radius:50%;background:#fff7ed;color:#f97316;display:flex;align-items:center;justify-content:center;font-size:12px;margin:0 auto 4px auto;">
+                <i class="fa-solid fa-clock"></i>
+              </div>
+              <div style="font-size:18px;font-weight:800;color:var(--text-900);">2</div>
+              <div style="font-size:10.5px;font-weight:600;color:var(--text-500);">Pending</div>
+            </div>
+
+            <div style="background:#f8fafc;border:1px solid #e2e8f0;border-radius:10px;padding:12px;text-align:center;">
+              <div style="width:28px;height:28px;border-radius:50%;background:#fef2f2;color:#ef4444;display:flex;align-items:center;justify-content:center;font-size:12px;margin:0 auto 4px auto;">
+                <i class="fa-solid fa-circle-xmark"></i>
+              </div>
+              <div style="font-size:18px;font-weight:800;color:var(--text-900);">0</div>
+              <div style="font-size:10.5px;font-weight:600;color:var(--text-500);">Cancelled</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 3. Quick Actions -->
+        <div class="panel" style="margin:0;padding:18px;">
+          <div style="margin-bottom:12px;">
+            <h3 style="font-size:14px;font-weight:800;color:var(--text-900);margin:0;">Quick Actions</h3>
+          </div>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;">
+            <button class="btn" style="padding:10px 8px;font-size:11.5px;font-weight:700;display:flex;flex-direction:column;align-items:center;gap:6px;text-align:center;" onclick="jumpToStep(1)">
+              <i class="fa-solid fa-user-plus" style="color:#2563eb;font-size:15px;"></i>
+              <span>Onboard New Client</span>
+            </button>
+
+            <button class="btn" style="padding:10px 8px;font-size:11.5px;font-weight:700;display:flex;flex-direction:column;align-items:center;gap:6px;text-align:center;" onclick="location.href='clients.html'">
+              <i class="fa-solid fa-users" style="color:#2563eb;font-size:15px;"></i>
+              <span>View All Clients</span>
+            </button>
+
+            <button class="btn" style="padding:10px 8px;font-size:11.5px;font-weight:700;display:flex;flex-direction:column;align-items:center;gap:6px;text-align:center;" onclick="alert('Client CSV import template opened')">
+              <i class="fa-solid fa-cloud-arrow-up" style="color:#2563eb;font-size:15px;"></i>
+              <span>Import Clients</span>
+            </button>
+
+            <button class="btn" style="padding:10px 8px;font-size:11.5px;font-weight:700;display:flex;flex-direction:column;align-items:center;gap:6px;text-align:center;" onclick="alert('Downloading Onboarding Spec Template...')">
+              <i class="fa-solid fa-download" style="color:#2563eb;font-size:15px;"></i>
+              <span>Download Template</span>
+            </button>
+          </div>
+        </div>
+
       </div>
+
+      <!-- Footer Bar matching visual reference -->
+      <footer style="display:flex;align-items:center;justify-content:space-between;padding-top:20px;margin-top:24px;border-top:1px solid var(--border-soft);font-size:12px;color:var(--text-400);">
+        <div>© 2025 Mall Kiosk Platform. All rights reserved.</div>
+        <div style="display:flex;gap:16px;">
+          <span>v1.0.0</span>
+          <span>|</span>
+          <span>May 2025</span>
+        </div>
+      </footer>
+
     </div>
   </div>
 
-  <div>
-    <div class="side-steps">
-      <div class="qa-title" style="padding:2px 6px 10px;font-weight:800;font-size:13px;">Onboarding Steps</div>
-      <div class="side-step active"><div class="ic"><i class="fa-solid fa-building"></i></div><div><div class="t1">Organization</div><div class="t2">Create organization</div></div></div>
-      <div class="side-step"><div class="ic"><i class="fa-regular fa-circle-question"></i></div><div><div class="t1">Client Information</div><div class="t2">Add client details</div></div></div>
-      <div class="side-step"><div class="ic"><i class="fa-solid fa-user"></i></div><div><div class="t1">Client Administrator</div><div class="t2">Assign admin user</div></div></div>
-      <div class="side-step"><div class="ic"><i class="fa-regular fa-folder"></i></div><div><div class="t1">Template Access</div><div class="t2">Select available templates</div></div></div>
-      <div class="side-step"><div class="ic"><i class="fa-solid fa-cube"></i></div><div><div class="t1">Initial Project</div><div class="t2">Create first project</div></div></div>
-      <div class="side-step"><div class="ic"><i class="fa-regular fa-square-check"></i></div><div><div class="t1">Review</div><div class="t2">Review all information</div></div></div>
-      <div class="side-step"><div class="ic"><i class="fa-regular fa-circle-check"></i></div><div><div class="t1">Complete</div><div class="t2">Finish onboarding</div></div></div>
+</div>
+
+<!-- =========================================================================
+     SUCCESS ACTIVATION MODAL
+     ========================================================================= -->
+<div class="modal-backdrop" id="onboardSuccessModal" style="display:none;position:fixed;inset:0;background:rgba(15,23,42,0.7);backdrop-filter:blur(6px);z-index:9999;align-items:center;justify-content:center;">
+  <div style="background:#ffffff;border-radius:18px;max-width:480px;width:100%;padding:32px;text-align:center;box-shadow:0 25px 60px rgba(0,0,0,0.3);position:relative;">
+    <div style="width:68px;height:68px;border-radius:50%;background:#ecfdf5;color:#10b981;display:flex;align-items:center;justify-content:center;font-size:32px;margin:0 auto 18px auto;border:2px solid #a7f3d0;">
+      <i class="fa-solid fa-check"></i>
     </div>
-    <div class="side-note">
-      <h4><i class="fa-solid fa-circle-info"></i> About Client Onboarding</h4>
-      <p style="margin:0 0 8px;">This process will:</p>
-      <ul>
-        <li>Create a new organization</li>
-        <li>Assign a client administrator</li>
-        <li>Grant access to selected templates</li>
-        <li>Create initial project (optional)</li>
-        <li>Send access invitation to client admin</li>
-      </ul>
+    <h2 style="font-size:20px;font-weight:800;color:var(--text-900);margin:0 0 6px;">Client Successfully Onboarded!</h2>
+    <p style="font-size:13px;color:var(--text-500);line-height:1.5;margin:0 0 22px;">
+      <strong id="modalSuccessClientName" style="color:var(--text-900);">Phoenix Mills Ltd. (Phoenix Mall)</strong> has been activated on the platform with Mall / Indoor Venue template and 12 planned kiosks.
+    </p>
+
+    <div style="background:#f8fafc;border:1px solid #e2e8f0;border-radius:12px;padding:14px;text-align:left;font-size:12px;color:var(--text-700);margin-bottom:24px;">
+      <div style="display:flex;align-items:center;gap:6px;margin-bottom:6px;">
+        <i class="fa-solid fa-circle-check" style="color:#10b981;"></i>
+        <span>Client Organization activated</span>
+      </div>
+      <div style="display:flex;align-items:center;gap:6px;margin-bottom:6px;">
+        <i class="fa-solid fa-circle-check" style="color:#10b981;"></i>
+        <span>Client Admin credentials generated (admin@phoenixmall.com)</span>
+      </div>
+      <div style="display:flex;align-items:center;gap:6px;">
+        <i class="fa-solid fa-circle-check" style="color:#10b981;"></i>
+        <span>Initial Project workspace provisioned</span>
+      </div>
+    </div>
+
+    <div style="display:flex;gap:12px;justify-content:center;">
+      <a href="client-detail.html" class="btn btn-primary" style="padding:10px 20px;background:#2563eb;color:#fff;font-weight:700;text-decoration:none;">
+        <i class="fa-solid fa-folder-open"></i> View Client Details
+      </a>
+      <a href="clients.html" class="btn" style="padding:10px 18px;font-weight:600;text-decoration:none;">
+        Client Management
+      </a>
     </div>
   </div>
 </div>
-</div></div>
-</div>
+
+<!-- =========================================================================
+     JAVASCRIPT WORKFLOW LOGIC
+     ========================================================================= -->
+<script>
+  let currentStep = 1;
+  const totalSteps = 6;
+  
+  const stepTitles = [
+    "Organization Information",
+    "Client Admin Setup",
+    "Template Assignment",
+    "Theme Assignment",
+    "Initial Project Setup",
+    "Review & Complete"
+  ];
+  
+  const stepPercentages = [16, 33, 50, 66, 83, 100];
+  const stepDashOffsets = [84, 67, 50, 34, 17, 0];
+
+  function updateStepUI(step) {
+    currentStep = step;
+
+    // 1. Update Panes
+    for (let i = 1; i <= totalSteps; i++) {
+      const pane = document.getElementById(`stepPane${i}`);
+      if (pane) pane.style.display = (i === step) ? 'block' : 'none';
+    }
+
+    // 2. Update Horizontal Stepper Header
+    for (let i = 1; i <= totalSteps; i++) {
+      const node = document.getElementById(`stepperNode${i}`);
+      if (!node) continue;
+      node.classList.remove('active', 'completed');
+      if (i === step) {
+        node.classList.add('active');
+      } else if (i < step) {
+        node.classList.add('completed');
+        node.querySelector('.stepper-circle').innerHTML = '<i class="fa-solid fa-check"></i>';
+      } else {
+        node.querySelector('.stepper-circle').textContent = i;
+      }
+    }
+
+    const progressBar = document.getElementById('stepperProgressBar');
+    if (progressBar) {
+      const pct = ((step - 1) / (totalSteps - 1)) * 100;
+      progressBar.style.width = `${pct}%`;
+    }
+
+    // 3. Update Right Side Progress Panel
+    const donutArc = document.getElementById('donutProgressArc');
+    const donutText = document.getElementById('donutProgressText');
+    const sideStepTitle = document.getElementById('sideStepTitle');
+    const sideStepDesc = document.getElementById('sideStepDesc');
+
+    if (donutArc) donutArc.setAttribute('stroke-dashoffset', stepDashOffsets[step - 1]);
+    if (donutText) donutText.textContent = `${stepPercentages[step - 1]}%`;
+    if (sideStepTitle) sideStepTitle.textContent = `Step ${step} of ${totalSteps}`;
+    if (sideStepDesc) sideStepDesc.textContent = stepTitles[step - 1];
+
+    for (let i = 1; i <= totalSteps; i++) {
+      const item = document.getElementById(`progItem${i}`);
+      const status = document.getElementById(`progStatus${i}`);
+      if (!item || !status) continue;
+
+      item.classList.remove('active', 'completed');
+      if (i === step) {
+        item.classList.add('active');
+        status.textContent = 'In Progress';
+      } else if (i < step) {
+        item.classList.add('completed');
+        status.textContent = 'Completed';
+      } else {
+        status.textContent = 'Pending';
+      }
+    }
+
+    // 4. Update Review summary values when on Step 6
+    if (step === 6) {
+      populateReviewSummary();
+    }
+  }
+
+  function validateAndNext(step) {
+    if (step === 1) {
+      const orgName = document.getElementById('orgNameInput').value.trim();
+      const orgBrand = document.getElementById('orgBrandInput').value.trim();
+      const orgCity = document.getElementById('orgCityInput').value.trim();
+      const primaryContact = document.getElementById('primaryContactName').value.trim();
+      const primaryEmail = document.getElementById('primaryContactEmail').value.trim();
+
+      if (!orgName || !orgBrand || !orgCity || !primaryContact || !primaryEmail) {
+        alert('Please fill in all required fields marked with *');
+        return;
+      }
+    } else if (step === 2) {
+      const adminName = document.getElementById('adminNameInput').value.trim();
+      const adminEmail = document.getElementById('adminEmailInput').value.trim();
+      if (!adminName || !adminEmail) {
+        alert('Please enter Administrator Name and Work Email');
+        return;
+      }
+    }
+    updateStepUI(step + 1);
+  }
+
+  function prevStep(step) {
+    if (step > 1) {
+      updateStepUI(step - 1);
+    }
+  }
+
+  function jumpToStep(step) {
+    if (step >= 1 && step <= totalSteps) {
+      updateStepUI(step);
+    }
+  }
+
+  function selectTemplate(templateName, el) {
+    document.querySelectorAll('#stepPane3 .catalog-item-card').forEach(c => {
+      c.classList.remove('selected');
+      const badge = c.querySelector('.catalog-check-badge');
+      if (badge) badge.remove();
+    });
+    el.classList.add('selected');
+    const b = document.createElement('div');
+    b.className = 'catalog-check-badge';
+    b.innerHTML = '<i class="fa-solid fa-check"></i>';
+    el.appendChild(b);
+  }
+
+  function toggleThemeSelection(el, themeName) {
+    el.classList.toggle('selected');
+    let badge = el.querySelector('.catalog-check-badge');
+    if (el.classList.contains('selected')) {
+      if (!badge) {
+        badge = document.createElement('div');
+        badge.className = 'catalog-check-badge';
+        badge.innerHTML = '<i class="fa-solid fa-check"></i>';
+        el.appendChild(badge);
+      }
+    } else {
+      if (badge) badge.remove();
+    }
+  }
+
+  function handleLogoUpload(input) {
+    if (input.files && input.files[0]) {
+      document.getElementById('logoUploadText').textContent = input.files[0].name;
+    }
+  }
+
+  function populateReviewSummary() {
+    const orgName = document.getElementById('orgNameInput').value || 'Phoenix Mills Ltd.';
+    const orgBrand = document.getElementById('orgBrandInput').value || 'Phoenix Mall';
+    const orgType = document.getElementById('orgTypeSelect').value || 'Shopping Mall';
+    const orgIndustry = document.getElementById('orgIndustrySelect').value || 'Retail';
+    const orgCity = document.getElementById('orgCityInput').value || 'Mumbai';
+    const orgCountry = document.getElementById('orgCountrySelect').value || 'India';
+    const contactName = document.getElementById('primaryContactName').value || 'Rahul Mehta';
+    const contactEmail = document.getElementById('primaryContactEmail').value || 'rahul.mehta@phoenixmall.com';
+    const website = document.getElementById('orgWebsiteInput').value || 'https://www.phoenixmalls.com';
+
+    const adminName = document.getElementById('adminNameInput').value || 'Rahul Mehta';
+    const adminEmail = document.getElementById('adminEmailInput').value || 'admin@phoenixmall.com';
+
+    const projName = document.getElementById('projNameInput').value || 'Phoenix Mall';
+    const projKiosks = document.getElementById('projKiosksInput').value || '12';
+
+    document.getElementById('revOrgName').textContent = orgName;
+    document.getElementById('revOrgBrand').textContent = orgBrand;
+    document.getElementById('revOrgType').textContent = `${orgType} · ${orgIndustry}`;
+    document.getElementById('revOrgLocation').textContent = `${orgCity}, ${orgCountry}`;
+    document.getElementById('revContact').textContent = `${contactName} (${contactEmail})`;
+    document.getElementById('revWebsite').textContent = website;
+
+    document.getElementById('revAdminName').textContent = adminName;
+    document.getElementById('revAdminEmail').textContent = adminEmail;
+
+    document.getElementById('revProjName').textContent = projName;
+    document.getElementById('revProjKiosks').textContent = `${projKiosks} Kiosks`;
+
+    document.getElementById('modalSuccessClientName').textContent = `${orgName} (${orgBrand})`;
+  }
+
+  function completeClientOnboarding() {
+    document.getElementById('onboardSuccessModal').style.display = 'flex';
+  }
+
+  function confirmCancelOnboarding() {
+    if (confirm("Are you sure you want to cancel the onboarding process? Any unsaved changes will be lost.")) {
+      window.location.href = "clients.html";
+    }
+  }
+</script>
 </body>
 </html>

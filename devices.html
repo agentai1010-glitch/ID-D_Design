@@ -1,216 +1,1201 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Devices · Kiosk Platform</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-<link rel="stylesheet" href="css/styles.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Device Management · Mall Kiosk Platform</title>
+  <!-- Google Fonts & Font Awesome -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="stylesheet" href="css/styles.css">
+  <style>
+    /* Workflow Domain 8 - Devices Specific Styling */
+    .devices-kpi-grid {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 16px;
+      margin-bottom: 20px;
+    }
+
+    .kpi-stat-box {
+      background: #ffffff;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 16px;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+    }
+
+    .kpi-icon-square {
+      width: 44px;
+      height: 44px;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+      flex-shrink: 0;
+    }
+
+    /* Main Row 2: 2-Column Split */
+    .devices-main-split {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) 350px;
+      gap: 20px;
+      align-items: start;
+      margin-bottom: 20px;
+    }
+
+    .device-row {
+      cursor: pointer;
+      transition: background 0.15s ease;
+    }
+
+    .device-row:hover {
+      background: #f8fafc;
+    }
+
+    .device-row.selected {
+      background: #eff6ff !important;
+      border-left: 3px solid #2563eb;
+    }
+
+    /* Bottom 4-Column Operations Grid */
+    .devices-bottom-grid {
+      display: grid;
+      grid-template-columns: 1fr 1.05fr 1.05fr 0.9fr;
+      gap: 16px;
+      align-items: start;
+    }
+
+    .quick-action-card-tile {
+      background: #ffffff;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 14px 8px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      gap: 8px;
+      text-decoration: none;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .quick-action-card-tile:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.06);
+      border-color: #93c5fd;
+    }
+
+    .quick-action-card-tile i {
+      font-size: 18px;
+      color: #2563eb;
+    }
+
+    .quick-action-card-tile span {
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--text-900);
+      line-height: 1.2;
+    }
+
+    /* Bar chart css */
+    .bar-col-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      flex: 1;
+      height: 110px;
+      justify-content: flex-end;
+    }
+
+    .bar-fill {
+      width: 24px;
+      border-radius: 4px 4px 0 0;
+      transition: height 0.3s ease;
+    }
+
+    .bar-count {
+      font-size: 10.5px;
+      font-weight: 800;
+      color: var(--text-900);
+      margin-bottom: 4px;
+    }
+
+    .bar-label {
+      font-size: 9.5px;
+      font-weight: 700;
+      color: var(--text-600);
+      margin-top: 6px;
+      text-align: center;
+    }
+  </style>
 </head>
 <body>
 <div class="app-shell">
-<aside class="sidebar">
-  <a href="dashboard.html" class="sidebar-brand" style="cursor:pointer;">
-    <div class="logo-icon"><svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-<path d="M12 2L21 7V17L12 22L3 17V7L12 2Z" stroke="white" stroke-width="1.6" stroke-linejoin="round"/>
-<circle cx="12" cy="12" r="3.2" fill="white"/>
-</svg></div>
-    <div class="brand-text"><div class="t1">KIOSK</div><div class="t2">PLATFORM</div></div>
-  </a>
-  <div class="sidebar-section-label">PLATFORM ADMIN <i class="fa-solid fa-chevron-up" style="font-size:9px;"></i></div>
-  <ul class="sidebar-nav">
-  <li class="nav-item " onclick="location.href='dashboard.html'"><i class="fa-solid fa-house"></i><span>Dashboard</span></li>
-<li class="nav-item " onclick="location.href='clients.html'"><i class="fa-solid fa-user-group"></i><span>Clients</span></li>
-<li class="nav-item " onclick="location.href='projects.html'"><i class="fa-solid fa-folder-open"></i><span>Projects</span></li>
-<li class="nav-item active" onclick="location.href='devices.html'"><i class="fa-solid fa-tablet-screen-button"></i><span>Devices</span></li>
-<li class="nav-item " onclick="location.href='templates.html'"><i class="fa-solid fa-table-cells-large"></i><span>Templates</span></li>
-<li class="nav-item " onclick="location.href='analytics.html'"><i class="fa-solid fa-chart-column"></i><span>Analytics</span></li>
-<li class="nav-item " onclick="location.href='monitoring.html'"><i class="fa-solid fa-heart-pulse"></i><span>Monitoring</span></li>
-<li class="nav-item " onclick="location.href='users-roles.html'"><i class="fa-solid fa-users-gear"></i><span>Users & Roles</span></li>
-<li class="nav-item " onclick="location.href='billing.html'"><i class="fa-solid fa-credit-card"></i><span>Billing & Plans</span></li>
-<li class="nav-item " onclick="location.href='audit-logs.html'"><i class="fa-solid fa-file-lines"></i><span>Audit Logs</span></li>
-<li class="nav-item " onclick="location.href='system-settings.html'"><i class="fa-solid fa-gear"></i><span>System Settings</span></li>
 
-  </ul>
-  <div class="sidebar-spacer"></div>
-  <div class="sidebar-status">
-    <div class="st-title">System Status</div>
-    <div class="st-row"><span class="st-dot"></span> All Systems Operational</div>
-    <div class="st-sub">Last checked: 2 min ago</div>
-    <a href="monitoring.html">View System Health</a>
-  </div>
-  <div class="sidebar-quick">
-    <div class="qa-title">Quick Actions</div>
-    <a class="qa-item" href="onboard-client.html"><i class="fa-solid fa-user-plus"></i> Onboard New Client</a>
-    <a class="qa-item" href="clients.html"><i class="fa-solid fa-cube"></i> View Clients</a>
-    <a class="qa-item" href="devices.html"><i class="fa-solid fa-tablet-screen-button"></i> View Devices</a>
-    <a class="qa-item" href="monitoring.html"><i class="fa-solid fa-triangle-exclamation"></i> View Alerts</a>
-  </div>
-  <div class="sidebar-footer">Kiosk Platform v1.0.0</div>
-</aside>
-<div class="main"><header class="topbar">
-  <i class="fa-solid fa-bars hamburger"></i>
-  <div class="search"><i class="fa-solid fa-magnifying-glass"></i><span>Search clients, projects, devices...</span><span class="kbd">⌘K</span></div>
-  <div class="spacer"></div>
-  <button class="icon-btn"><i class="fa-regular fa-circle-question"></i></button>
-  <button class="icon-btn"><i class="fa-regular fa-bell"></i><span class="badge-dot">12</span></button>
-  <div class="user">
-    <div class="avatar">SA</div>
-    <div><div class="u-name">Super Admin</div><div class="u-role">Platform Administrator</div></div>
-    <i class="fa-solid fa-chevron-down"></i>
-  </div>
-</header>
-<div class="content">
-<div class="page-header">
-  <div><h1>Devices</h1><p>Manage and monitor all kiosks across the platform</p></div>
-  <div class="actions">
-    <div class="search-input"><i class="fa-solid fa-magnifying-glass"></i><span>Search devices...</span></div>
-    <button class="btn"><i class="fa-solid fa-filter"></i> Filter</button>
-    <button class="btn btn-primary"><i class="fa-solid fa-plus"></i> Register Device</button>
-  </div>
-</div>
+  <!-- =========================================================================
+       COMPANY ADMIN GLOBAL SIDEBAR
+       ========================================================================= -->
+  <aside class="sidebar">
+    <a href="dashboard.html" class="sidebar-brand" style="cursor:pointer;text-decoration:none;">
+      <div class="logo-icon" style="background:linear-gradient(135deg,#3b82f6,#1d4ed8);border-radius:10px;">
+        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style="width:20px;height:20px;">
+          <path d="M4 21V9l8-6 8 6v12H4z" stroke="white" stroke-width="1.8" stroke-linejoin="round"/>
+          <path d="M9 21V12h6v9" stroke="white" stroke-width="1.8"/>
+          <path d="M12 3v4" stroke="white" stroke-width="1.8"/>
+        </svg>
+      </div>
+      <div class="brand-text">
+        <div class="t1" style="font-size:14px;font-weight:700;color:#ffffff;line-height:1.2;">Mall Kiosk Platform</div>
+        <div class="t2" style="font-size:11px;color:#94a3b8;font-weight:500;">Company Admin</div>
+      </div>
+    </a>
 
-<div class="stats-grid">
-  <div class="stat-card"><div class="icon icon-blue"><i class="fa-solid fa-tablet-screen-button"></i></div><div class="body"><div class="label">Total Devices</div><div class="value">156</div><div class="sub">Across all clients</div></div></div>
-  <div class="stat-card"><div class="icon icon-green"><i class="fa-solid fa-wifi"></i></div><div class="body"><div class="label">Online Devices</div><div class="value">142</div><div class="sub">91.0% online</div></div></div>
-  <div class="stat-card"><div class="icon icon-red"><i class="fa-solid fa-wifi"></i></div><div class="body"><div class="label">Offline Devices</div><div class="value">10</div><div class="sub">6.4% offline</div></div></div>
-  <div class="stat-card"><div class="icon icon-amber"><i class="fa-solid fa-triangle-exclamation"></i></div><div class="body"><div class="label">Warning</div><div class="value">3</div><div class="sub">1.9% need attention</div></div></div>
-  <div class="stat-card"><div class="icon icon-purple"><i class="fa-solid fa-arrow-up-from-bracket"></i></div><div class="body"><div class="label">Updates Pending</div><div class="value">7</div><div class="sub">Require update</div></div></div>
-  <div class="stat-card"><div class="icon icon-blue"><i class="fa-solid fa-table-cells"></i></div><div class="body"><div class="label">Device Models</div><div class="value">4</div><div class="sub">Across all devices</div></div></div>
-</div>
+    <ul class="sidebar-nav">
+      <li class="nav-item" onclick="location.href='dashboard.html'"><i class="fa-solid fa-house"></i><span>Dashboard</span></li>
+      <li class="nav-item" onclick="location.href='clients.html'"><i class="fa-solid fa-user-group"></i><span>Clients</span></li>
+      <li class="nav-item" onclick="location.href='onboard-client.html'"><i class="fa-solid fa-wand-magic-sparkles"></i><span>Onboarding</span></li>
+      <li class="nav-item" onclick="location.href='templates.html'"><i class="fa-regular fa-file-lines"></i><span>Templates</span></li>
+      <li class="nav-item" onclick="location.href='projects.html'"><i class="fa-solid fa-folder-open"></i><span>Projects</span></li>
+      <li class="nav-item" onclick="location.href='requests.html'" style="display:flex;align-items:center;justify-content:space-between;">
+        <div style="display:flex;align-items:center;gap:10px;"><i class="fa-regular fa-clipboard"></i><span>Requests</span></div>
+        <span class="badge" style="background:#2563eb;color:#fff;font-size:10px;padding:2px 7px;border-radius:999px;font-weight:700;">16</span>
+      </li>
+      <li class="nav-item" onclick="location.href='experience-studio.html'"><i class="fa-solid fa-palette"></i><span>Experience Studio</span></li>
+      <li class="nav-item" onclick="location.href='releases.html'"><i class="fa-solid fa-rocket"></i><span>Releases</span></li>
+      <li class="nav-item active" onclick="location.href='devices.html'"><i class="fa-solid fa-display"></i><span>Devices</span></li>
+      <li class="nav-item" onclick="location.href='monitoring.html'"><i class="fa-solid fa-chart-line"></i><span>Monitoring</span></li>
+      <li class="nav-item" onclick="location.href='analytics.html'"><i class="fa-solid fa-chart-column"></i><span>Analytics</span></li>
+      <li class="nav-item" onclick="location.href='system-settings.html'"><i class="fa-solid fa-gear"></i><span>Settings</span></li>
+      <li class="nav-item" onclick="location.href='users-roles.html'"><i class="fa-solid fa-user-shield"></i><span>Users & Roles</span></li>
+    </ul>
 
-<div class="panel">
-  <div class="panel-header">
-    <div><h2>All Devices</h2><p>View and manage all kiosks deployed across clients and projects</p></div>
-    <div class="filters">
-      <div class="select-pill">All Clients <i class="fa-solid fa-chevron-down"></i></div>
-      <div class="select-pill">All Projects <i class="fa-solid fa-chevron-down"></i></div>
-      <div class="select-pill">All Status <i class="fa-solid fa-chevron-down"></i></div>
-      <button class="btn"><i class="fa-solid fa-arrow-up-from-bracket"></i> Export</button>
+    <div class="sidebar-spacer"></div>
+    <div class="sidebar-collapse-btn" style="display:flex;align-items:center;gap:8px;padding:10px 12px;color:#94a3b8;font-size:13px;cursor:pointer;">
+      <i class="fa-solid fa-chevron-left" style="font-size:11px;"></i>
+      <span>Collapse</span>
+    </div>
+  </aside>
+
+  <!-- =========================================================================
+       MAIN WORKSPACE
+       ========================================================================= -->
+  <div class="main">
+
+    <!-- Topbar Header -->
+    <header class="topbar">
+      <div style="display:flex;align-items:center;gap:14px;">
+        <i class="fa-solid fa-bars hamburger"></i>
+        <div>
+          <h1 style="font-size:19px;font-weight:800;color:var(--text-900);margin:0;line-height:1.2;">Device Management</h1>
+          <div style="font-size:11.5px;color:var(--text-500);display:flex;align-items:center;gap:6px;margin-top:2px;">
+            <a href="dashboard.html" style="color:var(--text-500);text-decoration:none;">Dashboard</a>
+            <i class="fa-solid fa-chevron-right" style="font-size:8px;"></i>
+            <span style="color:var(--text-900);font-weight:600;">Devices</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="spacer"></div>
+
+      <!-- Search Input -->
+      <div style="position:relative;width:340px;">
+        <input type="text" class="form-control" id="deviceSearchInput" onkeyup="filterDevices()" placeholder="Search devices, projects, locations..." style="padding-right:36px;border-radius:8px;font-size:13px;">
+        <i class="fa-solid fa-magnifying-glass" style="position:absolute;right:12px;top:50%;transform:translateY(-50%);color:var(--text-400);font-size:13px;"></i>
+      </div>
+
+      <!-- Notification Bell -->
+      <button class="icon-btn" style="position:relative;">
+        <i class="fa-regular fa-bell"></i>
+        <span class="badge-dot" style="position:absolute;top:3px;right:3px;background:#ef4444;color:#fff;font-size:9px;font-weight:700;border-radius:50%;width:15px;height:15px;display:flex;align-items:center;justify-content:center;">12</span>
+      </button>
+
+      <!-- Profile -->
+      <div class="user">
+        <div class="avatar" style="background:#1e293b;color:#fff;font-weight:700;font-size:12px;">CA</div>
+        <div>
+          <div class="u-name" style="font-size:13px;font-weight:700;color:var(--text-900);">Company Admin</div>
+        </div>
+        <i class="fa-solid fa-chevron-down" style="font-size:10px;color:var(--text-400);"></i>
+      </div>
+
+      <!-- Header Action -->
+      <button class="btn btn-primary" id="btnHeaderRegisterDevice" onclick="openRegisterDeviceModal()" style="background:#2563eb;color:#fff;font-weight:700;font-size:13px;padding:8px 16px;border-radius:8px;display:flex;align-items:center;gap:6px;">
+        <i class="fa-solid fa-plus"></i> Register New Device
+      </button>
+    </header>
+
+    <!-- Page Content Container -->
+    <div class="content" style="padding:24px 28px;">
+
+      <!-- =====================================================================
+           ROW 1: 5 OPERATIONAL KPI SUMMARY CARDS
+           ===================================================================== -->
+      <div class="devices-kpi-grid">
+        
+        <!-- 1. Total Devices -->
+        <div class="kpi-stat-box">
+          <div class="kpi-icon-square" style="background:#eff6ff;color:#2563eb;border:1px solid #dbeafe;">
+            <i class="fa-solid fa-display"></i>
+          </div>
+          <div>
+            <div style="font-size:11px;font-weight:600;color:var(--text-500);text-transform:uppercase;letter-spacing:0.4px;">Total Devices</div>
+            <div style="font-size:22px;font-weight:800;color:var(--text-900);line-height:1.1;margin:2px 0;" id="kpiTotalDevices">156</div>
+            <div style="font-size:11px;color:var(--text-400);">Kiosks & Players</div>
+          </div>
+        </div>
+
+        <!-- 2. Online Devices -->
+        <div class="kpi-stat-box">
+          <div class="kpi-icon-square" style="background:#ecfdf5;color:#10b981;border:1px solid #d1fae5;">
+            <i class="fa-solid fa-signal"></i>
+          </div>
+          <div>
+            <div style="font-size:11px;font-weight:600;color:var(--text-500);text-transform:uppercase;letter-spacing:0.4px;">Online Devices</div>
+            <div style="font-size:22px;font-weight:800;color:var(--text-900);line-height:1.1;margin:2px 0;">142</div>
+            <div style="font-size:11px;color:#10b981;font-weight:600;">91.0% Online</div>
+          </div>
+        </div>
+
+        <!-- 3. Offline Devices -->
+        <div class="kpi-stat-box">
+          <div class="kpi-icon-square" style="background:#fef2f2;color:#ef4444;border:1px solid #fee2e2;">
+            <i class="fa-solid fa-power-off"></i>
+          </div>
+          <div>
+            <div style="font-size:11px;font-weight:600;color:var(--text-500);text-transform:uppercase;letter-spacing:0.4px;">Offline Devices</div>
+            <div style="font-size:22px;font-weight:800;color:#ef4444;line-height:1.1;margin:2px 0;">14</div>
+            <div style="font-size:11px;color:var(--text-400);">9.0% Offline</div>
+          </div>
+        </div>
+
+        <!-- 4. Needs Attention -->
+        <div class="kpi-stat-box">
+          <div class="kpi-icon-square" style="background:#fff7ed;color:#ea580c;border:1px solid #ffedd5;">
+            <i class="fa-solid fa-triangle-exclamation"></i>
+          </div>
+          <div>
+            <div style="font-size:11px;font-weight:600;color:var(--text-500);text-transform:uppercase;letter-spacing:0.4px;">Needs Attention</div>
+            <div style="font-size:22px;font-weight:800;color:var(--text-900);line-height:1.1;margin:2px 0;">6</div>
+            <div style="font-size:11px;color:#ea580c;font-weight:600;">Action Required</div>
+          </div>
+        </div>
+
+        <!-- 5. Avg. Device Health -->
+        <div class="kpi-stat-box">
+          <div class="kpi-icon-square" style="background:#f0fdfa;color:#0d9488;border:1px solid #ccfbf1;">
+            <i class="fa-solid fa-heart-pulse"></i>
+          </div>
+          <div>
+            <div style="font-size:11px;font-weight:600;color:var(--text-500);text-transform:uppercase;letter-spacing:0.4px;">Avg. Device Health</div>
+            <div style="font-size:22px;font-weight:800;color:var(--text-900);line-height:1.1;margin:2px 0;">96%</div>
+            <div style="font-size:11px;color:#10b981;font-weight:700;">Excellent</div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- =====================================================================
+           ROW 2: 2-COLUMN SPLIT (ALL DEVICES TABLE & SELECTED DEVICE DETAILS)
+           ===================================================================== -->
+      <div class="devices-main-split">
+
+        <!-- Left All Devices Table Container -->
+        <div class="panel" style="margin:0;padding:20px;">
+          <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;">
+            <h2 style="font-size:15px;font-weight:800;color:var(--text-900);margin:0;">All Devices</h2>
+            <div style="display:flex;align-items:center;gap:10px;">
+              <div style="position:relative;width:200px;">
+                <input type="text" class="form-control" id="tableFilterInput" onkeyup="filterTableRows()" placeholder="Search devices..." style="padding:6px 28px 6px 12px;font-size:12px;">
+                <i class="fa-solid fa-magnifying-glass" style="position:absolute;right:10px;top:50%;transform:translateY(-50%);font-size:11px;color:var(--text-400);"></i>
+              </div>
+              <button class="btn" style="padding:6px 12px;font-size:12px;font-weight:600;"><i class="fa-solid fa-filter"></i> Filters <i class="fa-solid fa-chevron-down" style="font-size:9px;"></i></button>
+              <button class="btn" style="padding:6px 12px;font-size:12px;font-weight:600;"><i class="fa-solid fa-arrow-up-from-bracket"></i> Export <i class="fa-solid fa-chevron-down" style="font-size:9px;"></i></button>
+              <div style="display:flex;border:1px solid var(--border);border-radius:6px;overflow:hidden;">
+                <button class="btn" style="padding:6px 9px;border:none;background:#f1f5f9;"><i class="fa-solid fa-list"></i></button>
+                <button class="btn" style="padding:6px 9px;border:none;background:#ffffff;"><i class="fa-solid fa-table-cells-large"></i></button>
+              </div>
+            </div>
+          </div>
+
+          <div class="table-wrap">
+            <table id="devicesDataTable">
+              <thead>
+                <tr>
+                  <th>Device Name</th>
+                  <th>Device ID</th>
+                  <th>Project / Venue</th>
+                  <th>Kiosk Type</th>
+                  <th>Status</th>
+                  <th>Release</th>
+                  <th>Health</th>
+                  <th>Last Seen</th>
+                  <th style="text-align:right;">Actions</th>
+                </tr>
+              </thead>
+              <tbody id="devicesTableBody">
+                
+                <!-- 1. Phoenix Mall - K01 (Selected by Default) -->
+                <tr class="device-row selected" id="dev-phoenix-k01" onclick="selectDeviceRow('phoenix-k01')">
+                  <td>
+                    <div style="display:flex;align-items:center;gap:8px;">
+                      <i class="fa-solid fa-mobile-screen-button" style="color:#2563eb;font-size:14px;"></i>
+                      <span style="font-weight:700;color:var(--text-900);font-size:12.5px;">Phoenix Mall - K01</span>
+                    </div>
+                  </td>
+                  <td><div style="font-weight:600;font-size:12px;color:var(--text-900);">KM-PMN-0001</div><div style="font-size:10px;color:var(--text-400);">Android 11</div></td>
+                  <td><div style="font-weight:600;font-size:12px;color:var(--text-800);">Phoenix Mall Project</div><div style="font-size:10.5px;color:var(--text-400);">Lower Parel, Mumbai</div></td>
+                  <td><span style="font-size:11.5px;color:var(--text-700);">Indoor Kiosk 32" Portrait</span></td>
+                  <td><span class="badge badge-green" style="font-size:10px;padding:2px 8px;">Online</span></td>
+                  <td><div style="font-weight:700;font-size:11.5px;color:var(--text-900);">v2.1.0</div><div style="font-size:10px;color:#10b981;font-weight:600;">Active</div></td>
+                  <td><span style="display:flex;align-items:center;gap:4px;font-weight:700;color:#10b981;font-size:11.5px;"><span style="width:6px;height:6px;border-radius:50%;background:#10b981;"></span> 98%</span></td>
+                  <td style="font-size:11.5px;color:var(--text-600);">Today, 10:15 AM</td>
+                  <td style="text-align:right;"><button class="btn-icon" style="background:none;border:none;cursor:pointer;color:var(--text-400);font-size:13px;"><i class="fa-solid fa-ellipsis-vertical"></i></button></td>
+                </tr>
+
+                <!-- 2. Phoenix Mall - K02 -->
+                <tr class="device-row" id="dev-phoenix-k02" onclick="selectDeviceRow('phoenix-k02')">
+                  <td>
+                    <div style="display:flex;align-items:center;gap:8px;">
+                      <i class="fa-solid fa-mobile-screen-button" style="color:#2563eb;font-size:14px;"></i>
+                      <span style="font-weight:700;color:var(--text-900);font-size:12.5px;">Phoenix Mall - K02</span>
+                    </div>
+                  </td>
+                  <td><div style="font-weight:600;font-size:12px;color:var(--text-900);">KM-PMN-0002</div><div style="font-size:10px;color:var(--text-400);">Android 11</div></td>
+                  <td><div style="font-weight:600;font-size:12px;color:var(--text-800);">Phoenix Mall Project</div><div style="font-size:10.5px;color:var(--text-400);">Lower Parel, Mumbai</div></td>
+                  <td><span style="font-size:11.5px;color:var(--text-700);">Indoor Kiosk 32" Portrait</span></td>
+                  <td><span class="badge badge-green" style="font-size:10px;padding:2px 8px;">Online</span></td>
+                  <td><div style="font-weight:700;font-size:11.5px;color:var(--text-900);">v2.1.0</div><div style="font-size:10px;color:#10b981;font-weight:600;">Active</div></td>
+                  <td><span style="display:flex;align-items:center;gap:4px;font-weight:700;color:#10b981;font-size:11.5px;"><span style="width:6px;height:6px;border-radius:50%;background:#10b981;"></span> 97%</span></td>
+                  <td style="font-size:11.5px;color:var(--text-600);">Today, 10:12 AM</td>
+                  <td style="text-align:right;"><button class="btn-icon" style="background:none;border:none;cursor:pointer;color:var(--text-400);font-size:13px;"><i class="fa-solid fa-ellipsis-vertical"></i></button></td>
+                </tr>
+
+                <!-- 3. Phoenix Mall - K03 (Offline) -->
+                <tr class="device-row" id="dev-phoenix-k03" onclick="selectDeviceRow('phoenix-k03')">
+                  <td>
+                    <div style="display:flex;align-items:center;gap:8px;">
+                      <i class="fa-solid fa-mobile-screen-button" style="color:#ef4444;font-size:14px;"></i>
+                      <span style="font-weight:700;color:var(--text-900);font-size:12.5px;">Phoenix Mall - K03</span>
+                    </div>
+                  </td>
+                  <td><div style="font-weight:600;font-size:12px;color:var(--text-900);">KM-PMN-0003</div><div style="font-size:10px;color:var(--text-400);">Android 11</div></td>
+                  <td><div style="font-weight:600;font-size:12px;color:var(--text-800);">Phoenix Mall Project</div><div style="font-size:10.5px;color:var(--text-400);">Lower Parel, Mumbai</div></td>
+                  <td><span style="font-size:11.5px;color:var(--text-700);">Indoor Kiosk 43" Portrait</span></td>
+                  <td><span class="badge badge-red" style="font-size:10px;padding:2px 8px;">Offline</span></td>
+                  <td><div style="font-weight:700;font-size:11.5px;color:var(--text-900);">v2.1.0</div><div style="font-size:10px;color:#10b981;font-weight:600;">Active</div></td>
+                  <td style="font-size:12px;color:var(--text-400);">—</td>
+                  <td><div style="font-size:11.5px;font-weight:600;color:var(--text-800);">Yesterday, 08:45 PM</div><div style="font-size:10px;color:#ef4444;">Offline 15h 30m</div></td>
+                  <td style="text-align:right;"><button class="btn-icon" style="background:none;border:none;cursor:pointer;color:var(--text-400);font-size:13px;"><i class="fa-solid fa-ellipsis-vertical"></i></button></td>
+                </tr>
+
+                <!-- 4. Orion Mall - K01 -->
+                <tr class="device-row" id="dev-orion-k01" onclick="selectDeviceRow('orion-k01')">
+                  <td>
+                    <div style="display:flex;align-items:center;gap:8px;">
+                      <i class="fa-solid fa-mobile-screen-button" style="color:#2563eb;font-size:14px;"></i>
+                      <span style="font-weight:700;color:var(--text-900);font-size:12.5px;">Orion Mall - K01</span>
+                    </div>
+                  </td>
+                  <td><div style="font-weight:600;font-size:12px;color:var(--text-900);">KM-ORN-0001</div><div style="font-size:10px;color:var(--text-400);">Android 11</div></td>
+                  <td><div style="font-weight:600;font-size:12px;color:var(--text-800);">Orion Mall Project</div><div style="font-size:10.5px;color:var(--text-400);">Bangalore, Karnataka</div></td>
+                  <td><span style="font-size:11.5px;color:var(--text-700);">Indoor Kiosk 32" Portrait</span></td>
+                  <td><span class="badge badge-green" style="font-size:10px;padding:2px 8px;">Online</span></td>
+                  <td><div style="font-weight:700;font-size:11.5px;color:var(--text-900);">v2.0.3</div><div style="font-size:10px;color:#10b981;font-weight:600;">Active</div></td>
+                  <td><span style="display:flex;align-items:center;gap:4px;font-weight:700;color:#10b981;font-size:11.5px;"><span style="width:6px;height:6px;border-radius:50%;background:#10b981;"></span> 95%</span></td>
+                  <td style="font-size:11.5px;color:var(--text-600);">Today, 09:58 AM</td>
+                  <td style="text-align:right;"><button class="btn-icon" style="background:none;border:none;cursor:pointer;color:var(--text-400);font-size:13px;"><i class="fa-solid fa-ellipsis-vertical"></i></button></td>
+                </tr>
+
+                <!-- 5. Skyline Mall - K01 -->
+                <tr class="device-row" id="dev-skyline-k01" onclick="selectDeviceRow('skyline-k01')">
+                  <td>
+                    <div style="display:flex;align-items:center;gap:8px;">
+                      <i class="fa-solid fa-mobile-screen-button" style="color:#2563eb;font-size:14px;"></i>
+                      <span style="font-weight:700;color:var(--text-900);font-size:12.5px;">Skyline Mall - K01</span>
+                    </div>
+                  </td>
+                  <td><div style="font-weight:600;font-size:12px;color:var(--text-900);">KM-SKY-0001</div><div style="font-size:10px;color:var(--text-400);">Android 11</div></td>
+                  <td><div style="font-weight:600;font-size:12px;color:var(--text-800);">Skyline Mall Project</div><div style="font-size:10.5px;color:var(--text-400);">Pune, Maharashtra</div></td>
+                  <td><span style="font-size:11.5px;color:var(--text-700);">Indoor Kiosk 43" Landscape</span></td>
+                  <td><span class="badge badge-green" style="font-size:10px;padding:2px 8px;">Online</span></td>
+                  <td><div style="font-weight:700;font-size:11.5px;color:var(--text-900);">v2.1.0</div><div style="font-size:10px;color:#10b981;font-weight:600;">Active</div></td>
+                  <td><span style="display:flex;align-items:center;gap:4px;font-weight:700;color:#10b981;font-size:11.5px;"><span style="width:6px;height:6px;border-radius:50%;background:#10b981;"></span> 96%</span></td>
+                  <td style="font-size:11.5px;color:var(--text-600);">Today, 10:10 AM</td>
+                  <td style="text-align:right;"><button class="btn-icon" style="background:none;border:none;cursor:pointer;color:var(--text-400);font-size:13px;"><i class="fa-solid fa-ellipsis-vertical"></i></button></td>
+                </tr>
+
+                <!-- 6. Westend Mall - K02 (Warning / Low Storage) -->
+                <tr class="device-row" id="dev-westend-k02" onclick="selectDeviceRow('westend-k02')">
+                  <td>
+                    <div style="display:flex;align-items:center;gap:8px;">
+                      <i class="fa-solid fa-mobile-screen-button" style="color:#ea580c;font-size:14px;"></i>
+                      <span style="font-weight:700;color:var(--text-900);font-size:12.5px;">Westend Mall - K02</span>
+                    </div>
+                  </td>
+                  <td><div style="font-weight:600;font-size:12px;color:var(--text-900);">KM-WND-0002</div><div style="font-size:10px;color:var(--text-400);">Android 11</div></td>
+                  <td><div style="font-weight:600;font-size:12px;color:var(--text-800);">Westend Mall Project</div><div style="font-size:10.5px;color:var(--text-400);">Aundh, Pune</div></td>
+                  <td><span style="font-size:11.5px;color:var(--text-700);">Indoor Kiosk 32" Portrait</span></td>
+                  <td><span class="badge badge-amber" style="font-size:10px;padding:2px 8px;">Warning</span></td>
+                  <td><div style="font-weight:700;font-size:11.5px;color:var(--text-900);">v1.9.2</div><div style="font-size:10px;color:#10b981;font-weight:600;">Active</div></td>
+                  <td><span style="display:flex;align-items:center;gap:4px;font-weight:700;color:#ea580c;font-size:11.5px;"><span style="width:6px;height:6px;border-radius:50%;background:#ea580c;"></span> 79%</span><div style="font-size:9.5px;color:#ea580c;">Low Storage (8%)</div></td>
+                  <td><div style="font-size:11.5px;font-weight:600;color:var(--text-800);">Today, 09:30 AM</div></td>
+                  <td style="text-align:right;"><button class="btn-icon" style="background:none;border:none;cursor:pointer;color:var(--text-400);font-size:13px;"><i class="fa-solid fa-ellipsis-vertical"></i></button></td>
+                </tr>
+
+                <!-- 7. Lakeside Mall - K01 (Offline) -->
+                <tr class="device-row" id="dev-lakeside-k01" onclick="selectDeviceRow('lakeside-k01')">
+                  <td>
+                    <div style="display:flex;align-items:center;gap:8px;">
+                      <i class="fa-solid fa-mobile-screen-button" style="color:#ef4444;font-size:14px;"></i>
+                      <span style="font-weight:700;color:var(--text-900);font-size:12.5px;">Lakeside Mall - K01</span>
+                    </div>
+                  </td>
+                  <td><div style="font-weight:600;font-size:12px;color:var(--text-900);">KM-LKS-0001</div><div style="font-size:10px;color:var(--text-400);">Android 11</div></td>
+                  <td><div style="font-weight:600;font-size:12px;color:var(--text-800);">Lakeside Mall Project</div><div style="font-size:10.5px;color:var(--text-400);">Kolkata, West Bengal</div></td>
+                  <td><span style="font-size:11.5px;color:var(--text-700);">Indoor Kiosk 32" Portrait</span></td>
+                  <td><span class="badge badge-red" style="font-size:10px;padding:2px 8px;">Offline</span></td>
+                  <td><div style="font-weight:700;font-size:11.5px;color:var(--text-900);">v1.8.7</div><div style="font-size:10px;color:#10b981;font-weight:600;">Active</div></td>
+                  <td style="font-size:12px;color:var(--text-400);">—</td>
+                  <td><div style="font-size:11.5px;font-weight:600;color:var(--text-800);">2 Days Ago</div><div style="font-size:10px;color:#ef4444;">Offline 2d 4h</div></td>
+                  <td style="text-align:right;"><button class="btn-icon" style="background:none;border:none;cursor:pointer;color:var(--text-400);font-size:13px;"><i class="fa-solid fa-ellipsis-vertical"></i></button></td>
+                </tr>
+
+              </tbody>
+            </table>
+          </div>
+
+          <!-- Pagination Bar -->
+          <div style="display:flex;align-items:center;justify-content:space-between;margin-top:16px;padding-top:12px;border-top:1px solid var(--border-soft);font-size:12px;color:var(--text-400);">
+            <div id="devicesPaginationText">Showing 1 to 7 of 156 devices</div>
+            <div style="display:flex;align-items:center;gap:6px;">
+              <button class="btn" style="padding:4px 8px;font-size:11px;background:#f8fafc;" disabled><i class="fa-solid fa-chevron-left"></i></button>
+              <button class="btn btn-primary" style="padding:4px 10px;font-size:11px;background:#2563eb;color:#fff;">1</button>
+              <button class="btn" style="padding:4px 10px;font-size:11px;">2</button>
+              <button class="btn" style="padding:4px 10px;font-size:11px;">3</button>
+              <span style="font-size:11px;color:var(--text-400);">...</span>
+              <button class="btn" style="padding:4px 10px;font-size:11px;">23</button>
+              <button class="btn" style="padding:4px 8px;font-size:11px;"><i class="fa-solid fa-chevron-right"></i></button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right Side Selected Device Details Card -->
+        <div class="panel" style="margin:0;padding:20px;display:flex;flex-direction:column;justify-content:space-between;" id="selectedDevicePanel">
+          <div>
+            <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;">
+              <h3 style="font-size:14px;font-weight:800;color:var(--text-900);margin:0;">Selected Device</h3>
+              <span class="badge badge-green" id="selDevStatusBadge" style="font-size:10px;">Online</span>
+            </div>
+
+            <div style="display:flex;align-items:center;gap:10px;margin-bottom:12px;">
+              <div style="width:36px;height:36px;border-radius:8px;background:#eff6ff;color:#2563eb;display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0;">
+                <i class="fa-solid fa-mobile-screen-button"></i>
+              </div>
+              <div>
+                <h4 style="font-size:15px;font-weight:800;color:var(--text-900);margin:0;" id="selDevName">Phoenix Mall - K01</h4>
+                <div style="font-size:11.5px;color:var(--text-500);font-weight:600;" id="selDevId">KM-PMN-0001</div>
+              </div>
+            </div>
+
+            <!-- Banner Photo -->
+            <div style="height:115px;border-radius:10px;overflow:hidden;margin-bottom:14px;background:linear-gradient(135deg, #1e293b, #0f172a);display:flex;align-items:center;justify-content:center;position:relative;border:1px solid var(--border);">
+              <div style="text-align:center;padding:16px;">
+                <div style="font-size:22px;color:#60a5fa;margin-bottom:4px;"><i class="fa-solid fa-display"></i></div>
+                <div style="font-size:14px;font-weight:800;color:#ffffff;letter-spacing:0.5px;" id="selDevBannerTitle">Phoenix Mall - K01</div>
+                <div style="font-size:10.5px;color:rgba(255,255,255,0.7);">32" Portrait Kiosk Enclosure</div>
+              </div>
+            </div>
+
+            <!-- Device Attributes List -->
+            <div style="display:flex;flex-direction:column;gap:7px;font-size:12px;">
+              <div style="display:flex;justify-content:space-between;">
+                <span style="color:var(--text-500);display:flex;align-items:center;gap:6px;"><i class="fa-regular fa-folder" style="font-size:11px;"></i> Project / Venue</span>
+                <span style="font-weight:700;color:var(--text-900);text-align:right;" id="selDevProject">Phoenix Mall Project<div style="font-size:10.5px;color:var(--text-400);font-weight:500;">Lower Parel, Mumbai</div></span>
+              </div>
+              <div style="display:flex;justify-content:space-between;">
+                <span style="color:var(--text-500);display:flex;align-items:center;gap:6px;"><i class="fa-solid fa-tablet-screen-button" style="font-size:11px;"></i> Kiosk Type</span>
+                <span style="font-weight:600;color:var(--text-800);" id="selDevType">Indoor Kiosk 32" Portrait</span>
+              </div>
+              <div style="display:flex;justify-content:space-between;">
+                <span style="color:var(--text-500);display:flex;align-items:center;gap:6px;"><i class="fa-solid fa-signal" style="font-size:11px;"></i> Status</span>
+                <span style="font-weight:700;color:#10b981;" id="selDevStatus">● Online</span>
+              </div>
+              <div style="display:flex;justify-content:space-between;">
+                <span style="color:var(--text-500);display:flex;align-items:center;gap:6px;"><i class="fa-solid fa-rocket" style="font-size:11px;"></i> Current Release</span>
+                <span style="font-weight:700;color:var(--text-900);" id="selDevRelease">v2.1.0 (Active)</span>
+              </div>
+              <div style="display:flex;justify-content:space-between;">
+                <span style="color:var(--text-500);display:flex;align-items:center;gap:6px;"><i class="fa-solid fa-heart-pulse" style="font-size:11px;"></i> Device Health</span>
+                <span style="font-weight:700;color:#10b981;" id="selDevHealth">98% (Excellent)</span>
+              </div>
+              <div style="display:flex;justify-content:space-between;">
+                <span style="color:var(--text-500);display:flex;align-items:center;gap:6px;"><i class="fa-regular fa-clock" style="font-size:11px;"></i> Last Seen</span>
+                <span style="font-weight:600;color:var(--text-800);" id="selDevLastSeen">Today, 10:15 AM</span>
+              </div>
+              <div style="display:flex;justify-content:space-between;">
+                <span style="color:var(--text-500);display:flex;align-items:center;gap:6px;"><i class="fa-solid fa-stopwatch" style="font-size:11px;"></i> Uptime</span>
+                <span style="font-weight:600;color:var(--text-800);" id="selDevUptime">12d 5h 30m</span>
+              </div>
+              <div style="display:flex;justify-content:space-between;">
+                <span style="color:var(--text-500);display:flex;align-items:center;gap:6px;"><i class="fa-solid fa-hard-drive" style="font-size:11px;"></i> Storage</span>
+                <span style="font-weight:600;color:var(--text-800);" id="selDevStorage">62 GB / 64 GB (97%)</span>
+              </div>
+              <div style="display:flex;justify-content:space-between;">
+                <span style="color:var(--text-500);display:flex;align-items:center;gap:6px;"><i class="fa-solid fa-network-wired" style="font-size:11px;"></i> Network</span>
+                <span style="font-weight:600;color:var(--text-800);" id="selDevNetwork">Ethernet</span>
+              </div>
+              <div style="display:flex;justify-content:space-between;">
+                <span style="color:var(--text-500);display:flex;align-items:center;gap:6px;"><i class="fa-solid fa-location-dot" style="font-size:11px;"></i> Location</span>
+                <span style="font-weight:600;color:var(--text-800);" id="selDevLocation">Lower Ground Floor</span>
+              </div>
+              <div style="display:flex;justify-content:space-between;">
+                <span style="color:var(--text-500);display:flex;align-items:center;gap:6px;"><i class="fa-regular fa-calendar" style="font-size:11px;"></i> Registered On</span>
+                <span style="font-weight:600;color:var(--text-800);" id="selDevRegistered">15 Feb 2025, 11:30 AM</span>
+              </div>
+            </div>
+          </div>
+
+          <div style="margin-top:14px;padding-top:12px;border-top:1px solid var(--border-soft);display:flex;flex-direction:column;gap:8px;">
+            <button class="btn btn-primary" id="btnViewDeviceDetails" onclick="openDeviceDetailsModal()" style="width:100%;justify-content:center;font-weight:700;font-size:13px;padding:9px 0;background:#2563eb;color:#fff;display:flex;align-items:center;gap:6px;">
+              View Device Details &rarr;
+            </button>
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;">
+              <button class="btn" onclick="openRemoteActionModal()" style="font-size:11.5px;font-weight:600;padding:6px;justify-content:center;display:flex;align-items:center;gap:6px;">
+                <i class="fa-solid fa-wifi" style="color:#2563eb;"></i> Remote Actions
+              </button>
+              <button class="btn" onclick="alert('Device Diagnostics: Telemetry nominal, Android Kiosk service active.')" style="font-size:11.5px;font-weight:600;padding:6px;justify-content:center;display:flex;align-items:center;gap:6px;">
+                <i class="fa-solid fa-ellipsis" style="color:var(--text-600);"></i> More Actions
+              </button>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- =====================================================================
+           ROW 3: 4 OPERATIONAL BOTTOM PANELS
+           ===================================================================== -->
+      <div class="devices-bottom-grid">
+
+        <!-- 1. Device Status Overview -->
+        <div class="panel" style="margin:0;padding:18px;">
+          <h3 style="font-size:13.5px;font-weight:800;color:var(--text-900);margin:0 0 12px;">Device Status Overview</h3>
+
+          <div style="display:flex;flex-direction:column;align-items:center;padding:4px 0;">
+            <div style="position:relative;width:100px;height:100px;margin-bottom:10px;">
+              <svg viewBox="0 0 36 36" style="width:100%;height:100%;transform:rotate(-90deg);">
+                <circle cx="18" cy="18" r="15.915" fill="none" stroke="#f1f5f9" stroke-width="3.6"/>
+                <!-- Online: 91% (Green) -->
+                <circle cx="18" cy="18" r="15.915" fill="none" stroke="#10b981" stroke-width="3.6" stroke-dasharray="91, 100" stroke-dashoffset="0"/>
+                <!-- Offline: 9% (Red) -->
+                <circle cx="18" cy="18" r="15.915" fill="none" stroke="#ef4444" stroke-width="3.6" stroke-dasharray="9, 100" stroke-dashoffset="-91"/>
+              </svg>
+              <div style="position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;">
+                <span style="font-size:16px;font-weight:800;color:var(--text-900);line-height:1;">156</span>
+                <span style="font-size:9px;color:var(--text-400);">Total</span>
+              </div>
+            </div>
+
+            <!-- Legend -->
+            <div style="width:100%;display:flex;flex-direction:column;gap:4px;font-size:11px;">
+              <div style="display:flex;justify-content:space-between;align-items:center;">
+                <span style="display:flex;align-items:center;gap:6px;color:var(--text-600);"><span style="width:8px;height:8px;border-radius:50%;background:#10b981;"></span> Online</span>
+                <span style="font-weight:700;color:var(--text-900);">142 (91.0%)</span>
+              </div>
+              <div style="display:flex;justify-content:space-between;align-items:center;">
+                <span style="display:flex;align-items:center;gap:6px;color:var(--text-600);"><span style="width:8px;height:8px;border-radius:50%;background:#ef4444;"></span> Offline</span>
+                <span style="font-weight:700;color:var(--text-900);">14 (9.0%)</span>
+              </div>
+              <div style="display:flex;justify-content:space-between;align-items:center;">
+                <span style="display:flex;align-items:center;gap:6px;color:var(--text-600);"><span style="width:8px;height:8px;border-radius:50%;background:#f59e0b;"></span> Warning</span>
+                <span style="font-weight:700;color:var(--text-900);">4 (2.6%)</span>
+              </div>
+              <div style="display:flex;justify-content:space-between;align-items:center;">
+                <span style="display:flex;align-items:center;gap:6px;color:var(--text-600);"><span style="width:8px;height:8px;border-radius:50%;background:#3b82f6;"></span> Maintenance</span>
+                <span style="font-weight:700;color:var(--text-900);">1 (0.6%)</span>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- 2. Devices by Project -->
+        <div class="panel" style="margin:0;padding:18px;">
+          <h3 style="font-size:13.5px;font-weight:800;color:var(--text-900);margin:0 0 12px;">Devices by Project</h3>
+
+          <div style="display:flex;flex-direction:column;align-items:center;padding:4px 0;">
+            <div style="position:relative;width:100px;height:100px;margin-bottom:10px;">
+              <svg viewBox="0 0 36 36" style="width:100%;height:100%;transform:rotate(-90deg);">
+                <circle cx="18" cy="18" r="15.915" fill="none" stroke="#f1f5f9" stroke-width="3.6"/>
+                <!-- Phoenix Mall (18%) -->
+                <circle cx="18" cy="18" r="15.915" fill="none" stroke="#2563eb" stroke-width="3.6" stroke-dasharray="18, 100" stroke-dashoffset="0"/>
+                <!-- Orion Mall (17%) -->
+                <circle cx="18" cy="18" r="15.915" fill="none" stroke="#10b981" stroke-width="3.6" stroke-dasharray="17, 100" stroke-dashoffset="-18"/>
+                <!-- Skyline Mall (15%) -->
+                <circle cx="18" cy="18" r="15.915" fill="none" stroke="#0284c7" stroke-width="3.6" stroke-dasharray="15, 100" stroke-dashoffset="-35"/>
+                <!-- Grand Square (14%) -->
+                <circle cx="18" cy="18" r="15.915" fill="none" stroke="#ea580c" stroke-width="3.6" stroke-dasharray="14, 100" stroke-dashoffset="-50"/>
+                <!-- Westend Mall (13%) -->
+                <circle cx="18" cy="18" r="15.915" fill="none" stroke="#f59e0b" stroke-width="3.6" stroke-dasharray="13, 100" stroke-dashoffset="-64"/>
+                <!-- Others (23%) -->
+                <circle cx="18" cy="18" r="15.915" fill="none" stroke="#94a3b8" stroke-width="3.6" stroke-dasharray="23, 100" stroke-dashoffset="-77"/>
+              </svg>
+              <div style="position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;">
+                <span style="font-size:16px;font-weight:800;color:var(--text-900);line-height:1;">156</span>
+                <span style="font-size:9px;color:var(--text-400);">Total</span>
+              </div>
+            </div>
+
+            <!-- Legend -->
+            <div style="width:100%;display:flex;flex-direction:column;gap:3.5px;font-size:10.5px;">
+              <div style="display:flex;justify-content:space-between;">
+                <span style="display:flex;align-items:center;gap:4px;color:var(--text-600);"><span style="width:7px;height:7px;border-radius:50%;background:#2563eb;"></span> Phoenix Mall Project</span>
+                <span style="font-weight:700;color:var(--text-900);">28 (17.9%)</span>
+              </div>
+              <div style="display:flex;justify-content:space-between;">
+                <span style="display:flex;align-items:center;gap:4px;color:var(--text-600);"><span style="width:7px;height:7px;border-radius:50%;background:#10b981;"></span> Orion Mall Project</span>
+                <span style="font-weight:700;color:var(--text-900);">26 (16.7%)</span>
+              </div>
+              <div style="display:flex;justify-content:space-between;">
+                <span style="display:flex;align-items:center;gap:4px;color:var(--text-600);"><span style="width:7px;height:7px;border-radius:50%;background:#0284c7;"></span> Skyline Mall Project</span>
+                <span style="font-weight:700;color:var(--text-900);">24 (15.4%)</span>
+              </div>
+              <div style="display:flex;justify-content:space-between;">
+                <span style="display:flex;align-items:center;gap:4px;color:var(--text-600);"><span style="width:7px;height:7px;border-radius:50%;background:#ea580c;"></span> Grand Square Project</span>
+                <span style="font-weight:700;color:var(--text-900);">22 (14.1%)</span>
+              </div>
+              <div style="display:flex;justify-content:space-between;">
+                <span style="display:flex;align-items:center;gap:4px;color:var(--text-600);"><span style="width:7px;height:7px;border-radius:50%;background:#f59e0b;"></span> Westend Mall Project</span>
+                <span style="font-weight:700;color:var(--text-900);">20 (12.8%)</span>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- 3. Device Health Distribution -->
+        <div class="panel" style="margin:0;padding:18px;">
+          <h3 style="font-size:13.5px;font-weight:800;color:var(--text-900);margin:0 0 8px;">Device Health Distribution</h3>
+
+          <!-- Bar Chart Columns -->
+          <div style="display:flex;align-items:flex-end;gap:8px;padding-top:14px;border-bottom:1px solid #cbd5e1;height:125px;margin-bottom:8px;">
+            
+            <!-- Excellent: 112 -->
+            <div class="bar-col-item">
+              <span class="bar-count">112</span>
+              <div class="bar-fill" style="height:85px;background:#10b981;"></div>
+              <span class="bar-label">Excellent<br><span style="font-size:8.5px;color:var(--text-400);">(90-100%)</span></span>
+            </div>
+
+            <!-- Good: 28 -->
+            <div class="bar-col-item">
+              <span class="bar-count">28</span>
+              <div class="bar-fill" style="height:32px;background:#84cc16;"></div>
+              <span class="bar-label">Good<br><span style="font-size:8.5px;color:var(--text-400);">(70-89%)</span></span>
+            </div>
+
+            <!-- Fair: 10 -->
+            <div class="bar-col-item">
+              <span class="bar-count">10</span>
+              <div class="bar-fill" style="height:18px;background:#f59e0b;"></div>
+              <span class="bar-label">Fair<br><span style="font-size:8.5px;color:var(--text-400);">(50-69%)</span></span>
+            </div>
+
+            <!-- Poor: 6 -->
+            <div class="bar-col-item">
+              <span class="bar-count">6</span>
+              <div class="bar-fill" style="height:12px;background:#ef4444;"></div>
+              <span class="bar-label">Poor<br><span style="font-size:8.5px;color:var(--text-400);">&lt;50%</span></span>
+            </div>
+
+          </div>
+
+          <div style="font-size:10.5px;color:var(--text-400);text-align:center;">Based on 156 devices</div>
+        </div>
+
+        <!-- 4. Quick Actions Grid (6 Tiles) -->
+        <div class="panel" style="margin:0;padding:18px;">
+          <h3 style="font-size:13.5px;font-weight:800;color:var(--text-900);margin:0 0 12px;">Quick Actions</h3>
+          
+          <div style="display:grid;grid-template-columns:repeat(3, 1fr);gap:8px;">
+            
+            <div class="quick-action-card-tile" id="qaRegisterDevice" onclick="openRegisterDeviceModal()">
+              <i class="fa-solid fa-square-plus"></i>
+              <span>Register New Device</span>
+            </div>
+
+            <div class="quick-action-card-tile" onclick="alert('Import Devices: CSV bulk device provisioning wizard.')">
+              <i class="fa-solid fa-cloud-arrow-down"></i>
+              <span>Import Devices</span>
+            </div>
+
+            <div class="quick-action-card-tile" onclick="openRemoteActionModal()">
+              <i class="fa-solid fa-wifi"></i>
+              <span>Remote Actions</span>
+            </div>
+
+            <div class="quick-action-card-tile" onclick="location.href='releases.html'">
+              <i class="fa-solid fa-cloud-arrow-up"></i>
+              <span>Update Release</span>
+            </div>
+
+            <div class="quick-action-card-tile" onclick="alert('Device Groups: 7 Venue Deployments configured.')">
+              <i class="fa-solid fa-users-viewfinder"></i>
+              <span>Device Groups</span>
+            </div>
+
+            <div class="quick-action-card-tile" onclick="location.href='system-settings.html'">
+              <i class="fa-solid fa-gear"></i>
+              <span>Device Settings</span>
+            </div>
+
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Footer Bar -->
+      <footer style="display:flex;align-items:center;justify-content:space-between;padding-top:20px;margin-top:24px;border-top:1px solid var(--border-soft);font-size:12px;color:var(--text-400);">
+        <div>© 2025 Mall Kiosk Platform. All rights reserved.</div>
+        <div style="display:flex;gap:16px;">
+          <span>v1.0.0</span>
+          <span>|</span>
+          <span>May 2025</span>
+        </div>
+      </footer>
+
     </div>
   </div>
-  <div class="table-wrap"><table>
-  <thead><tr><th><input type="checkbox"></th><th>Device Name / ID</th><th>Client</th><th>Project / Venue</th><th>Location</th><th>Status</th><th>Current Release</th><th>App Version</th><th>Last Heartbeat</th><th>Health</th><th>Actions</th></tr></thead>
-  <tbody><tr>
-<td><input type="checkbox"></td>
-<td><div class="cell-main"><div class="cell-thumb" style="background:linear-gradient(160deg,#1e293b,#0f172a);display:flex;align-items:center;justify-content:center;"><i class="fa-solid fa-tablet-screen-button" style="color:#60a5fa;"></i></div>
-<div><div class="cell-title">Kiosk-PP-01</div><div class="cell-sub">ID: KC8F2A91</div></div></div></td>
-<td>Phoenix Mall<div class="cell-sub"></div></td>
-<td>Phoenix Mall<div class="cell-sub">(Project #PM001)</div></td>
-<td>Level 1, Main Entrance</td>
-<td><span class="badge badge-green"><span class="dot"></span>Online</span></td>
-<td>Release 43<div class="cell-sub" style="color:#16a34a;font-weight:600;">Published</div></td>
-<td>v1.2.0</td>
-<td><span style="color:#16a34a;">&#9679;</span> 2 min ago</td>
-<td><span class="badge badge-green"><i class="fa-solid fa-heart" style="font-size:9px;"></i>Healthy</span></td>
-<td class="row-actions"><a class="btn btn-sm" href="client-detail.html">View</a><button class="btn-icon"><i class="fa-solid fa-ellipsis"></i></button></td>
-</tr><tr>
-<td><input type="checkbox"></td>
-<td><div class="cell-main"><div class="cell-thumb" style="background:linear-gradient(160deg,#1e293b,#0f172a);display:flex;align-items:center;justify-content:center;"><i class="fa-solid fa-tablet-screen-button" style="color:#60a5fa;"></i></div>
-<div><div class="cell-title">Kiosk-PP-02</div><div class="cell-sub">ID: KC8F2A92</div></div></div></td>
-<td>Phoenix Mall<div class="cell-sub"></div></td>
-<td>Phoenix Mall<div class="cell-sub">(Project #PM001)</div></td>
-<td>Level 1, Food Court</td>
-<td><span class="badge badge-green"><span class="dot"></span>Online</span></td>
-<td>Release 43<div class="cell-sub" style="color:#16a34a;font-weight:600;">Published</div></td>
-<td>v1.2.0</td>
-<td><span style="color:#16a34a;">&#9679;</span> 3 min ago</td>
-<td><span class="badge badge-green"><i class="fa-solid fa-heart" style="font-size:9px;"></i>Healthy</span></td>
-<td class="row-actions"><a class="btn btn-sm" href="client-detail.html">View</a><button class="btn-icon"><i class="fa-solid fa-ellipsis"></i></button></td>
-</tr><tr>
-<td><input type="checkbox"></td>
-<td><div class="cell-main"><div class="cell-thumb" style="background:linear-gradient(160deg,#1e293b,#0f172a);display:flex;align-items:center;justify-content:center;"><i class="fa-solid fa-tablet-screen-button" style="color:#60a5fa;"></i></div>
-<div><div class="cell-title">Kiosk-PP-03</div><div class="cell-sub">ID: KC8F2A93</div></div></div></td>
-<td>Phoenix Mall<div class="cell-sub"></div></td>
-<td>Phoenix Mall<div class="cell-sub">(Project #PM001)</div></td>
-<td>Level 2, Near Lifestyle</td>
-<td><span class="badge badge-green"><span class="dot"></span>Online</span></td>
-<td>Release 43<div class="cell-sub" style="color:#16a34a;font-weight:600;">Published</div></td>
-<td>v1.2.0</td>
-<td><span style="color:#16a34a;">&#9679;</span> 5 min ago</td>
-<td><span class="badge badge-green"><i class="fa-solid fa-heart" style="font-size:9px;"></i>Healthy</span></td>
-<td class="row-actions"><a class="btn btn-sm" href="client-detail.html">View</a><button class="btn-icon"><i class="fa-solid fa-ellipsis"></i></button></td>
-</tr><tr>
-<td><input type="checkbox"></td>
-<td><div class="cell-main"><div class="cell-thumb" style="background:linear-gradient(160deg,#1e293b,#0f172a);display:flex;align-items:center;justify-content:center;"><i class="fa-solid fa-tablet-screen-button" style="color:#60a5fa;"></i></div>
-<div><div class="cell-title">Kiosk-CC-01</div><div class="cell-sub">ID: KC8F2B14</div></div></div></td>
-<td>City Center Mall<div class="cell-sub"></div></td>
-<td>City Center Mall<div class="cell-sub">(Project #CC001)</div></td>
-<td>Ground Floor, Main Atrium</td>
-<td><span class="badge badge-green"><span class="dot"></span>Online</span></td>
-<td>Release 42<div class="cell-sub" style="color:#16a34a;font-weight:600;">Published</div></td>
-<td>v1.2.0</td>
-<td><span style="color:#16a34a;">&#9679;</span> 4 min ago</td>
-<td><span class="badge badge-green"><i class="fa-solid fa-heart" style="font-size:9px;"></i>Healthy</span></td>
-<td class="row-actions"><a class="btn btn-sm" href="client-detail.html">View</a><button class="btn-icon"><i class="fa-solid fa-ellipsis"></i></button></td>
-</tr><tr>
-<td><input type="checkbox"></td>
-<td><div class="cell-main"><div class="cell-thumb" style="background:linear-gradient(160deg,#1e293b,#0f172a);display:flex;align-items:center;justify-content:center;"><i class="fa-solid fa-tablet-screen-button" style="color:#60a5fa;"></i></div>
-<div><div class="cell-title">Kiosk-CC-02</div><div class="cell-sub">ID: KC8F2B15</div></div></div></td>
-<td>City Center Mall<div class="cell-sub"></div></td>
-<td>City Center Mall<div class="cell-sub">(Project #CC001)</div></td>
-<td>Level 1, Near Food Court</td>
-<td><span class="badge badge-amber"><span class="dot"></span>Warning</span></td>
-<td>Release 42<div class="cell-sub" style="color:#16a34a;font-weight:600;">Published</div></td>
-<td>v1.2.0</td>
-<td><span style="color:#16a34a;">&#9679;</span> 12 min ago</td>
-<td><span class="badge badge-amber"><i class="fa-solid fa-triangle-exclamation" style="font-size:9px;"></i>Storage Low</span></td>
-<td class="row-actions"><a class="btn btn-sm" href="client-detail.html">View</a><button class="btn-icon"><i class="fa-solid fa-ellipsis"></i></button></td>
-</tr><tr>
-<td><input type="checkbox"></td>
-<td><div class="cell-main"><div class="cell-thumb" style="background:linear-gradient(160deg,#1e293b,#0f172a);display:flex;align-items:center;justify-content:center;"><i class="fa-solid fa-tablet-screen-button" style="color:#60a5fa;"></i></div>
-<div><div class="cell-title">Kiosk-GP-01</div><div class="cell-sub">ID: KC8F2C21</div></div></div></td>
-<td>Grand Plaza<div class="cell-sub"></div></td>
-<td>Grand Plaza<div class="cell-sub">(Project #GP001)</div></td>
-<td>Level 1, Main Entrance</td>
-<td><span class="badge badge-red"><span class="dot"></span>Offline</span></td>
-<td>Release 43<div class="cell-sub" style="color:#16a34a;font-weight:600;">Published</div></td>
-<td>v1.2.0</td>
-<td><span style="color:#16a34a;">&#9679;</span> 2 hours ago</td>
-<td><span class="badge badge-red"><i class="fa-solid fa-circle-exclamation" style="font-size:9px;"></i>Offline</span></td>
-<td class="row-actions"><a class="btn btn-sm" href="client-detail.html">View</a><button class="btn-icon"><i class="fa-solid fa-ellipsis"></i></button></td>
-</tr><tr>
-<td><input type="checkbox"></td>
-<td><div class="cell-main"><div class="cell-thumb" style="background:linear-gradient(160deg,#1e293b,#0f172a);display:flex;align-items:center;justify-content:center;"><i class="fa-solid fa-tablet-screen-button" style="color:#60a5fa;"></i></div>
-<div><div class="cell-title">Kiosk-GP-02</div><div class="cell-sub">ID: KC8F2C22</div></div></div></td>
-<td>Grand Plaza<div class="cell-sub"></div></td>
-<td>Grand Plaza<div class="cell-sub">(Project #GP001)</div></td>
-<td>Level 2, Near PVR</td>
-<td><span class="badge badge-green"><span class="dot"></span>Online</span></td>
-<td>Release 43<div class="cell-sub" style="color:#16a34a;font-weight:600;">Published</div></td>
-<td>v1.2.0</td>
-<td><span style="color:#16a34a;">&#9679;</span> 3 min ago</td>
-<td><span class="badge badge-green"><i class="fa-solid fa-heart" style="font-size:9px;"></i>Healthy</span></td>
-<td class="row-actions"><a class="btn btn-sm" href="client-detail.html">View</a><button class="btn-icon"><i class="fa-solid fa-ellipsis"></i></button></td>
-</tr><tr>
-<td><input type="checkbox"></td>
-<td><div class="cell-main"><div class="cell-thumb" style="background:linear-gradient(160deg,#1e293b,#0f172a);display:flex;align-items:center;justify-content:center;"><i class="fa-solid fa-tablet-screen-button" style="color:#60a5fa;"></i></div>
-<div><div class="cell-title">Kiosk-WS-01</div><div class="cell-sub">ID: KC8F2D31</div></div></div></td>
-<td>Westfield Mall<div class="cell-sub"></div></td>
-<td>Westfield Mall<div class="cell-sub">(Project #WS001)</div></td>
-<td>Ground Floor, Center Court</td>
-<td><span class="badge badge-green"><span class="dot"></span>Online</span></td>
-<td>Release 41<div class="cell-sub" style="color:#16a34a;font-weight:600;">Published</div></td>
-<td>v1.2.0</td>
-<td><span style="color:#16a34a;">&#9679;</span> 6 min ago</td>
-<td><span class="badge badge-green"><i class="fa-solid fa-heart" style="font-size:9px;"></i>Healthy</span></td>
-<td class="row-actions"><a class="btn btn-sm" href="client-detail.html">View</a><button class="btn-icon"><i class="fa-solid fa-ellipsis"></i></button></td>
-</tr></tbody>
-  </table></div>
-  <div class="pagination-bar">
-    <div class="muted" style="font-size:12.5px;">Showing 1 to 8 of 156 devices</div>
-    <div class="pagination">
-      <div class="page-btn"><i class="fa-solid fa-chevron-left"></i></div>
-      <div class="page-btn active">1</div><div class="page-btn">2</div><div class="page-btn">3</div><div class="page-btn">4</div><div class="page-btn">5</div>
-      <div class="page-btn dots">...</div><div class="page-btn">20</div>
-      <div class="page-btn"><i class="fa-solid fa-chevron-right"></i></div>
+</div>
+
+<!-- =========================================================================
+     COMPANY ADMIN: REGISTER NEW DEVICE MODAL
+     ========================================================================= -->
+<div class="modal-backdrop" id="registerDeviceModal" style="display:none;position:fixed;inset:0;background:rgba(15,23,42,0.7);backdrop-filter:blur(6px);z-index:9999;align-items:center;justify-content:center;">
+  <div style="background:#ffffff;border-radius:18px;max-width:560px;width:100%;padding:26px;box-shadow:0 25px 60px rgba(0,0,0,0.3);position:relative;">
+    
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;">
+      <div>
+        <h3 style="font-size:17px;font-weight:800;color:var(--text-900);margin:0;">Register New Device</h3>
+        <p style="font-size:12px;color:var(--text-500);margin:2px 0 0;">Provision a new Android physical kiosk and associate it with a client project.</p>
+      </div>
+      <button onclick="closeRegisterDeviceModal()" style="background:none;border:none;font-size:18px;color:var(--text-400);cursor:pointer;">&times;</button>
     </div>
-    <div class="select-pill">10 / page <i class="fa-solid fa-chevron-down"></i></div>
+
+    <!-- Form Fields -->
+    <div style="display:flex;flex-direction:column;gap:12px;margin-bottom:18px;">
+      <div style="display:grid;grid-template-columns:1.5fr 1fr;gap:10px;">
+        <div>
+          <label style="display:block;font-size:12px;font-weight:700;color:var(--text-700);margin-bottom:4px;">1. Device Name</label>
+          <input type="text" class="form-control" id="newDevNameInput" value="Phoenix Mall - K04" style="width:100%;font-size:13px;padding:8px 12px;">
+        </div>
+        <div>
+          <label style="display:block;font-size:12px;font-weight:700;color:var(--text-700);margin-bottom:4px;">Device ID</label>
+          <input type="text" class="form-control" id="newDevIdInput" value="KM-PMN-0004" style="width:100%;font-size:13px;padding:8px 12px;">
+        </div>
+      </div>
+
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;">
+        <div>
+          <label style="display:block;font-size:12px;font-weight:700;color:var(--text-700);margin-bottom:4px;">2. Assign Project / Venue</label>
+          <select class="form-control" id="newDevProjectSelect" style="width:100%;font-size:13px;padding:8px 12px;">
+            <option>Phoenix Mall Project</option>
+            <option>Orion Mall Project</option>
+            <option>Skyline Mall Project</option>
+            <option>Westend Mall Project</option>
+          </select>
+        </div>
+        <div>
+          <label style="display:block;font-size:12px;font-weight:700;color:var(--text-700);margin-bottom:4px;">3. Kiosk Hardware Type</label>
+          <select class="form-control" id="newDevTypeSelect" style="width:100%;font-size:13px;padding:8px 12px;">
+            <option>Indoor Kiosk 32" Portrait</option>
+            <option>Indoor Kiosk 43" Landscape</option>
+            <option>Indoor Kiosk 55" Dual-Screen</option>
+          </select>
+        </div>
+      </div>
+
+      <div>
+        <label style="display:block;font-size:12px;font-weight:700;color:var(--text-700);margin-bottom:4px;">4. Floor / Physical Deployment Location</label>
+        <input type="text" class="form-control" id="newDevLocationInput" value="Level 2 Near Food Court" style="width:100%;font-size:13px;padding:8px 12px;">
+      </div>
+
+      <div style="background:#eff6ff;padding:10px 14px;border-radius:8px;font-size:11.5px;color:#1e40af;">
+        <i class="fa-solid fa-circle-info"></i> <strong>Lifecycle Note:</strong> The newly registered kiosk will enter <strong>Pending Activation</strong> state until the Android device completes secure handshake and staging.
+      </div>
+    </div>
+
+    <div style="display:flex;gap:10px;justify-content:flex-end;">
+      <button class="btn" onclick="closeRegisterDeviceModal()">Cancel</button>
+      <button class="btn btn-primary" id="btnSubmitRegisterDevice" onclick="submitRegisterDevice()" style="background:#2563eb;color:#fff;font-weight:700;">
+        Register Device
+      </button>
+    </div>
+
   </div>
 </div>
-</div></div>
+
+<!-- =========================================================================
+     COMPANY ADMIN: DEVICE DETAILS INSPECTION MODAL
+     ========================================================================= -->
+<div class="modal-backdrop" id="deviceDetailsModal" style="display:none;position:fixed;inset:0;background:rgba(15,23,42,0.7);backdrop-filter:blur(6px);z-index:9999;align-items:center;justify-content:center;">
+  <div style="background:#ffffff;border-radius:18px;max-width:640px;width:100%;padding:26px;box-shadow:0 25px 60px rgba(0,0,0,0.3);position:relative;">
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;">
+      <div>
+        <h3 style="font-size:17px;font-weight:800;color:var(--text-900);margin:0;" id="modalDevTitle">Phoenix Mall - K01 (KM-PMN-0001)</h3>
+        <p style="font-size:12px;color:var(--text-500);margin:2px 0 0;">Android Kiosk runtime inspection, telemetry, and deployment history.</p>
+      </div>
+      <button onclick="closeDeviceDetailsModal()" style="background:none;border:none;font-size:18px;color:var(--text-400);cursor:pointer;">&times;</button>
+    </div>
+
+    <!-- Telemetry Cards -->
+    <div style="display:grid;grid-template-columns:repeat(3, 1fr);gap:10px;margin-bottom:14px;font-size:12px;">
+      <div style="background:#f8fafc;padding:10px;border-radius:8px;border:1px solid #e2e8f0;">
+        <div style="color:var(--text-500);font-size:11px;">Operational Status</div>
+        <div style="font-weight:800;color:#10b981;font-size:14px;margin-top:2px;">Online / Healthy</div>
+      </div>
+      <div style="background:#f8fafc;padding:10px;border-radius:8px;border:1px solid #e2e8f0;">
+        <div style="color:var(--text-500);font-size:11px;">Running Release</div>
+        <div style="font-weight:800;color:#2563eb;font-size:14px;margin-top:2px;">v2.1.0 (Active)</div>
+      </div>
+      <div style="background:#f8fafc;padding:10px;border-radius:8px;border:1px solid #e2e8f0;">
+        <div style="color:var(--text-500);font-size:11px;">Storage Allocated</div>
+        <div style="font-weight:800;color:var(--text-900);font-size:14px;margin-top:2px;">62 / 64 GB (97%)</div>
+      </div>
+    </div>
+
+    <div style="background:#f8fafc;padding:12px;border-radius:8px;border:1px solid #e2e8f0;font-size:11.5px;color:var(--text-700);margin-bottom:16px;">
+      <div style="font-weight:700;color:#0f172a;margin-bottom:4px;">🕒 Recent Telemetry Activity</div>
+      <div>• 10:15 AM: Heartbeat ping received (Latency: 18ms · Offline sync ready)</div>
+      <div>• 08:30 AM: Manifest checksum verification passed for Release v2.1.0</div>
+      <div>• Yesterday, 06:00 PM: Daily maintenance garbage collection completed</div>
+    </div>
+
+    <div style="display:flex;justify-content:space-between;align-items:center;">
+      <button class="btn" onclick="openRemoteActionModal()" style="font-size:12px;font-weight:700;color:#2563eb;"><i class="fa-solid fa-wifi"></i> Execute Remote Action</button>
+      <button class="btn btn-primary" onclick="closeDeviceDetailsModal()">Close Details</button>
+    </div>
+  </div>
 </div>
+
+<!-- =========================================================================
+     COMPANY ADMIN: REMOTE ACTION MODAL
+     ========================================================================= -->
+<div class="modal-backdrop" id="remoteActionModal" style="display:none;position:fixed;inset:0;background:rgba(15,23,42,0.7);backdrop-filter:blur(6px);z-index:9999;align-items:center;justify-content:center;">
+  <div style="background:#ffffff;border-radius:18px;max-width:480px;width:100%;padding:24px;box-shadow:0 25px 60px rgba(0,0,0,0.3);position:relative;">
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;">
+      <h3 style="font-size:16px;font-weight:800;color:var(--text-900);margin:0;">Execute Remote Device Action</h3>
+      <button onclick="closeRemoteActionModal()" style="background:none;border:none;font-size:18px;color:var(--text-400);cursor:pointer;">&times;</button>
+    </div>
+    
+    <p style="font-size:12px;color:var(--text-600);margin:0 0 14px;">Select controlled remote operation for <strong id="actionTargetDevice">Phoenix Mall - K01</strong>:</p>
+
+    <div style="display:flex;flex-direction:column;gap:8px;font-size:12.5px;margin-bottom:16px;">
+      <label style="display:flex;align-items:center;gap:8px;background:#f8fafc;padding:10px 12px;border-radius:8px;border:1px solid #e2e8f0;cursor:pointer;">
+        <input type="radio" name="remoteAct" value="restart" checked>
+        <div>
+          <strong style="color:var(--text-900);">Restart Kiosk Application</strong>
+          <div style="font-size:10.5px;color:var(--text-400);">Graceful restart of local runtime</div>
+        </div>
+      </label>
+      <label style="display:flex;align-items:center;gap:8px;background:#f8fafc;padding:10px 12px;border-radius:8px;border:1px solid #e2e8f0;cursor:pointer;">
+        <input type="radio" name="remoteAct" value="maintenance">
+        <div>
+          <strong style="color:var(--text-900);">Enter Maintenance Mode</strong>
+          <div style="font-size:10.5px;color:var(--text-400);">Display maintenance screen to mall visitors</div>
+        </div>
+      </label>
+      <label style="display:flex;align-items:center;gap:8px;background:#f8fafc;padding:10px 12px;border-radius:8px;border:1px solid #e2e8f0;cursor:pointer;">
+        <input type="radio" name="remoteAct" value="refresh">
+        <div>
+          <strong style="color:var(--text-900);">Refresh Hardware Telemetry</strong>
+          <div style="font-size:10.5px;color:var(--text-400);">Query real-time storage & memory stats</div>
+        </div>
+      </label>
+    </div>
+
+    <div style="display:flex;gap:10px;justify-content:flex-end;">
+      <button class="btn" onclick="closeRemoteActionModal()">Cancel</button>
+      <button class="btn btn-primary" id="btnConfirmRemoteAction" onclick="confirmRemoteAction()" style="background:#2563eb;color:#fff;font-weight:700;">
+        Confirm & Queue Command
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- =========================================================================
+     JAVASCRIPT INTERACTION & DATA LOGIC
+     ========================================================================= -->
+<script>
+  let totalDevicesCount = 156;
+
+  const deviceDatabase = {
+    'phoenix-k01': {
+      name: "Phoenix Mall - K01",
+      id: "KM-PMN-0001",
+      banner: "Phoenix Mall - K01",
+      project: "Phoenix Mall Project",
+      venueSub: "Lower Parel, Mumbai",
+      type: "Indoor Kiosk 32\" Portrait",
+      status: "● Online",
+      statusBadge: "Online",
+      badgeClass: "badge-green",
+      release: "v2.1.0 (Active)",
+      health: "98% (Excellent)",
+      lastSeen: "Today, 10:15 AM",
+      uptime: "12d 5h 30m",
+      storage: "62 GB / 64 GB (97%)",
+      network: "Ethernet",
+      location: "Lower Ground Floor",
+      registered: "15 Feb 2025, 11:30 AM"
+    },
+    'phoenix-k02': {
+      name: "Phoenix Mall - K02",
+      id: "KM-PMN-0002",
+      banner: "Phoenix Mall - K02",
+      project: "Phoenix Mall Project",
+      venueSub: "Lower Parel, Mumbai",
+      type: "Indoor Kiosk 32\" Portrait",
+      status: "● Online",
+      statusBadge: "Online",
+      badgeClass: "badge-green",
+      release: "v2.1.0 (Active)",
+      health: "97% (Excellent)",
+      lastSeen: "Today, 10:12 AM",
+      uptime: "12d 4h 15m",
+      storage: "58 GB / 64 GB (90%)",
+      network: "Ethernet",
+      location: "Level 1 Near West Entrance",
+      registered: "15 Feb 2025, 11:30 AM"
+    },
+    'phoenix-k03': {
+      name: "Phoenix Mall - K03",
+      id: "KM-PMN-0003",
+      banner: "Phoenix Mall - K03",
+      project: "Phoenix Mall Project",
+      venueSub: "Lower Parel, Mumbai",
+      type: "Indoor Kiosk 43\" Portrait",
+      status: "● Offline",
+      statusBadge: "Offline",
+      badgeClass: "badge-red",
+      release: "v2.1.0 (Active)",
+      health: "Offline (Last: 96%)",
+      lastSeen: "Yesterday, 08:45 PM (Offline 15h 30m)",
+      uptime: "— Offline",
+      storage: "60 GB / 64 GB",
+      network: "Wi-Fi (Disconnected)",
+      location: "Level 2 Food Court",
+      registered: "20 Feb 2025, 02:00 PM"
+    },
+    'orion-k01': {
+      name: "Orion Mall - K01",
+      id: "KM-ORN-0001",
+      banner: "Orion Mall - K01",
+      project: "Orion Mall Project",
+      venueSub: "Bangalore, Karnataka",
+      type: "Indoor Kiosk 32\" Portrait",
+      status: "● Online",
+      statusBadge: "Online",
+      badgeClass: "badge-green",
+      release: "v2.0.3 (Active)",
+      health: "95% (Excellent)",
+      lastSeen: "Today, 09:58 AM",
+      uptime: "8d 2h 10m",
+      storage: "48 GB / 64 GB (75%)",
+      network: "Ethernet",
+      location: "Main Atrium",
+      registered: "01 Mar 2025, 10:00 AM"
+    },
+    'skyline-k01': {
+      name: "Skyline Mall - K01",
+      id: "KM-SKY-0001",
+      banner: "Skyline Mall - K01",
+      project: "Skyline Mall Project",
+      venueSub: "Pune, Maharashtra",
+      type: "Indoor Kiosk 43\" Landscape",
+      status: "● Online",
+      statusBadge: "Online",
+      badgeClass: "badge-green",
+      release: "v2.1.0 (Active)",
+      health: "96% (Excellent)",
+      lastSeen: "Today, 10:10 AM",
+      uptime: "15d 1h 45m",
+      storage: "52 GB / 64 GB (81%)",
+      network: "Ethernet",
+      location: "Ground Floor Lobby",
+      registered: "25 Feb 2025, 04:30 PM"
+    },
+    'westend-k02': {
+      name: "Westend Mall - K02",
+      id: "KM-WND-0002",
+      banner: "Westend Mall - K02",
+      project: "Westend Mall Project",
+      venueSub: "Aundh, Pune",
+      type: "Indoor Kiosk 32\" Portrait",
+      status: "● Warning",
+      statusBadge: "Warning",
+      badgeClass: "badge-amber",
+      release: "v1.9.2 (Active)",
+      health: "79% (Low Storage 8%)",
+      lastSeen: "Today, 09:30 AM",
+      uptime: "20d 8h 12m",
+      storage: "63.2 GB / 64 GB (98.7%)",
+      network: "Wi-Fi (Signal: Good)",
+      location: "Level 1 Near Multiplex",
+      registered: "10 Jan 2025, 11:00 AM"
+    },
+    'lakeside-k01': {
+      name: "Lakeside Mall - K01",
+      id: "KM-LKS-0001",
+      banner: "Lakeside Mall - K01",
+      project: "Lakeside Mall Project",
+      venueSub: "Kolkata, West Bengal",
+      type: "Indoor Kiosk 32\" Portrait",
+      status: "● Offline",
+      statusBadge: "Offline",
+      badgeClass: "badge-red",
+      release: "v1.8.7 (Active)",
+      health: "Offline (Last: 84%)",
+      lastSeen: "2 Days Ago (Offline 2d 4h)",
+      uptime: "— Offline",
+      storage: "40 GB / 64 GB",
+      network: "Ethernet (Disconnected)",
+      location: "Level 1 North Wing",
+      registered: "05 Dec 2024, 03:15 PM"
+    }
+  };
+
+  function selectDeviceRow(key) {
+    document.querySelectorAll('.device-row').forEach(r => r.classList.remove('selected'));
+    const selectedRow = document.getElementById(`dev-${key}`);
+    if (selectedRow) selectedRow.classList.add('selected');
+
+    const data = deviceDatabase[key];
+    if (!data) return;
+
+    document.getElementById('selDevName').textContent = data.name;
+    document.getElementById('selDevId').textContent = data.id;
+    document.getElementById('selDevBannerTitle').textContent = data.banner;
+    document.getElementById('selDevProject').innerHTML = `${data.project}<div style="font-size:10.5px;color:var(--text-400);font-weight:500;">${data.venueSub}</div>`;
+    document.getElementById('selDevType').textContent = data.type;
+    document.getElementById('selDevStatus').textContent = data.status;
+    document.getElementById('selDevRelease').textContent = data.release;
+    document.getElementById('selDevHealth').textContent = data.health;
+    document.getElementById('selDevLastSeen').textContent = data.lastSeen;
+    document.getElementById('selDevUptime').textContent = data.uptime;
+    document.getElementById('selDevStorage').textContent = data.storage;
+    document.getElementById('selDevNetwork').textContent = data.network;
+    document.getElementById('selDevLocation').textContent = data.location;
+    document.getElementById('selDevRegistered').textContent = data.registered;
+
+    const badge = document.getElementById('selDevStatusBadge');
+    badge.textContent = data.statusBadge;
+    badge.className = `badge ${data.badgeClass}`;
+
+    document.getElementById('actionTargetDevice').textContent = data.name;
+    document.getElementById('modalDevTitle').textContent = `${data.name} (${data.id})`;
+  }
+
+  function filterDevices() {
+    const val = document.getElementById('deviceSearchInput').value.toLowerCase();
+    const rows = document.querySelectorAll('#devicesDataTable tbody tr');
+    rows.forEach(r => {
+      r.style.display = r.textContent.toLowerCase().includes(val) ? '' : 'none';
+    });
+  }
+
+  function filterTableRows() {
+    const val = document.getElementById('tableFilterInput').value.toLowerCase();
+    const rows = document.querySelectorAll('#devicesDataTable tbody tr');
+    rows.forEach(r => {
+      r.style.display = r.textContent.toLowerCase().includes(val) ? '' : 'none';
+    });
+  }
+
+  function openRegisterDeviceModal() {
+    document.getElementById('registerDeviceModal').style.display = 'flex';
+  }
+
+  function closeRegisterDeviceModal() {
+    document.getElementById('registerDeviceModal').style.display = 'none';
+  }
+
+  function openDeviceDetailsModal() {
+    document.getElementById('deviceDetailsModal').style.display = 'flex';
+  }
+
+  function closeDeviceDetailsModal() {
+    document.getElementById('deviceDetailsModal').style.display = 'none';
+  }
+
+  function openRemoteActionModal() {
+    document.getElementById('remoteActionModal').style.display = 'flex';
+  }
+
+  function closeRemoteActionModal() {
+    document.getElementById('remoteActionModal').style.display = 'none';
+  }
+
+  function confirmRemoteAction() {
+    const selectedAction = document.querySelector('input[name="remoteAct"]:checked').value;
+    alert(`Command Queued: Remote action [${selectedAction.toUpperCase()}] sent to Android Kiosk. Device state updated.`);
+    closeRemoteActionModal();
+  }
+
+  function submitRegisterDevice() {
+    const devName = document.getElementById('newDevNameInput').value.trim() || 'Phoenix Mall - K04';
+    const devId = document.getElementById('newDevIdInput').value.trim() || 'KM-PMN-0004';
+    const devProj = document.getElementById('newDevProjectSelect').value;
+    const devType = document.getElementById('newDevTypeSelect').value;
+    const devLoc = document.getElementById('newDevLocationInput').value;
+
+    totalDevicesCount++;
+    document.getElementById('kpiTotalDevices').textContent = totalDevicesCount;
+
+    // Add new row to table
+    const tableBody = document.getElementById('devicesTableBody');
+    const newRow = document.createElement('tr');
+    newRow.className = 'device-row';
+    newRow.onclick = function() {
+      document.getElementById('selDevName').textContent = devName;
+      document.getElementById('selDevId').textContent = devId;
+      document.getElementById('selDevProject').innerHTML = `${devProj}<div style="font-size:10.5px;color:var(--text-400);font-weight:500;">${devLoc}</div>`;
+      document.getElementById('selDevType').textContent = devType;
+      document.getElementById('selDevStatus').textContent = '● Pending Activation';
+      document.getElementById('selDevStatusBadge').textContent = 'Pending';
+      document.getElementById('selDevStatusBadge').className = 'badge badge-amber';
+    };
+    newRow.innerHTML = `
+      <td>
+        <div style="display:flex;align-items:center;gap:8px;">
+          <i class="fa-solid fa-mobile-screen-button" style="color:#f59e0b;font-size:14px;"></i>
+          <span style="font-weight:700;color:var(--text-900);font-size:12.5px;">${devName}</span>
+        </div>
+      </td>
+      <td><div style="font-weight:600;font-size:12px;color:var(--text-900);">${devId}</div><div style="font-size:10px;color:var(--text-400);">Android 11</div></td>
+      <td><div style="font-weight:600;font-size:12px;color:var(--text-800);">${devProj}</div><div style="font-size:10.5px;color:var(--text-400);">${devLoc}</div></td>
+      <td><span style="font-size:11.5px;color:var(--text-700);">${devType}</span></td>
+      <td><span class="badge badge-amber" style="font-size:10px;padding:2px 8px;">Pending</span></td>
+      <td><div style="font-weight:700;font-size:11.5px;color:var(--text-900);">v2.1.0</div><div style="font-size:10px;color:#f59e0b;font-weight:600;">Staged</div></td>
+      <td style="font-size:12px;color:var(--text-400);">—</td>
+      <td style="font-size:11.5px;color:var(--text-500);">Just now</td>
+      <td style="text-align:right;"><button class="btn-icon" style="background:none;border:none;cursor:pointer;color:var(--text-400);font-size:13px;"><i class="fa-solid fa-ellipsis-vertical"></i></button></td>
+    `;
+    tableBody.insertBefore(newRow, tableBody.firstChild);
+
+    document.getElementById('devicesPaginationText').textContent = `Showing 1 to 8 of ${totalDevicesCount} devices`;
+
+    closeRegisterDeviceModal();
+  }
+</script>
 </body>
 </html>

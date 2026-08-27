@@ -3,17 +3,181 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Releases Management · Mall Kiosk Platform</title>
+  <title>Release Management · Mall Kiosk Platform</title>
+  <!-- Google Fonts & Font Awesome -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
   <link rel="stylesheet" href="css/styles.css">
+  <style>
+    /* Workflow Domain 7 - Releases Specific Styling */
+    .release-kpi-grid {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 16px;
+      margin-bottom: 20px;
+    }
+
+    .kpi-stat-box {
+      background: #ffffff;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 16px;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+    }
+
+    .kpi-icon-square {
+      width: 44px;
+      height: 44px;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+      flex-shrink: 0;
+    }
+
+    /* Main Row 2: 2-Column Split */
+    .releases-main-split {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) 350px;
+      gap: 20px;
+      align-items: start;
+      margin-bottom: 20px;
+    }
+
+    .release-row {
+      cursor: pointer;
+      transition: background 0.15s ease;
+    }
+
+    .release-row:hover {
+      background: #f8fafc;
+    }
+
+    .release-row.selected {
+      background: #eff6ff !important;
+      border-left: 3px solid #2563eb;
+    }
+
+    /* Bottom 4-Column Operations Grid */
+    .releases-bottom-grid {
+      display: grid;
+      grid-template-columns: 1.1fr 1fr 1.15fr 0.95fr;
+      gap: 16px;
+      align-items: start;
+    }
+
+    /* Release Pipeline Stage Nodes */
+    .pipeline-steps-wrap {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: relative;
+      padding: 14px 4px 10px 4px;
+    }
+
+    .pipe-step-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 4px;
+      z-index: 2;
+      position: relative;
+    }
+
+    .pipe-step-circle {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 11px;
+      font-weight: 700;
+    }
+
+    .pipe-step-label {
+      font-size: 10px;
+      font-weight: 700;
+      color: var(--text-700);
+    }
+
+    .pipe-step-val {
+      font-size: 10.5px;
+      font-weight: 800;
+      color: var(--text-900);
+    }
+
+    .quick-action-card-tile {
+      background: #ffffff;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 14px 8px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      gap: 8px;
+      text-decoration: none;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .quick-action-card-tile:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.06);
+      border-color: #93c5fd;
+    }
+
+    .quick-action-card-tile i {
+      font-size: 18px;
+      color: #2563eb;
+    }
+
+    .quick-action-card-tile span {
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--text-900);
+      line-height: 1.2;
+    }
+
+    .rel-activity-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      padding: 10px 0;
+      border-bottom: 1px solid #f1f5f9;
+    }
+
+    .rel-activity-item:last-child {
+      border-bottom: none;
+      padding-bottom: 0;
+    }
+
+    .rel-act-icon {
+      width: 32px;
+      height: 32px;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 13px;
+      flex-shrink: 0;
+    }
+  </style>
 </head>
 <body>
 <div class="app-shell">
 
-  <!-- Left Sidebar -->
+  <!-- =========================================================================
+       COMPANY ADMIN GLOBAL SIDEBAR
+       ========================================================================= -->
   <aside class="sidebar">
     <a href="dashboard.html" class="sidebar-brand" style="cursor:pointer;text-decoration:none;">
       <div class="logo-icon" style="background:linear-gradient(135deg,#3b82f6,#1d4ed8);border-radius:10px;">
@@ -55,88 +219,981 @@
     </div>
   </aside>
 
-  <!-- Main Content -->
+  <!-- =========================================================================
+       MAIN WORKSPACE
+       ========================================================================= -->
   <div class="main">
+
+    <!-- Topbar Header -->
     <header class="topbar">
       <div style="display:flex;align-items:center;gap:14px;">
         <i class="fa-solid fa-bars hamburger"></i>
-        <h1 style="font-size:19px;font-weight:800;color:var(--text-900);margin:0;">Company Releases</h1>
+        <div>
+          <h1 style="font-size:19px;font-weight:800;color:var(--text-900);margin:0;line-height:1.2;">Release Management</h1>
+          <div style="font-size:11.5px;color:var(--text-500);display:flex;align-items:center;gap:6px;margin-top:2px;">
+            <a href="dashboard.html" style="color:var(--text-500);text-decoration:none;">Dashboard</a>
+            <i class="fa-solid fa-chevron-right" style="font-size:8px;"></i>
+            <span style="color:var(--text-900);font-weight:600;">Releases</span>
+          </div>
+        </div>
       </div>
+
       <div class="spacer"></div>
+
+      <!-- Search Input -->
+      <div style="position:relative;width:340px;">
+        <input type="text" class="form-control" id="releaseSearchInput" onkeyup="filterReleases()" placeholder="Search releases, projects, versions..." style="padding-right:36px;border-radius:8px;font-size:13px;">
+        <i class="fa-solid fa-magnifying-glass" style="position:absolute;right:12px;top:50%;transform:translateY(-50%);color:var(--text-400);font-size:13px;"></i>
+      </div>
+
+      <!-- Notification Bell -->
+      <button class="icon-btn" style="position:relative;">
+        <i class="fa-regular fa-bell"></i>
+        <span class="badge-dot" style="position:absolute;top:3px;right:3px;background:#ef4444;color:#fff;font-size:9px;font-weight:700;border-radius:50%;width:15px;height:15px;display:flex;align-items:center;justify-content:center;">12</span>
+      </button>
+
+      <!-- Profile -->
       <div class="user">
         <div class="avatar" style="background:#1e293b;color:#fff;font-weight:700;font-size:12px;">CA</div>
-        <span style="font-size:13.5px;font-weight:700;">Company Admin</span>
+        <div>
+          <div class="u-name" style="font-size:13px;font-weight:700;color:var(--text-900);">Company Admin</div>
+        </div>
+        <i class="fa-solid fa-chevron-down" style="font-size:10px;color:var(--text-400);"></i>
       </div>
     </header>
 
+    <!-- Page Content Container -->
     <div class="content" style="padding:24px 28px;">
-      <div class="page-header" style="margin-bottom:20px;">
-        <div>
-          <div class="breadcrumb"><a href="dashboard.html">Dashboard</a> <i class="fa-solid fa-chevron-right"></i> <span>Releases</span></div>
-          <h1>Release Management</h1>
-          <p>Global build, validation and OTA deployment pipeline for client venues</p>
+
+      <!-- =====================================================================
+           ROW 1: 5 OPERATIONAL KPI SUMMARY CARDS
+           ===================================================================== -->
+      <div class="release-kpi-grid">
+        
+        <!-- 1. Total Releases -->
+        <div class="kpi-stat-box">
+          <div class="kpi-icon-square" style="background:#eff6ff;color:#2563eb;border:1px solid #dbeafe;">
+            <i class="fa-solid fa-box-archive"></i>
+          </div>
+          <div>
+            <div style="font-size:11px;font-weight:600;color:var(--text-500);text-transform:uppercase;letter-spacing:0.4px;">Total Releases</div>
+            <div style="font-size:22px;font-weight:800;color:var(--text-900);line-height:1.1;margin:2px 0;" id="kpiTotalReleases">18</div>
+            <div style="font-size:11px;color:var(--text-400);">Published: 13 &nbsp; Draft: <span id="kpiDraftReleases">4</span> &nbsp; Archived: 1</div>
+          </div>
         </div>
-        <div class="actions">
-          <button class="btn btn-primary"><i class="fa-solid fa-rocket"></i> Create Global Release</button>
+
+        <!-- 2. Active Releases -->
+        <div class="kpi-stat-box">
+          <div class="kpi-icon-square" style="background:#ecfdf5;color:#10b981;border:1px solid #d1fae5;">
+            <i class="fa-solid fa-rocket"></i>
+          </div>
+          <div>
+            <div style="font-size:11px;font-weight:600;color:var(--text-500);text-transform:uppercase;letter-spacing:0.4px;">Active Releases</div>
+            <div style="font-size:22px;font-weight:800;color:var(--text-900);line-height:1.1;margin:2px 0;">7</div>
+            <div style="font-size:11px;color:var(--text-400);">Projects: 7 &nbsp; Kiosks: 142</div>
+          </div>
         </div>
+
+        <!-- 3. Scheduled Releases -->
+        <div class="kpi-stat-box">
+          <div class="kpi-icon-square" style="background:#fff7ed;color:#ea580c;border:1px solid #ffedd5;">
+            <i class="fa-regular fa-calendar-check"></i>
+          </div>
+          <div>
+            <div style="font-size:11px;font-weight:600;color:var(--text-500);text-transform:uppercase;letter-spacing:0.4px;">Scheduled Releases</div>
+            <div style="font-size:22px;font-weight:800;color:var(--text-900);line-height:1.1;margin:2px 0;">3</div>
+            <div style="font-size:11px;color:var(--text-400);">Upcoming: 3</div>
+          </div>
+        </div>
+
+        <!-- 4. Release Health -->
+        <div class="kpi-stat-box">
+          <div class="kpi-icon-square" style="background:#f5f3ff;color:#7c3aed;border:1px solid #ede9fe;">
+            <i class="fa-solid fa-heart-pulse"></i>
+          </div>
+          <div>
+            <div style="font-size:11px;font-weight:600;color:var(--text-500);text-transform:uppercase;letter-spacing:0.4px;">Release Health</div>
+            <div style="font-size:22px;font-weight:800;color:var(--text-900);line-height:1.1;margin:2px 0;">96%</div>
+            <div style="font-size:11px;color:#10b981;font-weight:700;">Excellent</div>
+          </div>
+        </div>
+
+        <!-- 5. Failed Releases -->
+        <div class="kpi-stat-box">
+          <div class="kpi-icon-square" style="background:#fef2f2;color:#dc2626;border:1px solid #fee2e2;">
+            <i class="fa-solid fa-triangle-exclamation"></i>
+          </div>
+          <div>
+            <div style="font-size:11px;font-weight:600;color:var(--text-500);text-transform:uppercase;letter-spacing:0.4px;">Failed Releases</div>
+            <div style="font-size:22px;font-weight:800;color:#dc2626;line-height:1.1;margin:2px 0;">1</div>
+            <div style="font-size:11px;color:var(--text-400);">Last 30 Days</div>
+          </div>
+        </div>
+
       </div>
 
-      <!-- Release Summary Stats -->
-      <div class="stats-grid" style="grid-template-columns:repeat(4,1fr);margin-bottom:20px;">
-        <div class="stat-card"><div class="icon icon-blue"><i class="fa-solid fa-rocket"></i></div>
-          <div class="body"><div class="label">Total Releases</div><div class="value">48</div><div class="sub">Across 18 venues</div></div></div>
-        <div class="stat-card"><div class="icon icon-green"><i class="fa-solid fa-circle-check"></i></div>
-          <div class="body"><div class="label">Active In Production</div><div class="value">43</div><div class="sub up">156 kiosks synchronized</div></div></div>
-        <div class="stat-card"><div class="icon icon-amber"><i class="fa-solid fa-spinner"></i></div>
-          <div class="body"><div class="label">Deploying OTA</div><div class="value">2</div><div class="sub">In progress</div></div></div>
-        <div class="stat-card"><div class="icon icon-purple"><i class="fa-solid fa-clock"></i></div>
-          <div class="body"><div class="label">Pending Review</div><div class="value">3</div><div class="sub">Ready for deploy</div></div></div>
+      <!-- =====================================================================
+           ROW 2: 2-COLUMN SPLIT (ALL RELEASES TABLE & SELECTED RELEASE CARD)
+           ===================================================================== -->
+      <div class="releases-main-split">
+
+        <!-- Left All Releases Table Container -->
+        <div class="panel" style="margin:0;padding:20px;">
+          <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;">
+            <h2 style="font-size:15px;font-weight:800;color:var(--text-900);margin:0;">All Releases</h2>
+            <div style="display:flex;align-items:center;gap:10px;">
+              <div style="position:relative;width:200px;">
+                <input type="text" class="form-control" id="tableFilterInput" onkeyup="filterTableRows()" placeholder="Search releases..." style="padding:6px 28px 6px 12px;font-size:12px;">
+                <i class="fa-solid fa-magnifying-glass" style="position:absolute;right:10px;top:50%;transform:translateY(-50%);font-size:11px;color:var(--text-400);"></i>
+              </div>
+              <button class="btn" style="padding:6px 12px;font-size:12px;font-weight:600;"><i class="fa-solid fa-filter"></i> Filters <i class="fa-solid fa-chevron-down" style="font-size:9px;"></i></button>
+              <button class="btn" style="padding:6px 12px;font-size:12px;font-weight:600;"><i class="fa-solid fa-arrow-up-from-bracket"></i> Export <i class="fa-solid fa-chevron-down" style="font-size:9px;"></i></button>
+            </div>
+          </div>
+
+          <div class="table-wrap">
+            <table id="releasesDataTable">
+              <thead>
+                <tr>
+                  <th>Release Name</th>
+                  <th>Version</th>
+                  <th>Project / Template</th>
+                  <th>Type</th>
+                  <th>Status</th>
+                  <th>Target</th>
+                  <th>Released On</th>
+                  <th>Deployed To</th>
+                  <th style="text-align:right;">Actions</th>
+                </tr>
+              </thead>
+              <tbody id="releasesTableBody">
+                
+                <!-- 1. Phoenix Mall Release (Selected by Default) -->
+                <tr class="release-row selected" id="rel-phoenix" onclick="selectReleaseRow('phoenix')">
+                  <td>
+                    <div style="display:flex;align-items:center;gap:10px;">
+                      <div style="width:32px;height:32px;border-radius:6px;background:linear-gradient(135deg,#3b82f6,#1d4ed8);display:flex;align-items:center;justify-content:center;color:#fff;font-size:13px;flex-shrink:0;">
+                        <i class="fa-solid fa-cube"></i>
+                      </div>
+                      <div>
+                        <div style="font-weight:700;color:var(--text-900);font-size:12.5px;">Phoenix Mall Release</div>
+                        <div style="font-size:10.5px;color:var(--text-400);">Main Experience Release</div>
+                      </div>
+                    </div>
+                  </td>
+                  <td><div style="font-weight:700;font-size:12px;color:var(--text-900);">v2.1.0</div><span class="badge badge-green" style="font-size:9px;padding:1px 5px;">Latest</span></td>
+                  <td><div style="font-weight:600;font-size:12px;color:var(--text-800);">Phoenix Mall Project</div><div style="font-size:10.5px;color:var(--text-400);">Mall / Indoor Venue</div></td>
+                  <td><span class="badge badge-purple" style="font-size:10px;">Full Release</span></td>
+                  <td><span class="badge badge-green" style="font-size:10px;padding:2px 8px;">Active</span></td>
+                  <td style="font-size:11.5px;color:var(--text-700);">Production</td>
+                  <td><div style="font-size:11.5px;font-weight:600;color:var(--text-900);">28 Apr 2025</div><div style="font-size:10px;color:var(--text-400);">10:30 AM</div></td>
+                  <td><span style="color:#10b981;font-weight:700;font-size:11.5px;">28 / 28</span><div style="font-size:10px;color:#10b981;">Kiosks Online</div></td>
+                  <td style="text-align:right;"><button class="btn-icon" style="background:none;border:none;cursor:pointer;color:var(--text-400);font-size:13px;"><i class="fa-solid fa-ellipsis-vertical"></i></button></td>
+                </tr>
+
+                <!-- 2. Orion Mall Release -->
+                <tr class="release-row" id="rel-orion" onclick="selectReleaseRow('orion')">
+                  <td>
+                    <div style="display:flex;align-items:center;gap:10px;">
+                      <div style="width:32px;height:32px;border-radius:6px;background:linear-gradient(135deg,#ea580c,#c2410c);display:flex;align-items:center;justify-content:center;color:#fff;font-size:13px;flex-shrink:0;">
+                        <i class="fa-solid fa-palette"></i>
+                      </div>
+                      <div>
+                        <div style="font-weight:700;color:var(--text-900);font-size:12.5px;">Orion Mall Release</div>
+                        <div style="font-size:10.5px;color:var(--text-400);">Theme Update Release</div>
+                      </div>
+                    </div>
+                  </td>
+                  <td><div style="font-weight:700;font-size:12px;color:var(--text-900);">v2.0.3</div></td>
+                  <td><div style="font-weight:600;font-size:12px;color:var(--text-800);">Orion Mall Project</div><div style="font-size:10.5px;color:var(--text-400);">Mall / Indoor Venue</div></td>
+                  <td><span class="badge badge-amber" style="font-size:10px;">Theme Release</span></td>
+                  <td><span class="badge badge-green" style="font-size:10px;padding:2px 8px;">Active</span></td>
+                  <td style="font-size:11.5px;color:var(--text-700);">Production</td>
+                  <td><div style="font-size:11.5px;font-weight:600;color:var(--text-900);">15 Apr 2025</div><div style="font-size:10px;color:var(--text-400);">09:45 AM</div></td>
+                  <td><span style="color:#10b981;font-weight:700;font-size:11.5px;">18 / 18</span><div style="font-size:10px;color:#10b981;">Kiosks Online</div></td>
+                  <td style="text-align:right;"><button class="btn-icon" style="background:none;border:none;cursor:pointer;color:var(--text-400);font-size:13px;"><i class="fa-solid fa-ellipsis-vertical"></i></button></td>
+                </tr>
+
+                <!-- 3. Skyline Mall Release -->
+                <tr class="release-row" id="rel-skyline" onclick="selectReleaseRow('skyline')">
+                  <td>
+                    <div style="display:flex;align-items:center;gap:10px;">
+                      <div style="width:32px;height:32px;border-radius:6px;background:linear-gradient(135deg,#0284c7,#0369a1);display:flex;align-items:center;justify-content:center;color:#fff;font-size:13px;flex-shrink:0;">
+                        <i class="fa-solid fa-cube"></i>
+                      </div>
+                      <div>
+                        <div style="font-weight:700;color:var(--text-900);font-size:12.5px;">Skyline Mall Release</div>
+                        <div style="font-size:10.5px;color:var(--text-400);">Content & Screens Update</div>
+                      </div>
+                    </div>
+                  </td>
+                  <td><div style="font-weight:700;font-size:12px;color:var(--text-900);">v2.1.0</div></td>
+                  <td><div style="font-weight:600;font-size:12px;color:var(--text-800);">Skyline Mall Project</div><div style="font-size:10.5px;color:var(--text-400);">Mall / Indoor Venue</div></td>
+                  <td><span class="badge badge-purple" style="font-size:10px;">Full Release</span></td>
+                  <td><span class="badge badge-green" style="font-size:10px;padding:2px 8px;">Active</span></td>
+                  <td style="font-size:11.5px;color:var(--text-700);">Production</td>
+                  <td><div style="font-size:11.5px;font-weight:600;color:var(--text-900);">12 Apr 2025</div><div style="font-size:10px;color:var(--text-400);">06:20 PM</div></td>
+                  <td><span style="color:#10b981;font-weight:700;font-size:11.5px;">12 / 12</span><div style="font-size:10px;color:#10b981;">Kiosks Online</div></td>
+                  <td style="text-align:right;"><button class="btn-icon" style="background:none;border:none;cursor:pointer;color:var(--text-400);font-size:13px;"><i class="fa-solid fa-ellipsis-vertical"></i></button></td>
+                </tr>
+
+                <!-- 4. Grand Square Release -->
+                <tr class="release-row" id="rel-grandsquare" onclick="selectReleaseRow('grandsquare')">
+                  <td>
+                    <div style="display:flex;align-items:center;gap:10px;">
+                      <div style="width:32px;height:32px;border-radius:6px;background:linear-gradient(135deg,#059669,#047857);display:flex;align-items:center;justify-content:center;color:#fff;font-size:13px;flex-shrink:0;">
+                        <i class="fa-solid fa-cube"></i>
+                      </div>
+                      <div>
+                        <div style="font-weight:700;color:var(--text-900);font-size:12.5px;">Grand Square Release</div>
+                        <div style="font-size:10.5px;color:var(--text-400);">Experience Enhancement</div>
+                      </div>
+                    </div>
+                  </td>
+                  <td><div style="font-weight:700;font-size:12px;color:var(--text-900);">v2.0.1</div></td>
+                  <td><div style="font-weight:600;font-size:12px;color:var(--text-800);">Grand Square Project</div><div style="font-size:10.5px;color:var(--text-400);">Mall / Indoor Venue</div></td>
+                  <td><span class="badge badge-purple" style="font-size:10px;">Full Release</span></td>
+                  <td><span class="badge badge-green" style="font-size:10px;padding:2px 8px;">Active</span></td>
+                  <td style="font-size:11.5px;color:var(--text-700);">Production</td>
+                  <td><div style="font-size:11.5px;font-weight:600;color:var(--text-900);">02 Apr 2025</div><div style="font-size:10px;color:var(--text-400);">04:15 PM</div></td>
+                  <td><span style="color:#10b981;font-weight:700;font-size:11.5px;">10 / 10</span><div style="font-size:10px;color:#10b981;">Kiosks Online</div></td>
+                  <td style="text-align:right;"><button class="btn-icon" style="background:none;border:none;cursor:pointer;color:var(--text-400);font-size:13px;"><i class="fa-solid fa-ellipsis-vertical"></i></button></td>
+                </tr>
+
+                <!-- 5. Westend Mall Release -->
+                <tr class="release-row" id="rel-westend" onclick="selectReleaseRow('westend')">
+                  <td>
+                    <div style="display:flex;align-items:center;gap:10px;">
+                      <div style="width:32px;height:32px;border-radius:6px;background:linear-gradient(135deg,#475569,#334155);display:flex;align-items:center;justify-content:center;color:#fff;font-size:13px;flex-shrink:0;">
+                        <i class="fa-solid fa-wrench"></i>
+                      </div>
+                      <div>
+                        <div style="font-weight:700;color:var(--text-900);font-size:12.5px;">Westend Mall Release</div>
+                        <div style="font-size:10.5px;color:var(--text-400);">Maintenance Release</div>
+                      </div>
+                    </div>
+                  </td>
+                  <td><div style="font-weight:700;font-size:12px;color:var(--text-900);">v1.9.2</div></td>
+                  <td><div style="font-weight:600;font-size:12px;color:var(--text-800);">Westend Mall Project</div><div style="font-size:10.5px;color:var(--text-400);">Mall / Indoor Venue</div></td>
+                  <td><span class="badge badge-blue" style="font-size:10px;">Patch Release</span></td>
+                  <td><span class="badge badge-amber" style="font-size:10px;padding:2px 8px;">Scheduled</span></td>
+                  <td style="font-size:11.5px;color:var(--text-700);">Production</td>
+                  <td><div style="font-size:11.5px;font-weight:600;color:var(--text-900);">10 May 2025</div><div style="font-size:10px;color:var(--text-400);">09:00 AM</div></td>
+                  <td><span style="color:var(--text-400);font-size:11.5px;">—</span><div style="font-size:10px;color:var(--text-400);">Not Deployed</div></td>
+                  <td style="text-align:right;"><button class="btn-icon" style="background:none;border:none;cursor:pointer;color:var(--text-400);font-size:13px;"><i class="fa-solid fa-ellipsis-vertical"></i></button></td>
+                </tr>
+
+                <!-- 6. Capital Mall Release -->
+                <tr class="release-row" id="rel-capital" onclick="selectReleaseRow('capital')">
+                  <td>
+                    <div style="display:flex;align-items:center;gap:10px;">
+                      <div style="width:32px;height:32px;border-radius:6px;background:linear-gradient(135deg,#64748b,#475569);display:flex;align-items:center;justify-content:center;color:#fff;font-size:13px;flex-shrink:0;">
+                        <i class="fa-solid fa-cube"></i>
+                      </div>
+                      <div>
+                        <div style="font-weight:700;color:var(--text-900);font-size:12.5px;">Capital Mall Release</div>
+                        <div style="font-size:10.5px;color:var(--text-400);">Screens & Content Update</div>
+                      </div>
+                    </div>
+                  </td>
+                  <td><div style="font-weight:700;font-size:12px;color:var(--text-900);">v2.1.0</div></td>
+                  <td><div style="font-weight:600;font-size:12px;color:var(--text-800);">Capital Mall Project</div><div style="font-size:10.5px;color:var(--text-400);">Mall / Indoor Venue</div></td>
+                  <td><span class="badge badge-purple" style="font-size:10px;">Full Release</span></td>
+                  <td><span class="badge badge-gray" style="font-size:10px;padding:2px 8px;">Draft</span></td>
+                  <td style="font-size:11.5px;color:var(--text-700);">Production</td>
+                  <td><div style="font-size:11.5px;color:var(--text-400);">—</div><div style="font-size:10px;color:var(--text-400);">Not Published</div></td>
+                  <td><span style="color:var(--text-400);font-size:11.5px;">—</span><div style="font-size:10px;color:var(--text-400);">Not Deployed</div></td>
+                  <td style="text-align:right;"><button class="btn-icon" style="background:none;border:none;cursor:pointer;color:var(--text-400);font-size:13px;"><i class="fa-solid fa-ellipsis-vertical"></i></button></td>
+                </tr>
+
+                <!-- 7. Lakeside Mall Release -->
+                <tr class="release-row" id="rel-lakeside" onclick="selectReleaseRow('lakeside')">
+                  <td>
+                    <div style="display:flex;align-items:center;gap:10px;">
+                      <div style="width:32px;height:32px;border-radius:6px;background:linear-gradient(135deg,#dc2626,#991b1b);display:flex;align-items:center;justify-content:center;color:#fff;font-size:13px;flex-shrink:0;">
+                        <i class="fa-solid fa-triangle-exclamation"></i>
+                      </div>
+                      <div>
+                        <div style="font-weight:700;color:var(--text-900);font-size:12.5px;">Lakeside Mall Release</div>
+                        <div style="font-size:10.5px;color:var(--text-400);">Bug Fixes</div>
+                      </div>
+                    </div>
+                  </td>
+                  <td><div style="font-weight:700;font-size:12px;color:var(--text-900);">v1.8.7</div></td>
+                  <td><div style="font-weight:600;font-size:12px;color:var(--text-800);">Lakeside Mall Project</div><div style="font-size:10.5px;color:var(--text-400);">Mall / Indoor Venue</div></td>
+                  <td><span class="badge badge-blue" style="font-size:10px;">Patch Release</span></td>
+                  <td><span class="badge badge-red" style="font-size:10px;padding:2px 8px;">Failed</span></td>
+                  <td style="font-size:11.5px;color:var(--text-700);">Production</td>
+                  <td><div style="font-size:11.5px;font-weight:600;color:var(--text-900);">18 Feb 2025</div><div style="font-size:10px;color:var(--text-400);">11:30 AM</div></td>
+                  <td><span style="color:#ef4444;font-weight:700;font-size:11.5px;">3 / 12</span><div style="font-size:10px;color:#ef4444;">Deployment Failed</div></td>
+                  <td style="text-align:right;"><button class="btn-icon" style="background:none;border:none;cursor:pointer;color:var(--text-400);font-size:13px;"><i class="fa-solid fa-ellipsis-vertical"></i></button></td>
+                </tr>
+
+              </tbody>
+            </table>
+          </div>
+
+          <!-- Pagination Bar -->
+          <div style="display:flex;align-items:center;justify-content:space-between;margin-top:16px;padding-top:12px;border-top:1px solid var(--border-soft);font-size:12px;color:var(--text-400);">
+            <div id="releasesPaginationText">Showing 1 to 7 of 18 releases</div>
+            <div style="display:flex;align-items:center;gap:6px;">
+              <button class="btn" style="padding:4px 8px;font-size:11px;background:#f8fafc;" disabled><i class="fa-solid fa-chevron-left"></i></button>
+              <button class="btn btn-primary" style="padding:4px 10px;font-size:11px;background:#2563eb;color:#fff;">1</button>
+              <button class="btn" style="padding:4px 10px;font-size:11px;">2</button>
+              <button class="btn" style="padding:4px 10px;font-size:11px;">3</button>
+              <button class="btn" style="padding:4px 8px;font-size:11px;"><i class="fa-solid fa-chevron-right"></i></button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right Side Selected Release Details Card -->
+        <div class="panel" style="margin:0;padding:20px;display:flex;flex-direction:column;justify-content:space-between;" id="selectedReleasePanel">
+          <div>
+            <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;">
+              <h3 style="font-size:14px;font-weight:800;color:var(--text-900);margin:0;">Selected Release</h3>
+              <span class="badge badge-green" id="selRelStatusBadge" style="font-size:10px;">Active</span>
+            </div>
+
+            <div style="display:flex;align-items:center;gap:10px;margin-bottom:12px;">
+              <div style="width:36px;height:36px;border-radius:8px;background:#eff6ff;color:#2563eb;display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0;">
+                <i class="fa-solid fa-cube"></i>
+              </div>
+              <div>
+                <h4 style="font-size:15px;font-weight:800;color:var(--text-900);margin:0;" id="selRelName">Phoenix Mall Release</h4>
+                <div style="font-size:11.5px;color:var(--text-500);font-weight:600;" id="selRelVersion">Version v2.1.0</div>
+              </div>
+            </div>
+
+            <!-- Banner Photo -->
+            <div style="height:115px;border-radius:10px;overflow:hidden;margin-bottom:14px;background:linear-gradient(135deg, #1e293b, #0f172a);display:flex;align-items:center;justify-content:center;position:relative;border:1px solid var(--border);">
+              <div style="text-align:center;padding:16px;">
+                <div style="font-size:22px;color:#fde047;margin-bottom:4px;"><i class="fa-solid fa-rocket"></i></div>
+                <div style="font-size:14px;font-weight:800;color:#ffffff;letter-spacing:0.5px;" id="selRelBannerTitle">Phoenix Mall</div>
+                <div style="font-size:10.5px;color:rgba(255,255,255,0.7);">Release Artifact Snapshot</div>
+              </div>
+            </div>
+
+            <!-- Release Attributes List -->
+            <div style="display:flex;flex-direction:column;gap:8px;font-size:12px;">
+              <div style="display:flex;justify-content:space-between;">
+                <span style="color:var(--text-500);display:flex;align-items:center;gap:6px;"><i class="fa-regular fa-folder" style="font-size:11px;"></i> Project</span>
+                <span style="font-weight:700;color:var(--text-900);" id="selRelProject">Phoenix Mall Project</span>
+              </div>
+              <div style="display:flex;justify-content:space-between;">
+                <span style="color:var(--text-500);display:flex;align-items:center;gap:6px;"><i class="fa-solid fa-layer-group" style="font-size:11px;"></i> Template</span>
+                <span style="font-weight:600;color:var(--text-800);" id="selRelTemplate">Mall / Indoor Venue</span>
+              </div>
+              <div style="display:flex;justify-content:space-between;">
+                <span style="color:var(--text-500);display:flex;align-items:center;gap:6px;"><i class="fa-solid fa-tag" style="font-size:11px;"></i> Release Type</span>
+                <span style="font-weight:700;color:var(--text-900);" id="selRelType">Full Release</span>
+              </div>
+              <div style="display:flex;justify-content:space-between;">
+                <span style="color:var(--text-500);display:flex;align-items:center;gap:6px;"><i class="fa-solid fa-circle-check" style="font-size:11px;"></i> Status</span>
+                <span style="font-weight:700;color:#10b981;" id="selRelStatus">● Active</span>
+              </div>
+              <div style="display:flex;justify-content:space-between;">
+                <span style="color:var(--text-500);display:flex;align-items:center;gap:6px;"><i class="fa-regular fa-clock" style="font-size:11px;"></i> Released On</span>
+                <span style="font-weight:600;color:var(--text-800);" id="selRelDate">28 Apr 2025, 10:30 AM</span>
+              </div>
+              <div style="display:flex;justify-content:space-between;">
+                <span style="color:var(--text-500);display:flex;align-items:center;gap:6px;"><i class="fa-solid fa-user-shield" style="font-size:11px;"></i> Released By</span>
+                <span style="font-weight:600;color:var(--text-800);" id="selRelAuthor">Rahul Mehta</span>
+              </div>
+              <div style="display:flex;justify-content:space-between;">
+                <span style="color:var(--text-500);display:flex;align-items:center;gap:6px;"><i class="fa-solid fa-server" style="font-size:11px;"></i> Target Environment</span>
+                <span style="font-weight:600;color:var(--text-800);" id="selRelTarget">Production</span>
+              </div>
+              <div style="display:flex;justify-content:space-between;">
+                <span style="color:var(--text-500);display:flex;align-items:center;gap:6px;"><i class="fa-solid fa-display" style="font-size:11px;"></i> Deployed To</span>
+                <span style="font-weight:700;color:#10b981;" id="selRelDeploy">28 / 28 Kiosks Online</span>
+              </div>
+              <div style="display:flex;justify-content:space-between;">
+                <span style="color:var(--text-500);display:flex;align-items:center;gap:6px;"><i class="fa-solid fa-hard-drive" style="font-size:11px;"></i> Release Size</span>
+                <span style="font-weight:600;color:var(--text-800);" id="selRelSize">512 MB</span>
+              </div>
+              <div style="display:flex;justify-content:space-between;align-items:center;border-top:1px solid var(--border-soft);padding-top:6px;margin-top:2px;">
+                <span style="color:var(--text-500);display:flex;align-items:center;gap:6px;"><i class="fa-regular fa-file-lines" style="font-size:11px;"></i> What's New</span>
+                <a href="javascript:void(0)" onclick="alert('Release Notes v2.1.0:\n- Added 2.5D floor map for Floor 2\n- Updated Store Detail gallery\n- Activated Summer Sale Campaign')" class="link-blue" style="font-size:11.5px;font-weight:700;">View Release Notes <i class="fa-solid fa-arrow-up-right-from-square" style="font-size:10px;"></i></a>
+              </div>
+            </div>
+          </div>
+
+          <div style="margin-top:16px;padding-top:14px;border-top:1px solid var(--border-soft);">
+            <button class="btn btn-primary" id="btnViewReleaseDetails" onclick="openReleaseDetailsModal()" style="width:100%;justify-content:center;font-weight:700;font-size:13px;padding:9px 0;background:#2563eb;color:#fff;display:flex;align-items:center;gap:6px;">
+              View Release Details &rarr;
+            </button>
+          </div>
+        </div>
+
       </div>
 
-      <!-- Releases Table -->
-      <div class="panel">
-        <div class="panel-header">
-          <h2>Recent Releases</h2>
-          <div class="search-input"><i class="fa-solid fa-magnifying-glass"></i> Search releases...</div>
+      <!-- =====================================================================
+           ROW 3: 4 OPERATIONAL BOTTOM PANELS
+           ===================================================================== -->
+      <div class="releases-bottom-grid">
+
+        <!-- 1. Release Pipeline -->
+        <div class="panel" style="margin:0;padding:18px;">
+          <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px;">
+            <h3 style="font-size:13.5px;font-weight:800;color:var(--text-900);margin:0;">Release Pipeline</h3>
+          </div>
+
+          <div class="pipeline-steps-wrap">
+            
+            <div class="pipe-step-item">
+              <div class="pipe-step-circle" style="background:#ecfdf5;color:#10b981;border:1px solid #a7f3d0;"><i class="fa-solid fa-check"></i></div>
+              <span class="pipe-step-label">Draft</span>
+              <span class="pipe-step-val">4</span>
+            </div>
+
+            <div style="height:2px;flex:1;background:#cbd5e1;margin:0 -2px 14px;"></div>
+
+            <div class="pipe-step-item">
+              <div class="pipe-step-circle" style="background:#ecfdf5;color:#10b981;border:1px solid #a7f3d0;"><i class="fa-solid fa-check"></i></div>
+              <span class="pipe-step-label">Validate</span>
+              <span class="pipe-step-val">4</span>
+            </div>
+
+            <div style="height:2px;flex:1;background:#cbd5e1;margin:0 -2px 14px;"></div>
+
+            <div class="pipe-step-item">
+              <div class="pipe-step-circle" style="background:#ecfdf5;color:#10b981;border:1px solid #a7f3d0;"><i class="fa-solid fa-check"></i></div>
+              <span class="pipe-step-label">Ready</span>
+              <span class="pipe-step-val">3</span>
+            </div>
+
+            <div style="height:2px;flex:1;background:#cbd5e1;margin:0 -2px 14px;"></div>
+
+            <div class="pipe-step-item">
+              <div class="pipe-step-circle" style="background:#fff7ed;color:#ea580c;border:1px solid #fed7aa;"><i class="fa-regular fa-clock"></i></div>
+              <span class="pipe-step-label">Scheduled</span>
+              <span class="pipe-step-val">3</span>
+            </div>
+
+            <div style="height:2px;flex:1;background:#cbd5e1;margin:0 -2px 14px;"></div>
+
+            <div class="pipe-step-item">
+              <div class="pipe-step-circle" style="background:#f1f5f9;color:#64748b;border:1px solid #cbd5e1;"><i class="fa-solid fa-gear"></i></div>
+              <span class="pipe-step-label">Deployed</span>
+              <span class="pipe-step-val">7</span>
+            </div>
+
+            <div style="height:2px;flex:1;background:#cbd5e1;margin:0 -2px 14px;"></div>
+
+            <div class="pipe-step-item">
+              <div class="pipe-step-circle" style="background:#fef2f2;color:#ef4444;border:1px solid #fecaca;"><i class="fa-solid fa-xmark"></i></div>
+              <span class="pipe-step-label">Failed</span>
+              <span class="pipe-step-val">1</span>
+            </div>
+
+          </div>
+
+          <p style="font-size:11px;color:var(--text-500);margin:8px 0 10px;line-height:1.4;">
+            Automated validation ensures releases are stable and ready for deployment.
+          </p>
+
+          <a href="javascript:void(0)" onclick="openPipelineModal()" class="link-blue" style="font-size:11.5px;font-weight:700;">View Pipeline Details &rarr;</a>
         </div>
-        <div class="table-wrap">
-          <table>
-            <thead>
-              <tr>
-                <th>Release Version</th>
-                <th>Client Project</th>
-                <th>Target Kiosks</th>
-                <th>Type</th>
-                <th>Status</th>
-                <th>Deployed At</th>
-                <th>Actions</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td style="font-weight:700;color:var(--text-900);">Release v1.42</td>
-                <td><strong>Phoenix Mall</strong><div style="font-size:11.5px;color:var(--text-400);">Mumbai, India</div></td>
-                <td>12 / 12 Kiosks</td>
-                <td><span class="badge badge-blue">OTA Full Bundle</span></td>
-                <td><span class="badge badge-green"><span class="dot"></span> Published</span></td>
-                <td>Yesterday, 04:30 PM</td>
-                <td><button class="btn btn-sm">Release Notes</button></td>
-              </tr>
-              <tr>
-                <td style="font-weight:700;color:var(--text-900);">Release v2.01-RC</td>
-                <td><strong>Orion Mall</strong><div style="font-size:11.5px;color:var(--text-400);">Bangalore, India</div></td>
-                <td>8 / 10 Kiosks</td>
-                <td><span class="badge badge-purple">Theme & Ads Hotfix</span></td>
-                <td><span class="badge badge-amber"><span class="dot"></span> Deploying (80%)</span></td>
-                <td>Today, 02:15 PM</td>
-                <td><button class="btn btn-sm btn-primary">Monitor</button></td>
-              </tr>
-            </tbody>
-          </table>
+
+        <!-- 2. Releases by Type Donut -->
+        <div class="panel" style="margin:0;padding:18px;">
+          <h3 style="font-size:13.5px;font-weight:800;color:var(--text-900);margin:0 0 12px;">Releases by Type</h3>
+
+          <div style="display:flex;flex-direction:column;align-items:center;padding:4px 0;">
+            <div style="position:relative;width:105px;height:105px;margin-bottom:10px;">
+              <svg viewBox="0 0 36 36" style="width:100%;height:100%;transform:rotate(-90deg);">
+                <circle cx="18" cy="18" r="15.915" fill="none" stroke="#f1f5f9" stroke-width="3.6"/>
+                <!-- Full Release: 50% (Blue) -->
+                <circle cx="18" cy="18" r="15.915" fill="none" stroke="#2563eb" stroke-width="3.6" stroke-dasharray="50, 100" stroke-dashoffset="0"/>
+                <!-- Theme Release: 22% (Orange) -->
+                <circle cx="18" cy="18" r="15.915" fill="none" stroke="#ea580c" stroke-width="3.6" stroke-dasharray="22, 100" stroke-dashoffset="-50"/>
+                <!-- Patch Release: 22% (Teal) -->
+                <circle cx="18" cy="18" r="15.915" fill="none" stroke="#0284c7" stroke-width="3.6" stroke-dasharray="22, 100" stroke-dashoffset="-72"/>
+                <!-- Hotfix: 6% (Green) -->
+                <circle cx="18" cy="18" r="15.915" fill="none" stroke="#10b981" stroke-width="3.6" stroke-dasharray="6, 100" stroke-dashoffset="-94"/>
+              </svg>
+              <div style="position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;">
+                <span style="font-size:17px;font-weight:800;color:var(--text-900);line-height:1;">18</span>
+                <span style="font-size:9.5px;color:var(--text-400);">Total</span>
+              </div>
+            </div>
+
+            <!-- Legend -->
+            <div style="width:100%;display:flex;flex-direction:column;gap:4px;font-size:11px;">
+              <div style="display:flex;justify-content:space-between;align-items:center;">
+                <span style="display:flex;align-items:center;gap:6px;color:var(--text-600);"><span style="width:8px;height:8px;border-radius:50%;background:#2563eb;"></span> Full Release</span>
+                <span style="font-weight:700;color:var(--text-900);">9 (50%)</span>
+              </div>
+              <div style="display:flex;justify-content:space-between;align-items:center;">
+                <span style="display:flex;align-items:center;gap:6px;color:var(--text-600);"><span style="width:8px;height:8px;border-radius:50%;background:#ea580c;"></span> Theme Release</span>
+                <span style="font-weight:700;color:var(--text-900);">4 (22%)</span>
+              </div>
+              <div style="display:flex;justify-content:space-between;align-items:center;">
+                <span style="display:flex;align-items:center;gap:6px;color:var(--text-600);"><span style="width:8px;height:8px;border-radius:50%;background:#0284c7;"></span> Patch Release</span>
+                <span style="font-weight:700;color:var(--text-900);">4 (22%)</span>
+              </div>
+              <div style="display:flex;justify-content:space-between;align-items:center;">
+                <span style="display:flex;align-items:center;gap:6px;color:var(--text-600);"><span style="width:8px;height:8px;border-radius:50%;background:#10b981;"></span> Hotfix</span>
+                <span style="font-weight:700;color:var(--text-900);">1 (6%)</span>
+              </div>
+            </div>
+
+          </div>
         </div>
+
+        <!-- 3. Recent Release Activity -->
+        <div class="panel" style="margin:0;padding:18px;">
+          <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;">
+            <h3 style="font-size:13.5px;font-weight:800;color:var(--text-900);margin:0;">Recent Release Activity</h3>
+            <a href="javascript:void(0)" class="link-blue" style="font-size:11.5px;font-weight:700;">View All</a>
+          </div>
+
+          <div style="display:flex;flex-direction:column;">
+            
+            <div class="rel-activity-item">
+              <div class="rel-act-icon" style="background:#eff6ff;color:#2563eb;">
+                <i class="fa-solid fa-cube"></i>
+              </div>
+              <div style="font-size:11.5px;flex:1;">
+                <div style="font-weight:700;color:var(--text-900);">v2.1.0 released for Phoenix Mall Project</div>
+                <div style="color:var(--text-400);font-size:10.5px;margin-top:2px;">By Rahul Mehta · Today, 10:30 AM</div>
+              </div>
+            </div>
+
+            <div class="rel-activity-item">
+              <div class="rel-act-icon" style="background:#f0fdf4;color:#16a34a;">
+                <i class="fa-solid fa-palette"></i>
+              </div>
+              <div style="font-size:11.5px;flex:1;">
+                <div style="font-weight:700;color:var(--text-900);">v2.0.3 released for Orion Mall Project</div>
+                <div style="color:var(--text-400);font-size:10.5px;margin-top:2px;">By Anjali Sharma · Today, 09:45 AM</div>
+              </div>
+            </div>
+
+            <div class="rel-activity-item">
+              <div class="rel-act-icon" style="background:#eff6ff;color:#0284c7;">
+                <i class="fa-solid fa-display"></i>
+              </div>
+              <div style="font-size:11.5px;flex:1;">
+                <div style="font-weight:700;color:var(--text-900);">v2.1.0 deployed to Skyline Mall Project</div>
+                <div style="color:var(--text-400);font-size:10.5px;margin-top:2px;">Yesterday, 06:20 PM</div>
+              </div>
+            </div>
+
+            <div class="rel-activity-item">
+              <div class="rel-act-icon" style="background:#fff7ed;color:#ea580c;">
+                <i class="fa-regular fa-clock"></i>
+              </div>
+              <div style="font-size:11.5px;flex:1;">
+                <div style="font-weight:700;color:var(--text-900);">v1.9.2 scheduled for Westend Mall Project</div>
+                <div style="color:var(--text-400);font-size:10.5px;margin-top:2px;">By Rahul Mehta · Yesterday, 04:15 PM</div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- 4. Quick Actions Grid (6 Tiles) -->
+        <div class="panel" style="margin:0;padding:18px;">
+          <h3 style="font-size:13.5px;font-weight:800;color:var(--text-900);margin:0 0 12px;">Quick Actions</h3>
+          
+          <div style="display:grid;grid-template-columns:repeat(3, 1fr);gap:8px;">
+            
+            <div class="quick-action-card-tile" id="qaCreateNewRelease" onclick="openCreateReleaseModal()">
+              <i class="fa-solid fa-square-plus"></i>
+              <span>Create New Release</span>
+            </div>
+
+            <div class="quick-action-card-tile" onclick="location.href='releases.html'">
+              <i class="fa-solid fa-list-check"></i>
+              <span>View All Releases</span>
+            </div>
+
+            <div class="quick-action-card-tile" onclick="openPipelineModal()">
+              <i class="fa-solid fa-rocket"></i>
+              <span>Release Pipeline</span>
+            </div>
+
+            <div class="quick-action-card-tile" onclick="alert('Validation Reports: All 18 release snapshots verified.')">
+              <i class="fa-solid fa-shield-halved"></i>
+              <span>Validation Reports</span>
+            </div>
+
+            <div class="quick-action-card-tile" onclick="openRollbackModal()">
+              <i class="fa-solid fa-rotate-left"></i>
+              <span>Rollback Release</span>
+            </div>
+
+            <div class="quick-action-card-tile" onclick="location.href='system-settings.html'">
+              <i class="fa-solid fa-gear"></i>
+              <span>Release Settings</span>
+            </div>
+
+          </div>
+        </div>
+
       </div>
+
+      <!-- Footer Bar -->
+      <footer style="display:flex;align-items:center;justify-content:space-between;padding-top:20px;margin-top:24px;border-top:1px solid var(--border-soft);font-size:12px;color:var(--text-400);">
+        <div>© 2025 Mall Kiosk Platform. All rights reserved.</div>
+        <div style="display:flex;gap:16px;">
+          <span>v1.0.0</span>
+          <span>|</span>
+          <span>May 2025</span>
+        </div>
+      </footer>
+
     </div>
   </div>
 </div>
+
+<!-- =========================================================================
+     COMPANY ADMIN: CREATE NEW RELEASE MODAL
+     ========================================================================= -->
+<div class="modal-backdrop" id="createReleaseModal" style="display:none;position:fixed;inset:0;background:rgba(15,23,42,0.7);backdrop-filter:blur(6px);z-index:9999;align-items:center;justify-content:center;">
+  <div style="background:#ffffff;border-radius:18px;max-width:560px;width:100%;padding:26px;box-shadow:0 25px 60px rgba(0,0,0,0.3);position:relative;">
+    
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;">
+      <div>
+        <h3 style="font-size:17px;font-weight:800;color:var(--text-900);margin:0;">Create New Release</h3>
+        <p style="font-size:12px;color:var(--text-500);margin:2px 0 0;">Build an immutable release snapshot from approved project state.</p>
+      </div>
+      <button onclick="closeCreateReleaseModal()" style="background:none;border:none;font-size:18px;color:var(--text-400);cursor:pointer;">&times;</button>
+    </div>
+
+    <!-- Form Fields -->
+    <div style="display:flex;flex-direction:column;gap:12px;margin-bottom:18px;">
+      <div>
+        <label style="display:block;font-size:12px;font-weight:700;color:var(--text-700);margin-bottom:4px;">1. Target Project</label>
+        <select class="form-control" id="newRelProjectSelect" style="width:100%;font-size:13px;padding:8px 12px;">
+          <option>Phoenix Mall Project</option>
+          <option>Orion Mall Project</option>
+          <option>Westend Mall Project</option>
+          <option>Capital Mall Project</option>
+        </select>
+      </div>
+
+      <div style="display:grid;grid-template-columns:1.5fr 1fr;gap:10px;">
+        <div>
+          <label style="display:block;font-size:12px;font-weight:700;color:var(--text-700);margin-bottom:4px;">2. Release Name</label>
+          <input type="text" class="form-control" id="newRelNameInput" value="Phoenix Summer Festival Release" style="width:100%;font-size:13px;padding:8px 12px;">
+        </div>
+        <div>
+          <label style="display:block;font-size:12px;font-weight:700;color:var(--text-700);margin-bottom:4px;">Version Tag</label>
+          <input type="text" class="form-control" id="newRelVersionInput" value="v2.2.0" style="width:100%;font-size:13px;padding:8px 12px;">
+        </div>
+      </div>
+
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;">
+        <div>
+          <label style="display:block;font-size:12px;font-weight:700;color:var(--text-700);margin-bottom:4px;">3. Release Type</label>
+          <select class="form-control" id="newRelTypeSelect" style="width:100%;font-size:13px;padding:8px 12px;">
+            <option>Full Release</option>
+            <option>Theme Release</option>
+            <option>Patch Release</option>
+            <option>Hotfix</option>
+          </select>
+        </div>
+        <div>
+          <label style="display:block;font-size:12px;font-weight:700;color:var(--text-700);margin-bottom:4px;">4. Target Environment</label>
+          <select class="form-control" style="width:100%;font-size:13px;padding:8px 12px;">
+            <option>Production (All 28 Kiosks)</option>
+            <option>Staging Group (2 Kiosks)</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- Snapshot Composition -->
+      <div style="background:#f8fafc;padding:10px 14px;border-radius:8px;border:1px solid #e2e8f0;font-size:11.5px;color:var(--text-700);">
+        <div style="font-weight:700;color:var(--text-900);margin-bottom:4px;">📦 Release Snapshot Inclusions:</div>
+        <div>✔ Experience v2.1.0 (42 screens) &nbsp;•&nbsp; ✔ Content Snapshot (2,548 entities)</div>
+        <div>✔ 2.5D Map Package v2.0 (4 floors) &nbsp;•&nbsp; ✔ Navigation Graph (342 nodes)</div>
+      </div>
+    </div>
+
+    <div style="display:flex;gap:10px;justify-content:flex-end;">
+      <button class="btn" onclick="closeCreateReleaseModal()">Cancel</button>
+      <button class="btn btn-primary" id="btnSubmitNewRelease" onclick="submitCreateRelease()" style="background:#2563eb;color:#fff;font-weight:700;">
+        Validate & Save Release as Ready
+      </button>
+    </div>
+
+  </div>
+</div>
+
+<!-- =========================================================================
+     COMPANY ADMIN: RELEASE DETAILS INSPECTION MODAL
+     ========================================================================= -->
+<div class="modal-backdrop" id="releaseDetailsModal" style="display:none;position:fixed;inset:0;background:rgba(15,23,42,0.7);backdrop-filter:blur(6px);z-index:9999;align-items:center;justify-content:center;">
+  <div style="background:#ffffff;border-radius:18px;max-width:620px;width:100%;padding:26px;box-shadow:0 25px 60px rgba(0,0,0,0.3);position:relative;">
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;">
+      <div>
+        <h3 style="font-size:17px;font-weight:800;color:var(--text-900);margin:0;" id="modalRelTitle">Phoenix Mall Release (v2.1.0)</h3>
+        <p style="font-size:12px;color:var(--text-500);margin:2px 0 0;">Immutable deployment manifest and kiosk verification status.</p>
+      </div>
+      <button onclick="closeReleaseDetailsModal()" style="background:none;border:none;font-size:18px;color:var(--text-400);cursor:pointer;">&times;</button>
+    </div>
+
+    <!-- Manifest Tree -->
+    <div style="display:flex;flex-direction:column;gap:8px;font-size:12px;margin-bottom:16px;">
+      <div style="background:#f8fafc;padding:10px 12px;border-radius:8px;border:1px solid #e2e8f0;">
+        <div style="font-weight:700;color:#0f172a;margin-bottom:4px;">📋 Manifest Artifacts (Checksum Verified)</div>
+        <div style="color:#64748b;">• <code>experience_v2.1.0_bundle.tar.gz</code> (128 MB · SHA256: 8f9a2b...)</div>
+        <div style="color:#64748b;">• <code>maps_levels_ground_floor.glb</code> (214 MB · SHA256: 4e7c11...)</div>
+        <div style="color:#64748b;">• <code>content_tenants_v42.json</code> (14 MB · SHA256: 1a9d3f...)</div>
+      </div>
+
+      <div style="background:#f0fdf4;padding:10px 12px;border-radius:8px;border:1px solid #bbf7d0;color:#166534;">
+        <strong>✔ Verification Status:</strong> 28 / 28 Kiosks successfully downloaded, staged, verified checksums, and activated locally.
+      </div>
+    </div>
+
+    <div style="display:flex;justify-content:flex-end;">
+      <button class="btn btn-primary" onclick="closeReleaseDetailsModal()">Close Details</button>
+    </div>
+  </div>
+</div>
+
+<!-- =========================================================================
+     JAVASCRIPT INTERACTION & DATA LOGIC
+     ========================================================================= -->
+<script>
+  let totalReleasesCount = 18;
+  let draftReleasesCount = 4;
+
+  const releaseDatabase = {
+    phoenix: {
+      name: "Phoenix Mall Release",
+      version: "Version v2.1.0",
+      banner: "Phoenix Mall",
+      project: "Phoenix Mall Project",
+      template: "Mall / Indoor Venue",
+      type: "Full Release",
+      status: "● Active",
+      statusBadge: "Active",
+      badgeClass: "badge-green",
+      date: "28 Apr 2025, 10:30 AM",
+      author: "Rahul Mehta",
+      target: "Production",
+      deploy: "28 / 28 Kiosks Online",
+      size: "512 MB"
+    },
+    orion: {
+      name: "Orion Mall Release",
+      version: "Version v2.0.3",
+      banner: "Orion Mall",
+      project: "Orion Mall Project",
+      template: "Mall / Indoor Venue",
+      type: "Theme Release",
+      status: "● Active",
+      statusBadge: "Active",
+      badgeClass: "badge-green",
+      date: "15 Apr 2025, 09:45 AM",
+      author: "Anjali Sharma",
+      target: "Production",
+      deploy: "18 / 18 Kiosks Online",
+      size: "184 MB"
+    },
+    skyline: {
+      name: "Skyline Mall Release",
+      version: "Version v2.1.0",
+      banner: "Skyline Mall",
+      project: "Skyline Mall Project",
+      template: "Mall / Indoor Venue",
+      type: "Full Release",
+      status: "● Active",
+      statusBadge: "Active",
+      badgeClass: "badge-green",
+      date: "12 Apr 2025, 06:20 PM",
+      author: "Rahul Mehta",
+      target: "Production",
+      deploy: "12 / 12 Kiosks Online",
+      size: "460 MB"
+    },
+    grandsquare: {
+      name: "Grand Square Release",
+      version: "Version v2.0.1",
+      banner: "Grand Square",
+      project: "Grand Square Project",
+      template: "Mall / Indoor Venue",
+      type: "Full Release",
+      status: "● Active",
+      statusBadge: "Active",
+      badgeClass: "badge-green",
+      date: "02 Apr 2025, 04:15 PM",
+      author: "Anjali Sharma",
+      target: "Production",
+      deploy: "10 / 10 Kiosks Online",
+      size: "390 MB"
+    },
+    westend: {
+      name: "Westend Mall Release",
+      version: "Version v1.9.2",
+      banner: "Westend Mall",
+      project: "Westend Mall Project",
+      template: "Mall / Indoor Venue",
+      type: "Patch Release",
+      status: "Scheduled",
+      statusBadge: "Scheduled",
+      badgeClass: "badge-amber",
+      date: "10 May 2025, 09:00 AM",
+      author: "Rahul Mehta",
+      target: "Production",
+      deploy: "— Not Deployed",
+      size: "95 MB"
+    },
+    capital: {
+      name: "Capital Mall Release",
+      version: "Version v2.1.0",
+      banner: "Capital Mall",
+      project: "Capital Mall Project",
+      template: "Mall / Indoor Venue",
+      type: "Full Release",
+      status: "Draft",
+      statusBadge: "Draft",
+      badgeClass: "badge-gray",
+      date: "— Not Published",
+      author: "Rahul Mehta",
+      target: "Production",
+      deploy: "— Not Deployed",
+      size: "510 MB"
+    },
+    lakeside: {
+      name: "Lakeside Mall Release",
+      version: "Version v1.8.7",
+      banner: "Lakeside Mall",
+      project: "Lakeside Mall Project",
+      template: "Mall / Indoor Venue",
+      type: "Patch Release",
+      status: "● Failed",
+      statusBadge: "Failed",
+      badgeClass: "badge-red",
+      date: "18 Feb 2025, 11:30 AM",
+      author: "Anjali Sharma",
+      target: "Production",
+      deploy: "3 / 12 Deployment Failed",
+      size: "78 MB"
+    }
+  };
+
+  function selectReleaseRow(key) {
+    document.querySelectorAll('.release-row').forEach(r => r.classList.remove('selected'));
+    const selectedRow = document.getElementById(`rel-${key}`);
+    if (selectedRow) selectedRow.classList.add('selected');
+
+    const data = releaseDatabase[key];
+    if (!data) return;
+
+    document.getElementById('selRelName').textContent = data.name;
+    document.getElementById('selRelVersion').textContent = data.version;
+    document.getElementById('selRelBannerTitle').textContent = data.banner;
+    document.getElementById('selRelProject').textContent = data.project;
+    document.getElementById('selRelTemplate').textContent = data.template;
+    document.getElementById('selRelType').textContent = data.type;
+    document.getElementById('selRelStatus').textContent = data.status;
+    document.getElementById('selRelDate').textContent = data.date;
+    document.getElementById('selRelAuthor').textContent = data.author;
+    document.getElementById('selRelTarget').textContent = data.target;
+    document.getElementById('selRelDeploy').textContent = data.deploy;
+    document.getElementById('selRelSize').textContent = data.size;
+
+    const badge = document.getElementById('selRelStatusBadge');
+    badge.textContent = data.statusBadge;
+    badge.className = `badge ${data.badgeClass}`;
+  }
+
+  function filterReleases() {
+    const val = document.getElementById('releaseSearchInput').value.toLowerCase();
+    const rows = document.querySelectorAll('#releasesDataTable tbody tr');
+    rows.forEach(r => {
+      r.style.display = r.textContent.toLowerCase().includes(val) ? '' : 'none';
+    });
+  }
+
+  function filterTableRows() {
+    const val = document.getElementById('tableFilterInput').value.toLowerCase();
+    const rows = document.querySelectorAll('#releasesDataTable tbody tr');
+    rows.forEach(r => {
+      r.style.display = r.textContent.toLowerCase().includes(val) ? '' : 'none';
+    });
+  }
+
+  function openCreateReleaseModal() {
+    document.getElementById('createReleaseModal').style.display = 'flex';
+  }
+
+  function closeCreateReleaseModal() {
+    document.getElementById('createReleaseModal').style.display = 'none';
+  }
+
+  function openReleaseDetailsModal() {
+    document.getElementById('releaseDetailsModal').style.display = 'flex';
+  }
+
+  function closeReleaseDetailsModal() {
+    document.getElementById('releaseDetailsModal').style.display = 'none';
+  }
+
+  function openPipelineModal() {
+    alert('Release Pipeline: 4 Drafts, 4 Validating, 3 Ready for schedule, 7 Deployed in production, 1 Failed.');
+  }
+
+  function openRollbackModal() {
+    alert('Rollback Management: Stable checkpoint available (Release v2.0.3 / v2.1.0).');
+  }
+
+  function submitCreateRelease() {
+    const relName = document.getElementById('newRelNameInput').value.trim() || 'Custom Release';
+    const relVer = document.getElementById('newRelVersionInput').value.trim() || 'v2.2.0';
+    const relProj = document.getElementById('newRelProjectSelect').value;
+    const relType = document.getElementById('newRelTypeSelect').value;
+
+    totalReleasesCount++;
+    draftReleasesCount++;
+
+    document.getElementById('kpiTotalReleases').textContent = totalReleasesCount;
+    document.getElementById('kpiDraftReleases').textContent = draftReleasesCount;
+
+    // Inject row into table
+    const tableBody = document.getElementById('releasesTableBody');
+    const newRow = document.createElement('tr');
+    newRow.className = 'release-row';
+    newRow.onclick = function() {
+      document.getElementById('selRelName').textContent = relName;
+      document.getElementById('selRelVersion').textContent = `Version ${relVer}`;
+      document.getElementById('selRelProject').textContent = relProj;
+      document.getElementById('selRelType').textContent = relType;
+      document.getElementById('selRelStatus').textContent = 'Ready';
+      document.getElementById('selRelDeploy').textContent = '— Ready for deploy';
+    };
+    newRow.innerHTML = `
+      <td>
+        <div style="display:flex;align-items:center;gap:10px;">
+          <div style="width:32px;height:32px;border-radius:6px;background:linear-gradient(135deg,#3b82f6,#1d4ed8);display:flex;align-items:center;justify-content:center;color:#fff;font-size:13px;flex-shrink:0;">
+            <i class="fa-solid fa-cube"></i>
+          </div>
+          <div>
+            <div style="font-weight:700;color:var(--text-900);font-size:12.5px;">${relName}</div>
+            <div style="font-size:10.5px;color:var(--text-400);">New Validated Release</div>
+          </div>
+        </div>
+      </td>
+      <td><div style="font-weight:700;font-size:12px;color:var(--text-900);">${relVer}</div></td>
+      <td><div style="font-weight:600;font-size:12px;color:var(--text-800);">${relProj}</div><div style="font-size:10.5px;color:var(--text-400);">Mall / Indoor Venue</div></td>
+      <td><span class="badge badge-purple" style="font-size:10px;">${relType}</span></td>
+      <td><span class="badge badge-green" style="font-size:10px;padding:2px 8px;">Ready</span></td>
+      <td style="font-size:11.5px;color:var(--text-700);">Production</td>
+      <td><div style="font-size:11.5px;font-weight:600;color:var(--text-900);">Today</div><div style="font-size:10px;color:var(--text-400);">Just now</div></td>
+      <td><span style="color:var(--text-500);font-size:11.5px;">—</span><div style="font-size:10px;color:var(--text-400);">Ready for Deploy</div></td>
+      <td style="text-align:right;"><button class="btn-icon" style="background:none;border:none;cursor:pointer;color:var(--text-400);font-size:13px;"><i class="fa-solid fa-ellipsis-vertical"></i></button></td>
+    `;
+    tableBody.insertBefore(newRow, tableBody.firstChild);
+
+    document.getElementById('releasesPaginationText').textContent = `Showing 1 to 8 of ${totalReleasesCount} releases`;
+
+    closeCreateReleaseModal();
+  }
+</script>
 </body>
 </html>

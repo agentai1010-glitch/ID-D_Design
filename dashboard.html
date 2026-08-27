@@ -4,13 +4,13 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Company Dashboard · Mall Kiosk Platform</title>
+  <!-- Google Fonts & Font Awesome -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
   <link rel="stylesheet" href="css/styles.css">
   <style>
-    /* Specific styling refinements for Company Dashboard matching reference image */
     .company-stats-grid {
       display: grid;
       grid-template-columns: repeat(6, 1fr);
@@ -63,8 +63,6 @@
       font-weight: 600;
       margin-bottom: 2px;
       white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
     }
     .kpi-number {
       font-size: 24px;
@@ -79,11 +77,10 @@
       white-space: nowrap;
     }
 
-    /* 3-Column Operational Row */
     .operational-grid-3 {
       display: grid;
-      grid-template-columns: 1.15fr 1fr 1.05fr;
-      gap: 18px;
+      grid-template-columns: 1.25fr 1fr 1fr;
+      gap: 20px;
       margin-bottom: 20px;
     }
     @media (max-width: 1200px) {
@@ -95,7 +92,7 @@
     .op-panel {
       background: #ffffff;
       border: 1px solid var(--border);
-      border-radius: 12px;
+      border-radius: 14px;
       box-shadow: 0 1px 3px rgba(15, 23, 42, 0.04);
       display: flex;
       flex-direction: column;
@@ -118,7 +115,6 @@
       flex: 1;
     }
 
-    /* Recent Activity Item */
     .activity-item-row {
       display: flex;
       align-items: center;
@@ -158,43 +154,35 @@
       font-size: 11.5px;
       color: var(--text-400);
       white-space: nowrap;
-      margin-left: auto;
     }
 
-    /* Platform Health Row */
     .health-service-row {
       display: flex;
       align-items: center;
       justify-content: space-between;
-      padding: 12px 0;
+      padding: 9.5px 0;
       border-bottom: 1px solid var(--border-soft);
       font-size: 13px;
-      font-weight: 600;
-      color: var(--text-900);
+      color: var(--text-800);
+      font-weight: 500;
     }
     .health-service-row:last-child {
       border-bottom: none;
       padding-bottom: 0;
     }
-    .health-service-row:first-child {
-      padding-top: 0;
-    }
 
-    /* Kiosk Connectivity Donut */
     .connectivity-wrap {
       display: flex;
       align-items: center;
       justify-content: space-around;
-      gap: 16px;
       height: 100%;
       padding: 10px 0;
     }
 
-    /* Bottom 2-Column Row */
     .bottom-grid-2 {
       display: grid;
-      grid-template-columns: 1.6fr 1fr;
-      gap: 18px;
+      grid-template-columns: 1.8fr 1fr;
+      gap: 20px;
       margin-bottom: 20px;
     }
     @media (max-width: 1100px) {
@@ -203,7 +191,6 @@
       }
     }
 
-    /* Quick Actions 2x3 Grid */
     .quick-actions-grid {
       display: grid;
       grid-template-columns: 1fr 1fr 1fr;
@@ -245,7 +232,6 @@
       line-height: 1.2;
     }
 
-    /* Clean Table Styling */
     .ads-table {
       width: 100%;
       border-collapse: collapse;
@@ -272,7 +258,6 @@
       background: #fafbfd;
     }
 
-    /* Page Footer */
     .company-footer-row {
       display: flex;
       align-items: center;
@@ -502,7 +487,6 @@
           </div>
           <div class="op-panel-body">
             
-            <!-- Item 1 -->
             <div class="activity-item-row">
               <div class="act-circle-icon" style="background:#f5f3ff;color:#7c3aed;">
                 <i class="fa-solid fa-users"></i>
@@ -514,7 +498,6 @@
               <div class="act-time">10:30 AM</div>
             </div>
 
-            <!-- Item 2 -->
             <div class="activity-item-row">
               <div class="act-circle-icon" style="background:#fee2e2;color:#dc2626;">
                 <i class="fa-regular fa-file-lines"></i>
@@ -526,7 +509,6 @@
               <div class="act-time">09:45 AM</div>
             </div>
 
-            <!-- Item 3 -->
             <div class="activity-item-row">
               <div class="act-circle-icon" style="background:#eff6ff;color:#2563eb;">
                 <i class="fa-solid fa-paper-plane"></i>
@@ -538,7 +520,6 @@
               <div class="act-time">Yesterday</div>
             </div>
 
-            <!-- Item 4 -->
             <div class="activity-item-row">
               <div class="act-circle-icon" style="background:#ecfdf5;color:#059669;">
                 <i class="fa-solid fa-desktop"></i>
@@ -550,7 +531,6 @@
               <div class="act-time">Today, 08:15 AM</div>
             </div>
 
-            <!-- Item 5 -->
             <div class="activity-item-row">
               <div class="act-circle-icon" style="background:#fff7ed;color:#ea580c;">
                 <i class="fa-solid fa-palette"></i>
@@ -615,23 +595,16 @@
           <div class="op-panel-body">
             <div class="connectivity-wrap">
               
-              <!-- Donut Chart -->
               <svg width="150" height="150" viewBox="0 0 150 150">
-                <!-- Base Background Ring -->
                 <circle cx="75" cy="75" r="54" fill="none" stroke="#e2e8f0" stroke-width="16"/>
-                <!-- Green Online Segment: 91% (308 of 339.29) -->
                 <circle cx="75" cy="75" r="54" fill="none" stroke="#22c55e" stroke-width="16" 
                         stroke-dasharray="308.7 339.3" stroke-dashoffset="0" transform="rotate(-90 75 75)"/>
-                <!-- Red Offline Segment: 9% (30.6 of 339.29) -->
                 <circle cx="75" cy="75" r="54" fill="none" stroke="#ef4444" stroke-width="16" 
                         stroke-dasharray="30.6 339.3" stroke-dashoffset="-308.7" transform="rotate(-90 75 75)"/>
-                
-                <!-- Center Typography -->
                 <text x="75" y="72" text-anchor="middle" font-size="24" font-weight="800" fill="#0f172a" font-family="'Inter', sans-serif">156</text>
                 <text x="75" y="88" text-anchor="middle" font-size="11.5" font-weight="500" fill="#64748b" font-family="'Inter', sans-serif">Total</text>
               </svg>
 
-              <!-- Legend List -->
               <div style="display:flex;flex-direction:column;gap:12px;">
                 <div style="display:flex;align-items:flex-start;gap:8px;">
                   <span style="width:10px;height:10px;border-radius:50%;background:#22c55e;margin-top:4px;flex-shrink:0;"></span>
@@ -656,10 +629,10 @@
 
       </div>
 
-      <!-- ROW 3: Bottom 2-Column Section (Top Performing Advertisements & Quick Actions) -->
+      <!-- ROW 3: Bottom 2-Column Section -->
       <div class="bottom-grid-2">
 
-        <!-- Column 1: Top Performing Advertisements (Last 7 Days) -->
+        <!-- Column 1: Top Performing Advertisements -->
         <div class="op-panel">
           <div class="op-panel-header">
             <div>
@@ -740,7 +713,6 @@
           <div class="op-panel-body" style="padding:16px;">
             <div class="quick-actions-grid">
               
-              <!-- Action 1: Onboard Client -->
               <a href="onboard-client.html" class="quick-action-card">
                 <div class="quick-action-icon">
                   <i class="fa-solid fa-user-plus"></i>
@@ -748,7 +720,6 @@
                 <div class="quick-action-label">Onboard Client</div>
               </a>
 
-              <!-- Action 2: Create Project -->
               <a href="projects.html" class="quick-action-card">
                 <div class="quick-action-icon">
                   <i class="fa-solid fa-building-circle-check"></i>
@@ -756,7 +727,6 @@
                 <div class="quick-action-label">Create Project</div>
               </a>
 
-              <!-- Action 3: New Request -->
               <a href="requests.html" class="quick-action-card">
                 <div class="quick-action-icon">
                   <i class="fa-solid fa-file-circle-plus"></i>
@@ -764,7 +734,6 @@
                 <div class="quick-action-label">New Request</div>
               </a>
 
-              <!-- Action 4: Experience Studio -->
               <a href="experience-studio.html" class="quick-action-card">
                 <div class="quick-action-icon">
                   <i class="fa-solid fa-palette"></i>
@@ -772,7 +741,6 @@
                 <div class="quick-action-label">Experience Studio</div>
               </a>
 
-              <!-- Action 5: Create Release -->
               <a href="releases.html" class="quick-action-card">
                 <div class="quick-action-icon">
                   <i class="fa-solid fa-rocket"></i>
@@ -780,7 +748,6 @@
                 <div class="quick-action-label">Create Release</div>
               </a>
 
-              <!-- Action 6: Add Device -->
               <a href="devices.html" class="quick-action-card">
                 <div class="quick-action-icon">
                   <i class="fa-solid fa-display"></i>

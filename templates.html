@@ -1,131 +1,1171 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Templates · Kiosk Platform</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-<link rel="stylesheet" href="css/styles.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Templates · Mall Kiosk Platform</title>
+  <!-- Google Fonts & Font Awesome -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="stylesheet" href="css/styles.css">
+  <style>
+    /* Workflow Domain 4 - Templates Specific Styling */
+    .template-kpi-grid {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 16px;
+      margin-bottom: 20px;
+    }
+
+    .kpi-stat-box {
+      background: #ffffff;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 16px;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+    }
+
+    .kpi-icon-square {
+      width: 44px;
+      height: 44px;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+      flex-shrink: 0;
+    }
+
+    .templates-top-split {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) 360px;
+      gap: 20px;
+      align-items: start;
+      margin-bottom: 20px;
+    }
+
+    .template-tab-nav {
+      display: flex;
+      align-items: center;
+      gap: 24px;
+      border-bottom: 1px solid var(--border);
+      padding: 0 4px;
+      margin-bottom: 20px;
+    }
+
+    .tmpl-tab-btn {
+      background: transparent;
+      border: none;
+      border-bottom: 2px solid transparent;
+      padding: 10px 4px 12px 4px;
+      font-size: 13.5px;
+      font-weight: 600;
+      color: var(--text-500);
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .tmpl-tab-btn:hover {
+      color: var(--text-900);
+    }
+
+    .tmpl-tab-btn.active {
+      color: #2563eb;
+      border-bottom-color: #2563eb;
+      font-weight: 700;
+    }
+
+    /* Core Modules Mini Tiles */
+    .module-tile-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 8px;
+    }
+
+    .module-mini-tile {
+      background: #f8fafc;
+      border: 1px solid #e2e8f0;
+      border-radius: 10px;
+      padding: 10px 8px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      gap: 5px;
+      min-height: 64px;
+    }
+
+    .module-mini-tile i {
+      font-size: 15px;
+    }
+
+    .module-mini-tile span {
+      font-size: 10px;
+      font-weight: 700;
+      color: var(--text-800);
+      line-height: 1.1;
+    }
+
+    /* Capabilities list */
+    .capability-row-item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--text-700);
+      padding: 6px 0;
+      border-bottom: 1px solid #f1f5f9;
+    }
+
+    .capability-row-item:last-child {
+      border-bottom: none;
+    }
+
+    .capability-row-item i {
+      font-size: 13px;
+      color: #2563eb;
+      width: 16px;
+      text-align: center;
+    }
+
+    /* Theme Mini Cards in Overview */
+    .theme-thumb-card {
+      background: #ffffff;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .theme-thumb-card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+      border-color: #93c5fd;
+    }
+
+    .theme-thumb-img-wrap {
+      height: 70px;
+      width: 100%;
+      position: relative;
+    }
+
+    /* Client Round Tiles */
+    .client-avatar-tile {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 4px;
+      cursor: pointer;
+      text-align: center;
+    }
+
+    .client-avatar-circle {
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 14px;
+      border: 1px solid #e2e8f0;
+    }
+  </style>
 </head>
 <body>
 <div class="app-shell">
-<aside class="sidebar">
-  <a href="dashboard.html" class="sidebar-brand" style="cursor:pointer;">
-    <div class="logo-icon"><svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-<path d="M12 2L21 7V17L12 22L3 17V7L12 2Z" stroke="white" stroke-width="1.6" stroke-linejoin="round"/>
-<circle cx="12" cy="12" r="3.2" fill="white"/>
-</svg></div>
-    <div class="brand-text"><div class="t1">KIOSK</div><div class="t2">PLATFORM</div></div>
-  </a>
-  <div class="sidebar-section-label">PLATFORM ADMIN <i class="fa-solid fa-chevron-up" style="font-size:9px;"></i></div>
-  <ul class="sidebar-nav">
-  <li class="nav-item " onclick="location.href='dashboard.html'"><i class="fa-solid fa-house"></i><span>Dashboard</span></li>
-<li class="nav-item " onclick="location.href='clients.html'"><i class="fa-solid fa-user-group"></i><span>Clients</span></li>
-<li class="nav-item " onclick="location.href='projects.html'"><i class="fa-solid fa-folder-open"></i><span>Projects</span></li>
-<li class="nav-item " onclick="location.href='devices.html'"><i class="fa-solid fa-tablet-screen-button"></i><span>Devices</span></li>
-<li class="nav-item active" onclick="location.href='templates.html'"><i class="fa-solid fa-table-cells-large"></i><span>Templates</span></li>
-<li class="nav-item " onclick="location.href='analytics.html'"><i class="fa-solid fa-chart-column"></i><span>Analytics</span></li>
-<li class="nav-item " onclick="location.href='monitoring.html'"><i class="fa-solid fa-heart-pulse"></i><span>Monitoring</span></li>
-<li class="nav-item " onclick="location.href='users-roles.html'"><i class="fa-solid fa-users-gear"></i><span>Users & Roles</span></li>
-<li class="nav-item " onclick="location.href='billing.html'"><i class="fa-solid fa-credit-card"></i><span>Billing & Plans</span></li>
-<li class="nav-item " onclick="location.href='audit-logs.html'"><i class="fa-solid fa-file-lines"></i><span>Audit Logs</span></li>
-<li class="nav-item " onclick="location.href='system-settings.html'"><i class="fa-solid fa-gear"></i><span>System Settings</span></li>
 
-  </ul>
-  <div class="sidebar-spacer"></div>
-  <div class="sidebar-status">
-    <div class="st-title">System Status</div>
-    <div class="st-row"><span class="st-dot"></span> All Systems Operational</div>
-    <div class="st-sub">Last checked: 2 min ago</div>
-    <a href="monitoring.html">View System Health</a>
-  </div>
-  <div class="sidebar-quick">
-    <div class="qa-title">Quick Actions</div>
-    <a class="qa-item" href="onboard-client.html"><i class="fa-solid fa-user-plus"></i> Onboard New Client</a>
-    <a class="qa-item" href="clients.html"><i class="fa-solid fa-cube"></i> View Clients</a>
-    <a class="qa-item" href="devices.html"><i class="fa-solid fa-tablet-screen-button"></i> View Devices</a>
-    <a class="qa-item" href="monitoring.html"><i class="fa-solid fa-triangle-exclamation"></i> View Alerts</a>
-  </div>
-  <div class="sidebar-footer">Kiosk Platform v1.0.0</div>
-</aside>
-<div class="main"><header class="topbar">
-  <i class="fa-solid fa-bars hamburger"></i>
-  <div class="search"><i class="fa-solid fa-magnifying-glass"></i><span>Search clients, projects, devices...</span><span class="kbd">⌘K</span></div>
-  <div class="spacer"></div>
-  <button class="icon-btn"><i class="fa-regular fa-circle-question"></i></button>
-  <button class="icon-btn"><i class="fa-regular fa-bell"></i><span class="badge-dot">12</span></button>
-  <div class="user">
-    <div class="avatar">SA</div>
-    <div><div class="u-name">Super Admin</div><div class="u-role">Platform Administrator</div></div>
-    <i class="fa-solid fa-chevron-down"></i>
-  </div>
-</header>
-<div class="content">
-<div class="page-header">
-  <div><h1>Templates</h1><p>Manage platform templates and their availability for clients</p></div>
-</div>
-<div class="info-note" style="margin-top:-10px;"><i class="fa-solid fa-circle-info"></i> Templates are created and maintained by the Platform team. Company Admins manage their lifecycle and availability.</div>
+  <!-- =========================================================================
+       COMPANY ADMIN GLOBAL SIDEBAR
+       ========================================================================= -->
+  <aside class="sidebar">
+    <a href="dashboard.html" class="sidebar-brand" style="cursor:pointer;text-decoration:none;">
+      <div class="logo-icon" style="background:linear-gradient(135deg,#3b82f6,#1d4ed8);border-radius:10px;">
+        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style="width:20px;height:20px;">
+          <path d="M4 21V9l8-6 8 6v12H4z" stroke="white" stroke-width="1.8" stroke-linejoin="round"/>
+          <path d="M9 21V12h6v9" stroke="white" stroke-width="1.8"/>
+          <path d="M12 3v4" stroke="white" stroke-width="1.8"/>
+        </svg>
+      </div>
+      <div class="brand-text">
+        <div class="t1" style="font-size:14px;font-weight:700;color:#ffffff;line-height:1.2;">Mall Kiosk Platform</div>
+        <div class="t2" style="font-size:11px;color:#94a3b8;font-weight:500;">Company Admin</div>
+      </div>
+    </a>
 
-<div class="stats-grid">
-  <div class="stat-card"><div class="icon icon-blue"><i class="fa-solid fa-folder"></i></div><div class="body"><div class="label">Total Templates</div><div class="value">1</div><div class="sub">All templates</div></div></div>
-  <div class="stat-card"><div class="icon icon-green"><i class="fa-solid fa-shield-halved"></i></div><div class="body"><div class="label">Active Templates</div><div class="value">1</div><div class="sub">Available for clients</div></div></div>
-  <div class="stat-card"><div class="icon icon-purple"><i class="fa-solid fa-people-group"></i></div><div class="body"><div class="label">Unavailable Templates</div><div class="value">0</div><div class="sub">Not available for clients</div></div></div>
-  <div class="stat-card"><div class="icon icon-amber"><i class="fa-solid fa-shield"></i></div><div class="body"><div class="label">Total Themes</div><div class="value">5</div><div class="sub">Across all templates</div></div></div>
-  <div class="stat-card"><div class="icon icon-green"><i class="fa-solid fa-table-cells"></i></div><div class="body"><div class="label">Clients Using Templates</div><div class="value">8</div><div class="sub">Active clients</div></div></div>
-</div>
+    <ul class="sidebar-nav">
+      <li class="nav-item" onclick="location.href='dashboard.html'"><i class="fa-solid fa-house"></i><span>Dashboard</span></li>
+      <li class="nav-item" onclick="location.href='clients.html'"><i class="fa-solid fa-user-group"></i><span>Clients</span></li>
+      <li class="nav-item" onclick="location.href='onboard-client.html'"><i class="fa-solid fa-wand-magic-sparkles"></i><span>Onboarding</span></li>
+      <li class="nav-item active" onclick="location.href='templates.html'"><i class="fa-regular fa-file-lines"></i><span>Templates</span></li>
+      <li class="nav-item" onclick="location.href='projects.html'"><i class="fa-solid fa-folder-open"></i><span>Projects</span></li>
+      <li class="nav-item" onclick="location.href='requests.html'" style="display:flex;align-items:center;justify-content:space-between;">
+        <div style="display:flex;align-items:center;gap:10px;"><i class="fa-regular fa-clipboard"></i><span>Requests</span></div>
+        <span class="badge" style="background:#2563eb;color:#fff;font-size:10px;padding:2px 7px;border-radius:999px;font-weight:700;">16</span>
+      </li>
+      <li class="nav-item" onclick="location.href='experience-studio.html'"><i class="fa-solid fa-palette"></i><span>Experience Studio</span></li>
+      <li class="nav-item" onclick="location.href='releases.html'"><i class="fa-solid fa-rocket"></i><span>Releases</span></li>
+      <li class="nav-item" onclick="location.href='devices.html'"><i class="fa-solid fa-display"></i><span>Devices</span></li>
+      <li class="nav-item" onclick="location.href='monitoring.html'"><i class="fa-solid fa-chart-line"></i><span>Monitoring</span></li>
+      <li class="nav-item" onclick="location.href='analytics.html'"><i class="fa-solid fa-chart-column"></i><span>Analytics</span></li>
+      <li class="nav-item" onclick="location.href='system-settings.html'"><i class="fa-solid fa-gear"></i><span>Settings</span></li>
+      <li class="nav-item" onclick="location.href='users-roles.html'"><i class="fa-solid fa-user-shield"></i><span>Users & Roles</span></li>
+    </ul>
 
-<div class="panel">
-  <div class="panel-header">
-    <div><h2>All Templates</h2><p>View and manage templates that are available on the platform</p></div>
-    <div class="filters">
-      <div class="search-input"><i class="fa-solid fa-magnifying-glass"></i><span>Search templates...</span></div>
-      <button class="btn"><i class="fa-solid fa-filter"></i> Filter</button>
+    <div class="sidebar-spacer"></div>
+    <div class="sidebar-collapse-btn" style="display:flex;align-items:center;gap:8px;padding:10px 12px;color:#94a3b8;font-size:13px;cursor:pointer;">
+      <i class="fa-solid fa-chevron-left" style="font-size:11px;"></i>
+      <span>Collapse</span>
+    </div>
+  </aside>
+
+  <!-- =========================================================================
+       MAIN WORKSPACE
+       ========================================================================= -->
+  <div class="main">
+
+    <!-- Topbar Header -->
+    <header class="topbar">
+      <div style="display:flex;align-items:center;gap:14px;">
+        <i class="fa-solid fa-bars hamburger"></i>
+        <div>
+          <h1 style="font-size:19px;font-weight:800;color:var(--text-900);margin:0;line-height:1.2;">Templates</h1>
+          <div style="font-size:11.5px;color:var(--text-500);display:flex;align-items:center;gap:6px;margin-top:2px;">
+            <a href="dashboard.html" style="color:var(--text-500);text-decoration:none;">Dashboard</a>
+            <i class="fa-solid fa-chevron-right" style="font-size:8px;"></i>
+            <span style="color:var(--text-900);font-weight:600;">Templates</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="spacer"></div>
+
+      <!-- Search Input -->
+      <div style="position:relative;width:320px;">
+        <input type="text" class="form-control" placeholder="Search templates, features..." style="padding-right:36px;border-radius:8px;font-size:13px;">
+        <i class="fa-solid fa-magnifying-glass" style="position:absolute;right:12px;top:50%;transform:translateY(-50%);color:var(--text-400);font-size:13px;"></i>
+      </div>
+
+      <!-- Notification Bell -->
+      <button class="icon-btn" style="position:relative;">
+        <i class="fa-regular fa-bell"></i>
+        <span class="badge-dot" style="position:absolute;top:3px;right:3px;background:#ef4444;color:#fff;font-size:9px;font-weight:700;border-radius:50%;width:15px;height:15px;display:flex;align-items:center;justify-content:center;">12</span>
+      </button>
+
+      <!-- Profile -->
+      <div class="user">
+        <div class="avatar" style="background:#1e293b;color:#fff;font-weight:700;font-size:12px;">CA</div>
+        <div>
+          <div class="u-name" style="font-size:13px;font-weight:700;color:var(--text-900);">Company Admin</div>
+        </div>
+        <i class="fa-solid fa-chevron-down" style="font-size:10px;color:var(--text-400);"></i>
+      </div>
+    </header>
+
+    <!-- Page Content Container -->
+    <div class="content" style="padding:24px 28px;">
+
+      <!-- Top Row Header with Direct Action Button -->
+      <div style="display:flex;justify-content:flex-end;margin-bottom:16px;">
+        <a href="kiosk/home.html" target="_blank" class="btn btn-primary" style="background:#2563eb;color:#fff;font-weight:700;padding:9px 18px;border-radius:8px;text-decoration:none;box-shadow:0 2px 6px rgba(37,99,235,0.3);font-size:13px;">
+          View Template Experience
+        </a>
+      </div>
+
+      <!-- =====================================================================
+           ROW 1: 5 KPI SUMMARY CARDS
+           ===================================================================== -->
+      <div class="template-kpi-grid">
+        
+        <!-- 1. Total Templates -->
+        <div class="kpi-stat-box">
+          <div class="kpi-icon-square" style="background:#eff6ff;color:#2563eb;border:1px solid #dbeafe;">
+            <i class="fa-solid fa-building"></i>
+          </div>
+          <div>
+            <div style="font-size:11.5px;font-weight:600;color:var(--text-500);text-transform:uppercase;letter-spacing:0.4px;">Total Templates</div>
+            <div style="font-size:22px;font-weight:800;color:var(--text-900);line-height:1.1;margin:2px 0;">1</div>
+            <div style="font-size:11px;color:var(--text-400);">Active: 1 &nbsp; Inactive: 0</div>
+          </div>
+        </div>
+
+        <!-- 2. Assigned Clients -->
+        <div class="kpi-stat-box">
+          <div class="kpi-icon-square" style="background:#f5f3ff;color:#7c3aed;border:1px solid #ede9fe;">
+            <i class="fa-solid fa-user-group"></i>
+          </div>
+          <div>
+            <div style="font-size:11.5px;font-weight:600;color:var(--text-500);text-transform:uppercase;letter-spacing:0.4px;">Assigned Clients</div>
+            <div style="font-size:22px;font-weight:800;color:var(--text-900);line-height:1.1;margin:2px 0;">18</div>
+            <div style="font-size:11px;color:var(--text-400);">Active: 18 &nbsp; Inactive: 0</div>
+          </div>
+        </div>
+
+        <!-- 3. Active Projects -->
+        <div class="kpi-stat-box">
+          <div class="kpi-icon-square" style="background:#eff6ff;color:#3b82f6;border:1px solid #dbeafe;">
+            <i class="fa-solid fa-folder-open"></i>
+          </div>
+          <div>
+            <div style="font-size:11.5px;font-weight:600;color:var(--text-500);text-transform:uppercase;letter-spacing:0.4px;">Active Projects</div>
+            <div style="font-size:22px;font-weight:800;color:var(--text-900);line-height:1.1;margin:2px 0;">27</div>
+            <div style="font-size:11px;color:var(--text-400);">Total Projects</div>
+          </div>
+        </div>
+
+        <!-- 4. Available Themes -->
+        <div class="kpi-stat-box">
+          <div class="kpi-icon-square" style="background:#fff7ed;color:#ea580c;border:1px solid #ffedd5;">
+            <i class="fa-solid fa-palette"></i>
+          </div>
+          <div>
+            <div style="font-size:11.5px;font-weight:600;color:var(--text-500);text-transform:uppercase;letter-spacing:0.4px;">Available Themes</div>
+            <div style="font-size:22px;font-weight:800;color:var(--text-900);line-height:1.1;margin:2px 0;">4</div>
+            <div style="font-size:11px;color:var(--text-400);">Across All Clients</div>
+          </div>
+        </div>
+
+        <!-- 5. Latest Version -->
+        <div class="kpi-stat-box">
+          <div class="kpi-icon-square" style="background:#f0fdfa;color:#0d9488;border:1px solid #ccfbf1;">
+            <i class="fa-solid fa-cloud-arrow-down"></i>
+          </div>
+          <div>
+            <div style="font-size:11.5px;font-weight:600;color:var(--text-500);text-transform:uppercase;letter-spacing:0.4px;">Latest Version</div>
+            <div style="font-size:22px;font-weight:800;color:var(--text-900);line-height:1.1;margin:2px 0;">v2.1</div>
+            <div style="font-size:11px;color:var(--text-400);">Released: 28 Apr 2025</div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- =====================================================================
+           ROW 2: 2-COLUMN SPLIT (TEMPLATES TABLE & PREVIEW CARD)
+           ===================================================================== -->
+      <div class="templates-top-split">
+
+        <!-- Left Table Container -->
+        <div class="panel" style="margin:0;padding:20px;">
+          <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;">
+            <h2 style="font-size:15px;font-weight:800;color:var(--text-900);margin:0;">Templates</h2>
+            <div style="display:flex;align-items:center;gap:10px;">
+              <div style="position:relative;width:200px;">
+                <input type="text" class="form-control" placeholder="Search templates..." style="padding:6px 28px 6px 12px;font-size:12px;">
+                <i class="fa-solid fa-magnifying-glass" style="position:absolute;right:10px;top:50%;transform:translateY(-50%);font-size:11px;color:var(--text-400);"></i>
+              </div>
+              <button class="btn" style="padding:6px 12px;font-size:12px;font-weight:600;"><i class="fa-solid fa-filter"></i> Filters <i class="fa-solid fa-chevron-down" style="font-size:9px;"></i></button>
+              <button class="btn" style="padding:6px 12px;font-size:12px;font-weight:600;"><i class="fa-solid fa-arrow-up-from-bracket"></i> Export <i class="fa-solid fa-chevron-down" style="font-size:9px;"></i></button>
+            </div>
+          </div>
+
+          <div class="table-wrap">
+            <table id="templatesDataTable">
+              <thead>
+                <tr>
+                  <th>Template Name</th>
+                  <th>Category</th>
+                  <th>Version</th>
+                  <th>Status</th>
+                  <th>Assigned Clients</th>
+                  <th>Active Projects</th>
+                  <th>Themes</th>
+                  <th>Last Updated</th>
+                  <th style="text-align:right;">Actions</th>
+                </tr>
+              </thead>
+              <tbody>
+                <!-- Primary Row: Mall / Indoor Venue -->
+                <tr style="cursor:pointer;background:#f8faff;" onclick="selectTemplateContext('Mall / Indoor Venue')">
+                  <td>
+                    <div style="display:flex;align-items:center;gap:12px;">
+                      <div style="width:40px;height:40px;border-radius:8px;overflow:hidden;background:#1e293b;flex-shrink:0;border:1px solid var(--border);">
+                        <!-- Mall thumbnail icon -->
+                        <div style="width:100%;height:100%;background:linear-gradient(135deg,#3b82f6,#1d4ed8);display:flex;align-items:center;justify-content:center;color:#fff;font-size:16px;">
+                          <i class="fa-solid fa-building"></i>
+                        </div>
+                      </div>
+                      <div>
+                        <div style="font-weight:700;color:var(--text-900);font-size:13px;">Mall / Indoor Venue</div>
+                        <div style="font-size:11px;color:var(--text-500);max-width:240px;line-height:1.3;">Complete solution for shopping malls and indoor venues.</div>
+                      </div>
+                    </div>
+                  </td>
+                  <td><span class="badge badge-purple" style="font-size:11px;font-weight:600;">Mall</span></td>
+                  <td style="font-weight:700;color:var(--text-800);">v2.1</td>
+                  <td><span class="badge badge-green" style="font-size:10.5px;padding:2px 8px;"><span class="dot"></span> Active</span></td>
+                  <td style="font-weight:700;text-align:center;">18</td>
+                  <td style="font-weight:700;text-align:center;">27</td>
+                  <td style="font-weight:700;text-align:center;">4</td>
+                  <td style="font-size:11.5px;color:var(--text-500);">28 Apr 2025</td>
+                  <td style="text-align:right;">
+                    <button class="btn-icon" style="background:none;border:none;cursor:pointer;color:var(--text-400);font-size:14px;"><i class="fa-solid fa-ellipsis-vertical"></i></button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <!-- Pagination Bar -->
+          <div style="display:flex;align-items:center;justify-content:space-between;margin-top:16px;padding-top:12px;border-top:1px solid var(--border-soft);font-size:12px;color:var(--text-400);">
+            <div>Showing 1 to 1 of 1 template</div>
+            <div style="display:flex;align-items:center;gap:6px;">
+              <button class="btn" style="padding:4px 8px;font-size:11px;background:#f8fafc;" disabled><i class="fa-solid fa-chevron-left"></i></button>
+              <button class="btn btn-primary" style="padding:4px 10px;font-size:11px;background:#2563eb;color:#fff;">1</button>
+              <button class="btn" style="padding:4px 8px;font-size:11px;background:#f8fafc;" disabled><i class="fa-solid fa-chevron-right"></i></button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right Side Template Details Preview Card -->
+        <div class="panel" style="margin:0;padding:20px;display:flex;flex-direction:column;justify-content:space-between;">
+          <div>
+            <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;">
+              <h3 style="font-size:14px;font-weight:800;color:var(--text-900);margin:0;">Template Details</h3>
+              <span class="badge badge-green" style="font-size:10px;">Active</span>
+            </div>
+
+            <!-- Hero Banner Artwork -->
+            <div style="height:120px;border-radius:10px;overflow:hidden;margin-bottom:14px;background:linear-gradient(135deg, #1e293b, #0f172a);display:flex;align-items:center;justify-content:center;position:relative;border:1px solid var(--border);">
+              <div style="text-align:center;padding:16px;">
+                <div style="font-size:24px;color:#fde047;margin-bottom:4px;"><i class="fa-solid fa-building"></i></div>
+                <div style="font-size:15px;font-weight:800;color:#ffffff;letter-spacing:0.5px;">Mall / Indoor Venue</div>
+                <div style="font-size:11px;color:rgba(255,255,255,0.7);">Kiosk Experience Template</div>
+              </div>
+            </div>
+
+            <h4 style="font-size:15px;font-weight:800;color:var(--text-900);margin:0 0 2px;">Mall / Indoor Venue</h4>
+            <div style="font-size:11.5px;color:var(--text-400);margin-bottom:12px;">Version 2.1</div>
+
+            <div style="display:flex;flex-direction:column;gap:8px;font-size:12px;">
+              <div style="display:flex;justify-content:space-between;">
+                <span style="color:var(--text-500);display:flex;align-items:center;gap:6px;"><i class="fa-regular fa-folder" style="font-size:11px;"></i> Category</span>
+                <span style="font-weight:700;color:var(--text-900);">Mall</span>
+              </div>
+              <div style="display:flex;justify-content:space-between;">
+                <span style="color:var(--text-500);display:flex;align-items:center;gap:6px;"><i class="fa-regular fa-file-lines" style="font-size:11px;"></i> Description</span>
+                <span style="font-weight:600;color:var(--text-800);text-align:right;max-width:180px;line-height:1.2;">End-to-end kiosk solution for malls and indoor venues.</span>
+              </div>
+              <div style="display:flex;justify-content:space-between;">
+                <span style="color:var(--text-500);display:flex;align-items:center;gap:6px;"><i class="fa-regular fa-clock" style="font-size:11px;"></i> Latest Version</span>
+                <span style="font-weight:700;color:var(--text-900);">v2.1</span>
+              </div>
+              <div style="display:flex;justify-content:space-between;">
+                <span style="color:var(--text-500);display:flex;align-items:center;gap:6px;"><i class="fa-regular fa-calendar-check" style="font-size:11px;"></i> Released On</span>
+                <span style="font-weight:600;color:var(--text-800);">28 Apr 2025</span>
+              </div>
+              <div style="display:flex;justify-content:space-between;">
+                <span style="color:var(--text-500);display:flex;align-items:center;gap:6px;"><i class="fa-solid fa-code" style="font-size:11px;"></i> Developed By</span>
+                <span style="font-weight:600;color:var(--text-800);">Product Engineering Team</span>
+              </div>
+              <div style="display:flex;justify-content:space-between;">
+                <span style="color:var(--text-500);display:flex;align-items:center;gap:6px;"><i class="fa-solid fa-user-group" style="font-size:11px;"></i> Assigned Clients</span>
+                <span style="font-weight:700;color:var(--text-900);">18</span>
+              </div>
+              <div style="display:flex;justify-content:space-between;">
+                <span style="color:var(--text-500);display:flex;align-items:center;gap:6px;"><i class="fa-solid fa-rocket" style="font-size:11px;"></i> Active Projects</span>
+                <span style="font-weight:700;color:var(--text-900);">27</span>
+              </div>
+              <div style="display:flex;justify-content:space-between;">
+                <span style="color:var(--text-500);display:flex;align-items:center;gap:6px;"><i class="fa-solid fa-palette" style="font-size:11px;"></i> Available Themes</span>
+                <span style="font-weight:700;color:var(--text-900);">4</span>
+              </div>
+            </div>
+          </div>
+
+          <div style="margin-top:16px;padding-top:14px;border-top:1px solid var(--border-soft);">
+            <button class="btn" style="width:100%;justify-content:center;font-weight:700;font-size:12.5px;padding:8px 0;" onclick="switchTemplateTab('overview')">
+              View Full Details
+            </button>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- =====================================================================
+           ROW 3: 7-TAB TEMPLATE DETAILS CONTAINER
+           ===================================================================== -->
+      <div class="panel" style="padding:22px;">
+
+        <!-- Horizontal Sub-Tabs -->
+        <div class="template-tab-nav">
+          <button class="tmpl-tab-btn active" id="tabBtnOverview" onclick="switchTemplateTab('overview')">Overview</button>
+          <button class="tmpl-tab-btn" id="tabBtnExperience" onclick="switchTemplateTab('experience')">Template Experience</button>
+          <button class="tmpl-tab-btn" id="tabBtnFeatures" onclick="switchTemplateTab('features')">Features & Capabilities</button>
+          <button class="tmpl-tab-btn" id="tabBtnThemes" onclick="switchTemplateTab('themes')">Themes</button>
+          <button class="tmpl-tab-btn" id="tabBtnClients" onclick="switchTemplateTab('clients')">Clients</button>
+          <button class="tmpl-tab-btn" id="tabBtnProjects" onclick="switchTemplateTab('projects')">Projects</button>
+          <button class="tmpl-tab-btn" id="tabBtnChangelog" onclick="switchTemplateTab('changelog')">Changelog</button>
+        </div>
+
+        <!-- ===================================================================
+             TAB PANE 1: OVERVIEW (4-COLUMN GRID matching exact reference)
+             =================================================================== -->
+        <div class="template-tab-pane" id="paneOverview">
+          <div style="display:grid;grid-template-columns:1.1fr 1.35fr 1.2fr 1.35fr;gap:20px;align-items:start;">
+
+            <!-- Column 1: About This Template -->
+            <div>
+              <h3 style="font-size:13.5px;font-weight:800;color:var(--text-900);margin:0 0 8px;">About This Template</h3>
+              <p style="font-size:12px;color:var(--text-600);line-height:1.45;margin:0 0 14px;">
+                Mall / Indoor Venue template provides a complete, production-ready kiosk experience for shopping malls, retail complexes, and indoor venues.
+              </p>
+
+              <div style="display:flex;flex-direction:column;gap:8px;">
+                <div style="display:flex;align-items:center;gap:8px;font-size:12px;color:var(--text-800);font-weight:600;">
+                  <i class="fa-solid fa-circle-check" style="color:#10b981;"></i>
+                  <span>Complete Visitor Journey</span>
+                </div>
+                <div style="display:flex;align-items:center;gap:8px;font-size:12px;color:var(--text-800);font-weight:600;">
+                  <i class="fa-solid fa-circle-check" style="color:#10b981;"></i>
+                  <span>2.5D Interactive Navigation</span>
+                </div>
+                <div style="display:flex;align-items:center;gap:8px;font-size:12px;color:var(--text-800);font-weight:600;">
+                  <i class="fa-solid fa-circle-check" style="color:#10b981;"></i>
+                  <span>Advertisement Engine</span>
+                </div>
+                <div style="display:flex;align-items:center;gap:8px;font-size:12px;color:var(--text-800);font-weight:600;">
+                  <i class="fa-solid fa-circle-check" style="color:#10b981;"></i>
+                  <span>Real-time Content Management</span>
+                </div>
+                <div style="display:flex;align-items:center;gap:8px;font-size:12px;color:var(--text-800);font-weight:600;">
+                  <i class="fa-solid fa-circle-check" style="color:#10b981;"></i>
+                  <span>Feedback & Engagement</span>
+                </div>
+                <div style="display:flex;align-items:center;gap:8px;font-size:12px;color:var(--text-800);font-weight:600;">
+                  <i class="fa-solid fa-circle-check" style="color:#10b981;"></i>
+                  <span>Analytics & Insights</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Column 2: Core Modules (12 Tiles) -->
+            <div>
+              <h3 style="font-size:13.5px;font-weight:800;color:var(--text-900);margin:0 0 10px;">Core Modules</h3>
+              <div class="module-tile-grid">
+                <div class="module-mini-tile">
+                  <i class="fa-solid fa-house" style="color:#f97316;"></i>
+                  <span>Home Experience</span>
+                </div>
+                <div class="module-mini-tile">
+                  <i class="fa-solid fa-magnifying-glass" style="color:#10b981;"></i>
+                  <span>Search & Directory</span>
+                </div>
+                <div class="module-mini-tile">
+                  <i class="fa-solid fa-store" style="color:#3b82f6;"></i>
+                  <span>Stores & Brands</span>
+                </div>
+                <div class="module-mini-tile">
+                  <i class="fa-solid fa-circle-check" style="color:#059669;"></i>
+                  <span>Amenities</span>
+                </div>
+                <div class="module-mini-tile">
+                  <i class="fa-solid fa-calendar-days" style="color:#ec4899;"></i>
+                  <span>Events</span>
+                </div>
+                <div class="module-mini-tile">
+                  <i class="fa-solid fa-film" style="color:#8b5cf6;"></i>
+                  <span>Movies</span>
+                </div>
+                <div class="module-mini-tile">
+                  <i class="fa-solid fa-tags" style="color:#eab308;"></i>
+                  <span>Offers & Deals</span>
+                </div>
+                <div class="module-mini-tile">
+                  <i class="fa-solid fa-location-dot" style="color:#0d9488;"></i>
+                  <span>Map & Navigation</span>
+                </div>
+                <div class="module-mini-tile">
+                  <i class="fa-solid fa-bullhorn" style="color:#f43f5e;"></i>
+                  <span>Advertisement Experience</span>
+                </div>
+                <div class="module-mini-tile">
+                  <i class="fa-solid fa-comment-dots" style="color:#2563eb;"></i>
+                  <span>Feedback</span>
+                </div>
+                <div class="module-mini-tile">
+                  <i class="fa-solid fa-qrcode" style="color:#0284c7;"></i>
+                  <span>QR & Share</span>
+                </div>
+                <div class="module-mini-tile">
+                  <i class="fa-solid fa-gear" style="color:#475569;"></i>
+                  <span>Settings</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Column 3: Key Capabilities -->
+            <div>
+              <h3 style="font-size:13.5px;font-weight:800;color:var(--text-900);margin:0 0 10px;">Key Capabilities</h3>
+              <div style="display:flex;flex-direction:column;">
+                <div class="capability-row-item">
+                  <i class="fa-solid fa-language"></i>
+                  <span>Multi-language Support</span>
+                </div>
+                <div class="capability-row-item">
+                  <i class="fa-solid fa-map-location-dot"></i>
+                  <span>2.5D Indoor Maps</span>
+                </div>
+                <div class="capability-row-item">
+                  <i class="fa-solid fa-route"></i>
+                  <span>Shortest Path Navigation</span>
+                </div>
+                <div class="capability-row-item">
+                  <i class="fa-solid fa-display"></i>
+                  <span>Dynamic Advertisement Placement</span>
+                </div>
+                <div class="capability-row-item">
+                  <i class="fa-solid fa-users-gear"></i>
+                  <span>Content Personalization</span>
+                </div>
+                <div class="capability-row-item">
+                  <i class="fa-solid fa-rotate"></i>
+                  <span>Real-time Synchronization</span>
+                </div>
+                <div class="capability-row-item">
+                  <i class="fa-solid fa-shield-halved"></i>
+                  <span>Offline-First Architecture</span>
+                </div>
+                <div class="capability-row-item">
+                  <i class="fa-solid fa-chart-pie"></i>
+                  <span>Comprehensive Analytics</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Column 4: Available Themes (4) & Assigned Clients -->
+            <div style="display:flex;flex-direction:column;gap:18px;">
+              
+              <!-- Available Themes Stack -->
+              <div>
+                <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px;">
+                  <h3 style="font-size:13.5px;font-weight:800;color:var(--text-900);margin:0;">Available Themes (4)</h3>
+                  <a href="javascript:void(0)" onclick="switchTemplateTab('themes')" class="link-blue" style="font-size:11.5px;font-weight:700;">View All</a>
+                </div>
+
+                <div style="display:grid;grid-template-columns:repeat(4, 1fr);gap:8px;">
+                  <!-- Theme 1: Default Mall -->
+                  <div class="theme-thumb-card" onclick="openThemeModal('Default Mall')">
+                    <div class="theme-thumb-img-wrap" style="background:linear-gradient(135deg,#1e293b,#0f172a);display:flex;align-items:center;justify-content:center;color:#e2b062;font-size:16px;">
+                      <i class="fa-solid fa-crown"></i>
+                    </div>
+                    <div style="padding:6px;text-align:center;">
+                      <div style="font-size:10px;font-weight:700;color:var(--text-900);line-height:1.1;">Default Mall</div>
+                      <span class="badge badge-green" style="font-size:8px;padding:1px 4px;margin-top:2px;">Active</span>
+                    </div>
+                  </div>
+
+                  <!-- Theme 2: Diwali 2024 -->
+                  <div class="theme-thumb-card" onclick="openThemeModal('Diwali 2024')">
+                    <div class="theme-thumb-img-wrap" style="background:linear-gradient(135deg,#4c1d95,#7c3aed,#fbbf24);display:flex;align-items:center;justify-content:center;color:#fbbf24;font-size:16px;">
+                      <i class="fa-solid fa-fire-flame-curved"></i>
+                    </div>
+                    <div style="padding:6px;text-align:center;">
+                      <div style="font-size:10px;font-weight:700;color:var(--text-900);line-height:1.1;">Diwali 2024</div>
+                      <span class="badge badge-green" style="font-size:8px;padding:1px 4px;margin-top:2px;">Active</span>
+                    </div>
+                  </div>
+
+                  <!-- Theme 3: New Year 2025 -->
+                  <div class="theme-thumb-card" onclick="openThemeModal('New Year 2025')">
+                    <div class="theme-thumb-img-wrap" style="background:linear-gradient(135deg,#0369a1,#0284c7,#38bdf8);display:flex;align-items:center;justify-content:center;color:#fff;font-size:16px;">
+                      <i class="fa-solid fa-champagne-glasses"></i>
+                    </div>
+                    <div style="padding:6px;text-align:center;">
+                      <div style="font-size:10px;font-weight:700;color:var(--text-900);line-height:1.1;">New Year 2025</div>
+                      <span class="badge badge-gray" style="font-size:8px;padding:1px 4px;margin-top:2px;">Inactive</span>
+                    </div>
+                  </div>
+
+                  <!-- Theme 4: Christmas 2024 -->
+                  <div class="theme-thumb-card" onclick="openThemeModal('Christmas 2024')">
+                    <div class="theme-thumb-img-wrap" style="background:linear-gradient(135deg,#14532d,#16a34a,#dc2626);display:flex;align-items:center;justify-content:center;color:#fef08a;font-size:16px;">
+                      <i class="fa-solid fa-tree"></i>
+                    </div>
+                    <div style="padding:6px;text-align:center;">
+                      <div style="font-size:10px;font-weight:700;color:var(--text-900);line-height:1.1;">Christmas 2024</div>
+                      <span class="badge badge-gray" style="font-size:8px;padding:1px 4px;margin-top:2px;">Inactive</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Assigned Clients Stack -->
+              <div>
+                <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;">
+                  <h3 style="font-size:13.5px;font-weight:800;color:var(--text-900);margin:0;">Assigned Clients</h3>
+                  <a href="javascript:void(0)" onclick="switchTemplateTab('clients')" class="link-blue" style="font-size:11.5px;font-weight:700;">View All</a>
+                </div>
+
+                <div style="display:flex;align-items:center;gap:12px;flex-wrap:wrap;">
+                  <div class="client-avatar-tile" onclick="location.href='client-detail.html'">
+                    <div class="client-avatar-circle" style="background:#eff6ff;color:#2563eb;">
+                      <i class="fa-solid fa-dove"></i>
+                    </div>
+                    <span style="font-size:10px;font-weight:600;color:var(--text-700);">Phoenix Mall</span>
+                  </div>
+
+                  <div class="client-avatar-tile" onclick="location.href='clients.html'">
+                    <div class="client-avatar-circle" style="background:#fee2e2;color:#dc2626;">
+                      <i class="fa-solid fa-asterisk"></i>
+                    </div>
+                    <span style="font-size:10px;font-weight:600;color:var(--text-700);">Orion Mall</span>
+                  </div>
+
+                  <div class="client-avatar-tile" onclick="location.href='clients.html'">
+                    <div class="client-avatar-circle" style="background:#e0f2fe;color:#0284c7;">
+                      <i class="fa-solid fa-cloud"></i>
+                    </div>
+                    <span style="font-size:10px;font-weight:600;color:var(--text-700);">Skyline Mall</span>
+                  </div>
+
+                  <div class="client-avatar-tile" onclick="location.href='clients.html'">
+                    <div class="client-avatar-circle" style="background:#ecfdf5;color:#059669;">
+                      <i class="fa-solid fa-shapes"></i>
+                    </div>
+                    <span style="font-size:10px;font-weight:600;color:var(--text-700);">Grand Square</span>
+                  </div>
+
+                  <div class="client-avatar-tile" onclick="location.href='clients.html'">
+                    <div class="client-avatar-circle" style="background:#fef3c7;color:#d97706;">
+                      <i class="fa-solid fa-sun"></i>
+                    </div>
+                    <span style="font-size:10px;font-weight:600;color:var(--text-700);">Westend Mall</span>
+                  </div>
+
+                  <div class="client-avatar-tile" onclick="switchTemplateTab('clients')">
+                    <div class="client-avatar-circle" style="background:#f1f5f9;color:var(--text-600);font-size:11px;font-weight:700;">
+                      +13
+                    </div>
+                    <span style="font-size:10px;font-weight:600;color:var(--text-400);">More</span>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+
+          </div>
+        </div>
+
+        <!-- ===================================================================
+             TAB PANE 2: TEMPLATE EXPERIENCE (Interactive Kiosk Showcase)
+             =================================================================== -->
+        <div class="template-tab-pane" id="paneExperience" style="display:none;">
+          <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;">
+            <div>
+              <h3 style="font-size:16px;font-weight:800;color:var(--text-900);margin:0 0 4px;">Mall / Indoor Venue · Visitor Experience</h3>
+              <p style="font-size:12.5px;color:var(--text-500);margin:0;">Inspect and preview the 5 core interactive touchscreen screens delivered by this template.</p>
+            </div>
+            <a href="kiosk/home.html" target="_blank" class="btn btn-primary" style="background:#2563eb;color:#fff;font-weight:700;">
+              <i class="fa-solid fa-expand"></i> Launch Full Interactive Kiosk Simulator
+            </a>
+          </div>
+
+          <div style="display:grid;grid-template-columns:repeat(5, 1fr);gap:16px;">
+            <!-- Screen 1: Home -->
+            <div class="theme-thumb-card" style="padding:10px;" onclick="window.open('kiosk/home.html','_blank')">
+              <div style="height:220px;border-radius:8px;background:linear-gradient(135deg,#0b1528,#03060a);display:flex;flex-direction:column;align-items:center;justify-content:center;color:#fff;text-align:center;padding:12px;border:1px solid rgba(226,176,98,0.3);">
+                <i class="fa-solid fa-house" style="font-size:24px;color:#e2b062;margin-bottom:8px;"></i>
+                <div style="font-size:12px;font-weight:700;color:#f7dfb8;">Home Screen</div>
+                <div style="font-size:10px;color:#94a3b8;margin-top:4px;">Hero Ad Carousel, 8 Categories, Quick Search</div>
+              </div>
+              <div style="text-align:center;margin-top:8px;font-size:11.5px;font-weight:700;color:var(--text-900);">1. Home Screen</div>
+            </div>
+
+            <!-- Screen 2: Map & Navigation -->
+            <div class="theme-thumb-card" style="padding:10px;" onclick="window.open('kiosk/map.html','_blank')">
+              <div style="height:220px;border-radius:8px;background:linear-gradient(135deg,#0b1528,#03060a);display:flex;flex-direction:column;align-items:center;justify-content:center;color:#fff;text-align:center;padding:12px;border:1px solid rgba(226,176,98,0.3);">
+                <i class="fa-solid fa-location-dot" style="font-size:24px;color:#e2b062;margin-bottom:8px;"></i>
+                <div style="font-size:12px;font-weight:700;color:#f7dfb8;">2.5D Mall Map</div>
+                <div style="font-size:10px;color:#94a3b8;margin-top:4px;">Multi-floor maps, Trends store pinpoint, directions</div>
+              </div>
+              <div style="text-align:center;margin-top:8px;font-size:11.5px;font-weight:700;color:var(--text-900);">2. Mall Map & Directions</div>
+            </div>
+
+            <!-- Screen 3: Food & Dining -->
+            <div class="theme-thumb-card" style="padding:10px;" onclick="window.open('kiosk/food.html','_blank')">
+              <div style="height:220px;border-radius:8px;background:linear-gradient(135deg,#0b1528,#03060a);display:flex;flex-direction:column;align-items:center;justify-content:center;color:#fff;text-align:center;padding:12px;border:1px solid rgba(226,176,98,0.3);">
+                <i class="fa-solid fa-utensils" style="font-size:24px;color:#e2b062;margin-bottom:8px;"></i>
+                <div style="font-size:12px;font-weight:700;color:#f7dfb8;">Food & Dining</div>
+                <div style="font-size:10px;color:#94a3b8;margin-top:4px;">Gourmet restaurants, cuisine search, food court tabs</div>
+              </div>
+              <div style="text-align:center;margin-top:8px;font-size:11.5px;font-weight:700;color:var(--text-900);">3. Food & Dining</div>
+            </div>
+
+            <!-- Screen 4: Events -->
+            <div class="theme-thumb-card" style="padding:10px;" onclick="window.open('kiosk/events.html','_blank')">
+              <div style="height:220px;border-radius:8px;background:linear-gradient(135deg,#0b1528,#03060a);display:flex;flex-direction:column;align-items:center;justify-content:center;color:#fff;text-align:center;padding:12px;border:1px solid rgba(226,176,98,0.3);">
+                <i class="fa-solid fa-calendar-days" style="font-size:24px;color:#e2b062;margin-bottom:8px;"></i>
+                <div style="font-size:12px;font-weight:700;color:#f7dfb8;">Events & Shows</div>
+                <div style="font-size:10px;color:#94a3b8;margin-top:4px;">3D Stage Carousel, Altaf Raja Live, Book tickets</div>
+              </div>
+              <div style="text-align:center;margin-top:8px;font-size:11.5px;font-weight:700;color:var(--text-900);">4. Events & News</div>
+            </div>
+
+            <!-- Screen 5: Feedback -->
+            <div class="theme-thumb-card" style="padding:10px;" onclick="window.open('kiosk/feedback.html','_blank')">
+              <div style="height:220px;border-radius:8px;background:linear-gradient(135deg,#0b1528,#03060a);display:flex;flex-direction:column;align-items:center;justify-content:center;color:#fff;text-align:center;padding:12px;border:1px solid rgba(226,176,98,0.3);">
+                <i class="fa-solid fa-face-grin-stars" style="font-size:24px;color:#e2b062;margin-bottom:8px;"></i>
+                <div style="font-size:12px;font-weight:700;color:#f7dfb8;">Guest Feedback</div>
+                <div style="font-size:10px;color:#94a3b8;margin-top:4px;">5-Star rating emojis, category pills, quick submit</div>
+              </div>
+              <div style="text-align:center;margin-top:8px;font-size:11.5px;font-weight:700;color:var(--text-900);">5. Feedback & Support</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ===================================================================
+             TAB PANE 3: FEATURES & CAPABILITIES
+             =================================================================== -->
+        <div class="template-tab-pane" id="paneFeatures" style="display:none;">
+          <h3 style="font-size:15px;font-weight:800;color:var(--text-900);margin:0 0 14px;">Detailed Architecture & Feature Matrix</h3>
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>Feature / Module</th>
+                  <th>Capability Type</th>
+                  <th>Offline Support</th>
+                  <th>Client Configurable</th>
+                  <th>Description</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td style="font-weight:700;color:var(--text-900);">2.5D Indoor Maps</td>
+                  <td><span class="badge badge-blue">Navigation Engine</span></td>
+                  <td><span class="badge badge-green"><i class="fa-solid fa-check"></i> Full Offline</span></td>
+                  <td>Store metadata, floorplans</td>
+                  <td>Multi-floor zoomable isometric maps with wayfinding routes.</td>
+                </tr>
+                <tr>
+                  <td style="font-weight:700;color:var(--text-900);">Directory & Search</td>
+                  <td><span class="badge badge-purple">Discovery</span></td>
+                  <td><span class="badge badge-green"><i class="fa-solid fa-check"></i> Full Offline</span></td>
+                  <td>Tenant listings, categories</td>
+                  <td>Fuzzy text & category search for stores, services and facilities.</td>
+                </tr>
+                <tr>
+                  <td style="font-weight:700;color:var(--text-900);">Advertisement Engine</td>
+                  <td><span class="badge badge-amber">Monetization</span></td>
+                  <td><span class="badge badge-green"><i class="fa-solid fa-check"></i> Cached Media</span></td>
+                  <td>Campaigns, schedules, slots</td>
+                  <td>Targeted banner and video ad delivery with impression tracking.</td>
+                </tr>
+                <tr>
+                  <td style="font-weight:700;color:var(--text-900);">Multi-Theme Engine</td>
+                  <td><span class="badge badge-gray">Visual UI</span></td>
+                  <td><span class="badge badge-green"><i class="fa-solid fa-check"></i> Pre-bundled</span></td>
+                  <td>Theme selection & colors</td>
+                  <td>Dynamic seasonal skinning (Diwali, Summer, Luxury) without code change.</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- ===================================================================
+             TAB PANE 4: THEMES (Strict Rule: No Create Theme)
+             =================================================================== -->
+        <div class="template-tab-pane" id="paneThemes" style="display:none;">
+          <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;">
+            <div>
+              <h3 style="font-size:15px;font-weight:800;color:var(--text-900);margin:0 0 2px;">Approved Template Themes (4)</h3>
+              <p style="font-size:12px;color:var(--text-500);margin:0;">Manage availability of approved themes created by the Product & Engineering team for this template.</p>
+            </div>
+            <div style="font-size:12px;color:var(--text-400);font-weight:500;">
+              <i class="fa-solid fa-lock" style="font-size:10px;"></i> Theme creation is managed by Product Engineering
+            </div>
+          </div>
+
+          <div style="display:grid;grid-template-columns:repeat(4, 1fr);gap:16px;">
+            <!-- Theme 1 -->
+            <div class="theme-thumb-card" style="padding:14px;" onclick="openThemeModal('Default Mall Luxury')">
+              <div style="height:120px;border-radius:8px;background:linear-gradient(135deg,#1e293b,#0f172a);display:flex;align-items:center;justify-content:center;color:#e2b062;font-size:28px;margin-bottom:10px;">
+                <i class="fa-solid fa-crown"></i>
+              </div>
+              <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:4px;">
+                <h4 style="font-size:13.5px;font-weight:700;color:var(--text-900);margin:0;">Default Mall Luxury</h4>
+                <span class="badge badge-green" style="font-size:9px;">Active</span>
+              </div>
+              <p style="font-size:11.5px;color:var(--text-500);margin:0 0 10px;">Dark navy & gold premium styling for high-end boutique mall kiosks.</p>
+              <div style="display:flex;justify-content:space-between;align-items:center;font-size:11px;color:var(--text-400);padding-top:8px;border-top:1px solid #f1f5f9;">
+                <span>12 Clients Active</span>
+                <span style="color:#2563eb;font-weight:700;">Preview &rarr;</span>
+              </div>
+            </div>
+
+            <!-- Theme 2 -->
+            <div class="theme-thumb-card" style="padding:14px;" onclick="openThemeModal('Diwali Festive 2024')">
+              <div style="height:120px;border-radius:8px;background:linear-gradient(135deg,#4c1d95,#7c3aed,#fbbf24);display:flex;align-items:center;justify-content:center;color:#fbbf24;font-size:28px;margin-bottom:10px;">
+                <i class="fa-solid fa-fire-flame-curved"></i>
+              </div>
+              <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:4px;">
+                <h4 style="font-size:13.5px;font-weight:700;color:var(--text-900);margin:0;">Diwali Festive 2024</h4>
+                <span class="badge badge-green" style="font-size:9px;">Active</span>
+              </div>
+              <p style="font-size:11.5px;color:var(--text-500);margin:0 0 10px;">Royal festive purple & gold colors with Diwali lights and promo layouts.</p>
+              <div style="display:flex;justify-content:space-between;align-items:center;font-size:11px;color:var(--text-400);padding-top:8px;border-top:1px solid #f1f5f9;">
+                <span>6 Clients Active</span>
+                <span style="color:#2563eb;font-weight:700;">Preview &rarr;</span>
+              </div>
+            </div>
+
+            <!-- Theme 3 -->
+            <div class="theme-thumb-card" style="padding:14px;" onclick="openThemeModal('New Year 2025')">
+              <div style="height:120px;border-radius:8px;background:linear-gradient(135deg,#0369a1,#0284c7,#38bdf8);display:flex;align-items:center;justify-content:center;color:#fff;font-size:28px;margin-bottom:10px;">
+                <i class="fa-solid fa-champagne-glasses"></i>
+              </div>
+              <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:4px;">
+                <h4 style="font-size:13.5px;font-weight:700;color:var(--text-900);margin:0;">New Year 2025</h4>
+                <span class="badge badge-gray" style="font-size:9px;">Inactive</span>
+              </div>
+              <p style="font-size:11.5px;color:var(--text-500);margin:0 0 10px;">Vibrant celebration theme for holiday shopping seasons.</p>
+              <div style="display:flex;justify-content:space-between;align-items:center;font-size:11px;color:var(--text-400);padding-top:8px;border-top:1px solid #f1f5f9;">
+                <span>0 Clients</span>
+                <span style="color:#2563eb;font-weight:700;">Preview &rarr;</span>
+              </div>
+            </div>
+
+            <!-- Theme 4 -->
+            <div class="theme-thumb-card" style="padding:14px;" onclick="openThemeModal('Christmas 2024')">
+              <div style="height:120px;border-radius:8px;background:linear-gradient(135deg,#14532d,#16a34a,#dc2626);display:flex;align-items:center;justify-content:center;color:#fef08a;font-size:28px;margin-bottom:10px;">
+                <i class="fa-solid fa-tree"></i>
+              </div>
+              <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:4px;">
+                <h4 style="font-size:13.5px;font-weight:700;color:var(--text-900);margin:0;">Christmas 2024</h4>
+                <span class="badge badge-gray" style="font-size:9px;">Inactive</span>
+              </div>
+              <p style="font-size:11.5px;color:var(--text-500);margin:0 0 10px;">Winter wonderland theme with Christmas red & evergreen palette.</p>
+              <div style="display:flex;justify-content:space-between;align-items:center;font-size:11px;color:var(--text-400);padding-top:8px;border-top:1px solid #f1f5f9;">
+                <span>0 Clients</span>
+                <span style="color:#2563eb;font-weight:700;">Preview &rarr;</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ===================================================================
+             TAB PANE 5: CLIENTS (Assigned Clients List)
+             =================================================================== -->
+        <div class="template-tab-pane" id="paneClients" style="display:none;">
+          <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;">
+            <h3 style="font-size:15px;font-weight:800;color:var(--text-900);margin:0;">Clients Assigned to Mall / Indoor Venue (18)</h3>
+            <a href="clients.html" class="btn"><i class="fa-solid fa-users"></i> Open Client Management</a>
+          </div>
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>Client Organization</th>
+                  <th>Location</th>
+                  <th>Active Projects</th>
+                  <th>Total Kiosks</th>
+                  <th>Assigned Theme</th>
+                  <th>Status</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><strong>Phoenix Mills Ltd. (Phoenix Mall)</strong></td>
+                  <td>Mumbai, India</td>
+                  <td>1 Project</td>
+                  <td>12 Kiosks</td>
+                  <td><span class="badge badge-purple">Default Mall Luxury</span></td>
+                  <td><span class="badge badge-green"><span class="dot"></span> Active</span></td>
+                  <td><a href="client-detail.html" class="btn btn-sm">View Client</a></td>
+                </tr>
+                <tr>
+                  <td><strong>Orion Retail Pvt. Ltd. (Orion Mall)</strong></td>
+                  <td>Bangalore, India</td>
+                  <td>3 Projects</td>
+                  <td>18 Kiosks</td>
+                  <td><span class="badge badge-purple">Diwali Festive 2024</span></td>
+                  <td><span class="badge badge-green"><span class="dot"></span> Active</span></td>
+                  <td><a href="clients.html" class="btn btn-sm">View Client</a></td>
+                </tr>
+                <tr>
+                  <td><strong>Skyline Commercial Group (Skyline Mall)</strong></td>
+                  <td>Delhi NCR, India</td>
+                  <td>2 Projects</td>
+                  <td>12 Kiosks</td>
+                  <td><span class="badge badge-purple">Default Mall Luxury</span></td>
+                  <td><span class="badge badge-green"><span class="dot"></span> Active</span></td>
+                  <td><a href="clients.html" class="btn btn-sm">View Client</a></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- ===================================================================
+             TAB PANE 6: PROJECTS (Active Projects Using Template)
+             =================================================================== -->
+        <div class="template-tab-pane" id="paneProjects" style="display:none;">
+          <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;">
+            <h3 style="font-size:15px;font-weight:800;color:var(--text-900);margin:0;">Active Projects (27)</h3>
+            <a href="projects.html" class="btn"><i class="fa-solid fa-folder-open"></i> Open Projects Directory</a>
+          </div>
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>Project Name</th>
+                  <th>Client</th>
+                  <th>Location</th>
+                  <th>Kiosks</th>
+                  <th>Active Release</th>
+                  <th>Status</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><strong>Phoenix Mall Main Atrium</strong></td>
+                  <td>Phoenix Mills Ltd.</td>
+                  <td>Lower Parel, Mumbai</td>
+                  <td>12 Kiosks</td>
+                  <td>Release v1.42</td>
+                  <td><span class="badge badge-green">Published</span></td>
+                </tr>
+                <tr>
+                  <td><strong>Orion Mall Brigade Gateway</strong></td>
+                  <td>Orion Retail Pvt. Ltd.</td>
+                  <td>Rajajinagar, Bangalore</td>
+                  <td>10 Kiosks</td>
+                  <td>Release v2.01</td>
+                  <td><span class="badge badge-green">Published</span></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- ===================================================================
+             TAB PANE 7: CHANGELOG (Version History)
+             =================================================================== -->
+        <div class="template-tab-pane" id="paneChangelog" style="display:none;">
+          <h3 style="font-size:15px;font-weight:800;color:var(--text-900);margin:0 0 14px;">Template Release Changelog</h3>
+          
+          <div style="display:flex;flex-direction:column;gap:14px;">
+            <!-- v2.1 Current -->
+            <div style="background:#f8fafc;border:1px solid #e2e8f0;border-radius:12px;padding:18px;">
+              <div style="display:flex;align-items:center;gap:10px;margin-bottom:6px;">
+                <span style="font-size:15px;font-weight:800;color:var(--text-900);">Version 2.1</span>
+                <span class="badge badge-green">Current Stable</span>
+                <span style="font-size:11.5px;color:var(--text-400);margin-left:auto;">Released: 28 Apr 2025</span>
+              </div>
+              <ul style="font-size:12.5px;color:var(--text-700);line-height:1.5;margin:0 0 0 18px;">
+                <li>Added animated turn-by-turn routing arrows in 2.5D indoor floorplan maps.</li>
+                <li>Enhanced restaurant carousel with interactive cuisine filtering tags and timings.</li>
+                <li>Optimized offline caching engine for kiosk device storage.</li>
+              </ul>
+            </div>
+
+            <!-- v2.0 Previous -->
+            <div style="background:#ffffff;border:1px solid #e2e8f0;border-radius:12px;padding:18px;">
+              <div style="display:flex;align-items:center;gap:10px;margin-bottom:6px;">
+                <span style="font-size:15px;font-weight:800;color:var(--text-900);">Version 2.0</span>
+                <span class="badge badge-gray">Previous Release</span>
+                <span style="font-size:11.5px;color:var(--text-400);margin-left:auto;">Released: 15 Jan 2025</span>
+              </div>
+              <ul style="font-size:12.5px;color:var(--text-700);line-height:1.5;margin:0 0 0 18px;">
+                <li>Introduced dynamic multi-theme engine support (Diwali, New Year, Christmas).</li>
+                <li>Added full-screen advertising takeover slot with scheduled scheduling.</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Footer Bar -->
+      <footer style="display:flex;align-items:center;justify-content:space-between;padding-top:20px;margin-top:24px;border-top:1px solid var(--border-soft);font-size:12px;color:var(--text-400);">
+        <div>© 2025 Mall Kiosk Platform. All rights reserved.</div>
+        <div style="display:flex;gap:16px;">
+          <span>v1.0.0</span>
+          <span>|</span>
+          <span>May 2025</span>
+        </div>
+      </footer>
+
     </div>
   </div>
-  <div class="table-wrap"><table>
-  <thead><tr><th>Template</th><th>Type</th><th>Version</th><th>Status</th><th>Themes</th><th>Clients</th><th>Projects</th><th>Kiosks</th><th>Last Updated</th><th>Actions</th></tr></thead>
-  <tbody>
-  <tr>
-  <td><div class="cell-main"><div class="cell-thumb" style="background:linear-gradient(135deg,#c4b5fd,#7c3aed);"></div>
-  <div><div class="cell-title">Mall / Indoor Venue</div><div class="cell-sub" style="max-width:260px;">Complete solution for malls and indoor venues with maps, navigation, directory, and more.</div></div></div></td>
-  <td><div class="cell-main"><div class="tmpl-icon"><i class="fa-solid fa-shield"></i></div><div style="font-size:12.5px;font-weight:700;">Indoor Venue</div></div></td>
-  <td>1.2.0</td>
-  <td><span class="badge badge-green"><span class="dot"></span>Active</span><div class="cell-sub" style="margin-top:3px;">Available</div></td>
-  <td><a class="link-blue" href="themes.html">5<br>View Themes</a></td>
-  <td><a class="link-blue" href="clients.html">8<br>View Clients</a></td>
-  <td><a class="link-blue" href="projects.html">24<br>View Projects</a></td>
-  <td><a class="link-blue" href="devices.html">32<br>View Devices</a></td>
-  <td>Aug 10, 2026<div class="cell-sub">John Admin</div></td>
-  <td class="row-actions"><a class="btn btn-sm" href="themes.html">View Details</a><button class="btn-icon"><i class="fa-solid fa-ellipsis"></i></button></td>
-  </tr>
-  </tbody>
-  </table></div>
-  <div class="pagination-bar">
-    <div class="muted" style="font-size:12.5px;">Showing 1 to 1 of 1 template</div>
-    <div class="pagination">
-      <div class="page-btn"><i class="fa-solid fa-chevron-left"></i></div>
-      <div class="page-btn active">1</div>
-      <div class="page-btn"><i class="fa-solid fa-chevron-right"></i></div>
+</div>
+
+<!-- =========================================================================
+     THEME PREVIEW MODAL
+     ========================================================================= -->
+<div class="modal-backdrop" id="themePreviewModal" style="display:none;position:fixed;inset:0;background:rgba(15,23,42,0.7);backdrop-filter:blur(6px);z-index:9999;align-items:center;justify-content:center;">
+  <div style="background:#ffffff;border-radius:18px;max-width:520px;width:100%;padding:28px;box-shadow:0 25px 60px rgba(0,0,0,0.3);position:relative;">
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;">
+      <h3 style="font-size:17px;font-weight:800;color:var(--text-900);margin:0;" id="themeModalTitle">Default Mall Luxury</h3>
+      <button onclick="closeThemeModal()" style="background:none;border:none;font-size:18px;color:var(--text-400);cursor:pointer;">&times;</button>
     </div>
-    <div class="select-pill">10 / page <i class="fa-solid fa-chevron-down"></i></div>
+    
+    <div id="themeModalArtwork" style="height:140px;border-radius:12px;background:linear-gradient(135deg,#1e293b,#0f172a);display:flex;align-items:center;justify-content:center;color:#e2b062;font-size:36px;margin-bottom:16px;">
+      <i class="fa-solid fa-crown"></i>
+    </div>
+
+    <div style="background:#f8fafc;padding:14px;border-radius:10px;font-size:12.5px;color:var(--text-700);margin-bottom:20px;line-height:1.5;">
+      <div>🎨 <strong>Associated Template:</strong> Mall / Indoor Venue (v2.1)</div>
+      <div style="margin:4px 0;">⚡ <strong>Status:</strong> <span class="badge badge-green" style="font-size:10px;">Approved & Available</span></div>
+      <div>🏢 <strong>Permitted Usage:</strong> Available for Client Onboarding and Project Customization.</div>
+    </div>
+
+    <div style="display:flex;gap:10px;justify-content:flex-end;">
+      <button class="btn" onclick="closeThemeModal()">Close</button>
+      <a href="kiosk/home.html" target="_blank" class="btn btn-primary" style="background:#2563eb;color:#fff;font-weight:700;text-decoration:none;">
+        Preview Live Kiosk
+      </a>
+    </div>
   </div>
 </div>
 
-<div class="panel" style="padding:22px;">
-  <h2 style="font-size:17px;margin:0 0 4px;">About Templates</h2>
-  <p class="muted" style="font-size:12.5px;margin:0 0 18px;">Templates define the business structure, features, and behavior for a specific type of venue or use case.</p>
-  <div class="info-cards-grid">
-    <div class="info-card"><div class="icon icon-blue"><i class="fa-solid fa-layer-group"></i></div><h4>Built by Platform Team</h4><p>Templates are designed and built by the platform/product team based on business requirements.</p></div>
-    <div class="info-card"><div class="icon icon-green"><i class="fa-solid fa-people-group"></i></div><h4>Released &amp; Managed</h4><p>Company admins control the lifecycle, versions, and availability of templates for clients.</p></div>
-    <div class="info-card"><div class="icon icon-purple"><i class="fa-solid fa-shield"></i></div><h4>Reusable Structure</h4><p>Clients use templates as a foundation and customize content, not the underlying structure.</p></div>
-    <div class="info-card"><div class="icon icon-amber"><i class="fa-solid fa-diagram-project"></i></div><h4>Theme Based</h4><p>Templates can have multiple themes (seasons, events, etc.) that clients can apply and customize.</p></div>
-  </div>
-</div>
+<!-- =========================================================================
+     JAVASCRIPT WORKSPACE INTERACTION
+     ========================================================================= -->
+<script>
+  function switchTemplateTab(tabName) {
+    const tabs = ['overview', 'experience', 'features', 'themes', 'clients', 'projects', 'changelog'];
+    tabs.forEach(t => {
+      const btn = document.getElementById(`tabBtn${capitalize(t)}`);
+      const pane = document.getElementById(`pane${capitalize(t)}`);
+      if (btn) btn.classList.remove('active');
+      if (pane) pane.style.display = 'none';
+    });
 
-<div class="help-card"><h4><i class="fa-solid fa-circle-info" style="color:#2563eb;"></i> Need Help?</h4><p>Learn more about templates, themes, and lifecycle management.</p><button class="btn" style="width:100%;justify-content:center;">View Documentation <i class="fa-solid fa-arrow-up-right-from-square"></i></button></div>
-</div></div>
-</div>
+    const activeBtn = document.getElementById(`tabBtn${capitalize(tabName)}`);
+    const activePane = document.getElementById(`pane${capitalize(tabName)}`);
+    if (activeBtn) activeBtn.classList.add('active');
+    if (activePane) activePane.style.display = 'block';
+  }
+
+  function capitalize(s) {
+    return s.charAt(0).toUpperCase() + s.slice(1);
+  }
+
+  function selectTemplateContext(name) {
+    switchTemplateTab('overview');
+  }
+
+  function openThemeModal(themeName) {
+    document.getElementById('themeModalTitle').textContent = themeName;
+    document.getElementById('themePreviewModal').style.display = 'flex';
+  }
+
+  function closeThemeModal() {
+    document.getElementById('themePreviewModal').style.display = 'none';
+  }
+</script>
 </body>
 </html>

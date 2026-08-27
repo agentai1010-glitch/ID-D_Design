@@ -1,199 +1,1022 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Projects · Kiosk Platform</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-<link rel="stylesheet" href="css/styles.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Project Management · Mall Kiosk Platform</title>
+  <!-- Google Fonts & Font Awesome -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="stylesheet" href="css/styles.css">
+  <style>
+    /* Workflow Domain 5 - Projects Specific Styling */
+    .project-kpi-grid {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 16px;
+      margin-bottom: 20px;
+    }
+
+    .kpi-stat-box {
+      background: #ffffff;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 16px;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+    }
+
+    .kpi-icon-square {
+      width: 44px;
+      height: 44px;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+      flex-shrink: 0;
+    }
+
+    .projects-main-split {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) 350px;
+      gap: 20px;
+      align-items: start;
+      margin-bottom: 20px;
+    }
+
+    .project-row {
+      cursor: pointer;
+      transition: background 0.15s ease;
+    }
+
+    .project-row:hover {
+      background: #f8fafc;
+    }
+
+    .project-row.selected {
+      background: #eff6ff !important;
+      border-left: 3px solid #2563eb;
+    }
+
+    /* Bottom 4-Column Operations Grid */
+    .projects-bottom-grid {
+      display: grid;
+      grid-template-columns: 1.2fr 1fr 1fr 1.1fr;
+      gap: 16px;
+      align-items: start;
+    }
+
+    .quick-action-btn-card {
+      background: #ffffff;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 14px 10px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      text-decoration: none;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      text-align: center;
+    }
+
+    .quick-action-btn-card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.06);
+      border-color: #93c5fd;
+    }
+
+    .quick-action-btn-card i {
+      font-size: 18px;
+      color: #2563eb;
+    }
+
+    .quick-action-btn-card span {
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--text-800);
+      line-height: 1.2;
+    }
+
+    /* Recent activity item */
+    .proj-activity-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      padding: 10px 0;
+      border-bottom: 1px solid #f1f5f9;
+    }
+
+    .proj-activity-item:last-child {
+      border-bottom: none;
+      padding-bottom: 0;
+    }
+
+    .proj-act-icon {
+      width: 32px;
+      height: 32px;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 13px;
+      flex-shrink: 0;
+    }
+  </style>
 </head>
 <body>
 <div class="app-shell">
-<aside class="sidebar">
-  <a href="dashboard.html" class="sidebar-brand" style="cursor:pointer;">
-    <div class="logo-icon"><svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-<path d="M12 2L21 7V17L12 22L3 17V7L12 2Z" stroke="white" stroke-width="1.6" stroke-linejoin="round"/>
-<circle cx="12" cy="12" r="3.2" fill="white"/>
-</svg></div>
-    <div class="brand-text"><div class="t1">KIOSK</div><div class="t2">PLATFORM</div></div>
-  </a>
-  <div class="sidebar-section-label">PLATFORM ADMIN <i class="fa-solid fa-chevron-up" style="font-size:9px;"></i></div>
-  <ul class="sidebar-nav">
-  <li class="nav-item " onclick="location.href='dashboard.html'"><i class="fa-solid fa-house"></i><span>Dashboard</span></li>
-<li class="nav-item " onclick="location.href='clients.html'"><i class="fa-solid fa-user-group"></i><span>Clients</span></li>
-<li class="nav-item active" onclick="location.href='projects.html'"><i class="fa-solid fa-folder-open"></i><span>Projects</span></li>
-<li class="nav-item " onclick="location.href='devices.html'"><i class="fa-solid fa-tablet-screen-button"></i><span>Devices</span></li>
-<li class="nav-item " onclick="location.href='templates.html'"><i class="fa-solid fa-table-cells-large"></i><span>Templates</span></li>
-<li class="nav-item " onclick="location.href='analytics.html'"><i class="fa-solid fa-chart-column"></i><span>Analytics</span></li>
-<li class="nav-item " onclick="location.href='monitoring.html'"><i class="fa-solid fa-heart-pulse"></i><span>Monitoring</span></li>
-<li class="nav-item " onclick="location.href='users-roles.html'"><i class="fa-solid fa-users-gear"></i><span>Users & Roles</span></li>
-<li class="nav-item " onclick="location.href='billing.html'"><i class="fa-solid fa-credit-card"></i><span>Billing & Plans</span></li>
-<li class="nav-item " onclick="location.href='audit-logs.html'"><i class="fa-solid fa-file-lines"></i><span>Audit Logs</span></li>
-<li class="nav-item " onclick="location.href='system-settings.html'"><i class="fa-solid fa-gear"></i><span>System Settings</span></li>
 
-  </ul>
-  <div class="sidebar-spacer"></div>
-  <div class="sidebar-status">
-    <div class="st-title">System Status</div>
-    <div class="st-row"><span class="st-dot"></span> All Systems Operational</div>
-    <div class="st-sub">Last checked: 2 min ago</div>
-    <a href="monitoring.html">View System Health</a>
-  </div>
-  <div class="sidebar-quick">
-    <div class="qa-title">Quick Actions</div>
-    <a class="qa-item" href="onboard-client.html"><i class="fa-solid fa-user-plus"></i> Onboard New Client</a>
-    <a class="qa-item" href="clients.html"><i class="fa-solid fa-cube"></i> View Clients</a>
-    <a class="qa-item" href="devices.html"><i class="fa-solid fa-tablet-screen-button"></i> View Devices</a>
-    <a class="qa-item" href="monitoring.html"><i class="fa-solid fa-triangle-exclamation"></i> View Alerts</a>
-  </div>
-  <div class="sidebar-footer">Kiosk Platform v1.0.0</div>
-</aside>
-<div class="main"><header class="topbar">
-  <i class="fa-solid fa-bars hamburger"></i>
-  <div class="search"><i class="fa-solid fa-magnifying-glass"></i><span>Search clients, projects, devices...</span><span class="kbd">⌘K</span></div>
-  <div class="spacer"></div>
-  <button class="icon-btn"><i class="fa-regular fa-circle-question"></i></button>
-  <button class="icon-btn"><i class="fa-regular fa-bell"></i><span class="badge-dot">12</span></button>
-  <div class="user">
-    <div class="avatar">SA</div>
-    <div><div class="u-name">Super Admin</div><div class="u-role">Platform Administrator</div></div>
-    <i class="fa-solid fa-chevron-down"></i>
-  </div>
-</header>
-<div class="content">
-<div class="page-header">
-  <div><h1>Projects</h1><p>View and manage all client projects across the platform</p></div>
-  <div class="actions">
-    <div class="search-input"><i class="fa-solid fa-magnifying-glass"></i><span>Search projects...</span></div>
-    <button class="btn"><i class="fa-solid fa-filter"></i> Filter</button>
-    <button class="btn btn-primary"><i class="fa-solid fa-plus"></i> Create Project</button>
-  </div>
-</div>
+  <!-- =========================================================================
+       COMPANY ADMIN GLOBAL SIDEBAR
+       ========================================================================= -->
+  <aside class="sidebar">
+    <a href="dashboard.html" class="sidebar-brand" style="cursor:pointer;text-decoration:none;">
+      <div class="logo-icon" style="background:linear-gradient(135deg,#3b82f6,#1d4ed8);border-radius:10px;">
+        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style="width:20px;height:20px;">
+          <path d="M4 21V9l8-6 8 6v12H4z" stroke="white" stroke-width="1.8" stroke-linejoin="round"/>
+          <path d="M9 21V12h6v9" stroke="white" stroke-width="1.8"/>
+          <path d="M12 3v4" stroke="white" stroke-width="1.8"/>
+        </svg>
+      </div>
+      <div class="brand-text">
+        <div class="t1" style="font-size:14px;font-weight:700;color:#ffffff;line-height:1.2;">Mall Kiosk Platform</div>
+        <div class="t2" style="font-size:11px;color:#94a3b8;font-weight:500;">Company Admin</div>
+      </div>
+    </a>
 
-<div class="stats-grid">
-  <div class="stat-card"><div class="icon icon-blue"><i class="fa-solid fa-folder-open"></i></div><div class="body"><div class="label">Total Projects</div><div class="value">64</div><div class="sub">Across all clients</div></div></div>
-  <div class="stat-card"><div class="icon icon-green"><i class="fa-solid fa-shield-halved"></i></div><div class="body"><div class="label">Active Projects</div><div class="value">38</div><div class="sub">59.4% of total</div></div></div>
-  <div class="stat-card"><div class="icon icon-blue"><i class="fa-solid fa-clipboard"></i></div><div class="body"><div class="label">Draft Projects</div><div class="value">16</div><div class="sub">25.0% of total</div></div></div>
-  <div class="stat-card"><div class="icon icon-amber"><i class="fa-solid fa-box-archive"></i></div><div class="body"><div class="label">Archived Projects</div><div class="value">8</div><div class="sub">12.5% of total</div></div></div>
-  <div class="stat-card"><div class="icon icon-purple"><i class="fa-solid fa-tablet-screen-button"></i></div><div class="body"><div class="label">Total Kiosks</div><div class="value">156</div><div class="sub">Across all projects</div></div></div>
-  <div class="stat-card"><div class="icon icon-green"><i class="fa-solid fa-wifi"></i></div><div class="body"><div class="label">Online Kiosks</div><div class="value">142</div><div class="sub">91.0% of total kiosks</div></div></div>
-</div>
+    <ul class="sidebar-nav">
+      <li class="nav-item" onclick="location.href='dashboard.html'"><i class="fa-solid fa-house"></i><span>Dashboard</span></li>
+      <li class="nav-item" onclick="location.href='clients.html'"><i class="fa-solid fa-user-group"></i><span>Clients</span></li>
+      <li class="nav-item" onclick="location.href='onboard-client.html'"><i class="fa-solid fa-wand-magic-sparkles"></i><span>Onboarding</span></li>
+      <li class="nav-item" onclick="location.href='templates.html'"><i class="fa-regular fa-file-lines"></i><span>Templates</span></li>
+      <li class="nav-item active" onclick="location.href='projects.html'"><i class="fa-solid fa-folder-open"></i><span>Projects</span></li>
+      <li class="nav-item" onclick="location.href='requests.html'" style="display:flex;align-items:center;justify-content:space-between;">
+        <div style="display:flex;align-items:center;gap:10px;"><i class="fa-regular fa-clipboard"></i><span>Requests</span></div>
+        <span class="badge" style="background:#2563eb;color:#fff;font-size:10px;padding:2px 7px;border-radius:999px;font-weight:700;">16</span>
+      </li>
+      <li class="nav-item" onclick="location.href='experience-studio.html'"><i class="fa-solid fa-palette"></i><span>Experience Studio</span></li>
+      <li class="nav-item" onclick="location.href='releases.html'"><i class="fa-solid fa-rocket"></i><span>Releases</span></li>
+      <li class="nav-item" onclick="location.href='devices.html'"><i class="fa-solid fa-display"></i><span>Devices</span></li>
+      <li class="nav-item" onclick="location.href='monitoring.html'"><i class="fa-solid fa-chart-line"></i><span>Monitoring</span></li>
+      <li class="nav-item" onclick="location.href='analytics.html'"><i class="fa-solid fa-chart-column"></i><span>Analytics</span></li>
+      <li class="nav-item" onclick="location.href='system-settings.html'"><i class="fa-solid fa-gear"></i><span>Settings</span></li>
+      <li class="nav-item" onclick="location.href='users-roles.html'"><i class="fa-solid fa-user-shield"></i><span>Users & Roles</span></li>
+    </ul>
 
-<div class="panel">
-  <div class="panel-header">
-    <div><h2>All Projects</h2><p>Manage and monitor all projects across clients</p></div>
-    <div class="filters">
-      <div class="select-pill">All Clients <i class="fa-solid fa-chevron-down"></i></div>
-      <div class="select-pill">All Status <i class="fa-solid fa-chevron-down"></i></div>
-      <button class="btn"><i class="fa-solid fa-arrow-up-from-bracket"></i> Export</button>
+    <div class="sidebar-spacer"></div>
+    <div class="sidebar-collapse-btn" style="display:flex;align-items:center;gap:8px;padding:10px 12px;color:#94a3b8;font-size:13px;cursor:pointer;">
+      <i class="fa-solid fa-chevron-left" style="font-size:11px;"></i>
+      <span>Collapse</span>
+    </div>
+  </aside>
+
+  <!-- =========================================================================
+       MAIN WORKSPACE
+       ========================================================================= -->
+  <div class="main">
+
+    <!-- Topbar Header -->
+    <header class="topbar">
+      <div style="display:flex;align-items:center;gap:14px;">
+        <i class="fa-solid fa-bars hamburger"></i>
+        <div>
+          <h1 style="font-size:19px;font-weight:800;color:var(--text-900);margin:0;line-height:1.2;">Project Management</h1>
+          <div style="font-size:11.5px;color:var(--text-500);display:flex;align-items:center;gap:6px;margin-top:2px;">
+            <a href="dashboard.html" style="color:var(--text-500);text-decoration:none;">Dashboard</a>
+            <i class="fa-solid fa-chevron-right" style="font-size:8px;"></i>
+            <span style="color:var(--text-900);font-weight:600;">Projects</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="spacer"></div>
+
+      <!-- Search Input -->
+      <div style="position:relative;width:320px;">
+        <input type="text" class="form-control" id="projectSearchInput" onkeyup="filterProjects()" placeholder="Search projects, clients, venues..." style="padding-right:36px;border-radius:8px;font-size:13px;">
+        <i class="fa-solid fa-magnifying-glass" style="position:absolute;right:12px;top:50%;transform:translateY(-50%);color:var(--text-400);font-size:13px;"></i>
+      </div>
+
+      <!-- Notification Bell -->
+      <button class="icon-btn" style="position:relative;">
+        <i class="fa-regular fa-bell"></i>
+        <span class="badge-dot" style="position:absolute;top:3px;right:3px;background:#ef4444;color:#fff;font-size:9px;font-weight:700;border-radius:50%;width:15px;height:15px;display:flex;align-items:center;justify-content:center;">12</span>
+      </button>
+
+      <!-- Profile -->
+      <div class="user">
+        <div class="avatar" style="background:#1e293b;color:#fff;font-weight:700;font-size:12px;">CA</div>
+        <div>
+          <div class="u-name" style="font-size:13px;font-weight:700;color:var(--text-900);">Company Admin</div>
+        </div>
+        <i class="fa-solid fa-chevron-down" style="font-size:10px;color:var(--text-400);"></i>
+      </div>
+    </header>
+
+    <!-- Page Content Container -->
+    <div class="content" style="padding:24px 28px;">
+
+      <!-- Top Row Header with Primary CTA Button -->
+      <div style="display:flex;justify-content:flex-end;margin-bottom:16px;">
+        <button onclick="openInitProjectModal()" class="btn btn-primary" id="btnInitNewProject" style="background:#2563eb;color:#fff;font-weight:700;padding:9px 18px;border-radius:8px;box-shadow:0 2px 6px rgba(37,99,235,0.3);font-size:13px;display:flex;align-items:center;gap:6px;">
+          <i class="fa-solid fa-plus"></i> Initialize New Project
+        </button>
+      </div>
+
+      <!-- =====================================================================
+           ROW 1: 5 OPERATIONAL KPI SUMMARY CARDS
+           ===================================================================== -->
+      <div class="project-kpi-grid">
+        
+        <!-- 1. Total Projects -->
+        <div class="kpi-stat-box">
+          <div class="kpi-icon-square" style="background:#eff6ff;color:#2563eb;border:1px solid #dbeafe;">
+            <i class="fa-solid fa-building"></i>
+          </div>
+          <div>
+            <div style="font-size:11px;font-weight:600;color:var(--text-500);text-transform:uppercase;letter-spacing:0.4px;">Total Projects</div>
+            <div style="font-size:22px;font-weight:800;color:var(--text-900);line-height:1.1;margin:2px 0;">27</div>
+            <div style="font-size:11px;color:var(--text-400);">Active: 22 &nbsp; Paused: 3 &nbsp; Closed: 2</div>
+          </div>
+        </div>
+
+        <!-- 2. Total Kiosks -->
+        <div class="kpi-stat-box">
+          <div class="kpi-icon-square" style="background:#ecfdf5;color:#10b981;border:1px solid #d1fae5;">
+            <i class="fa-solid fa-display"></i>
+          </div>
+          <div>
+            <div style="font-size:11px;font-weight:600;color:var(--text-500);text-transform:uppercase;letter-spacing:0.4px;">Total Kiosks</div>
+            <div style="font-size:22px;font-weight:800;color:var(--text-900);line-height:1.1;margin:2px 0;">156</div>
+            <div style="font-size:11px;color:var(--text-400);">Online: 142 &nbsp; Offline: 14</div>
+          </div>
+        </div>
+
+        <!-- 3. Active Releases -->
+        <div class="kpi-stat-box">
+          <div class="kpi-icon-square" style="background:#f5f3ff;color:#7c3aed;border:1px solid #ede9fe;">
+            <i class="fa-solid fa-rocket"></i>
+          </div>
+          <div>
+            <div style="font-size:11px;font-weight:600;color:var(--text-500);text-transform:uppercase;letter-spacing:0.4px;">Active Releases</div>
+            <div style="font-size:22px;font-weight:800;color:var(--text-900);line-height:1.1;margin:2px 0;">18</div>
+            <div style="font-size:11px;color:var(--text-400);">Across All Projects</div>
+          </div>
+        </div>
+
+        <!-- 4. Pending Requests -->
+        <div class="kpi-stat-box">
+          <div class="kpi-icon-square" style="background:#fff7ed;color:#ea580c;border:1px solid #ffedd5;">
+            <i class="fa-solid fa-arrow-trend-up"></i>
+          </div>
+          <div>
+            <div style="font-size:11px;font-weight:600;color:var(--text-500);text-transform:uppercase;letter-spacing:0.4px;">Pending Requests</div>
+            <div style="font-size:22px;font-weight:800;color:var(--text-900);line-height:1.1;margin:2px 0;">24</div>
+            <div style="font-size:11px;color:var(--text-400);">In Progress: 16 &nbsp; New: 8</div>
+          </div>
+        </div>
+
+        <!-- 5. Avg Experience Health -->
+        <div class="kpi-stat-box">
+          <div class="kpi-icon-square" style="background:#f0fdfa;color:#0d9488;border:1px solid #ccfbf1;">
+            <i class="fa-solid fa-heart-pulse"></i>
+          </div>
+          <div>
+            <div style="font-size:11px;font-weight:600;color:var(--text-500);text-transform:uppercase;letter-spacing:0.4px;">Avg. Experience Health</div>
+            <div style="font-size:22px;font-weight:800;color:var(--text-900);line-height:1.1;margin:2px 0;">98%</div>
+            <div style="font-size:11px;color:#10b981;font-weight:700;">Excellent</div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- =====================================================================
+           ROW 2: 2-COLUMN SPLIT (PROJECTS TABLE & SELECTED PROJECT CARD)
+           ===================================================================== -->
+      <div class="projects-main-split">
+
+        <!-- Left Projects Table Container -->
+        <div class="panel" style="margin:0;padding:20px;">
+          <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;">
+            <h2 style="font-size:15px;font-weight:800;color:var(--text-900);margin:0;">Projects</h2>
+            <div style="display:flex;align-items:center;gap:10px;">
+              <div style="position:relative;width:200px;">
+                <input type="text" class="form-control" id="tableFilterInput" onkeyup="filterTableRows()" placeholder="Search projects..." style="padding:6px 28px 6px 12px;font-size:12px;">
+                <i class="fa-solid fa-magnifying-glass" style="position:absolute;right:10px;top:50%;transform:translateY(-50%);font-size:11px;color:var(--text-400);"></i>
+              </div>
+              <button class="btn" style="padding:6px 12px;font-size:12px;font-weight:600;"><i class="fa-solid fa-filter"></i> Filters <i class="fa-solid fa-chevron-down" style="font-size:9px;"></i></button>
+              <button class="btn" style="padding:6px 12px;font-size:12px;font-weight:600;"><i class="fa-solid fa-arrow-up-from-bracket"></i> Export <i class="fa-solid fa-chevron-down" style="font-size:9px;"></i></button>
+            </div>
+          </div>
+
+          <div class="table-wrap">
+            <table id="projectsDataTable">
+              <thead>
+                <tr>
+                  <th>Project Name</th>
+                  <th>Client</th>
+                  <th>Venue</th>
+                  <th>Template</th>
+                  <th>Status</th>
+                  <th>Kiosks</th>
+                  <th>Active Release</th>
+                  <th>Health</th>
+                  <th>Last Updated</th>
+                  <th style="text-align:right;">Actions</th>
+                </tr>
+              </thead>
+              <tbody>
+                
+                <!-- 1. Phoenix Mall Project (Selected by Default) -->
+                <tr class="project-row selected" id="row-phoenix" onclick="selectProject('phoenix')">
+                  <td>
+                    <div style="display:flex;align-items:center;gap:10px;">
+                      <div style="width:36px;height:36px;border-radius:6px;background:linear-gradient(135deg,#3b82f6,#1d4ed8);display:flex;align-items:center;justify-content:center;color:#fff;font-size:14px;flex-shrink:0;">
+                        <i class="fa-solid fa-building"></i>
+                      </div>
+                      <div style="font-weight:700;color:var(--text-900);font-size:12.5px;">Phoenix Mall Project</div>
+                    </div>
+                  </td>
+                  <td>
+                    <div style="font-size:12px;font-weight:600;color:var(--text-800);">Phoenix Mall</div>
+                    <div style="font-size:10.5px;color:var(--text-400);">Lower Parel, Mumbai</div>
+                  </td>
+                  <td style="font-size:12px;color:var(--text-600);">Venue</td>
+                  <td><span class="badge badge-purple" style="font-size:10.5px;font-weight:600;">Mall / Indoor Venue</span></td>
+                  <td><span class="badge badge-green" style="font-size:10px;padding:2px 8px;"><span class="dot"></span> Active</span></td>
+                  <td style="font-size:12px;"><strong>28</strong> <span style="font-size:10.5px;color:var(--text-400);">(<span style="color:#10b981;font-weight:600;">26</span> / <span style="color:#ef4444;font-weight:600;">2</span>)</span></td>
+                  <td><div style="font-weight:700;font-size:12px;color:var(--text-900);">v2.1.0</div><div style="font-size:10.5px;color:var(--text-400);">28 Apr 2025</div></td>
+                  <td><span style="color:#10b981;font-weight:700;font-size:12px;">● 98%</span></td>
+                  <td style="font-size:11.5px;color:var(--text-500);">Today, 10:30 AM</td>
+                  <td style="text-align:right;">
+                    <button class="btn-icon" style="background:none;border:none;cursor:pointer;color:var(--text-400);font-size:13px;"><i class="fa-solid fa-ellipsis-vertical"></i></button>
+                  </td>
+                </tr>
+
+                <!-- 2. Orion Mall Project -->
+                <tr class="project-row" id="row-orion" onclick="selectProject('orion')">
+                  <td>
+                    <div style="display:flex;align-items:center;gap:10px;">
+                      <div style="width:36px;height:36px;border-radius:6px;background:linear-gradient(135deg,#7c3aed,#4c1d95);display:flex;align-items:center;justify-content:center;color:#fff;font-size:14px;flex-shrink:0;">
+                        <i class="fa-solid fa-building"></i>
+                      </div>
+                      <div style="font-weight:700;color:var(--text-900);font-size:12.5px;">Orion Mall Project</div>
+                    </div>
+                  </td>
+                  <td>
+                    <div style="font-size:12px;font-weight:600;color:var(--text-800);">Orion Mall</div>
+                    <div style="font-size:10.5px;color:var(--text-400);">Bangalore, Karnataka</div>
+                  </td>
+                  <td style="font-size:12px;color:var(--text-600);">Venue</td>
+                  <td><span class="badge badge-purple" style="font-size:10.5px;font-weight:600;">Mall / Indoor Venue</span></td>
+                  <td><span class="badge badge-green" style="font-size:10px;padding:2px 8px;"><span class="dot"></span> Active</span></td>
+                  <td style="font-size:12px;"><strong>18</strong> <span style="font-size:10.5px;color:var(--text-400);">(<span style="color:#10b981;font-weight:600;">17</span> / <span style="color:#ef4444;font-weight:600;">1</span>)</span></td>
+                  <td><div style="font-weight:700;font-size:12px;color:var(--text-900);">v2.0.3</div><div style="font-size:10.5px;color:var(--text-400);">15 Apr 2025</div></td>
+                  <td><span style="color:#10b981;font-weight:700;font-size:12px;">● 97%</span></td>
+                  <td style="font-size:11.5px;color:var(--text-500);">Today, 09:45 AM</td>
+                  <td style="text-align:right;">
+                    <button class="btn-icon" style="background:none;border:none;cursor:pointer;color:var(--text-400);font-size:13px;"><i class="fa-solid fa-ellipsis-vertical"></i></button>
+                  </td>
+                </tr>
+
+                <!-- 3. Skyline Mall Project -->
+                <tr class="project-row" id="row-skyline" onclick="selectProject('skyline')">
+                  <td>
+                    <div style="display:flex;align-items:center;gap:10px;">
+                      <div style="width:36px;height:36px;border-radius:6px;background:linear-gradient(135deg,#0284c7,#0369a1);display:flex;align-items:center;justify-content:center;color:#fff;font-size:14px;flex-shrink:0;">
+                        <i class="fa-solid fa-building"></i>
+                      </div>
+                      <div style="font-weight:700;color:var(--text-900);font-size:12.5px;">Skyline Mall Project</div>
+                    </div>
+                  </td>
+                  <td>
+                    <div style="font-size:12px;font-weight:600;color:var(--text-800);">Skyline Mall</div>
+                    <div style="font-size:10.5px;color:var(--text-400);">Pune, Maharashtra</div>
+                  </td>
+                  <td style="font-size:12px;color:var(--text-600);">Venue</td>
+                  <td><span class="badge badge-purple" style="font-size:10.5px;font-weight:600;">Mall / Indoor Venue</span></td>
+                  <td><span class="badge badge-green" style="font-size:10px;padding:2px 8px;"><span class="dot"></span> Active</span></td>
+                  <td style="font-size:12px;"><strong>12</strong> <span style="font-size:10.5px;color:var(--text-400);">(<span style="color:#10b981;font-weight:600;">11</span> / <span style="color:#ef4444;font-weight:600;">1</span>)</span></td>
+                  <td><div style="font-weight:700;font-size:12px;color:var(--text-900);">v2.1.0</div><div style="font-size:10.5px;color:var(--text-400);">28 Apr 2025</div></td>
+                  <td><span style="color:#10b981;font-weight:700;font-size:12px;">● 99%</span></td>
+                  <td style="font-size:11.5px;color:var(--text-500);">Yesterday, 06:20 PM</td>
+                  <td style="text-align:right;">
+                    <button class="btn-icon" style="background:none;border:none;cursor:pointer;color:var(--text-400);font-size:13px;"><i class="fa-solid fa-ellipsis-vertical"></i></button>
+                  </td>
+                </tr>
+
+                <!-- 4. Grand Square Project -->
+                <tr class="project-row" id="row-grandsquare" onclick="selectProject('grandsquare')">
+                  <td>
+                    <div style="display:flex;align-items:center;gap:10px;">
+                      <div style="width:36px;height:36px;border-radius:6px;background:linear-gradient(135deg,#059669,#047857);display:flex;align-items:center;justify-content:center;color:#fff;font-size:14px;flex-shrink:0;">
+                        <i class="fa-solid fa-building"></i>
+                      </div>
+                      <div style="font-weight:700;color:var(--text-900);font-size:12.5px;">Grand Square Project</div>
+                    </div>
+                  </td>
+                  <td>
+                    <div style="font-size:12px;font-weight:600;color:var(--text-800);">Grand Square Mall</div>
+                    <div style="font-size:10.5px;color:var(--text-400);">Noida, Uttar Pradesh</div>
+                  </td>
+                  <td style="font-size:12px;color:var(--text-600);">Venue</td>
+                  <td><span class="badge badge-purple" style="font-size:10.5px;font-weight:600;">Mall / Indoor Venue</span></td>
+                  <td><span class="badge badge-green" style="font-size:10px;padding:2px 8px;"><span class="dot"></span> Active</span></td>
+                  <td style="font-size:12px;"><strong>10</strong> <span style="font-size:10.5px;color:var(--text-400);">(<span style="color:#10b981;font-weight:600;">9</span> / <span style="color:#ef4444;font-weight:600;">1</span>)</span></td>
+                  <td><div style="font-weight:700;font-size:12px;color:var(--text-900);">v2.0.1</div><div style="font-size:10.5px;color:var(--text-400);">02 Apr 2025</div></td>
+                  <td><span style="color:#10b981;font-weight:700;font-size:12px;">● 96%</span></td>
+                  <td style="font-size:11.5px;color:var(--text-500);">Yesterday, 04:15 PM</td>
+                  <td style="text-align:right;">
+                    <button class="btn-icon" style="background:none;border:none;cursor:pointer;color:var(--text-400);font-size:13px;"><i class="fa-solid fa-ellipsis-vertical"></i></button>
+                  </td>
+                </tr>
+
+                <!-- 5. Westend Mall Project -->
+                <tr class="project-row" id="row-westend" onclick="selectProject('westend')">
+                  <td>
+                    <div style="display:flex;align-items:center;gap:10px;">
+                      <div style="width:36px;height:36px;border-radius:6px;background:linear-gradient(135deg,#d97706,#b45309);display:flex;align-items:center;justify-content:center;color:#fff;font-size:14px;flex-shrink:0;">
+                        <i class="fa-solid fa-building"></i>
+                      </div>
+                      <div style="font-weight:700;color:var(--text-900);font-size:12.5px;">Westend Mall Project</div>
+                    </div>
+                  </td>
+                  <td>
+                    <div style="font-size:12px;font-weight:600;color:var(--text-800);">Westend Mall</div>
+                    <div style="font-size:10.5px;color:var(--text-400);">Aundh, Pune</div>
+                  </td>
+                  <td style="font-size:12px;color:var(--text-600);">Venue</td>
+                  <td><span class="badge badge-purple" style="font-size:10.5px;font-weight:600;">Mall / Indoor Venue</span></td>
+                  <td><span class="badge badge-amber" style="font-size:10px;padding:2px 8px;"><span class="dot"></span> Paused</span></td>
+                  <td style="font-size:12px;"><strong>8</strong> <span style="font-size:10.5px;color:var(--text-400);">(<span style="color:#10b981;font-weight:600;">7</span> / <span style="color:#ef4444;font-weight:600;">1</span>)</span></td>
+                  <td><div style="font-weight:700;font-size:12px;color:var(--text-900);">v1.9.2</div><div style="font-size:10.5px;color:var(--text-400);">10 Mar 2025</div></td>
+                  <td><span style="color:#f59e0b;font-weight:700;font-size:12px;">● 94%</span></td>
+                  <td style="font-size:11.5px;color:var(--text-500);">2 May 2025</td>
+                  <td style="text-align:right;">
+                    <button class="btn-icon" style="background:none;border:none;cursor:pointer;color:var(--text-400);font-size:13px;"><i class="fa-solid fa-ellipsis-vertical"></i></button>
+                  </td>
+                </tr>
+
+                <!-- 6. Capital Mall Project -->
+                <tr class="project-row" id="row-capital" onclick="selectProject('capital')">
+                  <td>
+                    <div style="display:flex;align-items:center;gap:10px;">
+                      <div style="width:36px;height:36px;border-radius:6px;background:linear-gradient(135deg,#2563eb,#1d4ed8);display:flex;align-items:center;justify-content:center;color:#fff;font-size:14px;flex-shrink:0;">
+                        <i class="fa-solid fa-building"></i>
+                      </div>
+                      <div style="font-weight:700;color:var(--text-900);font-size:12.5px;">Capital Mall Project</div>
+                    </div>
+                  </td>
+                  <td>
+                    <div style="font-size:12px;font-weight:600;color:var(--text-800);">Capital Mall</div>
+                    <div style="font-size:10.5px;color:var(--text-400);">New Delhi</div>
+                  </td>
+                  <td style="font-size:12px;color:var(--text-600);">Venue</td>
+                  <td><span class="badge badge-purple" style="font-size:10.5px;font-weight:600;">Mall / Indoor Venue</span></td>
+                  <td><span class="badge badge-green" style="font-size:10px;padding:2px 8px;"><span class="dot"></span> Active</span></td>
+                  <td style="font-size:12px;"><strong>6</strong> <span style="font-size:10.5px;color:var(--text-400);">(<span style="color:#10b981;font-weight:600;">6</span> / <span style="color:#ef4444;font-weight:600;">0</span>)</span></td>
+                  <td><div style="font-weight:700;font-size:12px;color:var(--text-900);">v2.1.0</div><div style="font-size:10.5px;color:var(--text-400);">28 Apr 2025</div></td>
+                  <td><span style="color:#10b981;font-weight:700;font-size:12px;">● 98%</span></td>
+                  <td style="font-size:11.5px;color:var(--text-500);">30 Apr 2025</td>
+                  <td style="text-align:right;">
+                    <button class="btn-icon" style="background:none;border:none;cursor:pointer;color:var(--text-400);font-size:13px;"><i class="fa-solid fa-ellipsis-vertical"></i></button>
+                  </td>
+                </tr>
+
+                <!-- 7. Lakeside Mall Project -->
+                <tr class="project-row" id="row-lakeside" onclick="selectProject('lakeside')">
+                  <td>
+                    <div style="display:flex;align-items:center;gap:10px;">
+                      <div style="width:36px;height:36px;border-radius:6px;background:linear-gradient(135deg,#0d9488,#0f766e);display:flex;align-items:center;justify-content:center;color:#fff;font-size:14px;flex-shrink:0;">
+                        <i class="fa-solid fa-building"></i>
+                      </div>
+                      <div style="font-weight:700;color:var(--text-900);font-size:12.5px;">Lakeside Mall Project</div>
+                    </div>
+                  </td>
+                  <td>
+                    <div style="font-size:12px;font-weight:600;color:var(--text-800);">Lakeside Mall</div>
+                    <div style="font-size:10.5px;color:var(--text-400);">Kolkata, West Bengal</div>
+                  </td>
+                  <td style="font-size:12px;color:var(--text-600);">Venue</td>
+                  <td><span class="badge badge-purple" style="font-size:10.5px;font-weight:600;">Mall / Indoor Venue</span></td>
+                  <td><span class="badge badge-amber" style="font-size:10px;padding:2px 8px;"><span class="dot"></span> Paused</span></td>
+                  <td style="font-size:12px;"><strong>4</strong> <span style="font-size:10.5px;color:var(--text-400);">(<span style="color:#10b981;font-weight:600;">3</span> / <span style="color:#ef4444;font-weight:600;">1</span>)</span></td>
+                  <td><div style="font-weight:700;font-size:12px;color:var(--text-900);">v1.8.7</div><div style="font-size:10.5px;color:var(--text-400);">18 Feb 2025</div></td>
+                  <td><span style="color:#f59e0b;font-weight:700;font-size:12px;">● 92%</span></td>
+                  <td style="font-size:11.5px;color:var(--text-500);">25 Apr 2025</td>
+                  <td style="text-align:right;">
+                    <button class="btn-icon" style="background:none;border:none;cursor:pointer;color:var(--text-400);font-size:13px;"><i class="fa-solid fa-ellipsis-vertical"></i></button>
+                  </td>
+                </tr>
+
+              </tbody>
+            </table>
+          </div>
+
+          <!-- Pagination Bar -->
+          <div style="display:flex;align-items:center;justify-content:space-between;margin-top:16px;padding-top:12px;border-top:1px solid var(--border-soft);font-size:12px;color:var(--text-400);">
+            <div>Showing 1 to 7 of 27 projects</div>
+            <div style="display:flex;align-items:center;gap:6px;">
+              <button class="btn" style="padding:4px 8px;font-size:11px;background:#f8fafc;" disabled><i class="fa-solid fa-chevron-left"></i></button>
+              <button class="btn btn-primary" style="padding:4px 10px;font-size:11px;background:#2563eb;color:#fff;">1</button>
+              <button class="btn" style="padding:4px 10px;font-size:11px;">2</button>
+              <button class="btn" style="padding:4px 10px;font-size:11px;">3</button>
+              <button class="btn" style="padding:4px 10px;font-size:11px;">4</button>
+              <button class="btn" style="padding:4px 8px;font-size:11px;"><i class="fa-solid fa-chevron-right"></i></button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right Side Selected Project Details Card -->
+        <div class="panel" style="margin:0;padding:20px;display:flex;flex-direction:column;justify-content:space-between;" id="selectedProjectPanel">
+          <div>
+            <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;">
+              <h3 style="font-size:14px;font-weight:800;color:var(--text-900);margin:0;">Selected Project</h3>
+              <span class="badge badge-green" id="selProjStatusBadge" style="font-size:10px;">Active</span>
+            </div>
+
+            <h4 style="font-size:16px;font-weight:800;color:var(--text-900);margin:0 0 10px;" id="selProjName">Phoenix Mall Project</h4>
+
+            <!-- Project Hero Banner Image -->
+            <div style="height:120px;border-radius:10px;overflow:hidden;margin-bottom:14px;background:linear-gradient(135deg, #1e293b, #0f172a);display:flex;align-items:center;justify-content:center;position:relative;border:1px solid var(--border);">
+              <div style="text-align:center;padding:16px;">
+                <div style="font-size:24px;color:#fde047;margin-bottom:4px;"><i class="fa-solid fa-building"></i></div>
+                <div style="font-size:15px;font-weight:800;color:#ffffff;letter-spacing:0.5px;" id="selProjBannerTitle">Phoenix Mall</div>
+                <div style="font-size:11px;color:rgba(255,255,255,0.7);">Active Kiosk Deployment</div>
+              </div>
+            </div>
+
+            <!-- Project Attributes List -->
+            <div style="display:flex;flex-direction:column;gap:8px;font-size:12px;">
+              <div style="display:flex;justify-content:space-between;">
+                <span style="color:var(--text-500);display:flex;align-items:center;gap:6px;"><i class="fa-solid fa-user-group" style="font-size:11px;"></i> Client</span>
+                <span style="font-weight:700;color:var(--text-900);" id="selProjClient">Phoenix Mall</span>
+              </div>
+              <div style="display:flex;justify-content:space-between;">
+                <span style="color:var(--text-500);display:flex;align-items:center;gap:6px;"><i class="fa-solid fa-location-dot" style="font-size:11px;"></i> Venue</span>
+                <span style="font-weight:600;color:var(--text-800);text-align:right;max-width:180px;line-height:1.2;" id="selProjVenue">Phoenix Mills, Lower Parel, Mumbai</span>
+              </div>
+              <div style="display:flex;justify-content:space-between;">
+                <span style="color:var(--text-500);display:flex;align-items:center;gap:6px;"><i class="fa-regular fa-folder" style="font-size:11px;"></i> Template</span>
+                <span style="font-weight:700;color:var(--text-900);" id="selProjTemplate">Mall / Indoor Venue (v2.1)</span>
+              </div>
+              <div style="display:flex;justify-content:space-between;">
+                <span style="color:var(--text-500);display:flex;align-items:center;gap:6px;"><i class="fa-solid fa-rocket" style="font-size:11px;"></i> Active Release</span>
+                <span style="font-weight:600;color:var(--text-800);" id="selProjRelease">v2.1.0 (28 Apr 2025)</span>
+              </div>
+              <div style="display:flex;justify-content:space-between;">
+                <span style="color:var(--text-500);display:flex;align-items:center;gap:6px;"><i class="fa-solid fa-display" style="font-size:11px;"></i> Total Kiosks</span>
+                <span style="font-weight:700;color:var(--text-900);" id="selProjKiosks">28 (26 Online / 2 Offline)</span>
+              </div>
+              <div style="display:flex;justify-content:space-between;">
+                <span style="color:var(--text-500);display:flex;align-items:center;gap:6px;"><i class="fa-solid fa-heart-pulse" style="font-size:11px;"></i> Experience Health</span>
+                <span style="font-weight:700;color:#10b981;" id="selProjHealth">98% (Excellent)</span>
+              </div>
+              <div style="display:flex;justify-content:space-between;">
+                <span style="color:var(--text-500);display:flex;align-items:center;gap:6px;"><i class="fa-regular fa-clock" style="font-size:11px;"></i> Last Updated</span>
+                <span style="font-weight:600;color:var(--text-800);" id="selProjUpdated">Today, 10:30 AM</span>
+              </div>
+              <div style="display:flex;justify-content:space-between;">
+                <span style="color:var(--text-500);display:flex;align-items:center;gap:6px;"><i class="fa-solid fa-user-shield" style="font-size:11px;"></i> Project Admin</span>
+                <span style="font-weight:600;color:var(--text-800);" id="selProjAdmin">Rahul Mehta</span>
+              </div>
+            </div>
+          </div>
+
+          <div style="margin-top:16px;padding-top:14px;border-top:1px solid var(--border-soft);">
+            <a href="project-detail.html" class="btn btn-primary" id="btnViewProjectDetails" style="width:100%;justify-content:center;font-weight:700;font-size:13px;padding:9px 0;background:#2563eb;color:#fff;text-decoration:none;">
+              View Project Details
+            </a>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- =====================================================================
+           ROW 3: 4 OPERATIONAL BOTTOM PANELS
+           ===================================================================== -->
+      <div class="projects-bottom-grid">
+
+        <!-- 1. Recent Project Activity -->
+        <div class="panel" style="margin:0;padding:18px;">
+          <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;">
+            <h3 style="font-size:13.5px;font-weight:800;color:var(--text-900);margin:0;">Recent Project Activity</h3>
+            <a href="javascript:void(0)" class="link-blue" style="font-size:11.5px;font-weight:700;">View All</a>
+          </div>
+
+          <div style="display:flex;flex-direction:column;">
+            
+            <div class="proj-activity-item">
+              <div class="proj-act-icon" style="background:#eff6ff;color:#2563eb;">
+                <i class="fa-solid fa-rocket"></i>
+              </div>
+              <div style="font-size:11.5px;flex:1;">
+                <div style="font-weight:700;color:var(--text-900);">Release v2.1.0 published for Phoenix Mall Project</div>
+                <div style="color:var(--text-400);font-size:10.5px;margin-top:2px;">By Release Manager · Today, 10:30 AM</div>
+              </div>
+            </div>
+
+            <div class="proj-activity-item">
+              <div class="proj-act-icon" style="background:#fdf2f8;color:#db2777;">
+                <i class="fa-solid fa-palette"></i>
+              </div>
+              <div style="font-size:11.5px;flex:1;">
+                <div style="font-weight:700;color:var(--text-900);">Theme "Default Mall" activated in Orion Mall Project</div>
+                <div style="color:var(--text-400);font-size:10.5px;margin-top:2px;">By Project Admin · Today, 09:20 AM</div>
+              </div>
+            </div>
+
+            <div class="proj-activity-item">
+              <div class="proj-act-icon" style="background:#ecfdf5;color:#059669;">
+                <i class="fa-solid fa-display"></i>
+              </div>
+              <div style="font-size:11.5px;flex:1;">
+                <div style="font-weight:700;color:var(--text-900);">New kiosk K-104 registered in Skyline Mall Project</div>
+                <div style="color:var(--text-400);font-size:10.5px;margin-top:2px;">By Device Manager · Yesterday, 06:45 PM</div>
+              </div>
+            </div>
+
+            <div class="proj-activity-item">
+              <div class="proj-act-icon" style="background:#fff7ed;color:#ea580c;">
+                <i class="fa-solid fa-pen-to-square"></i>
+              </div>
+              <div style="font-size:11.5px;flex:1;">
+                <div style="font-weight:700;color:var(--text-900);">Content update in Phoenix Mall Project</div>
+                <div style="color:var(--text-400);font-size:10.5px;margin-top:2px;">By Content Manager · Yesterday, 04:15 PM</div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- 2. Projects by Status Donut -->
+        <div class="panel" style="margin:0;padding:18px;">
+          <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;">
+            <h3 style="font-size:13.5px;font-weight:800;color:var(--text-900);margin:0;">Projects by Status</h3>
+            <a href="javascript:void(0)" class="link-blue" style="font-size:11.5px;font-weight:700;">View All</a>
+          </div>
+
+          <div style="display:flex;flex-direction:column;align-items:center;padding:8px 0;">
+            <!-- SVG Donut Chart for Projects by Status -->
+            <div style="position:relative;width:110px;height:110px;margin-bottom:12px;">
+              <svg viewBox="0 0 36 36" style="width:100%;height:100%;transform:rotate(-90deg);">
+                <!-- Background Ring -->
+                <circle cx="18" cy="18" r="15.915" fill="none" stroke="#f1f5f9" stroke-width="3.6"/>
+                <!-- Active: 81.5% (Green) -->
+                <circle cx="18" cy="18" r="15.915" fill="none" stroke="#10b981" stroke-width="3.6" stroke-dasharray="81.5, 100" stroke-dashoffset="0"/>
+                <!-- Paused: 11.1% (Orange) -->
+                <circle cx="18" cy="18" r="15.915" fill="none" stroke="#f59e0b" stroke-width="3.6" stroke-dasharray="11.1, 100" stroke-dashoffset="-81.5"/>
+                <!-- Closed: 7.4% (Red) -->
+                <circle cx="18" cy="18" r="15.915" fill="none" stroke="#ef4444" stroke-width="3.6" stroke-dasharray="7.4, 100" stroke-dashoffset="-92.6"/>
+              </svg>
+              <div style="position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;">
+                <span style="font-size:17px;font-weight:800;color:var(--text-900);line-height:1;">27</span>
+                <span style="font-size:9.5px;color:var(--text-400);">Total</span>
+              </div>
+            </div>
+
+            <!-- Legend -->
+            <div style="width:100%;display:flex;flex-direction:column;gap:5px;font-size:11px;">
+              <div style="display:flex;justify-content:space-between;align-items:center;">
+                <span style="display:flex;align-items:center;gap:6px;color:var(--text-600);"><span style="width:8px;height:8px;border-radius:50%;background:#10b981;"></span> Active</span>
+                <span style="font-weight:700;color:var(--text-900);">22 (81.5%)</span>
+              </div>
+              <div style="display:flex;justify-content:space-between;align-items:center;">
+                <span style="display:flex;align-items:center;gap:6px;color:var(--text-600);"><span style="width:8px;height:8px;border-radius:50%;background:#f59e0b;"></span> Paused</span>
+                <span style="font-weight:700;color:var(--text-900);">3 (11.1%)</span>
+              </div>
+              <div style="display:flex;justify-content:space-between;align-items:center;">
+                <span style="display:flex;align-items:center;gap:6px;color:var(--text-600);"><span style="width:8px;height:8px;border-radius:50%;background:#ef4444;"></span> Closed</span>
+                <span style="font-weight:700;color:var(--text-900);">2 (7.4%)</span>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- 3. Projects by Template Donut -->
+        <div class="panel" style="margin:0;padding:18px;">
+          <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;">
+            <h3 style="font-size:13.5px;font-weight:800;color:var(--text-900);margin:0;">Projects by Template</h3>
+            <a href="javascript:void(0)" class="link-blue" style="font-size:11.5px;font-weight:700;">View All</a>
+          </div>
+
+          <div style="display:flex;flex-direction:column;align-items:center;padding:8px 0;">
+            <!-- SVG Donut Chart for Template -->
+            <div style="position:relative;width:110px;height:110px;margin-bottom:12px;">
+              <svg viewBox="0 0 36 36" style="width:100%;height:100%;transform:rotate(-90deg);">
+                <circle cx="18" cy="18" r="15.915" fill="none" stroke="#f1f5f9" stroke-width="3.6"/>
+                <!-- 100% Mall / Indoor Venue (Blue) -->
+                <circle cx="18" cy="18" r="15.915" fill="none" stroke="#2563eb" stroke-width="3.6" stroke-dasharray="100, 100" stroke-dashoffset="0"/>
+              </svg>
+              <div style="position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;">
+                <span style="font-size:17px;font-weight:800;color:var(--text-900);line-height:1;">27</span>
+                <span style="font-size:9.5px;color:var(--text-400);">Total</span>
+              </div>
+            </div>
+
+            <!-- Legend -->
+            <div style="width:100%;display:flex;flex-direction:column;gap:5px;font-size:11px;">
+              <div style="display:flex;justify-content:space-between;align-items:center;">
+                <span style="display:flex;align-items:center;gap:6px;color:var(--text-600);"><span style="width:8px;height:8px;border-radius:50%;background:#2563eb;"></span> Mall / Indoor Venue</span>
+                <span style="font-weight:700;color:var(--text-900);">27 (100%)</span>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- 4. Quick Actions Grid (6 items) -->
+        <div class="panel" style="margin:0;padding:18px;">
+          <h3 style="font-size:13.5px;font-weight:800;color:var(--text-900);margin:0 0 12px;">Quick Actions</h3>
+          
+          <div style="display:grid;grid-template-columns:repeat(3, 1fr);gap:8px;">
+            
+            <div class="quick-action-btn-card" onclick="openInitProjectModal()">
+              <i class="fa-solid fa-folder-plus"></i>
+              <span>Initialize New Project</span>
+            </div>
+
+            <div class="quick-action-btn-card" onclick="location.href='projects.html'">
+              <i class="fa-solid fa-list-check"></i>
+              <span>View All Projects</span>
+            </div>
+
+            <div class="quick-action-btn-card" onclick="location.href='monitoring.html'">
+              <i class="fa-solid fa-heart-pulse"></i>
+              <span>Project Health</span>
+            </div>
+
+            <div class="quick-action-btn-card" onclick="location.href='releases.html'">
+              <i class="fa-solid fa-rocket"></i>
+              <span>Release Management</span>
+            </div>
+
+            <div class="quick-action-btn-card" onclick="location.href='templates.html'">
+              <i class="fa-solid fa-palette"></i>
+              <span>Assign Theme</span>
+            </div>
+
+            <div class="quick-action-btn-card" onclick="location.href='monitoring.html'">
+              <i class="fa-regular fa-clock"></i>
+              <span>Project Activity</span>
+            </div>
+
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Footer Bar -->
+      <footer style="display:flex;align-items:center;justify-content:space-between;padding-top:20px;margin-top:24px;border-top:1px solid var(--border-soft);font-size:12px;color:var(--text-400);">
+        <div>© 2025 Mall Kiosk Platform. All rights reserved.</div>
+        <div style="display:flex;gap:16px;">
+          <span>v1.0.0</span>
+          <span>|</span>
+          <span>May 2025</span>
+        </div>
+      </footer>
+
     </div>
   </div>
-  <div class="table-wrap"><table>
-  <thead><tr><th>Project / Client</th><th>Template</th><th>Status</th><th>Kiosks</th><th>Online Kiosks</th><th>Current Release</th><th>Last Activity</th><th>Created On</th><th>Actions</th></tr></thead>
-  <tbody><tr>
-<td><div class="cell-main"><div class="cell-thumb" style="background:linear-gradient(135deg,#c4b5fd,#7c3aed);"></div>
-<div><div class="cell-title">Phoenix Mall</div><div class="cell-sub">Phoenix Retail Group</div></div></div></td>
-<td><div class="cell-main"><div class="tmpl-icon"><i class="fa-solid fa-building"></i></div><div><div class="cell-title" style="font-size:12.5px;">Mall / Indoor Venue</div><div class="cell-sub">v1.2.0</div></div></div></td>
-<td><span class="badge badge-green"><span class="dot"></span>Active</span></td>
-<td>12</td>
-<td>11 <div class="pct-green">91.7%</div></td>
-<td>Release 43<div class="cell-sub" style="color:#16a34a;font-weight:600;">Published</div></td>
-<td>Today, 10:30 AM</td>
-<td>May 10, 2026<div class="cell-sub">John Admin</div></td>
-<td class="row-actions"><a class="btn btn-sm" href="client-detail.html">View Details</a><button class="btn-icon"><i class="fa-solid fa-ellipsis"></i></button></td>
-</tr><tr>
-<td><div class="cell-main"><div class="cell-thumb" style="background:linear-gradient(135deg,#93c5fd,#2563eb);"></div>
-<div><div class="cell-title">City Center Mall</div><div class="cell-sub">City Center Group</div></div></div></td>
-<td><div class="cell-main"><div class="tmpl-icon"><i class="fa-solid fa-building"></i></div><div><div class="cell-title" style="font-size:12.5px;">Mall / Indoor Venue</div><div class="cell-sub">v1.2.0</div></div></div></td>
-<td><span class="badge badge-green"><span class="dot"></span>Active</span></td>
-<td>8</td>
-<td>7 <div class="pct-green">87.5%</div></td>
-<td>Release 42<div class="cell-sub" style="color:#16a34a;font-weight:600;">Published</div></td>
-<td>Yesterday, 4:45 PM</td>
-<td>May 08, 2026<div class="cell-sub">Sarah Manager</div></td>
-<td class="row-actions"><a class="btn btn-sm" href="client-detail.html">View Details</a><button class="btn-icon"><i class="fa-solid fa-ellipsis"></i></button></td>
-</tr><tr>
-<td><div class="cell-main"><div class="cell-thumb" style="background:linear-gradient(135deg,#67e8f9,#0891b2);"></div>
-<div><div class="cell-title">Grand Plaza</div><div class="cell-sub">Grand Plaza Ventures</div></div></div></td>
-<td><div class="cell-main"><div class="tmpl-icon"><i class="fa-solid fa-building"></i></div><div><div class="cell-title" style="font-size:12.5px;">Mall / Indoor Venue</div><div class="cell-sub">v1.2.0</div></div></div></td>
-<td><span class="badge badge-green"><span class="dot"></span>Active</span></td>
-<td>15</td>
-<td>14 <div class="pct-green">93.3%</div></td>
-<td>Release 43<div class="cell-sub" style="color:#16a34a;font-weight:600;">Published</div></td>
-<td>Today, 9:15 AM</td>
-<td>May 06, 2026<div class="cell-sub">Michael Admin</div></td>
-<td class="row-actions"><a class="btn btn-sm" href="client-detail.html">View Details</a><button class="btn-icon"><i class="fa-solid fa-ellipsis"></i></button></td>
-</tr><tr>
-<td><div class="cell-main"><div class="cell-thumb" style="background:linear-gradient(135deg,#fde68a,#f59e0b);"></div>
-<div><div class="cell-title">Lakeside Mall</div><div class="cell-sub">Lakeside Properties</div></div></div></td>
-<td><div class="cell-main"><div class="tmpl-icon"><i class="fa-solid fa-building"></i></div><div><div class="cell-title" style="font-size:12.5px;">Mall / Indoor Venue</div><div class="cell-sub">v1.2.0</div></div></div></td>
-<td><span class="badge badge-amber"><span class="dot"></span>Draft</span></td>
-<td>2</td>
-<td>0 <div class="pct-red">0%</div></td>
-<td>&mdash;<div class="cell-sub">No release</div></td>
-<td>Aug 18, 2026</td>
-<td>Aug 18, 2026<div class="cell-sub">Emily Editor</div></td>
-<td class="row-actions"><a class="btn btn-sm" href="client-detail.html">View Details</a><button class="btn-icon"><i class="fa-solid fa-ellipsis"></i></button></td>
-</tr><tr>
-<td><div class="cell-main"><div class="cell-thumb" style="background:linear-gradient(135deg,#f9a8d4,#db2777);"></div>
-<div><div class="cell-title">Downtown Mall</div><div class="cell-sub">Downtown Retail</div></div></div></td>
-<td><div class="cell-main"><div class="tmpl-icon"><i class="fa-solid fa-building"></i></div><div><div class="cell-title" style="font-size:12.5px;">Mall / Indoor Venue</div><div class="cell-sub">v1.2.0</div></div></div></td>
-<td><span class="badge badge-blue"><span class="dot"></span>Draft</span></td>
-<td>4</td>
-<td>0 <div class="pct-red">0%</div></td>
-<td>&mdash;<div class="cell-sub">No release</div></td>
-<td>Aug 17, 2026</td>
-<td>Aug 17, 2026<div class="cell-sub">David Manager</div></td>
-<td class="row-actions"><a class="btn btn-sm" href="client-detail.html">View Details</a><button class="btn-icon"><i class="fa-solid fa-ellipsis"></i></button></td>
-</tr><tr>
-<td><div class="cell-main"><div class="cell-thumb" style="background:linear-gradient(135deg,#fca5a5,#dc2626);"></div>
-<div><div class="cell-title">Westfield Mall</div><div class="cell-sub">Westfield Group</div></div></div></td>
-<td><div class="cell-main"><div class="tmpl-icon"><i class="fa-solid fa-building"></i></div><div><div class="cell-title" style="font-size:12.5px;">Mall / Indoor Venue</div><div class="cell-sub">v1.2.0</div></div></div></td>
-<td><span class="badge badge-green"><span class="dot"></span>Active</span></td>
-<td>18</td>
-<td>17 <div class="pct-green">94.4%</div></td>
-<td>Release 41<div class="cell-sub" style="color:#16a34a;font-weight:600;">Published</div></td>
-<td>Today, 8:20 AM</td>
-<td>May 04, 2026<div class="cell-sub">Chris Admin</div></td>
-<td class="row-actions"><a class="btn btn-sm" href="client-detail.html">View Details</a><button class="btn-icon"><i class="fa-solid fa-ellipsis"></i></button></td>
-</tr><tr>
-<td><div class="cell-main"><div class="cell-thumb" style="background:linear-gradient(135deg,#86efac,#16a34a);"></div>
-<div><div class="cell-title">Metro City Mall</div><div class="cell-sub">Metro City Developers</div></div></div></td>
-<td><div class="cell-main"><div class="tmpl-icon"><i class="fa-solid fa-building"></i></div><div><div class="cell-title" style="font-size:12.5px;">Mall / Indoor Venue</div><div class="cell-sub">v1.2.0</div></div></div></td>
-<td><span class="badge badge-green"><span class="dot"></span>Active</span></td>
-<td>6</td>
-<td>6 <div class="pct-green">100%</div></td>
-<td>Release 43<div class="cell-sub" style="color:#16a34a;font-weight:600;">Published</div></td>
-<td>Yesterday, 11:05 AM</td>
-<td>May 02, 2026<div class="cell-sub">Rachel Admin</div></td>
-<td class="row-actions"><a class="btn btn-sm" href="client-detail.html">View Details</a><button class="btn-icon"><i class="fa-solid fa-ellipsis"></i></button></td>
-</tr><tr>
-<td><div class="cell-main"><div class="cell-thumb" style="background:linear-gradient(135deg,#c4b5fd,#6d28d9);"></div>
-<div><div class="cell-title">Sunshine Mall</div><div class="cell-sub">Sunshine Retail Pvt. Ltd.</div></div></div></td>
-<td><div class="cell-main"><div class="tmpl-icon"><i class="fa-solid fa-building"></i></div><div><div class="cell-title" style="font-size:12.5px;">Mall / Indoor Venue</div><div class="cell-sub">v1.2.0</div></div></div></td>
-<td><span class="badge badge-gray"><span class="dot"></span>Archived</span></td>
-<td>3</td>
-<td>0 <div class="pct-red">0%</div></td>
-<td>Release 39<div class="cell-sub">Archived</div></td>
-<td>Jul 28, 2026</td>
-<td>Apr 20, 2026<div class="cell-sub">Adam Manager</div></td>
-<td class="row-actions"><a class="btn btn-sm" href="client-detail.html">View Details</a><button class="btn-icon"><i class="fa-solid fa-ellipsis"></i></button></td>
-</tr></tbody>
-  </table></div>
-  <div class="pagination-bar">
-    <div class="muted" style="font-size:12.5px;">Showing 1 to 8 of 64 projects</div>
-    <div class="pagination">
-      <div class="page-btn"><i class="fa-solid fa-chevron-left"></i></div>
-      <div class="page-btn active">1</div><div class="page-btn">2</div><div class="page-btn">3</div>
-      <div class="page-btn dots">...</div><div class="page-btn">8</div>
-      <div class="page-btn"><i class="fa-solid fa-chevron-right"></i></div>
+</div>
+
+<!-- =========================================================================
+     COMPANY ADMIN: INITIALIZE NEW PROJECT MODAL
+     ========================================================================= -->
+<div class="modal-backdrop" id="initProjectModal" style="display:none;position:fixed;inset:0;background:rgba(15,23,42,0.7);backdrop-filter:blur(6px);z-index:9999;align-items:center;justify-content:center;">
+  <div style="background:#ffffff;border-radius:18px;max-width:560px;width:100%;padding:28px;box-shadow:0 25px 60px rgba(0,0,0,0.3);position:relative;">
+    
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;">
+      <div>
+        <h3 style="font-size:17px;font-weight:800;color:var(--text-900);margin:0;">Initialize New Project</h3>
+        <p style="font-size:12px;color:var(--text-500);margin:2px 0 0;">Company Admin project initialization for an approved client.</p>
+      </div>
+      <button onclick="closeInitProjectModal()" style="background:none;border:none;font-size:18px;color:var(--text-400);cursor:pointer;">&times;</button>
     </div>
-    <div class="select-pill">10 / page <i class="fa-solid fa-chevron-down"></i></div>
+
+    <!-- Initialization Form Fields -->
+    <div style="display:flex;flex-direction:column;gap:12px;margin-bottom:20px;">
+      <div>
+        <label style="display:block;font-size:12px;font-weight:700;color:var(--text-700);margin-bottom:4px;">1. Client Organization</label>
+        <select class="form-control" style="width:100%;font-size:13px;padding:8px 12px;">
+          <option>Phoenix Mills Ltd. (Phoenix Mall)</option>
+          <option>Orion Retail Pvt. Ltd. (Orion Mall)</option>
+          <option>Skyline Commercial Group (Skyline Mall)</option>
+          <option>Grand Square Enterprises</option>
+        </select>
+      </div>
+
+      <div>
+        <label style="display:block;font-size:12px;font-weight:700;color:var(--text-700);margin-bottom:4px;">2. Project & Venue Name</label>
+        <input type="text" class="form-control" value="Phoenix Marketcity Kurla Project" style="width:100%;font-size:13px;padding:8px 12px;">
+      </div>
+
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;">
+        <div>
+          <label style="display:block;font-size:12px;font-weight:700;color:var(--text-700);margin-bottom:4px;">3. Assigned Template</label>
+          <select class="form-control" style="width:100%;font-size:13px;padding:8px 12px;">
+            <option>Mall / Indoor Venue (v2.1)</option>
+          </select>
+        </div>
+        <div>
+          <label style="display:block;font-size:12px;font-weight:700;color:var(--text-700);margin-bottom:4px;">4. Assigned Theme</label>
+          <select class="form-control" style="width:100%;font-size:13px;padding:8px 12px;">
+            <option>Default Mall Luxury</option>
+            <option>Diwali Festive 2024</option>
+          </select>
+        </div>
+      </div>
+
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;">
+        <div>
+          <label style="display:block;font-size:12px;font-weight:700;color:var(--text-700);margin-bottom:4px;">5. Planned Kiosks</label>
+          <input type="number" class="form-control" value="16" style="width:100%;font-size:13px;padding:8px 12px;">
+        </div>
+        <div>
+          <label style="display:block;font-size:12px;font-weight:700;color:var(--text-700);margin-bottom:4px;">6. Initial Status</label>
+          <select class="form-control" style="width:100%;font-size:13px;padding:8px 12px;">
+            <option>Active / Provisioning</option>
+            <option>Draft</option>
+          </select>
+        </div>
+      </div>
+    </div>
+
+    <!-- Boundaries note -->
+    <div style="background:#f8fafc;padding:10px 14px;border-radius:8px;font-size:11.5px;color:var(--text-600);margin-bottom:20px;">
+      <i class="fa-solid fa-circle-info" style="color:#2563eb;"></i> <strong>Company Policy:</strong> Templates and Themes are pre-approved by Product Engineering. Initializing this project will create the project workspace for the client.
+    </div>
+
+    <div style="display:flex;gap:10px;justify-content:flex-end;">
+      <button class="btn" onclick="closeInitProjectModal()">Cancel</button>
+      <button class="btn btn-primary" onclick="submitInitProject()" style="background:#2563eb;color:#fff;font-weight:700;">
+        Initialize Project & Open Details
+      </button>
+    </div>
+
   </div>
 </div>
-</div></div>
-</div>
+
+<!-- =========================================================================
+     JAVASCRIPT INTERACTION & DATA
+     ========================================================================= -->
+<script>
+  const projectDatabase = {
+    phoenix: {
+      name: "Phoenix Mall Project",
+      client: "Phoenix Mall",
+      venue: "Phoenix Mills, Lower Parel, Mumbai",
+      template: "Mall / Indoor Venue (v2.1)",
+      release: "v2.1.0 (28 Apr 2025)",
+      kiosks: "28 (26 Online / 2 Offline)",
+      health: "98% (Excellent)",
+      updated: "Today, 10:30 AM",
+      admin: "Rahul Mehta",
+      status: "Active",
+      statusClass: "badge-green"
+    },
+    orion: {
+      name: "Orion Mall Project",
+      client: "Orion Mall",
+      venue: "Brigade Gateway, Rajajinagar, Bangalore",
+      template: "Mall / Indoor Venue (v2.1)",
+      release: "v2.0.3 (15 Apr 2025)",
+      kiosks: "18 (17 Online / 1 Offline)",
+      health: "97% (Excellent)",
+      updated: "Today, 09:45 AM",
+      admin: "Vikram Sen",
+      status: "Active",
+      statusClass: "badge-green"
+    },
+    skyline: {
+      name: "Skyline Mall Project",
+      client: "Skyline Mall",
+      venue: "Viman Nagar, Pune, Maharashtra",
+      template: "Mall / Indoor Venue (v2.1)",
+      release: "v2.1.0 (28 Apr 2025)",
+      kiosks: "12 (11 Online / 1 Offline)",
+      health: "99% (Excellent)",
+      updated: "Yesterday, 06:20 PM",
+      admin: "Ananya Roy",
+      status: "Active",
+      statusClass: "badge-green"
+    },
+    grandsquare: {
+      name: "Grand Square Project",
+      client: "Grand Square Mall",
+      venue: "Sector 18, Noida, Uttar Pradesh",
+      template: "Mall / Indoor Venue (v2.1)",
+      release: "v2.0.1 (02 Apr 2025)",
+      kiosks: "10 (9 Online / 1 Offline)",
+      health: "96% (Good)",
+      updated: "Yesterday, 04:15 PM",
+      admin: "Pooja Hegde",
+      status: "Active",
+      statusClass: "badge-green"
+    },
+    westend: {
+      name: "Westend Mall Project",
+      client: "Westend Mall",
+      venue: "DP Road, Aundh, Pune",
+      template: "Mall / Indoor Venue (v2.1)",
+      release: "v1.9.2 (10 Mar 2025)",
+      kiosks: "8 (7 Online / 1 Offline)",
+      health: "94% (Good)",
+      updated: "2 May 2025",
+      admin: "Karan Johar",
+      status: "Paused",
+      statusClass: "badge-amber"
+    },
+    capital: {
+      name: "Capital Mall Project",
+      client: "Capital Mall",
+      venue: "Connaught Place, New Delhi",
+      template: "Mall / Indoor Venue (v2.1)",
+      release: "v2.1.0 (28 Apr 2025)",
+      kiosks: "6 (6 Online / 0 Offline)",
+      health: "98% (Excellent)",
+      updated: "30 Apr 2025",
+      admin: "Sunil Verma",
+      status: "Active",
+      statusClass: "badge-green"
+    },
+    lakeside: {
+      name: "Lakeside Mall Project",
+      client: "Lakeside Mall",
+      venue: "Salt Lake, Sector V, Kolkata",
+      template: "Mall / Indoor Venue (v2.1)",
+      release: "v1.8.7 (18 Feb 2025)",
+      kiosks: "4 (3 Online / 1 Offline)",
+      health: "92% (Good)",
+      updated: "25 Apr 2025",
+      admin: "Debashish Das",
+      status: "Paused",
+      statusClass: "badge-amber"
+    }
+  };
+
+  function selectProject(key) {
+    // Remove selected from all rows
+    document.querySelectorAll('.project-row').forEach(r => r.classList.remove('selected'));
+    const selectedRow = document.getElementById(`row-${key}`);
+    if (selectedRow) selectedRow.classList.add('selected');
+
+    const data = projectDatabase[key];
+    if (!data) return;
+
+    document.getElementById('selProjName').textContent = data.name;
+    document.getElementById('selProjBannerTitle').textContent = data.client;
+    document.getElementById('selProjClient').textContent = data.client;
+    document.getElementById('selProjVenue').textContent = data.venue;
+    document.getElementById('selProjTemplate').textContent = data.template;
+    document.getElementById('selProjRelease').textContent = data.release;
+    document.getElementById('selProjKiosks').textContent = data.kiosks;
+    document.getElementById('selProjHealth').textContent = data.health;
+    document.getElementById('selProjUpdated').textContent = data.updated;
+    document.getElementById('selProjAdmin').textContent = data.admin;
+
+    const badge = document.getElementById('selProjStatusBadge');
+    badge.textContent = data.status;
+    badge.className = `badge ${data.statusClass}`;
+  }
+
+  function filterTableRows() {
+    const val = document.getElementById('tableFilterInput').value.toLowerCase();
+    const rows = document.querySelectorAll('#projectsDataTable tbody tr');
+    rows.forEach(r => {
+      r.style.display = r.textContent.toLowerCase().includes(val) ? '' : 'none';
+    });
+  }
+
+  function filterProjects() {
+    const val = document.getElementById('projectSearchInput').value.toLowerCase();
+    const rows = document.querySelectorAll('#projectsDataTable tbody tr');
+    rows.forEach(r => {
+      r.style.display = r.textContent.toLowerCase().includes(val) ? '' : 'none';
+    });
+  }
+
+  function openInitProjectModal() {
+    document.getElementById('initProjectModal').style.display = 'flex';
+  }
+
+  function closeInitProjectModal() {
+    document.getElementById('initProjectModal').style.display = 'none';
+  }
+
+  function submitInitProject() {
+    closeInitProjectModal();
+    location.href = 'project-detail.html';
+  }
+</script>
 </body>
 </html>
