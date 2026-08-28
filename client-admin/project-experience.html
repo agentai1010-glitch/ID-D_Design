@@ -1,512 +1,991 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Phoenix Mall · Experience · Kiosk Platform</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-<link rel="stylesheet" href="../css/styles.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Phoenix Mall Project · Experience · Mall Kiosk Platform</title>
+  <!-- Google Fonts & Font Awesome -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="stylesheet" href="../css/styles.css">
+  <style>
+    /* Workflow Domain 4 - Client Admin Project Experience Specific Styling */
+    .experience-kpi-grid {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 14px;
+      margin-bottom: 20px;
+    }
+    @media (max-width: 1300px) {
+      .experience-kpi-grid {
+        grid-template-columns: repeat(3, 1fr);
+      }
+    }
+    @media (max-width: 800px) {
+      .experience-kpi-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    .kpi-stat-box {
+      background: #ffffff;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 15px;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+    .kpi-stat-box:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.06);
+    }
+
+    .kpi-icon-square {
+      width: 42px;
+      height: 42px;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 17px;
+      flex-shrink: 0;
+    }
+
+    /* Subnav Bar */
+    .project-subnav-bar {
+      background: #ffffff;
+      border-bottom: 1px solid var(--border);
+      padding: 0 28px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+    }
+
+    .project-subnav-tabs {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      overflow-x: auto;
+    }
+
+    .project-subnav-tab {
+      padding: 14px 16px;
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--text-600);
+      cursor: pointer;
+      border-bottom: 2px solid transparent;
+      white-space: nowrap;
+      transition: all 0.15s ease;
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .project-subnav-tab:hover {
+      color: var(--text-900);
+    }
+    .project-subnav-tab.active {
+      color: #2563eb;
+      border-bottom-color: #2563eb;
+      font-weight: 700;
+    }
+
+    /* Status Pills */
+    .status-pill {
+      font-size: 11px;
+      font-weight: 700;
+      padding: 3px 9px;
+      border-radius: 999px;
+      white-space: nowrap;
+    }
+    .pill-active { background: #ecfdf5; color: #059669; border: 1px solid #a7f3d0; }
+
+    /* Main Row 2 Split: Structure Canvas (Left ~72%) + Info & Actions (Right ~28%) */
+    .exp-main-split {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) 340px;
+      gap: 18px;
+      align-items: start;
+      margin-bottom: 20px;
+    }
+    @media (max-width: 1200px) {
+      .exp-main-split {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .structure-canvas-card {
+      background: #ffffff;
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+    }
+
+    .structure-canvas-header {
+      padding: 14px 20px;
+      border-bottom: 1px solid var(--border-soft);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    /* Canvas Body Grid: Section List Left + Visual Map Right */
+    .structure-canvas-grid {
+      display: grid;
+      grid-template-columns: 180px minmax(0, 1fr);
+      min-height: 400px;
+      background: #fafcff;
+    }
+    @media (max-width: 900px) {
+      .structure-canvas-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .section-list-sidebar {
+      background: #ffffff;
+      border-right: 1px solid var(--border-soft);
+      padding: 12px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .section-list-btn {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 10px;
+      border-radius: 8px;
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--text-700);
+      cursor: pointer;
+      transition: all 0.15s ease;
+      background: transparent;
+      border: 1px solid transparent;
+    }
+    .section-list-btn:hover {
+      background: #f1f5f9;
+    }
+    .section-list-btn.active {
+      background: #f5f3ff;
+      color: #7c3aed;
+      border-color: #ddd6fe;
+      font-weight: 700;
+    }
+
+    /* Experience Map Nodes */
+    .exp-node-card {
+      background: #ffffff;
+      border: 1.5px solid var(--border);
+      border-radius: 12px;
+      padding: 12px 14px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.04);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      position: relative;
+    }
+    .exp-node-card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 14px rgba(0,0,0,0.08);
+      border-color: #94a3b8;
+    }
+    .exp-node-card.selected {
+      border-color: #2563eb !important;
+      background: #f0f7ff !important;
+      box-shadow: 0 0 0 3px rgba(37,99,235,0.15);
+    }
+
+    .node-num-badge {
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      background: #f1f5f9;
+      color: var(--text-600);
+      font-size: 10px;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: absolute;
+      top: -6px;
+      left: 14px;
+      border: 1px solid #cbd5e1;
+    }
+
+    /* Quick Actions */
+    .quick-action-row {
+      background: #ffffff;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 11px 14px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      cursor: pointer;
+      transition: all 0.15s ease;
+      text-decoration: none;
+      margin-bottom: 8px;
+    }
+    .quick-action-row:last-child {
+      margin-bottom: 0;
+    }
+    .quick-action-row:hover {
+      background: #f8fafc;
+      border-color: #cbd5e1;
+      transform: translateX(2px);
+    }
+
+    /* Row 3: Bottom 3-Column Split */
+    .exp-row-3col {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 18px;
+      align-items: start;
+    }
+    @media (max-width: 1100px) {
+      .exp-row-3col {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .dash-panel {
+      background: #ffffff;
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+    }
+
+    .dash-panel-header {
+      padding: 16px 20px;
+      border-bottom: 1px solid var(--border-soft);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .dash-panel-title {
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--text-900);
+      margin: 0;
+    }
+
+    .dash-panel-link {
+      font-size: 12px;
+      font-weight: 600;
+      color: #2563eb;
+      text-decoration: none;
+      cursor: pointer;
+    }
+    .dash-panel-link:hover {
+      text-decoration: underline;
+    }
+
+    .dash-panel-body {
+      padding: 16px 20px;
+      flex: 1;
+    }
+
+    .activity-row {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 9px 0;
+      border-bottom: 1px solid var(--border-soft);
+    }
+    .activity-row:last-child {
+      border-bottom: none;
+      padding-bottom: 0;
+    }
+    .activity-row:first-child {
+      padding-top: 0;
+    }
+  </style>
 </head>
 <body>
 <div class="app-shell">
 
-<!-- Client Admin Sidebar -->
-<aside class="sidebar">
-  <a href="dashboard.html" class="sidebar-brand" style="cursor:pointer;">
-    <div class="logo-icon">
-      <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <path d="M12 2L21 7V17L12 22L3 17V7L12 2Z" stroke="white" stroke-width="1.6" stroke-linejoin="round"/>
-        <circle cx="12" cy="12" r="3.2" fill="white"/>
-      </svg>
-    </div>
-    <div class="brand-text"><div class="t1">KIOSK</div><div class="t2">PLATFORM</div></div>
-  </a>
-
-  <!-- WORKSPACE Section -->
-  <div class="sidebar-section-label">WORKSPACE</div>
-  <ul class="sidebar-nav">
-    <li class="nav-item" onclick="location.href='dashboard.html'"><i class="fa-solid fa-house"></i><span>Dashboard</span></li>
-    <li class="nav-item active" onclick="location.href='projects.html'"><i class="fa-solid fa-folder-open"></i><span>Projects</span></li>
-    <li class="nav-item" onclick="location.href='devices.html'"><i class="fa-solid fa-tablet-screen-button"></i><span>Devices</span></li>
-    <li class="nav-item" onclick="location.href='analytics.html'"><i class="fa-solid fa-chart-column"></i><span>Analytics</span></li>
-  </ul>
-
-  <!-- TEAM Section -->
-  <div class="sidebar-section-label">TEAM</div>
-  <ul class="sidebar-nav">
-    <li class="nav-item" onclick="location.href='users-roles.html'"><i class="fa-solid fa-users"></i><span>Users & Roles</span></li>
-  </ul>
-
-  <!-- ACCOUNT Section -->
-  <div class="sidebar-section-label">ACCOUNT</div>
-  <ul class="sidebar-nav">
-    <li class="nav-item" onclick="location.href='settings.html'"><i class="fa-solid fa-gear"></i><span>Settings</span></li>
-  </ul>
-
-  <div class="sidebar-spacer"></div>
-
-  <!-- Organization Card -->
-  <div class="org-switcher-card">
-    <div class="org-switcher-header">
-      <div class="org-icon-box"><i class="fa-solid fa-city"></i></div>
-      <div>
-        <div class="org-name-text">Phoenix Retail Group</div>
-        <div class="org-sub-text">Organization</div>
+  <!-- =========================================================================
+       CLIENT ADMIN GLOBAL SIDEBAR (Strict 8 Items)
+       ========================================================================= -->
+  <aside class="sidebar" id="clientSidebar">
+    <a href="dashboard.html" class="sidebar-brand" style="cursor:pointer;text-decoration:none;">
+      <div class="logo-icon" style="background:linear-gradient(135deg,#3b82f6,#1d4ed8);border-radius:10px;">
+        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style="width:20px;height:20px;">
+          <path d="M4 21V9l8-6 8 6v12H4z" stroke="white" stroke-width="1.8" stroke-linejoin="round"/>
+          <path d="M9 21V12h6v9" stroke="white" stroke-width="1.8"/>
+          <path d="M12 3v4" stroke="white" stroke-width="1.8"/>
+        </svg>
       </div>
-    </div>
-    <button class="org-btn-switch">
-      <span>Switch Organization</span>
-      <i class="fa-solid fa-chevron-down" style="font-size:9.5px;"></i>
-    </button>
-  </div>
-
-  <div class="sidebar-footer" style="display:flex;align-items:center;justify-content:space-between;">
-    <span>Client Admin v1.0.0</span>
-    <i class="fa-solid fa-chevron-left" style="font-size:10px;cursor:pointer;"></i>
-  </div>
-</aside>
-
-<!-- Main Area -->
-<div class="main">
-  <!-- Topbar Header -->
-  <header class="topbar">
-    <i class="fa-solid fa-bars hamburger"></i>
-    <div class="search">
-      <i class="fa-solid fa-magnifying-glass"></i>
-      <span>Search projects, kiosks, locations...</span>
-      <span class="kbd">⌘ K</span>
-    </div>
-    <div class="spacer"></div>
-    <button class="icon-btn"><i class="fa-regular fa-bell"></i><span class="badge-dot">8</span></button>
-    <div class="user">
-      <div class="avatar" style="background:linear-gradient(135deg,#3b82f6,#1d4ed8);">RA</div>
-      <div>
-        <div class="u-name">Rahul Arora</div>
-        <div class="u-role">Client Admin</div>
+      <div class="brand-text">
+        <div class="t1" style="font-size:14px;font-weight:700;color:#ffffff;line-height:1.2;">Mall Kiosk Platform</div>
+        <div class="t2" style="font-size:11px;color:#94a3b8;font-weight:500;">Client Admin</div>
       </div>
-      <i class="fa-solid fa-chevron-down"></i>
+    </a>
+
+    <!-- Navigation Items (Strict 8) -->
+    <ul class="sidebar-nav">
+      <li class="nav-item" onclick="location.href='dashboard.html'">
+        <i class="fa-solid fa-house"></i>
+        <span>Dashboard</span>
+      </li>
+      <li class="nav-item active" onclick="location.href='projects.html'">
+        <i class="fa-solid fa-folder-open"></i>
+        <span>Projects</span>
+      </li>
+      <li class="nav-item" onclick="location.href='project-content.html'">
+        <i class="fa-regular fa-file-lines"></i>
+        <span>Content</span>
+      </li>
+      <li class="nav-item" onclick="location.href='project-experience.html'">
+        <i class="fa-solid fa-palette"></i>
+        <span>Themes</span>
+      </li>
+      <li class="nav-item" onclick="location.href='project-advertisements.html'">
+        <i class="fa-solid fa-bullhorn"></i>
+        <span>Advertisements</span>
+      </li>
+      <li class="nav-item" onclick="location.href='project-analytics.html'">
+        <i class="fa-solid fa-chart-column"></i>
+        <span>Analytics</span>
+      </li>
+      <li class="nav-item" onclick="alert('Feedback Section: Opening Visitor & Shopper Feedback Overview...')">
+        <i class="fa-regular fa-comment-dots"></i>
+        <span>Feedback</span>
+      </li>
+      <li class="nav-item" onclick="alert('Requests Section: Opening Client Request Submission Portal...')">
+        <i class="fa-regular fa-clipboard"></i>
+        <span>Requests</span>
+      </li>
+    </ul>
+
+    <div class="sidebar-spacer"></div>
+
+    <!-- Collapse Toggle -->
+    <div class="sidebar-collapse-btn" onclick="toggleSidebarCollapse()" style="display:flex;align-items:center;gap:8px;padding:10px 12px;color:#94a3b8;font-size:13px;cursor:pointer;border-radius:8px;transition:all 0.2s ease;">
+      <i class="fa-solid fa-chevron-left" style="font-size:11px;"></i>
+      <span>Collapse</span>
     </div>
-  </header>
+  </aside>
 
-  <!-- Main Content Area -->
-  <main class="content">
+  <!-- =========================================================================
+       MAIN WORKSPACE
+       ========================================================================= -->
+  <div class="main">
 
-    <!-- Project Breadcrumbs & Header -->
-    <div class="project-header-container">
-      <div class="project-breadcrumbs">
-        <a href="projects.html">Projects</a>
-        <i class="fa-solid fa-chevron-right" style="font-size:9px;color:var(--text-400);"></i>
-        <a href="project-overview.html">Phoenix Mall</a>
-        <i class="fa-solid fa-chevron-right" style="font-size:9px;color:var(--text-400);"></i>
-        <span style="font-weight:600;color:var(--text-900);">Experience</span>
-      </div>
-
-      <div class="project-title-row">
-        <div class="project-title-left">
-          <h1>Phoenix Mall</h1>
-          <span class="badge badge-green" style="font-size:12px;padding:3px 10px;font-weight:600;">
-            <span class="dot"></span> Active
-          </span>
-        </div>
-
-        <div style="display:flex;align-items:center;gap:10px;">
-          <button class="btn" style="background:#fff;border:1px solid var(--border);color:var(--text-700);font-weight:600;padding:9px 16px;display:flex;align-items:center;gap:8px;">
-            <i class="fa-regular fa-eye"></i> Preview Kiosk
-          </button>
-          <button class="btn btn-primary" style="background:#2563eb;color:#fff;font-weight:600;padding:9px 18px;display:flex;align-items:center;gap:8px;">
-            <i class="fa-solid fa-gear"></i> Project Settings <i class="fa-solid fa-chevron-down" style="font-size:9.5px;margin-left:2px;"></i>
-          </button>
-        </div>
-      </div>
-
-      <div class="project-meta-row">
-        <div class="project-meta-item">
-          <i class="fa-solid fa-building" style="color:var(--text-400);"></i> Mall / Indoor Venue
-        </div>
-        <span style="color:var(--text-400);">•</span>
-        <div class="project-meta-item">
-          <i class="fa-solid fa-location-dot" style="color:var(--text-400);"></i> Mumbai, India
-        </div>
-        <span style="color:var(--text-400);">•</span>
-        <div class="project-meta-item">
-          <i class="fa-solid fa-tablet-screen-button" style="color:var(--text-400);"></i> 12 Kiosks
-        </div>
-        <span style="color:var(--text-400);">•</span>
-        <div class="project-meta-item" style="color:var(--green-600);font-weight:600;">
-          <i class="fa-solid fa-circle-check"></i> Release 43 (Published)
-        </div>
-      </div>
-    </div>
-
-    <!-- Project Sub-Navigation Tabs Bar -->
-    <div class="project-tabs-nav">
-      <button class="project-tab-btn" onclick="location.href='project-overview.html'">Overview</button>
-      <button class="project-tab-btn active" onclick="location.href='project-experience.html'">Experience</button>
-      <button class="project-tab-btn" onclick="location.href='project-content.html'">Content</button>
-      <button class="project-tab-btn" onclick="location.href='project-maps.html'">Maps</button>
-      <button class="project-tab-btn" onclick="location.href='project-navigation.html'">Navigation</button>
-      <button class="project-tab-btn" onclick="location.href='project-advertisements.html'">Advertisements</button>
-      <button class="project-tab-btn" onclick="location.href='project-preview.html'">Preview</button>
-      <button class="project-tab-btn" onclick="location.href='project-validation.html'">Validation</button>
-      <button class="project-tab-btn" onclick="location.href='project-releases.html'">Releases</button>
-      <button class="project-tab-btn" onclick="location.href='project-devices.html'">Devices</button>
-      <button class="project-tab-btn" onclick="location.href='project-analytics.html'">Analytics</button>
-      <button class="project-tab-btn" onclick="location.href='#'">Settings</button>
-    </div>
-
-    <!-- Experience Top Banner -->
-    <div class="experience-banner">
-      <div class="experience-banner-left">
-        <div class="experience-banner-icon">
-          <i class="fa-solid fa-wand-magic-sparkles"></i>
-        </div>
+    <!-- Topbar Header -->
+    <header class="topbar" style="background:#ffffff;border-bottom:1px solid var(--border);padding:14px 28px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:20;">
+      <div style="display:flex;align-items:center;gap:14px;">
+        <i class="fa-solid fa-bars hamburger" style="font-size:16px;color:var(--text-600);cursor:pointer;"></i>
         <div>
-          <div class="experience-banner-title">Design the overall kiosk experience</div>
-          <div class="experience-banner-sub">Select a template and theme, then customize the content and branding to match your venue's identity.</div>
+          <div style="font-size:12px;color:var(--text-500);display:flex;align-items:center;gap:6px;">
+            <a href="projects.html" style="color:var(--text-500);text-decoration:none;">Projects</a>
+            <i class="fa-solid fa-chevron-right" style="font-size:9px;color:var(--text-400);"></i>
+            <a href="project-overview.html" style="color:var(--text-500);text-decoration:none;">Phoenix Mall Project</a>
+            <i class="fa-solid fa-chevron-right" style="font-size:9px;color:var(--text-400);"></i>
+            <span style="color:var(--text-900);font-weight:600;">Experience</span>
+          </div>
+          <div style="display:flex;align-items:center;gap:10px;margin-top:2px;">
+            <h1 style="font-size:19px;font-weight:800;color:var(--text-900);margin:0;">Phoenix Mall Project</h1>
+            <span class="status-pill pill-active">Active</span>
+          </div>
         </div>
       </div>
-      <a href="#" class="experience-banner-btn">
-        <span>Learn more about Experience</span>
-        <i class="fa-solid fa-arrow-up-right-from-square" style="font-size:10px;"></i>
+
+      <!-- Topbar Actions -->
+      <div style="display:flex;align-items:center;gap:16px;">
+        <!-- Date range selector pill -->
+        <div style="display:flex;align-items:center;gap:8px;background:#f8fafc;border:1px solid var(--border);border-radius:8px;padding:7px 12px;font-size:12.5px;font-weight:600;color:var(--text-700);cursor:pointer;">
+          <span>13 May – 19 May 2025</span>
+          <i class="fa-regular fa-calendar" style="color:var(--text-500);font-size:13px;"></i>
+        </div>
+
+        <!-- Notification Bell -->
+        <button style="position:relative;width:38px;height:38px;border-radius:8px;border:1px solid var(--border);background:#fff;display:flex;align-items:center;justify-content:center;cursor:pointer;">
+          <i class="fa-regular fa-bell" style="font-size:16px;color:var(--text-600);"></i>
+          <span style="position:absolute;top:3px;right:3px;background:#ef4444;color:#fff;font-size:9px;font-weight:700;border-radius:50%;width:15px;height:15px;display:flex;align-items:center;justify-content:center;">7</span>
+        </button>
+
+        <!-- User Profile (Phoenix Mall · Client Admin) -->
+        <div style="display:flex;align-items:center;gap:10px;cursor:pointer;">
+          <div style="width:36px;height:36px;border-radius:50%;background:#f3e8ff;color:#9333ea;font-weight:700;font-size:15px;display:flex;align-items:center;justify-content:center;border:1px solid #e9d5ff;">
+            <i class="fa-solid fa-building-circle-check"></i>
+          </div>
+          <div>
+            <div style="font-size:13.5px;font-weight:700;color:var(--text-900);line-height:1.2;">Phoenix Mall</div>
+            <div style="font-size:11px;color:var(--text-500);font-weight:500;">Client Admin</div>
+          </div>
+          <i class="fa-solid fa-chevron-down" style="font-size:10px;color:var(--text-400);margin-left:4px;"></i>
+        </div>
+      </div>
+    </header>
+
+    <!-- =========================================================================
+         PROJECT SUBNAV BAR (9 Project Tabs + View on Kiosk Button)
+         ========================================================================= -->
+    <div class="project-subnav-bar">
+      <nav class="project-subnav-tabs">
+        <a href="project-overview.html" class="project-subnav-tab" id="tabOverview"><i class="fa-solid fa-chart-pie"></i> Overview</a>
+        <a href="project-experience.html" class="project-subnav-tab active" id="tabExperience"><i class="fa-solid fa-layer-group"></i> Experience</a>
+        <a href="project-content.html" class="project-subnav-tab" id="tabContent"><i class="fa-regular fa-file-lines"></i> Content</a>
+        <a href="project-experience.html" class="project-subnav-tab" id="tabThemes"><i class="fa-solid fa-palette"></i> Themes</a>
+        <a href="project-advertisements.html" class="project-subnav-tab" id="tabAdvertisements"><i class="fa-solid fa-bullhorn"></i> Advertisements</a>
+        <a href="project-preview.html" class="project-subnav-tab" id="tabPreview"><i class="fa-solid fa-eye"></i> Preview</a>
+        <a href="project-analytics.html" class="project-subnav-tab" id="tabAnalytics"><i class="fa-solid fa-chart-column"></i> Analytics</a>
+        <a href="#" onclick="alert('Feedback Section: Opening Project Feedback...')" class="project-subnav-tab" id="tabFeedback"><i class="fa-regular fa-comment-dots"></i> Feedback</a>
+        <a href="#" onclick="alert('Requests Section: Opening Project Requests Queue...')" class="project-subnav-tab" id="tabRequests"><i class="fa-regular fa-clipboard"></i> Requests</a>
+      </nav>
+
+      <!-- View on Kiosk Button on Right -->
+      <a href="project-preview.html" id="btnViewOnKiosk" style="height:34px;padding:0 14px;border-radius:8px;border:1px solid #2563eb;background:#eff6ff;color:#2563eb;font-size:12px;font-weight:700;cursor:pointer;display:flex;align-items:center;gap:6px;text-decoration:none;">
+        <i class="fa-solid fa-desktop" style="font-size:11px;"></i>
+        <span>View on Kiosk</span>
+        <i class="fa-solid fa-chevron-right" style="font-size:9px;"></i>
       </a>
     </div>
 
-    <!-- Main 2-Column Layout -->
-    <div class="experience-main-layout">
+    <!-- Page Content Container -->
+    <div class="content" style="padding:22px 28px 40px 28px;background:#f8fafc;flex:1;">
 
-      <!-- Left Column (Template, Theme, Customizations) -->
-      <div>
-
-        <!-- Row 1: Template & Theme Cards -->
-        <div class="two-col-cards-row">
-
-          <!-- Card 1: 1. Template (Read Only) -->
-          <div class="panel" style="margin:0;padding:18px;display:flex;flex-direction:column;justify-content:space-between;">
-            <div>
-              <h3 style="margin:0 0 2px;font-size:14.5px;font-weight:700;color:var(--text-900);">1. Template <span style="font-weight:500;color:var(--text-500);font-size:12.5px;">(Read Only)</span></h3>
-              <p style="margin:0 0 14px;font-size:11.5px;color:var(--text-500);">The base structure and features are defined by the template.</p>
-
-              <div style="display:flex;align-items:flex-start;gap:12px;margin-bottom:12px;">
-                <div style="width:48px;height:48px;border-radius:10px;background:#eff6ff;color:#2563eb;display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0;border:1px solid #dbeafe;">
-                  <i class="fa-solid fa-building"></i>
-                </div>
-                <div>
-                  <div style="display:flex;align-items:center;gap:6px;margin-bottom:2px;">
-                    <span style="font-size:14px;font-weight:700;color:var(--text-900);">Mall / Indoor Venue</span>
-                    <span class="badge badge-green" style="font-size:10px;padding:1px 6px;">Active</span>
-                  </div>
-                  <div style="font-size:11.5px;color:var(--text-400);margin-bottom:4px;">Version 1.2.0</div>
-                  <div style="font-size:11.5px;color:var(--text-600);line-height:1.4;">
-                    Complete indoor experience for malls, shopping centers and large venues.
-                  </div>
-                </div>
-              </div>
-
-              <div style="margin-top:10px;">
-                <div style="font-size:11.5px;font-weight:700;color:var(--text-700);margin-bottom:6px;">Includes:</div>
-                <div style="display:flex;flex-wrap:wrap;gap:5px;">
-                  <span class="template-pill-tag">Indoor Maps</span>
-                  <span class="template-pill-tag">Navigation</span>
-                  <span class="template-pill-tag">Directory & Search</span>
-                  <span class="template-pill-tag">Facilities</span>
-                  <span class="template-pill-tag">Advertisements</span>
-                  <span class="template-pill-tag">Events</span>
-                  <span class="template-pill-tag">More</span>
-                </div>
-              </div>
-            </div>
-
-            <div style="margin-top:16px;padding-top:12px;border-top:1px solid var(--border-soft);">
-              <a href="#" class="link-blue" style="font-size:12px;font-weight:600;display:inline-flex;align-items:center;gap:5px;">
-                View Template Details <i class="fa-solid fa-arrow-up-right-from-square" style="font-size:10px;"></i>
-              </a>
-            </div>
+      <!-- =======================================================================
+           ROW 1: 5 EXPERIENCE STATUS SUMMARY CARDS
+           ======================================================================= -->
+      <div class="experience-kpi-grid">
+        
+        <!-- Experience Status -->
+        <div class="kpi-stat-box">
+          <div class="kpi-icon-square" style="background:#f0fdf4;color:#16a34a;border:1px solid #dcfce7;">
+            <i class="fa-regular fa-circle-check"></i>
           </div>
-
-          <!-- Card 2: 2. Theme -->
-          <div class="panel" style="margin:0;padding:18px;display:flex;flex-direction:column;justify-content:space-between;">
-            <div>
-              <h3 style="margin:0 0 2px;font-size:14.5px;font-weight:700;color:var(--text-900);">2. Theme</h3>
-              <p style="margin:0 0 14px;font-size:11.5px;color:var(--text-500);">Choose a theme to apply the look and feel to your kiosk.</p>
-
-              <!-- Active Theme Row -->
-              <div style="display:flex;align-items:flex-start;gap:12px;margin-bottom:12px;">
-                <div class="theme-artwork-preview" style="width:52px;height:52px;border-radius:8px;">
-                  <svg viewBox="0 0 100 100" style="width:100%;height:100%;">
-                    <defs>
-                      <radialGradient id="th-glow" cx="50%" cy="50%" r="50%">
-                        <stop offset="0%" stop-color="#fbbf24"/>
-                        <stop offset="70%" stop-color="#7c3aed"/>
-                        <stop offset="100%" stop-color="#3b0764"/>
-                      </radialGradient>
-                    </defs>
-                    <rect width="100" height="100" fill="url(#th-glow)"/>
-                    <circle cx="50" cy="50" r="28" stroke="#fde047" stroke-width="0.8" fill="none" stroke-dasharray="2,2"/>
-                    <path d="M50 38 C47 44 45 48 45 52 C45 56 47.5 57 50 57 C52.5 57 55 56 55 52 C55 48 53 44 50 38 Z" fill="#fbbf24"/>
-                    <path d="M37 56 C39 66 61 66 63 56 Z" fill="#f59e0b"/>
-                  </svg>
-                </div>
-                <div>
-                  <div style="display:flex;align-items:center;gap:6px;margin-bottom:2px;">
-                    <span style="font-size:14px;font-weight:700;color:var(--text-900);">Diwali Celebration</span>
-                    <span class="badge badge-green" style="font-size:10px;padding:1px 6px;">Active</span>
-                  </div>
-                  <div style="font-size:11.5px;color:var(--text-400);margin-bottom:4px;">Version 1.0</div>
-                  <div style="font-size:11px;color:var(--text-600);line-height:1.35;margin-bottom:4px;">
-                    Festive theme with Diwali colors, lights and promotional layouts.
-                  </div>
-                  <div style="font-size:11px;color:var(--text-400);">Applied on May 05, 2026</div>
-                </div>
-              </div>
-
-              <!-- Available Themes -->
-              <div style="margin-top:12px;">
-                <div style="font-size:11.5px;font-weight:700;color:var(--text-700);margin-bottom:6px;">Available Themes</div>
-                <div class="theme-mini-grid">
-                  <!-- Theme 1: Default -->
-                  <div class="theme-mini-card" onclick="selectMiniTheme(this, 'Default')">
-                    <div class="theme-mini-thumb" style="background:linear-gradient(135deg,#e2e8f0,#cbd5e1,#94a3b8);">
-                      <i class="fa-solid fa-building" style="color:#475569;font-size:18px;"></i>
-                    </div>
-                    <div class="theme-mini-label">Default</div>
-                  </div>
-
-                  <!-- Theme 2: Diwali Celebration (Selected) -->
-                  <div class="theme-mini-card selected" onclick="selectMiniTheme(this, 'Diwali')">
-                    <div class="theme-check-badge"><i class="fa-solid fa-check"></i></div>
-                    <div class="theme-mini-thumb" style="background:linear-gradient(135deg,#4c1d95,#7c3aed,#fbbf24);">
-                      <i class="fa-solid fa-fire-flame-curved" style="color:#fbbf24;font-size:16px;"></i>
-                    </div>
-                    <div class="theme-mini-label">Diwali Celebration</div>
-                  </div>
-
-                  <!-- Theme 3: New Year -->
-                  <div class="theme-mini-card" onclick="selectMiniTheme(this, 'New Year')">
-                    <div class="theme-mini-thumb" style="background:linear-gradient(135deg,#1e1b4b,#312e81,#fcd34d);">
-                      <i class="fa-solid fa-champagne-glasses" style="color:#fde047;font-size:16px;"></i>
-                    </div>
-                    <div class="theme-mini-label">New Year</div>
-                  </div>
-
-                  <!-- Theme 4: Summer -->
-                  <div class="theme-mini-card" onclick="selectMiniTheme(this, 'Summer')">
-                    <div class="theme-mini-thumb" style="background:linear-gradient(135deg,#0284c7,#38bdf8,#f59e0b);">
-                      <i class="fa-solid fa-umbrella-beach" style="color:#fff;font-size:16px;"></i>
-                    </div>
-                    <div class="theme-mini-label">Summer</div>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <button class="btn" style="width:100%;border:1px solid var(--border);color:var(--text-700);font-weight:600;padding:8px 0;background:#fff;display:flex;align-items:center;justify-content:center;gap:6px;font-size:12.5px;">
-              <i class="fa-solid fa-palette" style="color:var(--blue-600);"></i> Change Theme
-            </button>
-          </div>
-
-        </div>
-
-        <!-- Row 2: 3. Experience Customization -->
-        <div class="panel" style="padding:20px;margin-bottom:14px;">
-          <h3 style="margin:0 0 2px;font-size:15px;font-weight:800;color:var(--text-900);">3. Experience Customization</h3>
-          <p style="margin:0 0 16px;font-size:12px;color:var(--text-500);">Customize the content and branding for your selected theme.</p>
-
-          <div class="customization-grid">
-            <!-- Item 1: Branding -->
-            <div class="customization-item-card">
-              <div class="customization-left">
-                <div class="customization-icon-box" style="background:#eff6ff;color:#2563eb;">
-                  <i class="fa-solid fa-paintbrush"></i>
-                </div>
-                <div>
-                  <div class="customization-title">Branding</div>
-                  <div class="customization-sub">Upload logo, set primary colors, fonts and brand elements.</div>
-                </div>
-              </div>
-              <i class="fa-solid fa-chevron-right" style="font-size:11px;color:var(--text-400);"></i>
-            </div>
-
-            <!-- Item 2: Promotional Content -->
-            <div class="customization-item-card">
-              <div class="customization-left">
-                <div class="customization-icon-box" style="background:#ecfdf5;color:#059669;">
-                  <i class="fa-solid fa-bullhorn"></i>
-                </div>
-                <div>
-                  <div class="customization-title">Promotional Content</div>
-                  <div class="customization-sub">Manage promotional messages and highlight content.</div>
-                </div>
-              </div>
-              <i class="fa-solid fa-chevron-right" style="font-size:11px;color:var(--text-400);"></i>
-            </div>
-
-            <!-- Item 3: Home Screen -->
-            <div class="customization-item-card">
-              <div class="customization-left">
-                <div class="customization-icon-box" style="background:#f5f3ff;color:#7c3aed;">
-                  <i class="fa-solid fa-display"></i>
-                </div>
-                <div>
-                  <div class="customization-title">Home Screen</div>
-                  <div class="customization-sub">Customize hero banner, welcome message and quick actions.</div>
-                </div>
-              </div>
-              <i class="fa-solid fa-chevron-right" style="font-size:11px;color:var(--text-400);"></i>
-            </div>
-
-            <!-- Item 4: Search & Directory -->
-            <div class="customization-item-card">
-              <div class="customization-left">
-                <div class="customization-icon-box" style="background:#eff6ff;color:#2563eb;">
-                  <i class="fa-solid fa-magnifying-glass"></i>
-                </div>
-                <div>
-                  <div class="customization-title">Search & Directory</div>
-                  <div class="customization-sub">Configure search settings and directory preferences.</div>
-                </div>
-              </div>
-              <i class="fa-solid fa-chevron-right" style="font-size:11px;color:var(--text-400);"></i>
-            </div>
-
-            <!-- Item 5: Navigation Style -->
-            <div class="customization-item-card">
-              <div class="customization-left">
-                <div class="customization-icon-box" style="background:#fdf2f8;color:#db2777;">
-                  <i class="fa-solid fa-signs-post"></i>
-                </div>
-                <div>
-                  <div class="customization-title">Navigation Style</div>
-                  <div class="customization-sub">Choose navigation preferences and interactions.</div>
-                </div>
-              </div>
-              <i class="fa-solid fa-chevron-right" style="font-size:11px;color:var(--text-400);"></i>
-            </div>
-
-            <!-- Item 6: Footer & Legal -->
-            <div class="customization-item-card">
-              <div class="customization-left">
-                <div class="customization-icon-box" style="background:#f8fafc;color:#475569;">
-                  <i class="fa-regular fa-file-lines"></i>
-                </div>
-                <div>
-                  <div class="customization-title">Footer & Legal</div>
-                  <div class="customization-sub">Manage footer links, privacy policy and terms.</div>
-                </div>
-              </div>
-              <i class="fa-solid fa-chevron-right" style="font-size:11px;color:var(--text-400);"></i>
-            </div>
-          </div>
-
-          <!-- Bottom Action Buttons in Customization Panel -->
-          <div style="display:flex;align-items:center;justify-content:space-between;margin-top:20px;padding-top:16px;border-top:1px solid var(--border-soft);">
-            <button class="btn" style="background:#fff;border:1px solid var(--border);color:var(--text-700);font-weight:600;display:flex;align-items:center;gap:6px;font-size:12.5px;padding:9px 16px;">
-              <i class="fa-solid fa-rotate-left"></i> Reset to Default
-            </button>
-            <button class="btn btn-primary" style="background:#2563eb;color:#fff;font-weight:600;display:flex;align-items:center;gap:6px;font-size:12.5px;padding:9px 18px;">
-              <i class="fa-solid fa-floppy-disk"></i> Save Customization
-            </button>
+          <div>
+            <div style="font-size:11px;color:var(--text-500);font-weight:600;">Experience Status</div>
+            <div style="font-size:20px;font-weight:800;color:var(--text-900);line-height:1.2;">Published</div>
+            <div style="font-size:10.5px;color:#10b981;font-weight:600;">Running on all kiosks</div>
           </div>
         </div>
 
-        <!-- Release Publishing Notice -->
-        <div style="font-size:12px;color:var(--text-500);margin-bottom:20px;padding:0 4px;">
-          Changes made in Experience will be part of the next release. <a href="#" class="link-blue" style="font-weight:600;">Publish</a> your changes to apply them to kiosks.
+        <!-- Current Release -->
+        <div class="kpi-stat-box">
+          <div class="kpi-icon-square" style="background:#f5f3ff;color:#7c3aed;border:1px solid #ede9fe;">
+            <i class="fa-solid fa-layer-group"></i>
+          </div>
+          <div>
+            <div style="font-size:11px;color:var(--text-500);font-weight:600;">Current Release</div>
+            <div style="font-size:20px;font-weight:800;color:var(--text-900);line-height:1.2;">v2.2.0</div>
+            <div style="font-size:10.5px;color:var(--text-500);font-weight:500;">Released on 18 May 2025</div>
+          </div>
+        </div>
+
+        <!-- Total Screens -->
+        <div class="kpi-stat-box">
+          <div class="kpi-icon-square" style="background:#eff6ff;color:#2563eb;border:1px solid #dbeafe;">
+            <i class="fa-solid fa-desktop"></i>
+          </div>
+          <div>
+            <div style="font-size:11px;color:var(--text-500);font-weight:600;">Total Screens</div>
+            <div style="font-size:20px;font-weight:800;color:var(--text-900);line-height:1.2;">26</div>
+            <div style="font-size:10.5px;color:var(--text-500);font-weight:500;">Interactive screens</div>
+          </div>
+        </div>
+
+        <!-- Navigation Nodes -->
+        <div class="kpi-stat-box">
+          <div class="kpi-icon-square" style="background:#ecfdf5;color:#059669;border:1px solid #a7f3d0;">
+            <i class="fa-solid fa-diagram-project"></i>
+          </div>
+          <div>
+            <div style="font-size:11px;color:var(--text-500);font-weight:600;">Navigation Nodes</div>
+            <div style="font-size:20px;font-weight:800;color:var(--text-900);line-height:1.2;">112</div>
+            <div style="font-size:10.5px;color:var(--text-500);font-weight:500;">Connected nodes</div>
+          </div>
+        </div>
+
+        <!-- Last Updated -->
+        <div class="kpi-stat-box">
+          <div class="kpi-icon-square" style="background:#fff7ed;color:#ea580c;border:1px solid #ffedd5;">
+            <i class="fa-regular fa-calendar"></i>
+          </div>
+          <div>
+            <div style="font-size:11px;color:var(--text-500);font-weight:600;">Last Updated</div>
+            <div style="font-size:18px;font-weight:800;color:var(--text-900);line-height:1.2;">18 May 2025</div>
+            <div style="font-size:10.5px;color:var(--text-500);font-weight:500;">10:15 AM</div>
+          </div>
         </div>
 
       </div>
 
-      <!-- Right Column (Theme Live Preview & Current Branding) -->
-      <div style="display:flex;flex-direction:column;gap:18px;">
+      <!-- =======================================================================
+           ROW 2: MAIN SPLIT (Experience Structure Canvas ~72% + Information ~28%)
+           ======================================================================= -->
+      <div class="exp-main-split">
+        
+        <!-- Left: Experience Structure Canvas Card -->
+        <div class="structure-canvas-card">
+          
+          <div class="structure-canvas-header">
+            <div>
+              <h2 style="font-size:15px;font-weight:800;color:var(--text-900);margin:0;">Experience Structure</h2>
+              <div style="font-size:11.5px;color:var(--text-500);margin-top:2px;">Visual representation of the current kiosk experience flow and navigation.</div>
+            </div>
 
-        <!-- Card: Theme Preview -->
-        <div class="panel" style="margin:0;padding:20px;">
-          <h3 style="margin:0 0 2px;font-size:14.5px;font-weight:700;color:var(--text-900);">Theme Preview</h3>
-          <p style="margin:0 0 16px;font-size:12px;color:var(--text-500);">See how your kiosk will look with the selected theme.</p>
-
-          <!-- Theme Preview Image -->
-          <div style="width:100%;border-radius:12px;overflow:hidden;border:1px solid var(--border-soft);">
-            <img id="theme-preview-img" src="../images/client_admin_project_theme_preview_page_0101.png" style="width:100%;height:auto;display:block;" alt="Theme Preview">
+            <!-- View toggles -->
+            <div style="display:flex;align-items:center;gap:10px;">
+              <div style="display:flex;background:#f1f5f9;border-radius:8px;padding:2px;">
+                <button class="status-pill pill-active" style="border:none;padding:5px 12px;cursor:pointer;font-size:11.5px;font-weight:700;">Map View</button>
+                <button style="border:none;background:transparent;padding:5px 12px;cursor:pointer;font-size:11.5px;font-weight:600;color:var(--text-600);" onclick="alert('Flow View: Sequence of visitor pathways.')">Flow View</button>
+              </div>
+              <button style="width:30px;height:30px;border-radius:6px;border:1px solid var(--border);background:#fff;display:flex;align-items:center;justify-content:center;cursor:pointer;color:var(--text-600);">
+                <i class="fa-solid fa-expand" style="font-size:11px;"></i>
+              </button>
+            </div>
           </div>
+
+          <!-- Canvas Body -->
+          <div class="structure-canvas-grid">
+            
+            <!-- Left Sub-Sidebar: Main Sections -->
+            <div class="section-list-sidebar">
+              <div style="font-size:11px;font-weight:700;color:var(--text-400);text-transform:uppercase;margin-bottom:4px;">Main Sections</div>
+              
+              <div class="section-list-btn active" onclick="selectExperienceSection(this, 'home')">
+                <i class="fa-solid fa-house" style="font-size:12px;"></i>
+                <span>1. Home</span>
+              </div>
+              <div class="section-list-btn" onclick="selectExperienceSection(this, 'directory')">
+                <i class="fa-solid fa-table-cells" style="font-size:12px;"></i>
+                <span>2. Directory</span>
+              </div>
+              <div class="section-list-btn" onclick="selectExperienceSection(this, 'offers')">
+                <i class="fa-solid fa-tag" style="font-size:12px;"></i>
+                <span>3. Offers & Deals</span>
+              </div>
+              <div class="section-list-btn" onclick="selectExperienceSection(this, 'events')">
+                <i class="fa-solid fa-calendar-days" style="font-size:12px;"></i>
+                <span>4. Events</span>
+              </div>
+              <div class="section-list-btn" onclick="selectExperienceSection(this, 'food')">
+                <i class="fa-solid fa-utensils" style="font-size:12px;"></i>
+                <span>5. Food & Dining</span>
+              </div>
+              <div class="section-list-btn" onclick="selectExperienceSection(this, 'amenities')">
+                <i class="fa-solid fa-restroom" style="font-size:12px;"></i>
+                <span>6. Amenities</span>
+              </div>
+              <div class="section-list-btn" onclick="selectExperienceSection(this, 'services')">
+                <i class="fa-solid fa-gear" style="font-size:12px;"></i>
+                <span>7. Services</span>
+              </div>
+              <div class="section-list-btn" onclick="selectExperienceSection(this, 'navigation')">
+                <i class="fa-solid fa-location-dot" style="font-size:12px;"></i>
+                <span>8. Navigation</span>
+              </div>
+            </div>
+
+            <!-- Right Interactive Visual Canvas Map -->
+            <div style="padding:24px;position:relative;overflow:hidden;display:flex;flex-direction:column;justify-content:space-between;">
+              
+              <!-- Nodes Layout Grid -->
+              <div style="display:grid;grid-template-columns:repeat(3, 1fr);gap:24px 20px;position:relative;z-index:2;">
+                
+                <!-- Node 1: Home (Selected) -->
+                <div class="exp-node-card selected" id="node-home" onclick="selectExperienceSection(null, 'home')">
+                  <span class="node-num-badge">1</span>
+                  <div style="width:38px;height:38px;border-radius:8px;background:#f5f3ff;color:#7c3aed;display:flex;align-items:center;justify-content:center;font-size:16px;">
+                    <i class="fa-solid fa-house"></i>
+                  </div>
+                  <div>
+                    <div style="display:flex;align-items:center;gap:6px;">
+                      <strong style="font-size:13px;color:var(--text-900);">Home</strong>
+                      <span style="font-size:9px;background:#ecfdf5;color:#059669;padding:1px 5px;border-radius:4px;font-weight:700;">Published</span>
+                    </div>
+                    <div style="font-size:11px;color:var(--text-500);">Entry Screen</div>
+                  </div>
+                </div>
+
+                <!-- Node 2: Directory -->
+                <div class="exp-node-card" id="node-directory" onclick="selectExperienceSection(null, 'directory')">
+                  <span class="node-num-badge">2</span>
+                  <div style="width:38px;height:38px;border-radius:8px;background:#ecfeff;color:#0891b2;display:flex;align-items:center;justify-content:center;font-size:16px;">
+                    <i class="fa-solid fa-table-cells"></i>
+                  </div>
+                  <div>
+                    <strong style="font-size:13px;color:var(--text-900);">Directory</strong>
+                    <div style="font-size:11px;color:var(--text-500);">12 Screens</div>
+                  </div>
+                </div>
+
+                <!-- Node 3: Offers & Deals -->
+                <div class="exp-node-card" id="node-offers" onclick="selectExperienceSection(null, 'offers')">
+                  <span class="node-num-badge">3</span>
+                  <div style="width:38px;height:38px;border-radius:8px;background:#fffbeb;color:#d97706;display:flex;align-items:center;justify-content:center;font-size:16px;">
+                    <i class="fa-solid fa-tag"></i>
+                  </div>
+                  <div>
+                    <strong style="font-size:13px;color:var(--text-900);">Offers & Deals</strong>
+                    <div style="font-size:11px;color:var(--text-500);">6 Screens</div>
+                  </div>
+                </div>
+
+                <!-- Node 4: Events -->
+                <div class="exp-node-card" id="node-events" onclick="selectExperienceSection(null, 'events')">
+                  <span class="node-num-badge">4</span>
+                  <div style="width:38px;height:38px;border-radius:8px;background:#fef2f2;color:#dc2626;display:flex;align-items:center;justify-content:center;font-size:16px;">
+                    <i class="fa-solid fa-calendar-days"></i>
+                  </div>
+                  <div>
+                    <strong style="font-size:13px;color:var(--text-900);">Events</strong>
+                    <div style="font-size:11px;color:var(--text-500);">4 Screens</div>
+                  </div>
+                </div>
+
+                <!-- Node 5: Food & Dining -->
+                <div class="exp-node-card" id="node-food" onclick="selectExperienceSection(null, 'food')">
+                  <span class="node-num-badge">5</span>
+                  <div style="width:38px;height:38px;border-radius:8px;background:#fff7ed;color:#ea580c;display:flex;align-items:center;justify-content:center;font-size:16px;">
+                    <i class="fa-solid fa-utensils"></i>
+                  </div>
+                  <div>
+                    <strong style="font-size:13px;color:var(--text-900);">Food & Dining</strong>
+                    <div style="font-size:11px;color:var(--text-500);">5 Screens</div>
+                  </div>
+                </div>
+
+                <!-- Node 6: Amenities -->
+                <div class="exp-node-card" id="node-amenities" onclick="selectExperienceSection(null, 'amenities')">
+                  <span class="node-num-badge">6</span>
+                  <div style="width:38px;height:38px;border-radius:8px;background:#fefce8;color:#ca8a04;display:flex;align-items:center;justify-content:center;font-size:16px;">
+                    <i class="fa-solid fa-restroom"></i>
+                  </div>
+                  <div>
+                    <strong style="font-size:13px;color:var(--text-900);">Amenities</strong>
+                    <div style="font-size:11px;color:var(--text-500);">6 Screens</div>
+                  </div>
+                </div>
+
+                <!-- Node 7: Services -->
+                <div class="exp-node-card" id="node-services" onclick="selectExperienceSection(null, 'services')">
+                  <span class="node-num-badge">7</span>
+                  <div style="width:38px;height:38px;border-radius:8px;background:#eff6ff;color:#2563eb;display:flex;align-items:center;justify-content:center;font-size:16px;">
+                    <i class="fa-solid fa-gear"></i>
+                  </div>
+                  <div>
+                    <strong style="font-size:13px;color:var(--text-900);">Services</strong>
+                    <div style="font-size:11px;color:var(--text-500);">3 Screens</div>
+                  </div>
+                </div>
+
+                <!-- Spacer -->
+                <div></div>
+
+                <!-- Node 8: Navigation -->
+                <div class="exp-node-card" id="node-navigation" onclick="selectExperienceSection(null, 'navigation')">
+                  <span class="node-num-badge">8</span>
+                  <div style="width:38px;height:38px;border-radius:8px;background:#fdf2f8;color:#db2777;display:flex;align-items:center;justify-content:center;font-size:16px;">
+                    <i class="fa-solid fa-location-dot"></i>
+                  </div>
+                  <div>
+                    <strong style="font-size:13px;color:var(--text-900);">Navigation</strong>
+                    <div style="font-size:11px;color:var(--text-500);">4 Screens</div>
+                  </div>
+                </div>
+
+              </div>
+
+              <!-- Connecting Curves SVG -->
+              <svg style="position:absolute;inset:0;width:100%;height:100%;pointer-events:none;z-index:1;">
+                <path d="M 170 50 C 230 50, 230 50, 260 50" stroke="#cbd5e1" stroke-width="1.5" stroke-dasharray="3 3" fill="none"/>
+                <path d="M 430 50 C 490 50, 490 50, 520 50" stroke="#cbd5e1" stroke-width="1.5" stroke-dasharray="3 3" fill="none"/>
+                <path d="M 120 75 C 120 120, 120 120, 120 145" stroke="#cbd5e1" stroke-width="1.5" stroke-dasharray="3 3" fill="none"/>
+                <path d="M 170 160 C 230 160, 230 160, 260 160" stroke="#cbd5e1" stroke-width="1.5" stroke-dasharray="3 3" fill="none"/>
+                <path d="M 430 160 C 490 160, 490 160, 520 160" stroke="#cbd5e1" stroke-width="1.5" stroke-dasharray="3 3" fill="none"/>
+                <path d="M 120 185 C 120 230, 120 230, 120 255" stroke="#cbd5e1" stroke-width="1.5" stroke-dasharray="3 3" fill="none"/>
+              </svg>
+
+              <!-- Bottom Right Zoom Controls -->
+              <div style="display:flex;justify-content:flex-end;margin-top:20px;">
+                <div style="display:flex;align-items:center;background:#ffffff;border:1px solid var(--border);border-radius:8px;padding:3px 8px;gap:8px;font-size:11.5px;color:var(--text-700);box-shadow:0 1px 3px rgba(0,0,0,0.04);">
+                  <button style="border:none;background:transparent;cursor:pointer;font-weight:700;font-size:13px;color:var(--text-600);">−</button>
+                  <span style="font-weight:600;">100%</span>
+                  <button style="border:none;background:transparent;cursor:pointer;font-weight:700;font-size:13px;color:var(--text-600);">+</button>
+                  <i class="fa-solid fa-expand" style="font-size:10px;color:var(--text-400);cursor:pointer;margin-left:4px;"></i>
+                </div>
+              </div>
+
+            </div>
+
+          </div>
+
         </div>
 
-        <!-- Card: Current Branding -->
-        <div class="panel" style="margin:0;padding:20px;">
-          <h3 style="margin:0 0 2px;font-size:14.5px;font-weight:700;color:var(--text-900);">Current Branding</h3>
-          <p style="margin:0 0 16px;font-size:12px;color:var(--text-500);">Your brand identity elements.</p>
-
-          <div style="display:grid;grid-template-columns:1.2fr 1fr 1fr;gap:12px;align-items:center;margin-bottom:16px;">
-            <!-- Brand Logo -->
-            <div>
-              <div style="font-size:11px;color:var(--text-400);margin-bottom:6px;font-weight:500;">Logo</div>
-              <div style="display:flex;align-items:center;gap:6px;">
-                <div style="color:#dc2626;font-size:16px;">
-                  <i class="fa-solid fa-dove"></i>
-                </div>
-                <div style="font-size:11px;font-weight:800;color:var(--text-900);line-height:1.1;">
-                  PHOENIX<br>MALL
-                </div>
+        <!-- Right: Experience Information & Quick Actions Panel -->
+        <div style="display:flex;flex-direction:column;gap:16px;">
+          
+          <!-- Experience Information Card -->
+          <div style="background:#ffffff;border:1px solid var(--border);border-radius:14px;padding:18px 20px;box-shadow:0 1px 3px rgba(0,0,0,0.04);">
+            <h3 style="font-size:14px;font-weight:800;color:var(--text-900);margin:0 0 12px 0;">Experience Information</h3>
+            
+            <div style="display:flex;flex-direction:column;gap:10px;font-size:12px;">
+              <div>
+                <div style="color:var(--text-500);font-size:11px;font-weight:600;">Experience Name</div>
+                <div style="font-weight:700;color:var(--text-900);">Phoenix Mall Experience</div>
               </div>
-            </div>
-
-            <!-- Primary Color -->
-            <div>
-              <div style="font-size:11px;color:var(--text-400);margin-bottom:6px;font-weight:500;">Primary Color</div>
-              <div style="display:flex;align-items:center;gap:6px;">
-                <div class="branding-color-box" style="background:#6a1b9a;"></div>
-                <span style="font-size:11px;font-weight:700;color:var(--text-900);">#6A1B9A</span>
+              <div>
+                <div style="color:var(--text-500);font-size:11px;font-weight:600;">Experience Type</div>
+                <div style="font-weight:700;color:var(--text-900);">Mall / Indoor Venue</div>
               </div>
-            </div>
-
-            <!-- Secondary Color -->
-            <div>
-              <div style="font-size:11px;color:var(--text-400);margin-bottom:6px;font-weight:500;">Secondary Color</div>
-              <div style="display:flex;align-items:center;gap:6px;">
-                <div class="branding-color-box" style="background:#ffb300;"></div>
-                <span style="font-size:11px;font-weight:700;color:var(--text-900);">#FFB300</span>
+              <div>
+                <div style="color:var(--text-500);font-size:11px;font-weight:600;">Designed By</div>
+                <div style="font-weight:700;color:#2563eb;">Company Admin</div>
+              </div>
+              <div>
+                <div style="color:var(--text-500);font-size:11px;font-weight:600;">Published On</div>
+                <div style="font-weight:700;color:var(--text-900);">18 May 2025, 10:15 AM</div>
+              </div>
+              <div>
+                <div style="color:var(--text-500);font-size:11px;font-weight:600;">Description</div>
+                <div style="color:var(--text-600);line-height:1.4;margin-top:2px;">
+                  Complete mall kiosk experience including directory, offers, events, amenities, navigation, and services.
+                </div>
               </div>
             </div>
           </div>
 
-          <div style="padding-top:14px;border-top:1px solid var(--border-soft);text-align:center;">
-            <a href="#" class="link-blue" style="font-size:12.5px;font-weight:600;display:inline-flex;align-items:center;gap:5px;">
-              Manage Branding <i class="fa-solid fa-chevron-right" style="font-size:9.5px;"></i>
+          <!-- Quick Actions Panel (4 Client-Safe Inspection & Navigation Actions) -->
+          <div style="background:#ffffff;border:1px solid var(--border);border-radius:14px;padding:18px 20px;box-shadow:0 1px 3px rgba(0,0,0,0.04);">
+            <h3 style="font-size:14px;font-weight:800;color:var(--text-900);margin:0 0 12px 0;">Quick Actions</h3>
+            
+            <!-- 1. Preview Experience -->
+            <a href="project-preview.html" class="quick-action-row" id="qaPreviewExp">
+              <div style="width:32px;height:32px;border-radius:8px;background:#eff6ff;color:#2563eb;display:flex;align-items:center;justify-content:center;font-size:13px;flex-shrink:0;">
+                <i class="fa-solid fa-eye"></i>
+              </div>
+              <div style="flex:1;">
+                <div style="font-size:12.5px;font-weight:700;color:var(--text-900);">Preview Experience</div>
+                <div style="font-size:10.5px;color:var(--text-500);">See how it looks on kiosk</div>
+              </div>
             </a>
+
+            <!-- 2. View Experience Analytics -->
+            <a href="project-analytics.html" class="quick-action-row" id="qaViewAnalytics">
+              <div style="width:32px;height:32px;border-radius:8px;background:#f5f3ff;color:#7c3aed;display:flex;align-items:center;justify-content:center;font-size:13px;flex-shrink:0;">
+                <i class="fa-solid fa-chart-column"></i>
+              </div>
+              <div style="flex:1;">
+                <div style="font-size:12.5px;font-weight:700;color:var(--text-900);">View Experience Analytics</div>
+                <div style="font-size:10.5px;color:var(--text-500);">Performance & usage</div>
+              </div>
+            </a>
+
+            <!-- 3. Request Experience Change -->
+            <a href="#" onclick="alert('Submit Change Request: Redirecting to structured Request Portal with pre-filled Phoenix Mall Project context...')" class="quick-action-row" id="qaRequestChange">
+              <div style="width:32px;height:32px;border-radius:8px;background:#eff6ff;color:#2563eb;display:flex;align-items:center;justify-content:center;font-size:13px;flex-shrink:0;">
+                <i class="fa-solid fa-paper-plane"></i>
+              </div>
+              <div style="flex:1;">
+                <div style="font-size:12.5px;font-weight:700;color:var(--text-900);">Request Experience Change</div>
+                <div style="font-size:10.5px;color:var(--text-500);">Request structural changes</div>
+              </div>
+            </a>
+
+            <!-- 4. View Release History -->
+            <a href="#" onclick="alert('Release History: v2.2.0 (Current · 18 May 2025), v2.1.0 (28 Apr 2025), v2.0.0 (15 Apr 2025)')" class="quick-action-row" id="qaReleaseHistory">
+              <div style="width:32px;height:32px;border-radius:8px;background:#f0fdf4;color:#16a34a;display:flex;align-items:center;justify-content:center;font-size:13px;flex-shrink:0;">
+                <i class="fa-solid fa-clock-rotate-left"></i>
+              </div>
+              <div style="flex:1;">
+                <div style="font-size:12.5px;font-weight:700;color:var(--text-900);">View Release History</div>
+                <div style="font-size:10.5px;color:var(--text-500);">All previous releases</div>
+              </div>
+            </a>
+
+          </div>
+
+        </div>
+
+      </div>
+
+      <!-- =======================================================================
+           ROW 3: BOTTOM OPERATIONS (Health, Recent Updates, Experience Notes)
+           ======================================================================= -->
+      <div class="exp-row-3col">
+        
+        <!-- Column 1: Experience Health -->
+        <div class="dash-panel">
+          <div class="dash-panel-header">
+            <h2 class="dash-panel-title">Experience Health</h2>
+            <a href="#" onclick="alert('Health: All 26 interactive screens and 112 navigation nodes functioning normally.')" class="dash-panel-link">View Full Health Report ></a>
+          </div>
+          <div class="dash-panel-body">
+            <div style="display:flex;align-items:center;gap:8px;margin-bottom:12px;">
+              <i class="fa-regular fa-circle-check" style="color:#10b981;font-size:20px;"></i>
+              <div>
+                <div style="font-size:15px;font-weight:800;color:#15803d;line-height:1.1;">Excellent</div>
+                <div style="font-size:11px;color:#166534;">All experience systems are running smoothly.</div>
+              </div>
+            </div>
+
+            <div style="display:flex;flex-direction:column;gap:7px;font-size:12px;color:var(--text-700);border-top:1px solid var(--border-soft);padding-top:10px;">
+              <div style="display:flex;justify-content:space-between;">
+                <span style="display:flex;align-items:center;gap:6px;"><i class="fa-regular fa-circle-check" style="color:#10b981;font-size:12px;"></i> All Screens Accessible</span>
+                <strong style="color:var(--text-900);">26 / 26</strong>
+              </div>
+              <div style="display:flex;justify-content:space-between;">
+                <span style="display:flex;align-items:center;gap:6px;"><i class="fa-regular fa-circle-check" style="color:#10b981;font-size:12px;"></i> Navigation Working</span>
+                <strong style="color:var(--text-900);">112 / 112</strong>
+              </div>
+              <div style="display:flex;justify-content:space-between;">
+                <span style="display:flex;align-items:center;gap:6px;"><i class="fa-regular fa-circle-check" style="color:#10b981;font-size:12px;"></i> Media Assets Loaded</span>
+                <strong style="color:#10b981;">100%</strong>
+              </div>
+              <div style="display:flex;justify-content:space-between;">
+                <span style="display:flex;align-items:center;gap:6px;"><i class="fa-regular fa-circle-check" style="color:#10b981;font-size:12px;"></i> Links & Actions</span>
+                <strong style="color:#10b981;">No Issues</strong>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Column 2: Recent Experience Updates -->
+        <div class="dash-panel">
+          <div class="dash-panel-header">
+            <h2 class="dash-panel-title">Recent Experience Updates</h2>
+            <a href="#" onclick="alert('Updates: Viewing full project update log...')" class="dash-panel-link">View All</a>
+          </div>
+          <div class="dash-panel-body" style="display:flex;flex-direction:column;gap:8px;">
+            <div class="activity-row">
+              <i class="fa-regular fa-file-lines" style="color:#10b981;font-size:13px;width:20px;"></i>
+              <div style="flex:1;display:flex;align-items:center;justify-content:space-between;font-size:11.5px;">
+                <span style="color:var(--text-900);font-weight:600;">Content updated for "Lifestyle Store"</span>
+                <span style="color:var(--text-500);font-size:11px;">1 day ago</span>
+              </div>
+            </div>
+
+            <div class="activity-row">
+              <i class="fa-solid fa-bullhorn" style="color:#ef4444;font-size:13px;width:20px;"></i>
+              <div style="flex:1;display:flex;align-items:center;justify-content:space-between;font-size:11.5px;">
+                <span style="color:var(--text-900);font-weight:600;">Advertisement "Summer Sale 2025" updated</span>
+                <span style="color:var(--text-500);font-size:11px;">2 days ago</span>
+              </div>
+            </div>
+
+            <div class="activity-row">
+              <i class="fa-solid fa-tag" style="color:#d97706;font-size:13px;width:20px;"></i>
+              <div style="flex:1;display:flex;align-items:center;justify-content:space-between;font-size:11.5px;">
+                <span style="color:var(--text-900);font-weight:600;">Offer "Weekend Special" updated</span>
+                <span style="color:var(--text-500);font-size:11px;">3 days ago</span>
+              </div>
+            </div>
+
+            <div class="activity-row">
+              <i class="fa-regular fa-calendar" style="color:#2563eb;font-size:13px;width:20px;"></i>
+              <div style="flex:1;display:flex;align-items:center;justify-content:space-between;font-size:11.5px;">
+                <span style="color:var(--text-900);font-weight:600;">Event "Music Night" details updated</span>
+                <span style="color:var(--text-500);font-size:11px;">5 days ago</span>
+              </div>
+            </div>
+
+            <div class="activity-row">
+              <i class="fa-solid fa-palette" style="color:#7c3aed;font-size:13px;width:20px;"></i>
+              <div style="flex:1;display:flex;align-items:center;justify-content:space-between;font-size:11.5px;">
+                <span style="color:var(--text-900);font-weight:600;">Theme "Summer 2025" applied</span>
+                <span style="color:var(--text-500);font-size:11px;">1 week ago</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Column 3: Experience Notes -->
+        <div class="dash-panel">
+          <div class="dash-panel-header">
+            <h2 class="dash-panel-title">Experience Notes</h2>
+            <a href="#" onclick="alert('Requests: Opening request creation modal...')" class="dash-panel-link">Go to Requests ></a>
+          </div>
+          <div class="dash-panel-body" style="font-size:12px;color:var(--text-600);line-height:1.5;display:flex;flex-direction:column;justify-content:space-between;">
+            <div>
+              <p style="margin:0 0 10px 0;">
+                The experience structure is managed by <strong>Company Admin</strong>.
+              </p>
+              <p style="margin:0 0 10px 0;">
+                You can view and access this experience.
+              </p>
+              <p style="margin:0;">
+                For structural changes (new screens, navigation, layout changes, etc.), please submit a request.
+              </p>
+            </div>
+
+            <div style="background:#eff6ff;border:1px solid #bfdbfe;border-radius:8px;padding:8px 12px;margin-top:14px;font-size:11px;color:#1e40af;display:flex;align-items:center;gap:8px;">
+              <i class="fa-solid fa-circle-info"></i>
+              <span>Inspection only mode · Structure changes routed to Company</span>
+            </div>
           </div>
         </div>
 
       </div>
 
-  </main>
-</div>
+    </div>
+
+    <!-- Client Footer -->
+    <footer style="padding:16px 28px;background:#ffffff;border-top:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;font-size:12px;color:var(--text-500);">
+      <div>© 2025 Mall Kiosk Platform. All rights reserved.</div>
+      <div style="display:flex;gap:18px;">
+        <span>Client Admin Portal</span>
+        <span>Phoenix Mall Experience Workspace</span>
+      </div>
+    </footer>
+
+  </div>
 </div>
 
+<!-- ===========================================================================
+     JAVASCRIPT LOGIC
+     =========================================================================== -->
 <script>
-function selectMiniTheme(card, name) {
-  document.querySelectorAll('.theme-mini-card').forEach(c => {
-    c.classList.remove('selected');
-    const badge = c.querySelector('.theme-check-badge');
-    if (badge) badge.remove();
-  });
-  card.classList.add('selected');
-  const badge = document.createElement('div');
-  badge.className = 'theme-check-badge';
-  badge.innerHTML = '<i class="fa-solid fa-check"></i>';
-  card.appendChild(badge);
+  function selectExperienceSection(btnEl, sectionKey) {
+    if (btnEl) {
+      document.querySelectorAll('.section-list-btn').forEach(b => b.classList.remove('active'));
+      btnEl.classList.add('active');
+    } else {
+      const sidebarBtns = document.querySelectorAll('.section-list-btn');
+      sidebarBtns.forEach(b => {
+        if (b.innerText.toLowerCase().includes(sectionKey)) {
+          sidebarBtns.forEach(x => x.classList.remove('active'));
+          b.classList.add('active');
+        }
+      });
+    }
 
-  // Update theme preview image based on selection
-  const previewImg = document.getElementById('theme-preview-img');
-  if (previewImg) {
-    if (name === 'Diwali') {
-      previewImg.src = '../images/client_admin_project_theme_preview_page_0101.png';
-    } else if (name === 'New Year') {
-      previewImg.src = '../images/client_admin_project_theme_preview_page_0202.png';
-    } else if (name === 'Default') {
-      previewImg.src = '../images/client_admin_project_theme_preview_page_0303.png';
+    document.querySelectorAll('.exp-node-card').forEach(n => n.classList.remove('selected'));
+    const targetNode = document.getElementById('node-' + sectionKey);
+    if (targetNode) {
+      targetNode.classList.add('selected');
     }
   }
-}
+
+  function toggleSidebarCollapse() {
+    const sb = document.getElementById('clientSidebar');
+    if (sb) {
+      sb.classList.toggle('collapsed');
+    }
+  }
 </script>
+
 </body>
 </html>

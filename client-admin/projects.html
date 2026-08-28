@@ -280,19 +280,19 @@
         <i class="fa-solid fa-folder-open"></i>
         <span>Projects</span>
       </li>
-      <li class="nav-item" onclick="location.href='project-content.html'">
+      <li class="nav-item" onclick="location.href='project-overview.html'">
         <i class="fa-regular fa-file-lines"></i>
         <span>Content</span>
       </li>
-      <li class="nav-item" onclick="location.href='project-experience.html'">
+      <li class="nav-item" onclick="location.href='project-overview.html'">
         <i class="fa-solid fa-palette"></i>
         <span>Themes</span>
       </li>
-      <li class="nav-item" onclick="location.href='project-advertisements.html'">
+      <li class="nav-item" onclick="location.href='project-overview.html'">
         <i class="fa-solid fa-bullhorn"></i>
         <span>Advertisements</span>
       </li>
-      <li class="nav-item" onclick="location.href='project-analytics.html'">
+      <li class="nav-item" onclick="location.href='project-overview.html'">
         <i class="fa-solid fa-chart-column"></i>
         <span>Analytics</span>
       </li>
@@ -473,7 +473,7 @@
           <div id="projectsListContainer">
             
             <!-- Project 1: Phoenix Mall Project (Selected by default) -->
-            <div class="project-card-item selected" onclick="selectProjectCard(this, 'phoenix-mall')">
+            <div class="project-card-item selected" onclick="selectProjectCard(this, 'phoenix-mall')" ondblclick="location.href='project-overview.html'">
               <div style="display:flex;align-items:center;gap:10px;">
                 <div class="proj-thumb-box" style="background:linear-gradient(135deg,#3b82f6,#1d4ed8);">
                   <i class="fa-solid fa-city"></i>
@@ -486,12 +486,15 @@
               </div>
               <div style="display:flex;flex-direction:column;align-items:flex-end;gap:6px;">
                 <span class="status-pill pill-active">Active</span>
-                <i class="fa-solid fa-chevron-right" style="font-size:10px;color:var(--text-400);"></i>
+                <a href="project-overview.html" style="font-size:11px;color:#2563eb;text-decoration:none;font-weight:600;display:flex;align-items:center;gap:3px;" onclick="event.stopPropagation();">
+                  <span>Open</span>
+                  <i class="fa-solid fa-chevron-right" style="font-size:9px;"></i>
+                </a>
               </div>
             </div>
 
             <!-- Project 2: Phoenix Marketcity Project -->
-            <div class="project-card-item" onclick="selectProjectCard(this, 'phoenix-marketcity')">
+            <div class="project-card-item" onclick="selectProjectCard(this, 'phoenix-marketcity')" ondblclick="location.href='project-overview.html'">
               <div style="display:flex;align-items:center;gap:10px;">
                 <div class="proj-thumb-box" style="background:linear-gradient(135deg,#059669,#047857);">
                   <i class="fa-solid fa-store"></i>
@@ -504,12 +507,15 @@
               </div>
               <div style="display:flex;flex-direction:column;align-items:flex-end;gap:6px;">
                 <span class="status-pill pill-active">Active</span>
-                <i class="fa-solid fa-chevron-right" style="font-size:10px;color:var(--text-400);"></i>
+                <a href="project-overview.html" style="font-size:11px;color:#2563eb;text-decoration:none;font-weight:600;display:flex;align-items:center;gap:3px;" onclick="event.stopPropagation();">
+                  <span>Open</span>
+                  <i class="fa-solid fa-chevron-right" style="font-size:9px;"></i>
+                </a>
               </div>
             </div>
 
             <!-- Project 3: Phoenix Palladium Project -->
-            <div class="project-card-item" onclick="selectProjectCard(this, 'phoenix-palladium')">
+            <div class="project-card-item" onclick="selectProjectCard(this, 'phoenix-palladium')" ondblclick="location.href='project-overview.html'">
               <div style="display:flex;align-items:center;gap:10px;">
                 <div class="proj-thumb-box" style="background:linear-gradient(135deg,#d97706,#b45309);">
                   <i class="fa-solid fa-landmark"></i>
@@ -522,12 +528,15 @@
               </div>
               <div style="display:flex;flex-direction:column;align-items:flex-end;gap:6px;">
                 <span class="status-pill pill-upcoming">Upcoming</span>
-                <i class="fa-solid fa-chevron-right" style="font-size:10px;color:var(--text-400);"></i>
+                <a href="project-overview.html" style="font-size:11px;color:#2563eb;text-decoration:none;font-weight:600;display:flex;align-items:center;gap:3px;" onclick="event.stopPropagation();">
+                  <span>Open</span>
+                  <i class="fa-solid fa-chevron-right" style="font-size:9px;"></i>
+                </a>
               </div>
             </div>
 
             <!-- Project 4: Phoenix Citadel Project -->
-            <div class="project-card-item" onclick="selectProjectCard(this, 'phoenix-citadel')">
+            <div class="project-card-item" onclick="selectProjectCard(this, 'phoenix-citadel')" ondblclick="location.href='project-overview.html'">
               <div style="display:flex;align-items:center;gap:10px;">
                 <div class="proj-thumb-box" style="background:linear-gradient(135deg,#64748b,#475569);">
                   <i class="fa-solid fa-building"></i>
@@ -540,7 +549,10 @@
               </div>
               <div style="display:flex;flex-direction:column;align-items:flex-end;gap:6px;">
                 <span class="status-pill pill-inactive">Inactive</span>
-                <i class="fa-solid fa-chevron-right" style="font-size:10px;color:var(--text-400);"></i>
+                <a href="project-overview.html" style="font-size:11px;color:#2563eb;text-decoration:none;font-weight:600;display:flex;align-items:center;gap:3px;" onclick="event.stopPropagation();">
+                  <span>Open</span>
+                  <i class="fa-solid fa-chevron-right" style="font-size:9px;"></i>
+                </a>
               </div>
             </div>
 
@@ -671,15 +683,15 @@
 
           <!-- Project Navigation Tabs (Overview, Kiosks, Experience, Content, Themes, Ads, Analytics, Feedback, Requests) -->
           <div class="overview-nav-tabs">
-            <a href="projects.html" class="overview-tab active"><i class="fa-solid fa-chart-pie" style="margin-right:4px;"></i> Overview</a>
-            <a href="project-devices.html" class="overview-tab"><i class="fa-solid fa-desktop" style="margin-right:4px;"></i> Kiosks</a>
-            <a href="project-experience.html" class="overview-tab"><i class="fa-solid fa-layer-group" style="margin-right:4px;"></i> Experience</a>
-            <a href="project-content.html" class="overview-tab"><i class="fa-regular fa-file-lines" style="margin-right:4px;"></i> Content</a>
-            <a href="project-experience.html" class="overview-tab"><i class="fa-solid fa-palette" style="margin-right:4px;"></i> Themes</a>
-            <a href="project-advertisements.html" class="overview-tab"><i class="fa-solid fa-bullhorn" style="margin-right:4px;"></i> Advertisements</a>
-            <a href="project-analytics.html" class="overview-tab"><i class="fa-solid fa-chart-column" style="margin-right:4px;"></i> Analytics</a>
-            <a href="#" onclick="alert('Feedback Section: Opening Project Feedback...')" class="overview-tab"><i class="fa-regular fa-comment-dots" style="margin-right:4px;"></i> Feedback</a>
-            <a href="#" onclick="alert('Requests Section: Opening Project Requests Queue...')" class="overview-tab"><i class="fa-regular fa-clipboard" style="margin-right:4px;"></i> Requests</a>
+            <a href="project-overview.html" class="overview-tab active"><i class="fa-solid fa-chart-pie" style="margin-right:4px;"></i> Overview</a>
+            <a href="project-overview.html" class="overview-tab"><i class="fa-solid fa-desktop" style="margin-right:4px;"></i> Kiosks</a>
+            <a href="project-overview.html" class="overview-tab"><i class="fa-solid fa-layer-group" style="margin-right:4px;"></i> Experience</a>
+            <a href="project-overview.html" class="overview-tab"><i class="fa-regular fa-file-lines" style="margin-right:4px;"></i> Content</a>
+            <a href="project-overview.html" class="overview-tab"><i class="fa-solid fa-palette" style="margin-right:4px;"></i> Themes</a>
+            <a href="project-overview.html" class="overview-tab"><i class="fa-solid fa-bullhorn" style="margin-right:4px;"></i> Advertisements</a>
+            <a href="project-overview.html" class="overview-tab"><i class="fa-solid fa-chart-column" style="margin-right:4px;"></i> Analytics</a>
+            <a href="project-overview.html" class="overview-tab"><i class="fa-regular fa-comment-dots" style="margin-right:4px;"></i> Feedback</a>
+            <a href="project-overview.html" class="overview-tab"><i class="fa-regular fa-clipboard" style="margin-right:4px;"></i> Requests</a>
           </div>
 
           <!-- Body: 3-Column Mini Operational Breakdown -->
@@ -769,7 +781,7 @@
               <div style="background:#f8fafc;border:1px solid var(--border-soft);border-radius:10px;padding:12px;">
                 <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:6px;">
                   <div style="font-size:12px;font-weight:700;color:var(--text-900);">Top Performing Sections</div>
-                  <a href="project-analytics.html" style="font-size:10px;color:#2563eb;text-decoration:none;font-weight:600;">View All</a>
+                  <a href="project-overview.html" style="font-size:10px;color:#2563eb;text-decoration:none;font-weight:600;">View All</a>
                 </div>
 
                 <div style="display:flex;flex-direction:column;gap:5px;font-size:10.5px;">
