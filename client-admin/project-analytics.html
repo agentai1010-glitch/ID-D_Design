@@ -1,468 +1,1028 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Phoenix Mall · Analytics · Kiosk Platform</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-<link rel="stylesheet" href="../css/styles.css">
-<style>
-  .analytics-kpi-card { background:#fff; border:1px solid var(--border-soft); border-radius:12px; padding:14px 16px; display:flex; flex-direction:column; gap:4px; }
-  .kpi-trend-up { color:#16a34a; font-size:11px; font-weight:700; }
-  .kpi-trend-sub { color:var(--text-400); font-size:10.5px; }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Phoenix Mall Project · Analytics · Mall Kiosk Platform</title>
+  <!-- Google Fonts & Font Awesome -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="stylesheet" href="../css/styles.css">
+  <style>
+    /* Workflow Domain - Client Admin Project Analytics Specific Styling */
+    .analytics-kpi-grid {
+      display: grid;
+      grid-template-columns: repeat(6, 1fr);
+      gap: 14px;
+      margin-bottom: 20px;
+    }
+    @media (max-width: 1400px) {
+      .analytics-kpi-grid {
+        grid-template-columns: repeat(3, 1fr);
+      }
+    }
+    @media (max-width: 800px) {
+      .analytics-kpi-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
 
-  /* Sessions chart area */
-  .chart-area { position:relative; height:200px; }
+    .kpi-stat-box {
+      background: #ffffff;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 15px;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+    .kpi-stat-box:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.06);
+    }
 
-  /* Horizontal bar for top categories */
-  .hbar-row { display:flex; align-items:center; gap:10px; margin-bottom:8px; }
-  .hbar-label { font-size:12px; color:var(--text-700); width:130px; flex-shrink:0; }
-  .hbar-track { flex:1; height:7px; background:#f1f5f9; border-radius:4px; overflow:hidden; }
-  .hbar-fill { height:100%; border-radius:4px; background:#2563eb; }
-  .hbar-val { font-size:11.5px; font-weight:600; color:var(--text-700); width:80px; text-align:right; flex-shrink:0; }
+    .kpi-icon-square {
+      width: 42px;
+      height: 42px;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 17px;
+      flex-shrink: 0;
+    }
 
-  /* Funnel rows */
-  .funnel-row { display:flex; align-items:center; padding:9px 0; border-bottom:1px solid var(--border-soft); gap:10px; }
-  .funnel-row:last-child { border-bottom:none; }
-  .funnel-icon { width:30px; height:30px; border-radius:8px; display:flex; align-items:center; justify-content:center; font-size:13px; flex-shrink:0; }
+    /* Subnav Bar */
+    .project-subnav-bar {
+      background: #ffffff;
+      border-bottom: 1px solid var(--border);
+      padding: 0 28px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+    }
 
-  /* Sessions by kiosk donut */
-  .kiosk-legend-row { display:flex; align-items:center; justify-content:space-between; padding:4px 0; font-size:12px; }
+    .project-subnav-tabs {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      overflow-x: auto;
+    }
 
-  /* Insight cards */
-  .insight-card { background:#fff; border:1px solid var(--border-soft); border-radius:10px; padding:14px 16px; display:flex; align-items:flex-start; gap:12px; flex:1; }
+    .project-subnav-tab {
+      padding: 14px 16px;
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--text-600);
+      cursor: pointer;
+      border-bottom: 2px solid transparent;
+      white-space: nowrap;
+      transition: all 0.15s ease;
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .project-subnav-tab:hover {
+      color: var(--text-900);
+    }
+    .project-subnav-tab.active {
+      color: #2563eb;
+      border-bottom-color: #2563eb;
+      font-weight: 700;
+    }
 
-  /* SVG Line Chart simulation */
-  .svg-chart { width:100%; height:180px; }
-</style>
+    /* Status Pills */
+    .status-pill {
+      font-size: 11px;
+      font-weight: 700;
+      padding: 3px 9px;
+      border-radius: 999px;
+      white-space: nowrap;
+      display: inline-block;
+    }
+    .pill-active { background: #ecfdf5; color: #059669; border: 1px solid #a7f3d0; }
+
+    /* Row 2 Split: Visitor Trend (Left ~58%) + Heatmap (Right ~42%) */
+    .trend-heatmap-split {
+      display: grid;
+      grid-template-columns: 1.4fr 1fr;
+      gap: 18px;
+      align-items: stretch;
+      margin-bottom: 20px;
+    }
+    @media (max-width: 1200px) {
+      .trend-heatmap-split {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    /* Row 3: 4-Column Breakdown Grid */
+    .analytics-4col-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 18px;
+      align-items: stretch;
+      margin-bottom: 20px;
+    }
+    @media (max-width: 1350px) {
+      .analytics-4col-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+    @media (max-width: 800px) {
+      .analytics-4col-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    /* Row 4: 3-Column Bottom Split */
+    .analytics-3col-bottom {
+      display: grid;
+      grid-template-columns: 1.25fr 1fr 0.85fr;
+      gap: 18px;
+      align-items: stretch;
+    }
+    @media (max-width: 1200px) {
+      .analytics-3col-bottom {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .dash-panel {
+      background: #ffffff;
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      padding: 16px 18px;
+    }
+
+    .dash-panel-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 12px;
+    }
+
+    .dash-panel-title {
+      font-size: 14.5px;
+      font-weight: 700;
+      color: var(--text-900);
+      margin: 0;
+    }
+
+    .dash-panel-link {
+      font-size: 11.5px;
+      font-weight: 600;
+      color: #2563eb;
+      text-decoration: none;
+      cursor: pointer;
+    }
+    .dash-panel-link:hover {
+      text-decoration: underline;
+    }
+
+    .rank-bar-track {
+      height: 6px;
+      background: #f1f5f9;
+      border-radius: 999px;
+      overflow: hidden;
+      flex: 1;
+      margin: 0 10px;
+    }
+    .rank-bar-fill {
+      height: 100%;
+      background: #7c3aed;
+      border-radius: 999px;
+    }
+
+    /* Heatmap Grid */
+    .heatmap-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 10px;
+      text-align: center;
+    }
+    .heatmap-cell {
+      height: 18px;
+      border-radius: 3px;
+      margin: 1px;
+      transition: opacity 0.15s ease;
+    }
+    .heatmap-cell:hover {
+      opacity: 0.8;
+      cursor: pointer;
+    }
+
+    /* Activity Rows */
+    .activity-row {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 7px 0;
+      border-bottom: 1px solid var(--border-soft);
+      font-size: 11.5px;
+    }
+    .activity-row:last-child {
+      border-bottom: none;
+      padding-bottom: 0;
+    }
+    .activity-row:first-child {
+      padding-top: 0;
+    }
+  </style>
 </head>
 <body>
 <div class="app-shell">
 
-<aside class="sidebar">
-  <a href="dashboard.html" class="sidebar-brand">
-    <div class="logo-icon">
-      <svg viewBox="0 0 24 24" fill="none"><path d="M12 2L21 7V17L12 22L3 17V7L12 2Z" stroke="white" stroke-width="1.6" stroke-linejoin="round"/><circle cx="12" cy="12" r="3.2" fill="white"/></svg>
-    </div>
-    <div class="brand-text"><div class="t1">KIOSK</div><div class="t2">PLATFORM</div></div>
-  </a>
-  <div class="sidebar-section-label">WORKSPACE</div>
-  <ul class="sidebar-nav">
-    <li class="nav-item" onclick="location.href='dashboard.html'"><i class="fa-solid fa-house"></i><span>Dashboard</span></li>
-    <li class="nav-item active"><i class="fa-solid fa-folder-open"></i><span>Projects</span></li>
-    <li class="nav-item" onclick="location.href='devices.html'"><i class="fa-solid fa-tablet-screen-button"></i><span>Devices</span></li>
-    <li class="nav-item" onclick="location.href='analytics.html'"><i class="fa-solid fa-chart-column"></i><span>Analytics</span></li>
-  </ul>
-  <div class="sidebar-section-label">TEAM</div>
-  <ul class="sidebar-nav">
-    <li class="nav-item"><i class="fa-solid fa-users"></i><span>Users & Roles</span></li>
-  </ul>
-  <div class="sidebar-section-label">ACCOUNT</div>
-  <ul class="sidebar-nav">
-    <li class="nav-item"><i class="fa-solid fa-gear"></i><span>Settings</span></li>
-  </ul>
-  <div class="sidebar-spacer"></div>
-  <div class="org-switcher-card">
-    <div class="org-switcher-header">
-      <div class="org-icon-box"><i class="fa-solid fa-city"></i></div>
-      <div><div class="org-name-text">Phoenix Retail Group</div><div class="org-sub-text">Organization</div></div>
-    </div>
-    <button class="org-btn-switch"><span>Switch Organization</span><i class="fa-solid fa-chevron-down" style="font-size:9.5px;"></i></button>
-  </div>
-  <div class="sidebar-footer" style="display:flex;align-items:center;justify-content:space-between;">
-    <span>Client Admin v1.0.0</span>
-    <i class="fa-solid fa-chevron-left" style="font-size:10px;cursor:pointer;"></i>
-  </div>
-</aside>
-
-<div class="main">
-  <header class="topbar">
-    <i class="fa-solid fa-bars hamburger"></i>
-    <div class="search"><i class="fa-solid fa-magnifying-glass"></i><span>Search projects, kiosks, locations...</span><span class="kbd">⌘ K</span></div>
-    <div class="spacer"></div>
-    <button class="icon-btn"><i class="fa-regular fa-bell"></i><span class="badge-dot">8</span></button>
-    <div class="user">
-      <div class="avatar" style="background:linear-gradient(135deg,#3b82f6,#1d4ed8);">RA</div>
-      <div><div class="u-name">Rahul Arora</div><div class="u-role">Client Admin</div></div>
-      <i class="fa-solid fa-chevron-down"></i>
-    </div>
-  </header>
-
-  <main class="content">
-    <!-- Project Header -->
-    <div class="project-header-container">
-      <div class="project-breadcrumbs">
-        <a href="projects.html">Projects</a>
-        <i class="fa-solid fa-chevron-right" style="font-size:9px;color:var(--text-400);"></i>
-        <a href="project-overview.html">Phoenix Mall</a>
-        <i class="fa-solid fa-chevron-right" style="font-size:9px;color:var(--text-400);"></i>
-        <span style="font-weight:600;color:var(--text-900);">Analytics</span>
-      </div>
-      <div class="project-title-row">
-        <div class="project-title-left">
-          <h1>Phoenix Mall</h1>
-          <span class="badge badge-green" style="font-size:12px;padding:3px 10px;font-weight:600;"><span class="dot"></span> Active</span>
-        </div>
-        <div style="display:flex;align-items:center;gap:10px;">
-          <button class="btn" style="background:#fff;border:1px solid var(--border);color:var(--text-700);font-weight:600;padding:9px 16px;display:flex;align-items:center;gap:8px;"><i class="fa-regular fa-eye"></i> Preview Kiosk</button>
-          <button class="btn btn-primary" style="background:#2563eb;color:#fff;font-weight:600;padding:9px 18px;display:flex;align-items:center;gap:8px;"><i class="fa-solid fa-gear"></i> Project Settings <i class="fa-solid fa-chevron-down" style="font-size:9.5px;margin-left:2px;"></i></button>
-        </div>
-      </div>
-      <div class="project-meta-row">
-        <div class="project-meta-item"><i class="fa-solid fa-building" style="color:var(--text-400);"></i> Mall / Indoor Venue</div>
-        <span style="color:var(--text-400);">•</span>
-        <div class="project-meta-item"><i class="fa-solid fa-location-dot" style="color:var(--text-400);"></i> Mumbai, India</div>
-        <span style="color:var(--text-400);">•</span>
-        <div class="project-meta-item"><i class="fa-solid fa-tablet-screen-button" style="color:var(--text-400);"></i> 12 Kiosks</div>
-        <span style="color:var(--text-400);">•</span>
-        <div class="project-meta-item" style="color:var(--green-600);font-weight:600;"><i class="fa-solid fa-circle-check"></i> Release 43 (Published)</div>
-      </div>
-    </div>
-
-    <!-- Project Sub-Nav Tabs -->
-    <div class="project-tabs-nav">
-      <button class="project-tab-btn" onclick="location.href='project-overview.html'">Overview</button>
-      <button class="project-tab-btn" onclick="location.href='project-experience.html'">Experience</button>
-      <button class="project-tab-btn" onclick="location.href='project-content.html'">Content</button>
-      <button class="project-tab-btn" onclick="location.href='project-maps.html'">Maps</button>
-      <button class="project-tab-btn" onclick="location.href='project-navigation.html'">Navigation</button>
-      <button class="project-tab-btn" onclick="location.href='project-advertisements.html'">Advertisements</button>
-      <button class="project-tab-btn" onclick="location.href='project-preview.html'">Preview</button>
-      <button class="project-tab-btn" onclick="location.href='project-validation.html'">Validation</button>
-      <button class="project-tab-btn" onclick="location.href='project-releases.html'">Releases</button>
-      <button class="project-tab-btn" onclick="location.href='project-devices.html'">Devices</button>
-      <button class="project-tab-btn active">Analytics</button>
-      <button class="project-tab-btn" onclick="location.href='#'">Settings</button>
-    </div>
-
-    <!-- Section Header + Date Filters -->
-    <div style="display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:18px;flex-wrap:wrap;gap:10px;">
-      <div>
-        <h2 style="font-size:17px;font-weight:800;color:var(--text-900);margin:0 0 3px;">Project Analytics</h2>
-        <p style="font-size:12.5px;color:var(--text-500);margin:0;">Track performance, engagement, and system health across your kiosk network.</p>
-      </div>
-      <div style="display:flex;align-items:center;gap:8px;">
-        <div class="select-pill" style="height:34px;padding:0 12px;font-size:12px;gap:6px;"><i class="fa-regular fa-calendar" style="font-size:11px;"></i> May 10 - May 16, 2026 <i class="fa-solid fa-chevron-down" style="font-size:9px;"></i></div>
-        <div class="select-pill" style="height:34px;padding:0 12px;font-size:12px;gap:6px;">Compared to May 3 - May 9, 2026 <i class="fa-solid fa-chevron-down" style="font-size:9px;"></i></div>
-        <button class="btn" style="height:34px;padding:0 14px;font-size:12px;font-weight:600;display:flex;align-items:center;gap:6px;"><i class="fa-solid fa-download"></i> Export Report</button>
-      </div>
-    </div>
-
-    <!-- ===== 6 KPI Cards Row ===== -->
-    <div style="display:grid;grid-template-columns:repeat(6,1fr);gap:12px;margin-bottom:20px;">
-      <!-- Total Sessions -->
-      <div class="analytics-kpi-card">
-        <div style="display:flex;align-items:center;gap:6px;margin-bottom:4px;">
-          <i class="fa-solid fa-chart-line" style="color:#16a34a;font-size:12px;"></i>
-          <span style="font-size:11.5px;font-weight:600;color:var(--text-600);">Total Sessions</span>
-        </div>
-        <div style="font-size:22px;font-weight:800;color:var(--text-900);line-height:1.1;">18,742</div>
-        <div class="kpi-trend-up">↑ 12.5%</div>
-        <div class="kpi-trend-sub">vs May 3 - May 9, 2026</div>
-      </div>
-      <!-- Unique Users -->
-      <div class="analytics-kpi-card">
-        <div style="display:flex;align-items:center;gap:6px;margin-bottom:4px;">
-          <i class="fa-regular fa-user" style="color:#2563eb;font-size:12px;"></i>
-          <span style="font-size:11.5px;font-weight:600;color:var(--text-600);">Unique Users</span>
-        </div>
-        <div style="font-size:22px;font-weight:800;color:var(--text-900);line-height:1.1;">12,496</div>
-        <div class="kpi-trend-up">↑ 9.3%</div>
-        <div class="kpi-trend-sub">vs May 3 - May 9, 2026</div>
-      </div>
-      <!-- Avg Session Duration -->
-      <div class="analytics-kpi-card">
-        <div style="display:flex;align-items:center;gap:6px;margin-bottom:4px;">
-          <i class="fa-regular fa-clock" style="color:#7c3aed;font-size:12px;"></i>
-          <span style="font-size:11.5px;font-weight:600;color:var(--text-600);">Avg. Session Duration</span>
-        </div>
-        <div style="font-size:22px;font-weight:800;color:var(--text-900);line-height:1.1;">02:47</div>
-        <div class="kpi-trend-up">↑ 8.7%</div>
-        <div class="kpi-trend-sub">vs May 3 - May 9, 2026</div>
-      </div>
-      <!-- Touch Interactions -->
-      <div class="analytics-kpi-card">
-        <div style="display:flex;align-items:center;gap:6px;margin-bottom:4px;">
-          <i class="fa-regular fa-hand-pointer" style="color:#ea580c;font-size:12px;"></i>
-          <span style="font-size:11.5px;font-weight:600;color:var(--text-600);">Touch Interactions</span>
-        </div>
-        <div style="font-size:22px;font-weight:800;color:var(--text-900);line-height:1.1;">68,921</div>
-        <div class="kpi-trend-up">↑ 15.8%</div>
-        <div class="kpi-trend-sub">vs May 3 - May 9, 2026</div>
-      </div>
-      <!-- Content Views -->
-      <div class="analytics-kpi-card">
-        <div style="display:flex;align-items:center;gap:6px;margin-bottom:4px;">
-          <i class="fa-regular fa-eye" style="color:#dc2626;font-size:12px;"></i>
-          <span style="font-size:11.5px;font-weight:600;color:var(--text-600);">Content Views</span>
-        </div>
-        <div style="font-size:22px;font-weight:800;color:var(--text-900);line-height:1.1;">32,109</div>
-        <div class="kpi-trend-up">↑ 11.4%</div>
-        <div class="kpi-trend-sub">vs May 3 - May 9, 2026</div>
-      </div>
-      <!-- Task Completions -->
-      <div class="analytics-kpi-card">
-        <div style="display:flex;align-items:center;gap:6px;margin-bottom:4px;">
-          <i class="fa-regular fa-circle-check" style="color:#059669;font-size:12px;"></i>
-          <span style="font-size:11.5px;font-weight:600;color:var(--text-600);">Task Completions</span>
-        </div>
-        <div style="font-size:22px;font-weight:800;color:var(--text-900);line-height:1.1;">7,842</div>
-        <div class="kpi-trend-up">↑ 13.2%</div>
-        <div class="kpi-trend-sub">vs May 3 - May 9, 2026</div>
-      </div>
-    </div>
-
-    <!-- ===== Sessions Over Time + Sessions by Kiosk ===== -->
-    <div style="display:grid;grid-template-columns:1.4fr 1fr;gap:18px;margin-bottom:18px;">
-
-      <!-- Sessions Over Time Chart -->
-      <div class="panel" style="margin:0;padding:16px;">
-        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;">
-          <div style="font-size:13.5px;font-weight:700;color:var(--text-900);">Sessions Over Time <i class="fa-solid fa-circle-info" style="font-size:11px;color:var(--text-400);margin-left:4px;"></i></div>
-          <div style="display:flex;align-items:center;gap:14px;font-size:11px;">
-            <span style="display:flex;align-items:center;gap:5px;"><span style="width:18px;height:2px;background:#2563eb;border-radius:2px;"></span> This Period</span>
-            <span style="display:flex;align-items:center;gap:5px;"><span style="width:18px;height:2px;background:#94a3b8;border-radius:2px;border-top:2px dashed #94a3b8;"></span> Previous Period</span>
-          </div>
-        </div>
-        <!-- SVG Line Chart -->
-        <svg viewBox="0 0 520 170" class="svg-chart" style="overflow:visible;">
-          <!-- Y-axis labels -->
-          <text x="0" y="14" fill="#94a3b8" font-size="9" font-family="Inter">5K</text>
-          <text x="0" y="50" fill="#94a3b8" font-size="9" font-family="Inter">4K</text>
-          <text x="0" y="86" fill="#94a3b8" font-size="9" font-family="Inter">3K</text>
-          <text x="0" y="122" fill="#94a3b8" font-size="9" font-family="Inter">2K</text>
-          <text x="0" y="157" fill="#94a3b8" font-size="9" font-family="Inter">1K</text>
-          <!-- Grid lines -->
-          <line x1="30" y1="10" x2="520" y2="10" stroke="#f1f5f9" stroke-width="1"/>
-          <line x1="30" y1="46" x2="520" y2="46" stroke="#f1f5f9" stroke-width="1"/>
-          <line x1="30" y1="82" x2="520" y2="82" stroke="#f1f5f9" stroke-width="1"/>
-          <line x1="30" y1="118" x2="520" y2="118" stroke="#f1f5f9" stroke-width="1"/>
-          <line x1="30" y1="154" x2="520" y2="154" stroke="#f1f5f9" stroke-width="1"/>
-          <!-- X axis labels -->
-          <text x="50" y="170" fill="#94a3b8" font-size="9" font-family="Inter">May 10</text>
-          <text x="130" y="170" fill="#94a3b8" font-size="9" font-family="Inter">May 11</text>
-          <text x="210" y="170" fill="#94a3b8" font-size="9" font-family="Inter">May 12</text>
-          <text x="290" y="170" fill="#94a3b8" font-size="9" font-family="Inter">May 13</text>
-          <text x="370" y="170" fill="#94a3b8" font-size="9" font-family="Inter">May 14</text>
-          <text x="435" y="170" fill="#94a3b8" font-size="9" font-family="Inter">May 15</text>
-          <text x="495" y="170" fill="#94a3b8" font-size="9" font-family="Inter">May 16</text>
-          <!-- Area fill -->
-          <defs>
-            <linearGradient id="grad1" x1="0" y1="0" x2="0" y2="1">
-              <stop offset="0%" stop-color="#2563eb" stop-opacity="0.12"/>
-              <stop offset="100%" stop-color="#2563eb" stop-opacity="0"/>
-            </linearGradient>
-          </defs>
-          <polygon points="50,118 130,100 210,82 290,64 370,46 440,36 505,60 505,154 50,154" fill="url(#grad1)"/>
-          <!-- Current period line -->
-          <polyline points="50,118 130,100 210,82 290,64 370,46 440,36 505,60" fill="none" stroke="#2563eb" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round"/>
-          <!-- Dots -->
-          <circle cx="50" cy="118" r="3.5" fill="#2563eb"/>
-          <circle cx="130" cy="100" r="3.5" fill="#2563eb"/>
-          <circle cx="210" cy="82" r="3.5" fill="#2563eb"/>
-          <circle cx="290" cy="64" r="3.5" fill="#2563eb"/>
-          <circle cx="370" cy="46" r="3.5" fill="#2563eb"/>
-          <circle cx="440" cy="36" r="3.5" fill="#2563eb"/>
-          <circle cx="505" cy="60" r="3.5" fill="#2563eb"/>
-          <!-- Previous period dashed line -->
-          <polyline points="50,136 130,128 210,114 290,104 370,96 440,86 505,100" fill="none" stroke="#94a3b8" stroke-width="1.5" stroke-dasharray="5 4" stroke-linejoin="round"/>
+  <!-- =========================================================================
+       CLIENT ADMIN GLOBAL SIDEBAR (Strict 8 Items)
+       ========================================================================= -->
+  <aside class="sidebar" id="clientSidebar">
+    <a href="dashboard.html" class="sidebar-brand" style="cursor:pointer;text-decoration:none;">
+      <div class="logo-icon" style="background:linear-gradient(135deg,#3b82f6,#1d4ed8);border-radius:10px;">
+        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style="width:20px;height:20px;">
+          <path d="M4 21V9l8-6 8 6v12H4z" stroke="white" stroke-width="1.8" stroke-linejoin="round"/>
+          <path d="M9 21V12h6v9" stroke="white" stroke-width="1.8"/>
+          <path d="M12 3v4" stroke="white" stroke-width="1.8"/>
         </svg>
       </div>
+      <div class="brand-text">
+        <div class="t1" style="font-size:14px;font-weight:700;color:#ffffff;line-height:1.2;">Mall Kiosk Platform</div>
+        <div class="t2" style="font-size:11px;color:#94a3b8;font-weight:500;">Client Admin</div>
+      </div>
+    </a>
 
-      <!-- Sessions by Kiosk Donut -->
-      <div class="panel" style="margin:0;padding:16px;">
-        <div style="font-size:13.5px;font-weight:700;color:var(--text-900);margin-bottom:14px;">Sessions by Kiosk <i class="fa-solid fa-circle-info" style="font-size:11px;color:var(--text-400);margin-left:4px;"></i></div>
-        <div style="display:flex;align-items:center;gap:16px;">
-          <!-- Donut -->
-          <div style="position:relative;width:110px;height:110px;flex-shrink:0;">
-            <svg viewBox="0 0 100 100" style="width:100%;height:100%;transform:rotate(-90deg);">
-              <circle cx="50" cy="50" r="36" stroke="#f1f5f9" stroke-width="13" fill="none"/>
-              <circle cx="50" cy="50" r="36" stroke="#2563eb" stroke-width="13" fill="none" stroke-dasharray="46 226.2"/>
-              <circle cx="50" cy="50" r="36" stroke="#22c55e" stroke-width="13" fill="none" stroke-dasharray="39 226.2" stroke-dashoffset="-46"/>
-              <circle cx="50" cy="50" r="36" stroke="#f59e0b" stroke-width="13" fill="none" stroke-dasharray="35 226.2" stroke-dashoffset="-85"/>
-              <circle cx="50" cy="50" r="36" stroke="#7c3aed" stroke-width="13" fill="none" stroke-dasharray="33 226.2" stroke-dashoffset="-120"/>
-              <circle cx="50" cy="50" r="36" stroke="#ea580c" stroke-width="13" fill="none" stroke-dasharray="26 226.2" stroke-dashoffset="-153"/>
-              <circle cx="50" cy="50" r="36" stroke="#e2e8f0" stroke-width="13" fill="none" stroke-dasharray="47 226.2" stroke-dashoffset="-179"/>
+    <!-- Navigation Items (Strict 8) -->
+    <ul class="sidebar-nav">
+      <li class="nav-item" onclick="location.href='dashboard.html'">
+        <i class="fa-solid fa-house"></i>
+        <span>Dashboard</span>
+      </li>
+      <li class="nav-item active" onclick="location.href='projects.html'">
+        <i class="fa-solid fa-folder-open"></i>
+        <span>Projects</span>
+      </li>
+      <li class="nav-item" onclick="location.href='project-content.html'">
+        <i class="fa-regular fa-file-lines"></i>
+        <span>Content</span>
+      </li>
+      <li class="nav-item" onclick="location.href='project-themes.html'">
+        <i class="fa-solid fa-palette"></i>
+        <span>Themes</span>
+      </li>
+      <li class="nav-item" onclick="location.href='project-advertisements.html'">
+        <i class="fa-solid fa-bullhorn"></i>
+        <span>Advertisements</span>
+      </li>
+      <li class="nav-item" onclick="location.href='project-analytics.html'">
+        <i class="fa-solid fa-chart-column"></i>
+        <span>Analytics</span>
+      </li>
+      <li class="nav-item" onclick="alert('Feedback Section: Opening Visitor & Shopper Feedback Overview...')">
+        <i class="fa-regular fa-comment-dots"></i>
+        <span>Feedback</span>
+      </li>
+      <li class="nav-item" onclick="alert('Requests Section: Opening Client Request Submission Portal...')">
+        <i class="fa-regular fa-clipboard"></i>
+        <span>Requests</span>
+      </li>
+    </ul>
+
+    <div class="sidebar-spacer"></div>
+
+    <!-- Collapse Toggle -->
+    <div class="sidebar-collapse-btn" onclick="toggleSidebarCollapse()" style="display:flex;align-items:center;gap:8px;padding:10px 12px;color:#94a3b8;font-size:13px;cursor:pointer;border-radius:8px;transition:all 0.2s ease;">
+      <i class="fa-solid fa-chevron-left" style="font-size:11px;"></i>
+      <span>Collapse</span>
+    </div>
+  </aside>
+
+  <!-- =========================================================================
+       MAIN WORKSPACE
+       ========================================================================= -->
+  <div class="main">
+
+    <!-- Topbar Header -->
+    <header class="topbar" style="background:#ffffff;border-bottom:1px solid var(--border);padding:14px 28px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:20;">
+      <div style="display:flex;align-items:center;gap:14px;">
+        <i class="fa-solid fa-bars hamburger" style="font-size:16px;color:var(--text-600);cursor:pointer;"></i>
+        <div>
+          <div style="font-size:12px;color:var(--text-500);display:flex;align-items:center;gap:6px;">
+            <a href="projects.html" style="color:var(--text-500);text-decoration:none;">Projects</a>
+            <i class="fa-solid fa-chevron-right" style="font-size:9px;color:var(--text-400);"></i>
+            <a href="project-overview.html" style="color:var(--text-500);text-decoration:none;">Phoenix Mall Project</a>
+            <i class="fa-solid fa-chevron-right" style="font-size:9px;color:var(--text-400);"></i>
+            <span style="color:var(--text-900);font-weight:600;">Analytics</span>
+          </div>
+          <div style="display:flex;align-items:center;gap:10px;margin-top:2px;">
+            <h1 style="font-size:19px;font-weight:800;color:var(--text-900);margin:0;">Phoenix Mall Project</h1>
+            <span class="status-pill pill-active">Active</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Topbar Actions -->
+      <div style="display:flex;align-items:center;gap:16px;">
+        <!-- Date range selector dropdown -->
+        <select id="dateRangeSelector" onchange="updateAnalyticsPeriod()" style="display:flex;align-items:center;gap:8px;background:#f8fafc;border:1px solid var(--border);border-radius:8px;padding:7px 12px;font-size:12.5px;font-weight:600;color:var(--text-700);cursor:pointer;outline:none;">
+          <option value="this-week">13 May – 19 May 2025</option>
+          <option value="last-7-days">Last 7 Days</option>
+          <option value="last-30-days">Last 30 Days</option>
+          <option value="this-month">This Month</option>
+        </select>
+
+        <!-- Notification Bell -->
+        <button style="position:relative;width:38px;height:38px;border-radius:8px;border:1px solid var(--border);background:#fff;display:flex;align-items:center;justify-content:center;cursor:pointer;">
+          <i class="fa-regular fa-bell" style="font-size:16px;color:var(--text-600);"></i>
+          <span style="position:absolute;top:3px;right:3px;background:#ef4444;color:#fff;font-size:9px;font-weight:700;border-radius:50%;width:15px;height:15px;display:flex;align-items:center;justify-content:center;">7</span>
+        </button>
+
+        <!-- User Profile (Phoenix Mall · Client Admin) -->
+        <div style="display:flex;align-items:center;gap:10px;cursor:pointer;">
+          <div style="width:36px;height:36px;border-radius:50%;background:#f3e8ff;color:#9333ea;font-weight:700;font-size:15px;display:flex;align-items:center;justify-content:center;border:1px solid #e9d5ff;">
+            <i class="fa-solid fa-building-circle-check"></i>
+          </div>
+          <div>
+            <div style="font-size:13.5px;font-weight:700;color:var(--text-900);line-height:1.2;">Phoenix Mall</div>
+            <div style="font-size:11px;color:var(--text-500);font-weight:500;">Client Admin</div>
+          </div>
+          <i class="fa-solid fa-chevron-down" style="font-size:10px;color:var(--text-400);margin-left:4px;"></i>
+        </div>
+      </div>
+    </header>
+
+    <!-- =========================================================================
+         PROJECT SUBNAV BAR (10 Analytics Category Tabs + Export Button)
+         ========================================================================= -->
+    <div class="project-subnav-bar">
+      <nav class="project-subnav-tabs">
+        <a href="project-analytics.html" class="project-subnav-tab active" id="tabOverview"><i class="fa-solid fa-chart-pie"></i> Overview</a>
+        <a href="#" onclick="alert('Visitors Tab: Filtered visitor demographics & volume breakdown.')" class="project-subnav-tab" id="tabVisitors"><i class="fa-solid fa-users"></i> Visitors</a>
+        <a href="#" onclick="alert('Engagement Tab: Dwell time and kiosk session duration analysis.')" class="project-subnav-tab" id="tabEngagement"><i class="fa-solid fa-stopwatch"></i> Engagement</a>
+        <a href="#" onclick="alert('Interactions Tab: Touch breakdown, searches, and wayfinding triggers.')" class="project-subnav-tab" id="tabInteractions"><i class="fa-solid fa-hand-pointer"></i> Interactions</a>
+        <a href="project-content.html" class="project-subnav-tab" id="tabContent"><i class="fa-regular fa-file-lines"></i> Content</a>
+        <a href="project-advertisements.html" class="project-subnav-tab" id="tabAdvertisements"><i class="fa-solid fa-bullhorn"></i> Advertisements</a>
+        <a href="#" onclick="alert('Campaigns Tab: Detailed campaign ROI and conversion comparisons.')" class="project-subnav-tab" id="tabCampaigns"><i class="fa-solid fa-paper-plane"></i> Campaigns</a>
+        <a href="#" onclick="alert('Performance Tab: Store & amenity engagement rankings.')" class="project-subnav-tab" id="tabPerformance"><i class="fa-solid fa-trophy"></i> Performance</a>
+        <a href="#" onclick="alert('Devices Tab: Fleet usage and traffic distribution across 12 kiosks.')" class="project-subnav-tab" id="tabDevices"><i class="fa-solid fa-desktop"></i> Devices</a>
+        <a href="#" onclick="alert('Reports Tab: Downloadable scheduled PDF & CSV reports archive.')" class="project-subnav-tab" id="tabReports"><i class="fa-solid fa-file-export"></i> Reports</a>
+      </nav>
+
+      <!-- Export Report Button on Right -->
+      <button onclick="promptExportReport()" id="btnExportReport" style="height:34px;padding:0 14px;border-radius:8px;border:1px solid #2563eb;background:#eff6ff;color:#2563eb;font-size:12px;font-weight:700;cursor:pointer;display:flex;align-items:center;gap:6px;">
+        <i class="fa-solid fa-download" style="font-size:11px;"></i>
+        <span>Export Report</span>
+        <i class="fa-solid fa-chevron-down" style="font-size:9px;"></i>
+      </button>
+    </div>
+
+    <!-- Page Content Container -->
+    <div class="content" style="padding:22px 28px 40px 28px;background:#f8fafc;flex:1;">
+
+      <!-- =======================================================================
+           ROW 1: 6 TOP KPI SUMMARY CARDS
+           ======================================================================= -->
+      <div class="analytics-kpi-grid">
+        
+        <!-- Total Visitors -->
+        <div class="kpi-stat-box">
+          <div class="kpi-icon-square" style="background:#f5f3ff;color:#7c3aed;border:1px solid #ede9fe;">
+            <i class="fa-solid fa-users"></i>
+          </div>
+          <div>
+            <div style="font-size:11px;color:var(--text-500);font-weight:600;">Total Visitors</div>
+            <div style="font-size:22px;font-weight:800;color:var(--text-900);line-height:1.2;" id="kpiTotalVisitors">54,320</div>
+            <div style="font-size:10.5px;color:#10b981;font-weight:600;">↑ 16.8% <span style="font-weight:400;color:var(--text-400);">vs last 7 days</span></div>
+          </div>
+        </div>
+
+        <!-- Total Interactions -->
+        <div class="kpi-stat-box">
+          <div class="kpi-icon-square" style="background:#f0fdf4;color:#16a34a;border:1px solid #dcfce7;">
+            <i class="fa-solid fa-hand-pointer"></i>
+          </div>
+          <div>
+            <div style="font-size:11px;color:var(--text-500);font-weight:600;">Total Interactions</div>
+            <div style="font-size:22px;font-weight:800;color:var(--text-900);line-height:1.2;" id="kpiTotalInteractions">132,450</div>
+            <div style="font-size:10.5px;color:#10b981;font-weight:600;">↑ 22.3% <span style="font-weight:400;color:var(--text-400);">vs last 7 days</span></div>
+          </div>
+        </div>
+
+        <!-- Avg. Session Time -->
+        <div class="kpi-stat-box">
+          <div class="kpi-icon-square" style="background:#fff7ed;color:#ea580c;border:1px solid #ffedd5;">
+            <i class="fa-regular fa-clock"></i>
+          </div>
+          <div>
+            <div style="font-size:11px;color:var(--text-500);font-weight:600;">Avg. Session Time</div>
+            <div style="font-size:22px;font-weight:800;color:var(--text-900);line-height:1.2;" id="kpiAvgSession">2m 48s</div>
+            <div style="font-size:10.5px;color:#10b981;font-weight:600;">↑ 11.6% <span style="font-weight:400;color:var(--text-400);">vs last 7 days</span></div>
+          </div>
+        </div>
+
+        <!-- Unique Visitors -->
+        <div class="kpi-stat-box">
+          <div class="kpi-icon-square" style="background:#eff6ff;color:#2563eb;border:1px solid #dbeafe;">
+            <i class="fa-solid fa-user-check"></i>
+          </div>
+          <div>
+            <div style="font-size:11px;color:var(--text-500);font-weight:600;">Unique Visitors</div>
+            <div style="font-size:22px;font-weight:800;color:var(--text-900);line-height:1.2;" id="kpiUniqueVisitors">38,750</div>
+            <div style="font-size:10.5px;color:#10b981;font-weight:600;">↑ 15.2% <span style="font-weight:400;color:var(--text-400);">vs last 7 days</span></div>
+          </div>
+        </div>
+
+        <!-- New Visitors -->
+        <div class="kpi-stat-box">
+          <div class="kpi-icon-square" style="background:#f0fdf4;color:#059669;border:1px solid #bbf7d0;">
+            <i class="fa-solid fa-user-plus"></i>
+          </div>
+          <div>
+            <div style="font-size:11px;color:var(--text-500);font-weight:600;">New Visitors</div>
+            <div style="font-size:22px;font-weight:800;color:var(--text-900);line-height:1.2;" id="kpiNewVisitors">18,620</div>
+            <div style="font-size:10.5px;color:#10b981;font-weight:600;">↑ 17.1% <span style="font-weight:400;color:var(--text-400);">vs last 7 days</span></div>
+          </div>
+        </div>
+
+        <!-- Satisfaction Score -->
+        <div class="kpi-stat-box">
+          <div class="kpi-icon-square" style="background:#fef2f2;color:#dc2626;border:1px solid #fee2e2;">
+            <i class="fa-regular fa-star"></i>
+          </div>
+          <div>
+            <div style="font-size:11px;color:var(--text-500);font-weight:600;">Satisfaction Score</div>
+            <div style="font-size:22px;font-weight:800;color:var(--text-900);line-height:1.2;">4.2 <span style="font-size:13px;font-weight:500;color:var(--text-400);">/ 5</span></div>
+            <div style="font-size:10.5px;color:#10b981;font-weight:600;">↑ 0.3 <span style="font-weight:400;color:var(--text-400);">vs last 7 days</span></div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- =======================================================================
+           ROW 2: VISITOR TREND LINE CHART + HEATMAP BY TIME OF DAY
+           ======================================================================= -->
+      <div class="trend-heatmap-split">
+        
+        <!-- Visitor Trend -->
+        <div class="dash-panel">
+          <div class="dash-panel-header">
+            <h2 class="dash-panel-title">Visitor Trend</h2>
+            <select style="font-size:11px;padding:3px 8px;border-radius:6px;border:1px solid var(--border);background:#fff;color:var(--text-700);outline:none;">
+              <option>This Week ▾</option>
+              <option>Last Week</option>
+              <option>This Month</option>
+            </select>
+          </div>
+
+          <div style="height:210px;width:100%;padding:10px 0;">
+            <svg viewBox="0 0 540 180" style="width:100%;height:100%;overflow:visible;">
+              <!-- Grid lines -->
+              <line x1="40" y1="20" x2="520" y2="20" stroke="#f1f5f9" stroke-width="1"/>
+              <line x1="40" y1="55" x2="520" y2="55" stroke="#f1f5f9" stroke-width="1"/>
+              <line x1="40" y1="90" x2="520" y2="90" stroke="#f1f5f9" stroke-width="1"/>
+              <line x1="40" y1="125" x2="520" y2="125" stroke="#f1f5f9" stroke-width="1"/>
+              <line x1="40" y1="160" x2="520" y2="160" stroke="#f1f5f9" stroke-width="1"/>
+
+              <!-- Y-Axis Labels -->
+              <text x="12" y="24" font-size="9" fill="#94a3b8" font-weight="600">50K</text>
+              <text x="12" y="59" font-size="9" fill="#94a3b8" font-weight="600">40K</text>
+              <text x="12" y="94" font-size="9" fill="#94a3b8" font-weight="600">30K</text>
+              <text x="12" y="129" font-size="9" fill="#94a3b8" font-weight="600">20K</text>
+              <text x="12" y="164" font-size="9" fill="#94a3b8" font-weight="600">10K</text>
+              <text x="24" y="178" font-size="9" fill="#94a3b8" font-weight="600">0</text>
+
+              <!-- Gradient Fill Area -->
+              <defs>
+                <linearGradient id="trendGrad" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="0%" stop-color="#3b82f6" stop-opacity="0.25"/>
+                  <stop offset="100%" stop-color="#3b82f6" stop-opacity="0.0"/>
+                </linearGradient>
+              </defs>
+              <polygon points="50,140 120,125 190,110 260,95 330,98 400,60 470,75 470,165 50,165" fill="url(#trendGrad)"/>
+
+              <!-- Trend Line -->
+              <polyline points="50,140 120,125 190,110 260,95 330,98 400,60 470,75" fill="none" stroke="#2563eb" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round"/>
+
+              <!-- Nodes -->
+              <circle cx="50" cy="140" r="3.5" fill="#2563eb" stroke="#fff" stroke-width="1.5"/>
+              <circle cx="120" cy="125" r="3.5" fill="#2563eb" stroke="#fff" stroke-width="1.5"/>
+              <circle cx="190" cy="110" r="3.5" fill="#2563eb" stroke="#fff" stroke-width="1.5"/>
+              <circle cx="260" cy="95" r="3.5" fill="#2563eb" stroke="#fff" stroke-width="1.5"/>
+              <circle cx="330" cy="98" r="3.5" fill="#2563eb" stroke="#fff" stroke-width="1.5"/>
+              <circle cx="400" cy="60" r="4.5" fill="#2563eb" stroke="#fff" stroke-width="2"/>
+              <circle cx="470" cy="75" r="3.5" fill="#2563eb" stroke="#fff" stroke-width="1.5"/>
+
+              <!-- X-Axis Labels -->
+              <text x="35" y="178" font-size="9.5" fill="#64748b" font-weight="600">13 May</text>
+              <text x="105" y="178" font-size="9.5" fill="#64748b" font-weight="600">14 May</text>
+              <text x="175" y="178" font-size="9.5" fill="#64748b" font-weight="600">15 May</text>
+              <text x="245" y="178" font-size="9.5" fill="#64748b" font-weight="600">16 May</text>
+              <text x="315" y="178" font-size="9.5" fill="#64748b" font-weight="600">17 May</text>
+              <text x="385" y="178" font-size="9.5" fill="#64748b" font-weight="600">18 May</text>
+              <text x="455" y="178" font-size="9.5" fill="#64748b" font-weight="600">19 May</text>
             </svg>
-            <div style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);text-align:center;">
-              <div style="font-size:15px;font-weight:800;color:var(--text-900);line-height:1;">18,742</div>
-              <div style="font-size:9px;color:var(--text-400);font-weight:600;">Total</div>
-            </div>
-          </div>
-          <!-- Legend -->
-          <div style="flex:1;display:flex;flex-direction:column;gap:3px;">
-            <div class="kiosk-legend-row"><div style="display:flex;align-items:center;gap:6px;"><span style="width:8px;height:8px;border-radius:50%;background:#2563eb;flex-shrink:0;"></span><span style="font-size:11.5px;color:var(--text-700);">Kiosk-01 (Main Entrance)</span></div><span style="font-size:11.5px;font-weight:700;color:var(--text-900);">3,842</span><span style="font-size:11px;color:var(--text-400);">20.5%</span></div>
-            <div class="kiosk-legend-row"><div style="display:flex;align-items:center;gap:6px;"><span style="width:8px;height:8px;border-radius:50%;background:#22c55e;flex-shrink:0;"></span><span style="font-size:11.5px;color:var(--text-700);">Kiosk-02 (Food Court)</span></div><span style="font-size:11.5px;font-weight:700;color:var(--text-900);">3,210</span><span style="font-size:11px;color:var(--text-400);">17.1%</span></div>
-            <div class="kiosk-legend-row"><div style="display:flex;align-items:center;gap:6px;"><span style="width:8px;height:8px;border-radius:50%;background:#f59e0b;flex-shrink:0;"></span><span style="font-size:11.5px;color:var(--text-700);">Kiosk-03 (PVR Lobby)</span></div><span style="font-size:11.5px;font-weight:700;color:var(--text-900);">2,945</span><span style="font-size:11px;color:var(--text-400);">15.7%</span></div>
-            <div class="kiosk-legend-row"><div style="display:flex;align-items:center;gap:6px;"><span style="width:8px;height:8px;border-radius:50%;background:#7c3aed;flex-shrink:0;"></span><span style="font-size:11.5px;color:var(--text-700);">Kiosk-04 (West Atrium)</span></div><span style="font-size:11.5px;font-weight:700;color:var(--text-900);">2,732</span><span style="font-size:11px;color:var(--text-400);">14.6%</span></div>
-            <div class="kiosk-legend-row"><div style="display:flex;align-items:center;gap:6px;"><span style="width:8px;height:8px;border-radius:50%;background:#ea580c;flex-shrink:0;"></span><span style="font-size:11.5px;color:var(--text-700);">Kiosk-05 (Near H&M)</span></div><span style="font-size:11.5px;font-weight:700;color:var(--text-900);">2,145</span><span style="font-size:11px;color:var(--text-400);">11.4%</span></div>
-            <div class="kiosk-legend-row"><div style="display:flex;align-items:center;gap:6px;"><span style="width:8px;height:8px;border-radius:50%;background:#e2e8f0;flex-shrink:0;"></span><span style="font-size:11.5px;color:var(--text-700);">Others (7 Kiosks)</span></div><span style="font-size:11.5px;font-weight:700;color:var(--text-900);">3,868</span><span style="font-size:11px;color:var(--text-400);">20.7%</span></div>
           </div>
         </div>
+
+        <!-- Visitors by Time of Day Heatmap -->
+        <div class="dash-panel">
+          <div class="dash-panel-header">
+            <h2 class="dash-panel-title">Visitors by Time of Day</h2>
+            <select style="font-size:11px;padding:3px 8px;border-radius:6px;border:1px solid var(--border);background:#fff;color:var(--text-700);outline:none;">
+              <option>All Days ▾</option>
+              <option>Weekdays</option>
+              <option>Weekends</option>
+            </select>
+          </div>
+
+          <div style="display:flex;gap:12px;align-items:center;height:210px;">
+            <div style="flex:1;">
+              <table class="heatmap-table">
+                <thead>
+                  <tr style="color:var(--text-500);">
+                    <th style="width:38px;"></th>
+                    <th>Mon</th><th>Tue</th><th>Wed</th><th>Thu</th><th>Fri</th><th>Sat</th><th>Sun</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td style="color:var(--text-400);font-weight:600;">12 AM</td>
+                    <td><div class="heatmap-cell" style="background:#f1f5f9;"></div></td>
+                    <td><div class="heatmap-cell" style="background:#f1f5f9;"></div></td>
+                    <td><div class="heatmap-cell" style="background:#f1f5f9;"></div></td>
+                    <td><div class="heatmap-cell" style="background:#f1f5f9;"></div></td>
+                    <td><div class="heatmap-cell" style="background:#f1f5f9;"></div></td>
+                    <td><div class="heatmap-cell" style="background:#e0e7ff;"></div></td>
+                    <td><div class="heatmap-cell" style="background:#e0e7ff;"></div></td>
+                  </tr>
+                  <tr>
+                    <td style="color:var(--text-400);font-weight:600;">4 AM</td>
+                    <td><div class="heatmap-cell" style="background:#f8fafc;"></div></td>
+                    <td><div class="heatmap-cell" style="background:#f8fafc;"></div></td>
+                    <td><div class="heatmap-cell" style="background:#f8fafc;"></div></td>
+                    <td><div class="heatmap-cell" style="background:#f8fafc;"></div></td>
+                    <td><div class="heatmap-cell" style="background:#f8fafc;"></div></td>
+                    <td><div class="heatmap-cell" style="background:#f1f5f9;"></div></td>
+                    <td><div class="heatmap-cell" style="background:#f1f5f9;"></div></td>
+                  </tr>
+                  <tr>
+                    <td style="color:var(--text-400);font-weight:600;">8 AM</td>
+                    <td><div class="heatmap-cell" style="background:#e0e7ff;"></div></td>
+                    <td><div class="heatmap-cell" style="background:#e0e7ff;"></div></td>
+                    <td><div class="heatmap-cell" style="background:#e0e7ff;"></div></td>
+                    <td><div class="heatmap-cell" style="background:#e0e7ff;"></div></td>
+                    <td><div class="heatmap-cell" style="background:#e0e7ff;"></div></td>
+                    <td><div class="heatmap-cell" style="background:#c7d2fe;"></div></td>
+                    <td><div class="heatmap-cell" style="background:#c7d2fe;"></div></td>
+                  </tr>
+                  <tr>
+                    <td style="color:var(--text-400);font-weight:600;">12 PM</td>
+                    <td><div class="heatmap-cell" style="background:#818cf8;"></div></td>
+                    <td><div class="heatmap-cell" style="background:#818cf8;"></div></td>
+                    <td><div class="heatmap-cell" style="background:#6366f1;"></div></td>
+                    <td><div class="heatmap-cell" style="background:#6366f1;"></div></td>
+                    <td><div class="heatmap-cell" style="background:#6366f1;"></div></td>
+                    <td><div class="heatmap-cell" style="background:#4338ca;"></div></td>
+                    <td><div class="heatmap-cell" style="background:#4338ca;"></div></td>
+                  </tr>
+                  <tr>
+                    <td style="color:var(--text-400);font-weight:600;">4 PM</td>
+                    <td><div class="heatmap-cell" style="background:#6366f1;"></div></td>
+                    <td><div class="heatmap-cell" style="background:#6366f1;"></div></td>
+                    <td><div class="heatmap-cell" style="background:#4f46e5;"></div></td>
+                    <td><div class="heatmap-cell" style="background:#4f46e5;"></div></td>
+                    <td><div class="heatmap-cell" style="background:#4f46e5;"></div></td>
+                    <td><div class="heatmap-cell" style="background:#3730a3;"></div></td>
+                    <td><div class="heatmap-cell" style="background:#3730a3;"></div></td>
+                  </tr>
+                  <tr>
+                    <td style="color:var(--text-400);font-weight:600;">8 PM</td>
+                    <td><div class="heatmap-cell" style="background:#c7d2fe;"></div></td>
+                    <td><div class="heatmap-cell" style="background:#c7d2fe;"></div></td>
+                    <td><div class="heatmap-cell" style="background:#a5b4fc;"></div></td>
+                    <td><div class="heatmap-cell" style="background:#a5b4fc;"></div></td>
+                    <td><div class="heatmap-cell" style="background:#818cf8;"></div></td>
+                    <td><div class="heatmap-cell" style="background:#4338ca;"></div></td>
+                    <td><div class="heatmap-cell" style="background:#4338ca;"></div></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            <!-- Heatmap Scale Bar -->
+            <div style="display:flex;flex-direction:column;align-items:center;gap:4px;font-size:9px;color:var(--text-400);font-weight:600;">
+              <span>High</span>
+              <div style="width:10px;height:120px;border-radius:4px;background:linear-gradient(180deg,#3730a3 0%,#818cf8 50%,#f1f5f9 100%);"></div>
+              <span>Low</span>
+            </div>
+          </div>
+        </div>
+
       </div>
+
+      <!-- =======================================================================
+           ROW 3: 4-COLUMN BREAKDOWN (Top Sections, Top Content, Top Campaigns, Devices/Visitor Type)
+           ======================================================================= -->
+      <div class="analytics-4col-grid">
+        
+        <!-- Column 1: Top Sections Viewed -->
+        <div class="dash-panel">
+          <div class="dash-panel-header">
+            <h2 class="dash-panel-title">Top Sections Viewed</h2>
+            <a href="javascript:void(0)" class="dash-panel-link">View All</a>
+          </div>
+
+          <div style="display:flex;justify-content:space-between;font-size:10.5px;font-weight:700;color:var(--text-400);text-transform:uppercase;margin-bottom:8px;">
+            <span>Section</span>
+            <span>Views</span>
+          </div>
+
+          <div style="display:flex;flex-direction:column;gap:8px;font-size:11.5px;">
+            <div style="display:flex;align-items:center;justify-content:space-between;">
+              <span style="display:flex;align-items:center;gap:6px;width:95px;color:var(--text-800);font-weight:600;">
+                <i class="fa-solid fa-table-cells" style="color:#0891b2;font-size:11px;"></i> Directory
+              </span>
+              <div class="rank-bar-track"><div class="rank-bar-fill" style="width:90%;background:#7c3aed;"></div></div>
+              <strong style="color:var(--text-900);">16,820</strong>
+            </div>
+
+            <div style="display:flex;align-items:center;justify-content:space-between;">
+              <span style="display:flex;align-items:center;gap:6px;width:95px;color:var(--text-800);font-weight:600;">
+                <i class="fa-solid fa-tag" style="color:#d97706;font-size:11px;"></i> Offers & Deals
+              </span>
+              <div class="rank-bar-track"><div class="rank-bar-fill" style="width:82%;background:#7c3aed;"></div></div>
+              <strong style="color:var(--text-900);">14,650</strong>
+            </div>
+
+            <div style="display:flex;align-items:center;justify-content:space-between;">
+              <span style="display:flex;align-items:center;gap:6px;width:95px;color:var(--text-800);font-weight:600;">
+                <i class="fa-solid fa-calendar-days" style="color:#dc2626;font-size:11px;"></i> Events
+              </span>
+              <div class="rank-bar-track"><div class="rank-bar-fill" style="width:68%;background:#7c3aed;"></div></div>
+              <strong style="color:var(--text-900);">12,430</strong>
+            </div>
+
+            <div style="display:flex;align-items:center;justify-content:space-between;">
+              <span style="display:flex;align-items:center;gap:6px;width:95px;color:var(--text-800);font-weight:600;">
+                <i class="fa-solid fa-utensils" style="color:#ea580c;font-size:11px;"></i> Food & Dining
+              </span>
+              <div class="rank-bar-track"><div class="rank-bar-fill" style="width:58%;background:#7c3aed;"></div></div>
+              <strong style="color:var(--text-900);">10,250</strong>
+            </div>
+
+            <div style="display:flex;align-items:center;justify-content:space-between;">
+              <span style="display:flex;align-items:center;gap:6px;width:95px;color:var(--text-800);font-weight:600;">
+                <i class="fa-solid fa-restroom" style="color:#ca8a04;font-size:11px;"></i> Amenities
+              </span>
+              <div class="rank-bar-track"><div class="rank-bar-fill" style="width:48%;background:#7c3aed;"></div></div>
+              <strong style="color:var(--text-900);">8,930</strong>
+            </div>
+
+            <div style="display:flex;align-items:center;justify-content:space-between;">
+              <span style="display:flex;align-items:center;gap:6px;width:95px;color:var(--text-800);font-weight:600;">
+                <i class="fa-solid fa-location-dot" style="color:#db2777;font-size:11px;"></i> Navigation
+              </span>
+              <div class="rank-bar-track"><div class="rank-bar-fill" style="width:44%;background:#7c3aed;"></div></div>
+              <strong style="color:var(--text-900);">8,120</strong>
+            </div>
+          </div>
+        </div>
+
+        <!-- Column 2: Top Content -->
+        <div class="dash-panel">
+          <div class="dash-panel-header">
+            <h2 class="dash-panel-title">Top Content</h2>
+            <a href="project-content.html" class="dash-panel-link">View All</a>
+          </div>
+
+          <div style="display:flex;justify-content:space-between;font-size:10.5px;font-weight:700;color:var(--text-400);text-transform:uppercase;margin-bottom:8px;">
+            <span>Content</span>
+            <span>Views</span>
+          </div>
+
+          <div style="display:flex;flex-direction:column;gap:8px;font-size:11.5px;">
+            <div style="display:flex;align-items:center;justify-content:space-between;">
+              <span style="display:flex;align-items:center;gap:8px;color:var(--text-900);font-weight:600;">
+                <div style="width:24px;height:24px;border-radius:4px;background:#000;color:#fff;display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:800;">AD</div>
+                Adidas Store
+              </span>
+              <strong style="color:var(--text-900);">5,620</strong>
+            </div>
+
+            <div style="display:flex;align-items:center;justify-content:space-between;">
+              <span style="display:flex;align-items:center;gap:8px;color:var(--text-900);font-weight:600;">
+                <div style="width:24px;height:24px;border-radius:4px;background:#ea580c;color:#fff;display:flex;align-items:center;justify-content:center;font-size:9px;"><i class="fa-solid fa-tag"></i></div>
+                Summer Sale Offer
+              </span>
+              <strong style="color:var(--text-900);">4,980</strong>
+            </div>
+
+            <div style="display:flex;align-items:center;justify-content:space-between;">
+              <span style="display:flex;align-items:center;gap:8px;color:var(--text-900);font-weight:600;">
+                <div style="width:24px;height:24px;border-radius:4px;background:#2563eb;color:#fff;display:flex;align-items:center;justify-content:center;font-size:9px;"><i class="fa-solid fa-music"></i></div>
+                Music Night Event
+              </span>
+              <strong style="color:var(--text-900);">3,860</strong>
+            </div>
+
+            <div style="display:flex;align-items:center;justify-content:space-between;">
+              <span style="display:flex;align-items:center;gap:8px;color:var(--text-900);font-weight:600;">
+                <div style="width:24px;height:24px;border-radius:4px;background:#f59e0b;color:#000;display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:800;">PVR</div>
+                PVR Cinemas
+              </span>
+              <strong style="color:var(--text-900);">3,450</strong>
+            </div>
+
+            <div style="display:flex;align-items:center;justify-content:space-between;">
+              <span style="display:flex;align-items:center;gap:8px;color:var(--text-900);font-weight:600;">
+                <div style="width:24px;height:24px;border-radius:4px;background:#059669;color:#fff;display:flex;align-items:center;justify-content:center;font-size:9px;"><i class="fa-solid fa-burger"></i></div>
+                Food Court
+              </span>
+              <strong style="color:var(--text-900);">3,120</strong>
+            </div>
+          </div>
+        </div>
+
+        <!-- Column 3: Top Campaigns -->
+        <div class="dash-panel">
+          <div class="dash-panel-header">
+            <h2 class="dash-panel-title">Top Campaigns</h2>
+            <a href="project-advertisements.html" class="dash-panel-link">View All</a>
+          </div>
+
+          <div style="display:flex;justify-content:space-between;font-size:10.5px;font-weight:700;color:var(--text-400);text-transform:uppercase;margin-bottom:8px;">
+            <span>Campaign</span>
+            <span>Interactions</span>
+          </div>
+
+          <div style="display:flex;flex-direction:column;gap:8px;font-size:11.5px;">
+            <div style="display:flex;align-items:center;justify-content:space-between;">
+              <span style="display:flex;align-items:center;gap:8px;color:var(--text-900);font-weight:600;">
+                <div style="width:24px;height:24px;border-radius:4px;background:#06b6d4;color:#fff;display:flex;align-items:center;justify-content:center;font-size:9px;"><i class="fa-solid fa-umbrella-beach"></i></div>
+                Summer Sale 2025
+              </span>
+              <strong style="color:var(--text-900);">12,430</strong>
+            </div>
+
+            <div style="display:flex;align-items:center;justify-content:space-between;">
+              <span style="display:flex;align-items:center;gap:8px;color:var(--text-900);font-weight:600;">
+                <div style="width:24px;height:24px;border-radius:4px;background:#ea580c;color:#fff;display:flex;align-items:center;justify-content:center;font-size:9px;"><i class="fa-solid fa-gift"></i></div>
+                Festive Offers
+              </span>
+              <strong style="color:var(--text-900);">9,820</strong>
+            </div>
+
+            <div style="display:flex;align-items:center;justify-content:space-between;">
+              <span style="display:flex;align-items:center;gap:8px;color:var(--text-900);font-weight:600;">
+                <div style="width:24px;height:24px;border-radius:4px;background:#059669;color:#fff;display:flex;align-items:center;justify-content:center;font-size:9px;"><i class="fa-solid fa-utensils"></i></div>
+                Food Court Specials
+              </span>
+              <strong style="color:var(--text-900);">6,120</strong>
+            </div>
+
+            <div style="display:flex;align-items:center;justify-content:space-between;">
+              <span style="display:flex;align-items:center;gap:8px;color:var(--text-900);font-weight:600;">
+                <div style="width:24px;height:24px;border-radius:4px;background:#ca8a04;color:#fff;display:flex;align-items:center;justify-content:center;font-size:9px;"><i class="fa-solid fa-bag-shopping"></i></div>
+                Weekend Bonanza
+              </span>
+              <strong style="color:var(--text-900);">3,980</strong>
+            </div>
+
+            <div style="display:flex;align-items:center;justify-content:space-between;">
+              <span style="display:flex;align-items:center;gap:8px;color:var(--text-900);font-weight:600;">
+                <div style="width:24px;height:24px;border-radius:4px;background:#7c3aed;color:#fff;display:flex;align-items:center;justify-content:center;font-size:9px;"><i class="fa-solid fa-film"></i></div>
+                Movie Time Combo
+              </span>
+              <strong style="color:var(--text-900);">2,160</strong>
+            </div>
+          </div>
+        </div>
+
+        <!-- Column 4: Device Usage & Visitors by Type -->
+        <div style="display:flex;flex-direction:column;gap:12px;">
+          
+          <!-- Device Usage -->
+          <div class="dash-panel" style="padding:12px 14px;">
+            <div style="font-size:12.5px;font-weight:700;color:var(--text-900);margin-bottom:8px;">Device Usage</div>
+            <div style="display:flex;align-items:center;gap:10px;">
+              <div style="position:relative;width:68px;height:68px;flex-shrink:0;">
+                <svg viewBox="0 0 36 36" style="width:100%;height:100%;transform:rotate(-90deg);">
+                  <circle cx="18" cy="18" r="15.915" fill="none" stroke="#f1f5f9" stroke-width="5"/>
+                  <circle cx="18" cy="18" r="15.915" fill="none" stroke="#2563eb" stroke-width="5" stroke-dasharray="32.6 67.4" stroke-dashoffset="0"/>
+                  <circle cx="18" cy="18" r="15.915" fill="none" stroke="#06b6d4" stroke-width="5" stroke-dasharray="26.4 73.6" stroke-dashoffset="-32.6"/>
+                  <circle cx="18" cy="18" r="15.915" fill="none" stroke="#ea580c" stroke-width="5" stroke-dasharray="22.1 77.9" stroke-dashoffset="-59.0"/>
+                  <circle cx="18" cy="18" r="15.915" fill="none" stroke="#94a3b8" stroke-width="5" stroke-dasharray="18.9 81.1" stroke-dashoffset="-81.1"/>
+                </svg>
+                <div style="position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;font-size:8px;font-weight:700;color:var(--text-800);">54.3K</div>
+              </div>
+              <div style="flex:1;display:flex;flex-direction:column;gap:3px;font-size:10px;">
+                <div style="display:flex;justify-content:space-between;"><span style="color:var(--text-700);"><span style="color:#2563eb;">●</span> Kiosk 01 (G Floor)</span><strong>32.6%</strong></div>
+                <div style="display:flex;justify-content:space-between;"><span style="color:var(--text-700);"><span style="color:#06b6d4;">●</span> Kiosk 02 (1st Fl)</span><strong>26.4%</strong></div>
+                <div style="display:flex;justify-content:space-between;"><span style="color:var(--text-700);"><span style="color:#ea580c;">●</span> Kiosk 03 (Food)</span><strong>22.1%</strong></div>
+                <div style="display:flex;justify-content:space-between;"><span style="color:var(--text-700);"><span style="color:#94a3b8;">●</span> Kiosk 04 (Park)</span><strong>18.9%</strong></div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Visitors by Visitor Type -->
+          <div class="dash-panel" style="padding:12px 14px;">
+            <div style="font-size:12.5px;font-weight:700;color:var(--text-900);margin-bottom:8px;">Visitors by Visitor Type</div>
+            <div style="display:flex;align-items:center;gap:10px;">
+              <div style="position:relative;width:68px;height:68px;flex-shrink:0;">
+                <svg viewBox="0 0 36 36" style="width:100%;height:100%;transform:rotate(-90deg);">
+                  <circle cx="18" cy="18" r="15.915" fill="none" stroke="#f1f5f9" stroke-width="5"/>
+                  <circle cx="18" cy="18" r="15.915" fill="none" stroke="#7c3aed" stroke-width="5" stroke-dasharray="34.3 65.7" stroke-dashoffset="0"/>
+                  <circle cx="18" cy="18" r="15.915" fill="none" stroke="#06b6d4" stroke-width="5" stroke-dasharray="45.7 54.3" stroke-dashoffset="-34.3"/>
+                  <circle cx="18" cy="18" r="15.915" fill="none" stroke="#10b981" stroke-width="5" stroke-dasharray="20.0 80.0" stroke-dashoffset="-80.0"/>
+                </svg>
+                <div style="position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;font-size:8px;font-weight:700;color:var(--text-800);">54.3K</div>
+              </div>
+              <div style="flex:1;display:flex;flex-direction:column;gap:3px;font-size:10px;">
+                <div style="display:flex;justify-content:space-between;"><span style="color:var(--text-700);"><span style="color:#7c3aed;">●</span> New Visitors</span><strong>34.3%</strong></div>
+                <div style="display:flex;justify-content:space-between;"><span style="color:var(--text-700);"><span style="color:#06b6d4;">●</span> Returning</span><strong>45.7%</strong></div>
+                <div style="display:flex;justify-content:space-between;"><span style="color:var(--text-700);"><span style="color:#10b981;">●</span> Frequent</span><strong>20.0%</strong></div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+
+      <!-- =======================================================================
+           ROW 4: 3-COLUMN BOTTOM (Engagement Summary + Recent Activity + Analytics Notes)
+           ======================================================================= -->
+      <div class="analytics-3col-bottom">
+        
+        <!-- Column 1: Engagement Summary (5 Metrics Row) -->
+        <div class="dash-panel">
+          <div class="dash-panel-header">
+            <h2 class="dash-panel-title">Engagement Summary</h2>
+          </div>
+
+          <div style="display:grid;grid-template-columns:repeat(5, 1fr);gap:8px;text-align:center;">
+            <div style="background:#f8fafc;border:1px solid var(--border-soft);border-radius:10px;padding:12px 6px;">
+              <div style="width:28px;height:28px;border-radius:6px;background:#f0fdf4;color:#16a34a;margin:0 auto 6px auto;display:flex;align-items:center;justify-content:center;font-size:12px;"><i class="fa-regular fa-hand-pointer"></i></div>
+              <div style="font-size:10px;color:var(--text-500);font-weight:600;">Total Touches</div>
+              <div style="font-size:15px;font-weight:800;color:var(--text-900);margin:2px 0;">98,320</div>
+              <div style="font-size:9.5px;color:#10b981;font-weight:700;">↑ 18.6%</div>
+            </div>
+
+            <div style="background:#f8fafc;border:1px solid var(--border-soft);border-radius:10px;padding:12px 6px;">
+              <div style="width:28px;height:28px;border-radius:6px;background:#eff6ff;color:#2563eb;margin:0 auto 6px auto;display:flex;align-items:center;justify-content:center;font-size:12px;"><i class="fa-solid fa-desktop"></i></div>
+              <div style="font-size:10px;color:var(--text-500);font-weight:600;">Screen Views</div>
+              <div style="font-size:15px;font-weight:800;color:var(--text-900);margin:2px 0;">78,450</div>
+              <div style="font-size:9.5px;color:#10b981;font-weight:700;">↑ 16.2%</div>
+            </div>
+
+            <div style="background:#f8fafc;border:1px solid var(--border-soft);border-radius:10px;padding:12px 6px;">
+              <div style="width:28px;height:28px;border-radius:6px;background:#fff7ed;color:#ea580c;margin:0 auto 6px auto;display:flex;align-items:center;justify-content:center;font-size:12px;"><i class="fa-solid fa-magnifying-glass"></i></div>
+              <div style="font-size:10px;color:var(--text-500);font-weight:600;">Searches</div>
+              <div style="font-size:15px;font-weight:800;color:var(--text-900);margin:2px 0;">12,860</div>
+              <div style="font-size:9.5px;color:#10b981;font-weight:700;">↑ 14.7%</div>
+            </div>
+
+            <div style="background:#f8fafc;border:1px solid var(--border-soft);border-radius:10px;padding:12px 6px;">
+              <div style="width:28px;height:28px;border-radius:6px;background:#fdf2f8;color:#db2777;margin:0 auto 6px auto;display:flex;align-items:center;justify-content:center;font-size:12px;"><i class="fa-regular fa-map"></i></div>
+              <div style="font-size:10px;color:var(--text-500);font-weight:600;">Map Views</div>
+              <div style="font-size:15px;font-weight:800;color:var(--text-900);margin:2px 0;">8,920</div>
+              <div style="font-size:9.5px;color:#10b981;font-weight:700;">↑ 19.8%</div>
+            </div>
+
+            <div style="background:#f8fafc;border:1px solid var(--border-soft);border-radius:10px;padding:12px 6px;">
+              <div style="width:28px;height:28px;border-radius:6px;background:#eff6ff;color:#2563eb;margin:0 auto 6px auto;display:flex;align-items:center;justify-content:center;font-size:12px;"><i class="fa-solid fa-paper-plane"></i></div>
+              <div style="font-size:10px;color:var(--text-500);font-weight:600;">Take Me There</div>
+              <div style="font-size:15px;font-weight:800;color:var(--text-900);margin:2px 0;">6,420</div>
+              <div style="font-size:9.5px;color:#10b981;font-weight:700;">↑ 21.3%</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Column 2: Recent Activity -->
+        <div class="dash-panel">
+          <div class="dash-panel-header">
+            <h2 class="dash-panel-title">Recent Activity</h2>
+            <a href="javascript:void(0)" class="dash-panel-link">View All</a>
+          </div>
+
+          <div style="display:flex;flex-direction:column;gap:6px;">
+            <div class="activity-row">
+              <span style="color:#10b981;font-size:12px;">●</span>
+              <span style="flex:1;color:var(--text-900);font-weight:600;">Adidas Store viewed</span>
+              <span style="color:var(--text-500);font-size:10.5px;">18 May 2025, 10:15 AM</span>
+            </div>
+            <div class="activity-row">
+              <span style="color:#2563eb;font-size:12px;">●</span>
+              <span style="flex:1;color:var(--text-900);font-weight:600;">Summer Sale Offer clicked</span>
+              <span style="color:var(--text-500);font-size:10.5px;">18 May 2025, 10:12 AM</span>
+            </div>
+            <div class="activity-row">
+              <span style="color:#dc2626;font-size:12px;">●</span>
+              <span style="flex:1;color:var(--text-900);font-weight:600;">Navigation to H&M Store</span>
+              <span style="color:var(--text-500);font-size:10.5px;">18 May 2025, 10:10 AM</span>
+            </div>
+            <div class="activity-row">
+              <span style="color:#ea580c;font-size:12px;">●</span>
+              <span style="flex:1;color:var(--text-900);font-weight:600;">Food Court section visited</span>
+              <span style="color:var(--text-500);font-size:10.5px;">18 May 2025, 10:08 AM</span>
+            </div>
+            <div class="activity-row">
+              <span style="color:#7c3aed;font-size:12px;">●</span>
+              <span style="flex:1;color:var(--text-900);font-weight:600;">Offer details viewed</span>
+              <span style="color:var(--text-500);font-size:10.5px;">18 May 2025, 10:05 AM</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Column 3: Analytics Notes -->
+        <div class="dash-panel">
+          <div class="dash-panel-header">
+            <h2 class="dash-panel-title">Analytics Notes</h2>
+            <a href="#" onclick="alert('Reports: Opening complete scheduled reports generator.')" class="dash-panel-link">Go to Reports ></a>
+          </div>
+
+          <div style="font-size:12px;color:var(--text-600);line-height:1.5;display:flex;flex-direction:column;justify-content:space-between;">
+            <div>
+              <p style="margin:0 0 8px 0;">
+                Analytics data is updated every 30 minutes.
+              </p>
+              <p style="margin:0 0 8px 0;">
+                All times are in local time (IST).
+              </p>
+              <p style="margin:0;">
+                For detailed visitor journey and heatmaps, please use the Reports section.
+              </p>
+            </div>
+
+            <div style="background:#eff6ff;border:1px solid #bfdbfe;border-radius:8px;padding:8px 10px;margin-top:12px;font-size:11px;color:#1e40af;display:flex;align-items:center;gap:6px;">
+              <i class="fa-solid fa-circle-info"></i>
+              <span>Aggregated business analytics · Privacy compliant</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
     </div>
 
-    <!-- ===== Top Content + Funnel + System Health ===== -->
-    <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:18px;margin-bottom:18px;">
-
-      <!-- Top Content Categories -->
-      <div class="panel" style="margin:0;padding:16px;">
-        <div style="font-size:13.5px;font-weight:700;color:var(--text-900);margin-bottom:14px;">Top Content Categories <i class="fa-solid fa-circle-info" style="font-size:11px;color:var(--text-400);margin-left:4px;"></i></div>
-        <div class="hbar-row">
-          <div class="hbar-label" style="font-size:11.5px;">Directory</div>
-          <div class="hbar-track"><div class="hbar-fill" style="width:100%;"></div></div>
-          <div class="hbar-val" style="font-size:11px;">8,421 (26.2%)</div>
-        </div>
-        <div class="hbar-row">
-          <div class="hbar-label" style="font-size:11.5px;">Offers & Promotions</div>
-          <div class="hbar-track"><div class="hbar-fill" style="width:80%;background:#7c3aed;"></div></div>
-          <div class="hbar-val" style="font-size:11px;">6,732 (20.9%)</div>
-        </div>
-        <div class="hbar-row">
-          <div class="hbar-label" style="font-size:11.5px;">Events</div>
-          <div class="hbar-track"><div class="hbar-fill" style="width:70%;background:#22c55e;"></div></div>
-          <div class="hbar-val" style="font-size:11px;">5,893 (18.3%)</div>
-        </div>
-        <div class="hbar-row">
-          <div class="hbar-label" style="font-size:11.5px;">Food & Dining</div>
-          <div class="hbar-track"><div class="hbar-fill" style="width:58%;background:#ea580c;"></div></div>
-          <div class="hbar-val" style="font-size:11px;">4,912 (15.3%)</div>
-        </div>
-        <div class="hbar-row">
-          <div class="hbar-label" style="font-size:11.5px;">Stores</div>
-          <div class="hbar-track"><div class="hbar-fill" style="width:38%;background:#0ea5e9;"></div></div>
-          <div class="hbar-val" style="font-size:11px;">3,215 (10.0%)</div>
-        </div>
-        <div class="hbar-row" style="margin-bottom:0;">
-          <div class="hbar-label" style="font-size:11.5px;">Others</div>
-          <div class="hbar-track"><div class="hbar-fill" style="width:19%;background:#94a3b8;"></div></div>
-          <div class="hbar-val" style="font-size:11px;">1,569 (4.8%)</div>
-        </div>
+    <!-- Client Footer -->
+    <footer style="padding:16px 28px;background:#ffffff;border-top:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;font-size:12px;color:var(--text-500);">
+      <div>© 2025 Mall Kiosk Platform. All rights reserved.</div>
+      <div style="display:flex;gap:18px;">
+        <span>Client Admin Portal</span>
+        <span>Phoenix Mall Business Analytics</span>
       </div>
+    </footer>
 
-      <!-- User Engagement Funnel -->
-      <div class="panel" style="margin:0;padding:16px;">
-        <div style="font-size:13.5px;font-weight:700;color:var(--text-900);margin-bottom:14px;">User Engagement Funnel <i class="fa-solid fa-circle-info" style="font-size:11px;color:var(--text-400);margin-left:4px;"></i></div>
-        <div class="funnel-row">
-          <div class="funnel-icon" style="background:#eff6ff;color:#2563eb;"><i class="fa-solid fa-chart-line" style="font-size:12px;"></i></div>
-          <div style="flex:1;"><div style="font-size:12px;font-weight:700;color:var(--text-900);">Sessions</div></div>
-          <div style="font-size:13px;font-weight:800;color:var(--text-900);">18,742</div>
-          <div style="font-size:11px;font-weight:600;color:var(--text-400);width:45px;text-align:right;">100%</div>
-        </div>
-        <div class="funnel-row">
-          <div class="funnel-icon" style="background:#f5f3ff;color:#7c3aed;"><i class="fa-regular fa-eye" style="font-size:12px;"></i></div>
-          <div style="flex:1;"><div style="font-size:12px;font-weight:700;color:var(--text-900);">Content Views</div></div>
-          <div style="font-size:13px;font-weight:800;color:var(--text-900);">32,109</div>
-          <div style="font-size:11px;font-weight:600;color:#16a34a;width:45px;text-align:right;">171.3%</div>
-        </div>
-        <div class="funnel-row">
-          <div class="funnel-icon" style="background:#fff7ed;color:#ea580c;"><i class="fa-regular fa-hand-pointer" style="font-size:12px;"></i></div>
-          <div style="flex:1;"><div style="font-size:12px;font-weight:700;color:var(--text-900);">Interactions</div></div>
-          <div style="font-size:13px;font-weight:800;color:var(--text-900);">68,921</div>
-          <div style="font-size:11px;font-weight:600;color:#16a34a;width:45px;text-align:right;">368.0%</div>
-        </div>
-        <div class="funnel-row">
-          <div class="funnel-icon" style="background:#ecfdf5;color:#059669;"><i class="fa-solid fa-flag-checkered" style="font-size:12px;"></i></div>
-          <div style="flex:1;"><div style="font-size:12px;font-weight:700;color:var(--text-900);">Task Completions</div></div>
-          <div style="font-size:13px;font-weight:800;color:var(--text-900);">7,842</div>
-          <div style="font-size:11px;font-weight:600;color:var(--text-500);width:45px;text-align:right;">41.9%</div>
-        </div>
-      </div>
-
-      <!-- System Health Overview -->
-      <div class="panel" style="margin:0;padding:16px;">
-        <div style="font-size:13.5px;font-weight:700;color:var(--text-900);margin-bottom:14px;">System Health Overview <i class="fa-solid fa-circle-info" style="font-size:11px;color:var(--text-400);margin-left:4px;"></i></div>
-        <!-- Gauge / Half-donut -->
-        <div style="display:flex;flex-direction:column;align-items:center;gap:10px;">
-          <div style="position:relative;width:150px;height:80px;overflow:hidden;">
-            <svg viewBox="0 0 160 80" style="width:100%;height:100%;">
-              <!-- Background arc -->
-              <path d="M 10 80 A 70 70 0 0 1 150 80" fill="none" stroke="#f1f5f9" stroke-width="14" stroke-linecap="round"/>
-              <!-- Green arc (87.5%) -->
-              <path d="M 10 80 A 70 70 0 0 1 150 80" fill="none" stroke="#22c55e" stroke-width="14" stroke-linecap="round" stroke-dasharray="199 220" />
-              <!-- Amber arc -->
-              <path d="M 10 80 A 70 70 0 0 1 150 80" fill="none" stroke="#f59e0b" stroke-width="14" stroke-linecap="round" stroke-dasharray="21 220" stroke-dashoffset="-199"/>
-              <!-- Red arc -->
-              <path d="M 10 80 A 70 70 0 0 1 150 80" fill="none" stroke="#ef4444" stroke-width="14" stroke-linecap="round" stroke-dasharray="7 220" stroke-dashoffset="-220"/>
-            </svg>
-            <div style="position:absolute;bottom:4px;left:50%;transform:translateX(-50%);text-align:center;">
-              <div style="font-size:20px;font-weight:800;color:var(--text-900);line-height:1;">98.6%</div>
-              <div style="font-size:10px;color:var(--text-500);font-weight:600;">Overall Health</div>
-            </div>
-          </div>
-          <div style="font-size:11px;color:#16a34a;font-weight:700;">↑ 2.1% vs last week</div>
-          <!-- Legend -->
-          <div style="display:flex;flex-direction:column;gap:6px;width:100%;">
-            <div style="display:flex;align-items:center;justify-content:space-between;font-size:12px;">
-              <div style="display:flex;align-items:center;gap:6px;"><span style="width:8px;height:8px;border-radius:50%;background:#22c55e;"></span> Online</div>
-              <span style="font-weight:700;color:var(--text-900);">112 (87.5%)</span>
-            </div>
-            <div style="display:flex;align-items:center;justify-content:space-between;font-size:12px;">
-              <div style="display:flex;align-items:center;gap:6px;"><span style="width:8px;height:8px;border-radius:50%;background:#f59e0b;"></span> Maintenance</div>
-              <span style="font-weight:700;color:var(--text-900);">12 (9.4%)</span>
-            </div>
-            <div style="display:flex;align-items:center;justify-content:space-between;font-size:12px;">
-              <div style="display:flex;align-items:center;gap:6px;"><span style="width:8px;height:8px;border-radius:50%;background:#ef4444;"></span> Offline</div>
-              <span style="font-weight:700;color:var(--text-900);">4 (3.1%)</span>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- ===== Insights + Reports ===== -->
-    <div style="display:grid;grid-template-columns:2fr 1fr;gap:18px;">
-
-      <!-- Insights Row -->
-      <div class="panel" style="margin:0;padding:16px;">
-        <div style="font-size:13.5px;font-weight:700;color:var(--text-900);margin-bottom:14px;">Insights <i class="fa-solid fa-circle-info" style="font-size:11px;color:var(--text-400);margin-left:4px;"></i></div>
-        <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:12px;">
-          <!-- High Traffic Hour -->
-          <div class="insight-card">
-            <div style="width:34px;height:34px;border-radius:9px;background:#eff6ff;color:#2563eb;display:flex;align-items:center;justify-content:center;font-size:14px;flex-shrink:0;"><i class="fa-solid fa-arrow-trend-up"></i></div>
-            <div>
-              <div style="font-size:10.5px;font-weight:600;color:var(--text-500);text-transform:uppercase;letter-spacing:0.3px;margin-bottom:3px;">High Traffic Hour</div>
-              <div style="font-size:14.5px;font-weight:800;color:var(--text-900);line-height:1.2;">7:00 PM - 8:00 PM</div>
-              <div style="font-size:11px;color:var(--text-400);margin-top:3px;">23% of total daily sessions</div>
-            </div>
-          </div>
-          <!-- Most Popular Kiosk -->
-          <div class="insight-card">
-            <div style="width:34px;height:34px;border-radius:9px;background:#f5f3ff;color:#7c3aed;display:flex;align-items:center;justify-content:center;font-size:14px;flex-shrink:0;"><i class="fa-regular fa-star"></i></div>
-            <div>
-              <div style="font-size:10.5px;font-weight:600;color:var(--text-500);text-transform:uppercase;letter-spacing:0.3px;margin-bottom:3px;">Most Popular Kiosk</div>
-              <div style="font-size:14.5px;font-weight:800;color:var(--text-900);line-height:1.2;">Kiosk-01 (Main Entrance)</div>
-              <div style="font-size:11px;color:var(--text-400);margin-top:3px;">20.5% of total sessions</div>
-            </div>
-          </div>
-          <!-- Top Performing Content -->
-          <div class="insight-card">
-            <div style="width:34px;height:34px;border-radius:9px;background:#fff7ed;color:#ea580c;display:flex;align-items:center;justify-content:center;font-size:14px;flex-shrink:0;"><i class="fa-solid fa-trophy"></i></div>
-            <div>
-              <div style="font-size:10.5px;font-weight:600;color:var(--text-500);text-transform:uppercase;letter-spacing:0.3px;margin-bottom:3px;">Top Performing Content</div>
-              <div style="font-size:14.5px;font-weight:800;color:var(--text-900);line-height:1.2;">Summer Sale Offers</div>
-              <div style="font-size:11px;color:var(--text-400);margin-top:3px;">4,812 content views</div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Reports & Downloads -->
-      <div class="panel" style="margin:0;padding:16px;display:flex;flex-direction:column;">
-        <div style="font-size:13.5px;font-weight:700;color:var(--text-900);margin-bottom:6px;">Reports & Downloads</div>
-        <div style="font-size:12px;color:var(--text-500);margin-bottom:16px;">Download detailed analytics reports and charts.</div>
-        <div style="flex:1;display:flex;align-items:flex-end;">
-          <button class="btn btn-primary" style="width:100%;background:#2563eb;color:#fff;font-size:12.5px;font-weight:600;padding:10px 0;display:flex;align-items:center;justify-content:center;gap:6px;">
-            View All Reports <i class="fa-solid fa-chevron-right" style="font-size:10px;"></i>
-          </button>
-        </div>
-      </div>
-    </div>
-
-  </main>
+  </div>
 </div>
-</div>
+
+<!-- ===========================================================================
+     JAVASCRIPT LOGIC
+     =========================================================================== -->
+<script>
+  function updateAnalyticsPeriod() {
+    const period = document.getElementById('dateRangeSelector').value;
+    if (period === 'last-30-days') {
+      document.getElementById('kpiTotalVisitors').innerText = '218,450';
+      document.getElementById('kpiTotalInteractions').innerText = '526,820';
+      document.getElementById('kpiAvgSession').innerText = '2m 54s';
+      document.getElementById('kpiUniqueVisitors').innerText = '148,200';
+      document.getElementById('kpiNewVisitors').innerText = '76,500';
+    } else {
+      document.getElementById('kpiTotalVisitors').innerText = '54,320';
+      document.getElementById('kpiTotalInteractions').innerText = '132,450';
+      document.getElementById('kpiAvgSession').innerText = '2m 48s';
+      document.getElementById('kpiUniqueVisitors').innerText = '38,750';
+      document.getElementById('kpiNewVisitors').innerText = '18,620';
+    }
+  }
+
+  function promptExportReport() {
+    const choice = confirm('Export Report: Click OK to export PDF Summary Report, or Cancel to export CSV Raw Metrics.');
+    if (choice) {
+      alert('Generating Phoenix_Mall_Analytics_Report_May2025.pdf...');
+    } else {
+      alert('Generating Phoenix_Mall_Metrics_May2025.csv...');
+    }
+  }
+
+  function toggleSidebarCollapse() {
+    const sb = document.getElementById('clientSidebar');
+    if (sb) {
+      sb.classList.toggle('collapsed');
+    }
+  }
+</script>
+
 </body>
 </html>
