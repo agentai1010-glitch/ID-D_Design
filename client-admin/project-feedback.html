@@ -1,0 +1,1159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Phoenix Mall Project · Feedback · Mall Kiosk Platform</title>
+  <!-- Google Fonts & Font Awesome -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="stylesheet" href="../css/styles.css">
+  <style>
+    /* Workflow Domain 8 - Client Admin Project Feedback Specific Styling */
+    .feedback-kpi-grid {
+      display: grid;
+      grid-template-columns: repeat(6, 1fr);
+      gap: 14px;
+      margin-bottom: 20px;
+    }
+    @media (max-width: 1400px) {
+      .feedback-kpi-grid {
+        grid-template-columns: repeat(3, 1fr);
+      }
+    }
+    @media (max-width: 800px) {
+      .feedback-kpi-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    .kpi-stat-box {
+      background: #ffffff;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 15px;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+    .kpi-stat-box:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.06);
+    }
+
+    .kpi-icon-square {
+      width: 42px;
+      height: 42px;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 17px;
+      flex-shrink: 0;
+    }
+
+    /* Subnav Bar */
+    .project-subnav-bar {
+      background: #ffffff;
+      border-bottom: 1px solid var(--border);
+      padding: 0 28px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+    }
+
+    .project-subnav-tabs {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      overflow-x: auto;
+    }
+
+    .project-subnav-tab {
+      padding: 14px 16px;
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--text-600);
+      cursor: pointer;
+      border-bottom: 2px solid transparent;
+      white-space: nowrap;
+      transition: all 0.15s ease;
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .project-subnav-tab:hover {
+      color: var(--text-900);
+    }
+    .project-subnav-tab.active {
+      color: #2563eb;
+      border-bottom-color: #2563eb;
+      font-weight: 700;
+    }
+
+    /* Status Pills */
+    .status-pill {
+      font-size: 11px;
+      font-weight: 700;
+      padding: 3px 9px;
+      border-radius: 999px;
+      white-space: nowrap;
+      display: inline-block;
+    }
+    .pill-active { background: #ecfdf5; color: #059669; border: 1px solid #a7f3d0; }
+    .pill-resolved { background: #ecfdf5; color: #059669; border: 1px solid #a7f3d0; }
+    .pill-progress { background: #eff6ff; color: #2563eb; border: 1px solid #bfdbfe; }
+    .pill-pending { background: #fef2f2; color: #dc2626; border: 1px solid #fee2e2; }
+
+    /* Category Badges */
+    .cat-badge {
+      font-size: 10.5px;
+      font-weight: 600;
+      padding: 3px 8px;
+      border-radius: 6px;
+      white-space: nowrap;
+      display: inline-block;
+    }
+    .cat-nav { background: #eff6ff; color: #2563eb; border: 1px solid #dbeafe; }
+    .cat-info { background: #f0fdf4; color: #16a34a; border: 1px solid #dcfce7; }
+    .cat-clean { background: #fefce8; color: #ca8a04; border: 1px solid #fef08a; }
+    .cat-amenity { background: #fff7ed; color: #ea580c; border: 1px solid #ffedd5; }
+    .cat-staff { background: #fdf2f8; color: #db2777; border: 1px solid #fce7f3; }
+
+    /* Row 2: 3-Column Split (Trend + Category Donut + Rating Distribution) */
+    .feedback-3col-top {
+      display: grid;
+      grid-template-columns: 1.3fr 1.15fr 0.95fr;
+      gap: 18px;
+      align-items: stretch;
+      margin-bottom: 20px;
+    }
+    @media (max-width: 1300px) {
+      .feedback-3col-top {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+    @media (max-width: 850px) {
+      .feedback-3col-top {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    /* Row 3: 3-Column Middle Split (Recent Feedback + Themes + Quick Actions) */
+    .feedback-3col-middle {
+      display: grid;
+      grid-template-columns: 1.45fr 1fr 0.85fr;
+      gap: 18px;
+      align-items: stretch;
+      margin-bottom: 20px;
+    }
+    @media (max-width: 1350px) {
+      .feedback-3col-middle {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+    @media (max-width: 850px) {
+      .feedback-3col-middle {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    /* Row 4: 4-Column Bottom Split */
+    .feedback-4col-bottom {
+      display: grid;
+      grid-template-columns: 0.9fr 1.1fr 1fr 1fr;
+      gap: 18px;
+      align-items: stretch;
+    }
+    @media (max-width: 1300px) {
+      .feedback-4col-bottom {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+    @media (max-width: 750px) {
+      .feedback-4col-bottom {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .dash-panel {
+      background: #ffffff;
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      padding: 16px 18px;
+    }
+
+    .dash-panel-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 12px;
+    }
+
+    .dash-panel-title {
+      font-size: 14.5px;
+      font-weight: 700;
+      color: var(--text-900);
+      margin: 0;
+    }
+
+    .dash-panel-link {
+      font-size: 11.5px;
+      font-weight: 600;
+      color: #2563eb;
+      text-decoration: none;
+      cursor: pointer;
+    }
+    .dash-panel-link:hover {
+      text-decoration: underline;
+    }
+
+    .rank-bar-track {
+      height: 6px;
+      background: #f1f5f9;
+      border-radius: 999px;
+      overflow: hidden;
+      flex: 1;
+      margin: 0 10px;
+    }
+    .rank-bar-fill {
+      height: 100%;
+      background: #7c3aed;
+      border-radius: 999px;
+    }
+
+    /* Table Styling */
+    .feedback-table {
+      width: 100%;
+      border-collapse: collapse;
+      text-align: left;
+      font-size: 11.5px;
+    }
+
+    .feedback-table th {
+      background: #f8fafc;
+      padding: 8px 10px;
+      font-size: 10.5px;
+      font-weight: 700;
+      color: var(--text-500);
+      border-bottom: 1px solid var(--border-soft);
+      text-transform: uppercase;
+    }
+
+    .feedback-table td {
+      padding: 8px 10px;
+      border-bottom: 1px solid var(--border-soft);
+      vertical-align: middle;
+    }
+
+    .feedback-table tr:hover td {
+      background: #f8fafc;
+    }
+
+    .user-avatar {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 11px;
+      color: #ffffff;
+      flex-shrink: 0;
+    }
+
+    .quick-action-row {
+      background: #ffffff;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 9px 12px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      cursor: pointer;
+      transition: all 0.15s ease;
+      text-decoration: none;
+      margin-bottom: 8px;
+    }
+    .quick-action-row:last-child {
+      margin-bottom: 0;
+    }
+    .quick-action-row:hover {
+      background: #f8fafc;
+      border-color: #cbd5e1;
+      transform: translateX(2px);
+    }
+
+    /* Modal Styling */
+    .modal-backdrop {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(15, 23, 42, 0.6);
+      backdrop-filter: blur(4px);
+      z-index: 9999;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+    .modal-box {
+      background: #ffffff;
+      border-radius: 16px;
+      box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+      width: 100%;
+      max-width: 540px;
+      max-height: 90vh;
+      overflow-y: auto;
+    }
+  </style>
+</head>
+<body>
+<div class="app-shell">
+
+  <!-- =========================================================================
+       CLIENT ADMIN GLOBAL SIDEBAR (Strict 8 Items)
+       ========================================================================= -->
+  <aside class="sidebar" id="clientSidebar">
+    <a href="dashboard.html" class="sidebar-brand" style="cursor:pointer;text-decoration:none;">
+      <div class="logo-icon" style="background:linear-gradient(135deg,#3b82f6,#1d4ed8);border-radius:10px;">
+        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style="width:20px;height:20px;">
+          <path d="M4 21V9l8-6 8 6v12H4z" stroke="white" stroke-width="1.8" stroke-linejoin="round"/>
+          <path d="M9 21V12h6v9" stroke="white" stroke-width="1.8"/>
+          <path d="M12 3v4" stroke="white" stroke-width="1.8"/>
+        </svg>
+      </div>
+      <div class="brand-text">
+        <div class="t1" style="font-size:14px;font-weight:700;color:#ffffff;line-height:1.2;">Mall Kiosk Platform</div>
+        <div class="t2" style="font-size:11px;color:#94a3b8;font-weight:500;">Client Admin</div>
+      </div>
+    </a>
+
+    <!-- Navigation Items (Strict 8) -->
+    <ul class="sidebar-nav">
+      <li class="nav-item" onclick="location.href='dashboard.html'">
+        <i class="fa-solid fa-house"></i>
+        <span>Dashboard</span>
+      </li>
+      <li class="nav-item active" onclick="location.href='projects.html'">
+        <i class="fa-solid fa-folder-open"></i>
+        <span>Projects</span>
+      </li>
+      <li class="nav-item" onclick="location.href='project-content.html'">
+        <i class="fa-regular fa-file-lines"></i>
+        <span>Content</span>
+      </li>
+      <li class="nav-item" onclick="location.href='project-themes.html'">
+        <i class="fa-solid fa-palette"></i>
+        <span>Themes</span>
+      </li>
+      <li class="nav-item" onclick="location.href='project-advertisements.html'">
+        <i class="fa-solid fa-bullhorn"></i>
+        <span>Advertisements</span>
+      </li>
+      <li class="nav-item" onclick="location.href='project-analytics.html'">
+        <i class="fa-solid fa-chart-column"></i>
+        <span>Analytics</span>
+      </li>
+      <li class="nav-item" onclick="location.href='project-feedback.html'">
+        <i class="fa-regular fa-comment-dots"></i>
+        <span>Feedback</span>
+      </li>
+      <li class="nav-item" onclick="alert('Requests Section: Opening Client Request Submission Portal...')">
+        <i class="fa-regular fa-clipboard"></i>
+        <span>Requests</span>
+      </li>
+    </ul>
+
+    <div class="sidebar-spacer"></div>
+
+    <!-- Collapse Toggle -->
+    <div class="sidebar-collapse-btn" onclick="toggleSidebarCollapse()" style="display:flex;align-items:center;gap:8px;padding:10px 12px;color:#94a3b8;font-size:13px;cursor:pointer;border-radius:8px;transition:all 0.2s ease;">
+      <i class="fa-solid fa-chevron-left" style="font-size:11px;"></i>
+      <span>Collapse</span>
+    </div>
+  </aside>
+
+  <!-- =========================================================================
+       MAIN WORKSPACE
+       ========================================================================= -->
+  <div class="main">
+
+    <!-- Topbar Header -->
+    <header class="topbar" style="background:#ffffff;border-bottom:1px solid var(--border);padding:14px 28px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:20;">
+      <div style="display:flex;align-items:center;gap:14px;">
+        <i class="fa-solid fa-bars hamburger" style="font-size:16px;color:var(--text-600);cursor:pointer;"></i>
+        <div>
+          <div style="font-size:12px;color:var(--text-500);display:flex;align-items:center;gap:6px;">
+            <a href="projects.html" style="color:var(--text-500);text-decoration:none;">Projects</a>
+            <i class="fa-solid fa-chevron-right" style="font-size:9px;color:var(--text-400);"></i>
+            <a href="project-overview.html" style="color:var(--text-500);text-decoration:none;">Phoenix Mall Project</a>
+            <i class="fa-solid fa-chevron-right" style="font-size:9px;color:var(--text-400);"></i>
+            <span style="color:var(--text-900);font-weight:600;">Feedback</span>
+          </div>
+          <div style="display:flex;align-items:center;gap:10px;margin-top:2px;">
+            <h1 style="font-size:19px;font-weight:800;color:var(--text-900);margin:0;">Phoenix Mall Project</h1>
+            <span class="status-pill pill-active">Active</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Topbar Actions -->
+      <div style="display:flex;align-items:center;gap:16px;">
+        <!-- Date range selector pill -->
+        <select id="feedbackDateRangeSelector" onchange="updateFeedbackPeriod()" style="display:flex;align-items:center;gap:8px;background:#f8fafc;border:1px solid var(--border);border-radius:8px;padding:7px 12px;font-size:12.5px;font-weight:600;color:var(--text-700);cursor:pointer;outline:none;">
+          <option value="this-week">13 May – 19 May 2025</option>
+          <option value="last-7-days">Last 7 Days</option>
+          <option value="last-30-days">Last 30 Days</option>
+          <option value="this-month">This Month</option>
+        </select>
+
+        <!-- Notification Bell -->
+        <button style="position:relative;width:38px;height:38px;border-radius:8px;border:1px solid var(--border);background:#fff;display:flex;align-items:center;justify-content:center;cursor:pointer;">
+          <i class="fa-regular fa-bell" style="font-size:16px;color:var(--text-600);"></i>
+          <span style="position:absolute;top:3px;right:3px;background:#ef4444;color:#fff;font-size:9px;font-weight:700;border-radius:50%;width:15px;height:15px;display:flex;align-items:center;justify-content:center;">7</span>
+        </button>
+
+        <!-- User Profile (Phoenix Mall · Client Admin) -->
+        <div style="display:flex;align-items:center;gap:10px;cursor:pointer;">
+          <div style="width:36px;height:36px;border-radius:50%;background:#f3e8ff;color:#9333ea;font-weight:700;font-size:15px;display:flex;align-items:center;justify-content:center;border:1px solid #e9d5ff;">
+            <i class="fa-solid fa-building-circle-check"></i>
+          </div>
+          <div>
+            <div style="font-size:13.5px;font-weight:700;color:var(--text-900);line-height:1.2;">Phoenix Mall</div>
+            <div style="font-size:11px;color:var(--text-500);font-weight:500;">Client Admin</div>
+          </div>
+          <i class="fa-solid fa-chevron-down" style="font-size:10px;color:var(--text-400);margin-left:4px;"></i>
+        </div>
+      </div>
+    </header>
+
+    <!-- =========================================================================
+         PROJECT SUBNAV BAR (Feedback Tabs + Export Report Button)
+         ========================================================================= -->
+    <div class="project-subnav-bar">
+      <nav class="project-subnav-tabs">
+        <a href="project-feedback.html" class="project-subnav-tab active" id="tabOverview"><i class="fa-solid fa-chart-pie"></i> Overview</a>
+        <a href="#" onclick="alert('Feedback List: Browsing all 1,245 customer reviews.')" class="project-subnav-tab" id="tabFeedbackList"><i class="fa-solid fa-list-check"></i> Feedback List</a>
+        <a href="#" onclick="alert('Ratings Tab: Detailed 1-5 star distribution across all mall touchpoints.')" class="project-subnav-tab" id="tabRatings"><i class="fa-solid fa-star"></i> Ratings</a>
+        <a href="#" onclick="alert('Categories Tab: Category breakdowns across stores, navigation, and cleanliness.')" class="project-subnav-tab" id="tabCategories"><i class="fa-solid fa-layer-group"></i> Categories</a>
+        <a href="#" onclick="alert('Response History: Audit log of sent customer replies.')" class="project-subnav-tab" id="tabResponseHistory"><i class="fa-solid fa-reply"></i> Response History</a>
+        <a href="#" onclick="alert('Reports Tab: Downloadable monthly customer satisfaction PDF reports.')" class="project-subnav-tab" id="tabReports"><i class="fa-solid fa-file-export"></i> Reports</a>
+      </nav>
+
+      <!-- Export Report Button on Right -->
+      <button onclick="promptExportFeedbackReport()" id="btnExportFeedbackReport" style="height:34px;padding:0 14px;border-radius:8px;border:1px solid #2563eb;background:#eff6ff;color:#2563eb;font-size:12px;font-weight:700;cursor:pointer;display:flex;align-items:center;gap:6px;">
+        <i class="fa-solid fa-download" style="font-size:11px;"></i>
+        <span>Export Report</span>
+        <i class="fa-solid fa-chevron-down" style="font-size:9px;"></i>
+      </button>
+    </div>
+
+    <!-- Page Content Container -->
+    <div class="content" style="padding:22px 28px 40px 28px;background:#f8fafc;flex:1;">
+
+      <!-- =======================================================================
+           ROW 1: 6 TOP FEEDBACK KPI SUMMARY CARDS
+           ======================================================================= -->
+      <div class="feedback-kpi-grid">
+        
+        <!-- Total Feedback -->
+        <div class="kpi-stat-box">
+          <div class="kpi-icon-square" style="background:#f0fdf4;color:#16a34a;border:1px solid #dcfce7;">
+            <i class="fa-regular fa-comment-dots"></i>
+          </div>
+          <div>
+            <div style="font-size:11px;color:var(--text-500);font-weight:600;">Total Feedback</div>
+            <div style="font-size:22px;font-weight:800;color:var(--text-900);line-height:1.2;" id="kpiTotalFeedback">1,245</div>
+            <div style="font-size:10.5px;color:#10b981;font-weight:600;">↑ 18.6% <span style="font-weight:400;color:var(--text-400);">vs last 7 days</span></div>
+          </div>
+        </div>
+
+        <!-- Average Rating -->
+        <div class="kpi-stat-box">
+          <div class="kpi-icon-square" style="background:#fffbeb;color:#d97706;border:1px solid #fef3c7;">
+            <i class="fa-regular fa-star"></i>
+          </div>
+          <div>
+            <div style="font-size:11px;color:var(--text-500);font-weight:600;">Average Rating</div>
+            <div style="font-size:22px;font-weight:800;color:var(--text-900);line-height:1.2;" id="kpiAvgRating">4.2 <span style="font-size:13px;font-weight:500;color:var(--text-400);">/ 5</span></div>
+            <div style="font-size:10.5px;color:#10b981;font-weight:600;">↑ 0.3 <span style="font-weight:400;color:var(--text-400);">vs last 7 days</span></div>
+          </div>
+        </div>
+
+        <!-- Positive Feedback -->
+        <div class="kpi-stat-box">
+          <div class="kpi-icon-square" style="background:#eff6ff;color:#2563eb;border:1px solid #dbeafe;">
+            <i class="fa-regular fa-thumbs-up"></i>
+          </div>
+          <div>
+            <div style="font-size:11px;color:var(--text-500);font-weight:600;">Positive Feedback</div>
+            <div style="font-size:20px;font-weight:800;color:var(--text-900);line-height:1.2;" id="kpiPositiveFeedback">887 <span style="font-size:12px;font-weight:600;color:var(--text-500);">(71.3%)</span></div>
+            <div style="font-size:10.5px;color:#10b981;font-weight:600;">↑ 16.2% <span style="font-weight:400;color:var(--text-400);">vs last 7 days</span></div>
+          </div>
+        </div>
+
+        <!-- Negative Feedback -->
+        <div class="kpi-stat-box">
+          <div class="kpi-icon-square" style="background:#fef2f2;color:#dc2626;border:1px solid #fee2e2;">
+            <i class="fa-regular fa-thumbs-down"></i>
+          </div>
+          <div>
+            <div style="font-size:11px;color:var(--text-500);font-weight:600;">Negative Feedback</div>
+            <div style="font-size:20px;font-weight:800;color:var(--text-900);line-height:1.2;" id="kpiNegativeFeedback">132 <span style="font-size:12px;font-weight:600;color:var(--text-500);">(10.6%)</span></div>
+            <div style="font-size:10.5px;color:#dc2626;font-weight:600;">↓ 3.1% <span style="font-weight:400;color:var(--text-400);">vs last 7 days</span></div>
+          </div>
+        </div>
+
+        <!-- Avg. Response Time -->
+        <div class="kpi-stat-box">
+          <div class="kpi-icon-square" style="background:#f5f3ff;color:#7c3aed;border:1px solid #ede9fe;">
+            <i class="fa-regular fa-clock"></i>
+          </div>
+          <div>
+            <div style="font-size:11px;color:var(--text-500);font-weight:600;">Avg. Response Time</div>
+            <div style="font-size:22px;font-weight:800;color:var(--text-900);line-height:1.2;" id="kpiResponseTime">4h 32m</div>
+            <div style="font-size:10.5px;color:#10b981;font-weight:600;">↓ 12.6% <span style="font-weight:400;color:var(--text-400);">vs last 7 days</span></div>
+          </div>
+        </div>
+
+        <!-- Resolved Feedback -->
+        <div class="kpi-stat-box">
+          <div class="kpi-icon-square" style="background:#fff7ed;color:#ea580c;border:1px solid #ffedd5;">
+            <i class="fa-regular fa-clipboard"></i>
+          </div>
+          <div>
+            <div style="font-size:11px;color:var(--text-500);font-weight:600;">Resolved Feedback</div>
+            <div style="font-size:20px;font-weight:800;color:var(--text-900);line-height:1.2;" id="kpiResolvedFeedback">1,113 <span style="font-size:12px;font-weight:600;color:var(--text-500);">(89.4%)</span></div>
+            <div style="font-size:10.5px;color:#10b981;font-weight:600;">↑ 14.8% <span style="font-weight:400;color:var(--text-400);">vs last 7 days</span></div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- =======================================================================
+           ROW 2: 3-COLUMN TOP (Trend Chart + Category Donut + Rating Distribution)
+           ======================================================================= -->
+      <div class="feedback-3col-top">
+        
+        <!-- Feedback Trend Line Chart -->
+        <div class="dash-panel">
+          <div class="dash-panel-header">
+            <h2 class="dash-panel-title">Feedback Trend</h2>
+            <select style="font-size:11px;padding:3px 8px;border-radius:6px;border:1px solid var(--border);background:#fff;color:var(--text-700);outline:none;">
+              <option>This Week ▾</option>
+              <option>Last Week</option>
+              <option>This Month</option>
+            </select>
+          </div>
+
+          <div style="height:190px;width:100%;padding:5px 0;">
+            <svg viewBox="0 0 450 160" style="width:100%;height:100%;overflow:visible;">
+              <line x1="35" y1="15" x2="430" y2="15" stroke="#f1f5f9" stroke-width="1"/>
+              <line x1="35" y1="45" x2="430" y2="45" stroke="#f1f5f9" stroke-width="1"/>
+              <line x1="35" y1="75" x2="430" y2="75" stroke="#f1f5f9" stroke-width="1"/>
+              <line x1="35" y1="105" x2="430" y2="105" stroke="#f1f5f9" stroke-width="1"/>
+              <line x1="35" y1="135" x2="430" y2="135" stroke="#f1f5f9" stroke-width="1"/>
+
+              <text x="5" y="19" font-size="8.5" fill="#94a3b8" font-weight="600">1,400</text>
+              <text x="5" y="49" font-size="8.5" fill="#94a3b8" font-weight="600">1,200</text>
+              <text x="12" y="79" font-size="8.5" fill="#94a3b8" font-weight="600">800</text>
+              <text x="12" y="109" font-size="8.5" fill="#94a3b8" font-weight="600">600</text>
+              <text x="12" y="139" font-size="8.5" fill="#94a3b8" font-weight="600">200</text>
+              <text x="22" y="152" font-size="8.5" fill="#94a3b8" font-weight="600">0</text>
+
+              <defs>
+                <linearGradient id="fbTrendGrad" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="0%" stop-color="#7c3aed" stop-opacity="0.2"/>
+                  <stop offset="100%" stop-color="#7c3aed" stop-opacity="0.0"/>
+                </linearGradient>
+              </defs>
+              <polygon points="45,115 105,100 165,90 225,85 285,80 345,50 405,65 405,145 45,145" fill="url(#fbTrendGrad)"/>
+
+              <polyline points="45,115 105,100 165,90 225,85 285,80 345,50 405,65" fill="none" stroke="#7c3aed" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round"/>
+
+              <circle cx="45" cy="115" r="3.5" fill="#7c3aed" stroke="#fff" stroke-width="1.5"/>
+              <circle cx="105" cy="100" r="3.5" fill="#7c3aed" stroke="#fff" stroke-width="1.5"/>
+              <circle cx="165" cy="90" r="3.5" fill="#7c3aed" stroke="#fff" stroke-width="1.5"/>
+              <circle cx="225" cy="85" r="3.5" fill="#7c3aed" stroke="#fff" stroke-width="1.5"/>
+              <circle cx="285" cy="80" r="3.5" fill="#7c3aed" stroke="#fff" stroke-width="1.5"/>
+              <circle cx="345" cy="50" r="4.5" fill="#7c3aed" stroke="#fff" stroke-width="2"/>
+              <circle cx="405" cy="65" r="3.5" fill="#7c3aed" stroke="#fff" stroke-width="1.5"/>
+
+              <text x="35" y="155" font-size="9" fill="#64748b" font-weight="600">13 May</text>
+              <text x="95" y="155" font-size="9" fill="#64748b" font-weight="600">14 May</text>
+              <text x="155" y="155" font-size="9" fill="#64748b" font-weight="600">15 May</text>
+              <text x="215" y="155" font-size="9" fill="#64748b" font-weight="600">16 May</text>
+              <text x="275" y="155" font-size="9" fill="#64748b" font-weight="600">17 May</text>
+              <text x="335" y="155" font-size="9" fill="#64748b" font-weight="600">18 May</text>
+              <text x="395" y="155" font-size="9" fill="#64748b" font-weight="600">19 May</text>
+            </svg>
+          </div>
+        </div>
+
+        <!-- Feedback by Category Donut Chart -->
+        <div class="dash-panel">
+          <div class="dash-panel-header">
+            <h2 class="dash-panel-title">Feedback by Category</h2>
+          </div>
+
+          <div style="display:flex;align-items:center;gap:14px;height:190px;">
+            <!-- Donut SVG -->
+            <div style="position:relative;width:92px;height:92px;flex-shrink:0;">
+              <svg viewBox="0 0 36 36" style="width:100%;height:100%;transform:rotate(-90deg);">
+                <circle cx="18" cy="18" r="15.915" fill="none" stroke="#f1f5f9" stroke-width="5"/>
+                <circle cx="18" cy="18" r="15.915" fill="none" stroke="#2563eb" stroke-width="5" stroke-dasharray="36.3 63.7" stroke-dashoffset="0"/>
+                <circle cx="18" cy="18" r="15.915" fill="none" stroke="#06b6d4" stroke-width="5" stroke-dasharray="25.1 74.9" stroke-dashoffset="-36.3"/>
+                <circle cx="18" cy="18" r="15.915" fill="none" stroke="#10b981" stroke-width="5" stroke-dasharray="15.9 84.1" stroke-dashoffset="-61.4"/>
+                <circle cx="18" cy="18" r="15.915" fill="none" stroke="#ea580c" stroke-width="5" stroke-dasharray="12.5 87.5" stroke-dashoffset="-77.3"/>
+                <circle cx="18" cy="18" r="15.915" fill="none" stroke="#db2777" stroke-width="5" stroke-dasharray="5.8 94.2" stroke-dashoffset="-89.8"/>
+                <circle cx="18" cy="18" r="15.915" fill="none" stroke="#94a3b8" stroke-width="5" stroke-dasharray="4.4 95.6" stroke-dashoffset="-95.6"/>
+              </svg>
+              <div style="position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;">
+                <span style="font-size:14px;font-weight:800;color:var(--text-900);line-height:1;">1,245</span>
+                <span style="font-size:8.5px;color:var(--text-500);">Total</span>
+              </div>
+            </div>
+
+            <!-- Legend List -->
+            <div style="flex:1;display:flex;flex-direction:column;gap:3px;font-size:10px;">
+              <div style="display:flex;justify-content:space-between;"><span style="color:var(--text-700);"><span style="color:#2563eb;">●</span> Navigation & Map</span><strong>452 (36.3%)</strong></div>
+              <div style="display:flex;justify-content:space-between;"><span style="color:var(--text-700);"><span style="color:#06b6d4;">●</span> Content & Information</span><strong>312 (25.1%)</strong></div>
+              <div style="display:flex;justify-content:space-between;"><span style="color:var(--text-700);"><span style="color:#10b981;">●</span> Cleanliness</span><strong>198 (15.9%)</strong></div>
+              <div style="display:flex;justify-content:space-between;"><span style="color:var(--text-700);"><span style="color:#ea580c;">●</span> Amenities</span><strong>156 (12.5%)</strong></div>
+              <div style="display:flex;justify-content:space-between;"><span style="color:var(--text-700);"><span style="color:#db2777;">●</span> Staff Behavior</span><strong>72 (5.8%)</strong></div>
+              <div style="display:flex;justify-content:space-between;"><span style="color:var(--text-700);"><span style="color:#94a3b8;">●</span> Others</span><strong>55 (4.4%)</strong></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Rating Distribution -->
+        <div class="dash-panel">
+          <div class="dash-panel-header">
+            <h2 class="dash-panel-title">Rating Distribution</h2>
+            <span style="font-size:10px;color:var(--text-400);font-weight:600;">Ratings</span>
+          </div>
+
+          <div style="display:flex;flex-direction:column;gap:9px;font-size:11px;height:190px;justify-content:center;">
+            <div style="display:flex;align-items:center;justify-content:space-between;">
+              <span style="width:50px;color:var(--text-800);font-weight:600;">5 Stars</span>
+              <div class="rank-bar-track"><div class="rank-bar-fill" style="width:47.2%;background:#10b981;"></div></div>
+              <strong style="color:var(--text-900);font-size:10.5px;">587 (47.2%)</strong>
+            </div>
+
+            <div style="display:flex;align-items:center;justify-content:space-between;">
+              <span style="width:50px;color:var(--text-800);font-weight:600;">4 Stars</span>
+              <div class="rank-bar-track"><div class="rank-bar-fill" style="width:32.0%;background:#10b981;"></div></div>
+              <strong style="color:var(--text-900);font-size:10.5px;">398 (32.0%)</strong>
+            </div>
+
+            <div style="display:flex;align-items:center;justify-content:space-between;">
+              <span style="width:50px;color:var(--text-800);font-weight:600;">3 Stars</span>
+              <div class="rank-bar-track"><div class="rank-bar-fill" style="width:13.9%;background:#10b981;"></div></div>
+              <strong style="color:var(--text-900);font-size:10.5px;">173 (13.9%)</strong>
+            </div>
+
+            <div style="display:flex;align-items:center;justify-content:space-between;">
+              <span style="width:50px;color:var(--text-800);font-weight:600;">2 Stars</span>
+              <div class="rank-bar-track"><div class="rank-bar-fill" style="width:4.5%;background:#10b981;"></div></div>
+              <strong style="color:var(--text-900);font-size:10.5px;">56 (4.5%)</strong>
+            </div>
+
+            <div style="display:flex;align-items:center;justify-content:space-between;">
+              <span style="width:50px;color:var(--text-800);font-weight:600;">1 Star</span>
+              <div class="rank-bar-track"><div class="rank-bar-fill" style="width:2.4%;background:#10b981;"></div></div>
+              <strong style="color:var(--text-900);font-size:10.5px;">31 (2.4%)</strong>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- =======================================================================
+           ROW 3: 3-COLUMN MIDDLE (Recent Feedback + Top Themes + Quick Actions)
+           ======================================================================= -->
+      <div class="feedback-3col-middle">
+        
+        <!-- Left: Recent Feedback Table Card -->
+        <div class="dash-panel" style="padding:0;">
+          <div style="padding:14px 18px;border-bottom:1px solid var(--border-soft);display:flex;align-items:center;justify-content:space-between;">
+            <h2 class="dash-panel-title">Recent Feedback</h2>
+            <a href="#" onclick="alert('View All: Displaying complete list of customer reviews.')" class="dash-panel-link">View All</a>
+          </div>
+
+          <div style="overflow-x:auto;">
+            <table class="feedback-table" id="recentFeedbackTable">
+              <thead>
+                <tr>
+                  <th>Feedback</th>
+                  <th>Category</th>
+                  <th>Rating</th>
+                  <th>Date</th>
+                  <th>Status</th>
+                  <th style="text-align:right;">Action</th>
+                </tr>
+              </thead>
+              <tbody>
+                
+                <!-- 1. Sarah Johnson -->
+                <tr id="row-fb-1">
+                  <td>
+                    <div style="display:flex;align-items:center;gap:8px;">
+                      <div class="user-avatar" style="background:#059669;">S</div>
+                      <div>
+                        <div style="font-weight:700;color:var(--text-900);">Sarah Johnson</div>
+                        <div style="font-size:10px;color:var(--text-500);">Great experience! Very easy to find what I was looking for.</div>
+                      </div>
+                    </div>
+                  </td>
+                  <td><span class="cat-badge cat-info">Content & Information</span></td>
+                  <td style="color:#eab308;font-size:10px;white-space:nowrap;">★★★★★</td>
+                  <td style="font-size:10px;color:var(--text-500);">18 May 2025<br>10:15 AM</td>
+                  <td><span class="status-pill pill-resolved" id="status-fb-1">Resolved</span></td>
+                  <td style="text-align:right;">
+                    <button onclick="openRespondModal('Sarah Johnson', 'Great experience! Very easy to find what I was looking for.', '1')" style="border:none;background:transparent;color:#2563eb;cursor:pointer;"><i class="fa-solid fa-ellipsis-vertical"></i></button>
+                  </td>
+                </tr>
+
+                <!-- 2. Amit Verma -->
+                <tr id="row-fb-2">
+                  <td>
+                    <div style="display:flex;align-items:center;gap:8px;">
+                      <div class="user-avatar" style="background:#0284c7;">A</div>
+                      <div>
+                        <div style="font-weight:700;color:var(--text-900);">Amit Verma</div>
+                        <div style="font-size:10px;color:var(--text-500);">Navigation to Food Court was very helpful.</div>
+                      </div>
+                    </div>
+                  </td>
+                  <td><span class="cat-badge cat-nav">Navigation & Map</span></td>
+                  <td style="color:#eab308;font-size:10px;white-space:nowrap;">★★★★☆</td>
+                  <td style="font-size:10px;color:var(--text-500);">18 May 2025<br>10:10 AM</td>
+                  <td><span class="status-pill pill-resolved" id="status-fb-2">Resolved</span></td>
+                  <td style="text-align:right;">
+                    <button onclick="openRespondModal('Amit Verma', 'Navigation to Food Court was very helpful.', '2')" style="border:none;background:transparent;color:#2563eb;cursor:pointer;"><i class="fa-solid fa-ellipsis-vertical"></i></button>
+                  </td>
+                </tr>
+
+                <!-- 3. Priya Sharma -->
+                <tr id="row-fb-3">
+                  <td>
+                    <div style="display:flex;align-items:center;gap:8px;">
+                      <div class="user-avatar" style="background:#0891b2;">P</div>
+                      <div>
+                        <div style="font-weight:700;color:var(--text-900);">Priya Sharma</div>
+                        <div style="font-size:10px;color:var(--text-500);">Screens are not clean near the play area.</div>
+                      </div>
+                    </div>
+                  </td>
+                  <td><span class="cat-badge cat-clean">Cleanliness</span></td>
+                  <td style="color:#eab308;font-size:10px;white-space:nowrap;">★★★☆☆</td>
+                  <td style="font-size:10px;color:var(--text-500);">18 May 2025<br>09:45 AM</td>
+                  <td><span class="status-pill pill-progress" id="status-fb-3">In Progress</span></td>
+                  <td style="text-align:right;">
+                    <button onclick="openRespondModal('Priya Sharma', 'Screens are not clean near the play area.', '3')" style="border:none;background:transparent;color:#2563eb;cursor:pointer;"><i class="fa-solid fa-ellipsis-vertical"></i></button>
+                  </td>
+                </tr>
+
+                <!-- 4. Rahul Kapoor -->
+                <tr id="row-fb-4">
+                  <td>
+                    <div style="display:flex;align-items:center;gap:8px;">
+                      <div class="user-avatar" style="background:#7c3aed;">R</div>
+                      <div>
+                        <div style="font-weight:700;color:var(--text-900);">Rahul Kapoor</div>
+                        <div style="font-size:10px;color:var(--text-500);">Amazing offers and easy navigation.</div>
+                      </div>
+                    </div>
+                  </td>
+                  <td><span class="cat-badge cat-amenity">Amenities</span></td>
+                  <td style="color:#eab308;font-size:10px;white-space:nowrap;">★★★★★</td>
+                  <td style="font-size:10px;color:var(--text-500);">17 May 2025<br>08:30 PM</td>
+                  <td><span class="status-pill pill-resolved" id="status-fb-4">Resolved</span></td>
+                  <td style="text-align:right;">
+                    <button onclick="openRespondModal('Rahul Kapoor', 'Amazing offers and easy navigation.', '4')" style="border:none;background:transparent;color:#2563eb;cursor:pointer;"><i class="fa-solid fa-ellipsis-vertical"></i></button>
+                  </td>
+                </tr>
+
+                <!-- 5. Neha Gupta -->
+                <tr id="row-fb-5">
+                  <td>
+                    <div style="display:flex;align-items:center;gap:8px;">
+                      <div class="user-avatar" style="background:#db2777;">N</div>
+                      <div>
+                        <div style="font-weight:700;color:var(--text-900);">Neha Gupta</div>
+                        <div style="font-size:10px;color:var(--text-500);">Staff was very helpful and polite.</div>
+                      </div>
+                    </div>
+                  </td>
+                  <td><span class="cat-badge cat-staff">Staff Behavior</span></td>
+                  <td style="color:#eab308;font-size:10px;white-space:nowrap;">★★★★☆</td>
+                  <td style="font-size:10px;color:var(--text-500);">17 May 2025<br>07:20 PM</td>
+                  <td><span class="status-pill pill-resolved" id="status-fb-5">Resolved</span></td>
+                  <td style="text-align:right;">
+                    <button onclick="openRespondModal('Neha Gupta', 'Staff was very helpful and polite.', '5')" style="border:none;background:transparent;color:#2563eb;cursor:pointer;"><i class="fa-solid fa-ellipsis-vertical"></i></button>
+                  </td>
+                </tr>
+
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- Middle: Top Feedback Themes -->
+        <div class="dash-panel">
+          <div class="dash-panel-header">
+            <h2 class="dash-panel-title">Top Feedback Themes</h2>
+            <a href="#" onclick="alert('Feedback Themes: Full thematic analysis.')" class="dash-panel-link">View All</a>
+          </div>
+
+          <div style="display:flex;justify-content:space-between;font-size:10.5px;font-weight:700;color:var(--text-400);text-transform:uppercase;margin-bottom:8px;">
+            <span>Theme</span>
+            <span>Feedback Count</span>
+          </div>
+
+          <div style="display:flex;flex-direction:column;gap:8px;font-size:11.5px;">
+            <div style="display:flex;align-items:center;justify-content:space-between;">
+              <span style="display:flex;align-items:center;gap:6px;width:125px;color:var(--text-800);font-weight:600;">
+                <i class="fa-solid fa-location-arrow" style="color:#2563eb;font-size:11px;"></i> Navigation Difficult
+              </span>
+              <div class="rank-bar-track"><div class="rank-bar-fill" style="width:23%;background:#2563eb;"></div></div>
+              <strong style="color:var(--text-900);">286 (23.0%)</strong>
+            </div>
+
+            <div style="display:flex;align-items:center;justify-content:space-between;">
+              <span style="display:flex;align-items:center;gap:6px;width:125px;color:var(--text-800);font-weight:600;">
+                <i class="fa-solid fa-tags" style="color:#06b6d4;font-size:11px;"></i> More Offers Needed
+              </span>
+              <div class="rank-bar-track"><div class="rank-bar-fill" style="width:17.2%;background:#06b6d4;"></div></div>
+              <strong style="color:var(--text-900);">214 (17.2%)</strong>
+            </div>
+
+            <div style="display:flex;align-items:center;justify-content:space-between;">
+              <span style="display:flex;align-items:center;gap:6px;width:125px;color:var(--text-800);font-weight:600;">
+                <i class="fa-solid fa-broom" style="color:#10b981;font-size:11px;"></i> Cleanliness Issue
+              </span>
+              <div class="rank-bar-track"><div class="rank-bar-fill" style="width:15.9%;background:#10b981;"></div></div>
+              <strong style="color:var(--text-900);">198 (15.9%)</strong>
+            </div>
+
+            <div style="display:flex;align-items:center;justify-content:space-between;">
+              <span style="display:flex;align-items:center;gap:6px;width:125px;color:var(--text-800);font-weight:600;">
+                <i class="fa-regular fa-face-smile" style="color:#ea580c;font-size:11px;"></i> Good Experience
+              </span>
+              <div class="rank-bar-track"><div class="rank-bar-fill" style="width:12.5%;background:#ea580c;"></div></div>
+              <strong style="color:var(--text-900);">156 (12.5%)</strong>
+            </div>
+
+            <div style="display:flex;align-items:center;justify-content:space-between;">
+              <span style="display:flex;align-items:center;gap:6px;width:125px;color:var(--text-800);font-weight:600;">
+                <i class="fa-solid fa-sun" style="color:#db2777;font-size:11px;"></i> Screen Brightness
+              </span>
+              <div class="rank-bar-track"><div class="rank-bar-fill" style="width:7.9%;background:#db2777;"></div></div>
+              <strong style="color:var(--text-900);">98 (7.9%)</strong>
+            </div>
+
+            <div style="display:flex;align-items:center;justify-content:space-between;">
+              <span style="display:flex;align-items:center;gap:6px;width:125px;color:var(--text-800);font-weight:600;">
+                <i class="fa-solid fa-ellipsis" style="color:#94a3b8;font-size:11px;"></i> Others
+              </span>
+              <div class="rank-bar-track"><div class="rank-bar-fill" style="width:23.5%;background:#94a3b8;"></div></div>
+              <strong style="color:var(--text-900);">293 (23.5%)</strong>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right: Quick Actions Card -->
+        <div class="dash-panel">
+          <div class="dash-panel-header">
+            <h2 class="dash-panel-title">Quick Actions</h2>
+          </div>
+
+          <div style="display:flex;flex-direction:column;gap:8px;">
+            <a href="#" onclick="alert('View All Feedback: Opening customer reviews database.')" class="quick-action-row" id="qaViewAllFeedback">
+              <div style="width:32px;height:32px;border-radius:8px;background:#eff6ff;color:#2563eb;display:flex;align-items:center;justify-content:center;font-size:13px;flex-shrink:0;">
+                <i class="fa-regular fa-comment-dots"></i>
+              </div>
+              <div style="flex:1;">
+                <div style="font-size:12px;font-weight:700;color:var(--text-900);">View All Feedback</div>
+                <div style="font-size:10px;color:var(--text-500);">Browse and filter all feedback</div>
+              </div>
+            </a>
+
+            <a href="#" onclick="openRespondModal('Priya Sharma', 'Screens are not clean near the play area.', '3')" class="quick-action-row" id="qaRespondFeedback">
+              <div style="width:32px;height:32px;border-radius:8px;background:#f0fdf4;color:#16a34a;display:flex;align-items:center;justify-content:center;font-size:13px;flex-shrink:0;">
+                <i class="fa-solid fa-reply"></i>
+              </div>
+              <div style="flex:1;">
+                <div style="font-size:12px;font-weight:700;color:var(--text-900);">Respond to Feedback</div>
+                <div style="font-size:10px;color:var(--text-500);">Reply to customer feedback</div>
+              </div>
+            </a>
+
+            <a href="project-analytics.html" class="quick-action-row" id="qaFeedbackAnalytics">
+              <div style="width:32px;height:32px;border-radius:8px;background:#f5f3ff;color:#7c3aed;display:flex;align-items:center;justify-content:center;font-size:13px;flex-shrink:0;">
+                <i class="fa-solid fa-chart-column"></i>
+              </div>
+              <div style="flex:1;">
+                <div style="font-size:12px;font-weight:700;color:var(--text-900);">Feedback Analytics</div>
+                <div style="font-size:10px;color:var(--text-500);">Detailed feedback analysis</div>
+              </div>
+            </a>
+
+            <a href="#" onclick="openRequestFeatureModal()" class="quick-action-row" id="qaRequestFeature">
+              <div style="width:32px;height:32px;border-radius:8px;background:#eff6ff;color:#2563eb;display:flex;align-items:center;justify-content:center;font-size:13px;flex-shrink:0;">
+                <i class="fa-solid fa-paper-plane"></i>
+              </div>
+              <div style="flex:1;">
+                <div style="font-size:12px;font-weight:700;color:var(--text-900);">Request Feature / Change</div>
+                <div style="font-size:10px;color:var(--text-500);">Request improvements & new features</div>
+              </div>
+            </a>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- =======================================================================
+           ROW 4: 4-COLUMN BOTTOM (Satisfaction Overview, By Cat, Response Summary, Notes)
+           ======================================================================= -->
+      <div class="feedback-4col-bottom">
+        
+        <!-- Column 1: Satisfaction Overview -->
+        <div class="dash-panel" style="align-items:center;text-align:center;justify-content:center;">
+          <div style="width:40px;height:40px;border-radius:10px;background:#ecfdf5;color:#059669;display:flex;align-items:center;justify-content:center;font-size:20px;margin-bottom:8px;">
+            <i class="fa-regular fa-face-smile"></i>
+          </div>
+          <div style="font-size:10.5px;color:var(--text-500);font-weight:600;">Overall Satisfaction</div>
+          <div style="font-size:24px;font-weight:800;color:var(--text-900);line-height:1.2;margin:2px 0;">4.2 <span style="font-size:14px;font-weight:500;color:var(--text-400);">/ 5</span></div>
+          <div style="color:#eab308;font-size:12px;margin:4px 0;">★★★★★</div>
+          <div style="font-size:10px;color:var(--text-400);font-weight:500;">Based on 1,245 feedbacks</div>
+        </div>
+
+        <!-- Column 2: Satisfaction by Category -->
+        <div class="dash-panel">
+          <div class="dash-panel-header" style="margin-bottom:8px;">
+            <h2 class="dash-panel-title">Satisfaction by Category</h2>
+          </div>
+
+          <div style="display:flex;flex-direction:column;gap:6px;font-size:11px;">
+            <div style="display:flex;align-items:center;justify-content:space-between;">
+              <span style="width:95px;color:var(--text-700);font-weight:500;">Navigation & Map</span>
+              <div class="rank-bar-track"><div class="rank-bar-fill" style="width:88%;background:#10b981;"></div></div>
+              <strong style="color:var(--text-900);">4.4</strong>
+            </div>
+
+            <div style="display:flex;align-items:center;justify-content:space-between;">
+              <span style="width:95px;color:var(--text-700);font-weight:500;">Content & Info</span>
+              <div class="rank-bar-track"><div class="rank-bar-fill" style="width:82%;background:#10b981;"></div></div>
+              <strong style="color:var(--text-900);">4.1</strong>
+            </div>
+
+            <div style="display:flex;align-items:center;justify-content:space-between;">
+              <span style="width:95px;color:var(--text-700);font-weight:500;">Cleanliness</span>
+              <div class="rank-bar-track"><div class="rank-bar-fill" style="width:76%;background:#10b981;"></div></div>
+              <strong style="color:var(--text-900);">3.8</strong>
+            </div>
+
+            <div style="display:flex;align-items:center;justify-content:space-between;">
+              <span style="width:95px;color:var(--text-700);font-weight:500;">Amenities</span>
+              <div class="rank-bar-track"><div class="rank-bar-fill" style="width:84%;background:#10b981;"></div></div>
+              <strong style="color:var(--text-900);">4.2</strong>
+            </div>
+
+            <div style="display:flex;align-items:center;justify-content:space-between;">
+              <span style="width:95px;color:var(--text-700);font-weight:500;">Staff Behavior</span>
+              <div class="rank-bar-track"><div class="rank-bar-fill" style="width:92%;background:#10b981;"></div></div>
+              <strong style="color:var(--text-900);">4.6</strong>
+            </div>
+          </div>
+        </div>
+
+        <!-- Column 3: Response Summary -->
+        <div class="dash-panel">
+          <div class="dash-panel-header" style="margin-bottom:8px;">
+            <h2 class="dash-panel-title">Response Summary</h2>
+          </div>
+
+          <div style="display:flex;flex-direction:column;gap:6px;font-size:11px;">
+            <div style="display:flex;justify-content:space-between;align-items:center;">
+              <span style="color:var(--text-700);display:flex;align-items:center;gap:6px;"><span style="color:#ef4444;">●</span> Pending Response</span>
+              <strong style="color:#ef4444;">132 (10.6%)</strong>
+            </div>
+            <div style="display:flex;justify-content:space-between;align-items:center;">
+              <span style="color:var(--text-700);display:flex;align-items:center;gap:6px;"><span style="color:#2563eb;">●</span> In Progress</span>
+              <strong style="color:#2563eb;">156 (12.5%)</strong>
+            </div>
+            <div style="display:flex;justify-content:space-between;align-items:center;">
+              <span style="color:var(--text-700);display:flex;align-items:center;gap:6px;"><span style="color:#10b981;">●</span> Resolved</span>
+              <strong style="color:#10b981;">1,113 (89.4%)</strong>
+            </div>
+            <div style="display:flex;justify-content:space-between;align-items:center;border-top:1px solid var(--border-soft);padding-top:4px;margin-top:2px;">
+              <span style="color:var(--text-500);">Avg. Response Time</span>
+              <strong style="color:var(--text-900);">4h 32m</strong>
+            </div>
+          </div>
+        </div>
+
+        <!-- Column 4: Feedback Notes -->
+        <div class="dash-panel">
+          <div class="dash-panel-header" style="margin-bottom:8px;">
+            <h2 class="dash-panel-title">Feedback Notes</h2>
+            <a href="#" onclick="openRequestFeatureModal()" class="dash-panel-link">Go to Requests ></a>
+          </div>
+
+          <div style="font-size:11px;color:var(--text-600);line-height:1.4;display:flex;flex-direction:column;justify-content:space-between;flex:1;">
+            <div>
+              <p style="margin:0 0 6px 0;">Feedback helps us improve your kiosk experience.</p>
+              <p style="margin:0 0 6px 0;">We review all feedback carefully and take action to make your visits better.</p>
+              <p style="margin:0;">For urgent issues or major improvements, please submit a request.</p>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+
+    <!-- Client Footer -->
+    <footer style="padding:16px 28px;background:#ffffff;border-top:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;font-size:12px;color:var(--text-500);">
+      <div>© 2025 Mall Kiosk Platform. All rights reserved.</div>
+      <div style="display:flex;gap:18px;">
+        <span>Client Admin Portal</span>
+        <span>Phoenix Mall Customer Feedback</span>
+      </div>
+    </footer>
+
+  </div>
+</div>
+
+<!-- ===========================================================================
+     RESPOND TO FEEDBACK MODAL
+     =========================================================================== -->
+<div class="modal-backdrop" id="respondFeedbackModal">
+  <div class="modal-box">
+    <div style="padding:18px 24px;border-bottom:1px solid var(--border-soft);display:flex;align-items:center;justify-content:space-between;">
+      <div>
+        <h3 style="font-size:16px;font-weight:800;color:var(--text-900);margin:0;" id="respondModalTitle">Respond to Feedback</h3>
+        <div style="font-size:11px;color:var(--text-500);margin-top:2px;">Compose an official response to customer feedback.</div>
+      </div>
+      <i class="fa-solid fa-xmark" style="cursor:pointer;color:var(--text-400);font-size:15px;" onclick="closeRespondModal()"></i>
+    </div>
+    
+    <div style="padding:20px 24px;display:flex;flex-direction:column;gap:14px;font-size:12px;">
+      <input type="hidden" id="respondFeedbackRowId">
+      
+      <div style="background:#f8fafc;border:1px solid var(--border-soft);border-radius:8px;padding:12px;">
+        <div style="font-weight:700;color:var(--text-800);margin-bottom:2px;" id="respondCustomerName">Customer</div>
+        <div style="font-size:11.5px;color:var(--text-600);font-style:italic;" id="respondFeedbackComment">"Feedback message here..."</div>
+      </div>
+
+      <div>
+        <label style="display:block;font-weight:700;color:var(--text-800);margin-bottom:4px;">Official Response</label>
+        <textarea id="respondTextInput" rows="4" placeholder="Thank you for sharing your feedback with Phoenix Mall..." style="width:100%;border:1px solid var(--border);border-radius:8px;padding:8px 12px;font-size:12.5px;outline:none;resize:none;"></textarea>
+      </div>
+
+      <div style="display:flex;align-items:center;gap:10px;">
+        <label style="font-weight:700;color:var(--text-800);">Mark Status As:</label>
+        <select id="respondStatusSelect" style="height:32px;border:1px solid var(--border);border-radius:6px;padding:0 8px;font-size:12px;outline:none;background:#fff;">
+          <option value="Resolved">Resolved</option>
+          <option value="In Progress">In Progress</option>
+          <option value="Responded">Responded</option>
+        </select>
+      </div>
+    </div>
+
+    <div style="padding:14px 24px;background:#f8fafc;border-top:1px solid var(--border-soft);display:flex;justify-content:flex-end;gap:10px;">
+      <button onclick="closeRespondModal()" style="height:34px;padding:0 14px;border-radius:8px;border:1px solid var(--border);background:#fff;color:var(--text-700);font-size:12px;font-weight:600;cursor:pointer;">Cancel</button>
+      <button onclick="submitFeedbackResponse()" id="btnSubmitFeedbackResponse" style="height:34px;padding:0 18px;border-radius:8px;border:none;background:#2563eb;color:#fff;font-size:12px;font-weight:700;cursor:pointer;box-shadow:0 2px 4px rgba(37,99,235,0.2);">Send Response</button>
+    </div>
+  </div>
+</div>
+
+<!-- ===========================================================================
+     JAVASCRIPT LOGIC
+     =========================================================================== -->
+<script>
+  function updateFeedbackPeriod() {
+    const period = document.getElementById('feedbackDateRangeSelector').value;
+    if (period === 'last-30-days') {
+      document.getElementById('kpiTotalFeedback').innerText = '4,890';
+      document.getElementById('kpiAvgRating').innerHTML = '4.3 <span style="font-size:13px;font-weight:500;color:var(--text-400);">/ 5</span>';
+      document.getElementById('kpiPositiveFeedback').innerHTML = '3,520 <span style="font-size:12px;font-weight:600;color:var(--text-500);">(72.0%)</span>';
+      document.getElementById('kpiNegativeFeedback').innerHTML = '460 <span style="font-size:12px;font-weight:600;color:var(--text-500);">(9.4%)</span>';
+    } else {
+      document.getElementById('kpiTotalFeedback').innerText = '1,245';
+      document.getElementById('kpiAvgRating').innerHTML = '4.2 <span style="font-size:13px;font-weight:500;color:var(--text-400);">/ 5</span>';
+      document.getElementById('kpiPositiveFeedback').innerHTML = '887 <span style="font-size:12px;font-weight:600;color:var(--text-500);">(71.3%)</span>';
+      document.getElementById('kpiNegativeFeedback').innerHTML = '132 <span style="font-size:12px;font-weight:600;color:var(--text-500);">(10.6%)</span>';
+    }
+  }
+
+  function openRespondModal(customerName, comment, rowId) {
+    document.getElementById('respondFeedbackRowId').value = rowId;
+    document.getElementById('respondCustomerName').innerText = customerName;
+    document.getElementById('respondFeedbackComment').innerText = `"${comment}"`;
+    document.getElementById('respondTextInput').value = `Thank you for sharing your feedback, ${customerName}. We have reviewed your suggestion regarding our kiosk experience.`;
+    document.getElementById('respondFeedbackModal').style.display = 'flex';
+  }
+
+  function closeRespondModal() {
+    document.getElementById('respondFeedbackModal').style.display = 'none';
+  }
+
+  function submitFeedbackResponse() {
+    const rowId = document.getElementById('respondFeedbackRowId').value;
+    const statusVal = document.getElementById('respondStatusSelect').value;
+    const statusEl = document.getElementById(`status-fb-${rowId}`);
+
+    if (statusEl) {
+      statusEl.innerText = statusVal;
+      if (statusVal === 'Resolved') {
+        statusEl.className = 'status-pill pill-resolved';
+      } else if (statusVal === 'In Progress') {
+        statusEl.className = 'status-pill pill-progress';
+      } else {
+        statusEl.className = 'status-pill pill-active';
+      }
+    }
+
+    closeRespondModal();
+    alert('Response sent successfully! Customer feedback status updated.');
+  }
+
+  function openRequestFeatureModal() {
+    alert('Request Feature / Change: Redirecting to structured Request Portal with pre-filled Phoenix Mall Feedback context.');
+  }
+
+  function promptExportFeedbackReport() {
+    const choice = confirm('Export Feedback Report: Click OK to export PDF Summary Report, or Cancel to export CSV Raw Responses.');
+    if (choice) {
+      alert('Generating Phoenix_Mall_Customer_Feedback_Report_May2025.pdf...');
+    } else {
+      alert('Generating Phoenix_Mall_Feedback_Raw_May2025.csv...');
+    }
+  }
+
+  function toggleSidebarCollapse() {
+    const sb = document.getElementById('clientSidebar');
+    if (sb) {
+      sb.classList.toggle('collapsed');
+    }
+  }
+</script>
+
+</body>
+</html>
