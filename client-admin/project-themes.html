@@ -1,0 +1,1372 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Phoenix Mall Project · Themes · Mall Kiosk Platform</title>
+  <!-- Google Fonts & Font Awesome -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="stylesheet" href="../css/styles.css">
+  <style>
+    /* Workflow Domain 5 - Client Admin Project Themes Specific Styling */
+    .themes-kpi-grid {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 14px;
+      margin-bottom: 20px;
+    }
+    @media (max-width: 1300px) {
+      .themes-kpi-grid {
+        grid-template-columns: repeat(3, 1fr);
+      }
+    }
+    @media (max-width: 800px) {
+      .themes-kpi-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    .kpi-stat-box {
+      background: #ffffff;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 15px;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+    .kpi-stat-box:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.06);
+    }
+
+    .kpi-icon-square {
+      width: 42px;
+      height: 42px;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 17px;
+      flex-shrink: 0;
+    }
+
+    /* Subnav Bar */
+    .project-subnav-bar {
+      background: #ffffff;
+      border-bottom: 1px solid var(--border);
+      padding: 0 28px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+    }
+
+    .project-subnav-tabs {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      overflow-x: auto;
+    }
+
+    .project-subnav-tab {
+      padding: 14px 16px;
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--text-600);
+      cursor: pointer;
+      border-bottom: 2px solid transparent;
+      white-space: nowrap;
+      transition: all 0.15s ease;
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .project-subnav-tab:hover {
+      color: var(--text-900);
+    }
+    .project-subnav-tab.active {
+      color: #2563eb;
+      border-bottom-color: #2563eb;
+      font-weight: 700;
+    }
+
+    /* Status Pills */
+    .status-pill {
+      font-size: 11px;
+      font-weight: 700;
+      padding: 3px 9px;
+      border-radius: 999px;
+      white-space: nowrap;
+      display: inline-block;
+    }
+    .pill-active { background: #ecfdf5; color: #059669; border: 1px solid #a7f3d0; }
+    .pill-inactive { background: #f1f5f9; color: #64748b; border: 1px solid #e2e8f0; }
+
+    /* Main Row 2: 2-Column Split (Table Left ~65% + Details Right ~35%) */
+    .themes-main-split {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) 360px;
+      gap: 18px;
+      align-items: start;
+      margin-bottom: 20px;
+    }
+    @media (max-width: 1250px) {
+      .themes-main-split {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    /* Themes Table */
+    .themes-table-card {
+      background: #ffffff;
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+    }
+
+    .themes-table {
+      width: 100%;
+      border-collapse: collapse;
+      text-align: left;
+    }
+
+    .themes-table th {
+      background: #f8fafc;
+      padding: 12px 16px;
+      font-size: 11.5px;
+      font-weight: 700;
+      color: var(--text-500);
+      border-bottom: 1px solid var(--border-soft);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .themes-table td {
+      padding: 13px 16px;
+      font-size: 12px;
+      color: var(--text-700);
+      border-bottom: 1px solid var(--border-soft);
+      vertical-align: middle;
+    }
+
+    .themes-table tr:hover td {
+      background: #f8fafc;
+      cursor: pointer;
+    }
+
+    .themes-table tr.selected td {
+      background: #f0f7ff !important;
+    }
+
+    /* Mini Preview Strip */
+    .mini-preview-strip {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+    .mini-screen-box {
+      width: 22px;
+      height: 32px;
+      border-radius: 4px;
+      border: 1px solid #cbd5e1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 8px;
+      color: #fff;
+    }
+
+    /* Coverage Progress Bar */
+    .coverage-track {
+      width: 60px;
+      height: 6px;
+      background: #f1f5f9;
+      border-radius: 999px;
+      overflow: hidden;
+      display: inline-block;
+      margin-left: 6px;
+      vertical-align: middle;
+    }
+    .coverage-fill {
+      height: 100%;
+      background: #10b981;
+      border-radius: 999px;
+    }
+
+    /* Details Panel */
+    .theme-details-card {
+      background: #ffffff;
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+    }
+
+    /* 4-Screen Visual Preview Grid */
+    .theme-preview-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+      padding: 12px;
+      background: #f1f5f9;
+      border-radius: 10px;
+      margin-bottom: 14px;
+    }
+    .theme-screen-thumb {
+      aspect-ratio: 9/14;
+      border-radius: 6px;
+      border: 1px solid #cbd5e1;
+      background-size: cover;
+      background-position: center;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.08);
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* Row 3: Bottom 2-Column Split */
+    .themes-row-2col {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 18px;
+      align-items: start;
+    }
+    @media (max-width: 1000px) {
+      .themes-row-2col {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .dash-panel {
+      background: #ffffff;
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+    }
+
+    .dash-panel-header {
+      padding: 16px 20px;
+      border-bottom: 1px solid var(--border-soft);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .dash-panel-title {
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--text-900);
+      margin: 0;
+    }
+
+    .dash-panel-link {
+      font-size: 12px;
+      font-weight: 600;
+      color: #2563eb;
+      text-decoration: none;
+      cursor: pointer;
+    }
+    .dash-panel-link:hover {
+      text-decoration: underline;
+    }
+
+    .dash-panel-body {
+      padding: 16px 20px;
+      flex: 1;
+    }
+
+    .quick-action-row {
+      background: #ffffff;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 10px 14px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      cursor: pointer;
+      transition: all 0.15s ease;
+      text-decoration: none;
+      margin-bottom: 8px;
+    }
+    .quick-action-row:last-child {
+      margin-bottom: 0;
+    }
+    .quick-action-row:hover {
+      background: #f8fafc;
+      border-color: #cbd5e1;
+      transform: translateX(2px);
+    }
+
+    /* Modal Backdrop */
+    .modal-backdrop {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(15, 23, 42, 0.6);
+      backdrop-filter: blur(4px);
+      z-index: 9999;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+    .modal-box {
+      background: #ffffff;
+      border-radius: 16px;
+      box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+      width: 100%;
+      max-width: 500px;
+      overflow: hidden;
+      animation: modalFadeIn 0.2s ease-out;
+    }
+    @keyframes modalFadeIn {
+      from { opacity: 0; transform: scale(0.96); }
+      to { opacity: 1; transform: scale(1); }
+    }
+  </style>
+</head>
+<body>
+<div class="app-shell">
+
+  <!-- =========================================================================
+       CLIENT ADMIN GLOBAL SIDEBAR (Strict 8 Items)
+       ========================================================================= -->
+  <aside class="sidebar" id="clientSidebar">
+    <a href="dashboard.html" class="sidebar-brand" style="cursor:pointer;text-decoration:none;">
+      <div class="logo-icon" style="background:linear-gradient(135deg,#3b82f6,#1d4ed8);border-radius:10px;">
+        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style="width:20px;height:20px;">
+          <path d="M4 21V9l8-6 8 6v12H4z" stroke="white" stroke-width="1.8" stroke-linejoin="round"/>
+          <path d="M9 21V12h6v9" stroke="white" stroke-width="1.8"/>
+          <path d="M12 3v4" stroke="white" stroke-width="1.8"/>
+        </svg>
+      </div>
+      <div class="brand-text">
+        <div class="t1" style="font-size:14px;font-weight:700;color:#ffffff;line-height:1.2;">Mall Kiosk Platform</div>
+        <div class="t2" style="font-size:11px;color:#94a3b8;font-weight:500;">Client Admin</div>
+      </div>
+    </a>
+
+    <!-- Navigation Items (Strict 8) -->
+    <ul class="sidebar-nav">
+      <li class="nav-item" onclick="location.href='dashboard.html'">
+        <i class="fa-solid fa-house"></i>
+        <span>Dashboard</span>
+      </li>
+      <li class="nav-item active" onclick="location.href='projects.html'">
+        <i class="fa-solid fa-folder-open"></i>
+        <span>Projects</span>
+      </li>
+      <li class="nav-item" onclick="location.href='project-content.html'">
+        <i class="fa-regular fa-file-lines"></i>
+        <span>Content</span>
+      </li>
+      <li class="nav-item" onclick="location.href='project-themes.html'">
+        <i class="fa-solid fa-palette"></i>
+        <span>Themes</span>
+      </li>
+      <li class="nav-item" onclick="location.href='project-advertisements.html'">
+        <i class="fa-solid fa-bullhorn"></i>
+        <span>Advertisements</span>
+      </li>
+      <li class="nav-item" onclick="location.href='project-analytics.html'">
+        <i class="fa-solid fa-chart-column"></i>
+        <span>Analytics</span>
+      </li>
+      <li class="nav-item" onclick="alert('Feedback Section: Opening Visitor & Shopper Feedback Overview...')">
+        <i class="fa-regular fa-comment-dots"></i>
+        <span>Feedback</span>
+      </li>
+      <li class="nav-item" onclick="alert('Requests Section: Opening Client Request Submission Portal...')">
+        <i class="fa-regular fa-clipboard"></i>
+        <span>Requests</span>
+      </li>
+    </ul>
+
+    <div class="sidebar-spacer"></div>
+
+    <!-- Collapse Toggle -->
+    <div class="sidebar-collapse-btn" onclick="toggleSidebarCollapse()" style="display:flex;align-items:center;gap:8px;padding:10px 12px;color:#94a3b8;font-size:13px;cursor:pointer;border-radius:8px;transition:all 0.2s ease;">
+      <i class="fa-solid fa-chevron-left" style="font-size:11px;"></i>
+      <span>Collapse</span>
+    </div>
+  </aside>
+
+  <!-- =========================================================================
+       MAIN WORKSPACE
+       ========================================================================= -->
+  <div class="main">
+
+    <!-- Topbar Header -->
+    <header class="topbar" style="background:#ffffff;border-bottom:1px solid var(--border);padding:14px 28px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:20;">
+      <div style="display:flex;align-items:center;gap:14px;">
+        <i class="fa-solid fa-bars hamburger" style="font-size:16px;color:var(--text-600);cursor:pointer;"></i>
+        <div>
+          <div style="font-size:12px;color:var(--text-500);display:flex;align-items:center;gap:6px;">
+            <a href="projects.html" style="color:var(--text-500);text-decoration:none;">Projects</a>
+            <i class="fa-solid fa-chevron-right" style="font-size:9px;color:var(--text-400);"></i>
+            <a href="project-overview.html" style="color:var(--text-500);text-decoration:none;">Phoenix Mall Project</a>
+            <i class="fa-solid fa-chevron-right" style="font-size:9px;color:var(--text-400);"></i>
+            <span style="color:var(--text-900);font-weight:600;">Themes</span>
+          </div>
+          <div style="display:flex;align-items:center;gap:10px;margin-top:2px;">
+            <h1 style="font-size:19px;font-weight:800;color:var(--text-900);margin:0;">Phoenix Mall Project</h1>
+            <span class="status-pill pill-active">Active</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Topbar Actions -->
+      <div style="display:flex;align-items:center;gap:16px;">
+        <!-- Date range selector pill -->
+        <div style="display:flex;align-items:center;gap:8px;background:#f8fafc;border:1px solid var(--border);border-radius:8px;padding:7px 12px;font-size:12.5px;font-weight:600;color:var(--text-700);cursor:pointer;">
+          <span>13 May – 19 May 2025</span>
+          <i class="fa-regular fa-calendar" style="color:var(--text-500);font-size:13px;"></i>
+        </div>
+
+        <!-- Notification Bell -->
+        <button style="position:relative;width:38px;height:38px;border-radius:8px;border:1px solid var(--border);background:#fff;display:flex;align-items:center;justify-content:center;cursor:pointer;">
+          <i class="fa-regular fa-bell" style="font-size:16px;color:var(--text-600);"></i>
+          <span style="position:absolute;top:3px;right:3px;background:#ef4444;color:#fff;font-size:9px;font-weight:700;border-radius:50%;width:15px;height:15px;display:flex;align-items:center;justify-content:center;">7</span>
+        </button>
+
+        <!-- User Profile (Phoenix Mall · Client Admin) -->
+        <div style="display:flex;align-items:center;gap:10px;cursor:pointer;">
+          <div style="width:36px;height:36px;border-radius:50%;background:#f3e8ff;color:#9333ea;font-weight:700;font-size:15px;display:flex;align-items:center;justify-content:center;border:1px solid #e9d5ff;">
+            <i class="fa-solid fa-building-circle-check"></i>
+          </div>
+          <div>
+            <div style="font-size:13.5px;font-weight:700;color:var(--text-900);line-height:1.2;">Phoenix Mall</div>
+            <div style="font-size:11px;color:var(--text-500);font-weight:500;">Client Admin</div>
+          </div>
+          <i class="fa-solid fa-chevron-down" style="font-size:10px;color:var(--text-400);margin-left:4px;"></i>
+        </div>
+      </div>
+    </header>
+
+    <!-- =========================================================================
+         PROJECT SUBNAV BAR (9 Project Tabs + Preview on Kiosk Button)
+         ========================================================================= -->
+    <div class="project-subnav-bar">
+      <nav class="project-subnav-tabs">
+        <a href="project-overview.html" class="project-subnav-tab" id="tabOverview"><i class="fa-solid fa-chart-pie"></i> Overview</a>
+        <a href="project-experience.html" class="project-subnav-tab" id="tabExperience"><i class="fa-solid fa-layer-group"></i> Experience</a>
+        <a href="project-content.html" class="project-subnav-tab" id="tabContent"><i class="fa-regular fa-file-lines"></i> Content</a>
+        <a href="project-themes.html" class="project-subnav-tab active" id="tabThemes"><i class="fa-solid fa-palette"></i> Themes</a>
+        <a href="project-advertisements.html" class="project-subnav-tab" id="tabAdvertisements"><i class="fa-solid fa-bullhorn"></i> Advertisements</a>
+        <a href="project-preview.html" class="project-subnav-tab" id="tabPreview"><i class="fa-solid fa-eye"></i> Preview</a>
+        <a href="project-analytics.html" class="project-subnav-tab" id="tabAnalytics"><i class="fa-solid fa-chart-column"></i> Analytics</a>
+        <a href="#" onclick="alert('Feedback Section: Opening Project Feedback...')" class="project-subnav-tab" id="tabFeedback"><i class="fa-regular fa-comment-dots"></i> Feedback</a>
+        <a href="#" onclick="alert('Requests Section: Opening Project Requests Queue...')" class="project-subnav-tab" id="tabRequests"><i class="fa-regular fa-clipboard"></i> Requests</a>
+      </nav>
+
+      <!-- Preview on Kiosk Button on Right -->
+      <a href="project-preview.html" id="btnPreviewOnKiosk" style="height:34px;padding:0 14px;border-radius:8px;border:1px solid #2563eb;background:#eff6ff;color:#2563eb;font-size:12px;font-weight:700;cursor:pointer;display:flex;align-items:center;gap:6px;text-decoration:none;">
+        <i class="fa-solid fa-desktop" style="font-size:11px;"></i>
+        <span>Preview on Kiosk</span>
+        <i class="fa-solid fa-chevron-down" style="font-size:9px;"></i>
+      </a>
+    </div>
+
+    <!-- Page Content Container -->
+    <div class="content" style="padding:22px 28px 40px 28px;background:#f8fafc;flex:1;">
+
+      <!-- =======================================================================
+           ROW 1: 5 THEME STATUS KPI SUMMARY CARDS
+           ======================================================================= -->
+      <div class="themes-kpi-grid">
+        
+        <!-- Total Themes -->
+        <div class="kpi-stat-box">
+          <div class="kpi-icon-square" style="background:#f5f3ff;color:#7c3aed;border:1px solid #ede9fe;">
+            <i class="fa-solid fa-rocket"></i>
+          </div>
+          <div>
+            <div style="font-size:11px;color:var(--text-500);font-weight:600;">Total Themes</div>
+            <div style="font-size:22px;font-weight:800;color:var(--text-900);line-height:1.2;">8</div>
+            <div style="font-size:10.5px;color:var(--text-500);font-weight:500;">Available themes</div>
+          </div>
+        </div>
+
+        <!-- Active Theme -->
+        <div class="kpi-stat-box">
+          <div class="kpi-icon-square" style="background:#f0fdf4;color:#16a34a;border:1px solid #dcfce7;">
+            <i class="fa-regular fa-circle-check"></i>
+          </div>
+          <div>
+            <div style="font-size:11px;color:var(--text-500);font-weight:600;">Active Theme</div>
+            <div style="font-size:18px;font-weight:800;color:var(--text-900);line-height:1.2;" id="kpiActiveThemeName">Summer 2025</div>
+            <div style="font-size:10.5px;color:#10b981;font-weight:600;">Currently applied</div>
+          </div>
+        </div>
+
+        <!-- Last Applied -->
+        <div class="kpi-stat-box">
+          <div class="kpi-icon-square" style="background:#eff6ff;color:#2563eb;border:1px solid #dbeafe;">
+            <i class="fa-regular fa-calendar"></i>
+          </div>
+          <div>
+            <div style="font-size:11px;color:var(--text-500);font-weight:600;">Last Applied</div>
+            <div style="font-size:18px;font-weight:800;color:var(--text-900);line-height:1.2;" id="kpiLastAppliedDate">18 May 2025</div>
+            <div style="font-size:10.5px;color:var(--text-500);font-weight:500;" id="kpiLastAppliedTime">10:15 AM</div>
+          </div>
+        </div>
+
+        <!-- Applied On Kiosks -->
+        <div class="kpi-stat-box">
+          <div class="kpi-icon-square" style="background:#fff7ed;color:#ea580c;border:1px solid #ffedd5;">
+            <i class="fa-solid fa-desktop"></i>
+          </div>
+          <div>
+            <div style="font-size:11px;color:var(--text-500);font-weight:600;">Applied On Kiosks</div>
+            <div style="font-size:22px;font-weight:800;color:var(--text-900);line-height:1.2;">12 / 12</div>
+            <div style="font-size:10.5px;color:#10b981;font-weight:600;">All kiosks updated</div>
+          </div>
+        </div>
+
+        <!-- Theme Impact -->
+        <div class="kpi-stat-box">
+          <div class="kpi-icon-square" style="background:#fdf2f8;color:#db2777;border:1px solid #fce7f3;">
+            <i class="fa-solid fa-chart-line"></i>
+          </div>
+          <div>
+            <div style="font-size:11px;color:var(--text-500);font-weight:600;">Theme Impact</div>
+            <div style="font-size:22px;font-weight:800;color:var(--text-900);line-height:1.2;">+18.6%</div>
+            <div style="font-size:10.5px;color:var(--text-500);font-weight:500;">Interactions vs last theme</div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- =======================================================================
+           ROW 2: MAIN 2-COLUMN SPLIT (Available Themes Table + Theme Details)
+           ======================================================================= -->
+      <div class="themes-main-split">
+        
+        <!-- Left: Available Themes Card -->
+        <div class="themes-table-card">
+          
+          <!-- Card Header + Controls -->
+          <div style="padding:16px 20px;border-bottom:1px solid var(--border-soft);display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;">
+            <h2 style="font-size:16px;font-weight:800;color:var(--text-900);margin:0;">Available Themes</h2>
+            
+            <button onclick="openRequestNewThemeModal()" style="height:32px;padding:0 14px;border-radius:8px;border:1px solid #2563eb;background:#fff;color:#2563eb;font-size:12px;font-weight:700;cursor:pointer;display:flex;align-items:center;gap:6px;">
+              <i class="fa-solid fa-plus" style="font-size:11px;"></i>
+              <span>Request New Theme</span>
+            </button>
+          </div>
+
+          <!-- Filter / Search Sub-Bar -->
+          <div style="padding:12px 20px;background:#f8fafc;border-bottom:1px solid var(--border-soft);display:flex;align-items:center;justify-content:space-between;gap:14px;flex-wrap:wrap;">
+            <!-- Search -->
+            <div style="position:relative;width:260px;">
+              <input type="text" id="searchThemesInput" onkeyup="filterThemesTable()" placeholder="Search themes..." style="width:100%;height:32px;padding:0 30px 0 10px;border-radius:6px;border:1px solid var(--border);font-size:12px;outline:none;background:#fff;">
+              <i class="fa-solid fa-magnifying-glass" style="position:absolute;right:10px;top:50%;transform:translateY(-50%);color:var(--text-400);font-size:11px;"></i>
+            </div>
+
+            <!-- Status & Sort Filters -->
+            <div style="display:flex;gap:8px;">
+              <select id="statusFilterSelect" onchange="filterThemesTable()" style="font-size:11.5px;padding:4px 10px;border-radius:6px;border:1px solid var(--border);background:#fff;outline:none;color:var(--text-700);">
+                <option value="All">All Status ▾</option>
+                <option value="Active">Active</option>
+                <option value="Inactive">Inactive</option>
+              </select>
+
+              <select style="font-size:11.5px;padding:4px 10px;border-radius:6px;border:1px solid var(--border);background:#fff;outline:none;color:var(--text-700);">
+                <option>Sort by: Latest ▾</option>
+                <option>Name (A-Z)</option>
+                <option>Recently Applied</option>
+              </select>
+            </div>
+          </div>
+
+          <!-- Table Body -->
+          <div style="overflow-x:auto;">
+            <table class="themes-table" id="themesDataTable">
+              <thead>
+                <tr>
+                  <th style="width:230px;">Theme</th>
+                  <th>Preview</th>
+                  <th>Status</th>
+                  <th>Applied On</th>
+                  <th>Kiosk Coverage</th>
+                  <th style="text-align:right;">Actions</th>
+                </tr>
+              </thead>
+              <tbody>
+                <!-- 1. Summer 2025 -->
+                <tr class="selected" onclick="selectThemeRow('summer-2025', this)" id="row-summer-2025">
+                  <td>
+                    <div style="display:flex;align-items:center;gap:10px;">
+                      <div style="width:40px;height:40px;border-radius:8px;background:linear-gradient(135deg,#06b6d4,#0284c7);display:flex;align-items:center;justify-content:center;color:#fff;font-size:15px;flex-shrink:0;">
+                        <i class="fa-solid fa-umbrella-beach"></i>
+                      </div>
+                      <div>
+                        <div style="font-weight:700;color:var(--text-900);font-size:12.5px;">Summer 2025</div>
+                        <div style="font-size:10.5px;color:var(--text-500);">Vibrant summer theme with fresh colors</div>
+                      </div>
+                    </div>
+                  </td>
+                  <td>
+                    <div class="mini-preview-strip">
+                      <div class="mini-screen-box" style="background:#0284c7;"><i class="fa-solid fa-house"></i></div>
+                      <div class="mini-screen-box" style="background:#0369a1;"><i class="fa-solid fa-table-cells"></i></div>
+                      <div class="mini-screen-box" style="background:#075985;"><i class="fa-solid fa-bullhorn"></i></div>
+                    </div>
+                  </td>
+                  <td><span class="status-pill pill-active" id="badge-summer-2025">Active</span></td>
+                  <td style="font-size:11px;color:var(--text-600);">18 May 2025<br><span style="color:var(--text-400);">10:15 AM</span></td>
+                  <td>
+                    <div style="font-size:11px;font-weight:700;color:var(--text-900);">
+                      <span id="cov-summer-2025">12 / 12</span> &nbsp;<span style="color:#10b981;">100%</span>
+                      <div class="coverage-track"><div class="coverage-fill" style="width:100%;"></div></div>
+                    </div>
+                  </td>
+                  <td style="text-align:right;">
+                    <div style="display:inline-flex;gap:6px;">
+                      <button style="border:none;background:transparent;color:var(--text-500);cursor:pointer;"><i class="fa-regular fa-eye"></i></button>
+                      <button style="border:none;background:transparent;color:var(--text-500);cursor:pointer;"><i class="fa-solid fa-ellipsis-vertical"></i></button>
+                    </div>
+                  </td>
+                </tr>
+
+                <!-- 2. Mall Default -->
+                <tr onclick="selectThemeRow('mall-default', this)" id="row-mall-default">
+                  <td>
+                    <div style="display:flex;align-items:center;gap:10px;">
+                      <div style="width:40px;height:40px;border-radius:8px;background:linear-gradient(135deg,#3b82f6,#1d4ed8);display:flex;align-items:center;justify-content:center;color:#fff;font-size:15px;flex-shrink:0;">
+                        <i class="fa-solid fa-building"></i>
+                      </div>
+                      <div>
+                        <div style="font-weight:700;color:var(--text-900);font-size:12.5px;">Mall Default</div>
+                        <div style="font-size:10.5px;color:var(--text-500);">Default corporate theme</div>
+                      </div>
+                    </div>
+                  </td>
+                  <td>
+                    <div class="mini-preview-strip">
+                      <div class="mini-screen-box" style="background:#2563eb;"><i class="fa-solid fa-house"></i></div>
+                      <div class="mini-screen-box" style="background:#1d4ed8;"><i class="fa-solid fa-table-cells"></i></div>
+                      <div class="mini-screen-box" style="background:#1e40af;"><i class="fa-solid fa-bullhorn"></i></div>
+                    </div>
+                  </td>
+                  <td><span class="status-pill pill-inactive" id="badge-mall-default">Inactive</span></td>
+                  <td style="font-size:11px;color:var(--text-600);">05 Apr 2025<br><span style="color:var(--text-400);">09:30 AM</span></td>
+                  <td>
+                    <div style="font-size:11px;color:var(--text-500);">
+                      <span id="cov-mall-default">0 / 12</span> &nbsp;0%
+                      <div class="coverage-track"><div class="coverage-fill" style="width:0%;"></div></div>
+                    </div>
+                  </td>
+                  <td style="text-align:right;">
+                    <div style="display:inline-flex;gap:6px;">
+                      <button style="border:none;background:transparent;color:var(--text-500);cursor:pointer;"><i class="fa-regular fa-eye"></i></button>
+                      <button style="border:none;background:transparent;color:var(--text-500);cursor:pointer;"><i class="fa-solid fa-ellipsis-vertical"></i></button>
+                    </div>
+                  </td>
+                </tr>
+
+                <!-- 3. Diwali 2024 -->
+                <tr onclick="selectThemeRow('diwali-2024', this)" id="row-diwali-2024">
+                  <td>
+                    <div style="display:flex;align-items:center;gap:10px;">
+                      <div style="width:40px;height:40px;border-radius:8px;background:linear-gradient(135deg,#f59e0b,#b45309);display:flex;align-items:center;justify-content:center;color:#fff;font-size:15px;flex-shrink:0;">
+                        <i class="fa-solid fa-fire"></i>
+                      </div>
+                      <div>
+                        <div style="font-weight:700;color:var(--text-900);font-size:12.5px;">Diwali 2024</div>
+                        <div style="font-size:10.5px;color:var(--text-500);">Festive Diwali celebration theme</div>
+                      </div>
+                    </div>
+                  </td>
+                  <td>
+                    <div class="mini-preview-strip">
+                      <div class="mini-screen-box" style="background:#d97706;"><i class="fa-solid fa-house"></i></div>
+                      <div class="mini-screen-box" style="background:#b45309;"><i class="fa-solid fa-table-cells"></i></div>
+                      <div class="mini-screen-box" style="background:#78350f;"><i class="fa-solid fa-bullhorn"></i></div>
+                    </div>
+                  </td>
+                  <td><span class="status-pill pill-inactive" id="badge-diwali-2024">Inactive</span></td>
+                  <td style="font-size:11px;color:var(--text-600);">28 Oct 2024<br><span style="color:var(--text-400);">11:20 AM</span></td>
+                  <td>
+                    <div style="font-size:11px;color:var(--text-500);">
+                      <span id="cov-diwali-2024">0 / 12</span> &nbsp;0%
+                      <div class="coverage-track"><div class="coverage-fill" style="width:0%;"></div></div>
+                    </div>
+                  </td>
+                  <td style="text-align:right;">
+                    <div style="display:inline-flex;gap:6px;">
+                      <button style="border:none;background:transparent;color:var(--text-500);cursor:pointer;"><i class="fa-regular fa-eye"></i></button>
+                      <button style="border:none;background:transparent;color:var(--text-500);cursor:pointer;"><i class="fa-solid fa-ellipsis-vertical"></i></button>
+                    </div>
+                  </td>
+                </tr>
+
+                <!-- 4. New Year 2025 -->
+                <tr onclick="selectThemeRow('new-year-2025', this)" id="row-new-year-2025">
+                  <td>
+                    <div style="display:flex;align-items:center;gap:10px;">
+                      <div style="width:40px;height:40px;border-radius:8px;background:linear-gradient(135deg,#8b5cf6,#6d28d9);display:flex;align-items:center;justify-content:center;color:#fff;font-size:15px;flex-shrink:0;">
+                        <i class="fa-solid fa-champagne-glasses"></i>
+                      </div>
+                      <div>
+                        <div style="font-weight:700;color:var(--text-900);font-size:12.5px;">New Year 2025</div>
+                        <div style="font-size:10.5px;color:var(--text-500);">New year celebration theme</div>
+                      </div>
+                    </div>
+                  </td>
+                  <td>
+                    <div class="mini-preview-strip">
+                      <div class="mini-screen-box" style="background:#7c3aed;"><i class="fa-solid fa-house"></i></div>
+                      <div class="mini-screen-box" style="background:#6d28d9;"><i class="fa-solid fa-table-cells"></i></div>
+                      <div class="mini-screen-box" style="background:#4c1d95;"><i class="fa-solid fa-bullhorn"></i></div>
+                    </div>
+                  </td>
+                  <td><span class="status-pill pill-inactive" id="badge-new-year-2025">Inactive</span></td>
+                  <td style="font-size:11px;color:var(--text-600);">20 Dec 2024<br><span style="color:var(--text-400);">02:45 PM</span></td>
+                  <td>
+                    <div style="font-size:11px;color:var(--text-500);">
+                      <span id="cov-new-year-2025">0 / 12</span> &nbsp;0%
+                      <div class="coverage-track"><div class="coverage-fill" style="width:0%;"></div></div>
+                    </div>
+                  </td>
+                  <td style="text-align:right;">
+                    <div style="display:inline-flex;gap:6px;">
+                      <button style="border:none;background:transparent;color:var(--text-500);cursor:pointer;"><i class="fa-regular fa-eye"></i></button>
+                      <button style="border:none;background:transparent;color:var(--text-500);cursor:pointer;"><i class="fa-solid fa-ellipsis-vertical"></i></button>
+                    </div>
+                  </td>
+                </tr>
+
+                <!-- 5. Monsoon Vibes -->
+                <tr onclick="selectThemeRow('monsoon-vibes', this)" id="row-monsoon-vibes">
+                  <td>
+                    <div style="display:flex;align-items:center;gap:10px;">
+                      <div style="width:40px;height:40px;border-radius:8px;background:linear-gradient(135deg,#059669,#047857);display:flex;align-items:center;justify-content:center;color:#fff;font-size:15px;flex-shrink:0;">
+                        <i class="fa-solid fa-cloud-showers-heavy"></i>
+                      </div>
+                      <div>
+                        <div style="font-weight:700;color:var(--text-900);font-size:12.5px;">Monsoon Vibes</div>
+                        <div style="font-size:10.5px;color:var(--text-500);">Fresh monsoon theme</div>
+                      </div>
+                    </div>
+                  </td>
+                  <td>
+                    <div class="mini-preview-strip">
+                      <div class="mini-screen-box" style="background:#059669;"><i class="fa-solid fa-house"></i></div>
+                      <div class="mini-screen-box" style="background:#047857;"><i class="fa-solid fa-table-cells"></i></div>
+                      <div class="mini-screen-box" style="background:#064e3b;"><i class="fa-solid fa-bullhorn"></i></div>
+                    </div>
+                  </td>
+                  <td><span class="status-pill pill-inactive" id="badge-monsoon-vibes">Inactive</span></td>
+                  <td style="font-size:11px;color:var(--text-600);">15 Jul 2024<br><span style="color:var(--text-400);">01:10 PM</span></td>
+                  <td>
+                    <div style="font-size:11px;color:var(--text-500);">
+                      <span id="cov-monsoon-vibes">0 / 12</span> &nbsp;0%
+                      <div class="coverage-track"><div class="coverage-fill" style="width:0%;"></div></div>
+                    </div>
+                  </td>
+                  <td style="text-align:right;">
+                    <div style="display:inline-flex;gap:6px;">
+                      <button style="border:none;background:transparent;color:var(--text-500);cursor:pointer;"><i class="fa-regular fa-eye"></i></button>
+                      <button style="border:none;background:transparent;color:var(--text-500);cursor:pointer;"><i class="fa-solid fa-ellipsis-vertical"></i></button>
+                    </div>
+                  </td>
+                </tr>
+
+                <!-- 6. Valentine 2024 -->
+                <tr onclick="selectThemeRow('valentine-2024', this)" id="row-valentine-2024">
+                  <td>
+                    <div style="display:flex;align-items:center;gap:10px;">
+                      <div style="width:40px;height:40px;border-radius:8px;background:linear-gradient(135deg,#e11d48,#be123c);display:flex;align-items:center;justify-content:center;color:#fff;font-size:15px;flex-shrink:0;">
+                        <i class="fa-solid fa-heart"></i>
+                      </div>
+                      <div>
+                        <div style="font-weight:700;color:var(--text-900);font-size:12.5px;">Valentine 2024</div>
+                        <div style="font-size:10.5px;color:var(--text-500);">Valentine's special theme</div>
+                      </div>
+                    </div>
+                  </td>
+                  <td>
+                    <div class="mini-preview-strip">
+                      <div class="mini-screen-box" style="background:#e11d48;"><i class="fa-solid fa-house"></i></div>
+                      <div class="mini-screen-box" style="background:#be123c;"><i class="fa-solid fa-table-cells"></i></div>
+                      <div class="mini-screen-box" style="background:#9f1239;"><i class="fa-solid fa-bullhorn"></i></div>
+                    </div>
+                  </td>
+                  <td><span class="status-pill pill-inactive" id="badge-valentine-2024">Inactive</span></td>
+                  <td style="font-size:11px;color:var(--text-600);">10 Feb 2024<br><span style="color:var(--text-400);">04:30 PM</span></td>
+                  <td>
+                    <div style="font-size:11px;color:var(--text-500);">
+                      <span id="cov-valentine-2024">0 / 12</span> &nbsp;0%
+                      <div class="coverage-track"><div class="coverage-fill" style="width:0%;"></div></div>
+                    </div>
+                  </td>
+                  <td style="text-align:right;">
+                    <div style="display:inline-flex;gap:6px;">
+                      <button style="border:none;background:transparent;color:var(--text-500);cursor:pointer;"><i class="fa-regular fa-eye"></i></button>
+                      <button style="border:none;background:transparent;color:var(--text-500);cursor:pointer;"><i class="fa-solid fa-ellipsis-vertical"></i></button>
+                    </div>
+                  </td>
+                </tr>
+
+                <!-- 7. Christmas 2024 -->
+                <tr onclick="selectThemeRow('christmas-2024', this)" id="row-christmas-2024">
+                  <td>
+                    <div style="display:flex;align-items:center;gap:10px;">
+                      <div style="width:40px;height:40px;border-radius:8px;background:linear-gradient(135deg,#15803d,#166534);display:flex;align-items:center;justify-content:center;color:#fff;font-size:15px;flex-shrink:0;">
+                        <i class="fa-solid fa-tree"></i>
+                      </div>
+                      <div>
+                        <div style="font-weight:700;color:var(--text-900);font-size:12.5px;">Christmas 2024</div>
+                        <div style="font-size:10.5px;color:var(--text-500);">Christmas celebration theme</div>
+                      </div>
+                    </div>
+                  </td>
+                  <td>
+                    <div class="mini-preview-strip">
+                      <div class="mini-screen-box" style="background:#15803d;"><i class="fa-solid fa-house"></i></div>
+                      <div class="mini-screen-box" style="background:#166534;"><i class="fa-solid fa-table-cells"></i></div>
+                      <div class="mini-screen-box" style="background:#14532d;"><i class="fa-solid fa-bullhorn"></i></div>
+                    </div>
+                  </td>
+                  <td><span class="status-pill pill-inactive" id="badge-christmas-2024">Inactive</span></td>
+                  <td style="font-size:11px;color:var(--text-600);">05 Dec 2023<br><span style="color:var(--text-400);">09:00 AM</span></td>
+                  <td>
+                    <div style="font-size:11px;color:var(--text-500);">
+                      <span id="cov-christmas-2024">0 / 12</span> &nbsp;0%
+                      <div class="coverage-track"><div class="coverage-fill" style="width:0%;"></div></div>
+                    </div>
+                  </td>
+                  <td style="text-align:right;">
+                    <div style="display:inline-flex;gap:6px;">
+                      <button style="border:none;background:transparent;color:var(--text-500);cursor:pointer;"><i class="fa-regular fa-eye"></i></button>
+                      <button style="border:none;background:transparent;color:var(--text-500);cursor:pointer;"><i class="fa-solid fa-ellipsis-vertical"></i></button>
+                    </div>
+                  </td>
+                </tr>
+
+                <!-- 8. Blue Elegance -->
+                <tr onclick="selectThemeRow('blue-elegance', this)" id="row-blue-elegance">
+                  <td>
+                    <div style="display:flex;align-items:center;gap:10px;">
+                      <div style="width:40px;height:40px;border-radius:8px;background:linear-gradient(135deg,#1e293b,#0f172a);display:flex;align-items:center;justify-content:center;color:#fff;font-size:15px;flex-shrink:0;">
+                        <i class="fa-solid fa-gem"></i>
+                      </div>
+                      <div>
+                        <div style="font-weight:700;color:var(--text-900);font-size:12.5px;">Blue Elegance</div>
+                        <div style="font-size:10.5px;color:var(--text-500);">Elegant blue corporate theme</div>
+                      </div>
+                    </div>
+                  </td>
+                  <td>
+                    <div class="mini-preview-strip">
+                      <div class="mini-screen-box" style="background:#1e293b;"><i class="fa-solid fa-house"></i></div>
+                      <div class="mini-screen-box" style="background:#0f172a;"><i class="fa-solid fa-table-cells"></i></div>
+                      <div class="mini-screen-box" style="background:#020617;"><i class="fa-solid fa-bullhorn"></i></div>
+                    </div>
+                  </td>
+                  <td><span class="status-pill pill-inactive" id="badge-blue-elegance">Inactive</span></td>
+                  <td style="font-size:11px;color:var(--text-600);">18 Sep 2023<br><span style="color:var(--text-400);">10:05 AM</span></td>
+                  <td>
+                    <div style="font-size:11px;color:var(--text-500);">
+                      <span id="cov-blue-elegance">0 / 12</span> &nbsp;0%
+                      <div class="coverage-track"><div class="coverage-fill" style="width:0%;"></div></div>
+                    </div>
+                  </td>
+                  <td style="text-align:right;">
+                    <div style="display:inline-flex;gap:6px;">
+                      <button style="border:none;background:transparent;color:var(--text-500);cursor:pointer;"><i class="fa-regular fa-eye"></i></button>
+                      <button style="border:none;background:transparent;color:var(--text-500);cursor:pointer;"><i class="fa-solid fa-ellipsis-vertical"></i></button>
+                    </div>
+                  </td>
+                </tr>
+
+              </tbody>
+            </table>
+          </div>
+
+          <!-- Pagination Footer -->
+          <div style="padding:14px 20px;border-top:1px solid var(--border-soft);display:flex;align-items:center;justify-content:space-between;font-size:11.5px;color:var(--text-500);">
+            <div>Showing 1 to 8 of 8 themes</div>
+            <div style="display:flex;gap:4px;">
+              <button style="width:28px;height:28px;border-radius:6px;border:1px solid var(--border);background:#fff;cursor:pointer;color:var(--text-500);"><i class="fa-solid fa-chevron-left" style="font-size:10px;"></i></button>
+              <button style="width:28px;height:28px;border-radius:6px;border:none;background:#2563eb;color:#fff;font-weight:700;cursor:pointer;">1</button>
+              <button style="width:28px;height:28px;border-radius:6px;border:1px solid var(--border);background:#fff;cursor:pointer;color:var(--text-500);"><i class="fa-solid fa-chevron-right" style="font-size:10px;"></i></button>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Right: Theme Details & Quick Actions Panel -->
+        <div style="display:flex;flex-direction:column;gap:16px;">
+          
+          <!-- Theme Details Card -->
+          <div class="theme-details-card" style="padding:18px 20px;">
+            <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;">
+              <h3 style="font-size:15px;font-weight:800;color:var(--text-900);margin:0;">Theme Details</h3>
+              <button id="btnApplyThemeAction" onclick="promptApplyTheme()" style="height:32px;padding:0 14px;border-radius:8px;border:none;background:#2563eb;color:#fff;font-size:12px;font-weight:700;cursor:pointer;box-shadow:0 2px 4px rgba(37,99,235,0.2);">
+                Apply Theme
+              </button>
+            </div>
+
+            <!-- 4-Screen Visual Preview Mock Grid -->
+            <div class="theme-preview-grid" id="themeVisualPreviewGrid">
+              <div class="theme-screen-thumb" style="background:linear-gradient(180deg,#0284c7 0%,#0369a1 100%);display:flex;flex-direction:column;align-items:center;justify-content:center;color:#fff;font-size:10px;text-align:center;padding:6px;">
+                <i class="fa-solid fa-house" style="font-size:14px;margin-bottom:4px;"></i>
+                <div style="font-weight:700;">Home</div>
+              </div>
+              <div class="theme-screen-thumb" style="background:linear-gradient(180deg,#0369a1 0%,#075985 100%);display:flex;flex-direction:column;align-items:center;justify-content:center;color:#fff;font-size:10px;text-align:center;padding:6px;">
+                <i class="fa-solid fa-table-cells" style="font-size:14px;margin-bottom:4px;"></i>
+                <div style="font-weight:700;">Directory</div>
+              </div>
+              <div class="theme-screen-thumb" style="background:linear-gradient(180deg,#075985 0%,#0c4a6e 100%);display:flex;flex-direction:column;align-items:center;justify-content:center;color:#fff;font-size:10px;text-align:center;padding:6px;">
+                <i class="fa-solid fa-bullhorn" style="font-size:14px;margin-bottom:4px;"></i>
+                <div style="font-weight:700;">Promotions</div>
+              </div>
+              <div class="theme-screen-thumb" style="background:linear-gradient(180deg,#0284c7 0%,#0c4a6e 100%);display:flex;flex-direction:column;align-items:center;justify-content:center;color:#fff;font-size:10px;text-align:center;padding:6px;">
+                <i class="fa-solid fa-location-dot" style="font-size:14px;margin-bottom:4px;"></i>
+                <div style="font-weight:700;">Wayfinding</div>
+              </div>
+            </div>
+
+            <!-- Metadata Info -->
+            <div style="display:flex;flex-direction:column;gap:10px;font-size:12px;">
+              <div>
+                <div style="color:var(--text-500);font-size:11px;font-weight:600;">Theme Name</div>
+                <div style="font-weight:700;color:var(--text-900);font-size:13px;" id="dtThemeName">Summer 2025</div>
+              </div>
+              <div>
+                <div style="color:var(--text-500);font-size:11px;font-weight:600;">Theme Description</div>
+                <div style="color:var(--text-600);line-height:1.4;margin-top:2px;" id="dtThemeDesc">
+                  Vibrant summer theme with fresh colors, modern typography, and engaging visuals.
+                </div>
+              </div>
+              <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;">
+                <div>
+                  <div style="color:var(--text-500);font-size:11px;font-weight:600;">Designed By</div>
+                  <div style="font-weight:700;color:#2563eb;">Company Admin</div>
+                </div>
+                <div>
+                  <div style="color:var(--text-500);font-size:11px;font-weight:600;">Created On</div>
+                  <div style="font-weight:700;color:var(--text-900);">10 May 2025</div>
+                </div>
+              </div>
+              <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;">
+                <div>
+                  <div style="color:var(--text-500);font-size:11px;font-weight:600;">Last Updated</div>
+                  <div style="font-weight:700;color:var(--text-900);">15 May 2025</div>
+                </div>
+                <div>
+                  <div style="color:var(--text-500);font-size:11px;font-weight:600;">Status</div>
+                  <span class="status-pill pill-active" id="dtThemeStatus">Active</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Theme Impact (vs last theme) -->
+            <div style="margin-top:14px;padding-top:12px;border-top:1px solid var(--border-soft);">
+              <div style="font-size:11px;font-weight:700;color:var(--text-500);text-transform:uppercase;margin-bottom:8px;">Theme Impact (vs last theme)</div>
+              <div style="display:grid;grid-template-columns:repeat(4, 1fr);gap:6px;text-align:center;background:#f8fafc;padding:10px 6px;border-radius:8px;border:1px solid var(--border-soft);">
+                <div>
+                  <div style="font-size:9.5px;color:var(--text-500);">Visitors</div>
+                  <div style="font-size:12px;font-weight:800;color:#10b981;">+16.4% ↑</div>
+                </div>
+                <div>
+                  <div style="font-size:9.5px;color:var(--text-500);">Interactions</div>
+                  <div style="font-size:12px;font-weight:800;color:#10b981;">+18.6% ↑</div>
+                </div>
+                <div>
+                  <div style="font-size:9.5px;color:var(--text-500);">Avg. Session</div>
+                  <div style="font-size:12px;font-weight:800;color:#10b981;">+12.3% ↑</div>
+                </div>
+                <div>
+                  <div style="font-size:9.5px;color:var(--text-500);">Satisfaction</div>
+                  <div style="font-size:12px;font-weight:800;color:#f59e0b;">+0.3 ⭐</div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+
+          <!-- Quick Actions Panel -->
+          <div style="background:#ffffff;border:1px solid var(--border);border-radius:14px;padding:18px 20px;box-shadow:0 1px 3px rgba(0,0,0,0.04);">
+            <h3 style="font-size:14px;font-weight:800;color:var(--text-900);margin:0 0 12px 0;">Quick Actions</h3>
+            
+            <!-- 1. Preview on Kiosk -->
+            <a href="project-preview.html" class="quick-action-row" id="qaPreviewKiosk">
+              <div style="width:32px;height:32px;border-radius:8px;background:#eff6ff;color:#2563eb;display:flex;align-items:center;justify-content:center;font-size:13px;flex-shrink:0;">
+                <i class="fa-solid fa-desktop"></i>
+              </div>
+              <div style="flex:1;">
+                <div style="font-size:12.5px;font-weight:700;color:var(--text-900);">Preview on Kiosk</div>
+                <div style="font-size:10.5px;color:var(--text-500);">See how it looks on kiosk</div>
+              </div>
+            </a>
+
+            <!-- 2. View Theme Analytics -->
+            <a href="project-analytics.html" class="quick-action-row" id="qaThemeAnalytics">
+              <div style="width:32px;height:32px;border-radius:8px;background:#f5f3ff;color:#7c3aed;display:flex;align-items:center;justify-content:center;font-size:13px;flex-shrink:0;">
+                <i class="fa-solid fa-chart-column"></i>
+              </div>
+              <div style="flex:1;">
+                <div style="font-size:12.5px;font-weight:700;color:var(--text-900);">View Theme Analytics</div>
+                <div style="font-size:10.5px;color:var(--text-500);">Performance and usage</div>
+              </div>
+            </a>
+
+            <!-- 3. View Applied Screens -->
+            <a href="#" onclick="alert('Applied Screens: 26 / 26 interactive screens in Phoenix Mall Project currently utilizing the theme palette.')" class="quick-action-row" id="qaAppliedScreens">
+              <div style="width:32px;height:32px;border-radius:8px;background:#f0fdf4;color:#16a34a;display:flex;align-items:center;justify-content:center;font-size:13px;flex-shrink:0;">
+                <i class="fa-solid fa-tablet-screen-button"></i>
+              </div>
+              <div style="flex:1;">
+                <div style="font-size:12.5px;font-weight:700;color:var(--text-900);">View Applied Screens</div>
+                <div style="font-size:10.5px;color:var(--text-500);">Screens using this theme</div>
+              </div>
+            </a>
+
+            <!-- 4. Request Theme Change -->
+            <a href="#" onclick="openRequestThemeChangeModal()" class="quick-action-row" id="qaRequestThemeChange">
+              <div style="width:32px;height:32px;border-radius:8px;background:#eff6ff;color:#2563eb;display:flex;align-items:center;justify-content:center;font-size:13px;flex-shrink:0;">
+                <i class="fa-solid fa-paper-plane"></i>
+              </div>
+              <div style="flex:1;">
+                <div style="font-size:12.5px;font-weight:700;color:var(--text-900);">Request Theme Change</div>
+                <div style="font-size:10.5px;color:var(--text-500);">Request modifications or new theme</div>
+              </div>
+            </a>
+
+          </div>
+
+        </div>
+
+      </div>
+
+      <!-- =======================================================================
+           ROW 3: BOTTOM 2-COLUMN SPLIT (Recently Applied Themes + Theme Notes)
+           ======================================================================= -->
+      <div class="themes-row-2col">
+        
+        <!-- Column 1: Recently Applied Themes -->
+        <div class="dash-panel">
+          <div class="dash-panel-header">
+            <h2 class="dash-panel-title">Recently Applied Themes</h2>
+            <a href="#" onclick="alert('History: Viewing complete historical theme application log.')" class="dash-panel-link">View All History ></a>
+          </div>
+          <div class="dash-panel-body" style="display:flex;flex-direction:column;gap:10px;" id="themeHistoryContainer">
+            <div class="activity-row">
+              <i class="fa-regular fa-circle-check" style="color:#10b981;font-size:14px;width:20px;"></i>
+              <div style="flex:1;display:flex;align-items:center;justify-content:space-between;font-size:12px;">
+                <span style="color:var(--text-900);font-weight:700;" id="histTopTheme">Summer 2025 applied</span>
+                <span style="color:var(--text-500);font-size:11px;" id="histTopDate">18 May 2025, 10:15 AM</span>
+              </div>
+            </div>
+
+            <div class="activity-row">
+              <i class="fa-solid fa-clock-rotate-left" style="color:#3b82f6;font-size:13px;width:20px;"></i>
+              <div style="flex:1;display:flex;align-items:center;justify-content:space-between;font-size:12px;">
+                <span style="color:var(--text-700);font-weight:600;">Mall Default applied</span>
+                <span style="color:var(--text-500);font-size:11px;">05 Apr 2025, 09:30 AM</span>
+              </div>
+            </div>
+
+            <div class="activity-row">
+              <i class="fa-solid fa-clock-rotate-left" style="color:#3b82f6;font-size:13px;width:20px;"></i>
+              <div style="flex:1;display:flex;align-items:center;justify-content:space-between;font-size:12px;">
+                <span style="color:var(--text-700);font-weight:600;">Diwali 2024 applied</span>
+                <span style="color:var(--text-500);font-size:11px;">28 Oct 2024, 11:20 AM</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Column 2: Theme Notes -->
+        <div class="dash-panel">
+          <div class="dash-panel-header">
+            <h2 class="dash-panel-title">Theme Notes</h2>
+            <a href="#" onclick="alert('Requests: Opening Client Request Portal for themes...')" class="dash-panel-link">Go to Requests ></a>
+          </div>
+          <div class="dash-panel-body" style="font-size:12px;color:var(--text-600);line-height:1.5;display:flex;flex-direction:column;justify-content:space-between;">
+            <div>
+              <p style="margin:0 0 10px 0;">
+                Themes are designed and managed by <strong>Company Admin</strong>.
+              </p>
+              <p style="margin:0 0 10px 0;">
+                You can preview available themes and apply them to your project.
+              </p>
+              <p style="margin:0;">
+                For any custom theme requirements or modifications, please submit a request.
+              </p>
+            </div>
+
+            <div style="background:#eff6ff;border:1px solid #bfdbfe;border-radius:8px;padding:8px 12px;margin-top:14px;font-size:11px;color:#1e40af;display:flex;align-items:center;gap:8px;">
+              <i class="fa-solid fa-circle-info"></i>
+              <span>Select & apply authorized themes instantly · Custom changes designed by Company</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+
+    <!-- Client Footer -->
+    <footer style="padding:16px 28px;background:#ffffff;border-top:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;font-size:12px;color:var(--text-500);">
+      <div>© 2025 Mall Kiosk Platform. All rights reserved.</div>
+      <div style="display:flex;gap:18px;">
+        <span>Client Admin Portal</span>
+        <span>Phoenix Mall Theme Selector</span>
+      </div>
+    </footer>
+
+  </div>
+</div>
+
+<!-- ===========================================================================
+     CONFIRMATION & REQUEST MODALS
+     =========================================================================== -->
+<!-- Apply Theme Confirmation Modal -->
+<div class="modal-backdrop" id="applyThemeModal">
+  <div class="modal-box">
+    <div style="padding:18px 24px;border-bottom:1px solid var(--border-soft);display:flex;align-items:center;justify-content:space-between;">
+      <h3 style="font-size:16px;font-weight:800;color:var(--text-900);margin:0;">Apply Theme Confirmation</h3>
+      <i class="fa-solid fa-xmark" style="cursor:pointer;color:var(--text-400);" onclick="closeApplyModal()"></i>
+    </div>
+    <div style="padding:20px 24px;">
+      <div style="display:flex;gap:14px;align-items:flex-start;">
+        <div style="width:44px;height:44px;border-radius:10px;background:#eff6ff;color:#2563eb;display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0;">
+          <i class="fa-solid fa-palette"></i>
+        </div>
+        <div>
+          <h4 style="font-size:14px;font-weight:700;color:var(--text-900);margin:0 0 6px 0;" id="modalThemeTitle">Apply "New Year 2025"?</h4>
+          <p style="font-size:12px;color:var(--text-600);margin:0;line-height:1.4;">
+            This will update the visual appearance of all <strong style="color:var(--text-900);">12 Kiosks</strong> in <strong style="color:var(--text-900);">Phoenix Mall Project</strong> to the selected theme immediately.
+          </p>
+        </div>
+      </div>
+    </div>
+    <div style="padding:14px 24px;background:#f8fafc;border-top:1px solid var(--border-soft);display:flex;justify-content:flex-end;gap:10px;">
+      <button onclick="closeApplyModal()" style="height:34px;padding:0 14px;border-radius:8px;border:1px solid var(--border);background:#fff;color:var(--text-700);font-size:12px;font-weight:600;cursor:pointer;">Cancel</button>
+      <button onclick="confirmApplyTheme()" id="btnConfirmApply" style="height:34px;padding:0 18px;border-radius:8px;border:none;background:#2563eb;color:#fff;font-size:12px;font-weight:700;cursor:pointer;box-shadow:0 2px 4px rgba(37,99,235,0.2);">Apply Theme</button>
+    </div>
+  </div>
+</div>
+
+<!-- ===========================================================================
+     JAVASCRIPT LOGIC
+     =========================================================================== -->
+<script>
+  const themesData = {
+    'summer-2025': {
+      id: 'summer-2025',
+      name: 'Summer 2025',
+      desc: 'Vibrant summer theme with fresh colors, modern typography, and engaging visuals.',
+      status: 'Active',
+      created: '10 May 2025',
+      updated: '15 May 2025',
+      gradient: 'linear-gradient(180deg,#0284c7 0%,#0369a1 100%)'
+    },
+    'mall-default': {
+      id: 'mall-default',
+      name: 'Mall Default',
+      desc: 'Default corporate theme with clean blue palette, minimal lines, and high-readability typography.',
+      status: 'Inactive',
+      created: '01 Apr 2025',
+      updated: '05 Apr 2025',
+      gradient: 'linear-gradient(180deg,#2563eb 0%,#1d4ed8 100%)'
+    },
+    'diwali-2024': {
+      id: 'diwali-2024',
+      name: 'Diwali 2024',
+      desc: 'Festive Diwali celebration theme with warm golden tones, festive decorative motifs, and celebratory hero banners.',
+      status: 'Inactive',
+      created: '15 Oct 2024',
+      updated: '28 Oct 2024',
+      gradient: 'linear-gradient(180deg,#d97706 0%,#b45309 100%)'
+    },
+    'new-year-2025': {
+      id: 'new-year-2025',
+      name: 'New Year 2025',
+      desc: 'New year celebration theme with sleek purple hues, sparkling festive accents, and champagne celebration banners.',
+      status: 'Inactive',
+      created: '10 Dec 2024',
+      updated: '20 Dec 2024',
+      gradient: 'linear-gradient(180deg,#7c3aed 0%,#6d28d9 100%)'
+    },
+    'monsoon-vibes': {
+      id: 'monsoon-vibes',
+      name: 'Monsoon Vibes',
+      desc: 'Fresh monsoon theme featuring calming emerald gradients, water drop aesthetics, and cool indoor dining highlights.',
+      status: 'Inactive',
+      created: '01 Jul 2024',
+      updated: '15 Jul 2024',
+      gradient: 'linear-gradient(180deg,#059669 0%,#047857 100%)'
+    },
+    'valentine-2024': {
+      id: 'valentine-2024',
+      name: 'Valentine 2024',
+      desc: 'Valentine special romantic retail theme with soft rose and ruby accents, gift store highlights, and couple dining cards.',
+      status: 'Inactive',
+      created: '01 Feb 2024',
+      updated: '10 Feb 2024',
+      gradient: 'linear-gradient(180deg,#e11d48 0%,#be123c 100%)'
+    },
+    'christmas-2024': {
+      id: 'christmas-2024',
+      name: 'Christmas 2024',
+      desc: 'Christmas celebration holiday theme with pine green accents, snowy holiday patterns, and winter sale hero slots.',
+      status: 'Inactive',
+      created: '20 Nov 2023',
+      updated: '05 Dec 2023',
+      gradient: 'linear-gradient(180deg,#15803d 0%,#166534 100%)'
+    },
+    'blue-elegance': {
+      id: 'blue-elegance',
+      name: 'Blue Elegance',
+      desc: 'Elegant blue corporate theme tailored for luxury flagship stores, VIP concierges, and premier boutique navigation.',
+      status: 'Inactive',
+      created: '01 Sep 2023',
+      updated: '18 Sep 2023',
+      gradient: 'linear-gradient(180deg,#1e293b 0%,#0f172a 100%)'
+    }
+  };
+
+  let selectedThemeKey = 'summer-2025';
+  let activeThemeKey = 'summer-2025';
+
+  function selectThemeRow(key, rowEl) {
+    document.querySelectorAll('#themesDataTable tbody tr').forEach(r => r.classList.remove('selected'));
+    if (rowEl) rowEl.classList.add('selected');
+    selectedThemeKey = key;
+
+    const data = themesData[key];
+    if (!data) return;
+
+    document.getElementById('dtThemeName').innerText = data.name;
+    document.getElementById('dtThemeDesc').innerText = data.desc;
+    
+    const isAct = (key === activeThemeKey);
+    const statusEl = document.getElementById('dtThemeStatus');
+    statusEl.className = isAct ? 'status-pill pill-active' : 'status-pill pill-inactive';
+    statusEl.innerText = isAct ? 'Active' : 'Inactive';
+
+    const btn = document.getElementById('btnApplyThemeAction');
+    if (isAct) {
+      btn.innerText = 'Applied';
+      btn.style.background = '#10b981';
+      btn.disabled = true;
+    } else {
+      btn.innerText = 'Apply Theme';
+      btn.style.background = '#2563eb';
+      btn.disabled = false;
+    }
+
+    // Update preview screens
+    const thumbs = document.querySelectorAll('#themeVisualPreviewGrid .theme-screen-thumb');
+    thumbs.forEach(t => {
+      t.style.background = data.gradient;
+    });
+  }
+
+  function promptApplyTheme() {
+    if (selectedThemeKey === activeThemeKey) return;
+    const data = themesData[selectedThemeKey];
+    document.getElementById('modalThemeTitle').innerText = `Apply "${data.name}"?`;
+    document.getElementById('applyThemeModal').style.display = 'flex';
+  }
+
+  function closeApplyModal() {
+    document.getElementById('applyThemeModal').style.display = 'none';
+  }
+
+  function confirmApplyTheme() {
+    const data = themesData[selectedThemeKey];
+    if (!data) return;
+
+    // Reset previous active in table
+    const prevBadge = document.getElementById(`badge-${activeThemeKey}`);
+    if (prevBadge) {
+      prevBadge.className = 'status-pill pill-inactive';
+      prevBadge.innerText = 'Inactive';
+    }
+    const prevCov = document.getElementById(`cov-${activeThemeKey}`);
+    if (prevCov) {
+      prevCov.innerHTML = `0 / 12 &nbsp;0%<div class="coverage-track"><div class="coverage-fill" style="width:0%;"></div></div>`;
+    }
+
+    // Set new active
+    activeThemeKey = selectedThemeKey;
+    const newBadge = document.getElementById(`badge-${activeThemeKey}`);
+    if (newBadge) {
+      newBadge.className = 'status-pill pill-active';
+      newBadge.innerText = 'Active';
+    }
+    const newCov = document.getElementById(`cov-${activeThemeKey}`);
+    if (newCov) {
+      newCov.innerHTML = `12 / 12 &nbsp;<span style="color:#10b981;">100%</span><div class="coverage-track"><div class="coverage-fill" style="width:100%;"></div></div>`;
+    }
+
+    // Update KPIs
+    document.getElementById('kpiActiveThemeName').innerText = data.name;
+    const now = new Date();
+    const dateStr = now.toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' });
+    const timeStr = now.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' });
+    document.getElementById('kpiLastAppliedDate').innerText = dateStr;
+    document.getElementById('kpiLastAppliedTime').innerText = timeStr;
+
+    // Update history top item
+    document.getElementById('histTopTheme').innerText = `${data.name} applied`;
+    document.getElementById('histTopDate').innerText = `${dateStr}, ${timeStr}`;
+
+    closeApplyModal();
+    selectThemeRow(activeThemeKey, document.getElementById(`row-${activeThemeKey}`));
+    alert(`Theme "${data.name}" successfully applied across all 12 kiosks!`);
+  }
+
+  function filterThemesTable() {
+    const query = (document.getElementById('searchThemesInput')?.value || '').toLowerCase();
+    const statusVal = document.getElementById('statusFilterSelect')?.value || 'All';
+    const rows = document.querySelectorAll('#themesDataTable tbody tr');
+
+    rows.forEach(r => {
+      const text = r.innerText.toLowerCase();
+      const matchesSearch = text.includes(query);
+      const matchesStatus = (statusVal === 'All') || (statusVal === 'Active' && text.includes('active')) || (statusVal === 'Inactive' && text.includes('inactive'));
+      r.style.display = matchesSearch && matchesStatus ? '' : 'none';
+    });
+  }
+
+  function openRequestNewThemeModal() {
+    alert('Request New Theme: Redirecting to structured Request Portal with pre-filled Phoenix Mall context.');
+  }
+
+  function openRequestThemeChangeModal() {
+    alert(`Request Theme Change: Submitting request for theme "${themesData[selectedThemeKey].name}" to Company Admin.`);
+  }
+
+  function toggleSidebarCollapse() {
+    const sb = document.getElementById('clientSidebar');
+    if (sb) {
+      sb.classList.toggle('collapsed');
+    }
+  }
+</script>
+
+</body>
+</html>
