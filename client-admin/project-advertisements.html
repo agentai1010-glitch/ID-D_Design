@@ -1,689 +1,1293 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Phoenix Mall · Advertisements · Kiosk Platform</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-<link rel="stylesheet" href="../css/styles.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Phoenix Mall Project · Advertisements · Mall Kiosk Platform</title>
+  <!-- Google Fonts & Font Awesome -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="stylesheet" href="../css/styles.css">
+  <style>
+    /* Workflow Domain 6 - Client Admin Project Advertisements Specific Styling */
+    .ads-kpi-grid {
+      display: grid;
+      grid-template-columns: repeat(6, 1fr);
+      gap: 14px;
+      margin-bottom: 20px;
+    }
+    @media (max-width: 1400px) {
+      .ads-kpi-grid {
+        grid-template-columns: repeat(3, 1fr);
+      }
+    }
+    @media (max-width: 800px) {
+      .ads-kpi-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    .kpi-stat-box {
+      background: #ffffff;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 15px;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+    .kpi-stat-box:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.06);
+    }
+
+    .kpi-icon-square {
+      width: 42px;
+      height: 42px;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 17px;
+      flex-shrink: 0;
+    }
+
+    /* Subnav Bar */
+    .project-subnav-bar {
+      background: #ffffff;
+      border-bottom: 1px solid var(--border);
+      padding: 0 28px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+    }
+
+    .project-subnav-tabs {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      overflow-x: auto;
+    }
+
+    .project-subnav-tab {
+      padding: 14px 16px;
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--text-600);
+      cursor: pointer;
+      border-bottom: 2px solid transparent;
+      white-space: nowrap;
+      transition: all 0.15s ease;
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .project-subnav-tab:hover {
+      color: var(--text-900);
+    }
+    .project-subnav-tab.active {
+      color: #2563eb;
+      border-bottom-color: #2563eb;
+      font-weight: 700;
+    }
+
+    /* Status Pills */
+    .status-pill {
+      font-size: 11px;
+      font-weight: 700;
+      padding: 3px 9px;
+      border-radius: 999px;
+      white-space: nowrap;
+      display: inline-block;
+    }
+    .pill-active { background: #ecfdf5; color: #059669; border: 1px solid #a7f3d0; }
+    .pill-scheduled { background: #eff6ff; color: #2563eb; border: 1px solid #bfdbfe; }
+    .pill-inactive { background: #f1f5f9; color: #64748b; border: 1px solid #e2e8f0; }
+    .pill-paused { background: #fffbeb; color: #d97706; border: 1px solid #fde68a; }
+
+    /* Type Pills */
+    .type-pill {
+      font-size: 10.5px;
+      font-weight: 600;
+      padding: 2px 8px;
+      border-radius: 6px;
+      white-space: nowrap;
+    }
+    .type-promo { background: #f5f3ff; color: #7c3aed; border: 1px solid #ede9fe; }
+    .type-ent { background: #ecfeff; color: #0891b2; border: 1px solid #cffafe; }
+    .type-brand { background: #fff7ed; color: #ea580c; border: 1px solid #ffedd5; }
+
+    /* Main Row 2: 2-Column Split (Table Left ~65% + Side Panel Right ~35%) */
+    .ads-main-split {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) 380px;
+      gap: 18px;
+      align-items: start;
+      margin-bottom: 20px;
+    }
+    @media (max-width: 1250px) {
+      .ads-main-split {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    /* Table Styling */
+    .ads-table-card {
+      background: #ffffff;
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+    }
+
+    .ads-table {
+      width: 100%;
+      border-collapse: collapse;
+      text-align: left;
+    }
+
+    .ads-table th {
+      background: #f8fafc;
+      padding: 12px 14px;
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--text-500);
+      border-bottom: 1px solid var(--border-soft);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .ads-table td {
+      padding: 12px 14px;
+      font-size: 12px;
+      color: var(--text-700);
+      border-bottom: 1px solid var(--border-soft);
+      vertical-align: middle;
+    }
+
+    .ads-table tr:hover td {
+      background: #f8fafc;
+    }
+
+    .campaign-thumb-box {
+      width: 42px;
+      height: 42px;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #fff;
+      font-size: 15px;
+      flex-shrink: 0;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.08);
+      font-weight: 800;
+      text-align: center;
+      line-height: 1.1;
+      padding: 2px;
+    }
+
+    /* Side Cards */
+    .side-panel-card {
+      background: #ffffff;
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+      padding: 18px 20px;
+    }
+
+    .rank-bar-track {
+      height: 6px;
+      background: #f1f5f9;
+      border-radius: 999px;
+      overflow: hidden;
+      flex: 1;
+      margin: 0 12px;
+    }
+    .rank-bar-fill {
+      height: 100%;
+      background: #7c3aed;
+      border-radius: 999px;
+    }
+
+    /* Row 3: Bottom 2-Column Split */
+    .ads-row-2col {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 18px;
+      align-items: start;
+    }
+    @media (max-width: 1000px) {
+      .ads-row-2col {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .dash-panel {
+      background: #ffffff;
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+    }
+
+    .dash-panel-header {
+      padding: 16px 20px;
+      border-bottom: 1px solid var(--border-soft);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .dash-panel-title {
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--text-900);
+      margin: 0;
+    }
+
+    .dash-panel-link {
+      font-size: 12px;
+      font-weight: 600;
+      color: #2563eb;
+      text-decoration: none;
+      cursor: pointer;
+    }
+    .dash-panel-link:hover {
+      text-decoration: underline;
+    }
+
+    .dash-panel-body {
+      padding: 16px 20px;
+      flex: 1;
+    }
+
+    .quick-action-row {
+      background: #ffffff;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 10px 14px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      cursor: pointer;
+      transition: all 0.15s ease;
+      text-decoration: none;
+      margin-bottom: 8px;
+    }
+    .quick-action-row:last-child {
+      margin-bottom: 0;
+    }
+    .quick-action-row:hover {
+      background: #f8fafc;
+      border-color: #cbd5e1;
+      transform: translateX(2px);
+    }
+
+    .activity-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 8px 0;
+      border-bottom: 1px solid var(--border-soft);
+      font-size: 12px;
+    }
+    .activity-row:last-child {
+      border-bottom: none;
+      padding-bottom: 0;
+    }
+    .activity-row:first-child {
+      padding-top: 0;
+    }
+
+    /* Modal Backdrop */
+    .modal-backdrop {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(15, 23, 42, 0.6);
+      backdrop-filter: blur(4px);
+      z-index: 9999;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+    .modal-box {
+      background: #ffffff;
+      border-radius: 16px;
+      box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+      width: 100%;
+      max-width: 580px;
+      max-height: 90vh;
+      overflow-y: auto;
+      animation: modalFadeIn 0.2s ease-out;
+    }
+    @keyframes modalFadeIn {
+      from { opacity: 0; transform: scale(0.96); }
+      to { opacity: 1; transform: scale(1); }
+    }
+  </style>
 </head>
 <body>
 <div class="app-shell">
 
-<!-- Client Admin Sidebar -->
-<aside class="sidebar">
-  <a href="dashboard.html" class="sidebar-brand" style="cursor:pointer;">
-    <div class="logo-icon">
-      <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <path d="M12 2L21 7V17L12 22L3 17V7L12 2Z" stroke="white" stroke-width="1.6" stroke-linejoin="round"/>
-        <circle cx="12" cy="12" r="3.2" fill="white"/>
-      </svg>
+  <!-- =========================================================================
+       CLIENT ADMIN GLOBAL SIDEBAR (Strict 8 Items)
+       ========================================================================= -->
+  <aside class="sidebar" id="clientSidebar">
+    <a href="dashboard.html" class="sidebar-brand" style="cursor:pointer;text-decoration:none;">
+      <div class="logo-icon" style="background:linear-gradient(135deg,#3b82f6,#1d4ed8);border-radius:10px;">
+        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style="width:20px;height:20px;">
+          <path d="M4 21V9l8-6 8 6v12H4z" stroke="white" stroke-width="1.8" stroke-linejoin="round"/>
+          <path d="M9 21V12h6v9" stroke="white" stroke-width="1.8"/>
+          <path d="M12 3v4" stroke="white" stroke-width="1.8"/>
+        </svg>
+      </div>
+      <div class="brand-text">
+        <div class="t1" style="font-size:14px;font-weight:700;color:#ffffff;line-height:1.2;">Mall Kiosk Platform</div>
+        <div class="t2" style="font-size:11px;color:#94a3b8;font-weight:500;">Client Admin</div>
+      </div>
+    </a>
+
+    <!-- Navigation Items (Strict 8) -->
+    <ul class="sidebar-nav">
+      <li class="nav-item" onclick="location.href='dashboard.html'">
+        <i class="fa-solid fa-house"></i>
+        <span>Dashboard</span>
+      </li>
+      <li class="nav-item active" onclick="location.href='projects.html'">
+        <i class="fa-solid fa-folder-open"></i>
+        <span>Projects</span>
+      </li>
+      <li class="nav-item" onclick="location.href='project-content.html'">
+        <i class="fa-regular fa-file-lines"></i>
+        <span>Content</span>
+      </li>
+      <li class="nav-item" onclick="location.href='project-themes.html'">
+        <i class="fa-solid fa-palette"></i>
+        <span>Themes</span>
+      </li>
+      <li class="nav-item" onclick="location.href='project-advertisements.html'">
+        <i class="fa-solid fa-bullhorn"></i>
+        <span>Advertisements</span>
+      </li>
+      <li class="nav-item" onclick="location.href='project-analytics.html'">
+        <i class="fa-solid fa-chart-column"></i>
+        <span>Analytics</span>
+      </li>
+      <li class="nav-item" onclick="alert('Feedback Section: Opening Visitor & Shopper Feedback Overview...')">
+        <i class="fa-regular fa-comment-dots"></i>
+        <span>Feedback</span>
+      </li>
+      <li class="nav-item" onclick="alert('Requests Section: Opening Client Request Submission Portal...')">
+        <i class="fa-regular fa-clipboard"></i>
+        <span>Requests</span>
+      </li>
+    </ul>
+
+    <div class="sidebar-spacer"></div>
+
+    <!-- Collapse Toggle -->
+    <div class="sidebar-collapse-btn" onclick="toggleSidebarCollapse()" style="display:flex;align-items:center;gap:8px;padding:10px 12px;color:#94a3b8;font-size:13px;cursor:pointer;border-radius:8px;transition:all 0.2s ease;">
+      <i class="fa-solid fa-chevron-left" style="font-size:11px;"></i>
+      <span>Collapse</span>
     </div>
-    <div class="brand-text"><div class="t1">KIOSK</div><div class="t2">PLATFORM</div></div>
-  </a>
+  </aside>
 
-  <!-- WORKSPACE Section -->
-  <div class="sidebar-section-label">WORKSPACE</div>
-  <ul class="sidebar-nav">
-    <li class="nav-item" onclick="location.href='dashboard.html'"><i class="fa-solid fa-house"></i><span>Dashboard</span></li>
-    <li class="nav-item active" onclick="location.href='projects.html'"><i class="fa-solid fa-folder-open"></i><span>Projects</span></li>
-    <li class="nav-item" onclick="location.href='devices.html'"><i class="fa-solid fa-tablet-screen-button"></i><span>Devices</span></li>
-    <li class="nav-item" onclick="location.href='analytics.html'"><i class="fa-solid fa-chart-column"></i><span>Analytics</span></li>
-  </ul>
+  <!-- =========================================================================
+       MAIN WORKSPACE
+       ========================================================================= -->
+  <div class="main">
 
-  <!-- TEAM Section -->
-  <div class="sidebar-section-label">TEAM</div>
-  <ul class="sidebar-nav">
-    <li class="nav-item" onclick="location.href='users-roles.html'"><i class="fa-solid fa-users"></i><span>Users & Roles</span></li>
-  </ul>
-
-  <!-- ACCOUNT Section -->
-  <div class="sidebar-section-label">ACCOUNT</div>
-  <ul class="sidebar-nav">
-    <li class="nav-item" onclick="location.href='settings.html'"><i class="fa-solid fa-gear"></i><span>Settings</span></li>
-  </ul>
-
-  <div class="sidebar-spacer"></div>
-
-  <!-- Organization Card -->
-  <div class="org-switcher-card">
-    <div class="org-switcher-header">
-      <div class="org-icon-box"><i class="fa-solid fa-city"></i></div>
-      <div>
-        <div class="org-name-text">Phoenix Retail Group</div>
-        <div class="org-sub-text">Organization</div>
-      </div>
-    </div>
-    <button class="org-btn-switch">
-      <span>Switch Organization</span>
-      <i class="fa-solid fa-chevron-down" style="font-size:9.5px;"></i>
-    </button>
-  </div>
-
-  <div class="sidebar-footer" style="display:flex;align-items:center;justify-content:space-between;">
-    <span>Client Admin v1.0.0</span>
-    <i class="fa-solid fa-chevron-left" style="font-size:10px;cursor:pointer;"></i>
-  </div>
-</aside>
-
-<!-- Main Area -->
-<div class="main">
-  <!-- Topbar Header -->
-  <header class="topbar">
-    <i class="fa-solid fa-bars hamburger"></i>
-    <div class="search">
-      <i class="fa-solid fa-magnifying-glass"></i>
-      <span>Search projects, kiosks, locations...</span>
-      <span class="kbd">⌘ K</span>
-    </div>
-    <div class="spacer"></div>
-    <button class="icon-btn"><i class="fa-regular fa-bell"></i><span class="badge-dot">8</span></button>
-    <div class="user">
-      <div class="avatar" style="background:linear-gradient(135deg,#3b82f6,#1d4ed8);">RA</div>
-      <div>
-        <div class="u-name">Rahul Arora</div>
-        <div class="u-role">Client Admin</div>
-      </div>
-      <i class="fa-solid fa-chevron-down"></i>
-    </div>
-  </header>
-
-  <!-- Main Content Area -->
-  <main class="content">
-
-    <!-- Project Breadcrumbs & Header -->
-    <div class="project-header-container">
-      <div class="project-breadcrumbs">
-        <a href="projects.html">Projects</a>
-        <i class="fa-solid fa-chevron-right" style="font-size:9px;color:var(--text-400);"></i>
-        <a href="project-overview.html">Phoenix Mall</a>
-        <i class="fa-solid fa-chevron-right" style="font-size:9px;color:var(--text-400);"></i>
-        <span style="font-weight:600;color:var(--text-900);">Advertisements</span>
-      </div>
-
-      <div class="project-title-row">
-        <div class="project-title-left">
-          <h1>Phoenix Mall</h1>
-          <span class="badge badge-green" style="font-size:12px;padding:3px 10px;font-weight:600;">
-            <span class="dot"></span> Active
-          </span>
-        </div>
-
-        <div style="display:flex;align-items:center;gap:10px;">
-          <button class="btn" style="background:#fff;border:1px solid var(--border);color:var(--text-700);font-weight:600;padding:9px 16px;display:flex;align-items:center;gap:8px;">
-            <i class="fa-regular fa-eye"></i> Preview Kiosk
-          </button>
-          <button class="btn btn-primary" style="background:#2563eb;color:#fff;font-weight:600;padding:9px 18px;display:flex;align-items:center;gap:8px;">
-            <i class="fa-solid fa-gear"></i> Project Settings <i class="fa-solid fa-chevron-down" style="font-size:9.5px;margin-left:2px;"></i>
-          </button>
-        </div>
-      </div>
-
-      <div class="project-meta-row">
-        <div class="project-meta-item">
-          <i class="fa-solid fa-building" style="color:var(--text-400);"></i> Mall / Indoor Venue
-        </div>
-        <span style="color:var(--text-400);">•</span>
-        <div class="project-meta-item">
-          <i class="fa-solid fa-location-dot" style="color:var(--text-400);"></i> Mumbai, India
-        </div>
-        <span style="color:var(--text-400);">•</span>
-        <div class="project-meta-item">
-          <i class="fa-solid fa-tablet-screen-button" style="color:var(--text-400);"></i> 12 Kiosks
-        </div>
-        <span style="color:var(--text-400);">•</span>
-        <div class="project-meta-item" style="color:var(--green-600);font-weight:600;">
-          <i class="fa-solid fa-circle-check"></i> Release 43 (Published)
-        </div>
-      </div>
-    </div>
-
-    <!-- Project Sub-Navigation Tabs Bar -->
-    <div class="project-tabs-nav">
-      <button class="project-tab-btn" onclick="location.href='project-overview.html'">Overview</button>
-      <button class="project-tab-btn" onclick="location.href='project-experience.html'">Experience</button>
-      <button class="project-tab-btn" onclick="location.href='project-content.html'">Content</button>
-      <button class="project-tab-btn" onclick="location.href='project-maps.html'">Maps</button>
-      <button class="project-tab-btn" onclick="location.href='project-navigation.html'">Navigation</button>
-      <button class="project-tab-btn active" onclick="location.href='project-advertisements.html'">Advertisements</button>
-      <button class="project-tab-btn" onclick="location.href='project-preview.html'">Preview</button>
-      <button class="project-tab-btn" onclick="location.href='project-validation.html'">Validation</button>
-      <button class="project-tab-btn" onclick="location.href='project-releases.html'">Releases</button>
-      <button class="project-tab-btn" onclick="location.href='project-devices.html'">Devices</button>
-      <button class="project-tab-btn" onclick="location.href='project-analytics.html'">Analytics</button>
-      <button class="project-tab-btn" onclick="location.href='#'">Settings</button>
-    </div>
-
-    <!-- Section Header -->
-    <div style="margin-bottom:18px;">
-      <h2 style="font-size:17px;font-weight:800;color:var(--text-900);margin:0 0 3px;">Advertisements</h2>
-      <p style="font-size:12.5px;color:var(--text-500);margin:0;">Create, manage and schedule advertisements to display on your kiosks.</p>
-    </div>
-
-    <!-- Top 5 Ad KPI Metric Cards -->
-    <div class="ad-metrics-strip">
-      <!-- 1. Active Campaigns -->
-      <div class="content-metric-card">
-        <div class="kpi-icon-box" style="background:#f5f3ff;color:#7c3aed;width:40px;height:40px;border-radius:10px;">
-          <i class="fa-solid fa-bullhorn"></i>
-        </div>
-        <div>
-          <div style="font-size:22px;font-weight:800;color:var(--text-900);line-height:1.1;">12</div>
-          <div style="font-size:11.5px;font-weight:600;color:var(--text-600);margin-top:2px;">Active Campaigns</div>
-          <div style="font-size:11px;font-weight:600;color:var(--green-600);margin-top:2px;">↑ 2 vs last month</div>
-        </div>
-      </div>
-
-      <!-- 2. Total Ads -->
-      <div class="content-metric-card">
-        <div class="kpi-icon-box" style="background:#eff6ff;color:#2563eb;width:40px;height:40px;border-radius:10px;">
-          <i class="fa-regular fa-calendar-days"></i>
-        </div>
-        <div>
-          <div style="font-size:22px;font-weight:800;color:var(--text-900);line-height:1.1;">36</div>
-          <div style="font-size:11.5px;font-weight:600;color:var(--text-600);margin-top:2px;">Total Ads</div>
-          <div style="font-size:11px;font-weight:600;color:var(--green-600);margin-top:2px;">↑ 5 vs last month</div>
-        </div>
-      </div>
-
-      <!-- 3. Impressions (Today) -->
-      <div class="content-metric-card">
-        <div class="kpi-icon-box" style="background:#fff7ed;color:#ea580c;width:40px;height:40px;border-radius:10px;">
-          <i class="fa-solid fa-desktop"></i>
-        </div>
-        <div>
-          <div style="font-size:22px;font-weight:800;color:var(--text-900);line-height:1.1;">2,450</div>
-          <div style="font-size:11.5px;font-weight:600;color:var(--text-600);margin-top:2px;">Impressions (Today)</div>
-          <div style="font-size:11px;font-weight:600;color:var(--green-600);margin-top:2px;">↑ 18% vs yesterday</div>
-        </div>
-      </div>
-
-      <!-- 4. Interactions (Today) -->
-      <div class="content-metric-card">
-        <div class="kpi-icon-box" style="background:#ecfdf5;color:#059669;width:40px;height:40px;border-radius:10px;">
-          <i class="fa-solid fa-arrow-pointer"></i>
-        </div>
-        <div>
-          <div style="font-size:22px;font-weight:800;color:var(--text-900);line-height:1.1;">128</div>
-          <div style="font-size:11.5px;font-weight:600;color:var(--text-600);margin-top:2px;">Interactions (Today)</div>
-          <div style="font-size:11px;font-weight:600;color:var(--green-600);margin-top:2px;">↑ 12% vs yesterday</div>
-        </div>
-      </div>
-
-      <!-- 5. Avg. Interaction Rate -->
-      <div class="content-metric-card">
-        <div class="kpi-icon-box" style="background:#fdf2f8;color:#db2777;width:40px;height:40px;border-radius:10px;">
-          <i class="fa-regular fa-clock"></i>
-        </div>
-        <div>
-          <div style="font-size:22px;font-weight:800;color:var(--text-900);line-height:1.1;">15.6%</div>
-          <div style="font-size:11.5px;font-weight:600;color:var(--text-600);margin-top:2px;">Avg. Interaction Rate</div>
-          <div style="font-size:11px;font-weight:600;color:var(--green-600);margin-top:2px;">↑ 3.2% vs last month</div>
-        </div>
-      </div>
-    </div>
-
-    <!-- Main Content 2-Column Split -->
-    <div class="content-main-layout">
-
-      <!-- Left Column: Campaigns Table & Filters -->
-      <div class="panel" style="margin:0;padding:0;overflow:hidden;">
-        
-        <!-- Secondary Sub-tabs -->
-        <div class="content-sub-tabs-bar">
-          <button class="content-sub-tab-btn active" onclick="location.href='project-advertisements.html'">Campaigns</button>
-          <button class="content-sub-tab-btn" onclick="location.href='project-advertisements-media.html'">Media Library</button>
-          <button class="content-sub-tab-btn" onclick="location.href='project-advertisements-schedules.html'">Schedules</button>
-          <button class="content-sub-tab-btn">Zones</button>
-          <button class="content-sub-tab-btn">Settings</button>
-        </div>
-
-        <!-- Filter Toolbar -->
-        <div class="content-filter-toolbar">
-          <div class="content-filter-left">
-            <div class="search-input" style="min-width:180px;height:34px;">
-              <i class="fa-solid fa-magnifying-glass"></i>
-              <input type="text" placeholder="Search campaigns..." style="border:none;outline:none;background:transparent;font-size:12px;width:100%;">
-            </div>
-
-            <div class="select-pill" style="height:34px;padding:0 10px;font-size:12px;">
-              Status: All <i class="fa-solid fa-chevron-down" style="font-size:9.5px;margin-left:4px;"></i>
-            </div>
-
-            <div class="select-pill" style="height:34px;padding:0 10px;font-size:12px;">
-              All Zones <i class="fa-solid fa-chevron-down" style="font-size:9.5px;margin-left:4px;"></i>
-            </div>
-
-            <div class="select-pill" style="height:34px;padding:0 10px;font-size:12px;">
-              All Kiosks <i class="fa-solid fa-chevron-down" style="font-size:9.5px;margin-left:4px;"></i>
-            </div>
-
-            <div class="select-pill" style="height:34px;padding:0 10px;font-size:12px;">
-              Active Now <i class="fa-solid fa-chevron-down" style="font-size:9.5px;margin-left:4px;"></i>
-            </div>
-
-            <button class="btn" style="height:34px;padding:0 10px;font-size:12px;">
-              Reset Filters
-            </button>
-          </div>
-        </div>
-
-        <!-- Campaigns Table -->
-        <div class="table-wrap">
-          <table style="width:100%;border-collapse:collapse;">
-            <thead>
-              <tr style="border-bottom:1px solid var(--border);">
-                <th style="padding:10px 18px;text-align:left;font-size:11.5px;font-weight:700;color:var(--text-500);">Campaign Name</th>
-                <th style="padding:10px 12px;text-align:left;font-size:11.5px;font-weight:700;color:var(--text-500);">Status</th>
-                <th style="padding:10px 12px;text-align:left;font-size:11.5px;font-weight:700;color:var(--text-500);">Media</th>
-                <th style="padding:10px 12px;text-align:left;font-size:11.5px;font-weight:700;color:var(--text-500);">Schedule</th>
-                <th style="padding:10px 12px;text-align:left;font-size:11.5px;font-weight:700;color:var(--text-500);">Zones</th>
-                <th style="padding:10px 12px;text-align:left;font-size:11.5px;font-weight:700;color:var(--text-500);">Kiosks</th>
-                <th style="padding:10px 12px;text-align:right;font-size:11.5px;font-weight:700;color:var(--text-500);">Impressions</th>
-                <th style="padding:10px 12px;text-align:right;font-size:11.5px;font-weight:700;color:var(--text-500);">Interactions</th>
-                <th style="padding:10px 12px;text-align:right;font-size:11.5px;font-weight:700;color:var(--text-500);">CTR</th>
-                <th style="padding:10px 18px;text-align:right;font-size:11.5px;font-weight:700;color:var(--text-500);">Actions</th>
-              </tr>
-            </thead>
-            <tbody>
-              <!-- Row 1: Diwali Special Offers -->
-              <tr style="border-bottom:1px solid var(--border-soft);">
-                <td style="padding:12px 18px;">
-                  <div style="display:flex;align-items:center;gap:12px;">
-                    <div class="campaign-thumb-box" style="background:linear-gradient(135deg,#3b0764,#7c3aed);">
-                      <i class="fa-solid fa-fire-flame-curved" style="color:#fbbf24;font-size:16px;"></i>
-                    </div>
-                    <div>
-                      <div style="font-size:13px;font-weight:700;color:var(--text-900);">Diwali Special Offers</div>
-                      <div style="font-size:11px;color:var(--text-400);">Festival Campaign</div>
-                    </div>
-                  </div>
-                </td>
-                <td style="padding:12px 12px;">
-                  <span class="badge" style="background:#ecfdf5;color:#16a34a;font-size:11px;padding:2px 7px;font-weight:600;">
-                    <span style="width:5px;height:5px;border-radius:50%;background:#16a34a;display:inline-block;margin-right:3px;"></span> Active
-                  </span>
-                </td>
-                <td style="padding:12px 12px;">
-                  <div style="font-size:12px;font-weight:700;color:var(--text-900);">3 Ads</div>
-                  <div style="font-size:11px;color:var(--text-400);">15s each</div>
-                </td>
-                <td style="padding:12px 12px;">
-                  <div style="font-size:12px;font-weight:600;color:var(--text-900);">May 01 – May 31, 2026</div>
-                  <div style="font-size:11px;color:var(--text-400);">10:00 AM – 10:00 PM</div>
-                </td>
-                <td style="padding:12px 12px;">
-                  <div style="font-size:12px;font-weight:600;color:var(--text-900);">All Zones</div>
-                  <div style="font-size:11px;color:var(--text-400);">5 Zones</div>
-                </td>
-                <td style="padding:12px 12px;font-size:12px;color:var(--text-700);font-weight:600;">12 Kiosks</td>
-                <td style="padding:12px 12px;text-align:right;font-size:12.5px;font-weight:700;color:var(--text-900);">12,450</td>
-                <td style="padding:12px 12px;text-align:right;font-size:12.5px;font-weight:700;color:var(--text-900);">842</td>
-                <td style="padding:12px 12px;text-align:right;font-size:12.5px;font-weight:700;color:var(--text-900);">6.76%</td>
-                <td style="padding:12px 18px;text-align:right;">
-                  <button class="btn-icon" style="background:transparent;border:none;color:var(--text-400);cursor:pointer;font-size:14px;"><i class="fa-solid fa-ellipsis"></i></button>
-                </td>
-              </tr>
-
-              <!-- Row 2: Summer Sale 2026 -->
-              <tr style="border-bottom:1px solid var(--border-soft);">
-                <td style="padding:12px 18px;">
-                  <div style="display:flex;align-items:center;gap:12px;">
-                    <div class="campaign-thumb-box" style="background:linear-gradient(135deg,#0284c7,#f59e0b);">
-                      <i class="fa-solid fa-umbrella-beach" style="color:#fff;font-size:16px;"></i>
-                    </div>
-                    <div>
-                      <div style="font-size:13px;font-weight:700;color:var(--text-900);">Summer Sale 2026</div>
-                      <div style="font-size:11px;color:var(--text-400);">Seasonal Campaign</div>
-                    </div>
-                  </div>
-                </td>
-                <td style="padding:12px 12px;">
-                  <span class="badge" style="background:#ecfdf5;color:#16a34a;font-size:11px;padding:2px 7px;font-weight:600;">
-                    Active
-                  </span>
-                </td>
-                <td style="padding:12px 12px;">
-                  <div style="font-size:12px;font-weight:700;color:var(--text-900);">4 Ads</div>
-                  <div style="font-size:11px;color:var(--text-400);">15s each</div>
-                </td>
-                <td style="padding:12px 12px;">
-                  <div style="font-size:12px;font-weight:600;color:var(--text-900);">Apr 15 – May 15, 2026</div>
-                  <div style="font-size:11px;color:var(--text-400);">10:00 AM – 10:00 PM</div>
-                </td>
-                <td style="padding:12px 12px;">
-                  <div style="font-size:12px;font-weight:600;color:var(--text-900);">All Zones</div>
-                  <div style="font-size:11px;color:var(--text-400);">5 Zones</div>
-                </td>
-                <td style="padding:12px 12px;font-size:12px;color:var(--text-700);font-weight:600;">12 Kiosks</td>
-                <td style="padding:12px 12px;text-align:right;font-size:12.5px;font-weight:700;color:var(--text-900);">8,320</td>
-                <td style="padding:12px 12px;text-align:right;font-size:12.5px;font-weight:700;color:var(--text-900);">612</td>
-                <td style="padding:12px 12px;text-align:right;font-size:12.5px;font-weight:700;color:var(--text-900);">7.35%</td>
-                <td style="padding:12px 18px;text-align:right;">
-                  <button class="btn-icon" style="background:transparent;border:none;color:var(--text-400);cursor:pointer;font-size:14px;"><i class="fa-solid fa-ellipsis"></i></button>
-                </td>
-              </tr>
-
-              <!-- Row 3: New Arrivals -->
-              <tr style="border-bottom:1px solid var(--border-soft);">
-                <td style="padding:12px 18px;">
-                  <div style="display:flex;align-items:center;gap:12px;">
-                    <div class="campaign-thumb-box" style="background:linear-gradient(135deg,#0d9488,#14b8a6);">
-                      <i class="fa-solid fa-vest" style="color:#fff;font-size:16px;"></i>
-                    </div>
-                    <div>
-                      <div style="font-size:13px;font-weight:700;color:var(--text-900);">New Arrivals</div>
-                      <div style="font-size:11px;color:var(--text-400);">Promotional Campaign</div>
-                    </div>
-                  </div>
-                </td>
-                <td style="padding:12px 12px;">
-                  <span class="badge" style="background:#fff7ed;color:#ea580c;font-size:11px;padding:2px 7px;font-weight:600;">
-                    Scheduled
-                  </span>
-                </td>
-                <td style="padding:12px 12px;">
-                  <div style="font-size:12px;font-weight:700;color:var(--text-900);">2 Ads</div>
-                  <div style="font-size:11px;color:var(--text-400);">10s each</div>
-                </td>
-                <td style="padding:12px 12px;">
-                  <div style="font-size:12px;font-weight:600;color:var(--text-900);">May 15 – May 31, 2026</div>
-                  <div style="font-size:11px;color:var(--text-400);">10:00 AM – 10:00 PM</div>
-                </td>
-                <td style="padding:12px 12px;">
-                  <div style="font-size:12px;font-weight:600;color:var(--text-900);">Fashion Zone</div>
-                  <div style="font-size:11px;color:var(--text-400);">2 Zones</div>
-                </td>
-                <td style="padding:12px 12px;font-size:12px;color:var(--text-700);font-weight:600;">6 Kiosks</td>
-                <td style="padding:12px 12px;text-align:right;font-size:12.5px;font-weight:700;color:var(--text-400);">—</td>
-                <td style="padding:12px 12px;text-align:right;font-size:12.5px;font-weight:700;color:var(--text-400);">—</td>
-                <td style="padding:12px 12px;text-align:right;font-size:12.5px;font-weight:700;color:var(--text-400);">—</td>
-                <td style="padding:12px 18px;text-align:right;">
-                  <button class="btn-icon" style="background:transparent;border:none;color:var(--text-400);cursor:pointer;font-size:14px;"><i class="fa-solid fa-ellipsis"></i></button>
-                </td>
-              </tr>
-
-              <!-- Row 4: Food Court Delights -->
-              <tr style="border-bottom:1px solid var(--border-soft);">
-                <td style="padding:12px 18px;">
-                  <div style="display:flex;align-items:center;gap:12px;">
-                    <div class="campaign-thumb-box" style="background:linear-gradient(135deg,#c2410c,#f97316);">
-                      <i class="fa-solid fa-utensils" style="color:#fff;font-size:16px;"></i>
-                    </div>
-                    <div>
-                      <div style="font-size:13px;font-weight:700;color:var(--text-900);">Food Court Delights</div>
-                      <div style="font-size:11px;color:var(--text-400);">Food & Dining</div>
-                    </div>
-                  </div>
-                </td>
-                <td style="padding:12px 12px;">
-                  <span class="badge" style="background:#ecfdf5;color:#16a34a;font-size:11px;padding:2px 7px;font-weight:600;">
-                    Active
-                  </span>
-                </td>
-                <td style="padding:12px 12px;">
-                  <div style="font-size:12px;font-weight:700;color:var(--text-900);">3 Ads</div>
-                  <div style="font-size:11px;color:var(--text-400);">15s each</div>
-                </td>
-                <td style="padding:12px 12px;">
-                  <div style="font-size:12px;font-weight:600;color:var(--text-900);">Apr 10 – May 10, 2026</div>
-                  <div style="font-size:11px;color:var(--text-400);">11:00 AM – 11:00 PM</div>
-                </td>
-                <td style="padding:12px 12px;">
-                  <div style="font-size:12px;font-weight:600;color:var(--text-900);">Food Court</div>
-                  <div style="font-size:11px;color:var(--text-400);">1 Zone</div>
-                </td>
-                <td style="padding:12px 12px;font-size:12px;color:var(--text-700);font-weight:600;">4 Kiosks</td>
-                <td style="padding:12px 12px;text-align:right;font-size:12.5px;font-weight:700;color:var(--text-900);">5,210</td>
-                <td style="padding:12px 12px;text-align:right;font-size:12.5px;font-weight:700;color:var(--text-900);">421</td>
-                <td style="padding:12px 12px;text-align:right;font-size:12.5px;font-weight:700;color:var(--text-900);">8.08%</td>
-                <td style="padding:12px 18px;text-align:right;">
-                  <button class="btn-icon" style="background:transparent;border:none;color:var(--text-400);cursor:pointer;font-size:14px;"><i class="fa-solid fa-ellipsis"></i></button>
-                </td>
-              </tr>
-
-              <!-- Row 5: Electronics Mega Sale -->
-              <tr style="border-bottom:1px solid var(--border-soft);">
-                <td style="padding:12px 18px;">
-                  <div style="display:flex;align-items:center;gap:12px;">
-                    <div class="campaign-thumb-box" style="background:linear-gradient(135deg,#1e293b,#0284c7);">
-                      <i class="fa-solid fa-mobile-screen" style="color:#38bdf8;font-size:16px;"></i>
-                    </div>
-                    <div>
-                      <div style="font-size:13px;font-weight:700;color:var(--text-900);">Electronics Mega Sale</div>
-                      <div style="font-size:11px;color:var(--text-400);">Promotional Campaign</div>
-                    </div>
-                  </div>
-                </td>
-                <td style="padding:12px 12px;">
-                  <span class="badge" style="background:#fee2e2;color:#dc2626;font-size:11px;padding:2px 7px;font-weight:600;">
-                    Paused
-                  </span>
-                </td>
-                <td style="padding:12px 12px;">
-                  <div style="font-size:12px;font-weight:700;color:var(--text-900);">2 Ads</div>
-                  <div style="font-size:11px;color:var(--text-400);">15s each</div>
-                </td>
-                <td style="padding:12px 12px;">
-                  <div style="font-size:12px;font-weight:600;color:var(--text-900);">Apr 01 – Apr 30, 2026</div>
-                  <div style="font-size:11px;color:var(--text-400);">10:00 AM – 10:00 PM</div>
-                </td>
-                <td style="padding:12px 12px;">
-                  <div style="font-size:12px;font-weight:600;color:var(--text-900);">Electronics Zone</div>
-                  <div style="font-size:11px;color:var(--text-400);">1 Zone</div>
-                </td>
-                <td style="padding:12px 12px;font-size:12px;color:var(--text-700);font-weight:600;">4 Kiosks</td>
-                <td style="padding:12px 12px;text-align:right;font-size:12.5px;font-weight:700;color:var(--text-900);">3,120</td>
-                <td style="padding:12px 12px;text-align:right;font-size:12.5px;font-weight:700;color:var(--text-900);">198</td>
-                <td style="padding:12px 12px;text-align:right;font-size:12.5px;font-weight:700;color:var(--text-900);">6.35%</td>
-                <td style="padding:12px 18px;text-align:right;">
-                  <button class="btn-icon" style="background:transparent;border:none;color:var(--text-400);cursor:pointer;font-size:14px;"><i class="fa-solid fa-ellipsis"></i></button>
-                </td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-
-        <!-- Pagination Bar -->
-        <div style="padding:14px 20px;display:flex;align-items:center;justify-content:space-between;border-top:1px solid var(--border-soft);background:#fafbfc;">
-          <div style="font-size:12px;color:var(--text-500);">Showing 1 to 5 of 12 campaigns</div>
-          
-          <div style="display:flex;align-items:center;gap:12px;">
-            <div style="display:flex;align-items:center;gap:4px;">
-              <button class="btn btn-sm" style="padding:4px 8px;font-size:11px;"><i class="fa-solid fa-chevron-left"></i></button>
-              <button class="btn btn-sm btn-primary" style="padding:4px 10px;font-size:11px;background:#2563eb;color:#fff;">1</button>
-              <button class="btn btn-sm" style="padding:4px 10px;font-size:11px;">2</button>
-              <button class="btn btn-sm" style="padding:4px 10px;font-size:11px;">3</button>
-              <span style="color:var(--text-400);font-size:11px;padding:0 4px;">...</span>
-              <button class="btn btn-sm" style="padding:4px 10px;font-size:11px;">12</button>
-              <button class="btn btn-sm" style="padding:4px 8px;font-size:11px;"><i class="fa-solid fa-chevron-right"></i></button>
-            </div>
-
-            <div class="select-pill" style="height:30px;padding:0 8px;font-size:11.5px;">
-              10 / page <i class="fa-solid fa-chevron-down" style="font-size:9px;margin-left:4px;"></i>
-            </div>
-          </div>
-        </div>
-
-      </div>
-
-      <!-- Right Column: Top Actions, Active Now Donut, Top Performing Ads -->
-      <div style="display:flex;flex-direction:column;gap:18px;">
-
-        <!-- Top Action Buttons -->
-        <div style="display:flex;align-items:center;gap:10px;">
-          <button class="btn" style="flex:1;background:#fff;border:1px solid var(--border);color:var(--text-700);font-weight:600;padding:9px 12px;display:flex;align-items:center;justify-content:center;gap:6px;font-size:12.5px;">
-            <i class="fa-regular fa-calendar" style="color:var(--blue-600);"></i> Calendar View
-          </button>
-          <button class="btn btn-primary" style="flex:1;background:#2563eb;color:#fff;font-weight:600;padding:9px 12px;display:flex;align-items:center;justify-content:center;gap:6px;font-size:12.5px;">
-            <i class="fa-solid fa-plus"></i> Create Campaign
-          </button>
-        </div>
-
-        <!-- Card 1: Active Now Donut -->
-        <div class="panel" style="margin:0;padding:18px;">
-          <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;">
-            <h3 style="margin:0;font-size:14.5px;font-weight:700;color:var(--text-900);">Active Now</h3>
-            <span style="font-size:12px;color:var(--text-500);">3 / 12 Campaigns</span>
-          </div>
-
-          <!-- Donut SVG & Legend -->
-          <div style="display:flex;align-items:center;gap:16px;">
-            <div style="width:105px;height:105px;position:relative;flex-shrink:0;">
-              <svg viewBox="0 0 100 100" style="width:100%;height:100%;transform:rotate(-90deg);">
-                <!-- Track -->
-                <circle cx="50" cy="50" r="38" stroke="#f1f5f9" stroke-width="12" fill="none"/>
-                <!-- Green (Active 25% -> 59.7) -->
-                <circle cx="50" cy="50" r="38" stroke="#22c55e" stroke-width="12" fill="none"
-                        stroke-dasharray="59.7 238.76" stroke-dashoffset="0"/>
-                <!-- Amber (Scheduled 16.7% -> 39.9) -->
-                <circle cx="50" cy="50" r="38" stroke="#f59e0b" stroke-width="12" fill="none"
-                        stroke-dasharray="39.9 238.76" stroke-dashoffset="-59.7"/>
-                <!-- Rose (Paused 8.3% -> 19.8) -->
-                <circle cx="50" cy="50" r="38" stroke="#f43f5e" stroke-width="12" fill="none"
-                        stroke-dasharray="19.8 238.76" stroke-dashoffset="-99.6"/>
-                <!-- Gray (Draft 50% -> 119.4) -->
-                <circle cx="50" cy="50" r="38" stroke="#cbd5e1" stroke-width="12" fill="none"
-                        stroke-dasharray="119.4 238.76" stroke-dashoffset="-119.4"/>
-              </svg>
-              <div style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);text-align:center;">
-                <div style="font-size:18px;font-weight:800;color:var(--text-900);line-height:1;">3</div>
-                <div style="font-size:9.5px;color:var(--text-400);font-weight:600;margin-top:2px;">Active</div>
-              </div>
-            </div>
-
-            <!-- Legend breakdown -->
-            <div style="flex:1;display:flex;flex-direction:column;gap:6px;font-size:12px;">
-              <div style="display:flex;align-items:center;justify-content:space-between;">
-                <span style="color:var(--text-700);display:flex;align-items:center;gap:6px;">
-                  <span style="width:8px;height:8px;border-radius:50%;background:#22c55e;"></span> Active
-                </span>
-                <span style="font-weight:700;color:var(--text-900);">3 (25%)</span>
-              </div>
-
-              <div style="display:flex;align-items:center;justify-content:space-between;">
-                <span style="color:var(--text-700);display:flex;align-items:center;gap:6px;">
-                  <span style="width:8px;height:8px;border-radius:50%;background:#f59e0b;"></span> Scheduled
-                </span>
-                <span style="font-weight:700;color:var(--text-900);">2 (16.7%)</span>
-              </div>
-
-              <div style="display:flex;align-items:center;justify-content:space-between;">
-                <span style="color:var(--text-700);display:flex;align-items:center;gap:6px;">
-                  <span style="width:8px;height:8px;border-radius:50%;background:#f43f5e;"></span> Paused
-                </span>
-                <span style="font-weight:700;color:var(--text-900);">1 (8.3%)</span>
-              </div>
-
-              <div style="display:flex;align-items:center;justify-content:space-between;">
-                <span style="color:var(--text-700);display:flex;align-items:center;gap:6px;">
-                  <span style="width:8px;height:8px;border-radius:50%;background:#cbd5e1;"></span> Draft
-                </span>
-                <span style="font-weight:700;color:var(--text-900);">6 (50%)</span>
-              </div>
-            </div>
-          </div>
-
-          <a href="#" class="link-blue" style="text-align:center;display:block;margin-top:14px;padding-top:12px;border-top:1px solid var(--border-soft);font-size:12.5px;font-weight:600;">
-            View All Campaigns
-          </a>
-        </div>
-
-        <!-- Card 2: Top Performing Ads -->
-        <div class="panel" style="margin:0;padding:18px;">
-          <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;">
-            <h3 style="margin:0;font-size:14.5px;font-weight:700;color:var(--text-900);">Top Performing Ads</h3>
-            <div class="select-pill" style="height:26px;padding:0 8px;font-size:11px;">
-              This Month <i class="fa-solid fa-chevron-down" style="font-size:8px;margin-left:3px;"></i>
-            </div>
-          </div>
-
-          <div style="display:flex;flex-direction:column;">
-            <!-- Top Ad 1: Diwali Offer -->
-            <div class="top-ad-item-row">
-              <div style="display:flex;align-items:center;gap:10px;">
-                <div class="campaign-thumb-box" style="background:linear-gradient(135deg,#3b0764,#7c3aed);width:38px;height:38px;">
-                  <i class="fa-solid fa-fire-flame-curved" style="color:#fbbf24;font-size:13px;"></i>
-                </div>
-                <div>
-                  <div style="font-size:12.5px;font-weight:700;color:var(--text-900);">Diwali Offer - 50% Off</div>
-                </div>
-              </div>
-              <div style="text-align:right;">
-                <div style="font-size:10px;color:var(--text-400);">Impressions <strong style="color:var(--text-900);font-size:11.5px;margin-left:2px;">4,520</strong></div>
-                <div style="font-size:10px;color:var(--text-400);margin-top:2px;">CTR <strong style="color:var(--green-600);font-size:11.5px;margin-left:2px;">8.91%</strong></div>
-              </div>
-            </div>
-
-            <!-- Top Ad 2: Summer Sale -->
-            <div class="top-ad-item-row">
-              <div style="display:flex;align-items:center;gap:10px;">
-                <div class="campaign-thumb-box" style="background:linear-gradient(135deg,#0284c7,#f59e0b);width:38px;height:38px;">
-                  <i class="fa-solid fa-umbrella-beach" style="color:#fff;font-size:13px;"></i>
-                </div>
-                <div>
-                  <div style="font-size:12.5px;font-weight:700;color:var(--text-900);">Summer Sale - Fashion</div>
-                </div>
-              </div>
-              <div style="text-align:right;">
-                <div style="font-size:10px;color:var(--text-400);">Impressions <strong style="color:var(--text-900);font-size:11.5px;margin-left:2px;">3,210</strong></div>
-                <div style="font-size:10px;color:var(--text-400);margin-top:2px;">CTR <strong style="color:var(--green-600);font-size:11.5px;margin-left:2px;">7.65%</strong></div>
-              </div>
-            </div>
-
-            <!-- Top Ad 3: Food Combo -->
-            <div class="top-ad-item-row">
-              <div style="display:flex;align-items:center;gap:10px;">
-                <div class="campaign-thumb-box" style="background:linear-gradient(135deg,#c2410c,#f97316);width:38px;height:38px;">
-                  <i class="fa-solid fa-utensils" style="color:#fff;font-size:13px;"></i>
-                </div>
-                <div>
-                  <div style="font-size:12.5px;font-weight:700;color:var(--text-900);">Food Combo Special</div>
-                </div>
-              </div>
-              <div style="text-align:right;">
-                <div style="font-size:10px;color:var(--text-400);">Impressions <strong style="color:var(--text-900);font-size:11.5px;margin-left:2px;">2,450</strong></div>
-                <div style="font-size:10px;color:var(--text-400);margin-top:2px;">CTR <strong style="color:var(--green-600);font-size:11.5px;margin-left:2px;">8.12%</strong></div>
-              </div>
-            </div>
-          </div>
-
-          <a href="#" class="link-blue" style="text-align:center;display:block;margin-top:14px;padding-top:12px;border-top:1px solid var(--border-soft);font-size:12.5px;font-weight:600;">
-            View All Analytics
-          </a>
-        </div>
-
-      </div>
-
-    </div>
-
-    <!-- Bottom Information Callout Card: About Advertisements -->
-    <div class="about-ad-card">
+    <!-- Topbar Header -->
+    <header class="topbar" style="background:#ffffff;border-bottom:1px solid var(--border);padding:14px 28px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:20;">
       <div style="display:flex;align-items:center;gap:14px;">
-        <div style="width:38px;height:38px;border-radius:10px;background:#dbeafe;color:#2563eb;display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0;">
-          <i class="fa-solid fa-certificate"></i>
-        </div>
+        <i class="fa-solid fa-bars hamburger" style="font-size:16px;color:var(--text-600);cursor:pointer;"></i>
         <div>
-          <div style="font-size:13.5px;font-weight:800;color:var(--text-900);line-height:1.2;">About Advertisements</div>
-          <div style="font-size:12px;color:var(--text-500);margin-top:2px;">
-            Advertisements are displayed on kiosk home screen and other designated areas. You can target by zones, kiosks and time schedules.
+          <div style="font-size:12px;color:var(--text-500);display:flex;align-items:center;gap:6px;">
+            <a href="projects.html" style="color:var(--text-500);text-decoration:none;">Projects</a>
+            <i class="fa-solid fa-chevron-right" style="font-size:9px;color:var(--text-400);"></i>
+            <a href="project-overview.html" style="color:var(--text-500);text-decoration:none;">Phoenix Mall Project</a>
+            <i class="fa-solid fa-chevron-right" style="font-size:9px;color:var(--text-400);"></i>
+            <span style="color:var(--text-900);font-weight:600;">Advertisements</span>
+          </div>
+          <div style="display:flex;align-items:center;gap:10px;margin-top:2px;">
+            <h1 style="font-size:19px;font-weight:800;color:var(--text-900);margin:0;">Phoenix Mall Project</h1>
+            <span class="status-pill pill-active">Active</span>
           </div>
         </div>
       </div>
 
-      <a href="#" class="experience-banner-btn">
-        <span>Learn More</span>
-        <i class="fa-solid fa-arrow-up-right-from-square" style="font-size:10px;"></i>
+      <!-- Topbar Actions -->
+      <div style="display:flex;align-items:center;gap:16px;">
+        <!-- Date range selector pill -->
+        <div style="display:flex;align-items:center;gap:8px;background:#f8fafc;border:1px solid var(--border);border-radius:8px;padding:7px 12px;font-size:12.5px;font-weight:600;color:var(--text-700);cursor:pointer;">
+          <span>13 May – 19 May 2025</span>
+          <i class="fa-regular fa-calendar" style="color:var(--text-500);font-size:13px;"></i>
+        </div>
+
+        <!-- Notification Bell -->
+        <button style="position:relative;width:38px;height:38px;border-radius:8px;border:1px solid var(--border);background:#fff;display:flex;align-items:center;justify-content:center;cursor:pointer;">
+          <i class="fa-regular fa-bell" style="font-size:16px;color:var(--text-600);"></i>
+          <span style="position:absolute;top:3px;right:3px;background:#ef4444;color:#fff;font-size:9px;font-weight:700;border-radius:50%;width:15px;height:15px;display:flex;align-items:center;justify-content:center;">7</span>
+        </button>
+
+        <!-- User Profile (Phoenix Mall · Client Admin) -->
+        <div style="display:flex;align-items:center;gap:10px;cursor:pointer;">
+          <div style="width:36px;height:36px;border-radius:50%;background:#f3e8ff;color:#9333ea;font-weight:700;font-size:15px;display:flex;align-items:center;justify-content:center;border:1px solid #e9d5ff;">
+            <i class="fa-solid fa-building-circle-check"></i>
+          </div>
+          <div>
+            <div style="font-size:13.5px;font-weight:700;color:var(--text-900);line-height:1.2;">Phoenix Mall</div>
+            <div style="font-size:11px;color:var(--text-500);font-weight:500;">Client Admin</div>
+          </div>
+          <i class="fa-solid fa-chevron-down" style="font-size:10px;color:var(--text-400);margin-left:4px;"></i>
+        </div>
+      </div>
+    </header>
+
+    <!-- =========================================================================
+         PROJECT SUBNAV BAR (9 Project Tabs + Preview on Kiosk Button)
+         ========================================================================= -->
+    <div class="project-subnav-bar">
+      <nav class="project-subnav-tabs">
+        <a href="project-overview.html" class="project-subnav-tab" id="tabOverview"><i class="fa-solid fa-chart-pie"></i> Overview</a>
+        <a href="project-experience.html" class="project-subnav-tab" id="tabExperience"><i class="fa-solid fa-layer-group"></i> Experience</a>
+        <a href="project-content.html" class="project-subnav-tab" id="tabContent"><i class="fa-regular fa-file-lines"></i> Content</a>
+        <a href="project-themes.html" class="project-subnav-tab" id="tabThemes"><i class="fa-solid fa-palette"></i> Themes</a>
+        <a href="project-advertisements.html" class="project-subnav-tab active" id="tabAdvertisements"><i class="fa-solid fa-bullhorn"></i> Advertisements</a>
+        <a href="project-preview.html" class="project-subnav-tab" id="tabPreview"><i class="fa-solid fa-eye"></i> Preview</a>
+        <a href="project-analytics.html" class="project-subnav-tab" id="tabAnalytics"><i class="fa-solid fa-chart-column"></i> Analytics</a>
+        <a href="#" onclick="alert('Feedback Section: Opening Project Feedback...')" class="project-subnav-tab" id="tabFeedback"><i class="fa-regular fa-comment-dots"></i> Feedback</a>
+        <a href="#" onclick="alert('Requests Section: Opening Project Requests Queue...')" class="project-subnav-tab" id="tabRequests"><i class="fa-regular fa-clipboard"></i> Requests</a>
+      </nav>
+
+      <!-- Preview on Kiosk Button on Right -->
+      <a href="project-preview.html" id="btnPreviewOnKiosk" style="height:34px;padding:0 14px;border-radius:8px;border:1px solid #2563eb;background:#eff6ff;color:#2563eb;font-size:12px;font-weight:700;cursor:pointer;display:flex;align-items:center;gap:6px;text-decoration:none;">
+        <i class="fa-solid fa-desktop" style="font-size:11px;"></i>
+        <span>Preview on Kiosk</span>
+        <i class="fa-solid fa-chevron-down" style="font-size:9px;"></i>
       </a>
     </div>
 
-  </main>
+    <!-- Page Content Container -->
+    <div class="content" style="padding:22px 28px 40px 28px;background:#f8fafc;flex:1;">
+
+      <!-- =======================================================================
+           ROW 1: 6 ADVERTISEMENT STATUS KPI SUMMARY CARDS
+           ======================================================================= -->
+      <div class="ads-kpi-grid">
+        
+        <!-- Active Campaigns -->
+        <div class="kpi-stat-box">
+          <div class="kpi-icon-square" style="background:#eff6ff;color:#2563eb;border:1px solid #dbeafe;">
+            <i class="fa-solid fa-paper-plane"></i>
+          </div>
+          <div>
+            <div style="font-size:11px;color:var(--text-500);font-weight:600;">Active Campaigns</div>
+            <div style="font-size:22px;font-weight:800;color:var(--text-900);line-height:1.2;" id="kpiActiveCampaignsCount">12</div>
+            <div style="font-size:10.5px;color:#ea580c;font-weight:600;">2 expiring soon</div>
+          </div>
+        </div>
+
+        <!-- Total Impressions -->
+        <div class="kpi-stat-box">
+          <div class="kpi-icon-square" style="background:#eff6ff;color:#2563eb;border:1px solid #dbeafe;">
+            <i class="fa-regular fa-eye"></i>
+          </div>
+          <div>
+            <div style="font-size:11px;color:var(--text-500);font-weight:600;">Total Impressions</div>
+            <div style="font-size:22px;font-weight:800;color:var(--text-900);line-height:1.2;">254,320</div>
+            <div style="font-size:10.5px;color:#10b981;font-weight:600;">↑ 18.6% <span style="font-weight:400;color:var(--text-400);">vs last 7 days</span></div>
+          </div>
+        </div>
+
+        <!-- Total Interactions -->
+        <div class="kpi-stat-box">
+          <div class="kpi-icon-square" style="background:#f0fdf4;color:#16a34a;border:1px solid #dcfce7;">
+            <i class="fa-regular fa-hand-pointer"></i>
+          </div>
+          <div>
+            <div style="font-size:11px;color:var(--text-500);font-weight:600;">Total Interactions</div>
+            <div style="font-size:22px;font-weight:800;color:var(--text-900);line-height:1.2;">32,450</div>
+            <div style="font-size:10.5px;color:#10b981;font-weight:600;">↑ 21.3% <span style="font-weight:400;color:var(--text-400);">vs last 7 days</span></div>
+          </div>
+        </div>
+
+        <!-- Avg. CTR -->
+        <div class="kpi-stat-box">
+          <div class="kpi-icon-square" style="background:#eff6ff;color:#2563eb;border:1px solid #dbeafe;">
+            <i class="fa-solid fa-arrow-pointer"></i>
+          </div>
+          <div>
+            <div style="font-size:11px;color:var(--text-500);font-weight:600;">Avg. CTR</div>
+            <div style="font-size:22px;font-weight:800;color:var(--text-900);line-height:1.2;">12.8%</div>
+            <div style="font-size:10.5px;color:#10b981;font-weight:600;">↑ 1.6% <span style="font-weight:400;color:var(--text-400);">vs last 7 days</span></div>
+          </div>
+        </div>
+
+        <!-- Avg. Engagement Time -->
+        <div class="kpi-stat-box">
+          <div class="kpi-icon-square" style="background:#fef2f2;color:#dc2626;border:1px solid #fee2e2;">
+            <i class="fa-regular fa-star"></i>
+          </div>
+          <div>
+            <div style="font-size:11px;color:var(--text-500);font-weight:600;">Avg. Engagement Time</div>
+            <div style="font-size:22px;font-weight:800;color:var(--text-900);line-height:1.2;">8.6 sec</div>
+            <div style="font-size:10.5px;color:#10b981;font-weight:600;">↑ 0.9 sec <span style="font-weight:400;color:var(--text-400);">vs last 7 days</span></div>
+          </div>
+        </div>
+
+        <!-- Last Updated -->
+        <div class="kpi-stat-box">
+          <div class="kpi-icon-square" style="background:#f5f3ff;color:#7c3aed;border:1px solid #ede9fe;">
+            <i class="fa-regular fa-clipboard"></i>
+          </div>
+          <div>
+            <div style="font-size:11px;color:var(--text-500);font-weight:600;">Last Updated</div>
+            <div style="font-size:18px;font-weight:800;color:var(--text-900);line-height:1.2;">18 May 2025</div>
+            <div style="font-size:10.5px;color:var(--text-500);font-weight:500;">10:15 AM</div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- =======================================================================
+           ROW 2: MAIN 2-COLUMN SPLIT (Campaigns Table + Analytics & Actions)
+           ======================================================================= -->
+      <div class="ads-main-split">
+        
+        <!-- Left: Campaigns Table Card -->
+        <div class="ads-table-card">
+          
+          <!-- Card Header + Request Button -->
+          <div style="padding:16px 20px;border-bottom:1px solid var(--border-soft);display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;">
+            <h2 style="font-size:16px;font-weight:800;color:var(--text-900);margin:0;">Campaigns</h2>
+            
+            <button onclick="openRequestNewCampaignModal()" style="height:32px;padding:0 14px;border-radius:8px;border:1px solid #2563eb;background:#fff;color:#2563eb;font-size:12px;font-weight:700;cursor:pointer;display:flex;align-items:center;gap:6px;">
+              <i class="fa-solid fa-plus" style="font-size:11px;"></i>
+              <span>Request New Campaign</span>
+            </button>
+          </div>
+
+          <!-- Search & Filter Controls -->
+          <div style="padding:12px 20px;background:#f8fafc;border-bottom:1px solid var(--border-soft);display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;">
+            <!-- Search -->
+            <div style="position:relative;width:240px;">
+              <input type="text" id="searchAdsInput" onkeyup="filterCampaignsTable()" placeholder="Search campaigns..." style="width:100%;height:32px;padding:0 30px 0 10px;border-radius:6px;border:1px solid var(--border);font-size:12px;outline:none;background:#fff;">
+              <i class="fa-solid fa-magnifying-glass" style="position:absolute;right:10px;top:50%;transform:translateY(-50%);color:var(--text-400);font-size:11px;"></i>
+            </div>
+
+            <!-- Filters -->
+            <div style="display:flex;gap:8px;flex-wrap:wrap;">
+              <!-- Status Filter -->
+              <select id="adsStatusFilter" onchange="filterCampaignsTable()" style="font-size:11.5px;padding:4px 8px;border-radius:6px;border:1px solid var(--border);background:#fff;outline:none;color:var(--text-700);">
+                <option value="All">All Status ▾</option>
+                <option value="Active">Active</option>
+                <option value="Scheduled">Scheduled</option>
+                <option value="Inactive">Inactive</option>
+                <option value="Paused">Paused</option>
+              </select>
+
+              <!-- Type Filter -->
+              <select id="adsTypeFilter" onchange="filterCampaignsTable()" style="font-size:11.5px;padding:4px 8px;border-radius:6px;border:1px solid var(--border);background:#fff;outline:none;color:var(--text-700);">
+                <option value="All">All Types ▾</option>
+                <option value="Promotional">Promotional</option>
+                <option value="Entertainment">Entertainment</option>
+                <option value="Brand Awareness">Brand Awareness</option>
+              </select>
+
+              <!-- Sort Filter -->
+              <select style="font-size:11.5px;padding:4px 8px;border-radius:6px;border:1px solid var(--border);background:#fff;outline:none;color:var(--text-700);">
+                <option>Sort by: Latest ▾</option>
+                <option>Name (A-Z)</option>
+                <option>Impressions (High-Low)</option>
+                <option>CTR (High-Low)</option>
+              </select>
+            </div>
+          </div>
+
+          <!-- Table Body -->
+          <div style="overflow-x:auto;">
+            <table class="ads-table" id="campaignsDataTable">
+              <thead>
+                <tr>
+                  <th style="width:230px;">Campaign</th>
+                  <th>Type</th>
+                  <th>Status</th>
+                  <th>Period</th>
+                  <th>Impressions</th>
+                  <th>Interactions</th>
+                  <th>CTR</th>
+                  <th style="text-align:right;">Actions</th>
+                </tr>
+              </thead>
+              <tbody>
+                
+                <!-- 1. Summer Sale 2025 -->
+                <tr id="row-summer-sale">
+                  <td>
+                    <div style="display:flex;align-items:center;gap:10px;">
+                      <div class="campaign-thumb-box" style="background:linear-gradient(135deg,#06b6d4,#0284c7);">
+                        SUMMER<br>SALE
+                      </div>
+                      <div>
+                        <div style="font-weight:700;color:var(--text-900);font-size:12.5px;" id="name-summer-sale">Summer Sale 2025</div>
+                        <div style="font-size:10.5px;color:var(--text-500);" id="desc-summer-sale">Big savings on your favorite brands</div>
+                      </div>
+                    </div>
+                  </td>
+                  <td><span class="type-pill type-promo">Promotional</span></td>
+                  <td><span class="status-pill pill-active" id="badge-summer-sale">Active</span></td>
+                  <td style="font-size:11px;color:var(--text-600);">10 May 2025<br>– 31 May 2025</td>
+                  <td style="font-size:11.5px;font-weight:700;color:var(--text-900);">85,420 <span style="font-size:10px;color:#10b981;font-weight:600;"><br>↑ 20.4%</span></td>
+                  <td style="font-size:11.5px;font-weight:700;color:var(--text-900);">12,430 <span style="font-size:10px;color:#10b981;font-weight:600;"><br>↑ 18.7%</span></td>
+                  <td style="font-size:11.5px;font-weight:700;color:var(--text-900);">14.6% <span style="font-size:10px;color:#10b981;font-weight:600;"><br>↑ 1.8%</span></td>
+                  <td style="text-align:right;">
+                    <div style="display:inline-flex;gap:6px;">
+                      <button onclick="openEditCampaignModal('summer-sale')" title="Edit Campaign" style="border:none;background:transparent;color:#2563eb;cursor:pointer;"><i class="fa-regular fa-pen-to-square"></i></button>
+                      <button onclick="toggleCampaignStatus('summer-sale')" title="Toggle Active/Inactive" style="border:none;background:transparent;color:var(--text-500);cursor:pointer;"><i class="fa-solid fa-power-off"></i></button>
+                      <button onclick="openRequestChangeModal('Summer Sale 2025')" title="Request Change" style="border:none;background:transparent;color:var(--text-500);cursor:pointer;"><i class="fa-solid fa-ellipsis-vertical"></i></button>
+                    </div>
+                  </td>
+                </tr>
+
+                <!-- 2. Festive Offers -->
+                <tr id="row-festive-offers">
+                  <td>
+                    <div style="display:flex;align-items:center;gap:10px;">
+                      <div class="campaign-thumb-box" style="background:linear-gradient(135deg,#ea580c,#c2410c);">
+                        FESTIVE<br>OFFERS
+                      </div>
+                      <div>
+                        <div style="font-weight:700;color:var(--text-900);font-size:12.5px;" id="name-festive-offers">Festive Offers</div>
+                        <div style="font-size:10.5px;color:var(--text-500);" id="desc-festive-offers">Celebrate with amazing offers</div>
+                      </div>
+                    </div>
+                  </td>
+                  <td><span class="type-pill type-promo">Promotional</span></td>
+                  <td><span class="status-pill pill-active" id="badge-festive-offers">Active</span></td>
+                  <td style="font-size:11px;color:var(--text-600);">01 May 2025<br>– 25 May 2025</td>
+                  <td style="font-size:11.5px;font-weight:700;color:var(--text-900);">72,350 <span style="font-size:10px;color:#10b981;font-weight:600;"><br>↑ 15.1%</span></td>
+                  <td style="font-size:11.5px;font-weight:700;color:var(--text-900);">9,820 <span style="font-size:10px;color:#10b981;font-weight:600;"><br>↑ 17.3%</span></td>
+                  <td style="font-size:11.5px;font-weight:700;color:var(--text-900);">13.6% <span style="font-size:10px;color:#10b981;font-weight:600;"><br>↑ 1.2%</span></td>
+                  <td style="text-align:right;">
+                    <div style="display:inline-flex;gap:6px;">
+                      <button onclick="openEditCampaignModal('festive-offers')" title="Edit Campaign" style="border:none;background:transparent;color:#2563eb;cursor:pointer;"><i class="fa-regular fa-pen-to-square"></i></button>
+                      <button onclick="toggleCampaignStatus('festive-offers')" title="Toggle Active/Inactive" style="border:none;background:transparent;color:var(--text-500);cursor:pointer;"><i class="fa-solid fa-power-off"></i></button>
+                      <button onclick="openRequestChangeModal('Festive Offers')" title="Request Change" style="border:none;background:transparent;color:var(--text-500);cursor:pointer;"><i class="fa-solid fa-ellipsis-vertical"></i></button>
+                    </div>
+                  </td>
+                </tr>
+
+                <!-- 3. Food Court Specials -->
+                <tr id="row-food-court">
+                  <td>
+                    <div style="display:flex;align-items:center;gap:10px;">
+                      <div class="campaign-thumb-box" style="background:linear-gradient(135deg,#059669,#047857);">
+                        FOOD<br>COURT
+                      </div>
+                      <div>
+                        <div style="font-weight:700;color:var(--text-900);font-size:12.5px;" id="name-food-court">Food Court Specials</div>
+                        <div style="font-size:10.5px;color:var(--text-500);" id="desc-food-court">Delicious combos & deals</div>
+                      </div>
+                    </div>
+                  </td>
+                  <td><span class="type-pill type-promo">Promotional</span></td>
+                  <td><span class="status-pill pill-active" id="badge-food-court">Active</span></td>
+                  <td style="font-size:11px;color:var(--text-600);">05 May 2025<br>– 20 May 2025</td>
+                  <td style="font-size:11.5px;font-weight:700;color:var(--text-900);">45,210 <span style="font-size:10px;color:#10b981;font-weight:600;"><br>↑ 11.2%</span></td>
+                  <td style="font-size:11.5px;font-weight:700;color:var(--text-900);">6,120 <span style="font-size:10px;color:#10b981;font-weight:600;"><br>↑ 16.5%</span></td>
+                  <td style="font-size:11.5px;font-weight:700;color:var(--text-900);">13.5% <span style="font-size:10px;color:#10b981;font-weight:600;"><br>↑ 1.4%</span></td>
+                  <td style="text-align:right;">
+                    <div style="display:inline-flex;gap:6px;">
+                      <button onclick="openEditCampaignModal('food-court')" title="Edit Campaign" style="border:none;background:transparent;color:#2563eb;cursor:pointer;"><i class="fa-regular fa-pen-to-square"></i></button>
+                      <button onclick="toggleCampaignStatus('food-court')" title="Toggle Active/Inactive" style="border:none;background:transparent;color:var(--text-500);cursor:pointer;"><i class="fa-solid fa-power-off"></i></button>
+                      <button onclick="openRequestChangeModal('Food Court Specials')" title="Request Change" style="border:none;background:transparent;color:var(--text-500);cursor:pointer;"><i class="fa-solid fa-ellipsis-vertical"></i></button>
+                    </div>
+                  </td>
+                </tr>
+
+                <!-- 4. Weekend Bonanza -->
+                <tr id="row-weekend-bonanza">
+                  <td>
+                    <div style="display:flex;align-items:center;gap:10px;">
+                      <div class="campaign-thumb-box" style="background:linear-gradient(135deg,#ca8a04,#a16207);">
+                        WEEKEND<br>BONANZA
+                      </div>
+                      <div>
+                        <div style="font-weight:700;color:var(--text-900);font-size:12.5px;" id="name-weekend-bonanza">Weekend Bonanza</div>
+                        <div style="font-size:10.5px;color:var(--text-500);" id="desc-weekend-bonanza">Shop more, save more</div>
+                      </div>
+                    </div>
+                  </td>
+                  <td><span class="type-pill type-promo">Promotional</span></td>
+                  <td><span class="status-pill pill-active" id="badge-weekend-bonanza">Active</span></td>
+                  <td style="font-size:11px;color:var(--text-600);">Every Weekend</td>
+                  <td style="font-size:11.5px;font-weight:700;color:var(--text-900);">28,650 <span style="font-size:10px;color:#10b981;font-weight:600;"><br>↑ 8.9%</span></td>
+                  <td style="font-size:11.5px;font-weight:700;color:var(--text-900);">3,980 <span style="font-size:10px;color:#10b981;font-weight:600;"><br>↑ 13.6%</span></td>
+                  <td style="font-size:11.5px;font-weight:700;color:var(--text-900);">13.9% <span style="font-size:10px;color:#10b981;font-weight:600;"><br>↑ 1.1%</span></td>
+                  <td style="text-align:right;">
+                    <div style="display:inline-flex;gap:6px;">
+                      <button onclick="openEditCampaignModal('weekend-bonanza')" title="Edit Campaign" style="border:none;background:transparent;color:#2563eb;cursor:pointer;"><i class="fa-regular fa-pen-to-square"></i></button>
+                      <button onclick="toggleCampaignStatus('weekend-bonanza')" title="Toggle Active/Inactive" style="border:none;background:transparent;color:var(--text-500);cursor:pointer;"><i class="fa-solid fa-power-off"></i></button>
+                      <button onclick="openRequestChangeModal('Weekend Bonanza')" title="Request Change" style="border:none;background:transparent;color:var(--text-500);cursor:pointer;"><i class="fa-solid fa-ellipsis-vertical"></i></button>
+                    </div>
+                  </td>
+                </tr>
+
+                <!-- 5. Movie Time Combo -->
+                <tr id="row-movie-time">
+                  <td>
+                    <div style="display:flex;align-items:center;gap:10px;">
+                      <div class="campaign-thumb-box" style="background:linear-gradient(135deg,#7c3aed,#6d28d9);">
+                        MOVIE<br>TIME
+                      </div>
+                      <div>
+                        <div style="font-weight:700;color:var(--text-900);font-size:12.5px;" id="name-movie-time">Movie Time Combo</div>
+                        <div style="font-size:10.5px;color:var(--text-500);" id="desc-movie-time">Best combos for movie lovers</div>
+                      </div>
+                    </div>
+                  </td>
+                  <td><span class="type-pill type-ent">Entertainment</span></td>
+                  <td><span class="status-pill pill-active" id="badge-movie-time">Active</span></td>
+                  <td style="font-size:11px;color:var(--text-600);">12 May 2025<br>– 26 May 2025</td>
+                  <td style="font-size:11.5px;font-weight:700;color:var(--text-900);">15,430 <span style="font-size:10px;color:#10b981;font-weight:600;"><br>↑ 9.3%</span></td>
+                  <td style="font-size:11.5px;font-weight:700;color:var(--text-900);">2,160 <span style="font-size:10px;color:#10b981;font-weight:600;"><br>↑ 14.1%</span></td>
+                  <td style="font-size:11.5px;font-weight:700;color:var(--text-900);">14.0% <span style="font-size:10px;color:#10b981;font-weight:600;"><br>↑ 1.3%</span></td>
+                  <td style="text-align:right;">
+                    <div style="display:inline-flex;gap:6px;">
+                      <button onclick="openEditCampaignModal('movie-time')" title="Edit Campaign" style="border:none;background:transparent;color:#2563eb;cursor:pointer;"><i class="fa-regular fa-pen-to-square"></i></button>
+                      <button onclick="toggleCampaignStatus('movie-time')" title="Toggle Active/Inactive" style="border:none;background:transparent;color:var(--text-500);cursor:pointer;"><i class="fa-solid fa-power-off"></i></button>
+                      <button onclick="openRequestChangeModal('Movie Time Combo')" title="Request Change" style="border:none;background:transparent;color:var(--text-500);cursor:pointer;"><i class="fa-solid fa-ellipsis-vertical"></i></button>
+                    </div>
+                  </td>
+                </tr>
+
+                <!-- 6. New Store Arrival -->
+                <tr id="row-new-store">
+                  <td>
+                    <div style="display:flex;align-items:center;gap:10px;">
+                      <div class="campaign-thumb-box" style="background:linear-gradient(135deg,#0284c7,#0369a1);">
+                        NEW<br>STORE
+                      </div>
+                      <div>
+                        <div style="font-weight:700;color:var(--text-900);font-size:12.5px;" id="name-new-store">New Store Arrival</div>
+                        <div style="font-size:10.5px;color:var(--text-500);" id="desc-new-store">Explore the new collection</div>
+                      </div>
+                    </div>
+                  </td>
+                  <td><span class="type-pill type-brand">Brand Awareness</span></td>
+                  <td><span class="status-pill pill-scheduled" id="badge-new-store">Scheduled</span></td>
+                  <td style="font-size:11px;color:var(--text-600);">20 May 2025<br>– 10 Jun 2025</td>
+                  <td style="font-size:11.5px;color:var(--text-400);">–</td>
+                  <td style="font-size:11.5px;color:var(--text-400);">–</td>
+                  <td style="font-size:11.5px;color:var(--text-400);">–</td>
+                  <td style="text-align:right;">
+                    <div style="display:inline-flex;gap:6px;">
+                      <button onclick="openEditCampaignModal('new-store')" title="Edit Campaign" style="border:none;background:transparent;color:#2563eb;cursor:pointer;"><i class="fa-regular fa-pen-to-square"></i></button>
+                      <button onclick="toggleCampaignStatus('new-store')" title="Toggle Status" style="border:none;background:transparent;color:var(--text-500);cursor:pointer;"><i class="fa-solid fa-power-off"></i></button>
+                      <button onclick="openRequestChangeModal('New Store Arrival')" title="Request Change" style="border:none;background:transparent;color:var(--text-500);cursor:pointer;"><i class="fa-solid fa-ellipsis-vertical"></i></button>
+                    </div>
+                  </td>
+                </tr>
+
+                <!-- 7. Mega Clearance -->
+                <tr id="row-mega-clearance">
+                  <td>
+                    <div style="display:flex;align-items:center;gap:10px;">
+                      <div class="campaign-thumb-box" style="background:linear-gradient(135deg,#dc2626,#991b1b);">
+                        MEGA<br>SALE
+                      </div>
+                      <div>
+                        <div style="font-weight:700;color:var(--text-900);font-size:12.5px;" id="name-mega-clearance">Mega Clearance</div>
+                        <div style="font-size:10.5px;color:var(--text-500);" id="desc-mega-clearance">Clearance sale up to 70% off</div>
+                      </div>
+                    </div>
+                  </td>
+                  <td><span class="type-pill type-promo">Promotional</span></td>
+                  <td><span class="status-pill pill-inactive" id="badge-mega-clearance">Inactive</span></td>
+                  <td style="font-size:11px;color:var(--text-600);">01 Apr 2025<br>– 30 Apr 2025</td>
+                  <td style="font-size:11.5px;font-weight:700;color:var(--text-700);">7,860</td>
+                  <td style="font-size:11.5px;font-weight:700;color:var(--text-700);">1,020</td>
+                  <td style="font-size:11.5px;font-weight:700;color:var(--text-700);">13.0%</td>
+                  <td style="text-align:right;">
+                    <div style="display:inline-flex;gap:6px;">
+                      <button onclick="openEditCampaignModal('mega-clearance')" title="Edit Campaign" style="border:none;background:transparent;color:#2563eb;cursor:pointer;"><i class="fa-regular fa-pen-to-square"></i></button>
+                      <button onclick="toggleCampaignStatus('mega-clearance')" title="Reactivate Campaign" style="border:none;background:transparent;color:#10b981;cursor:pointer;"><i class="fa-solid fa-power-off"></i></button>
+                      <button onclick="openRequestChangeModal('Mega Clearance')" title="Request Change" style="border:none;background:transparent;color:var(--text-500);cursor:pointer;"><i class="fa-solid fa-ellipsis-vertical"></i></button>
+                    </div>
+                  </td>
+                </tr>
+
+                <!-- 8. Member Exclusive -->
+                <tr id="row-member-exclusive">
+                  <td>
+                    <div style="display:flex;align-items:center;gap:10px;">
+                      <div class="campaign-thumb-box" style="background:linear-gradient(135deg,#d97706,#b45309);">
+                        MEMBER<br>OFFERS
+                      </div>
+                      <div>
+                        <div style="font-weight:700;color:var(--text-900);font-size:12.5px;" id="name-member-exclusive">Member Exclusive</div>
+                        <div style="font-size:10.5px;color:var(--text-500);" id="desc-member-exclusive">Special offers for members</div>
+                      </div>
+                    </div>
+                  </td>
+                  <td><span class="type-pill type-promo">Promotional</span></td>
+                  <td><span class="status-pill pill-paused" id="badge-member-exclusive">Paused</span></td>
+                  <td style="font-size:11px;color:var(--text-600);">15 Apr 2025<br>– 30 Apr 2025</td>
+                  <td style="font-size:11.5px;color:var(--text-400);">–</td>
+                  <td style="font-size:11.5px;color:var(--text-400);">–</td>
+                  <td style="font-size:11.5px;color:var(--text-400);">–</td>
+                  <td style="text-align:right;">
+                    <div style="display:inline-flex;gap:6px;">
+                      <button onclick="openEditCampaignModal('member-exclusive')" title="Edit Campaign" style="border:none;background:transparent;color:#2563eb;cursor:pointer;"><i class="fa-regular fa-pen-to-square"></i></button>
+                      <button onclick="toggleCampaignStatus('member-exclusive')" title="Resume Campaign" style="border:none;background:transparent;color:#f59e0b;cursor:pointer;"><i class="fa-solid fa-power-off"></i></button>
+                      <button onclick="openRequestChangeModal('Member Exclusive')" title="Request Change" style="border:none;background:transparent;color:var(--text-500);cursor:pointer;"><i class="fa-solid fa-ellipsis-vertical"></i></button>
+                    </div>
+                  </td>
+                </tr>
+
+              </tbody>
+            </table>
+          </div>
+
+          <!-- Pagination Footer -->
+          <div style="padding:14px 20px;border-top:1px solid var(--border-soft);display:flex;align-items:center;justify-content:space-between;font-size:11.5px;color:var(--text-500);">
+            <div>Showing 1 to 8 of 12 campaigns</div>
+            <div style="display:flex;gap:4px;">
+              <button style="width:28px;height:28px;border-radius:6px;border:1px solid var(--border);background:#fff;cursor:pointer;color:var(--text-500);"><i class="fa-solid fa-chevron-left" style="font-size:10px;"></i></button>
+              <button style="width:28px;height:28px;border-radius:6px;border:none;background:#2563eb;color:#fff;font-weight:700;cursor:pointer;">1</button>
+              <button style="width:28px;height:28px;border-radius:6px;border:1px solid var(--border);background:#fff;cursor:pointer;color:var(--text-700);">2</button>
+              <button style="width:28px;height:28px;border-radius:6px;border:1px solid var(--border);background:#fff;cursor:pointer;color:var(--text-500);"><i class="fa-solid fa-chevron-right" style="font-size:10px;"></i></button>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Right: Side Analytics & Actions Panel -->
+        <div style="display:flex;flex-direction:column;gap:16px;">
+          
+          <!-- Top Performing Campaigns Card -->
+          <div class="side-panel-card">
+            <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;">
+              <h3 style="font-size:14px;font-weight:800;color:var(--text-900);margin:0;">Top Performing Campaigns</h3>
+              <a href="project-analytics.html" class="dash-panel-link">View All</a>
+            </div>
+
+            <div style="display:flex;justify-content:space-between;font-size:10.5px;font-weight:700;color:var(--text-400);text-transform:uppercase;margin-bottom:8px;">
+              <span>Campaign</span>
+              <span>Interactions</span>
+            </div>
+
+            <div style="display:flex;flex-direction:column;gap:10px;font-size:11.5px;">
+              <div style="display:flex;align-items:center;justify-content:space-between;">
+                <span style="width:120px;font-weight:600;color:var(--text-800);">Summer Sale 2025</span>
+                <div class="rank-bar-track"><div class="rank-bar-fill" style="width:95%;"></div></div>
+                <strong style="color:var(--text-900);">12,430</strong>
+              </div>
+              <div style="display:flex;align-items:center;justify-content:space-between;">
+                <span style="width:120px;font-weight:600;color:var(--text-800);">Festive Offers</span>
+                <div class="rank-bar-track"><div class="rank-bar-fill" style="width:78%;"></div></div>
+                <strong style="color:var(--text-900);">9,820</strong>
+              </div>
+              <div style="display:flex;align-items:center;justify-content:space-between;">
+                <span style="width:120px;font-weight:600;color:var(--text-800);">Food Court Specials</span>
+                <div class="rank-bar-track"><div class="rank-bar-fill" style="width:55%;"></div></div>
+                <strong style="color:var(--text-900);">6,120</strong>
+              </div>
+              <div style="display:flex;align-items:center;justify-content:space-between;">
+                <span style="width:120px;font-weight:600;color:var(--text-800);">Weekend Bonanza</span>
+                <div class="rank-bar-track"><div class="rank-bar-fill" style="width:38%;"></div></div>
+                <strong style="color:var(--text-900);">3,980</strong>
+              </div>
+              <div style="display:flex;align-items:center;justify-content:space-between;">
+                <span style="width:120px;font-weight:600;color:var(--text-800);">Movie Time Combo</span>
+                <div class="rank-bar-track"><div class="rank-bar-fill" style="width:24%;"></div></div>
+                <strong style="color:var(--text-900);">2,160</strong>
+              </div>
+            </div>
+          </div>
+
+          <!-- Campaign Distribution Donut Card -->
+          <div class="side-panel-card">
+            <h3 style="font-size:14px;font-weight:800;color:var(--text-900);margin:0 0 12px 0;">Campaign Distribution</h3>
+            
+            <div style="display:flex;align-items:center;gap:16px;">
+              <!-- Donut Chart -->
+              <div style="position:relative;width:95px;height:95px;flex-shrink:0;">
+                <svg viewBox="0 0 36 36" style="width:100%;height:100%;transform:rotate(-90deg);">
+                  <circle cx="18" cy="18" r="15.915" fill="none" stroke="#f1f5f9" stroke-width="5"/>
+                  <circle cx="18" cy="18" r="15.915" fill="none" stroke="#7c3aed" stroke-width="5" stroke-dasharray="66.7 33.3" stroke-dashoffset="0"/>
+                  <circle cx="18" cy="18" r="15.915" fill="none" stroke="#06b6d4" stroke-width="5" stroke-dasharray="16.7 83.3" stroke-dashoffset="-66.7"/>
+                  <circle cx="18" cy="18" r="15.915" fill="none" stroke="#f97316" stroke-width="5" stroke-dasharray="8.3 91.7" stroke-dashoffset="-83.4"/>
+                  <circle cx="18" cy="18" r="15.915" fill="none" stroke="#94a3b8" stroke-width="5" stroke-dasharray="8.3 91.7" stroke-dashoffset="-91.7"/>
+                </svg>
+                <div style="position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;">
+                  <span style="font-size:16px;font-weight:800;color:var(--text-900);line-height:1;">12</span>
+                  <span style="font-size:9px;color:var(--text-500);">Total</span>
+                </div>
+              </div>
+
+              <!-- Legend -->
+              <div style="flex:1;display:flex;flex-direction:column;gap:5px;font-size:11px;">
+                <div style="display:flex;justify-content:space-between;align-items:center;">
+                  <span style="display:flex;align-items:center;gap:6px;"><span style="width:8px;height:8px;border-radius:50%;background:#7c3aed;"></span> Promotional</span>
+                  <strong style="color:var(--text-900);">8 (66.7%)</strong>
+                </div>
+                <div style="display:flex;justify-content:space-between;align-items:center;">
+                  <span style="display:flex;align-items:center;gap:6px;"><span style="width:8px;height:8px;border-radius:50%;background:#06b6d4;"></span> Entertainment</span>
+                  <strong style="color:var(--text-900);">2 (16.7%)</strong>
+                </div>
+                <div style="display:flex;justify-content:space-between;align-items:center;">
+                  <span style="display:flex;align-items:center;gap:6px;"><span style="width:8px;height:8px;border-radius:50%;background:#f97316;"></span> Brand Awareness</span>
+                  <strong style="color:var(--text-900);">1 (8.3%)</strong>
+                </div>
+                <div style="display:flex;justify-content:space-between;align-items:center;">
+                  <span style="display:flex;align-items:center;gap:6px;"><span style="width:8px;height:8px;border-radius:50%;background:#94a3b8;"></span> Others</span>
+                  <strong style="color:var(--text-900);">1 (8.3%)</strong>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Quick Actions Card -->
+          <div class="side-panel-card">
+            <h3 style="font-size:14px;font-weight:800;color:var(--text-900);margin:0 0 12px 0;">Quick Actions</h3>
+            
+            <!-- 1. Preview on Kiosk -->
+            <a href="project-preview.html" class="quick-action-row" id="qaPreviewKiosk">
+              <div style="width:32px;height:32px;border-radius:8px;background:#eff6ff;color:#2563eb;display:flex;align-items:center;justify-content:center;font-size:13px;flex-shrink:0;">
+                <i class="fa-solid fa-desktop"></i>
+              </div>
+              <div style="flex:1;">
+                <div style="font-size:12.5px;font-weight:700;color:var(--text-900);">Preview on Kiosk</div>
+                <div style="font-size:10.5px;color:var(--text-500);">See how campaigns look on kiosk</div>
+              </div>
+            </a>
+
+            <!-- 2. View Campaign Analytics -->
+            <a href="project-analytics.html" class="quick-action-row" id="qaCampaignAnalytics">
+              <div style="width:32px;height:32px;border-radius:8px;background:#f5f3ff;color:#7c3aed;display:flex;align-items:center;justify-content:center;font-size:13px;flex-shrink:0;">
+                <i class="fa-solid fa-chart-column"></i>
+              </div>
+              <div style="flex:1;">
+                <div style="font-size:12.5px;font-weight:700;color:var(--text-900);">View Campaign Analytics</div>
+                <div style="font-size:10.5px;color:var(--text-500);">Performance of all campaigns</div>
+              </div>
+            </a>
+
+            <!-- 3. View Campaign Calendar -->
+            <a href="#" onclick="alert('Campaign Calendar: Schedule overview for 12 campaigns running across Phoenix Mall kiosks.')" class="quick-action-row" id="qaCampaignCalendar">
+              <div style="width:32px;height:32px;border-radius:8px;background:#eff6ff;color:#2563eb;display:flex;align-items:center;justify-content:center;font-size:13px;flex-shrink:0;">
+                <i class="fa-regular fa-calendar-days"></i>
+              </div>
+              <div style="flex:1;">
+                <div style="font-size:12.5px;font-weight:700;color:var(--text-900);">View Campaign Calendar</div>
+                <div style="font-size:10.5px;color:var(--text-500);">Upcoming & running campaigns</div>
+              </div>
+            </a>
+
+            <!-- 4. Request New Campaign -->
+            <a href="#" onclick="openRequestNewCampaignModal()" class="quick-action-row" id="qaRequestNewCampaign">
+              <div style="width:32px;height:32px;border-radius:8px;background:#eff6ff;color:#2563eb;display:flex;align-items:center;justify-content:center;font-size:13px;flex-shrink:0;">
+                <i class="fa-solid fa-paper-plane"></i>
+              </div>
+              <div style="flex:1;">
+                <div style="font-size:12.5px;font-weight:700;color:var(--text-900);">Request New Campaign</div>
+                <div style="font-size:10.5px;color:var(--text-500);">Request a new advertisement campaign</div>
+              </div>
+            </a>
+
+          </div>
+
+        </div>
+
+      </div>
+
+      <!-- =======================================================================
+           ROW 3: BOTTOM 2-COLUMN SPLIT (Recently Updated Campaigns + Ad Notes)
+           ======================================================================= -->
+      <div class="ads-row-2col">
+        
+        <!-- Column 1: Recently Updated Campaigns -->
+        <div class="dash-panel">
+          <div class="dash-panel-header">
+            <h2 class="dash-panel-title">Recently Updated Campaigns</h2>
+            <a href="#" onclick="alert('Activity: Complete log of advertisement campaign updates.')" class="dash-panel-link">View All</a>
+          </div>
+          <div class="dash-panel-body" style="display:flex;flex-direction:column;gap:8px;" id="adUpdatesContainer">
+            <div class="activity-row">
+              <span style="color:var(--text-900);font-weight:600;" id="logAd1">Summer Sale 2025 updated</span>
+              <span style="color:var(--text-500);font-size:11px;" id="dateAd1">18 May 2025, 10:15 AM</span>
+            </div>
+            <div class="activity-row">
+              <span style="color:var(--text-900);font-weight:600;">Festive Offers content updated</span>
+              <span style="color:var(--text-500);font-size:11px;">17 May 2025, 04:30 PM</span>
+            </div>
+            <div class="activity-row">
+              <span style="color:var(--text-900);font-weight:600;">Food Court Specials banner updated</span>
+              <span style="color:var(--text-500);font-size:11px;">16 May 2025, 11:20 AM</span>
+            </div>
+            <div class="activity-row">
+              <span style="color:var(--text-900);font-weight:600;">Weekend Bonanza schedule updated</span>
+              <span style="color:var(--text-500);font-size:11px;">15 May 2025, 09:45 AM</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Column 2: Advertisement Notes -->
+        <div class="dash-panel">
+          <div class="dash-panel-header">
+            <h2 class="dash-panel-title">Advertisement Notes</h2>
+            <a href="#" onclick="alert('Requests: Opening Client Request Portal for advertisements...')" class="dash-panel-link">Go to Requests ></a>
+          </div>
+          <div class="dash-panel-body" style="font-size:12px;color:var(--text-600);line-height:1.5;display:flex;flex-direction:column;justify-content:space-between;">
+            <div>
+              <p style="margin:0 0 10px 0;">
+                All advertisement campaigns are created and managed by <strong>Company Admin</strong>.
+              </p>
+              <p style="margin:0 0 10px 0;">
+                You can view performance, preview campaigns on kiosk, and manage the content for approved campaigns.
+              </p>
+              <p style="margin:0;">
+                For new campaigns or major changes, please submit a request.
+              </p>
+            </div>
+
+            <div style="background:#eff6ff;border:1px solid #bfdbfe;border-radius:8px;padding:8px 12px;margin-top:14px;font-size:11px;color:#1e40af;display:flex;align-items:center;gap:8px;">
+              <i class="fa-solid fa-circle-info"></i>
+              <span>Permitted content updates take effect on next kiosk sync · New ads designed by Company</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+
+    <!-- Client Footer -->
+    <footer style="padding:16px 28px;background:#ffffff;border-top:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;font-size:12px;color:var(--text-500);">
+      <div>© 2025 Mall Kiosk Platform. All rights reserved.</div>
+      <div style="display:flex;gap:18px;">
+        <span>Client Admin Portal</span>
+        <span>Phoenix Mall Advertisements</span>
+      </div>
+    </footer>
+
+  </div>
 </div>
+
+<!-- ===========================================================================
+     INTERACTIVE MODALS
+     =========================================================================== -->
+<!-- 1. Edit Permitted Campaign Modal -->
+<div class="modal-backdrop" id="editCampaignModal">
+  <div class="modal-box">
+    <div style="padding:18px 24px;border-bottom:1px solid var(--border-soft);display:flex;align-items:center;justify-content:space-between;">
+      <div>
+        <h3 style="font-size:16px;font-weight:800;color:var(--text-900);margin:0;" id="editModalTitle">Edit Campaign</h3>
+        <div style="font-size:11px;color:var(--text-500);margin-top:2px;">Manage permitted campaign text, offer copy, and approved media.</div>
+      </div>
+      <i class="fa-solid fa-xmark" style="cursor:pointer;color:var(--text-400);font-size:15px;" onclick="closeEditCampaignModal()"></i>
+    </div>
+    
+    <div style="padding:20px 24px;display:flex;flex-direction:column;gap:14px;font-size:12px;">
+      <input type="hidden" id="editCampaignKey">
+      
+      <div>
+        <label style="display:block;font-weight:700;color:var(--text-800);margin-bottom:4px;">Campaign Title (Permitted)</label>
+        <input type="text" id="editCampaignNameInput" style="width:100%;height:36px;border:1px solid var(--border);border-radius:8px;padding:0 12px;font-size:12.5px;outline:none;">
+      </div>
+
+      <div>
+        <label style="display:block;font-weight:700;color:var(--text-800);margin-bottom:4px;">Short Description / Offer Copy</label>
+        <textarea id="editCampaignDescInput" rows="3" style="width:100%;border:1px solid var(--border);border-radius:8px;padding:8px 12px;font-size:12.5px;outline:none;resize:none;"></textarea>
+      </div>
+
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;">
+        <div>
+          <label style="display:block;font-weight:700;color:var(--text-800);margin-bottom:4px;">Start Date</label>
+          <input type="date" id="editCampaignStartDate" value="2025-05-10" style="width:100%;height:36px;border:1px solid var(--border);border-radius:8px;padding:0 10px;font-size:12px;outline:none;">
+        </div>
+        <div>
+          <label style="display:block;font-weight:700;color:var(--text-800);margin-bottom:4px;">End Date</label>
+          <input type="date" id="editCampaignEndDate" value="2025-05-31" style="width:100%;height:36px;border:1px solid var(--border);border-radius:8px;padding:0 10px;font-size:12px;outline:none;">
+        </div>
+      </div>
+
+      <div style="background:#f8fafc;border:1px solid var(--border-soft);border-radius:8px;padding:10px 12px;">
+        <div style="font-weight:700;color:var(--text-800);margin-bottom:4px;">Replace Permitted Approved Media Asset</div>
+        <div style="display:flex;align-items:center;gap:10px;">
+          <select id="editCampaignMediaSelect" style="flex:1;height:34px;border:1px solid var(--border);border-radius:6px;padding:0 8px;font-size:12px;outline:none;background:#fff;">
+            <option value="summer_sale_banner_01.png">summer_sale_banner_01.png (Approved 1080x1920)</option>
+            <option value="summer_sale_banner_02.png">summer_sale_banner_02.png (Approved 1080x1920)</option>
+            <option value="lifestyle_promo_v2.png">lifestyle_promo_v2.png (Approved 1080x1920)</option>
+          </select>
+          <button type="button" onclick="alert('Asset Library: 3 approved assets available for this campaign.')" style="height:34px;padding:0 10px;border-radius:6px;border:1px solid var(--border);background:#fff;font-size:11.5px;font-weight:600;cursor:pointer;">Browse</button>
+        </div>
+      </div>
+    </div>
+
+    <div style="padding:14px 24px;background:#f8fafc;border-top:1px solid var(--border-soft);display:flex;justify-content:flex-end;gap:10px;">
+      <button onclick="closeEditCampaignModal()" style="height:34px;padding:0 14px;border-radius:8px;border:1px solid var(--border);background:#fff;color:var(--text-700);font-size:12px;font-weight:600;cursor:pointer;">Cancel</button>
+      <button onclick="saveCampaignEdit()" id="btnSaveCampaignEdit" style="height:34px;padding:0 18px;border-radius:8px;border:none;background:#2563eb;color:#fff;font-size:12px;font-weight:700;cursor:pointer;box-shadow:0 2px 4px rgba(37,99,235,0.2);">Save Changes</button>
+    </div>
+  </div>
 </div>
+
+<!-- ===========================================================================
+     JAVASCRIPT LOGIC
+     =========================================================================== -->
+<script>
+  const campaignsData = {
+    'summer-sale': {
+      name: 'Summer Sale 2025',
+      desc: 'Big savings on your favorite brands',
+      status: 'Active'
+    },
+    'festive-offers': {
+      name: 'Festive Offers',
+      desc: 'Celebrate with amazing offers',
+      status: 'Active'
+    },
+    'food-court': {
+      name: 'Food Court Specials',
+      desc: 'Delicious combos & deals',
+      status: 'Active'
+    },
+    'weekend-bonanza': {
+      name: 'Weekend Bonanza',
+      desc: 'Shop more, save more',
+      status: 'Active'
+    },
+    'movie-time': {
+      name: 'Movie Time Combo',
+      desc: 'Best combos for movie lovers',
+      status: 'Active'
+    },
+    'new-store': {
+      name: 'New Store Arrival',
+      desc: 'Explore the new collection',
+      status: 'Scheduled'
+    },
+    'mega-clearance': {
+      name: 'Mega Clearance',
+      desc: 'Clearance sale up to 70% off',
+      status: 'Inactive'
+    },
+    'member-exclusive': {
+      name: 'Member Exclusive',
+      desc: 'Special offers for members',
+      status: 'Paused'
+    }
+  };
+
+  function filterCampaignsTable() {
+    const query = (document.getElementById('searchAdsInput')?.value || '').toLowerCase();
+    const statusVal = document.getElementById('adsStatusFilter')?.value || 'All';
+    const typeVal = document.getElementById('adsTypeFilter')?.value || 'All';
+    const rows = document.querySelectorAll('#campaignsDataTable tbody tr');
+
+    rows.forEach(r => {
+      const text = r.innerText.toLowerCase();
+      const matchesSearch = text.includes(query);
+      const matchesStatus = (statusVal === 'All') || text.includes(statusVal.toLowerCase());
+      const matchesType = (typeVal === 'All') || text.includes(typeVal.toLowerCase());
+      r.style.display = matchesSearch && matchesStatus && matchesType ? '' : 'none';
+    });
+  }
+
+  function openEditCampaignModal(key) {
+    const data = campaignsData[key];
+    if (!data) return;
+    document.getElementById('editCampaignKey').value = key;
+    document.getElementById('editModalTitle').innerText = `Edit: ${data.name}`;
+    document.getElementById('editCampaignNameInput').value = data.name;
+    document.getElementById('editCampaignDescInput').value = data.desc;
+    document.getElementById('editCampaignModal').style.display = 'flex';
+  }
+
+  function closeEditCampaignModal() {
+    document.getElementById('editCampaignModal').style.display = 'none';
+  }
+
+  function saveCampaignEdit() {
+    const key = document.getElementById('editCampaignKey').value;
+    const newName = document.getElementById('editCampaignNameInput').value;
+    const newDesc = document.getElementById('editCampaignDescInput').value;
+
+    if (campaignsData[key]) {
+      campaignsData[key].name = newName;
+      campaignsData[key].desc = newDesc;
+
+      const nameEl = document.getElementById(`name-${key}`);
+      const descEl = document.getElementById(`desc-${key}`);
+      if (nameEl) nameEl.innerText = newName;
+      if (descEl) descEl.innerText = newDesc;
+
+      // Update activity row
+      const now = new Date();
+      const timeStr = now.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' });
+      const logEl = document.getElementById('logAd1');
+      const dateEl = document.getElementById('dateAd1');
+      if (logEl) logEl.innerText = `${newName} updated`;
+      if (dateEl) dateEl.innerText = `Today, ${timeStr}`;
+    }
+
+    closeEditCampaignModal();
+    alert(`Campaign "${newName}" updated successfully! Changes will sync to kiosks.`);
+  }
+
+  function toggleCampaignStatus(key) {
+    const data = campaignsData[key];
+    if (!data) return;
+
+    const badge = document.getElementById(`badge-${key}`);
+    if (!badge) return;
+
+    if (data.status === 'Active') {
+      if (confirm(`Turn off "${data.name}"? The campaign will stop running on kiosks.`)) {
+        data.status = 'Inactive';
+        badge.className = 'status-pill pill-inactive';
+        badge.innerText = 'Inactive';
+      }
+    } else {
+      if (confirm(`Reactivate "${data.name}" across all kiosks?`)) {
+        data.status = 'Active';
+        badge.className = 'status-pill pill-active';
+        badge.innerText = 'Active';
+      }
+    }
+  }
+
+  function openRequestNewCampaignModal() {
+    alert('Request New Campaign: Redirecting to structured Request Submission Form with pre-filled Phoenix Mall Project context.');
+  }
+
+  function openRequestChangeModal(campName) {
+    alert(`Request Structural / Creative Change: Submitting structured request for "${campName}" to Company Admin.`);
+  }
+
+  function toggleSidebarCollapse() {
+    const sb = document.getElementById('clientSidebar');
+    if (sb) {
+      sb.classList.toggle('collapsed');
+    }
+  }
+</script>
 
 </body>
 </html>
-
-
