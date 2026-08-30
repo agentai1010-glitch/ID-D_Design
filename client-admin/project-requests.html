@@ -1,0 +1,1300 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Phoenix Mall Project · Requests · Mall Kiosk Platform</title>
+  <!-- Google Fonts & Font Awesome -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="stylesheet" href="../css/styles.css">
+  <style>
+    /* Workflow Domain 9 - Client Admin Project Requests Specific Styling */
+    .requests-kpi-grid {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 14px;
+      margin-bottom: 20px;
+    }
+    @media (max-width: 1300px) {
+      .requests-kpi-grid {
+        grid-template-columns: repeat(3, 1fr);
+      }
+    }
+    @media (max-width: 800px) {
+      .requests-kpi-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    .kpi-stat-box {
+      background: #ffffff;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 15px;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+    .kpi-stat-box:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.06);
+    }
+
+    .kpi-icon-square {
+      width: 42px;
+      height: 42px;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 17px;
+      flex-shrink: 0;
+    }
+
+    /* Subnav Bar */
+    .project-subnav-bar {
+      background: #ffffff;
+      border-bottom: 1px solid var(--border);
+      padding: 0 28px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+    }
+
+    .project-subnav-tabs {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      overflow-x: auto;
+    }
+
+    .project-subnav-tab {
+      padding: 14px 16px;
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--text-600);
+      cursor: pointer;
+      border-bottom: 2px solid transparent;
+      white-space: nowrap;
+      transition: all 0.15s ease;
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .project-subnav-tab:hover {
+      color: var(--text-900);
+    }
+    .project-subnav-tab.active {
+      color: #2563eb;
+      border-bottom-color: #2563eb;
+      font-weight: 700;
+    }
+
+    /* Status Pills */
+    .status-pill {
+      font-size: 11px;
+      font-weight: 700;
+      padding: 3px 9px;
+      border-radius: 999px;
+      white-space: nowrap;
+      display: inline-block;
+    }
+    .pill-active { background: #ecfdf5; color: #059669; border: 1px solid #a7f3d0; }
+    .pill-completed { background: #ecfdf5; color: #059669; border: 1px solid #a7f3d0; }
+    .pill-progress { background: #eff6ff; color: #2563eb; border: 1px solid #bfdbfe; }
+    .pill-review { background: #fff7ed; color: #ea580c; border: 1px solid #ffedd5; }
+    .pill-pending { background: #fdf2f8; color: #db2777; border: 1px solid #fce7f3; }
+
+    /* Priority Pills */
+    .priority-pill {
+      font-size: 11px;
+      font-weight: 700;
+      padding: 2px 8px;
+      border-radius: 6px;
+      white-space: nowrap;
+      display: inline-block;
+    }
+    .prio-high { background: #fef2f2; color: #dc2626; border: 1px solid #fee2e2; }
+    .prio-med { background: #fffbeb; color: #d97706; border: 1px solid #fef3c7; }
+    .prio-low { background: #f0fdf4; color: #16a34a; border: 1px solid #dcfce7; }
+
+    /* Type Pills */
+    .type-pill {
+      font-size: 10.5px;
+      font-weight: 600;
+      padding: 3px 8px;
+      border-radius: 6px;
+      white-space: nowrap;
+      display: inline-block;
+    }
+    .type-content { background: #eff6ff; color: #2563eb; border: 1px solid #dbeafe; }
+    .type-nav { background: #f5f3ff; color: #7c3aed; border: 1px solid #ede9fe; }
+    .type-feature { background: #fdf2f8; color: #db2777; border: 1px solid #fce7f3; }
+    .type-exp { background: #fff7ed; color: #ea580c; border: 1px solid #ffedd5; }
+    .type-ad { background: #ecfdf5; color: #059669; border: 1px solid #a7f3d0; }
+
+    /* Filter Sub-bar */
+    .requests-filter-bar {
+      background: #ffffff;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 12px 18px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 14px;
+      flex-wrap: wrap;
+      margin-bottom: 20px;
+    }
+
+    /* Main Row 3 Split */
+    .requests-main-split {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) 380px;
+      gap: 18px;
+      align-items: start;
+      margin-bottom: 20px;
+    }
+    @media (max-width: 1250px) {
+      .requests-main-split {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .dash-panel {
+      background: #ffffff;
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      padding: 16px 18px;
+    }
+
+    .dash-panel-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 12px;
+    }
+
+    .dash-panel-title {
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--text-900);
+      margin: 0;
+    }
+
+    .dash-panel-link {
+      font-size: 11.5px;
+      font-weight: 600;
+      color: #2563eb;
+      text-decoration: none;
+      cursor: pointer;
+    }
+    .dash-panel-link:hover {
+      text-decoration: underline;
+    }
+
+    /* Table Styling */
+    .requests-table {
+      width: 100%;
+      border-collapse: collapse;
+      text-align: left;
+      font-size: 11.5px;
+    }
+
+    .requests-table th {
+      background: #f8fafc;
+      padding: 10px 12px;
+      font-size: 10.5px;
+      font-weight: 700;
+      color: var(--text-500);
+      border-bottom: 1px solid var(--border-soft);
+      text-transform: uppercase;
+    }
+
+    .requests-table td {
+      padding: 10px 12px;
+      border-bottom: 1px solid var(--border-soft);
+      vertical-align: middle;
+    }
+
+    .requests-table tr:hover td {
+      background: #f8fafc;
+    }
+
+    .req-icon-box {
+      width: 32px;
+      height: 32px;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 13px;
+      flex-shrink: 0;
+    }
+
+    .quick-action-box {
+      background: #ffffff;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 10px 12px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      cursor: pointer;
+      transition: all 0.15s ease;
+      text-decoration: none;
+    }
+    .quick-action-box:hover {
+      background: #f8fafc;
+      border-color: #cbd5e1;
+      transform: translateY(-1px);
+    }
+
+    .activity-row {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      padding: 7px 0;
+      border-bottom: 1px solid var(--border-soft);
+      font-size: 11.5px;
+    }
+    .activity-row:last-child {
+      border-bottom: none;
+      padding-bottom: 0;
+    }
+    .activity-row:first-child {
+      padding-top: 0;
+    }
+
+    /* Row 4: Bottom Metrics Card */
+    .requests-bottom-summary {
+      background: #ffffff;
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 16px 20px;
+      display: flex;
+      align-items: center;
+      gap: 24px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+    }
+    @media (max-width: 900px) {
+      .requests-bottom-summary {
+        flex-direction: column;
+        align-items: stretch;
+      }
+    }
+
+    /* Modal Styling */
+    .modal-backdrop {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(15, 23, 42, 0.6);
+      backdrop-filter: blur(4px);
+      z-index: 9999;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+    .modal-box {
+      background: #ffffff;
+      border-radius: 16px;
+      box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+      width: 100%;
+      max-width: 580px;
+      max-height: 90vh;
+      overflow-y: auto;
+    }
+  </style>
+</head>
+<body>
+<div class="app-shell">
+
+  <!-- =========================================================================
+       CLIENT ADMIN GLOBAL SIDEBAR (Strict 8 Items)
+       ========================================================================= -->
+  <aside class="sidebar" id="clientSidebar">
+    <a href="dashboard.html" class="sidebar-brand" style="cursor:pointer;text-decoration:none;">
+      <div class="logo-icon" style="background:linear-gradient(135deg,#3b82f6,#1d4ed8);border-radius:10px;">
+        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style="width:20px;height:20px;">
+          <path d="M4 21V9l8-6 8 6v12H4z" stroke="white" stroke-width="1.8" stroke-linejoin="round"/>
+          <path d="M9 21V12h6v9" stroke="white" stroke-width="1.8"/>
+          <path d="M12 3v4" stroke="white" stroke-width="1.8"/>
+        </svg>
+      </div>
+      <div class="brand-text">
+        <div class="t1" style="font-size:14px;font-weight:700;color:#ffffff;line-height:1.2;">Mall Kiosk Platform</div>
+        <div class="t2" style="font-size:11px;color:#94a3b8;font-weight:500;">Client Admin</div>
+      </div>
+    </a>
+
+    <!-- Navigation Items (Strict 8) -->
+    <ul class="sidebar-nav">
+      <li class="nav-item" onclick="location.href='dashboard.html'">
+        <i class="fa-solid fa-house"></i>
+        <span>Dashboard</span>
+      </li>
+      <li class="nav-item active" onclick="location.href='projects.html'">
+        <i class="fa-solid fa-folder-open"></i>
+        <span>Projects</span>
+      </li>
+      <li class="nav-item" onclick="location.href='project-content.html'">
+        <i class="fa-regular fa-file-lines"></i>
+        <span>Content</span>
+      </li>
+      <li class="nav-item" onclick="location.href='project-themes.html'">
+        <i class="fa-solid fa-palette"></i>
+        <span>Themes</span>
+      </li>
+      <li class="nav-item" onclick="location.href='project-advertisements.html'">
+        <i class="fa-solid fa-bullhorn"></i>
+        <span>Advertisements</span>
+      </li>
+      <li class="nav-item" onclick="location.href='project-analytics.html'">
+        <i class="fa-solid fa-chart-column"></i>
+        <span>Analytics</span>
+      </li>
+      <li class="nav-item" onclick="location.href='project-feedback.html'">
+        <i class="fa-regular fa-comment-dots"></i>
+        <span>Feedback</span>
+      </li>
+      <li class="nav-item" onclick="location.href='project-requests.html'">
+        <i class="fa-regular fa-clipboard"></i>
+        <span>Requests</span>
+      </li>
+    </ul>
+
+    <div class="sidebar-spacer"></div>
+
+    <!-- Collapse Toggle -->
+    <div class="sidebar-collapse-btn" onclick="toggleSidebarCollapse()" style="display:flex;align-items:center;gap:8px;padding:10px 12px;color:#94a3b8;font-size:13px;cursor:pointer;border-radius:8px;transition:all 0.2s ease;">
+      <i class="fa-solid fa-chevron-left" style="font-size:11px;"></i>
+      <span>Collapse</span>
+    </div>
+  </aside>
+
+  <!-- =========================================================================
+       MAIN WORKSPACE
+       ========================================================================= -->
+  <div class="main">
+
+    <!-- Topbar Header -->
+    <header class="topbar" style="background:#ffffff;border-bottom:1px solid var(--border);padding:14px 28px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:20;">
+      <div style="display:flex;align-items:center;gap:14px;">
+        <i class="fa-solid fa-bars hamburger" style="font-size:16px;color:var(--text-600);cursor:pointer;"></i>
+        <div>
+          <div style="font-size:12px;color:var(--text-500);display:flex;align-items:center;gap:6px;">
+            <a href="projects.html" style="color:var(--text-500);text-decoration:none;">Projects</a>
+            <i class="fa-solid fa-chevron-right" style="font-size:9px;color:var(--text-400);"></i>
+            <a href="project-overview.html" style="color:var(--text-500);text-decoration:none;">Phoenix Mall Project</a>
+            <i class="fa-solid fa-chevron-right" style="font-size:9px;color:var(--text-400);"></i>
+            <span style="color:var(--text-900);font-weight:600;">Requests</span>
+          </div>
+          <div style="display:flex;align-items:center;gap:10px;margin-top:2px;">
+            <h1 style="font-size:19px;font-weight:800;color:var(--text-900);margin:0;">Phoenix Mall Project</h1>
+            <span class="status-pill pill-active">Active</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Topbar Actions -->
+      <div style="display:flex;align-items:center;gap:16px;">
+        <!-- Date range selector pill -->
+        <div style="display:flex;align-items:center;gap:8px;background:#f8fafc;border:1px solid var(--border);border-radius:8px;padding:7px 12px;font-size:12.5px;font-weight:600;color:var(--text-700);cursor:pointer;">
+          <span>13 May – 19 May 2025</span>
+          <i class="fa-regular fa-calendar" style="color:var(--text-500);font-size:13px;"></i>
+        </div>
+
+        <!-- Notification Bell -->
+        <button style="position:relative;width:38px;height:38px;border-radius:8px;border:1px solid var(--border);background:#fff;display:flex;align-items:center;justify-content:center;cursor:pointer;">
+          <i class="fa-regular fa-bell" style="font-size:16px;color:var(--text-600);"></i>
+          <span style="position:absolute;top:3px;right:3px;background:#ef4444;color:#fff;font-size:9px;font-weight:700;border-radius:50%;width:15px;height:15px;display:flex;align-items:center;justify-content:center;">7</span>
+        </button>
+
+        <!-- User Profile (Phoenix Mall · Client Admin) -->
+        <div style="display:flex;align-items:center;gap:10px;cursor:pointer;">
+          <div style="width:36px;height:36px;border-radius:50%;background:#f3e8ff;color:#9333ea;font-weight:700;font-size:15px;display:flex;align-items:center;justify-content:center;border:1px solid #e9d5ff;">
+            <i class="fa-solid fa-building-circle-check"></i>
+          </div>
+          <div>
+            <div style="font-size:13.5px;font-weight:700;color:var(--text-900);line-height:1.2;">Phoenix Mall</div>
+            <div style="font-size:11px;color:var(--text-500);font-weight:500;">Client Admin</div>
+          </div>
+          <i class="fa-solid fa-chevron-down" style="font-size:10px;color:var(--text-400);margin-left:4px;"></i>
+        </div>
+      </div>
+    </header>
+
+    <!-- =========================================================================
+         PROJECT SUBNAV BAR (Standard Project Workspace Navigation + New Request Button)
+         ========================================================================= -->
+    <div class="project-subnav-bar">
+      <nav class="project-subnav-tabs">
+        <a href="project-overview.html" class="project-subnav-tab" id="tabOverview"><i class="fa-solid fa-chart-pie"></i> Overview</a>
+        <a href="project-experience.html" class="project-subnav-tab" id="tabExperience"><i class="fa-solid fa-layer-group"></i> Experience</a>
+        <a href="project-content.html" class="project-subnav-tab" id="tabContent"><i class="fa-regular fa-file-lines"></i> Content</a>
+        <a href="project-themes.html" class="project-subnav-tab" id="tabThemes"><i class="fa-solid fa-palette"></i> Themes</a>
+        <a href="project-advertisements.html" class="project-subnav-tab" id="tabAdvertisements"><i class="fa-solid fa-bullhorn"></i> Advertisements</a>
+        <a href="project-preview.html" class="project-subnav-tab" id="tabPreview"><i class="fa-solid fa-eye"></i> Preview</a>
+        <a href="project-analytics.html" class="project-subnav-tab" id="tabAnalytics"><i class="fa-solid fa-chart-column"></i> Analytics</a>
+        <a href="project-feedback.html" class="project-subnav-tab" id="tabFeedback"><i class="fa-regular fa-comment-dots"></i> Feedback</a>
+        <a href="project-requests.html" class="project-subnav-tab active" id="tabRequests"><i class="fa-regular fa-clipboard"></i> Requests</a>
+      </nav>
+
+      <!-- New Request Action Button on Right -->
+      <button onclick="openNewRequestModal()" id="btnNewRequest" style="height:34px;padding:0 16px;border-radius:8px;border:none;background:#2563eb;color:#fff;font-size:12px;font-weight:700;cursor:pointer;display:flex;align-items:center;gap:6px;box-shadow:0 2px 4px rgba(37,99,235,0.2);">
+        <i class="fa-solid fa-plus" style="font-size:11px;"></i>
+        <span>New Request</span>
+      </button>
+    </div>
+
+    <!-- Page Content Container -->
+    <div class="content" style="padding:22px 28px 40px 28px;background:#f8fafc;flex:1;">
+
+      <!-- =======================================================================
+           ROW 1: 5 STATUS KPI SUMMARY CARDS
+           ======================================================================= -->
+      <div class="requests-kpi-grid">
+        
+        <!-- Total Requests -->
+        <div class="kpi-stat-box">
+          <div class="kpi-icon-square" style="background:#f5f3ff;color:#7c3aed;border:1px solid #ede9fe;">
+            <i class="fa-regular fa-clipboard"></i>
+          </div>
+          <div>
+            <div style="font-size:11px;color:var(--text-500);font-weight:600;">Total Requests</div>
+            <div style="font-size:22px;font-weight:800;color:var(--text-900);line-height:1.2;" id="kpiTotalRequests">156</div>
+            <div style="font-size:10.5px;color:#10b981;font-weight:600;">↑ 18.4% <span style="font-weight:400;color:var(--text-400);">vs last 7 days</span></div>
+          </div>
+        </div>
+
+        <!-- Pending -->
+        <div class="kpi-stat-box">
+          <div class="kpi-icon-square" style="background:#fef2f2;color:#dc2626;border:1px solid #fee2e2;">
+            <i class="fa-regular fa-clock"></i>
+          </div>
+          <div>
+            <div style="font-size:11px;color:var(--text-500);font-weight:600;">Pending</div>
+            <div style="font-size:22px;font-weight:800;color:var(--text-900);line-height:1.2;" id="kpiPendingRequests">42</div>
+            <div style="font-size:10.5px;color:#dc2626;font-weight:600;">↓ 8.7% <span style="font-weight:400;color:var(--text-400);">vs last 7 days</span></div>
+          </div>
+        </div>
+
+        <!-- In Progress -->
+        <div class="kpi-stat-box">
+          <div class="kpi-icon-square" style="background:#eff6ff;color:#2563eb;border:1px solid #dbeafe;">
+            <i class="fa-solid fa-arrows-rotate"></i>
+          </div>
+          <div>
+            <div style="font-size:11px;color:var(--text-500);font-weight:600;">In Progress</div>
+            <div style="font-size:22px;font-weight:800;color:var(--text-900);line-height:1.2;" id="kpiInProgressRequests">38</div>
+            <div style="font-size:10.5px;color:#10b981;font-weight:600;">↑ 5.2% <span style="font-weight:400;color:var(--text-400);">vs last 7 days</span></div>
+          </div>
+        </div>
+
+        <!-- Under Review -->
+        <div class="kpi-stat-box">
+          <div class="kpi-icon-square" style="background:#fff7ed;color:#ea580c;border:1px solid #ffedd5;">
+            <i class="fa-regular fa-eye"></i>
+          </div>
+          <div>
+            <div style="font-size:11px;color:var(--text-500);font-weight:600;">Under Review</div>
+            <div style="font-size:22px;font-weight:800;color:var(--text-900);line-height:1.2;" id="kpiUnderReviewRequests">22</div>
+            <div style="font-size:10.5px;color:#10b981;font-weight:600;">↑ 15.8% <span style="font-weight:400;color:var(--text-400);">vs last 7 days</span></div>
+          </div>
+        </div>
+
+        <!-- Completed -->
+        <div class="kpi-stat-box">
+          <div class="kpi-icon-square" style="background:#ecfdf5;color:#059669;border:1px solid #a7f3d0;">
+            <i class="fa-regular fa-circle-check"></i>
+          </div>
+          <div>
+            <div style="font-size:11px;color:var(--text-500);font-weight:600;">Completed</div>
+            <div style="font-size:22px;font-weight:800;color:var(--text-900);line-height:1.2;" id="kpiCompletedRequests">54</div>
+            <div style="font-size:10.5px;color:#10b981;font-weight:600;">↑ 23.1% <span style="font-weight:400;color:var(--text-400);">vs last 7 days</span></div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- =======================================================================
+           ROW 2: SEARCH AND FILTER SUB-BAR
+           ======================================================================= -->
+      <div class="requests-filter-bar">
+        <!-- Search Input -->
+        <div style="position:relative;width:340px;">
+          <input type="text" id="searchRequestsInput" onkeyup="filterRequestsTable()" placeholder="Search requests by title, type or keyword..." style="width:100%;height:34px;padding:0 32px 0 12px;border-radius:8px;border:1px solid var(--border);font-size:12px;outline:none;background:#fff;">
+          <i class="fa-solid fa-magnifying-glass" style="position:absolute;right:12px;top:50%;transform:translateY(-50%);color:var(--text-400);font-size:12px;"></i>
+        </div>
+
+        <!-- Filter Selects -->
+        <div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap;">
+          
+          <!-- Status Filter -->
+          <div style="display:flex;align-items:center;gap:6px;">
+            <span style="font-size:11px;color:var(--text-500);font-weight:600;">Status</span>
+            <select id="requestStatusFilter" onchange="filterRequestsTable()" style="font-size:11.5px;padding:5px 8px;border-radius:6px;border:1px solid var(--border);background:#fff;outline:none;color:var(--text-700);">
+              <option value="All">All Status ▾</option>
+              <option value="Pending">Pending</option>
+              <option value="In Progress">In Progress</option>
+              <option value="Under Review">Under Review</option>
+              <option value="Completed">Completed</option>
+            </select>
+          </div>
+
+          <!-- Request Type Filter -->
+          <div style="display:flex;align-items:center;gap:6px;">
+            <span style="font-size:11px;color:var(--text-500);font-weight:600;">Request Type</span>
+            <select id="requestTypeFilter" onchange="filterRequestsTable()" style="font-size:11.5px;padding:5px 8px;border-radius:6px;border:1px solid var(--border);background:#fff;outline:none;color:var(--text-700);">
+              <option value="All">All Types ▾</option>
+              <option value="Content Update">Content Update</option>
+              <option value="Navigation & Map">Navigation & Map</option>
+              <option value="New Feature / Screen">New Feature / Screen</option>
+              <option value="Experience Change">Experience Change</option>
+              <option value="Advertisement">Advertisement</option>
+              <option value="Event">Event</option>
+            </select>
+          </div>
+
+          <!-- Priority Filter -->
+          <div style="display:flex;align-items:center;gap:6px;">
+            <span style="font-size:11px;color:var(--text-500);font-weight:600;">Priority</span>
+            <select id="requestPriorityFilter" onchange="filterRequestsTable()" style="font-size:11.5px;padding:5px 8px;border-radius:6px;border:1px solid var(--border);background:#fff;outline:none;color:var(--text-700);">
+              <option value="All">All Priorities ▾</option>
+              <option value="High">High</option>
+              <option value="Medium">Medium</option>
+              <option value="Low">Low</option>
+            </select>
+          </div>
+
+          <!-- Clear Filters Button -->
+          <button onclick="clearRequestsFilters()" style="height:30px;padding:0 12px;border-radius:6px;border:1px solid var(--border);background:#fff;font-size:11px;font-weight:600;color:var(--text-600);cursor:pointer;display:flex;align-items:center;gap:5px;">
+            <i class="fa-solid fa-rotate-left" style="font-size:10px;"></i>
+            <span>Clear Filters</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- =======================================================================
+           ROW 3: 2-COLUMN MAIN SPLIT (Request List Table + Side Analytics & Actions)
+           ======================================================================= -->
+      <div class="requests-main-split">
+        
+        <!-- Left: Request List Table Card -->
+        <div class="dash-panel" style="padding:0;">
+          <div style="padding:14px 18px;border-bottom:1px solid var(--border-soft);display:flex;align-items:center;justify-content:space-between;">
+            <h2 class="dash-panel-title">Request List</h2>
+          </div>
+
+          <div style="overflow-x:auto;">
+            <table class="requests-table" id="requestsDataTable">
+              <thead>
+                <tr>
+                  <th style="width:230px;">Request</th>
+                  <th>Type</th>
+                  <th>Priority</th>
+                  <th>Status</th>
+                  <th>Submitted On</th>
+                  <th>Updated On</th>
+                  <th style="text-align:right;">Actions</th>
+                </tr>
+              </thead>
+              <tbody>
+                
+                <!-- 1. Update store information -->
+                <tr id="req-row-1" onclick="openRequestDetailModal('1')">
+                  <td>
+                    <div style="display:flex;align-items:center;gap:10px;">
+                      <div class="req-icon-box" style="background:#eff6ff;color:#2563eb;">
+                        <i class="fa-regular fa-file-lines"></i>
+                      </div>
+                      <div>
+                        <div style="font-weight:700;color:var(--text-900);" id="req-title-1">Update store information</div>
+                        <div style="font-size:10px;color:var(--text-500);">Adidas store information is outdated.</div>
+                      </div>
+                    </div>
+                  </td>
+                  <td><span class="type-pill type-content">Content Update</span></td>
+                  <td><span class="priority-pill prio-med">Medium</span></td>
+                  <td><span class="status-pill pill-progress" id="req-status-1">In Progress</span></td>
+                  <td style="font-size:10.5px;color:var(--text-500);">18 May 2025<br>10:15 AM</td>
+                  <td style="font-size:10.5px;color:var(--text-500);">18 May 2025<br>01:30 PM</td>
+                  <td style="text-align:right;">
+                    <button onclick="event.stopPropagation(); openRequestDetailModal('1')" style="border:none;background:transparent;color:var(--text-500);cursor:pointer;"><i class="fa-solid fa-ellipsis-vertical"></i></button>
+                  </td>
+                </tr>
+
+                <!-- 2. Navigation to Food Court -->
+                <tr id="req-row-2" onclick="openRequestDetailModal('2')">
+                  <td>
+                    <div style="display:flex;align-items:center;gap:10px;">
+                      <div class="req-icon-box" style="background:#f5f3ff;color:#7c3aed;">
+                        <i class="fa-solid fa-map-location-dot"></i>
+                      </div>
+                      <div>
+                        <div style="font-weight:700;color:var(--text-900);" id="req-title-2">Navigation to Food Court</div>
+                        <div style="font-size:10px;color:var(--text-500);">Improve navigation route to Food Court.</div>
+                      </div>
+                    </div>
+                  </td>
+                  <td><span class="type-pill type-nav">Navigation & Map</span></td>
+                  <td><span class="priority-pill prio-high">High</span></td>
+                  <td><span class="status-pill pill-review" id="req-status-2">Under Review</span></td>
+                  <td style="font-size:10.5px;color:var(--text-500);">18 May 2025<br>09:40 AM</td>
+                  <td style="font-size:10.5px;color:var(--text-500);">18 May 2025<br>11:05 AM</td>
+                  <td style="text-align:right;">
+                    <button onclick="event.stopPropagation(); openRequestDetailModal('2')" style="border:none;background:transparent;color:var(--text-500);cursor:pointer;"><i class="fa-solid fa-ellipsis-vertical"></i></button>
+                  </td>
+                </tr>
+
+                <!-- 3. Add new store - H&M -->
+                <tr id="req-row-3" onclick="openRequestDetailModal('3')">
+                  <td>
+                    <div style="display:flex;align-items:center;gap:10px;">
+                      <div class="req-icon-box" style="background:#fdf2f8;color:#db2777;">
+                        <i class="fa-solid fa-shop"></i>
+                      </div>
+                      <div>
+                        <div style="font-weight:700;color:var(--text-900);" id="req-title-3">Add new store - H&M</div>
+                        <div style="font-size:10px;color:var(--text-500);">Request to add new store H&M.</div>
+                      </div>
+                    </div>
+                  </td>
+                  <td><span class="type-pill type-feature">New Feature / Screen</span></td>
+                  <td><span class="priority-pill prio-high">High</span></td>
+                  <td><span class="status-pill pill-pending" id="req-status-3">Pending</span></td>
+                  <td style="font-size:10.5px;color:var(--text-500);">17 May 2025<br>05:30 PM</td>
+                  <td style="font-size:10.5px;color:var(--text-500);">17 May 2025<br>05:30 PM</td>
+                  <td style="text-align:right;">
+                    <button onclick="event.stopPropagation(); openRequestDetailModal('3')" style="border:none;background:transparent;color:var(--text-500);cursor:pointer;"><i class="fa-solid fa-ellipsis-vertical"></i></button>
+                  </td>
+                </tr>
+
+                <!-- 4. Change kiosk welcome screen -->
+                <tr id="req-row-4" onclick="openRequestDetailModal('4')">
+                  <td>
+                    <div style="display:flex;align-items:center;gap:10px;">
+                      <div class="req-icon-box" style="background:#fff7ed;color:#ea580c;">
+                        <i class="fa-solid fa-display"></i>
+                      </div>
+                      <div>
+                        <div style="font-weight:700;color:var(--text-900);" id="req-title-4">Change kiosk welcome screen</div>
+                        <div style="font-size:10px;color:var(--text-500);">Update welcome screen design.</div>
+                      </div>
+                    </div>
+                  </td>
+                  <td><span class="type-pill type-exp">Experience Change</span></td>
+                  <td><span class="priority-pill prio-med">Medium</span></td>
+                  <td><span class="status-pill pill-progress" id="req-status-4">In Progress</span></td>
+                  <td style="font-size:10.5px;color:var(--text-500);">17 May 2025<br>03:20 PM</td>
+                  <td style="font-size:10.5px;color:var(--text-500);">18 May 2025<br>10:20 AM</td>
+                  <td style="text-align:right;">
+                    <button onclick="event.stopPropagation(); openRequestDetailModal('4')" style="border:none;background:transparent;color:var(--text-500);cursor:pointer;"><i class="fa-solid fa-ellipsis-vertical"></i></button>
+                  </td>
+                </tr>
+
+                <!-- 5. Fix map near Parking Area -->
+                <tr id="req-row-5" onclick="openRequestDetailModal('5')">
+                  <td>
+                    <div style="display:flex;align-items:center;gap:10px;">
+                      <div class="req-icon-box" style="background:#ecfdf5;color:#059669;">
+                        <i class="fa-solid fa-location-crosshairs"></i>
+                      </div>
+                      <div>
+                        <div style="font-weight:700;color:var(--text-900);" id="req-title-5">Fix map near Parking Area</div>
+                        <div style="font-size:10px;color:var(--text-500);">Map not showing correct path.</div>
+                      </div>
+                    </div>
+                  </td>
+                  <td><span class="type-pill type-nav">Navigation & Map</span></td>
+                  <td><span class="priority-pill prio-high">High</span></td>
+                  <td><span class="status-pill pill-pending" id="req-status-5">Pending</span></td>
+                  <td style="font-size:10.5px;color:var(--text-500);">16 May 2025<br>11:45 AM</td>
+                  <td style="font-size:10.5px;color:var(--text-500);">16 May 2025<br>11:45 AM</td>
+                  <td style="text-align:right;">
+                    <button onclick="event.stopPropagation(); openRequestDetailModal('5')" style="border:none;background:transparent;color:var(--text-500);cursor:pointer;"><i class="fa-solid fa-ellipsis-vertical"></i></button>
+                  </td>
+                </tr>
+
+                <!-- 6. Advertisement content change -->
+                <tr id="req-row-6" onclick="openRequestDetailModal('6')">
+                  <td>
+                    <div style="display:flex;align-items:center;gap:10px;">
+                      <div class="req-icon-box" style="background:#ecfdf5;color:#059669;">
+                        <i class="fa-solid fa-bullhorn"></i>
+                      </div>
+                      <div>
+                        <div style="font-weight:700;color:var(--text-900);" id="req-title-6">Advertisement content change</div>
+                        <div style="font-size:10px;color:var(--text-500);">Update Summer Sale 2025 ad content.</div>
+                      </div>
+                    </div>
+                  </td>
+                  <td><span class="type-pill type-ad">Advertisement</span></td>
+                  <td><span class="priority-pill prio-low">Low</span></td>
+                  <td><span class="status-pill pill-completed" id="req-status-6">Completed</span></td>
+                  <td style="font-size:10.5px;color:var(--text-500);">15 May 2025<br>02:20 PM</td>
+                  <td style="font-size:10.5px;color:var(--text-500);">16 May 2025<br>09:10 AM</td>
+                  <td style="text-align:right;">
+                    <button onclick="event.stopPropagation(); openRequestDetailModal('6')" style="border:none;background:transparent;color:var(--text-500);cursor:pointer;"><i class="fa-solid fa-ellipsis-vertical"></i></button>
+                  </td>
+                </tr>
+
+              </tbody>
+            </table>
+          </div>
+
+          <!-- Pagination Footer -->
+          <div style="padding:12px 18px;border-top:1px solid var(--border-soft);display:flex;align-items:center;justify-content:space-between;font-size:11.5px;color:var(--text-500);">
+            <div>Showing 1 to 6 of 156 requests</div>
+            <div style="display:flex;gap:4px;">
+              <button style="width:26px;height:26px;border-radius:6px;border:1px solid var(--border);background:#fff;cursor:pointer;color:var(--text-500);"><i class="fa-solid fa-chevron-left" style="font-size:9px;"></i></button>
+              <button style="width:26px;height:26px;border-radius:6px;border:none;background:#2563eb;color:#fff;font-weight:700;cursor:pointer;">1</button>
+              <button style="width:26px;height:26px;border-radius:6px;border:1px solid var(--border);background:#fff;cursor:pointer;color:var(--text-700);">2</button>
+              <button style="width:26px;height:26px;border-radius:6px;border:1px solid var(--border);background:#fff;cursor:pointer;color:var(--text-700);">3</button>
+              <span style="padding:0 4px;display:flex;align-items:center;">...</span>
+              <button style="width:26px;height:26px;border-radius:6px;border:1px solid var(--border);background:#fff;cursor:pointer;color:var(--text-700);">26</button>
+              <button style="width:26px;height:26px;border-radius:6px;border:1px solid var(--border);background:#fff;cursor:pointer;color:var(--text-500);"><i class="fa-solid fa-chevron-right" style="font-size:9px;"></i></button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right: Side Panel (Status Donut + Quick Actions + Recent Activity) -->
+        <div style="display:flex;flex-direction:column;gap:16px;">
+          
+          <!-- Request Status Overview Donut Card -->
+          <div class="dash-panel">
+            <h3 style="font-size:14px;font-weight:800;color:var(--text-900);margin:0 0 12px 0;">Request Status Overview</h3>
+            
+            <div style="display:flex;align-items:center;gap:14px;">
+              <!-- Donut SVG -->
+              <div style="position:relative;width:95px;height:95px;flex-shrink:0;">
+                <svg viewBox="0 0 36 36" style="width:100%;height:100%;transform:rotate(-90deg);">
+                  <circle cx="18" cy="18" r="15.915" fill="none" stroke="#f1f5f9" stroke-width="5"/>
+                  <circle cx="18" cy="18" r="15.915" fill="none" stroke="#ec4899" stroke-width="5" stroke-dasharray="26.9 73.1" stroke-dashoffset="0"/>
+                  <circle cx="18" cy="18" r="15.915" fill="none" stroke="#2563eb" stroke-width="5" stroke-dasharray="24.4 75.6" stroke-dashoffset="-26.9"/>
+                  <circle cx="18" cy="18" r="15.915" fill="none" stroke="#f97316" stroke-width="5" stroke-dasharray="14.1 85.9" stroke-dashoffset="-51.3"/>
+                  <circle cx="18" cy="18" r="15.915" fill="none" stroke="#10b981" stroke-width="5" stroke-dasharray="34.6 65.4" stroke-dashoffset="-65.4"/>
+                </svg>
+                <div style="position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;">
+                  <span style="font-size:15px;font-weight:800;color:var(--text-900);line-height:1;">156</span>
+                  <span style="font-size:8.5px;color:var(--text-500);">Total</span>
+                </div>
+              </div>
+
+              <!-- Legend List -->
+              <div style="flex:1;display:flex;flex-direction:column;gap:5px;font-size:10.5px;">
+                <div style="display:flex;justify-content:space-between;"><span style="color:var(--text-700);"><span style="color:#ec4899;">●</span> Pending</span><strong>42 (26.9%)</strong></div>
+                <div style="display:flex;justify-content:space-between;"><span style="color:var(--text-700);"><span style="color:#2563eb;">●</span> In Progress</span><strong>38 (24.4%)</strong></div>
+                <div style="display:flex;justify-content:space-between;"><span style="color:var(--text-700);"><span style="color:#f97316;">●</span> Under Review</span><strong>22 (14.1%)</strong></div>
+                <div style="display:flex;justify-content:space-between;"><span style="color:var(--text-700);"><span style="color:#10b981;">●</span> Completed</span><strong>54 (34.6%)</strong></div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Quick Actions 2x2 Grid -->
+          <div class="dash-panel">
+            <h3 style="font-size:14px;font-weight:800;color:var(--text-900);margin:0 0 10px 0;">Quick Actions</h3>
+            
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;">
+              <div class="quick-action-box" onclick="openNewRequestModal()">
+                <div style="width:28px;height:28px;border-radius:6px;background:#eff6ff;color:#2563eb;display:flex;align-items:center;justify-content:center;font-size:12px;"><i class="fa-solid fa-plus"></i></div>
+                <div>
+                  <div style="font-size:11px;font-weight:700;color:var(--text-900);">Submit New Request</div>
+                  <div style="font-size:9.5px;color:var(--text-500);">Create a change request</div>
+                </div>
+              </div>
+
+              <div class="quick-action-box" onclick="alert('My Requests: 18 requests submitted by your team.')">
+                <div style="width:28px;height:28px;border-radius:6px;background:#f5f3ff;color:#7c3aed;display:flex;align-items:center;justify-content:center;font-size:12px;"><i class="fa-regular fa-user"></i></div>
+                <div>
+                  <div style="font-size:11px;font-weight:700;color:var(--text-900);">My Requests</div>
+                  <div style="font-size:9.5px;color:var(--text-500);">View your requests</div>
+                </div>
+              </div>
+
+              <div class="quick-action-box" onclick="clearRequestsFilters()">
+                <div style="width:28px;height:28px;border-radius:6px;background:#eff6ff;color:#2563eb;display:flex;align-items:center;justify-content:center;font-size:12px;"><i class="fa-solid fa-list-ul"></i></div>
+                <div>
+                  <div style="font-size:11px;font-weight:700;color:var(--text-900);">View All Requests</div>
+                  <div style="font-size:9.5px;color:var(--text-500);">Browse and filter all</div>
+                </div>
+              </div>
+
+              <div class="quick-action-box" onclick="alert('Request Templates: 5 standardized change templates available.')">
+                <div style="width:28px;height:28px;border-radius:6px;background:#fdf2f8;color:#db2777;display:flex;align-items:center;justify-content:center;font-size:12px;"><i class="fa-regular fa-clone"></i></div>
+                <div>
+                  <div style="font-size:11px;font-weight:700;color:var(--text-900);">Request Templates</div>
+                  <div style="font-size:9.5px;color:var(--text-500);">Use templates</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Recent Activity Card -->
+          <div class="dash-panel">
+            <h3 style="font-size:14px;font-weight:800;color:var(--text-900);margin:0 0 10px 0;">Recent Activity</h3>
+
+            <div style="display:flex;flex-direction:column;gap:5px;">
+              <div class="activity-row">
+                <span style="color:#2563eb;font-size:11px;">●</span>
+                <span style="flex:1;color:var(--text-900);font-weight:600;" id="recentLog1">Request "Update store information" status changed to In Progress</span>
+                <span style="color:var(--text-500);font-size:10px;white-space:nowrap;">18 May 2025, 10:20 AM</span>
+              </div>
+              <div class="activity-row">
+                <span style="color:#ea580c;font-size:11px;">●</span>
+                <span style="flex:1;color:var(--text-900);font-weight:600;">Request "Navigation to Food Court" moved to Under Review</span>
+                <span style="color:var(--text-500);font-size:10px;white-space:nowrap;">18 May 2025, 09:45 AM</span>
+              </div>
+              <div class="activity-row">
+                <span style="color:#db2777;font-size:11px;">●</span>
+                <span style="flex:1;color:var(--text-900);font-weight:600;">New request "Add new store - H&M" created</span>
+                <span style="color:var(--text-500);font-size:10px;white-space:nowrap;">17 May 2025, 05:30 PM</span>
+              </div>
+              <div class="activity-row">
+                <span style="color:#10b981;font-size:11px;">●</span>
+                <span style="flex:1;color:var(--text-900);font-weight:600;">Request "Advertisement content change" marked as Completed</span>
+                <span style="color:var(--text-500);font-size:10px;white-space:nowrap;">15 May 2025, 02:35 PM</span>
+              </div>
+              <div class="activity-row">
+                <span style="color:#db2777;font-size:11px;">●</span>
+                <span style="flex:1;color:var(--text-900);font-weight:600;">New request "Fix map near Parking Area" created</span>
+                <span style="color:var(--text-500);font-size:10px;white-space:nowrap;">16 May 2025, 11:45 AM</span>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+
+      <!-- =======================================================================
+           ROW 4: BOTTOM REQUEST SUMMARY CARD (4 Metrics)
+           ======================================================================= -->
+      <div class="requests-bottom-summary">
+        
+        <div style="display:flex;align-items:center;gap:12px;">
+          <div style="width:42px;height:42px;border-radius:10px;background:#f5f3ff;color:#7c3aed;display:flex;align-items:center;justify-content:center;font-size:18px;">
+            <i class="fa-regular fa-clipboard"></i>
+          </div>
+          <div>
+            <h3 style="font-size:14px;font-weight:800;color:var(--text-900);margin:0;">Request Summary</h3>
+            <div style="font-size:11px;color:var(--text-500);">Phoenix Mall operational metrics</div>
+          </div>
+        </div>
+
+        <div style="flex:1;display:grid;grid-template-columns:repeat(4, 1fr);gap:16px;margin-left:20px;">
+          <div>
+            <div style="font-size:10.5px;color:var(--text-500);font-weight:600;">Average Resolution Time</div>
+            <div style="font-size:18px;font-weight:800;color:var(--text-900);line-height:1.2;">3d 14h</div>
+            <div style="font-size:10px;color:#10b981;font-weight:600;">↓ 8.2% <span style="font-weight:400;color:var(--text-400);">vs last 7 days</span></div>
+          </div>
+
+          <div>
+            <div style="font-size:10.5px;color:var(--text-500);font-weight:600;">Completion Rate</div>
+            <div style="font-size:18px;font-weight:800;color:var(--text-900);line-height:1.2;">34.6%</div>
+            <div style="font-size:10px;color:#10b981;font-weight:600;">↑ 12.4% <span style="font-weight:400;color:var(--text-400);">vs last 7 days</span></div>
+          </div>
+
+          <div>
+            <div style="font-size:10.5px;color:var(--text-500);font-weight:600;">SLA Compliance</div>
+            <div style="font-size:18px;font-weight:800;color:var(--text-900);line-height:1.2;">92.3%</div>
+            <div style="font-size:10px;color:#10b981;font-weight:600;">↑ 6.7% <span style="font-weight:400;color:var(--text-400);">vs last 7 days</span></div>
+          </div>
+
+          <div>
+            <div style="font-size:10.5px;color:var(--text-500);font-weight:600;">Reopened Requests</div>
+            <div style="font-size:18px;font-weight:800;color:var(--text-900);line-height:1.2;">6</div>
+            <div style="font-size:10px;color:#dc2626;font-weight:600;">↓ 14.3% <span style="font-weight:400;color:var(--text-400);">vs last 7 days</span></div>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+
+    <!-- Client Footer -->
+    <footer style="padding:16px 28px;background:#ffffff;border-top:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;font-size:12px;color:var(--text-500);">
+      <div>© 2025 Mall Kiosk Platform. All rights reserved.</div>
+      <div style="display:flex;gap:18px;">
+        <span>Client Admin Portal</span>
+        <span>Phoenix Mall Request Management</span>
+      </div>
+    </footer>
+
+  </div>
+</div>
+
+<!-- ===========================================================================
+     NEW REQUEST MODAL
+     =========================================================================== -->
+<div class="modal-backdrop" id="newRequestModal">
+  <div class="modal-box">
+    <div style="padding:18px 24px;border-bottom:1px solid var(--border-soft);display:flex;align-items:center;justify-content:space-between;">
+      <div>
+        <h3 style="font-size:16px;font-weight:800;color:var(--text-900);margin:0;">Submit New Request</h3>
+        <div style="font-size:11px;color:var(--text-500);margin-top:2px;">Submit a structured request to Company Admin for Phoenix Mall.</div>
+      </div>
+      <i class="fa-solid fa-xmark" style="cursor:pointer;color:var(--text-400);font-size:15px;" onclick="closeNewRequestModal()"></i>
+    </div>
+    
+    <div style="padding:20px 24px;display:flex;flex-direction:column;gap:14px;font-size:12px;">
+      
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;">
+        <div>
+          <label style="display:block;font-weight:700;color:var(--text-800);margin-bottom:4px;">Request Type</label>
+          <select id="modalRequestType" onchange="updateDynamicFormFields()" style="width:100%;height:36px;border:1px solid var(--border);border-radius:8px;padding:0 10px;font-size:12px;outline:none;background:#fff;">
+            <option value="Content Update">Content Update</option>
+            <option value="Navigation & Map">Navigation & Map</option>
+            <option value="New Feature / Screen">New Feature / Screen</option>
+            <option value="Experience Change">Experience Change</option>
+            <option value="Advertisement">Advertisement</option>
+            <option value="Event">Event</option>
+            <option value="Other">Other</option>
+          </select>
+        </div>
+
+        <div>
+          <label style="display:block;font-weight:700;color:var(--text-800);margin-bottom:4px;">Priority</label>
+          <select id="modalRequestPriority" style="width:100%;height:36px;border:1px solid var(--border);border-radius:8px;padding:0 10px;font-size:12px;outline:none;background:#fff;">
+            <option value="High">High (Urgent operational fix)</option>
+            <option value="Medium" selected>Medium (Standard update)</option>
+            <option value="Low">Low (Enhancement / Scheduled)</option>
+          </select>
+        </div>
+      </div>
+
+      <div>
+        <label style="display:block;font-weight:700;color:var(--text-800);margin-bottom:4px;">Request Title</label>
+        <input type="text" id="modalRequestTitle" placeholder="e.g., Update store hours for Zara on Level 1" style="width:100%;height:36px;border:1px solid var(--border);border-radius:8px;padding:0 12px;font-size:12.5px;outline:none;">
+      </div>
+
+      <div>
+        <label style="display:block;font-weight:700;color:var(--text-800);margin-bottom:4px;">Detailed Description & Requirements</label>
+        <textarea id="modalRequestDesc" rows="3" placeholder="Provide specific details, instructions, or expected changes..." style="width:100%;border:1px solid var(--border);border-radius:8px;padding:8px 12px;font-size:12.5px;outline:none;resize:none;"></textarea>
+      </div>
+
+      <div id="dynamicTypeFieldBox" style="background:#f8fafc;border:1px solid var(--border-soft);border-radius:8px;padding:10px 12px;">
+        <label style="display:block;font-weight:700;color:var(--text-800);margin-bottom:4px;" id="dynamicFieldLabel">Target Store / Entity</label>
+        <input type="text" id="modalDynamicInput" placeholder="e.g. Zara Store / Food Court Level 2" style="width:100%;height:32px;border:1px solid var(--border);border-radius:6px;padding:0 10px;font-size:12px;outline:none;background:#fff;">
+      </div>
+
+      <div>
+        <label style="display:block;font-weight:700;color:var(--text-800);margin-bottom:4px;">Attach Reference Assets / Approved Media (Optional)</label>
+        <div style="display:flex;align-items:center;gap:10px;">
+          <input type="file" id="modalFileInput" style="font-size:11px;flex:1;">
+        </div>
+      </div>
+
+    </div>
+
+    <div style="padding:14px 24px;background:#f8fafc;border-top:1px solid var(--border-soft);display:flex;justify-content:flex-end;gap:10px;">
+      <button onclick="closeNewRequestModal()" style="height:34px;padding:0 14px;border-radius:8px;border:1px solid var(--border);background:#fff;color:var(--text-700);font-size:12px;font-weight:600;cursor:pointer;">Cancel</button>
+      <button onclick="submitNewRequest()" id="btnSubmitNewRequest" style="height:34px;padding:0 18px;border-radius:8px;border:none;background:#2563eb;color:#fff;font-size:12px;font-weight:700;cursor:pointer;box-shadow:0 2px 4px rgba(37,99,235,0.2);">Submit Request</button>
+    </div>
+  </div>
+</div>
+
+<!-- ===========================================================================
+     REQUEST DETAIL MODAL / DRAWER
+     =========================================================================== -->
+<div class="modal-backdrop" id="requestDetailModal">
+  <div class="modal-box">
+    <div style="padding:18px 24px;border-bottom:1px solid var(--border-soft);display:flex;align-items:center;justify-content:space-between;">
+      <div>
+        <div style="display:flex;align-items:center;gap:8px;">
+          <h3 style="font-size:16px;font-weight:800;color:var(--text-900);margin:0;" id="detailModalTitle">Request Details</h3>
+          <span class="status-pill pill-progress" id="detailStatusBadge">In Progress</span>
+        </div>
+        <div style="font-size:11px;color:var(--text-500);margin-top:2px;">Project: Phoenix Mall Project · Request ID: #REQ-2025-018</div>
+      </div>
+      <i class="fa-solid fa-xmark" style="cursor:pointer;color:var(--text-400);font-size:15px;" onclick="closeRequestDetailModal()"></i>
+    </div>
+    
+    <div style="padding:20px 24px;display:flex;flex-direction:column;gap:14px;font-size:12px;">
+      
+      <!-- Meta Information Grid -->
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;background:#f8fafc;border:1px solid var(--border-soft);border-radius:8px;padding:12px;">
+        <div><span style="color:var(--text-500);">Type:</span> <strong id="detailTypeVal">Content Update</strong></div>
+        <div><span style="color:var(--text-500);">Priority:</span> <strong id="detailPriorityVal" style="color:#d97706;">Medium</strong></div>
+        <div><span style="color:var(--text-500);">Submitted:</span> <span>18 May 2025, 10:15 AM</span></div>
+        <div><span style="color:var(--text-500);">Last Updated:</span> <span>18 May 2025, 01:30 PM</span></div>
+      </div>
+
+      <!-- Description -->
+      <div>
+        <div style="font-weight:700;color:var(--text-800);margin-bottom:4px;">Request Scope & Description</div>
+        <div style="font-size:12px;color:var(--text-700);line-height:1.5;background:#fff;border:1px solid var(--border);border-radius:8px;padding:10px;" id="detailDescText">
+          Adidas store information is outdated. Need to update working hours and current promotion banners.
+        </div>
+      </div>
+
+      <!-- Timeline -->
+      <div>
+        <div style="font-weight:700;color:var(--text-800);margin-bottom:8px;">Request Timeline</div>
+        <div style="display:flex;flex-direction:column;gap:8px;border-left:2px solid #2563eb;padding-left:14px;margin-left:6px;">
+          <div style="position:relative;">
+            <div style="position:absolute;left:-20px;top:2px;width:10px;height:10px;border-radius:50%;background:#2563eb;"></div>
+            <div style="font-weight:700;color:var(--text-900);font-size:11.5px;">Request Submitted by Client Admin</div>
+            <div style="font-size:10px;color:var(--text-500);">18 May 2025, 10:15 AM</div>
+          </div>
+          <div style="position:relative;">
+            <div style="position:absolute;left:-20px;top:2px;width:10px;height:10px;border-radius:50%;background:#2563eb;"></div>
+            <div style="font-weight:700;color:var(--text-900);font-size:11.5px;">Assigned to Company Admin Technical Team</div>
+            <div style="font-size:10px;color:var(--text-500);">18 May 2025, 11:00 AM</div>
+          </div>
+          <div style="position:relative;">
+            <div style="position:absolute;left:-20px;top:2px;width:10px;height:10px;border-radius:50%;background:#ea580c;"></div>
+            <div style="font-weight:700;color:var(--text-900);font-size:11.5px;">In Progress — Assets verification & staging</div>
+            <div style="font-size:10px;color:var(--text-500);">18 May 2025, 01:30 PM</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Additional Info Input if requested -->
+      <div style="background:#eff6ff;border:1px solid #bfdbfe;border-radius:8px;padding:12px;">
+        <div style="font-weight:700;color:#1e40af;margin-bottom:4px;"><i class="fa-solid fa-circle-info"></i> Need to provide additional information?</div>
+        <div style="display:flex;gap:8px;margin-top:6px;">
+          <input type="text" id="addlInfoInput" placeholder="Add extra clarification or update for Company Admin..." style="flex:1;height:32px;border:1px solid #93c5fd;border-radius:6px;padding:0 10px;font-size:11.5px;outline:none;background:#fff;">
+          <button onclick="submitAdditionalInfo()" style="height:32px;padding:0 12px;border-radius:6px;border:none;background:#2563eb;color:#fff;font-size:11.5px;font-weight:700;cursor:pointer;">Send</button>
+        </div>
+      </div>
+
+    </div>
+
+    <div style="padding:14px 24px;background:#f8fafc;border-top:1px solid var(--border-soft);display:flex;justify-content:space-between;align-items:center;">
+      <button onclick="cancelRequest()" style="height:34px;padding:0 14px;border-radius:8px;border:1px solid #fee2e2;background:#fff;color:#dc2626;font-size:12px;font-weight:600;cursor:pointer;">Cancel Request</button>
+      <button onclick="closeRequestDetailModal()" style="height:34px;padding:0 16px;border-radius:8px;border:1px solid var(--border);background:#fff;color:var(--text-700);font-size:12px;font-weight:600;cursor:pointer;">Close</button>
+    </div>
+  </div>
+</div>
+
+<!-- ===========================================================================
+     JAVASCRIPT LOGIC
+     =========================================================================== -->
+<script>
+  const requestsData = {
+    '1': {
+      title: 'Update store information',
+      desc: 'Adidas store information is outdated. Need to update working hours and current promotion banners.',
+      type: 'Content Update',
+      priority: 'Medium',
+      status: 'In Progress'
+    },
+    '2': {
+      title: 'Navigation to Food Court',
+      desc: 'Improve navigation route to Food Court from Gate 2.',
+      type: 'Navigation & Map',
+      priority: 'High',
+      status: 'Under Review'
+    },
+    '3': {
+      title: 'Add new store - H&M',
+      desc: 'Request to add new store H&M on Level 2 with floor plans.',
+      type: 'New Feature / Screen',
+      priority: 'High',
+      status: 'Pending'
+    },
+    '4': {
+      title: 'Change kiosk welcome screen',
+      desc: 'Update welcome screen design with summer festival theme.',
+      type: 'Experience Change',
+      priority: 'Medium',
+      status: 'In Progress'
+    },
+    '5': {
+      title: 'Fix map near Parking Area',
+      desc: 'Map path from basement parking to elevator not showing shortest route.',
+      type: 'Navigation & Map',
+      priority: 'High',
+      status: 'Pending'
+    },
+    '6': {
+      title: 'Advertisement content change',
+      desc: 'Update Summer Sale 2025 ad content with new high-res artwork.',
+      type: 'Advertisement',
+      priority: 'Low',
+      status: 'Completed'
+    }
+  };
+
+  let activeDetailId = '1';
+
+  function filterRequestsTable() {
+    const query = (document.getElementById('searchRequestsInput')?.value || '').toLowerCase();
+    const statusVal = document.getElementById('requestStatusFilter')?.value || 'All';
+    const typeVal = document.getElementById('requestTypeFilter')?.value || 'All';
+    const prioVal = document.getElementById('requestPriorityFilter')?.value || 'All';
+    const rows = document.querySelectorAll('#requestsDataTable tbody tr');
+
+    rows.forEach(r => {
+      const text = r.innerText.toLowerCase();
+      const matchesSearch = text.includes(query);
+      const matchesStatus = (statusVal === 'All') || text.includes(statusVal.toLowerCase());
+      const matchesType = (typeVal === 'All') || text.includes(typeVal.toLowerCase());
+      const matchesPrio = (prioVal === 'All') || text.includes(prioVal.toLowerCase());
+      r.style.display = matchesSearch && matchesStatus && matchesType && matchesPrio ? '' : 'none';
+    });
+  }
+
+  function clearRequestsFilters() {
+    document.getElementById('searchRequestsInput').value = '';
+    document.getElementById('requestStatusFilter').value = 'All';
+    document.getElementById('requestTypeFilter').value = 'All';
+    document.getElementById('requestPriorityFilter').value = 'All';
+    filterRequestsTable();
+  }
+
+  function openNewRequestModal() {
+    document.getElementById('modalRequestTitle').value = '';
+    document.getElementById('modalRequestDesc').value = '';
+    document.getElementById('newRequestModal').style.display = 'flex';
+  }
+
+  function closeNewRequestModal() {
+    document.getElementById('newRequestModal').style.display = 'none';
+  }
+
+  function updateDynamicFormFields() {
+    const type = document.getElementById('modalRequestType').value;
+    const label = document.getElementById('dynamicFieldLabel');
+    const input = document.getElementById('modalDynamicInput');
+
+    if (type === 'Navigation & Map') {
+      label.innerText = 'Target Location / Path Area';
+      input.placeholder = 'e.g., Gate 2 to Food Court / Basement 1 Parking';
+    } else if (type === 'Advertisement') {
+      label.innerText = 'Related Campaign / Brand';
+      input.placeholder = 'e.g., Summer Sale 2025 / Nike Brand';
+    } else if (type === 'New Feature / Screen') {
+      label.innerText = 'New Store / Feature Name';
+      input.placeholder = 'e.g., Apple Store Level 1';
+    } else {
+      label.innerText = 'Target Entity / Store Name';
+      input.placeholder = 'e.g., Adidas Store / Information Kiosk';
+    }
+  }
+
+  function submitNewRequest() {
+    const title = document.getElementById('modalRequestTitle').value.trim();
+    const desc = document.getElementById('modalRequestDesc').value.trim();
+    const type = document.getElementById('modalRequestType').value;
+    const prio = document.getElementById('modalRequestPriority').value;
+
+    if (!title) {
+      alert('Please enter a request title.');
+      return;
+    }
+
+    // Add new row dynamically
+    const tableBody = document.querySelector('#requestsDataTable tbody');
+    const newId = (Object.keys(requestsData).length + 1).toString();
+    requestsData[newId] = { title, desc, type, priority: prio, status: 'Pending' };
+
+    const newRow = document.createElement('tr');
+    newRow.id = `req-row-${newId}`;
+    newRow.onclick = () => openRequestDetailModal(newId);
+    newRow.innerHTML = `
+      <td>
+        <div style="display:flex;align-items:center;gap:10px;">
+          <div class="req-icon-box" style="background:#fdf2f8;color:#db2777;">
+            <i class="fa-solid fa-file-circle-plus"></i>
+          </div>
+          <div>
+            <div style="font-weight:700;color:var(--text-900);" id="req-title-${newId}">${title}</div>
+            <div style="font-size:10px;color:var(--text-500);">${desc.substring(0, 45)}...</div>
+          </div>
+        </div>
+      </td>
+      <td><span class="type-pill type-content">${type}</span></td>
+      <td><span class="priority-pill prio-${prio.toLowerCase()}">${prio}</span></td>
+      <td><span class="status-pill pill-pending" id="req-status-${newId}">Pending</span></td>
+      <td style="font-size:10.5px;color:var(--text-500);">Just now</td>
+      <td style="font-size:10.5px;color:var(--text-500);">Just now</td>
+      <td style="text-align:right;">
+        <button onclick="event.stopPropagation(); openRequestDetailModal('${newId}')" style="border:none;background:transparent;color:var(--text-500);cursor:pointer;"><i class="fa-solid fa-ellipsis-vertical"></i></button>
+      </td>
+    `;
+    tableBody.insertBefore(newRow, tableBody.firstChild);
+
+    // Update KPIs
+    const totalEl = document.getElementById('kpiTotalRequests');
+    if (totalEl) totalEl.innerText = (parseInt(totalEl.innerText) + 1).toString();
+    const pendEl = document.getElementById('kpiPendingRequests');
+    if (pendEl) pendEl.innerText = (parseInt(pendEl.innerText) + 1).toString();
+
+    // Update Activity Log
+    const log1 = document.getElementById('recentLog1');
+    if (log1) log1.innerText = `New request "${title}" created`;
+
+    closeNewRequestModal();
+    alert(`Request "${title}" submitted to Company Admin successfully!`);
+  }
+
+  function openRequestDetailModal(id) {
+    activeDetailId = id;
+    const req = requestsData[id];
+    if (!req) return;
+
+    document.getElementById('detailModalTitle').innerText = req.title;
+    document.getElementById('detailTypeVal').innerText = req.type;
+    document.getElementById('detailPriorityVal').innerText = req.priority;
+    document.getElementById('detailDescText').innerText = req.desc;
+
+    const badge = document.getElementById('detailStatusBadge');
+    badge.innerText = req.status;
+    if (req.status === 'Completed') badge.className = 'status-pill pill-completed';
+    else if (req.status === 'Under Review') badge.className = 'status-pill pill-review';
+    else if (req.status === 'Pending') badge.className = 'status-pill pill-pending';
+    else badge.className = 'status-pill pill-progress';
+
+    document.getElementById('requestDetailModal').style.display = 'flex';
+  }
+
+  function closeRequestDetailModal() {
+    document.getElementById('requestDetailModal').style.display = 'none';
+  }
+
+  function submitAdditionalInfo() {
+    const info = document.getElementById('addlInfoInput').value.trim();
+    if (!info) return;
+    alert(`Additional details added to Request #${activeDetailId}: "${info}"`);
+    document.getElementById('addlInfoInput').value = '';
+    closeRequestDetailModal();
+  }
+
+  function cancelRequest() {
+    if (confirm('Cancel this request? Company Admin will be notified.')) {
+      const statusBadge = document.getElementById(`req-status-${activeDetailId}`);
+      if (statusBadge) {
+        statusBadge.className = 'status-pill pill-pending';
+        statusBadge.innerText = 'Cancelled';
+      }
+      closeRequestDetailModal();
+    }
+  }
+
+  function toggleSidebarCollapse() {
+    const sb = document.getElementById('clientSidebar');
+    if (sb) {
+      sb.classList.toggle('collapsed');
+    }
+  }
+</script>
+
+</body>
+</html>
