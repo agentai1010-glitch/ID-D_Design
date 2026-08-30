@@ -20,9 +20,9 @@ def test_client_project_analytics_page_loads(driver, base_url):
     assert "Analytics" in page_text
     assert "Active" in page_text
 
-    # 4. Project subnav active tab is Overview
+    # 4. Project subnav active tab is Analytics
     active_tab = driver.find_element(By.CSS_SELECTOR, ".project-subnav-tabs .project-subnav-tab.active")
-    assert "Overview" in active_tab.text
+    assert "Analytics" in active_tab.text
 
 def test_analytics_kpi_summary(driver, base_url):
     driver.get(f"{base_url}/client-admin/project-analytics.html")

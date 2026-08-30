@@ -20,9 +20,9 @@ def test_client_project_feedback_page_loads(driver, base_url):
     assert "Feedback" in page_text
     assert "Active" in page_text
 
-    # 4. Project subnav active tab is Overview
+    # 4. Project subnav active tab is Feedback
     active_tab = driver.find_element(By.CSS_SELECTOR, ".project-subnav-tabs .project-subnav-tab.active")
-    assert "Overview" in active_tab.text
+    assert "Feedback" in active_tab.text
 
 def test_feedback_kpi_summary(driver, base_url):
     driver.get(f"{base_url}/client-admin/project-feedback.html")
