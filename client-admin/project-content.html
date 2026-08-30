@@ -1,701 +1,1123 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Phoenix Mall · Content · Kiosk Platform</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-<link rel="stylesheet" href="../css/styles.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Phoenix Mall Project · Content · Mall Kiosk Platform</title>
+  <!-- Google Fonts & Font Awesome -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="stylesheet" href="../css/styles.css">
+  <style>
+    /* Workflow Domain - Client Admin Content Specific Styling */
+    .project-subnav-bar {
+      background: #ffffff;
+      border-bottom: 1px solid var(--border);
+      padding: 0 28px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+    }
+
+    .project-subnav-tabs {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      overflow-x: auto;
+    }
+
+    .project-subnav-tab {
+      padding: 14px 16px;
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--text-600);
+      cursor: pointer;
+      border-bottom: 2px solid transparent;
+      white-space: nowrap;
+      transition: all 0.15s ease;
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .project-subnav-tab:hover {
+      color: var(--text-900);
+    }
+    .project-subnav-tab.active {
+      color: #2563eb;
+      border-bottom-color: #2563eb;
+      font-weight: 700;
+    }
+
+    /* Content Category Tabs Bar */
+    .content-cat-tabs-bar {
+      background: #ffffff;
+      border-bottom: 1px solid var(--border);
+      padding: 0 28px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      overflow-x: auto;
+    }
+
+    .content-cat-tab {
+      padding: 12px 14px;
+      font-size: 12.5px;
+      font-weight: 600;
+      color: var(--text-600);
+      cursor: pointer;
+      border-bottom: 2px solid transparent;
+      white-space: nowrap;
+      transition: all 0.15s ease;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .content-cat-tab:hover {
+      color: var(--text-900);
+    }
+    .content-cat-tab.active {
+      color: #2563eb;
+      border-bottom-color: #2563eb;
+      font-weight: 700;
+    }
+
+    /* Filter Sub-bar */
+    .content-filter-bar {
+      background: #ffffff;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 12px 18px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 14px;
+      flex-wrap: wrap;
+      margin-bottom: 18px;
+    }
+
+    /* 2-Column Split: Content List (Left) + Detail Panel (Right) */
+    .content-main-split {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) 420px;
+      gap: 18px;
+      align-items: start;
+    }
+    @media (max-width: 1280px) {
+      .content-main-split {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .dash-panel {
+      background: #ffffff;
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+    }
+
+    /* Table Styling */
+    .content-table {
+      width: 100%;
+      border-collapse: collapse;
+      text-align: left;
+      font-size: 12px;
+    }
+
+    .content-table th {
+      background: #f8fafc;
+      padding: 11px 14px;
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--text-500);
+      border-bottom: 1px solid var(--border-soft);
+      text-transform: uppercase;
+    }
+
+    .content-table td {
+      padding: 11px 14px;
+      border-bottom: 1px solid var(--border-soft);
+      vertical-align: middle;
+    }
+
+    .content-table tr {
+      cursor: pointer;
+      transition: background 0.15s ease;
+    }
+
+    .content-table tr:hover td {
+      background: #f8fafc;
+    }
+
+    .content-table tr.selected-row td {
+      background: #eff6ff;
+    }
+
+    /* Brand Logo / Avatar */
+    .store-logo-box {
+      width: 44px;
+      height: 44px;
+      border-radius: 8px;
+      border: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #ffffff;
+      padding: 4px;
+      font-weight: 800;
+      font-size: 11px;
+      flex-shrink: 0;
+    }
+    .store-logo-box img {
+      max-width: 100%;
+      max-height: 100%;
+      object-fit: contain;
+    }
+
+    /* Pills */
+    .status-pill {
+      font-size: 11px;
+      font-weight: 700;
+      padding: 2px 8px;
+      border-radius: 999px;
+      white-space: nowrap;
+      display: inline-block;
+    }
+    .pill-active { background: #ecfdf5; color: #059669; border: 1px solid #a7f3d0; }
+    .pill-inactive { background: #f1f5f9; color: #64748b; border: 1px solid #cbd5e1; }
+
+    .category-pill {
+      font-size: 10.5px;
+      font-weight: 600;
+      padding: 2px 8px;
+      border-radius: 6px;
+      white-space: nowrap;
+      display: inline-block;
+      background: #eff6ff;
+      color: #2563eb;
+      border: 1px solid #dbeafe;
+    }
+
+    /* Action icon buttons */
+    .icon-action-btn {
+      width: 28px;
+      height: 28px;
+      border-radius: 6px;
+      border: 1px solid var(--border);
+      background: #fff;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--text-600);
+      cursor: pointer;
+      transition: all 0.15s ease;
+      margin-left: 3px;
+    }
+    .icon-action-btn:hover {
+      background: #eff6ff;
+      border-color: #93c5fd;
+      color: #2563eb;
+    }
+
+    /* Details Panel Quick Actions 4 Grid */
+    .quick-action-box {
+      background: #f8fafc;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 12px 8px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      cursor: pointer;
+      transition: all 0.15s ease;
+      text-align: center;
+    }
+    .quick-action-box:hover {
+      background: #eff6ff;
+      border-color: #93c5fd;
+      transform: translateY(-2px);
+    }
+    .quick-action-box i {
+      font-size: 15px;
+      color: #2563eb;
+    }
+    .quick-action-box span {
+      font-size: 10.5px;
+      font-weight: 700;
+      color: var(--text-800);
+    }
+
+    /* Modal Backdrop */
+    .modal-backdrop {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(15, 23, 42, 0.6);
+      backdrop-filter: blur(4px);
+      z-index: 9999;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+    .modal-box {
+      background: #ffffff;
+      border-radius: 16px;
+      box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+      width: 100%;
+      max-width: 560px;
+      max-height: 90vh;
+      overflow-y: auto;
+    }
+  </style>
 </head>
 <body>
 <div class="app-shell">
 
-<!-- Client Admin Sidebar -->
-<aside class="sidebar">
-  <a href="dashboard.html" class="sidebar-brand" style="cursor:pointer;">
-    <div class="logo-icon">
-      <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <path d="M12 2L21 7V17L12 22L3 17V7L12 2Z" stroke="white" stroke-width="1.6" stroke-linejoin="round"/>
-        <circle cx="12" cy="12" r="3.2" fill="white"/>
-      </svg>
-    </div>
-    <div class="brand-text"><div class="t1">KIOSK</div><div class="t2">PLATFORM</div></div>
-  </a>
-
-  <!-- WORKSPACE Section -->
-  <div class="sidebar-section-label">WORKSPACE</div>
-  <ul class="sidebar-nav">
-    <li class="nav-item" onclick="location.href='dashboard.html'"><i class="fa-solid fa-house"></i><span>Dashboard</span></li>
-    <li class="nav-item active" onclick="location.href='projects.html'"><i class="fa-solid fa-folder-open"></i><span>Projects</span></li>
-    <li class="nav-item" onclick="location.href='devices.html'"><i class="fa-solid fa-tablet-screen-button"></i><span>Devices</span></li>
-    <li class="nav-item" onclick="location.href='analytics.html'"><i class="fa-solid fa-chart-column"></i><span>Analytics</span></li>
-  </ul>
-
-  <!-- TEAM Section -->
-  <div class="sidebar-section-label">TEAM</div>
-  <ul class="sidebar-nav">
-    <li class="nav-item" onclick="location.href='users-roles.html'"><i class="fa-solid fa-users"></i><span>Users & Roles</span></li>
-  </ul>
-
-  <!-- ACCOUNT Section -->
-  <div class="sidebar-section-label">ACCOUNT</div>
-  <ul class="sidebar-nav">
-    <li class="nav-item" onclick="location.href='settings.html'"><i class="fa-solid fa-gear"></i><span>Settings</span></li>
-  </ul>
-
-  <div class="sidebar-spacer"></div>
-
-  <!-- Organization Card -->
-  <div class="org-switcher-card">
-    <div class="org-switcher-header">
-      <div class="org-icon-box"><i class="fa-solid fa-city"></i></div>
-      <div>
-        <div class="org-name-text">Phoenix Retail Group</div>
-        <div class="org-sub-text">Organization</div>
+  <!-- =========================================================================
+       CLIENT ADMIN GLOBAL SIDEBAR (Strict 8 Items)
+       ========================================================================= -->
+  <aside class="sidebar" id="clientSidebar">
+    <a href="dashboard.html" class="sidebar-brand" style="cursor:pointer;text-decoration:none;">
+      <div class="logo-icon" style="background:linear-gradient(135deg,#3b82f6,#1d4ed8);border-radius:10px;">
+        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style="width:20px;height:20px;">
+          <path d="M4 21V9l8-6 8 6v12H4z" stroke="white" stroke-width="1.8" stroke-linejoin="round"/>
+          <path d="M9 21V12h6v9" stroke="white" stroke-width="1.8"/>
+          <path d="M12 3v4" stroke="white" stroke-width="1.8"/>
+        </svg>
       </div>
-    </div>
-    <button class="org-btn-switch">
-      <span>Switch Organization</span>
-      <i class="fa-solid fa-chevron-down" style="font-size:9.5px;"></i>
-    </button>
-  </div>
-
-  <div class="sidebar-footer" style="display:flex;align-items:center;justify-content:space-between;">
-    <span>Client Admin v1.0.0</span>
-    <i class="fa-solid fa-chevron-left" style="font-size:10px;cursor:pointer;"></i>
-  </div>
-</aside>
-
-<!-- Main Area -->
-<div class="main">
-  <!-- Topbar Header -->
-  <header class="topbar">
-    <i class="fa-solid fa-bars hamburger"></i>
-    <div class="search">
-      <i class="fa-solid fa-magnifying-glass"></i>
-      <span>Search projects, kiosks, locations...</span>
-      <span class="kbd">⌘ K</span>
-    </div>
-    <div class="spacer"></div>
-    <button class="icon-btn"><i class="fa-regular fa-bell"></i><span class="badge-dot">8</span></button>
-    <div class="user">
-      <div class="avatar" style="background:linear-gradient(135deg,#3b82f6,#1d4ed8);">RA</div>
-      <div>
-        <div class="u-name">Rahul Arora</div>
-        <div class="u-role">Client Admin</div>
+      <div class="brand-text">
+        <div class="t1" style="font-size:14px;font-weight:700;color:#ffffff;line-height:1.2;">Mall Kiosk Platform</div>
+        <div class="t2" style="font-size:11px;color:#94a3b8;font-weight:500;">Client Admin</div>
       </div>
-      <i class="fa-solid fa-chevron-down"></i>
+    </a>
+
+    <!-- Navigation Items (Strict 8) -->
+    <ul class="sidebar-nav">
+      <li class="nav-item" onclick="location.href='dashboard.html'">
+        <i class="fa-solid fa-house"></i>
+        <span>Dashboard</span>
+      </li>
+      <li class="nav-item active" onclick="location.href='projects.html'">
+        <i class="fa-solid fa-folder-open"></i>
+        <span>Projects</span>
+      </li>
+      <li class="nav-item" onclick="location.href='project-content.html'">
+        <i class="fa-regular fa-file-lines"></i>
+        <span>Content</span>
+      </li>
+      <li class="nav-item" onclick="location.href='project-themes.html'">
+        <i class="fa-solid fa-palette"></i>
+        <span>Themes</span>
+      </li>
+      <li class="nav-item" onclick="location.href='project-advertisements.html'">
+        <i class="fa-solid fa-bullhorn"></i>
+        <span>Advertisements</span>
+      </li>
+      <li class="nav-item" onclick="location.href='project-analytics.html'">
+        <i class="fa-solid fa-chart-column"></i>
+        <span>Analytics</span>
+      </li>
+      <li class="nav-item" onclick="location.href='project-feedback.html'">
+        <i class="fa-regular fa-comment-dots"></i>
+        <span>Feedback</span>
+      </li>
+      <li class="nav-item" onclick="location.href='project-requests.html'">
+        <i class="fa-regular fa-clipboard"></i>
+        <span>Requests</span>
+      </li>
+    </ul>
+
+    <div class="sidebar-spacer"></div>
+
+    <!-- Collapse Toggle -->
+    <div class="sidebar-collapse-btn" onclick="toggleSidebarCollapse()" style="display:flex;align-items:center;gap:8px;padding:10px 12px;color:#94a3b8;font-size:13px;cursor:pointer;border-radius:8px;transition:all 0.2s ease;">
+      <i class="fa-solid fa-chevron-left" style="font-size:11px;"></i>
+      <span>Collapse</span>
     </div>
-  </header>
+  </aside>
 
-  <!-- Main Content Area -->
-  <main class="content">
+  <!-- =========================================================================
+       MAIN WORKSPACE
+       ========================================================================= -->
+  <div class="main">
 
-    <!-- Project Breadcrumbs & Header -->
-    <div class="project-header-container">
-      <div class="project-breadcrumbs">
-        <a href="projects.html">Projects</a>
-        <i class="fa-solid fa-chevron-right" style="font-size:9px;color:var(--text-400);"></i>
-        <a href="project-overview.html">Phoenix Mall</a>
-        <i class="fa-solid fa-chevron-right" style="font-size:9px;color:var(--text-400);"></i>
-        <span style="font-weight:600;color:var(--text-900);">Content</span>
-      </div>
-
-      <div class="project-title-row">
-        <div class="project-title-left">
-          <h1>Phoenix Mall</h1>
-          <span class="badge badge-green" style="font-size:12px;padding:3px 10px;font-weight:600;">
-            <span class="dot"></span> Active
-          </span>
-        </div>
-
-        <div style="display:flex;align-items:center;gap:10px;">
-          <button class="btn" style="background:#fff;border:1px solid var(--border);color:var(--text-700);font-weight:600;padding:9px 16px;display:flex;align-items:center;gap:8px;">
-            <i class="fa-regular fa-eye"></i> Preview Kiosk
-          </button>
-          <button class="btn btn-primary" style="background:#2563eb;color:#fff;font-weight:600;padding:9px 18px;display:flex;align-items:center;gap:8px;">
-            <i class="fa-solid fa-gear"></i> Project Settings <i class="fa-solid fa-chevron-down" style="font-size:9.5px;margin-left:2px;"></i>
-          </button>
-        </div>
-      </div>
-
-      <div class="project-meta-row">
-        <div class="project-meta-item">
-          <i class="fa-solid fa-building" style="color:var(--text-400);"></i> Mall / Indoor Venue
-        </div>
-        <span style="color:var(--text-400);">•</span>
-        <div class="project-meta-item">
-          <i class="fa-solid fa-location-dot" style="color:var(--text-400);"></i> Mumbai, India
-        </div>
-        <span style="color:var(--text-400);">•</span>
-        <div class="project-meta-item">
-          <i class="fa-solid fa-tablet-screen-button" style="color:var(--text-400);"></i> 12 Kiosks
-        </div>
-        <span style="color:var(--text-400);">•</span>
-        <div class="project-meta-item" style="color:var(--green-600);font-weight:600;">
-          <i class="fa-solid fa-circle-check"></i> Release 43 (Published)
-        </div>
-      </div>
-    </div>
-
-    <!-- Project Sub-Navigation Tabs Bar -->
-    <div class="project-tabs-nav">
-      <button class="project-tab-btn" onclick="location.href='project-overview.html'">Overview</button>
-      <button class="project-tab-btn" onclick="location.href='project-experience.html'">Experience</button>
-      <button class="project-tab-btn active" onclick="location.href='project-content.html'">Content</button>
-      <button class="project-tab-btn" onclick="location.href='project-maps.html'">Maps</button>
-      <button class="project-tab-btn" onclick="location.href='project-navigation.html'">Navigation</button>
-      <button class="project-tab-btn" onclick="location.href='project-advertisements.html'">Advertisements</button>
-      <button class="project-tab-btn" onclick="location.href='project-preview.html'">Preview</button>
-      <button class="project-tab-btn" onclick="location.href='project-validation.html'">Validation</button>
-      <button class="project-tab-btn" onclick="location.href='project-releases.html'">Releases</button>
-      <button class="project-tab-btn" onclick="location.href='project-devices.html'">Devices</button>
-      <button class="project-tab-btn" onclick="location.href='project-analytics.html'">Analytics</button>
-      <button class="project-tab-btn" onclick="location.href='#'">Settings</button>
-    </div>
-
-    <!-- Section Title Area -->
-    <div style="margin-bottom:18px;">
-      <h2 style="font-size:17px;font-weight:800;color:var(--text-900);margin:0 0 3px;">Project Content</h2>
-      <p style="font-size:12.5px;color:var(--text-500);margin:0;">Manage all stores, categories, facilities and content shown on your kiosks.</p>
-    </div>
-
-    <!-- Top 5 Content Metric Cards -->
-    <div class="content-metrics-strip">
-      <!-- 1. Categories -->
-      <div class="content-metric-card">
-        <div class="kpi-icon-box" style="background:#f5f3ff;color:#7c3aed;width:40px;height:40px;border-radius:10px;">
-          <i class="fa-solid fa-shapes"></i>
-        </div>
+    <!-- Topbar Header -->
+    <header class="topbar" style="background:#ffffff;border-bottom:1px solid var(--border);padding:14px 28px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:20;">
+      <div style="display:flex;align-items:center;gap:14px;">
+        <i class="fa-solid fa-bars hamburger" style="font-size:16px;color:var(--text-600);cursor:pointer;"></i>
         <div>
-          <div style="font-size:11.5px;font-weight:600;color:var(--text-500);margin-bottom:2px;">Categories</div>
-          <div style="font-size:22px;font-weight:800;color:var(--text-900);line-height:1.1;">18</div>
-          <div style="font-size:11px;font-weight:600;color:var(--green-600);margin-top:2px;">Active</div>
-        </div>
-      </div>
-
-      <!-- 2. Stores / POIs -->
-      <div class="content-metric-card">
-        <div class="kpi-icon-box" style="background:#eff6ff;color:#2563eb;width:40px;height:40px;border-radius:10px;">
-          <i class="fa-solid fa-store"></i>
-        </div>
-        <div>
-          <div style="font-size:11.5px;font-weight:600;color:var(--text-500);margin-bottom:2px;">Stores / POIs</div>
-          <div style="font-size:22px;font-weight:800;color:var(--text-900);line-height:1.1;">256</div>
-          <div style="font-size:11px;font-weight:600;color:var(--green-600);margin-top:2px;">Active</div>
-        </div>
-      </div>
-
-      <!-- 3. Facilities -->
-      <div class="content-metric-card">
-        <div class="kpi-icon-box" style="background:#ecfdf5;color:#059669;width:40px;height:40px;border-radius:10px;">
-          <i class="fa-solid fa-spa"></i>
-        </div>
-        <div>
-          <div style="font-size:11.5px;font-weight:600;color:var(--text-500);margin-bottom:2px;">Facilities</div>
-          <div style="font-size:22px;font-weight:800;color:var(--text-900);line-height:1.1;">42</div>
-          <div style="font-size:11px;font-weight:600;color:var(--green-600);margin-top:2px;">Active</div>
-        </div>
-      </div>
-
-      <!-- 4. Services -->
-      <div class="content-metric-card">
-        <div class="kpi-icon-box" style="background:#fff7ed;color:#ea580c;width:40px;height:40px;border-radius:10px;">
-          <i class="fa-solid fa-bell-concierge"></i>
-        </div>
-        <div>
-          <div style="font-size:11.5px;font-weight:600;color:var(--text-500);margin-bottom:2px;">Services</div>
-          <div style="font-size:22px;font-weight:800;color:var(--text-900);line-height:1.1;">28</div>
-          <div style="font-size:11px;font-weight:600;color:var(--green-600);margin-top:2px;">Active</div>
-        </div>
-      </div>
-
-      <!-- 5. Banners / Media -->
-      <div class="content-metric-card">
-        <div class="kpi-icon-box" style="background:#f5f3ff;color:#9333ea;width:40px;height:40px;border-radius:10px;">
-          <i class="fa-regular fa-image"></i>
-        </div>
-        <div>
-          <div style="font-size:11.5px;font-weight:600;color:var(--text-500);margin-bottom:2px;">Banners / Media</div>
-          <div style="font-size:22px;font-weight:800;color:var(--text-900);line-height:1.1;">36</div>
-          <div style="font-size:11px;font-weight:600;color:var(--green-600);margin-top:2px;">Active</div>
-        </div>
-      </div>
-    </div>
-
-    <!-- Main Content 2-Column Split: Table on Left & Detail Panel on Right -->
-    <div class="content-main-layout">
-
-      <!-- Left Column: Table & Filters -->
-      <div class="panel" style="margin:0;padding:0;overflow:hidden;">
-        
-        <!-- Secondary Sub-tabs Bar -->
-        <div class="content-sub-tabs-bar">
-          <button class="content-sub-tab-btn active">Stores / POIs</button>
-          <button class="content-sub-tab-btn">Categories</button>
-          <button class="content-sub-tab-btn">Facilities</button>
-          <button class="content-sub-tab-btn">Services</button>
-          <button class="content-sub-tab-btn">Media</button>
-        </div>
-
-        <!-- Filter Toolbar -->
-        <div class="content-filter-toolbar">
-          <div class="content-filter-left">
-            <div class="search-input" style="min-width:180px;height:34px;">
-              <i class="fa-solid fa-magnifying-glass"></i>
-              <input type="text" placeholder="Search stores..." style="border:none;outline:none;background:transparent;font-size:12px;width:100%;">
-            </div>
-            
-            <div class="select-pill" style="height:34px;padding:0 10px;font-size:12px;">
-              All Categories <i class="fa-solid fa-chevron-down" style="font-size:9.5px;margin-left:4px;"></i>
-            </div>
-
-            <div class="select-pill" style="height:34px;padding:0 10px;font-size:12px;">
-              All Floors <i class="fa-solid fa-chevron-down" style="font-size:9.5px;margin-left:4px;"></i>
-            </div>
-
-            <div class="select-pill" style="height:34px;padding:0 10px;font-size:12px;">
-              Status: Active <i class="fa-solid fa-chevron-down" style="font-size:9.5px;margin-left:4px;"></i>
-            </div>
-
-            <button class="btn" style="height:34px;padding:0 10px;font-size:12px;display:flex;align-items:center;gap:6px;">
-              More Filters <i class="fa-solid fa-sliders" style="font-size:10px;"></i>
-            </button>
+          <div style="font-size:12px;color:var(--text-500);display:flex;align-items:center;gap:6px;">
+            <a href="projects.html" style="color:var(--text-500);text-decoration:none;">Projects</a>
+            <i class="fa-solid fa-chevron-right" style="font-size:9px;color:var(--text-400);"></i>
+            <a href="project-overview.html" style="color:var(--text-500);text-decoration:none;">Phoenix Mall Project</a>
+            <i class="fa-solid fa-chevron-right" style="font-size:9px;color:var(--text-400);"></i>
+            <span style="color:var(--text-900);font-weight:600;">Content</span>
           </div>
-
-          <div class="content-filter-right">
-            <button class="btn" style="height:34px;padding:0 10px;font-size:12px;display:flex;align-items:center;gap:6px;">
-              <i class="fa-solid fa-download"></i> Import
-            </button>
-            <button class="btn" style="height:34px;padding:0 10px;font-size:12px;display:flex;align-items:center;gap:6px;">
-              <i class="fa-solid fa-upload"></i> Export
-            </button>
-            <button class="btn btn-primary" style="height:34px;padding:0 12px;font-size:12px;display:flex;align-items:center;gap:6px;background:#2563eb;color:#fff;">
-              <i class="fa-solid fa-plus"></i> Add Store
-            </button>
+          <div style="display:flex;align-items:center;gap:10px;margin-top:2px;">
+            <h1 style="font-size:19px;font-weight:800;color:var(--text-900);margin:0;">Phoenix Mall Project</h1>
+            <span class="status-pill pill-active">Active</span>
           </div>
         </div>
-
-        <!-- Stores Table -->
-        <div class="table-wrap">
-          <table style="width:100%;border-collapse:collapse;">
-            <thead>
-              <tr style="border-bottom:1px solid var(--border);">
-                <th style="padding:10px 18px;text-align:left;font-size:11.5px;font-weight:700;color:var(--text-500);">Store Name</th>
-                <th style="padding:10px 14px;text-align:left;font-size:11.5px;font-weight:700;color:var(--text-500);">Category</th>
-                <th style="padding:10px 14px;text-align:left;font-size:11.5px;font-weight:700;color:var(--text-500);">Floor</th>
-                <th style="padding:10px 14px;text-align:left;font-size:11.5px;font-weight:700;color:var(--text-500);">Status</th>
-                <th style="padding:10px 14px;text-align:left;font-size:11.5px;font-weight:700;color:var(--text-500);">Location on Map</th>
-                <th style="padding:10px 14px;text-align:left;font-size:11.5px;font-weight:700;color:var(--text-500);">Last Updated</th>
-                <th style="padding:10px 18px;text-align:right;font-size:11.5px;font-weight:700;color:var(--text-500);">Action</th>
-              </tr>
-            </thead>
-            <tbody>
-              <!-- Row 1: Nike (Selected) -->
-              <tr style="background:#f8faff;border-bottom:1px solid var(--border-soft);cursor:pointer;" onclick="selectStoreRow(this, 'Nike', 'GF-12', 'Fashion & Apparel', 'Ground Floor', '+91 22 1234 5678', 'nike@phoenixmall.com', 'Visit Nike for the latest in sports fashion, footwear and accessories.')">
-                <td style="padding:12px 18px;">
-                  <div style="display:flex;align-items:center;gap:12px;">
-                    <div class="store-logo-cell">
-                      <!-- Nike Swoosh SVG -->
-                      <svg viewBox="0 0 24 24" style="width:20px;height:20px;" fill="#0f172a">
-                        <path d="M21.707 5.293c-.276-.276-.704-.325-1.033-.122L5.86 14.153c-1.396.86-3.085.345-3.837-.991-.652-1.157-.423-2.61.564-3.597.163-.163.344-.306.541-.424l.023-.014c.366-.219.489-.691.272-1.057s-.691-.489-1.057-.272c-.417.25-.795.556-1.134.909-1.573 1.573-1.936 3.914-.888 5.776 1.229 2.185 3.978 3.017 6.223 1.636l14.814-9.123c.328-.202.46-.615.326-.967z"/>
-                      </svg>
-                    </div>
-                    <div>
-                      <div style="font-size:13px;font-weight:700;color:var(--text-900);">Nike</div>
-                      <div style="font-size:11px;color:var(--text-400);">#GF-12</div>
-                    </div>
-                  </div>
-                </td>
-                <td style="padding:12px 14px;">
-                  <span class="badge" style="background:#f5f3ff;color:#7c3aed;font-size:11px;padding:3px 8px;font-weight:600;">Fashion & Apparel</span>
-                </td>
-                <td style="padding:12px 14px;font-size:12.5px;color:var(--text-700);font-weight:500;">Ground Floor</td>
-                <td style="padding:12px 14px;">
-                  <span style="display:inline-flex;align-items:center;gap:4px;color:#16a34a;font-size:11.5px;font-weight:600;">
-                    <span style="width:6px;height:6px;border-radius:50%;background:#16a34a;"></span> Active
-                  </span>
-                </td>
-                <td style="padding:12px 14px;">
-                  <a href="#" style="color:#2563eb;font-size:12px;font-weight:600;display:inline-flex;align-items:center;gap:4px;">
-                    <i class="fa-solid fa-location-dot" style="font-size:10.5px;"></i> GF-12
-                  </a>
-                </td>
-                <td style="padding:12px 14px;">
-                  <div style="font-size:12px;font-weight:600;color:var(--text-900);">May 10, 2026</div>
-                  <div style="font-size:11px;color:var(--text-400);">10:30 AM</div>
-                </td>
-                <td style="padding:12px 18px;text-align:right;">
-                  <button class="btn-icon" style="background:transparent;border:none;color:var(--text-400);cursor:pointer;font-size:14px;"><i class="fa-solid fa-ellipsis"></i></button>
-                </td>
-              </tr>
-
-              <!-- Row 2: Zara -->
-              <tr style="border-bottom:1px solid var(--border-soft);cursor:pointer;" onclick="selectStoreRow(this, 'Zara', 'L1-08', 'Fashion & Apparel', 'Level 1', '+91 22 8765 4321', 'zara@phoenixmall.com', 'Spanish apparel brand featuring trendy fast-fashion clothing, accessories, and shoes.')">
-                <td style="padding:12px 18px;">
-                  <div style="display:flex;align-items:center;gap:12px;">
-                    <div class="store-logo-cell" style="font-size:9px;letter-spacing:1px;font-family:sans-serif;">
-                      ZARA
-                    </div>
-                    <div>
-                      <div style="font-size:13px;font-weight:700;color:var(--text-900);">Zara</div>
-                      <div style="font-size:11px;color:var(--text-400);">#L1-08</div>
-                    </div>
-                  </div>
-                </td>
-                <td style="padding:12px 14px;">
-                  <span class="badge" style="background:#f5f3ff;color:#7c3aed;font-size:11px;padding:3px 8px;font-weight:600;">Fashion & Apparel</span>
-                </td>
-                <td style="padding:12px 14px;font-size:12.5px;color:var(--text-700);font-weight:500;">Level 1</td>
-                <td style="padding:12px 14px;">
-                  <span style="display:inline-flex;align-items:center;gap:4px;color:#16a34a;font-size:11.5px;font-weight:600;">
-                    <span style="width:6px;height:6px;border-radius:50%;background:#16a34a;"></span> Active
-                  </span>
-                </td>
-                <td style="padding:12px 14px;">
-                  <a href="#" style="color:#2563eb;font-size:12px;font-weight:600;display:inline-flex;align-items:center;gap:4px;">
-                    <i class="fa-solid fa-location-dot" style="font-size:10.5px;"></i> L1-08
-                  </a>
-                </td>
-                <td style="padding:12px 14px;">
-                  <div style="font-size:12px;font-weight:600;color:var(--text-900);">May 09, 2026</div>
-                  <div style="font-size:11px;color:var(--text-400);">04:20 PM</div>
-                </td>
-                <td style="padding:12px 18px;text-align:right;">
-                  <button class="btn-icon" style="background:transparent;border:none;color:var(--text-400);cursor:pointer;font-size:14px;"><i class="fa-solid fa-ellipsis"></i></button>
-                </td>
-              </tr>
-
-              <!-- Row 3: Starbucks -->
-              <tr style="border-bottom:1px solid var(--border-soft);cursor:pointer;" onclick="selectStoreRow(this, 'Starbucks', 'GF-05', 'Food & Dining', 'Ground Floor', '+91 22 2345 6789', 'starbucks@phoenixmall.com', 'Seattle-based coffeehouse chain known for its signature roasts, light bites and WiFi availability.')">
-                <td style="padding:12px 18px;">
-                  <div style="display:flex;align-items:center;gap:12px;">
-                    <div class="store-logo-cell" style="background:#006241;color:#fff;border-radius:50%;width:32px;height:32px;">
-                      <i class="fa-solid fa-mug-hot" style="font-size:13px;"></i>
-                    </div>
-                    <div>
-                      <div style="font-size:13px;font-weight:700;color:var(--text-900);">Starbucks</div>
-                      <div style="font-size:11px;color:var(--text-400);">#GF-05</div>
-                    </div>
-                  </div>
-                </td>
-                <td style="padding:12px 14px;">
-                  <span class="badge" style="background:#fff7ed;color:#ea580c;font-size:11px;padding:3px 8px;font-weight:600;">Food & Dining</span>
-                </td>
-                <td style="padding:12px 14px;font-size:12.5px;color:var(--text-700);font-weight:500;">Ground Floor</td>
-                <td style="padding:12px 14px;">
-                  <span style="display:inline-flex;align-items:center;gap:4px;color:#16a34a;font-size:11.5px;font-weight:600;">
-                    <span style="width:6px;height:6px;border-radius:50%;background:#16a34a;"></span> Active
-                  </span>
-                </td>
-                <td style="padding:12px 14px;">
-                  <a href="#" style="color:#2563eb;font-size:12px;font-weight:600;display:inline-flex;align-items:center;gap:4px;">
-                    <i class="fa-solid fa-location-dot" style="font-size:10.5px;"></i> GF-05
-                  </a>
-                </td>
-                <td style="padding:12px 14px;">
-                  <div style="font-size:12px;font-weight:600;color:var(--text-900);">May 09, 2026</div>
-                  <div style="font-size:11px;color:var(--text-400);">11:15 AM</div>
-                </td>
-                <td style="padding:12px 18px;text-align:right;">
-                  <button class="btn-icon" style="background:transparent;border:none;color:var(--text-400);cursor:pointer;font-size:14px;"><i class="fa-solid fa-ellipsis"></i></button>
-                </td>
-              </tr>
-
-              <!-- Row 4: Reliance Digital -->
-              <tr style="border-bottom:1px solid var(--border-soft);cursor:pointer;" onclick="selectStoreRow(this, 'Reliance Digital', 'L2-15', 'Electronics', 'Level 2', '+91 22 3456 7890', 'reliancedigital@phoenixmall.com', 'Leading consumer electronics retailer offering smartphones, laptops, audio systems, and appliances.')">
-                <td style="padding:12px 18px;">
-                  <div style="display:flex;align-items:center;gap:12px;">
-                    <div class="store-logo-cell" style="background:#003399;color:#fff;border-radius:8px;">
-                      <i class="fa-solid fa-microchip" style="font-size:14px;"></i>
-                    </div>
-                    <div>
-                      <div style="font-size:13px;font-weight:700;color:var(--text-900);">Reliance Digital</div>
-                      <div style="font-size:11px;color:var(--text-400);">#L2-15</div>
-                    </div>
-                  </div>
-                </td>
-                <td style="padding:12px 14px;">
-                  <span class="badge" style="background:#eff6ff;color:#2563eb;font-size:11px;padding:3px 8px;font-weight:600;">Electronics</span>
-                </td>
-                <td style="padding:12px 14px;font-size:12.5px;color:var(--text-700);font-weight:500;">Level 2</td>
-                <td style="padding:12px 14px;">
-                  <span style="display:inline-flex;align-items:center;gap:4px;color:#16a34a;font-size:11.5px;font-weight:600;">
-                    <span style="width:6px;height:6px;border-radius:50%;background:#16a34a;"></span> Active
-                  </span>
-                </td>
-                <td style="padding:12px 14px;">
-                  <a href="#" style="color:#2563eb;font-size:12px;font-weight:600;display:inline-flex;align-items:center;gap:4px;">
-                    <i class="fa-solid fa-location-dot" style="font-size:10.5px;"></i> L2-15
-                  </a>
-                </td>
-                <td style="padding:12px 14px;">
-                  <div style="font-size:12px;font-weight:600;color:var(--text-900);">May 08, 2026</div>
-                  <div style="font-size:11px;color:var(--text-400);">02:45 PM</div>
-                </td>
-                <td style="padding:12px 18px;text-align:right;">
-                  <button class="btn-icon" style="background:transparent;border:none;color:var(--text-400);cursor:pointer;font-size:14px;"><i class="fa-solid fa-ellipsis"></i></button>
-                </td>
-              </tr>
-
-              <!-- Row 5: PVR Cinemas -->
-              <tr style="border-bottom:1px solid var(--border-soft);cursor:pointer;" onclick="selectStoreRow(this, 'PVR Cinemas', 'L2-01', 'Entertainment', 'Level 2', '+91 22 4567 8901', 'pvr@phoenixmall.com', 'Premium multiplex cinema offering IMAX, 4DX, and luxury reclining lounge auditoriums.')">
-                <td style="padding:12px 18px;">
-                  <div style="display:flex;align-items:center;gap:12px;">
-                    <div class="store-logo-cell" style="background:#0f172a;color:#fbbf24;border-radius:8px;font-size:9px;font-weight:900;">
-                      PVR
-                    </div>
-                    <div>
-                      <div style="font-size:13px;font-weight:700;color:var(--text-900);">PVR Cinemas</div>
-                      <div style="font-size:11px;color:var(--text-400);">#L2-01</div>
-                    </div>
-                  </div>
-                </td>
-                <td style="padding:12px 14px;">
-                  <span class="badge" style="background:#fffbeb;color:#d97706;font-size:11px;padding:3px 8px;font-weight:600;">Entertainment</span>
-                </td>
-                <td style="padding:12px 14px;font-size:12.5px;color:var(--text-700);font-weight:500;">Level 2</td>
-                <td style="padding:12px 14px;">
-                  <span style="display:inline-flex;align-items:center;gap:4px;color:#16a34a;font-size:11.5px;font-weight:600;">
-                    <span style="width:6px;height:6px;border-radius:50%;background:#16a34a;"></span> Active
-                  </span>
-                </td>
-                <td style="padding:12px 14px;">
-                  <a href="#" style="color:#2563eb;font-size:12px;font-weight:600;display:inline-flex;align-items:center;gap:4px;">
-                    <i class="fa-solid fa-location-dot" style="font-size:10.5px;"></i> L2-01
-                  </a>
-                </td>
-                <td style="padding:12px 14px;">
-                  <div style="font-size:12px;font-weight:600;color:var(--text-900);">May 07, 2026</div>
-                  <div style="font-size:11px;color:var(--text-400);">06:10 PM</div>
-                </td>
-                <td style="padding:12px 18px;text-align:right;">
-                  <button class="btn-icon" style="background:transparent;border:none;color:var(--text-400);cursor:pointer;font-size:14px;"><i class="fa-solid fa-ellipsis"></i></button>
-                </td>
-              </tr>
-
-              <!-- Row 6: H&M -->
-              <tr style="border-bottom:1px solid var(--border-soft);cursor:pointer;" onclick="selectStoreRow(this, 'H&M', 'L1-10', 'Fashion & Apparel', 'Level 1', '+91 22 5678 9012', 'hm@phoenixmall.com', 'Swedish multinational clothing retailer known for fast-fashion for men, women, and children.')">
-                <td style="padding:12px 18px;">
-                  <div style="display:flex;align-items:center;gap:12px;">
-                    <div class="store-logo-cell" style="color:#dc2626;font-size:12px;font-weight:900;font-style:italic;">
-                      H&M
-                    </div>
-                    <div>
-                      <div style="font-size:13px;font-weight:700;color:var(--text-900);">H&M</div>
-                      <div style="font-size:11px;color:var(--text-400);">#L1-10</div>
-                    </div>
-                  </div>
-                </td>
-                <td style="padding:12px 14px;">
-                  <span class="badge" style="background:#f5f3ff;color:#7c3aed;font-size:11px;padding:3px 8px;font-weight:600;">Fashion & Apparel</span>
-                </td>
-                <td style="padding:12px 14px;font-size:12.5px;color:var(--text-700);font-weight:500;">Level 1</td>
-                <td style="padding:12px 14px;">
-                  <span style="display:inline-flex;align-items:center;gap:4px;color:#16a34a;font-size:11.5px;font-weight:600;">
-                    <span style="width:6px;height:6px;border-radius:50%;background:#16a34a;"></span> Active
-                  </span>
-                </td>
-                <td style="padding:12px 14px;">
-                  <a href="#" style="color:#2563eb;font-size:12px;font-weight:600;display:inline-flex;align-items:center;gap:4px;">
-                    <i class="fa-solid fa-location-dot" style="font-size:10.5px;"></i> L1-10
-                  </a>
-                </td>
-                <td style="padding:12px 14px;">
-                  <div style="font-size:12px;font-weight:600;color:var(--text-900);">May 07, 2026</div>
-                  <div style="font-size:11px;color:var(--text-400);">12:05 PM</div>
-                </td>
-                <td style="padding:12px 18px;text-align:right;">
-                  <button class="btn-icon" style="background:transparent;border:none;color:var(--text-400);cursor:pointer;font-size:14px;"><i class="fa-solid fa-ellipsis"></i></button>
-                </td>
-              </tr>
-
-              <!-- Row 7: McDonald's -->
-              <tr style="border-bottom:1px solid var(--border-soft);cursor:pointer;" onclick="selectStoreRow(this, 'McDonald\'s', 'GF-03', 'Food & Dining', 'Ground Floor', '+91 22 6789 0123', 'mcdonalds@phoenixmall.com', 'Global fast-food chain serving burgers, french fries, milkshakes, and breakfast items.')">
-                <td style="padding:12px 18px;">
-                  <div style="display:flex;align-items:center;gap:12px;">
-                    <div class="store-logo-cell" style="background:#da291c;color:#ffc72c;border-radius:8px;font-size:15px;font-weight:900;">
-                      M
-                    </div>
-                    <div>
-                      <div style="font-size:13px;font-weight:700;color:var(--text-900);">McDonald's</div>
-                      <div style="font-size:11px;color:var(--text-400);">#GF-03</div>
-                    </div>
-                  </div>
-                </td>
-                <td style="padding:12px 14px;">
-                  <span class="badge" style="background:#fff7ed;color:#ea580c;font-size:11px;padding:3px 8px;font-weight:600;">Food & Dining</span>
-                </td>
-                <td style="padding:12px 14px;font-size:12.5px;color:var(--text-700);font-weight:500;">Ground Floor</td>
-                <td style="padding:12px 14px;">
-                  <span style="display:inline-flex;align-items:center;gap:4px;color:#16a34a;font-size:11.5px;font-weight:600;">
-                    <span style="width:6px;height:6px;border-radius:50%;background:#16a34a;"></span> Active
-                  </span>
-                </td>
-                <td style="padding:12px 14px;">
-                  <a href="#" style="color:#2563eb;font-size:12px;font-weight:600;display:inline-flex;align-items:center;gap:4px;">
-                    <i class="fa-solid fa-location-dot" style="font-size:10.5px;"></i> GF-03
-                  </a>
-                </td>
-                <td style="padding:12px 14px;">
-                  <div style="font-size:12px;font-weight:600;color:var(--text-900);">May 06, 2026</div>
-                  <div style="font-size:11px;color:var(--text-400);">09:35 AM</div>
-                </td>
-                <td style="padding:12px 18px;text-align:right;">
-                  <button class="btn-icon" style="background:transparent;border:none;color:var(--text-400);cursor:pointer;font-size:14px;"><i class="fa-solid fa-ellipsis"></i></button>
-                </td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-
-        <!-- Pagination Bar -->
-        <div style="padding:14px 20px;display:flex;align-items:center;justify-content:space-between;border-top:1px solid var(--border-soft);background:#fafbfc;">
-          <div style="font-size:12px;color:var(--text-500);">Showing 1 to 10 of 256 stores</div>
-          
-          <div style="display:flex;align-items:center;gap:12px;">
-            <div style="display:flex;align-items:center;gap:4px;">
-              <button class="btn btn-sm" style="padding:4px 8px;font-size:11px;"><i class="fa-solid fa-chevron-left"></i></button>
-              <button class="btn btn-sm btn-primary" style="padding:4px 10px;font-size:11px;background:#2563eb;color:#fff;">1</button>
-              <button class="btn btn-sm" style="padding:4px 10px;font-size:11px;">2</button>
-              <button class="btn btn-sm" style="padding:4px 10px;font-size:11px;">3</button>
-              <span style="color:var(--text-400);font-size:11px;padding:0 4px;">...</span>
-              <button class="btn btn-sm" style="padding:4px 10px;font-size:11px;">26</button>
-              <button class="btn btn-sm" style="padding:4px 8px;font-size:11px;"><i class="fa-solid fa-chevron-right"></i></button>
-            </div>
-
-            <div class="select-pill" style="height:30px;padding:0 8px;font-size:11.5px;">
-              10 / page <i class="fa-solid fa-chevron-down" style="font-size:9px;margin-left:4px;"></i>
-            </div>
-          </div>
-        </div>
-
       </div>
 
-      <!-- Right Column: Store Details Drawer -->
-      <div class="store-detail-drawer">
-        <div class="store-detail-header">
-          <h3 style="margin:0;font-size:15px;font-weight:700;color:var(--text-900);">Store Details</h3>
-          <i class="fa-solid fa-chevron-up" style="color:var(--text-400);font-size:12px;cursor:pointer;"></i>
+      <!-- Topbar Actions -->
+      <div style="display:flex;align-items:center;gap:16px;">
+        <!-- Date range selector pill -->
+        <div style="display:flex;align-items:center;gap:8px;background:#f8fafc;border:1px solid var(--border);border-radius:8px;padding:7px 12px;font-size:12.5px;font-weight:600;color:var(--text-700);cursor:pointer;">
+          <span>13 May – 19 May 2025</span>
+          <i class="fa-regular fa-calendar" style="color:var(--text-500);font-size:13px;"></i>
         </div>
 
-        <!-- Store Header Banner -->
-        <div style="display:flex;align-items:center;gap:12px;padding:12px 14px;background:#fafbfc;border:1px solid var(--border-soft);border-radius:var(--radius-md);margin-bottom:16px;">
-          <div class="store-logo-cell" id="detail-logo" style="width:44px;height:44px;background:#fff;border-radius:10px;">
-            <svg viewBox="0 0 24 24" style="width:24px;height:24px;" fill="#0f172a">
-              <path d="M21.707 5.293c-.276-.276-.704-.325-1.033-.122L5.86 14.153c-1.396.86-3.085.345-3.837-.991-.652-1.157-.423-2.61.564-3.597.163-.163.344-.306.541-.424l.023-.014c.366-.219.489-.691.272-1.057s-.691-.489-1.057-.272c-.417.25-.795.556-1.134.909-1.573 1.573-1.936 3.914-.888 5.776 1.229 2.185 3.978 3.017 6.223 1.636l14.814-9.123c.328-.202.46-.615.326-.967z"/>
-            </svg>
+        <!-- Notification Bell -->
+        <button style="position:relative;width:38px;height:38px;border-radius:8px;border:1px solid var(--border);background:#fff;display:flex;align-items:center;justify-content:center;cursor:pointer;">
+          <i class="fa-regular fa-bell" style="font-size:16px;color:var(--text-600);"></i>
+          <span style="position:absolute;top:3px;right:3px;background:#ef4444;color:#fff;font-size:9px;font-weight:700;border-radius:50%;width:15px;height:15px;display:flex;align-items:center;justify-content:center;">7</span>
+        </button>
+
+        <!-- User Profile (Phoenix Mall · Client Admin) -->
+        <div style="display:flex;align-items:center;gap:10px;cursor:pointer;">
+          <div style="width:36px;height:36px;border-radius:50%;background:#f3e8ff;color:#9333ea;font-weight:700;font-size:15px;display:flex;align-items:center;justify-content:center;border:1px solid #e9d5ff;">
+            <i class="fa-solid fa-building-circle-check"></i>
           </div>
           <div>
-            <div style="display:flex;align-items:center;gap:6px;">
-              <span id="detail-name" style="font-size:15px;font-weight:800;color:var(--text-900);">Nike</span>
-              <span class="badge" style="background:#ecfdf5;color:#16a34a;font-size:10.5px;padding:2px 7px;font-weight:600;">
-                <span style="width:5px;height:5px;border-radius:50%;background:#16a34a;display:inline-block;margin-right:3px;"></span> Active
-              </span>
-            </div>
-            <div id="detail-code" style="font-size:12px;color:var(--text-400);margin-top:2px;">#GF-12</div>
+            <div style="font-size:13.5px;font-weight:700;color:var(--text-900);line-height:1.2;">Phoenix Mall</div>
+            <div style="font-size:11px;color:var(--text-500);font-weight:500;">Client Admin</div>
           </div>
+          <i class="fa-solid fa-chevron-down" style="font-size:10px;color:var(--text-400);margin-left:4px;"></i>
+        </div>
+      </div>
+    </header>
+
+    <!-- =========================================================================
+         PROJECT SUBNAV BAR (Standard Project Workspace Navigation + New Content Button)
+         ========================================================================= -->
+    <div class="project-subnav-bar">
+      <nav class="project-subnav-tabs">
+        <a href="project-overview.html" class="project-subnav-tab" id="tabOverview"><i class="fa-solid fa-chart-pie"></i> Overview</a>
+        <a href="project-experience.html" class="project-subnav-tab" id="tabExperience"><i class="fa-solid fa-layer-group"></i> Experience</a>
+        <a href="project-content.html" class="project-subnav-tab active" id="tabContent"><i class="fa-regular fa-file-lines"></i> Content</a>
+        <a href="project-themes.html" class="project-subnav-tab" id="tabThemes"><i class="fa-solid fa-palette"></i> Themes</a>
+        <a href="project-advertisements.html" class="project-subnav-tab" id="tabAdvertisements"><i class="fa-solid fa-bullhorn"></i> Advertisements</a>
+        <a href="project-preview.html" class="project-subnav-tab" id="tabPreview"><i class="fa-solid fa-eye"></i> Preview</a>
+        <a href="project-analytics.html" class="project-subnav-tab" id="tabAnalytics"><i class="fa-solid fa-chart-column"></i> Analytics</a>
+        <a href="project-feedback.html" class="project-subnav-tab" id="tabFeedback"><i class="fa-regular fa-comment-dots"></i> Feedback</a>
+        <a href="project-requests.html" class="project-subnav-tab" id="tabRequests"><i class="fa-regular fa-clipboard"></i> Requests</a>
+      </nav>
+
+      <!-- New Content Action Button on Right -->
+      <button onclick="openAddNewContentModal()" id="btnNewContent" style="height:34px;padding:0 16px;border-radius:8px;border:none;background:#2563eb;color:#fff;font-size:12px;font-weight:700;cursor:pointer;display:flex;align-items:center;gap:6px;box-shadow:0 2px 4px rgba(37,99,235,0.2);">
+        <i class="fa-solid fa-plus" style="font-size:11px;"></i>
+        <span>New Content</span>
+      </button>
+    </div>
+
+    <!-- =========================================================================
+         CONTENT CATEGORY TABS (6 Major Categories)
+         ========================================================================= -->
+    <div class="content-cat-tabs-bar">
+      <div class="content-cat-tab active" onclick="switchCategory('stores')" id="catTabStores">
+        <i class="fa-solid fa-store"></i>
+        <span>Stores & Brands</span>
+      </div>
+      <div class="content-cat-tab" onclick="switchCategory('amenities')" id="catTabAmenities">
+        <i class="fa-solid fa-restroom"></i>
+        <span>Amenities</span>
+      </div>
+      <div class="content-cat-tab" onclick="switchCategory('offers')" id="catTabOffers">
+        <i class="fa-solid fa-tags"></i>
+        <span>Offers & Promotions</span>
+      </div>
+      <div class="content-cat-tab" onclick="switchCategory('events')" id="catTabEvents">
+        <i class="fa-regular fa-calendar-days"></i>
+        <span>Events</span>
+      </div>
+      <div class="content-cat-tab" onclick="switchCategory('movies')" id="catTabMovies">
+        <i class="fa-solid fa-film"></i>
+        <span>Movies</span>
+      </div>
+      <div class="content-cat-tab" onclick="switchCategory('info')" id="catTabInfo">
+        <i class="fa-solid fa-circle-info"></i>
+        <span>General Information</span>
+      </div>
+    </div>
+
+    <!-- Page Content Container -->
+    <div class="content" style="padding:20px 28px 40px 28px;background:#f8fafc;flex:1;">
+
+      <!-- =======================================================================
+           SEARCH / FILTERS / SORT / ACTION BAR
+           ======================================================================= -->
+      <div class="content-filter-bar">
+        
+        <!-- Search Input -->
+        <div style="position:relative;width:300px;">
+          <input type="text" id="searchContentInput" onkeyup="filterContentTable()" placeholder="Search stores..." style="width:100%;height:36px;padding:0 32px 0 12px;border-radius:8px;border:1px solid var(--border);font-size:12px;outline:none;background:#fff;">
+          <i class="fa-solid fa-magnifying-glass" style="position:absolute;right:12px;top:50%;transform:translateY(-50%);color:var(--text-400);font-size:12px;"></i>
         </div>
 
-        <!-- Detail Sub-tabs -->
-        <div class="store-detail-sub-tabs">
-          <button class="store-detail-tab active">Details</button>
-          <button class="store-detail-tab">Images</button>
-          <button class="store-detail-tab">Map Location</button>
-          <button class="store-detail-tab">Hours</button>
-        </div>
+        <!-- Filter Dropdowns & Add Button -->
+        <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap;">
+          
+          <!-- Status Filter -->
+          <select id="contentStatusFilter" onchange="filterContentTable()" style="height:36px;padding:0 12px;border-radius:8px;border:1px solid var(--border);background:#fff;font-size:12px;font-weight:600;color:var(--text-700);outline:none;cursor:pointer;">
+            <option value="All">All Status ▾</option>
+            <option value="Active">Active</option>
+            <option value="Inactive">Inactive</option>
+          </select>
 
-        <!-- Fields List -->
-        <div style="display:flex;flex-direction:column;gap:2px;margin-bottom:20px;">
-          <div class="store-info-row">
-            <div class="store-info-label">Category</div>
-            <div class="store-info-value">
-              <span id="detail-category" class="badge" style="background:#f5f3ff;color:#7c3aed;font-size:11px;padding:3px 8px;font-weight:600;">Fashion & Apparel</span>
-            </div>
-          </div>
+          <!-- Category Filter -->
+          <select id="contentCategoryFilter" onchange="filterContentTable()" style="height:36px;padding:0 12px;border-radius:8px;border:1px solid var(--border);background:#fff;font-size:12px;font-weight:600;color:var(--text-700);outline:none;cursor:pointer;">
+            <option value="All">All Categories ▾</option>
+            <option value="Fashion & Sports">Fashion & Sports</option>
+            <option value="Fashion">Fashion</option>
+            <option value="Electronics">Electronics</option>
+            <option value="Beauty">Beauty</option>
+            <option value="Entertainment">Entertainment</option>
+          </select>
 
-          <div class="store-info-row">
-            <div class="store-info-label">Floor</div>
-            <div class="store-info-value" id="detail-floor">Ground Floor</div>
-          </div>
+          <!-- Sort Filter -->
+          <select id="contentSortFilter" onchange="sortContentTable()" style="height:36px;padding:0 12px;border-radius:8px;border:1px solid var(--border);background:#fff;font-size:12px;font-weight:600;color:var(--text-700);outline:none;cursor:pointer;">
+            <option value="default">Sort ▾</option>
+            <option value="name-asc">Name (A-Z)</option>
+            <option value="name-desc">Name (Z-A)</option>
+            <option value="recent">Recently Updated</option>
+          </select>
 
-          <div class="store-info-row">
-            <div class="store-info-label">Store Code</div>
-            <div class="store-info-value" id="detail-code-row">GF-12</div>
-          </div>
-
-          <div class="store-info-row">
-            <div class="store-info-label">Phone</div>
-            <div class="store-info-value" id="detail-phone">+91 22 1234 5678</div>
-          </div>
-
-          <div class="store-info-row">
-            <div class="store-info-label">Email</div>
-            <div class="store-info-value" id="detail-email">nike@phoenixmall.com</div>
-          </div>
-
-          <div class="store-info-row" style="flex-direction:column;gap:6px;">
-            <div class="store-info-label">Description</div>
-            <div class="store-info-value" id="detail-desc" style="text-align:left;font-size:12px;color:var(--text-600);font-weight:400;line-height:1.45;">
-              Visit Nike for the latest in sports fashion, footwear and accessories.
-            </div>
-          </div>
-
-          <div class="store-info-row" style="align-items:center;">
-            <div class="store-info-label">Status</div>
-            <div class="store-info-value" style="display:flex;align-items:center;justify-content:flex-end;gap:8px;">
-              <label class="switch-toggle-btn">
-                <input type="checkbox" checked>
-                <span class="switch-slider"></span>
-              </label>
-              <span style="font-size:12px;font-weight:600;color:var(--green-600);">Active</span>
-            </div>
-          </div>
-
-          <div class="store-info-row">
-            <div class="store-info-label">Last Updated</div>
-            <div class="store-info-value" style="font-size:12px;">
-              <div>May 10, 2026 10:30 AM</div>
-              <div style="font-size:11px;color:var(--text-400);font-weight:400;margin-top:2px;">by Neha Sharma</div>
-            </div>
-          </div>
-        </div>
-
-        <!-- Action Buttons -->
-        <div style="display:flex;align-items:center;gap:10px;">
-          <button class="btn" style="flex:1;background:#fff;border:1px solid var(--border);color:var(--text-700);font-weight:600;padding:9px 12px;display:flex;align-items:center;justify-content:center;gap:6px;font-size:12.5px;">
-            <i class="fa-regular fa-pen-to-square"></i> Edit Store
+          <!-- Add New Store / Item Button -->
+          <button onclick="openAddNewContentModal()" id="btnAddCategoryItem" style="height:36px;padding:0 16px;border-radius:8px;border:none;background:#2563eb;color:#fff;font-size:12px;font-weight:700;cursor:pointer;display:flex;align-items:center;gap:6px;box-shadow:0 2px 4px rgba(37,99,235,0.2);">
+            <i class="fa-solid fa-plus" style="font-size:11px;"></i>
+            <span id="btnAddItemLabel">+ Add New Store</span>
           </button>
-          <button class="btn" style="flex:1;background:#fff;border:1px solid #fee2e2;color:#dc2626;font-weight:600;padding:9px 12px;display:flex;align-items:center;justify-content:center;gap:6px;font-size:12.5px;">
-            <i class="fa-regular fa-trash-can"></i> Delete Store
-          </button>
         </div>
+
+      </div>
+
+      <!-- =======================================================================
+           2-COLUMN MAIN SPLIT: CONTENT LIST (LEFT) + DETAILS PANEL (RIGHT)
+           ======================================================================= -->
+      <div class="content-main-split">
+        
+        <!-- Left: Content Table Panel -->
+        <div class="dash-panel">
+          <div style="overflow-x:auto;">
+            <table class="content-table" id="contentDataTable">
+              <thead>
+                <tr>
+                  <th style="width:230px;" id="colHeaderName">Store Name</th>
+                  <th id="colHeaderCat">Category</th>
+                  <th>Status</th>
+                  <th>Last Updated</th>
+                  <th style="text-align:right;">Actions</th>
+                </tr>
+              </thead>
+              <tbody id="contentTableBody">
+                <!-- Dynamically Rendered Rows via JS -->
+              </tbody>
+            </table>
+          </div>
+
+          <!-- Pagination Footer -->
+          <div style="padding:12px 18px;border-top:1px solid var(--border-soft);display:flex;align-items:center;justify-content:space-between;font-size:11.5px;color:var(--text-500);">
+            <div id="paginationInfoText">Showing 1 to 8 of 156 stores</div>
+            <div style="display:flex;gap:4px;">
+              <button style="width:26px;height:26px;border-radius:6px;border:1px solid var(--border);background:#fff;cursor:pointer;color:var(--text-500);"><i class="fa-solid fa-chevron-left" style="font-size:9px;"></i></button>
+              <button style="width:26px;height:26px;border-radius:6px;border:none;background:#2563eb;color:#fff;font-weight:700;cursor:pointer;">1</button>
+              <button style="width:26px;height:26px;border-radius:6px;border:1px solid var(--border);background:#fff;cursor:pointer;color:var(--text-700);">2</button>
+              <button style="width:26px;height:26px;border-radius:6px;border:1px solid var(--border);background:#fff;cursor:pointer;color:var(--text-700);">3</button>
+              <span style="padding:0 4px;display:flex;align-items:center;">...</span>
+              <button style="width:26px;height:26px;border-radius:6px;border:1px solid var(--border);background:#fff;cursor:pointer;color:var(--text-700);">20</button>
+              <button style="width:26px;height:26px;border-radius:6px;border:1px solid var(--border);background:#fff;cursor:pointer;color:var(--text-500);"><i class="fa-solid fa-chevron-right" style="font-size:9px;"></i></button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right: Store / Item Details Panel -->
+        <div class="dash-panel" style="padding:20px;">
+          
+          <!-- Detail Panel Header -->
+          <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;">
+            <h3 style="font-size:15px;font-weight:800;color:var(--text-900);margin:0;" id="detailPanelHeading">Store Details</h3>
+            <button onclick="openEditContentModal()" id="btnEditStore" style="display:flex;align-items:center;gap:6px;border:1px solid var(--border);background:#fff;border-radius:6px;padding:5px 10px;font-size:11.5px;font-weight:700;color:var(--text-700);cursor:pointer;">
+              <span>Edit Store</span>
+              <i class="fa-solid fa-pen" style="font-size:10px;color:var(--text-500);"></i>
+            </button>
+          </div>
+
+          <!-- Brand Logo Box + Title & ID -->
+          <div style="display:flex;align-items:center;gap:14px;margin-bottom:16px;">
+            <div class="store-logo-box" style="width:52px;height:52px;" id="detailLogoBox">
+              <span style="font-size:13px;font-weight:800;color:#1e293b;" id="detailLogoFallback">ADIDAS</span>
+            </div>
+            <div>
+              <div style="display:flex;align-items:center;gap:8px;">
+                <h2 style="font-size:17px;font-weight:800;color:var(--text-900);margin:0;" id="detailItemName">Adidas</h2>
+                <span class="status-pill pill-active" id="detailItemStatus">Active</span>
+              </div>
+              <div style="font-size:11.5px;color:var(--text-500);margin-top:2px;" id="detailItemId">Store ID: ST-0001</div>
+            </div>
+          </div>
+
+          <!-- Metadata List -->
+          <div style="display:flex;flex-direction:column;gap:10px;font-size:12px;margin-bottom:18px;border-top:1px solid var(--border-soft);padding-top:14px;">
+            <div style="display:flex;align-items:center;justify-content:space-between;">
+              <span style="color:var(--text-500);display:flex;align-items:center;gap:6px;"><i class="fa-solid fa-globe" style="width:14px;color:var(--text-400);"></i> Category</span>
+              <strong style="color:var(--text-900);" id="detailCategory">Fashion & Sports</strong>
+            </div>
+            <div style="display:flex;align-items:center;justify-content:space-between;">
+              <span style="color:var(--text-500);display:flex;align-items:center;gap:6px;"><i class="fa-solid fa-location-dot" style="width:14px;color:var(--text-400);"></i> Location</span>
+              <strong style="color:var(--text-900);" id="detailLocation">Ground Floor, Near Entry Gate 2</strong>
+            </div>
+            <div style="display:flex;align-items:center;justify-content:space-between;">
+              <span style="color:var(--text-500);display:flex;align-items:center;gap:6px;"><i class="fa-solid fa-phone" style="width:14px;color:var(--text-400);"></i> Contact</span>
+              <span style="color:var(--text-800);font-weight:600;" id="detailContact">+91 98765 43210</span>
+            </div>
+            <div style="display:flex;align-items:center;justify-content:space-between;">
+              <span style="color:var(--text-500);display:flex;align-items:center;gap:6px;"><i class="fa-regular fa-envelope" style="width:14px;color:var(--text-400);"></i> Email</span>
+              <span style="color:var(--text-800);" id="detailEmail">adidas@phoenixmall.com</span>
+            </div>
+            <div style="display:flex;align-items:center;justify-content:space-between;">
+              <span style="color:var(--text-500);display:flex;align-items:center;gap:6px;"><i class="fa-solid fa-link" style="width:14px;color:var(--text-400);"></i> Website</span>
+              <a href="#" style="color:#2563eb;text-decoration:none;" id="detailWebsite">www.adidas.co.in</a>
+            </div>
+            <div style="display:flex;align-items:center;justify-content:space-between;">
+              <span style="color:var(--text-500);display:flex;align-items:center;gap:6px;"><i class="fa-regular fa-clock" style="width:14px;color:var(--text-400);"></i> Last Updated</span>
+              <span style="color:var(--text-700);" id="detailUpdated">18 May 2025, 10:15 AM</span>
+            </div>
+          </div>
+
+          <!-- Description Box -->
+          <div style="margin-bottom:16px;">
+            <div style="font-size:11px;font-weight:700;color:var(--text-700);text-transform:uppercase;margin-bottom:4px;">Store Description</div>
+            <div style="font-size:11.5px;color:var(--text-600);line-height:1.5;" id="detailDescription">
+              Adidas offers a wide range of sportswear, footwear, and accessories for men, women and kids.
+              <a href="#" onclick="alert('Full description view.'); return false;" style="color:#2563eb;font-weight:600;text-decoration:none;">Read More</a>
+            </div>
+          </div>
+
+          <!-- Store Image Preview -->
+          <div style="margin-bottom:18px;">
+            <div style="font-size:11px;font-weight:700;color:var(--text-700);text-transform:uppercase;margin-bottom:6px;">Store Image</div>
+            <div style="width:100%;height:130px;border-radius:10px;overflow:hidden;background:#0f172a;display:flex;align-items:center;justify-content:center;position:relative;border:1px solid var(--border);">
+              <div style="text-align:center;color:#ffffff;padding:15px;">
+                <div style="font-size:24px;font-weight:900;letter-spacing:1px;margin-bottom:4px;" id="detailImagePlaceholder">adidas</div>
+                <div style="font-size:10px;color:#94a3b8;">Storefront & Interior Experience Display</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Quick Actions 4 Grid -->
+          <div>
+            <div style="font-size:11px;font-weight:700;color:var(--text-700);text-transform:uppercase;margin-bottom:8px;">Quick Actions</div>
+            <div style="display:grid;grid-template-columns:repeat(4, 1fr);gap:8px;">
+              
+              <div class="quick-action-box" onclick="openEditContentModal()">
+                <i class="fa-solid fa-pen"></i>
+                <span>Update Details</span>
+              </div>
+
+              <div class="quick-action-box" onclick="location.href='project-advertisements.html'">
+                <i class="fa-solid fa-tag"></i>
+                <span>Manage Offers</span>
+              </div>
+
+              <div class="quick-action-box" onclick="openUpdateImageModal()">
+                <i class="fa-regular fa-image"></i>
+                <span>Update Image</span>
+              </div>
+
+              <div class="quick-action-box" onclick="openViewOnKioskModal()">
+                <i class="fa-solid fa-desktop"></i>
+                <span>View on Kiosk</span>
+              </div>
+
+            </div>
+          </div>
+
+        </div>
+
       </div>
 
     </div>
 
-  </main>
-</div>
+    <!-- Client Footer -->
+    <footer style="padding:16px 28px;background:#ffffff;border-top:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;font-size:12px;color:var(--text-500);">
+      <div>© 2025 Mall Kiosk Platform. All rights reserved.</div>
+      <div style="display:flex;gap:18px;">
+        <span>Client Admin Portal</span>
+        <span>Phoenix Mall Content Directory</span>
+      </div>
+    </footer>
+
+  </div>
 </div>
 
+<!-- ===========================================================================
+     EDIT STORE / CONTENT MODAL
+     =========================================================================== -->
+<div class="modal-backdrop" id="editContentModal">
+  <div class="modal-box">
+    <div style="padding:18px 24px;border-bottom:1px solid var(--border-soft);display:flex;align-items:center;justify-content:space-between;">
+      <div>
+        <h3 style="font-size:16px;font-weight:800;color:var(--text-900);margin:0;" id="editModalTitle">Edit Store Information</h3>
+        <div style="font-size:11px;color:var(--text-500);margin-top:2px;">Update permitted details for Phoenix Mall kiosk display.</div>
+      </div>
+      <i class="fa-solid fa-xmark" style="cursor:pointer;color:var(--text-400);font-size:15px;" onclick="closeEditContentModal()"></i>
+    </div>
+    
+    <div style="padding:20px 24px;display:flex;flex-direction:column;gap:12px;font-size:12px;">
+      
+      <div>
+        <label style="display:block;font-weight:700;color:var(--text-800);margin-bottom:4px;">Name</label>
+        <input type="text" id="editItemNameInput" style="width:100%;height:36px;border:1px solid var(--border);border-radius:8px;padding:0 12px;font-size:12.5px;outline:none;">
+      </div>
+
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;">
+        <div>
+          <label style="display:block;font-weight:700;color:var(--text-800);margin-bottom:4px;">Category</label>
+          <input type="text" id="editItemCatInput" style="width:100%;height:36px;border:1px solid var(--border);border-radius:8px;padding:0 12px;font-size:12px;outline:none;">
+        </div>
+        <div>
+          <label style="display:block;font-weight:700;color:var(--text-800);margin-bottom:4px;">Status</label>
+          <select id="editItemStatusSelect" style="width:100%;height:36px;border:1px solid var(--border);border-radius:8px;padding:0 10px;font-size:12px;outline:none;background:#fff;">
+            <option value="Active">Active</option>
+            <option value="Inactive">Inactive</option>
+          </select>
+        </div>
+      </div>
+
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;">
+        <div>
+          <label style="display:block;font-weight:700;color:var(--text-800);margin-bottom:4px;">Contact Number</label>
+          <input type="text" id="editItemContactInput" style="width:100%;height:36px;border:1px solid var(--border);border-radius:8px;padding:0 12px;font-size:12px;outline:none;">
+        </div>
+        <div>
+          <label style="display:block;font-weight:700;color:var(--text-800);margin-bottom:4px;">Email</label>
+          <input type="text" id="editItemEmailInput" style="width:100%;height:36px;border:1px solid var(--border);border-radius:8px;padding:0 12px;font-size:12px;outline:none;">
+        </div>
+      </div>
+
+      <div>
+        <label style="display:block;font-weight:700;color:var(--text-800);margin-bottom:4px;">Website</label>
+        <input type="text" id="editItemWebsiteInput" style="width:100%;height:36px;border:1px solid var(--border);border-radius:8px;padding:0 12px;font-size:12px;outline:none;">
+      </div>
+
+      <div>
+        <label style="display:block;font-weight:700;color:var(--text-800);margin-bottom:4px;">Description</label>
+        <textarea id="editItemDescInput" rows="3" style="width:100%;border:1px solid var(--border);border-radius:8px;padding:8px 12px;font-size:12px;outline:none;resize:none;"></textarea>
+      </div>
+
+    </div>
+
+    <div style="padding:14px 24px;background:#f8fafc;border-top:1px solid var(--border-soft);display:flex;justify-content:space-between;align-items:center;">
+      <button onclick="requestStructuralChange()" style="height:34px;padding:0 14px;border-radius:8px;border:1px solid #e2e8f0;background:#fff;color:#64748b;font-size:11.5px;font-weight:600;cursor:pointer;">Request Structural Change</button>
+      <div style="display:flex;gap:10px;">
+        <button onclick="closeEditContentModal()" style="height:34px;padding:0 14px;border-radius:8px;border:1px solid var(--border);background:#fff;color:var(--text-700);font-size:12px;font-weight:600;cursor:pointer;">Cancel</button>
+        <button onclick="saveContentEdit()" id="btnSaveContentEdit" style="height:34px;padding:0 18px;border-radius:8px;border:none;background:#2563eb;color:#fff;font-size:12px;font-weight:700;cursor:pointer;">Save Changes</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ===========================================================================
+     ADD NEW CONTENT / COMPANY REQUEST MODAL
+     =========================================================================== -->
+<div class="modal-backdrop" id="addContentModal">
+  <div class="modal-box">
+    <div style="padding:18px 24px;border-bottom:1px solid var(--border-soft);display:flex;align-items:center;justify-content:space-between;">
+      <div>
+        <h3 style="font-size:16px;font-weight:800;color:var(--text-900);margin:0;">Add New Store / Content Experience</h3>
+        <div style="font-size:11px;color:var(--text-500);margin-top:2px;">New store pages require Company Admin layout configuration & map routing.</div>
+      </div>
+      <i class="fa-solid fa-xmark" style="cursor:pointer;color:var(--text-400);font-size:15px;" onclick="closeAddContentModal()"></i>
+    </div>
+    
+    <div style="padding:20px 24px;display:flex;flex-direction:column;gap:14px;font-size:12px;">
+      
+      <div style="background:#eff6ff;border:1px solid #bfdbfe;border-radius:10px;padding:12px;color:#1e40af;font-size:11.5px;line-height:1.5;">
+        <i class="fa-solid fa-circle-info"></i> <strong>Architectural Rule:</strong> Completely new retailer stores, kiosk detail screens, and wayfinding waypoints are configured via Company Admin requests to ensure brand fidelity and exact map routing.
+      </div>
+
+      <div>
+        <label style="display:block;font-weight:700;color:var(--text-800);margin-bottom:4px;">New Brand / Store Name</label>
+        <input type="text" id="newStoreNameInput" placeholder="e.g., Uniqlo / Apple Store" style="width:100%;height:36px;border:1px solid var(--border);border-radius:8px;padding:0 12px;font-size:12.5px;outline:none;">
+      </div>
+
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;">
+        <div>
+          <label style="display:block;font-weight:700;color:var(--text-800);margin-bottom:4px;">Category</label>
+          <select id="newStoreCatSelect" style="width:100%;height:36px;border:1px solid var(--border);border-radius:8px;padding:0 10px;font-size:12px;outline:none;background:#fff;">
+            <option value="Fashion">Fashion</option>
+            <option value="Fashion & Sports">Fashion & Sports</option>
+            <option value="Electronics">Electronics</option>
+            <option value="Beauty">Beauty</option>
+            <option value="Entertainment">Entertainment</option>
+            <option value="Food & Beverages">Food & Beverages</option>
+          </select>
+        </div>
+        <div>
+          <label style="display:block;font-weight:700;color:var(--text-800);margin-bottom:4px;">Location / Floor</label>
+          <input type="text" id="newStoreLocInput" placeholder="e.g. Ground Floor, Unit G-14" style="width:100%;height:36px;border:1px solid var(--border);border-radius:8px;padding:0 12px;font-size:12px;outline:none;">
+        </div>
+      </div>
+
+      <div>
+        <label style="display:block;font-weight:700;color:var(--text-800);margin-bottom:4px;">Additional Requirements for Company Admin</label>
+        <textarea id="newStoreNotesInput" rows="2" placeholder="Provide details on brand logos, store placement, or navigation paths..." style="width:100%;border:1px solid var(--border);border-radius:8px;padding:8px 12px;font-size:12px;outline:none;resize:none;"></textarea>
+      </div>
+
+    </div>
+
+    <div style="padding:14px 24px;background:#f8fafc;border-top:1px solid var(--border-soft);display:flex;justify-content:flex-end;gap:10px;">
+      <button onclick="closeAddContentModal()" style="height:34px;padding:0 14px;border-radius:8px;border:1px solid var(--border);background:#fff;color:var(--text-700);font-size:12px;font-weight:600;cursor:pointer;">Cancel</button>
+      <button onclick="submitNewStoreRequest()" id="btnSubmitNewStoreReq" style="height:34px;padding:0 18px;border-radius:8px;border:none;background:#2563eb;color:#fff;font-size:12px;font-weight:700;cursor:pointer;">Submit Request to Company</button>
+    </div>
+  </div>
+</div>
+
+<!-- ===========================================================================
+     VIEW ON KIOSK PREVIEW MODAL
+     =========================================================================== -->
+<div class="modal-backdrop" id="viewOnKioskModal">
+  <div class="modal-box" style="max-width:440px;background:#0f172a;color:#fff;border-radius:24px;padding:24px;border:4px solid #334155;">
+    <div style="display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid #1e293b;padding-bottom:12px;margin-bottom:16px;">
+      <div style="display:flex;align-items:center;gap:8px;">
+        <span style="width:8px;height:8px;border-radius:50%;background:#10b981;"></span>
+        <span style="font-size:12px;font-weight:700;color:#94a3b8;">Kiosk Display 01 · Portrait 4K</span>
+      </div>
+      <i class="fa-solid fa-xmark" style="cursor:pointer;color:#94a3b8;font-size:14px;" onclick="closeViewOnKioskModal()"></i>
+    </div>
+
+    <div style="background:#1e293b;border-radius:16px;padding:16px;text-align:center;">
+      <div style="width:64px;height:64px;border-radius:12px;background:#fff;color:#0f172a;display:inline-flex;align-items:center;justify-content:center;font-weight:900;font-size:16px;margin-bottom:10px;" id="kioskPreviewLogo">
+        ADIDAS
+      </div>
+      <h2 style="font-size:20px;font-weight:800;color:#fff;margin:0;" id="kioskPreviewName">Adidas</h2>
+      <div style="font-size:12px;color:#93c5fd;margin-top:2px;" id="kioskPreviewLoc">Ground Floor · Near Entry Gate 2</div>
+
+      <div style="background:#0f172a;border-radius:10px;padding:12px;margin:16px 0;font-size:12px;color:#cbd5e1;line-height:1.5;text-align:left;" id="kioskPreviewDesc">
+        Adidas offers a wide range of sportswear, footwear, and accessories for men, women and kids.
+      </div>
+
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;">
+        <button style="height:36px;border-radius:8px;border:none;background:#2563eb;color:#fff;font-size:11.5px;font-weight:700;display:flex;align-items:center;justify-content:center;gap:6px;">
+          <i class="fa-solid fa-location-arrow"></i>
+          <span>Navigate Here</span>
+        </button>
+        <button style="height:36px;border-radius:8px;border:1px solid #334155;background:#1e293b;color:#fff;font-size:11.5px;font-weight:700;display:flex;align-items:center;justify-content:center;gap:6px;">
+          <i class="fa-solid fa-tags"></i>
+          <span>View Offers (2)</span>
+        </button>
+      </div>
+    </div>
+
+    <div style="text-align:center;margin-top:16px;">
+      <button onclick="closeViewOnKioskModal()" style="height:32px;padding:0 16px;border-radius:6px;border:1px solid #334155;background:transparent;color:#94a3b8;font-size:11px;cursor:pointer;">Exit Kiosk Preview</button>
+    </div>
+  </div>
+</div>
+
+<!-- ===========================================================================
+     JAVASCRIPT LOGIC
+     =========================================================================== -->
 <script>
-function selectStoreRow(row, name, code, category, floor, phone, email, desc) {
-  document.querySelectorAll('tbody tr').forEach(r => r.style.background = '#ffffff');
-  row.style.background = '#f8faff';
+  // Comprehensive mock data for 6 Content categories
+  const contentCategoriesData = {
+    stores: [
+      { id: '1', name: 'Adidas', location: 'Ground Floor, Near Entry Gate 2', cat: 'Fashion & Sports', status: 'Active', updated: '18 May 2025, 10:15 AM', code: 'ST-0001', contact: '+91 98765 43210', email: 'adidas@phoenixmall.com', website: 'www.adidas.co.in', desc: 'Adidas offers a wide range of sportswear, footwear, and accessories for men, women and kids.' },
+      { id: '2', name: 'Lifestyle', location: 'First Floor', cat: 'Fashion', status: 'Active', updated: '17 May 2025, 04:30 PM', code: 'ST-0002', contact: '+91 98765 43211', email: 'lifestyle@phoenixmall.com', website: 'www.lifestylestores.com', desc: 'Leading fashion department store with international and national clothing brands.' },
+      { id: '3', name: 'Zara', location: 'Ground Floor', cat: 'Fashion', status: 'Active', updated: '16 May 2025, 11:20 AM', code: 'ST-0003', contact: '+91 98765 43212', email: 'zara@phoenixmall.com', website: 'www.zara.com', desc: 'Spanish fast-fashion brand offering the latest runway collections and accessories.' },
+      { id: '4', name: 'Reliance Digital', location: 'First Floor', cat: 'Electronics', status: 'Active', updated: '16 May 2025, 09:45 AM', code: 'ST-0004', contact: '+91 98765 43213', email: 'digital@phoenixmall.com', website: 'www.reliancedigital.in', desc: 'One-stop consumer electronics destination with smartphones, laptops, and audio gear.' },
+      { id: '5', name: 'Mac Cosmetics', location: 'Ground Floor', cat: 'Beauty', status: 'Active', updated: '15 May 2025, 02:10 PM', code: 'ST-0005', contact: '+91 98765 43214', email: 'maccosmetics@phoenixmall.com', website: 'www.maccosmetics.in', desc: 'Iconic makeup artistry brand celebrating individuality with premier cosmetic products.' },
+      { id: '6', name: 'PVR Cinemas', location: 'Second Floor', cat: 'Entertainment', status: 'Active', updated: '15 May 2025, 12:05 PM', code: 'ST-0006', contact: '+91 98765 43215', email: 'pvr@phoenixmall.com', website: 'www.pvrcinemas.com', desc: 'Premium 8-screen multiplex featuring IMAX, 4DX, and luxury lounge experiences.' },
+      { id: '7', name: 'H&M', location: 'Ground Floor', cat: 'Fashion', status: 'Inactive', updated: '10 May 2025, 01:30 PM', code: 'ST-0007', contact: '+91 98765 43216', email: 'hm@phoenixmall.com', website: 'www.hm.com', desc: 'Swedish multinational clothing company focused on fast-fashion and sustainable fashion.' },
+      { id: '8', name: 'Samsung Store', location: 'First Floor', cat: 'Electronics', status: 'Active', updated: '10 May 2025, 11:15 AM', code: 'ST-0008', contact: '+91 98765 43217', email: 'samsung@phoenixmall.com', website: 'www.samsung.com', desc: 'Exclusive Samsung brand store for Galaxy smartphones, smart TVs, and wearables.' }
+    ],
+    amenities: [
+      { id: 'am-1', name: 'Restrooms & Washrooms', location: 'Ground, 1st & 2nd Floors', cat: 'Facilities', status: 'Active', updated: '18 May 2025, 08:00 AM', code: 'AM-0001', contact: 'Concierge Desk', email: 'facilities@phoenixmall.com', website: 'www.phoenixmall.com/facilities', desc: 'Sanitized gender-neutral, male, female and family washrooms located near all elevators.' },
+      { id: 'am-2', name: 'Basement Parking', location: 'Basement B1 & B2', cat: 'Parking', status: 'Active', updated: '17 May 2025, 09:00 AM', code: 'AM-0002', contact: 'Valet Desk', email: 'parking@phoenixmall.com', website: 'www.phoenixmall.com/parking', desc: '1,200 covered parking slots with automated EV charging bays and valet assist.' },
+      { id: 'am-3', name: 'Food Court Plaza', location: 'Third Floor', cat: 'Dining', status: 'Active', updated: '16 May 2025, 11:00 AM', code: 'AM-0003', contact: '+91 98765 11111', email: 'foodcourt@phoenixmall.com', website: 'www.phoenixmall.com/dining', desc: 'Over 25 quick-service counters, international food kiosks, and communal seating for 800 visitors.' }
+    ],
+    offers: [
+      { id: 'of-1', name: 'Summer End of Season Sale', location: 'Adidas (Ground Floor)', cat: 'Store Offer', status: 'Active', updated: '18 May 2025, 10:00 AM', code: 'OF-0001', contact: 'Adidas Store', email: 'offers@adidas.co.in', website: 'www.adidas.co.in', desc: 'Flat 40% discount on all performance footwear and summer activewear collection.' },
+      { id: 'of-2', name: 'Weekend Fashion Blitz', location: 'Zara (Ground Floor)', cat: 'Store Offer', status: 'Active', updated: '17 May 2025, 03:00 PM', code: 'OF-0002', contact: 'Zara Store', email: 'offers@zara.com', website: 'www.zara.com', desc: 'Special buy 2 get 1 free promotional deal across casual fashion lines.' }
+    ],
+    events: [
+      { id: 'ev-1', name: 'Live Acoustic Weekend', location: 'Central Atrium', cat: 'Live Music', status: 'Active', updated: '18 May 2025, 02:00 PM', code: 'EV-0001', contact: 'Events Team', email: 'events@phoenixmall.com', website: 'www.phoenixmall.com/events', desc: 'Live performances by local jazz and pop indie bands every Friday and Saturday evening.' }
+    ],
+    movies: [
+      { id: 'mv-1', name: 'Avengers: Secret Wars (IMAX)', location: 'PVR Screen 1', cat: 'Action / Sci-Fi', status: 'Active', updated: '18 May 2025, 11:30 AM', code: 'MV-0001', contact: 'PVR Concierge', email: 'pvr@phoenixmall.com', website: 'www.pvrcinemas.com', desc: 'Show timings: 11:30 AM, 02:45 PM, 06:15 PM, 09:30 PM. Tickets available on kiosk.' }
+    ],
+    info: [
+      { id: 'inf-1', name: 'Mall Operating Hours & Policies', location: 'Main Entrance & Kiosks', cat: 'Mall Policy', status: 'Active', updated: '18 May 2025, 09:00 AM', code: 'INF-0001', contact: '+91 98765 00000', email: 'info@phoenixmall.com', website: 'www.phoenixmall.com', desc: 'Mall opens 10:00 AM to 11:00 PM all 7 days. Pet-friendly guidelines and smoking restrictions.' }
+    ]
+  };
 
-  document.getElementById('detail-name').innerText = name;
-  document.getElementById('detail-code').innerText = '#' + code;
-  document.getElementById('detail-code-row').innerText = code;
-  document.getElementById('detail-category').innerText = category;
-  document.getElementById('detail-floor').innerText = floor;
-  document.getElementById('detail-phone').innerText = phone;
-  document.getElementById('detail-email').innerText = email;
-  document.getElementById('detail-desc').innerText = desc;
-}
+  let currentCategory = 'stores';
+  let activeSelectedId = '1';
+
+  function renderTable() {
+    const list = contentCategoriesData[currentCategory] || [];
+    const tbody = document.getElementById('contentTableBody');
+    tbody.innerHTML = '';
+
+    list.forEach(item => {
+      const isSelected = item.id === activeSelectedId;
+      const tr = document.createElement('tr');
+      tr.className = isSelected ? 'selected-row' : '';
+      tr.onclick = () => selectItem(item.id);
+      tr.innerHTML = `
+        <td>
+          <div style="display:flex;align-items:center;gap:12px;">
+            <div class="store-logo-box">
+              <span>${item.name.substring(0, 7).toUpperCase()}</span>
+            </div>
+            <div>
+              <div style="font-weight:700;color:var(--text-900);">${item.name}</div>
+              <div style="font-size:10.5px;color:var(--text-500);">${item.location}</div>
+            </div>
+          </div>
+        </td>
+        <td><span class="category-pill">${item.cat}</span></td>
+        <td><span class="status-pill ${item.status === 'Active' ? 'pill-active' : 'pill-inactive'}">${item.status}</span></td>
+        <td style="font-size:11px;color:var(--text-500);">${item.updated}</td>
+        <td style="text-align:right;">
+          <button class="icon-action-btn" onclick="event.stopPropagation(); openEditContentModal('${item.id}')" title="Edit Item"><i class="fa-solid fa-pen" style="font-size:10px;"></i></button>
+          <button class="icon-action-btn" onclick="event.stopPropagation(); openViewOnKioskModal()" title="View on Kiosk"><i class="fa-regular fa-eye" style="font-size:10.5px;"></i></button>
+          <button class="icon-action-btn" onclick="event.stopPropagation(); toggleItemStatus('${item.id}')" title="Toggle Status"><i class="fa-solid fa-ellipsis-vertical" style="font-size:10px;"></i></button>
+        </td>
+      `;
+      tbody.appendChild(tr);
+    });
+
+    // Update pagination text
+    const infoText = document.getElementById('paginationInfoText');
+    if (infoText) {
+      infoText.innerText = `Showing 1 to ${list.length} of ${list.length} ${currentCategory}`;
+    }
+  }
+
+  function switchCategory(catKey) {
+    currentCategory = catKey;
+    document.querySelectorAll('.content-cat-tab').forEach(t => t.classList.remove('active'));
+    
+    if (catKey === 'stores') document.getElementById('catTabStores')?.classList.add('active');
+    else if (catKey === 'amenities') document.getElementById('catTabAmenities')?.classList.add('active');
+    else if (catKey === 'offers') document.getElementById('catTabOffers')?.classList.add('active');
+    else if (catKey === 'events') document.getElementById('catTabEvents')?.classList.add('active');
+    else if (catKey === 'movies') document.getElementById('catTabMovies')?.classList.add('active');
+    else if (catKey === 'info') document.getElementById('catTabInfo')?.classList.add('active');
+
+    // Update labels and search placeholder
+    const searchInput = document.getElementById('searchContentInput');
+    const addBtnLabel = document.getElementById('btnAddItemLabel');
+    const colHeaderName = document.getElementById('colHeaderName');
+
+    if (catKey === 'stores') {
+      searchInput.placeholder = 'Search stores...';
+      addBtnLabel.innerText = '+ Add New Store';
+      colHeaderName.innerText = 'Store Name';
+    } else if (catKey === 'amenities') {
+      searchInput.placeholder = 'Search amenities...';
+      addBtnLabel.innerText = '+ Add New Amenity';
+      colHeaderName.innerText = 'Amenity Name';
+    } else if (catKey === 'offers') {
+      searchInput.placeholder = 'Search offers...';
+      addBtnLabel.innerText = '+ Add New Offer';
+      colHeaderName.innerText = 'Offer Name';
+    } else if (catKey === 'events') {
+      searchInput.placeholder = 'Search events...';
+      addBtnLabel.innerText = '+ Add New Event';
+      colHeaderName.innerText = 'Event Name';
+    } else if (catKey === 'movies') {
+      searchInput.placeholder = 'Search movies...';
+      addBtnLabel.innerText = '+ Add New Movie';
+      colHeaderName.innerText = 'Movie Title';
+    } else {
+      searchInput.placeholder = 'Search information...';
+      addBtnLabel.innerText = '+ Add New Information';
+      colHeaderName.innerText = 'Information Title';
+    }
+
+    const list = contentCategoriesData[catKey] || [];
+    if (list.length > 0) {
+      activeSelectedId = list[0].id;
+    }
+    renderTable();
+    updateDetailPanel();
+  }
+
+  function selectItem(id) {
+    activeSelectedId = id;
+    renderTable();
+    updateDetailPanel();
+  }
+
+  function updateDetailPanel() {
+    const list = contentCategoriesData[currentCategory] || [];
+    const item = list.find(x => x.id === activeSelectedId) || list[0];
+    if (!item) return;
+
+    document.getElementById('detailItemName').innerText = item.name;
+    document.getElementById('detailItemStatus').innerText = item.status;
+    document.getElementById('detailItemStatus').className = `status-pill ${item.status === 'Active' ? 'pill-active' : 'pill-inactive'}`;
+    document.getElementById('detailItemId').innerText = `ID: ${item.code}`;
+    document.getElementById('detailCategory').innerText = item.cat;
+    document.getElementById('detailLocation').innerText = item.location;
+    document.getElementById('detailContact').innerText = item.contact;
+    document.getElementById('detailEmail').innerText = item.email;
+    document.getElementById('detailWebsite').innerText = item.website;
+    document.getElementById('detailUpdated').innerText = item.updated;
+    document.getElementById('detailDescription').innerHTML = `${item.desc} <a href="#" onclick="alert('Full description view.'); return false;" style="color:#2563eb;font-weight:600;text-decoration:none;">Read More</a>`;
+    document.getElementById('detailLogoFallback').innerText = item.name.substring(0, 7).toUpperCase();
+    document.getElementById('detailImagePlaceholder').innerText = item.name.toLowerCase();
+
+    // Kiosk preview bindings
+    document.getElementById('kioskPreviewName').innerText = item.name;
+    document.getElementById('kioskPreviewLoc').innerText = `${item.location} · Phoenix Mall`;
+    document.getElementById('kioskPreviewDesc').innerText = item.desc;
+    document.getElementById('kioskPreviewLogo').innerText = item.name.substring(0, 7).toUpperCase();
+  }
+
+  function filterContentTable() {
+    const query = (document.getElementById('searchContentInput')?.value || '').toLowerCase();
+    const statusVal = document.getElementById('contentStatusFilter')?.value || 'All';
+    const catVal = document.getElementById('contentCategoryFilter')?.value || 'All';
+    const rows = document.querySelectorAll('#contentTableBody tr');
+
+    rows.forEach(r => {
+      const text = r.innerText.toLowerCase();
+      const matchesQuery = text.includes(query);
+      const matchesStatus = (statusVal === 'All') || text.includes(statusVal.toLowerCase());
+      const matchesCat = (catVal === 'All') || text.includes(catVal.toLowerCase());
+      r.style.display = matchesQuery && matchesStatus && matchesCat ? '' : 'none';
+    });
+  }
+
+  function sortContentTable() {
+    const sortVal = document.getElementById('contentSortFilter').value;
+    const list = contentCategoriesData[currentCategory] || [];
+    if (sortVal === 'name-asc') {
+      list.sort((a,b) => a.name.localeCompare(b.name));
+    } else if (sortVal === 'name-desc') {
+      list.sort((a,b) => b.name.localeCompare(a.name));
+    }
+    renderTable();
+  }
+
+  function openEditContentModal(id) {
+    if (id) activeSelectedId = id;
+    const list = contentCategoriesData[currentCategory] || [];
+    const item = list.find(x => x.id === activeSelectedId);
+    if (!item) return;
+
+    document.getElementById('editItemNameInput').value = item.name;
+    document.getElementById('editItemCatInput').value = item.cat;
+    document.getElementById('editItemStatusSelect').value = item.status;
+    document.getElementById('editItemContactInput').value = item.contact;
+    document.getElementById('editItemEmailInput').value = item.email;
+    document.getElementById('editItemWebsiteInput').value = item.website;
+    document.getElementById('editItemDescInput').value = item.desc;
+
+    document.getElementById('editContentModal').style.display = 'flex';
+  }
+
+  function closeEditContentModal() {
+    document.getElementById('editContentModal').style.display = 'none';
+  }
+
+  function saveContentEdit() {
+    const list = contentCategoriesData[currentCategory] || [];
+    const item = list.find(x => x.id === activeSelectedId);
+    if (!item) return;
+
+    item.name = document.getElementById('editItemNameInput').value;
+    item.cat = document.getElementById('editItemCatInput').value;
+    item.status = document.getElementById('editItemStatusSelect').value;
+    item.contact = document.getElementById('editItemContactInput').value;
+    item.email = document.getElementById('editItemEmailInput').value;
+    item.website = document.getElementById('editItemWebsiteInput').value;
+    item.desc = document.getElementById('editItemDescInput').value;
+    item.updated = 'Just now';
+
+    renderTable();
+    updateDetailPanel();
+    closeEditContentModal();
+    alert(`Changes to "${item.name}" saved successfully!`);
+  }
+
+  function toggleItemStatus(id) {
+    const list = contentCategoriesData[currentCategory] || [];
+    const item = list.find(x => x.id === id);
+    if (!item) return;
+    item.status = item.status === 'Active' ? 'Inactive' : 'Active';
+    renderTable();
+    updateDetailPanel();
+  }
+
+  function openAddNewContentModal() {
+    document.getElementById('newStoreNameInput').value = '';
+    document.getElementById('newStoreLocInput').value = '';
+    document.getElementById('newStoreNotesInput').value = '';
+    document.getElementById('addContentModal').style.display = 'flex';
+  }
+
+  function closeAddContentModal() {
+    document.getElementById('addContentModal').style.display = 'none';
+  }
+
+  function submitNewStoreRequest() {
+    const name = document.getElementById('newStoreNameInput').value.trim();
+    if (!name) {
+      alert('Please enter the store/content name.');
+      return;
+    }
+    closeAddContentModal();
+    alert(`Structured request for new store "${name}" created and routed to Company Admin!`);
+    location.href = 'project-requests.html';
+  }
+
+  function requestStructuralChange() {
+    closeEditContentModal();
+    alert('Routing to Requests workspace with pre-filled structural change context...');
+    location.href = 'project-requests.html';
+  }
+
+  function openViewOnKioskModal() {
+    document.getElementById('viewOnKioskModal').style.display = 'flex';
+  }
+
+  function closeViewOnKioskModal() {
+    document.getElementById('viewOnKioskModal').style.display = 'none';
+  }
+
+  function openUpdateImageModal() {
+    alert('Upload / Replace Storefront Media: Choose new 4K high-res imagery for kiosk presentation.');
+  }
+
+  function toggleSidebarCollapse() {
+    const sb = document.getElementById('clientSidebar');
+    if (sb) {
+      sb.classList.toggle('collapsed');
+    }
+  }
+
+  // Initial load
+  document.addEventListener('DOMContentLoaded', () => {
+    renderTable();
+    updateDetailPanel();
+  });
 </script>
+
 </body>
 </html>
-
-
