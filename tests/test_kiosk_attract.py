@@ -60,28 +60,28 @@ def test_attract_supporting_promo_tiles(driver, base_url):
     driver.get(f"{base_url}/kiosk/attract.html")
     time.sleep(0.5)
 
-    tiles = driver.find_elements(By.CSS_SELECTOR, ".promo-feature-tile")
-    assert len(tiles) == 4
+    cards = driver.find_elements(By.CSS_SELECTOR, ".ad2-feature-card")
+    assert len(cards) >= 6
 
     assert "FASHION" in driver.page_source
     assert "GREAT FOOD" in driver.page_source
-    assert "LIVE EVENTS" in driver.page_source
-    assert "GOOD TIMES" in driver.page_source
+    assert "EXCITING EXPERIENCES" in driver.page_source
+    assert "A LIFESTYLE YOU'LL LOVE" in driver.page_source
 
 def test_attract_brand_strip_and_touch_to_begin(driver, base_url):
     driver.get(f"{base_url}/kiosk/attract.html")
     time.sleep(0.5)
 
-    # Brand Strip
-    assert "ZARA" in driver.page_source
-    assert "ADIDAS" in driver.page_source
-    assert "STARBUCKS" in driver.page_source
-    assert "PVR CINEMAS" in driver.page_source
+    # Brand / Pill Strip
+    assert "TOP BRANDS" in driver.page_source
+    assert "FAMILY FRIENDLY" in driver.page_source
+    assert "MEMORABLE EXPERIENCES" in driver.page_source
+    assert "IN THE HEART OF THE CITY" in driver.page_source
 
-    # Touch To Begin Button
+    # Touch To Explore Button
     btn = driver.find_element(By.ID, "btnTouchToBegin")
     assert btn.is_displayed()
-    assert "TOUCH TO BEGIN" in btn.text
+    assert "TOUCH THE SCREEN TO EXPLORE" in btn.text
 
 def test_attract_touch_transitions_to_home(driver, base_url):
     driver.get(f"{base_url}/kiosk/attract.html")
@@ -111,6 +111,45 @@ def test_idle_timeout_attract_mode_transition(driver, base_url):
     time.sleep(0.5)
     assert "home.html" in driver.current_url
 
+def test_attract_dual_campaign_carousel_rotation(driver, base_url):
+    driver.get(f"{base_url}/kiosk/attract.html")
+    time.sleep(0.5)
+
+    # 1. Verify both campaign slides and images exist
+    slide1 = driver.find_element(By.ID, "adSlide1")
+    slide2 = driver.find_element(By.ID, "adSlide2")
+    assert slide1 is not None and slide2 is not None
+
+    img1 = driver.find_element(By.ID, "attractHeroGirlImg")
+    img2 = driver.find_element(By.ID, "attractHeroGirl2Img")
+    assert img1 is not None and img2 is not None
+
+    # 2. Switch to Slide 2 (Ad 02 - Anchor 02)
+    driver.execute_script("showSlide(1);")
+    time.sleep(0.5)
+
+    # Verify Slide 2 is active
+    assert "active" in slide2.get_attribute("class")
+
+    # Verify Ad 2 Content
+    assert "Brands" in driver.page_source
+    assert "Brighter" in driver.page_source
+    assert "Moments" in driver.page_source
+    assert "A BRIGHTER YOU" in driver.page_source
+
+    # Verify Persistent Sub-Ads Cards
+    assert "FASHION THAT MOVES YOU" in driver.page_source
+    assert "GREAT FOOD HAPPIER MOMENTS" in driver.page_source
+    assert "EXCITING EXPERIENCES" in driver.page_source
+    assert "A LIFESTYLE YOU'LL LOVE" in driver.page_source
+
+    # 3. Verify Touch Prompt redirects to home
+    btn_explore = driver.find_element(By.ID, "btnTouchToBegin")
+    assert btn_explore.is_displayed()
+    btn_explore.click()
+    time.sleep(0.5)
+    assert "home.html" in driver.current_url
+
 def test_strict_kiosk_attract_boundaries(driver, base_url):
     driver.get(f"{base_url}/kiosk/attract.html")
     time.sleep(0.3)
@@ -120,3 +159,5 @@ def test_strict_kiosk_attract_boundaries(driver, base_url):
     assert "cpm pricing table" not in body_text
     assert "ad scheduler queue" not in body_text
     assert "media asset cms" not in body_text
+
+

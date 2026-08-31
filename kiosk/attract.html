@@ -64,84 +64,70 @@ body {
   background-position: 0 0, 9px 9px;
 }
 
-/* Kiosk Physical Frame Simulator */
+/* ==========================================================================
+   KIOSK FULL-SCREEN 16:9 LANDSCAPE VIEWPORT ARCHITECTURE
+   ========================================================================== */
 .kiosk-viewport-wrapper {
-  width: 100%;
-  max-width: 900px;
+  width: 100vw;
+  height: 100vh;
+  max-width: 100%;
   min-height: 100vh;
-  padding: 12px;
+  margin: 0;
+  padding: 0;
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  align-items: center;
+  justify-content: stretch;
+  align-items: stretch;
+  overflow: hidden;
 }
 
 .kiosk-frame {
   width: 100%;
-  max-width: 860px;
-  background: #0d1117;
-  border-radius: 36px;
-  padding: 16px 16px 20px 16px;
-  box-shadow: 
-    0 0 0 4px #1f2735,
-    0 0 0 8px #080a0f,
-    0 30px 90px rgba(0, 0, 0, 0.9),
-    0 0 60px rgba(17, 24, 39, 0.6);
+  height: 100%;
+  max-width: 100%;
+  background: transparent;
+  border-radius: 0;
+  padding: 0;
+  box-shadow: none;
   display: flex;
   flex-direction: column;
   position: relative;
-  border: 1px solid rgba(255, 255, 255, 0.08);
+  border: none;
+  overflow: hidden;
 }
 
 .kiosk-screen {
   background: var(--bg-gradient);
-  border-radius: 26px;
+  border-radius: 0;
   overflow: hidden;
   position: relative;
   display: flex;
   flex-direction: column;
-  height: 1120px;
-  max-height: 1120px;
-  box-shadow: inset 0 0 40px rgba(0, 0, 0, 0.6);
-  border: 1px solid rgba(255, 255, 255, 0.05);
+  width: 100%;
+  height: 100vh;
+  max-height: 100vh;
+  box-shadow: none;
+  border: none;
 }
 
-/* Kiosk Bezel Bottom Logo */
+/* Hide simulated physical bezel logo in edge-to-edge mode */
 .kiosk-bezel-bottom {
-  text-align: center;
-  padding-top: 14px;
-  color: #717e94;
-  font-size: 13px;
-  letter-spacing: 4px;
-  font-weight: 700;
-  text-transform: uppercase;
-  font-family: 'Cinzel', serif;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 10px;
-}
-
-.kiosk-bezel-bottom::before,
-.kiosk-bezel-bottom::after {
-  content: '';
-  display: inline-block;
-  width: 24px;
-  height: 1px;
-  background: rgba(255, 255, 255, 0.15);
+  display: none !important;
 }
 
 /* ==========================================================================
-   KIOSK TOP HEADER BAR
+   KIOSK TOP HEADER BAR (Full Widescreen)
    ========================================================================== */
 .kiosk-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 22px 32px 14px 32px;
-  border-bottom: 1px solid rgba(226, 176, 98, 0.12);
+  padding: 16px 44px;
+  border-bottom: 1px solid rgba(226, 176, 98, 0.15);
   position: relative;
   z-index: 20;
+  background: rgba(8, 12, 20, 0.85);
+  backdrop-filter: blur(14px);
 }
 
 .kiosk-header-left {
@@ -1780,49 +1766,39 @@ body {
    Domain 01 — Kiosk Home & Entry Anchor Reproduction
    ============================================================================= */
 
-/* =============================================================================
-   TRUE FULL-SCREEN 16:9 EDGE-TO-EDGE KIOSK PRESENTATION (NO BEZEL / NO PADDING)
-   ============================================================================= */
 .horizontal-kiosk-body {
   margin: 0;
   padding: 0;
-  background-color: #04060a;
+  background-color: #060910;
   color: #ffffff;
   font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
-  width: 100vw;
-  height: 100vh;
   min-height: 100vh;
-  overflow: hidden;
   display: flex;
-  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  overflow-x: hidden;
 }
 
 .horizontal-kiosk-wrapper {
-  width: 100vw;
-  height: 100vh;
-  max-width: 100vw;
+  width: 100%;
+  max-width: 1540px;
   min-height: 100vh;
-  margin: 0;
-  padding: 0;
+  padding: 16px;
   display: flex;
   flex-direction: column;
-  justify-content: stretch;
-  align-items: stretch;
-  overflow: hidden;
+  justify-content: center;
 }
 
 .kiosk-horizontal-screen {
   background: radial-gradient(circle at 50% 15%, #121827 0%, #090d16 60%, #04060a 100%);
-  border: none !important;
-  border-radius: 0 !important;
-  box-shadow: none !important;
+  border: 1px solid rgba(229, 185, 126, 0.25);
+  border-radius: 28px;
+  box-shadow: 0 25px 60px rgba(0, 0, 0, 0.9), inset 0 0 40px rgba(0, 0, 0, 0.5);
   display: flex;
   flex-direction: column;
   overflow: hidden;
   position: relative;
-  width: 100vw;
-  height: 100vh;
-  min-height: 100vh;
+  min-height: 880px;
 }
 
 /* =============================================================================
@@ -2926,21 +2902,21 @@ body {
   </style>
   <style id="kiosk-attract-specific-css">
     /* =========================================================================
-       FULL-SCREEN ADVERTISEMENT / ATTRACT MODE SPECIFIC STYLING
+       FULL-SCREEN ADVERTISEMENT / ATTRACT MODE DUAL-CAMPAIGN STYLING
        ========================================================================= */
     .attract-full-screen-container {
       width: 100vw;
       height: 100vh;
-      max-width: 1920px;
-      max-height: 1080px;
+      max-width: 100vw;
+      max-height: 100vh;
       position: relative;
       overflow: hidden;
-      background: #06090e;
+      background: #04060a;
+      cursor: pointer;
+      user-select: none;
       display: flex;
       flex-direction: column;
       justify-content: space-between;
-      cursor: pointer;
-      user-select: none;
     }
 
     /* Background Layer with Mall Atrium Bokeh & Dark Gradients */
@@ -2950,30 +2926,43 @@ body {
       left: 0;
       width: 100%;
       height: 100%;
-      background-image: radial-gradient(circle at 75% 30%, rgba(20, 28, 45, 0.4) 0%, #06090e 90%), url('../images/mall_atrium_hero_1787351821606.jpg');
+      background-image: radial-gradient(circle at 75% 30%, rgba(20, 28, 45, 0.35) 0%, #04060a 90%), url('../images/mall_atrium_hero_1787351821606.jpg');
       background-size: cover;
       background-position: center;
-      filter: brightness(0.45) saturate(1.2);
+      filter: brightness(0.4) saturate(1.2);
       z-index: 1;
-      transition: all 0.8s ease;
     }
 
-    /* Hero Model Girl Layer (Anchored to Left Corner) */
-    .attract-girl-layer {
-      position: absolute;
-      bottom: 0;
-      left: -8%;
-      height: 95%;
-      max-height: 980px;
-      z-index: 3;
-      pointer-events: none;
-      filter: drop-shadow(0 20px 40px rgba(0, 0, 0, 0.9));
-      transition: transform 0.6s ease;
+    /* =========================================================================
+       ROTATING HERO STAGE CONTAINER (Upper 72% of Screen)
+       ========================================================================= */
+    .attract-hero-stage-container {
+      position: relative;
+      flex: 1;
+      width: 100%;
+      height: calc(100vh - 210px);
+      z-index: 5;
     }
-    .attract-girl-img {
+
+    .ad-campaign-slide {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
       height: 100%;
-      width: auto;
-      object-fit: contain;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+      z-index: 1;
+    }
+
+    .ad-campaign-slide.active {
+      opacity: 1;
+      pointer-events: auto;
+      z-index: 2;
     }
 
     /* Top Bar */
@@ -2983,7 +2972,7 @@ body {
       display: flex;
       align-items: center;
       justify-content: space-between;
-      padding: 24px 44px;
+      padding: 20px 48px 10px 48px;
     }
 
     .attract-mall-brand {
@@ -2993,7 +2982,7 @@ body {
     }
     .attract-emblem-icon {
       color: #e2b062;
-      font-size: 26px;
+      font-size: 24px;
       margin-bottom: 2px;
     }
     .attract-brand-name {
@@ -3011,31 +3000,49 @@ body {
     }
 
     .attract-top-slogan {
-      font-size: 11.5px;
+      font-size: 12px;
       font-weight: 700;
       color: #cbd5e1;
       letter-spacing: 4px;
       text-transform: uppercase;
     }
 
-    /* Center Main Advertising Copy Area (3-Column Grid: Girl Space, Hero Copy, Right Promos) */
-    .attract-center-workspace {
+    /* =========================================================================
+       HERO SLIDE 1: A WORLD OF EXPERIENCES (Anchor 01)
+       ========================================================================= */
+    .attract-girl-layer-1 {
+      position: absolute;
+      bottom: -40px;
+      left: -6%;
+      height: 96%;
+      max-height: 980px;
+      z-index: 3;
+      pointer-events: none;
+      filter: drop-shadow(0 20px 40px rgba(0, 0, 0, 0.9));
+    }
+    .attract-girl-img {
+      height: 100%;
+      width: auto;
+      object-fit: contain;
+    }
+
+    .attract-workspace-1 {
       position: relative;
       z-index: 5;
       display: grid;
-      grid-template-columns: 880px 1fr 310px;
+      grid-template-columns: 820px 1fr 280px;
       gap: 20px;
-      padding: 0 44px;
+      padding: 0 48px;
       align-items: center;
       flex: 1;
+      margin-top: 20px;
     }
 
     .attract-hero-copy-box {
-      margin-left: 0;
       display: flex;
       flex-direction: column;
-      gap: 8px;
-      max-width: 540px;
+      gap: 10px;
+      max-width: 560px;
     }
 
     .attract-script-flourish {
@@ -3048,7 +3055,7 @@ body {
 
     .attract-headline-grand {
       font-family: 'Cinzel', serif;
-      font-size: 50px;
+      font-size: 52px;
       font-weight: 800;
       color: #ffffff;
       line-height: 1.08;
@@ -3062,15 +3069,14 @@ body {
       height: 3px;
       background: linear-gradient(90deg, #e2b062, #f7dfb8, transparent);
       border-radius: 2px;
-      margin: 4px 0 14px 0;
+      margin: 2px 0 10px 0;
     }
 
-    /* 4 Circular Category Badges */
     .attract-category-circles-row {
       display: flex;
       align-items: center;
-      gap: 20px;
-      margin-top: 6px;
+      gap: 18px;
+      margin-top: 8px;
     }
 
     .attract-cat-circle-item {
@@ -3079,13 +3085,14 @@ body {
       align-items: center;
       gap: 6px;
       text-align: center;
+      cursor: pointer;
     }
     .cat-circle-emblem {
-      width: 46px;
-      height: 46px;
+      width: 48px;
+      height: 48px;
       border-radius: 50%;
       border: 1.5px solid rgba(229, 185, 126, 0.6);
-      background: rgba(14, 20, 32, 0.7);
+      background: rgba(14, 20, 32, 0.75);
       display: flex;
       align-items: center;
       justify-content: center;
@@ -3095,8 +3102,8 @@ body {
       transition: all 0.2s ease;
     }
     .attract-cat-circle-item:hover .cat-circle-emblem {
-      border-color: #e2b062;
-      background: rgba(226, 176, 98, 0.2);
+      border-color: #f7dfb8;
+      background: rgba(226, 176, 98, 0.25);
       transform: scale(1.1);
     }
     .cat-circle-label {
@@ -3107,137 +3114,369 @@ body {
       text-transform: uppercase;
     }
 
-    /* Right Column: 4 Supporting Feature Promo Cards */
-    .attract-right-promo-cards {
+    /* Right Glass Pillar for Ad 1 */
+    .ad1-right-billboard {
+      background: linear-gradient(180deg, rgba(14, 20, 32, 0.85) 0%, rgba(6, 9, 14, 0.92) 100%), url('../images/mall_atrium_hero_1787351821606.jpg') center/cover;
+      border: 1px solid rgba(229, 185, 126, 0.4);
+      border-radius: 16px;
+      padding: 22px 24px;
       display: flex;
       flex-direction: column;
-      gap: 10px;
+      gap: 6px;
+      backdrop-filter: blur(14px);
+      text-align: left;
+      min-width: 260px;
+      box-shadow: 0 16px 36px rgba(0, 0, 0, 0.6);
     }
 
-    .promo-feature-tile {
-      background: rgba(18, 25, 38, 0.85);
-      border: 1px solid rgba(229, 185, 126, 0.3);
-      border-radius: 12px;
-      overflow: hidden;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      height: 72px;
-      transition: all 0.2s ease;
-      cursor: pointer;
-    }
-    .promo-feature-tile:hover {
-      border-color: #e2b062;
-      transform: translateX(-4px);
-    }
-    .promo-tile-text-left {
-      padding: 0 14px;
-      display: flex;
-      flex-direction: column;
-      gap: 4px;
-    }
-    .promo-tile-title {
-      font-size: 10.5px;
-      font-weight: 800;
-      color: #ffffff;
-      letter-spacing: 0.5px;
-      line-height: 1.2;
-    }
-    .promo-tile-circle-btn {
-      width: 22px;
-      height: 22px;
-      border-radius: 50%;
-      border: 1px solid rgba(229, 185, 126, 0.5);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: #e2b062;
-      font-size: 10px;
-    }
-    .promo-tile-thumb {
-      width: 90px;
-      height: 100%;
-      object-fit: cover;
+    /* =========================================================================
+       HERO SLIDE 2: MORE BRANDS. BRIGHTER MOMENTS. ALL HERE. (Anchor 02)
+       ========================================================================= */
+    .attract-girl-layer-2 {
+      position: absolute;
+      bottom: -40px;
+      left: 38%;
+      height: 96%;
+      max-height: 980px;
+      z-index: 3;
+      pointer-events: none;
+      filter: drop-shadow(0 20px 40px rgba(0, 0, 0, 0.95));
+      transition: transform 0.6s ease;
     }
 
-    /* Bottom Brand Ribbon & Touch To Begin */
-    .attract-bottom-ribbon-bar {
+    .attract-workspace-2 {
       position: relative;
-      z-index: 10;
-      background: linear-gradient(180deg, rgba(14, 20, 32, 0.6) 0%, rgba(6, 9, 14, 0.95) 100%);
-      border-top: 1px solid rgba(229, 185, 126, 0.4);
-      padding: 14px 44px;
+      z-index: 5;
       display: flex;
       flex-direction: column;
-      gap: 10px;
-    }
-
-    .attract-brands-row {
-      display: flex;
-      align-items: center;
       justify-content: space-between;
-      gap: 20px;
-    }
-    .attract-brands-script {
-      font-family: 'Alex Brush', cursive;
-      font-size: 22px;
-      color: #e2b062;
-      white-space: nowrap;
-    }
-
-    .brand-logos-cluster {
-      display: flex;
-      align-items: center;
-      gap: 24px;
+      padding: 0 48px;
       flex: 1;
-      justify-content: center;
-    }
-    .brand-text-logo {
-      font-family: 'Montserrat', sans-serif;
-      font-weight: 900;
-      color: #ffffff;
-      font-size: 14px;
-      letter-spacing: 1.5px;
-      opacity: 0.85;
     }
 
-    /* Pulsing Touch To Begin CTA Button */
-    .touch-to-begin-wrap {
+    .ad2-upper-row {
       display: flex;
-      align-items: center;
-      justify-content: center;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-top: 50px;
+      position: relative;
+    }
+
+    .ad2-headline-box {
+      max-width: 580px;
+      display: flex;
+      flex-direction: column;
       gap: 12px;
     }
 
-    .btn-touch-begin-glow {
-      background: rgba(18, 25, 38, 0.9);
-      border: 1.5px solid #e2b062;
-      border-radius: 999px;
-      padding: 8px 24px;
+    .ad2-headline-title {
+      font-family: 'Cinzel', serif;
+      font-size: 54px;
+      font-weight: 800;
+      color: #ffffff;
+      line-height: 1.08;
+      letter-spacing: 0.5px;
+      margin: 0;
+      text-shadow: 0 4px 25px rgba(0, 0, 0, 0.9);
+    }
+    .ad2-headline-title span.italic-gold {
+      font-family: 'Playfair Display', serif;
+      font-style: italic;
+      color: #e2b062;
+      font-weight: 600;
+    }
+
+    .ad2-category-circles {
       display: flex;
       align-items: center;
-      gap: 10px;
+      gap: 18px;
+      margin-top: 20px;
+    }
+
+    /* Right Glass Billboard in Ad 2 */
+    .ad2-right-billboard {
+      background: linear-gradient(180deg, rgba(14, 20, 32, 0.82) 0%, rgba(6, 9, 14, 0.92) 100%), url('../images/kiosk_store_zara.jpg') center/cover;
+      border: 1px solid rgba(229, 185, 126, 0.4);
+      border-radius: 16px;
+      padding: 24px 28px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      backdrop-filter: blur(14px);
+      text-align: left;
+      min-width: 260px;
+      box-shadow: 0 16px 36px rgba(0, 0, 0, 0.6);
+    }
+    .billboard-title {
+      font-family: 'Cinzel', serif;
+      font-size: 18px;
+      font-weight: 800;
+      color: #ffffff;
+      letter-spacing: 1.5px;
+    }
+    .billboard-sub {
+      font-size: 10px;
+      font-weight: 800;
+      color: #e2b062;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+    }
+    .billboard-brands {
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+      margin-top: 14px;
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 900;
+      font-size: 15px;
+      letter-spacing: 2.5px;
+      color: #ffffff;
+      opacity: 0.95;
+    }
+
+    /* =========================================================================
+       GLOBAL PERSISTENT FOOTER ZONE (Touch Explore + Sub-Ads Ticker + Tagline)
+       ========================================================================= */
+    .attract-persistent-footer-zone {
+      position: relative;
+      z-index: 15;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      background: linear-gradient(180deg, transparent 0%, rgba(4, 6, 10, 0.95) 30%, #04060a 100%);
+    }
+
+    /* Center Pulsing Touch Pill */
+    .touch-explore-center-wrap {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin-bottom: 2px;
+    }
+
+    .btn-touch-explore-pill {
+      background: rgba(14, 20, 32, 0.92);
+      border: 1.5px solid #e2b062;
+      border-radius: 999px;
+      padding: 11px 32px;
+      display: flex;
+      align-items: center;
+      gap: 16px;
       color: #ffffff;
       cursor: pointer;
-      box-shadow: 0 0 24px rgba(226, 176, 98, 0.35);
+      backdrop-filter: blur(14px);
+      box-shadow: 0 0 32px rgba(226, 176, 98, 0.5);
       animation: pulseGlowBtn 2s infinite ease-in-out;
-      transition: all 0.2s ease;
+      transition: all 0.25s ease;
+    }
+    .btn-touch-explore-pill:hover {
+      transform: scale(1.04);
+      border-color: #f7dfb8;
+      box-shadow: 0 0 45px rgba(226, 176, 98, 0.75);
     }
     @keyframes pulseGlowBtn {
       0% { box-shadow: 0 0 10px rgba(226, 176, 98, 0.2); transform: scale(1); }
-      50% { box-shadow: 0 0 28px rgba(226, 176, 98, 0.6); transform: scale(1.03); }
+      50% { box-shadow: 0 0 32px rgba(226, 176, 98, 0.6); transform: scale(1.03); }
       100% { box-shadow: 0 0 10px rgba(226, 176, 98, 0.2); transform: scale(1); }
     }
-    .touch-hand-icon {
-      color: #e2b062;
-      font-size: 18px;
+    .touch-hand-circle {
+      width: 34px;
+      height: 34px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #f7dfb8, #e2b062);
+      color: #04060a;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+      box-shadow: 0 0 15px rgba(226, 176, 98, 0.6);
     }
-    .touch-label-text {
-      font-family: 'Cinzel', serif;
-      font-size: 13px;
+
+    /* Sub-Ads Continuous Scrolling Ticker */
+    .ad2-slider-container {
+      position: relative;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      width: 100%;
+      overflow: hidden;
+      padding: 6px 0;
+      border-top: 1px solid rgba(229, 185, 126, 0.35);
+      border-bottom: 1px solid rgba(229, 185, 126, 0.35);
+      background: rgba(6, 9, 14, 0.75);
+      backdrop-filter: blur(10px);
+    }
+
+    .ad2-slider-arrow {
+      width: 42px;
+      height: 42px;
+      border-radius: 50%;
+      border: 1.5px solid rgba(229, 185, 126, 0.7);
+      background: rgba(14, 20, 32, 0.95);
+      color: #e2b062;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 15px;
+      cursor: pointer;
+      flex-shrink: 0;
+      transition: all 0.2s ease;
+      z-index: 10;
+      margin: 0 12px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+    }
+    .ad2-slider-arrow:hover {
+      background: rgba(226, 176, 98, 0.3);
+      border-color: #f7dfb8;
+      transform: scale(1.1);
+    }
+
+    .ad2-ticker-viewport {
+      flex: 1;
+      overflow: hidden;
+      position: relative;
+      mask-image: linear-gradient(to right, transparent, black 3%, black 97%, transparent);
+      -webkit-mask-image: linear-gradient(to right, transparent, black 3%, black 97%, transparent);
+    }
+
+    .ad2-ticker-track {
+      display: flex;
+      gap: 20px;
+      width: max-content;
+      animation: continuousSubAdsScroll 40s linear infinite;
+    }
+    .ad2-ticker-track:hover {
+      animation-play-state: paused;
+    }
+
+    @keyframes continuousSubAdsScroll {
+      0% {
+        transform: translateX(0);
+      }
+      100% {
+        transform: translateX(-50%);
+      }
+    }
+
+    .ad2-feature-card {
+      background: rgba(18, 25, 38, 0.92);
+      border: 1px solid rgba(229, 185, 126, 0.4);
+      border-radius: 16px;
+      padding: 10px 16px;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      transition: all 0.25s ease;
+      cursor: pointer;
+      backdrop-filter: blur(12px);
+      width: 370px;
+      flex-shrink: 0;
+      height: 105px;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5);
+    }
+    .ad2-feature-card:hover {
+      border-color: #e2b062;
+      transform: translateY(-4px);
+      background: rgba(26, 36, 56, 0.98);
+      box-shadow: 0 14px 30px rgba(0, 0, 0, 0.7);
+    }
+    .ad2-card-img-thumb {
+      width: 110px;
+      height: 85px;
+      border-radius: 12px;
+      object-fit: cover;
+      flex-shrink: 0;
+      border: 1px solid rgba(229, 185, 126, 0.2);
+    }
+    .ad2-card-meta {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 7px;
+      flex: 1;
+    }
+    .ad2-card-headline {
+      font-size: 11.5px;
       font-weight: 800;
-      letter-spacing: 2px;
       color: #ffffff;
+      letter-spacing: 0.5px;
+      line-height: 1.25;
+    }
+    .ad2-card-btn {
+      align-self: flex-start;
+      background: rgba(226, 176, 98, 0.15);
+      border: 1px solid #e2b062;
+      border-radius: 999px;
+      padding: 5px 16px;
+      font-size: 9.5px;
+      font-weight: 800;
+      color: #e2b062;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+    .ad2-feature-card:hover .ad2-card-btn {
+      background: #e2b062;
+      color: #04060a;
+      box-shadow: 0 0 12px rgba(226, 176, 98, 0.6);
+    }
+
+    .ad2-bottom-tagline-bar {
+      position: relative;
+      z-index: 10;
+      background: rgba(4, 6, 10, 0.95);
+      padding: 10px 48px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .ad2-pill-group {
+      display: flex;
+      align-items: center;
+      gap: 24px;
+    }
+    .ad2-pill-item {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 10.5px;
+      font-weight: 800;
+      color: #cbd5e1;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+    }
+    .ad2-pill-item i {
+      color: #e2b062;
+    }
+    .ad2-script-tag {
+      font-family: 'Alex Brush', cursive;
+      font-size: 24px;
+      color: #e2b062;
+    }
+
+    /* Carousel Progress Dots */
+    .attract-carousel-nav-dots {
+      position: absolute;
+      top: 24px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      gap: 8px;
+      z-index: 25;
+    }
+    .carousel-nav-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.3);
+      transition: all 0.3s ease;
+      cursor: pointer;
+    }
+    .carousel-nav-dot.active {
+      width: 26px;
+      background: #e2b062;
+      box-shadow: 0 0 10px rgba(226, 176, 98, 0.7);
     }
   </style>
 </head>
@@ -3248,131 +3487,321 @@ body {
     <!-- Background Bokeh Layer -->
     <div class="attract-bg-layer" id="attractBgLayer"></div>
 
-    <!-- Foreground Model Girl Layer -->
-    <div class="attract-girl-layer">
-      <img src="../images/kiosk_advertisement_girl_image.png" alt="Fashion Shopper Model" class="attract-girl-img" id="attractHeroGirlImg">
+    <!-- Top Carousel Progress Dots -->
+    <div class="attract-carousel-nav-dots">
+      <span class="carousel-nav-dot active" id="dotSlide1" onclick="event.stopPropagation(); showSlide(0)"></span>
+      <span class="carousel-nav-dot" id="dotSlide2" onclick="event.stopPropagation(); showSlide(1)"></span>
     </div>
 
-    <!-- 1. Top Bar -->
-    <div class="attract-top-bar">
-      <div class="attract-mall-brand">
-        <i class="fa-solid fa-crown attract-emblem-icon"></i>
-        <div class="attract-brand-name">GRAND METRO MALL</div>
-        <div class="attract-brand-tagline">CELEBRATE EVERYDAY</div>
-      </div>
+    <!-- =========================================================================
+         ROTATING HERO STAGE CONTAINER (Ad 1 & Ad 2 Smooth Crossfade)
+         ========================================================================= -->
+    <div class="attract-hero-stage-container">
 
-      <div class="attract-top-slogan">
-        <span>SHOP</span> · <span>DINE</span> · <span>EXPLORE</span> · <span>BELONG</span>
-      </div>
-    </div>
-
-    <!-- 2. Center Workspace (Hero Headline & Right Promo Tiles) -->
-    <div class="attract-center-workspace">
-      
-      <!-- Left Column Spacer: Reserves clear visual area for model girl -->
-      <div class="attract-left-spacer" style="pointer-events:none;"></div>
-
-      <!-- Hero Copy -->
-      <div class="attract-hero-copy-box">
-        <div class="attract-script-flourish" id="attractSubScript">More Than a Mall</div>
-        <h1 class="attract-headline-grand" id="attractMainHeadline">A World of<br>Experiences</h1>
-        <div class="attract-gold-swoosh-line"></div>
-
-        <!-- 4 Category Circles -->
-        <div class="attract-category-circles-row">
-          <div class="attract-cat-circle-item" onclick="event.stopPropagation(); window.location.href='shop.html';">
-            <div class="cat-circle-emblem"><i class="fa-solid fa-bag-shopping"></i></div>
-            <div class="cat-circle-label">Premium<br>Shopping</div>
-          </div>
-
-          <div class="attract-cat-circle-item" onclick="event.stopPropagation(); window.location.href='food.html';">
-            <div class="cat-circle-emblem"><i class="fa-solid fa-utensils"></i></div>
-            <div class="cat-circle-label">Delicious<br>Dining</div>
-          </div>
-
-          <div class="attract-cat-circle-item" onclick="event.stopPropagation(); window.location.href='events.html';">
-            <div class="cat-circle-emblem"><i class="fa-solid fa-ticket"></i></div>
-            <div class="cat-circle-label">Amazing<br>Events</div>
-          </div>
-
-          <div class="attract-cat-circle-item" onclick="event.stopPropagation(); window.location.href='info.html';">
-            <div class="cat-circle-emblem"><i class="fa-regular fa-heart"></i></div>
-            <div class="cat-circle-label">Memorable<br>Moments</div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Right Column: 4 Supporting Feature Promo Tiles -->
-      <div class="attract-right-promo-cards">
+      <!-- =========================================================================
+           SLIDE 1: ADVERTISEMENT 01 (Anchor 01 · Fashion Shopper In Beige)
+           ========================================================================= -->
+      <div class="ad-campaign-slide active" id="adSlide1">
         
-        <!-- 1. Fashion -->
-        <div class="promo-feature-tile" onclick="event.stopPropagation(); window.location.href='shop.html';">
-          <div class="promo-tile-text-left">
-            <div class="promo-tile-title">FASHION<br>FOR EVERY YOU</div>
-            <div class="promo-tile-circle-btn"><i class="fa-solid fa-chevron-right"></i></div>
-          </div>
-          <img src="../images/kiosk_store_zara.jpg" alt="Fashion" class="promo-tile-thumb">
+        <!-- Foreground Model Girl Layer -->
+        <div class="attract-girl-layer-1">
+          <img src="../images/kiosk_advertisement_girl_image.png" alt="Fashion Shopper Model 1" class="attract-girl-img" id="attractHeroGirlImg">
         </div>
 
-        <!-- 2. Dining -->
-        <div class="promo-feature-tile" onclick="event.stopPropagation(); window.location.href='food.html';">
-          <div class="promo-tile-text-left">
-            <div class="promo-tile-title">GREAT FOOD<br>BRINGS PEOPLE<br>TOGETHER</div>
-            <div class="promo-tile-circle-btn"><i class="fa-solid fa-chevron-right"></i></div>
+        <!-- Top Bar -->
+        <div class="attract-top-bar">
+          <div class="attract-mall-brand">
+            <i class="fa-solid fa-crown attract-emblem-icon"></i>
+            <div class="attract-brand-name">GRAND METRO MALL</div>
+            <div class="attract-brand-tagline">CELEBRATE EVERYDAY</div>
           </div>
-          <img src="../images/kiosk_food_copper_chimney.jpg" alt="Dining" class="promo-tile-thumb">
+
+          <div class="attract-top-slogan">
+            <span>SHOP</span> · <span>DINE</span> · <span>EXPLORE</span> · <span>BELONG</span>
+          </div>
         </div>
 
-        <!-- 3. Events -->
-        <div class="promo-feature-tile" onclick="event.stopPropagation(); window.location.href='events.html';">
-          <div class="promo-tile-text-left">
-            <div class="promo-tile-title">LIVE EVENTS<br>BIGGER THAN<br>EVER</div>
-            <div class="promo-tile-circle-btn"><i class="fa-solid fa-chevron-right"></i></div>
+        <!-- Center Workspace -->
+        <div class="attract-workspace-1">
+          
+          <!-- Left Spacer for Girl 1 -->
+          <div style="pointer-events:none;"></div>
+
+          <!-- Hero Copy -->
+          <div class="attract-hero-copy-box">
+            <div class="attract-script-flourish">More Than a Mall</div>
+            <h1 class="attract-headline-grand">A World of<br>Experiences</h1>
+            <div class="attract-gold-swoosh-line"></div>
+
+            <!-- 4 Category Circles -->
+            <div class="attract-category-circles-row">
+              <div class="attract-cat-circle-item" onclick="event.stopPropagation(); window.location.href='shop.html';">
+                <div class="cat-circle-emblem"><i class="fa-solid fa-bag-shopping"></i></div>
+                <div class="cat-circle-label">Premium<br>Shopping</div>
+              </div>
+
+              <div class="attract-cat-circle-item" onclick="event.stopPropagation(); window.location.href='food.html';">
+                <div class="cat-circle-emblem"><i class="fa-solid fa-utensils"></i></div>
+                <div class="cat-circle-label">Delicious<br>Dining</div>
+              </div>
+
+              <div class="attract-cat-circle-item" onclick="event.stopPropagation(); window.location.href='events.html';">
+                <div class="cat-circle-emblem"><i class="fa-solid fa-ticket"></i></div>
+                <div class="cat-circle-label">Amazing<br>Events</div>
+              </div>
+
+              <div class="attract-cat-circle-item" onclick="event.stopPropagation(); window.location.href='info.html';">
+                <div class="cat-circle-emblem"><i class="fa-regular fa-heart"></i></div>
+                <div class="cat-circle-label">Memorable<br>Moments</div>
+              </div>
+            </div>
           </div>
-          <img src="../images/kiosk_search_adidas_event.jpg" alt="Events" class="promo-tile-thumb">
+
+          <!-- Right Glass Showcase Pillar for Ad 1 -->
+          <div class="ad1-right-billboard">
+            <div class="billboard-title">GRAND METRO</div>
+            <div class="billboard-sub">Luxury · Entertainment · Style</div>
+            <div class="billboard-brands">
+              <span>ZARA</span>
+              <span>H&M</span>
+              <span>ADIDAS</span>
+              <span>STARBUCKS</span>
+              <span>PVR CINEMAS</span>
+            </div>
+          </div>
+
         </div>
 
-        <!-- 4. Family -->
-        <div class="promo-feature-tile" onclick="event.stopPropagation(); window.location.href='info.html';">
-          <div class="promo-tile-text-left">
-            <div class="promo-tile-title">GOOD TIMES<br>STAY LONGER</div>
-            <div class="promo-tile-circle-btn"><i class="fa-solid fa-chevron-right"></i></div>
+      </div>
+
+
+      <!-- =========================================================================
+           SLIDE 2: ADVERTISEMENT 02 (Anchor 02 · Elegant Black Dress Shopper)
+           ========================================================================= -->
+      <div class="ad-campaign-slide" id="adSlide2">
+        
+        <!-- Foreground Model Girl 2 Layer -->
+        <div class="attract-girl-layer-2">
+          <img src="../images/kiosk_advertisement_girl2_image.png" alt="Fashion Shopper Model 2" class="attract-girl-img" id="attractHeroGirl2Img">
+        </div>
+
+        <!-- Top Bar -->
+        <div class="attract-top-bar">
+          <div class="attract-mall-brand">
+            <i class="fa-solid fa-crown attract-emblem-icon"></i>
+            <div class="attract-brand-name">GRAND METRO MALL</div>
+            <div class="attract-brand-tagline">CELEBRATE EVERYDAY</div>
           </div>
-          <img src="../images/kiosk_store_hm.jpg" alt="Family" class="promo-tile-thumb">
+
+          <div style="text-align:right;">
+            <div style="font-size:16px;font-weight:800;color:#fff;letter-spacing:0.5px;">04:02 PM</div>
+            <div style="font-size:10.5px;font-weight:600;color:#94a3b8;">Sun, 30 Aug 2026</div>
+          </div>
+        </div>
+
+        <!-- Main Workspace 2 -->
+        <div class="attract-workspace-2">
+          
+          <div class="ad2-upper-row">
+            
+            <div class="ad2-headline-box">
+              <h1 class="ad2-headline-title">
+                More <span class="italic-gold">Brands.</span><br>
+                Brighter <span class="italic-gold">Moments.</span><br>
+                All Here.
+              </h1>
+
+              <div class="ad2-category-circles">
+                <div class="attract-cat-circle-item" onclick="event.stopPropagation(); window.location.href='shop.html';">
+                  <div class="cat-circle-emblem"><i class="fa-solid fa-bag-shopping"></i></div>
+                  <div class="cat-circle-label">SHOP</div>
+                </div>
+
+                <div class="attract-cat-circle-item" onclick="event.stopPropagation(); window.location.href='food.html';">
+                  <div class="cat-circle-emblem"><i class="fa-solid fa-utensils"></i></div>
+                  <div class="cat-circle-label">DINE</div>
+                </div>
+
+                <div class="attract-cat-circle-item" onclick="event.stopPropagation(); window.location.href='events.html';">
+                  <div class="cat-circle-emblem"><i class="fa-solid fa-ticket"></i></div>
+                  <div class="cat-circle-label">EXPLORE</div>
+                </div>
+
+                <div class="attract-cat-circle-item" onclick="event.stopPropagation(); window.location.href='services.html';">
+                  <div class="cat-circle-emblem"><i class="fa-solid fa-users"></i></div>
+                  <div class="cat-circle-label">ENJOY</div>
+                </div>
+
+                <div class="attract-cat-circle-item" onclick="event.stopPropagation(); window.location.href='info.html';">
+                  <div class="cat-circle-emblem"><i class="fa-regular fa-heart"></i></div>
+                  <div class="cat-circle-label">BELONG</div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Right Glass Billboard -->
+            <div class="ad2-right-billboard">
+              <div class="billboard-title">A BRIGHTER YOU</div>
+              <div class="billboard-sub">Fashion · Lifestyle · Together</div>
+              <div class="billboard-brands">
+                <span>ZARA</span>
+                <span>H&M</span>
+                <span>SEPHORA</span>
+              </div>
+            </div>
+
+          </div>
+
         </div>
 
       </div>
 
     </div>
 
-    <!-- 3. Bottom Brand Ribbon & Touch To Begin -->
-    <div class="attract-bottom-ribbon-bar">
+    <!-- =========================================================================
+         UNIFIED PERSISTENT FOOTER ZONE (Consistent Across BOTH Advertisements)
+         ========================================================================= -->
+    <div class="attract-persistent-footer-zone">
       
-      <div class="attract-brands-row">
-        <div class="attract-brands-script">Your Favourite Brands All Here ♡</div>
-        
-        <div class="brand-logos-cluster">
-          <span class="brand-text-logo">ZARA</span>
-          <span class="brand-text-logo">H&M</span>
-          <span class="brand-text-logo">ADIDAS</span>
-          <span class="brand-text-logo">LEVI'S®</span>
-          <span class="brand-text-logo">STARBUCKS</span>
-          <span class="brand-text-logo">PVR CINEMAS</span>
-          <span class="brand-text-logo">LIFESTYLE</span>
-          <span style="font-size:8px;font-weight:800;color:#e2b062;letter-spacing:1px;">AND MANY MORE</span>
-        </div>
-
-        <div style="font-size:9.5px;font-weight:700;color:#94a3b8;letter-spacing:1px;white-space:nowrap;">
-          A BRIGHTER DAY AWAITS YOU ♡
-        </div>
-      </div>
-
-      <!-- Touch To Begin CTA -->
-      <div class="touch-to-begin-wrap">
-        <button class="btn-touch-begin-glow" id="btnTouchToBegin" onclick="event.stopPropagation(); navigateToHome();">
-          <i class="fa-solid fa-hand-pointer touch-hand-icon"></i>
-          <span class="touch-label-text">TOUCH TO BEGIN</span>
+      <!-- Unified Center Touch Prompt -->
+      <div class="touch-explore-center-wrap">
+        <button class="btn-touch-explore-pill" id="btnTouchToBegin" onclick="event.stopPropagation(); navigateToHome();">
+          <div class="touch-hand-circle">
+            <i class="fa-solid fa-hand-pointer"></i>
+          </div>
+          <span style="font-family:'Cinzel',serif;font-size:13px;font-weight:800;letter-spacing:1.5px;">TOUCH THE SCREEN TO EXPLORE</span>
+          <i class="fa-solid fa-chevron-right" style="color:#e2b062;font-size:12px;"></i>
         </button>
+      </div>
+
+      <!-- Unified Continuous Looping Sub-Ads Ticker -->
+      <div class="ad2-slider-container">
+        <button class="ad2-slider-arrow" onclick="event.stopPropagation(); nudgeSubAds(-300);" title="Previous"><i class="fa-solid fa-chevron-left"></i></button>
+        
+        <div class="ad2-ticker-viewport" id="ad2TickerViewport">
+          <div class="ad2-ticker-track" id="ad2TickerTrack">
+            
+            <!-- Sub-Ad 1: Fashion -->
+            <div class="ad2-feature-card" onclick="event.stopPropagation(); window.location.href='shop.html';">
+              <img src="../images/kiosk_highlight_style.jpg" alt="Fashion" class="ad2-card-img-thumb">
+              <div class="ad2-card-meta">
+                <div class="ad2-card-headline">FASHION THAT MOVES YOU</div>
+                <button class="ad2-card-btn">SHOP NOW</button>
+              </div>
+            </div>
+
+            <!-- Sub-Ad 2: Dining -->
+            <div class="ad2-feature-card" onclick="event.stopPropagation(); window.location.href='food.html';">
+              <img src="../images/kiosk_highlight_food.jpg" alt="Dining" class="ad2-card-img-thumb">
+              <div class="ad2-card-meta">
+                <div class="ad2-card-headline">GREAT FOOD HAPPIER MOMENTS</div>
+                <button class="ad2-card-btn">DINE NOW</button>
+              </div>
+            </div>
+
+            <!-- Sub-Ad 3: Experiences -->
+            <div class="ad2-feature-card" onclick="event.stopPropagation(); window.location.href='events.html';">
+              <img src="../images/kiosk_highlight_gaming.jpg" alt="Experiences" class="ad2-card-img-thumb">
+              <div class="ad2-card-meta">
+                <div class="ad2-card-headline">EXCITING EXPERIENCES FOR EVERYONE</div>
+                <button class="ad2-card-btn">EXPLORE NOW</button>
+              </div>
+            </div>
+
+            <!-- Sub-Ad 4: Lifestyle -->
+            <div class="ad2-feature-card" onclick="event.stopPropagation(); window.location.href='info.html';">
+              <img src="../images/kiosk_store_hm.jpg" alt="Lifestyle" class="ad2-card-img-thumb">
+              <div class="ad2-card-meta">
+                <div class="ad2-card-headline">A LIFESTYLE YOU'LL LOVE</div>
+                <button class="ad2-card-btn">DISCOVER NOW</button>
+              </div>
+            </div>
+
+            <!-- Sub-Ad 5: Beauty & Fragrances -->
+            <div class="ad2-feature-card" onclick="event.stopPropagation(); window.location.href='shop.html';">
+              <img src="../images/kiosk_store_sephora.jpg" alt="Beauty" class="ad2-card-img-thumb">
+              <div class="ad2-card-meta">
+                <div class="ad2-card-headline">GLOW WITH CONFIDENCE</div>
+                <button class="ad2-card-btn">BEAUTY CARE</button>
+              </div>
+            </div>
+
+            <!-- Sub-Ad 6: Cafe & Desserts -->
+            <div class="ad2-feature-card" onclick="event.stopPropagation(); window.location.href='food.html';">
+              <img src="../images/kiosk_food_starbucks.jpg" alt="Starbucks Cafe" class="ad2-card-img-thumb">
+              <div class="ad2-card-meta">
+                <div class="ad2-card-headline">COFFEE, DESSERTS & SWEET MOMENTS</div>
+                <button class="ad2-card-btn">TASTE NOW</button>
+              </div>
+            </div>
+
+            <!-- DUPLICATED EXACT SET FOR SEAMLESS 100% INFINITE CONTINUOUS LOOP -->
+            <div class="ad2-feature-card" onclick="event.stopPropagation(); window.location.href='shop.html';">
+              <img src="../images/kiosk_highlight_style.jpg" alt="Fashion" class="ad2-card-img-thumb">
+              <div class="ad2-card-meta">
+                <div class="ad2-card-headline">FASHION THAT MOVES YOU</div>
+                <button class="ad2-card-btn">SHOP NOW</button>
+              </div>
+            </div>
+
+            <div class="ad2-feature-card" onclick="event.stopPropagation(); window.location.href='food.html';">
+              <img src="../images/kiosk_highlight_food.jpg" alt="Dining" class="ad2-card-img-thumb">
+              <div class="ad2-card-meta">
+                <div class="ad2-card-headline">GREAT FOOD HAPPIER MOMENTS</div>
+                <button class="ad2-card-btn">DINE NOW</button>
+              </div>
+            </div>
+
+            <div class="ad2-feature-card" onclick="event.stopPropagation(); window.location.href='events.html';">
+              <img src="../images/kiosk_highlight_gaming.jpg" alt="Experiences" class="ad2-card-img-thumb">
+              <div class="ad2-card-meta">
+                <div class="ad2-card-headline">EXCITING EXPERIENCES FOR EVERYONE</div>
+                <button class="ad2-card-btn">EXPLORE NOW</button>
+              </div>
+            </div>
+
+            <div class="ad2-feature-card" onclick="event.stopPropagation(); window.location.href='info.html';">
+              <img src="../images/kiosk_store_hm.jpg" alt="Lifestyle" class="ad2-card-img-thumb">
+              <div class="ad2-card-meta">
+                <div class="ad2-card-headline">A LIFESTYLE YOU'LL LOVE</div>
+                <button class="ad2-card-btn">DISCOVER NOW</button>
+              </div>
+            </div>
+
+            <div class="ad2-feature-card" onclick="event.stopPropagation(); window.location.href='shop.html';">
+              <img src="../images/kiosk_store_sephora.jpg" alt="Beauty" class="ad2-card-img-thumb">
+              <div class="ad2-card-meta">
+                <div class="ad2-card-headline">GLOW WITH CONFIDENCE</div>
+                <button class="ad2-card-btn">BEAUTY CARE</button>
+              </div>
+            </div>
+
+            <div class="ad2-feature-card" onclick="event.stopPropagation(); window.location.href='food.html';">
+              <img src="../images/kiosk_food_starbucks.jpg" alt="Starbucks Cafe" class="ad2-card-img-thumb">
+              <div class="ad2-card-meta">
+                <div class="ad2-card-headline">COFFEE, DESSERTS & SWEET MOMENTS</div>
+                <button class="ad2-card-btn">TASTE NOW</button>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+        <button class="ad2-slider-arrow" onclick="event.stopPropagation(); nudgeSubAds(300);" title="Next"><i class="fa-solid fa-chevron-right"></i></button>
+      </div>
+
+      <!-- Unified Bottom Tagline Bar -->
+      <div class="ad2-bottom-tagline-bar">
+        <div class="ad2-pill-group">
+          <div class="ad2-pill-item"><i class="fa-regular fa-gem"></i> TOP BRANDS</div>
+          <div class="ad2-pill-item"><i class="fa-solid fa-people-roof"></i> FAMILY FRIENDLY</div>
+          <div class="ad2-pill-item"><i class="fa-regular fa-star"></i> MEMORABLE EXPERIENCES</div>
+          <div class="ad2-pill-item"><i class="fa-solid fa-location-dot"></i> IN THE HEART OF THE CITY</div>
+        </div>
+
+        <div class="ad2-script-tag">
+          Shop. Dine. Explore. Belong.
+        </div>
       </div>
 
     </div>
@@ -3380,42 +3809,42 @@ body {
   </div>
 
   <script>
-    // Campaign Carousel Data (Auto-rotates every 8s)
-    const campaigns = [
-      {
-        script: "More Than a Mall",
-        headline: "A World of<br>Experiences"
-      },
-      {
-        script: "Grand Festive Sale 2026",
-        headline: "More Brands.<br>Brighter Moments."
-      },
-      {
-        script: "Culinary & Entertainment Hub",
-        headline: "Taste, Play &<br>Celebrate Together."
-      }
+    let activeIndex = 0;
+    const slides = [
+      document.getElementById('adSlide1'),
+      document.getElementById('adSlide2')
+    ];
+    const dots = [
+      document.getElementById('dotSlide1'),
+      document.getElementById('dotSlide2')
     ];
 
-    let currentCampaignIndex = 0;
+    function showSlide(index) {
+      activeIndex = index % slides.length;
+      slides.forEach((s, idx) => {
+        if (s) s.classList.toggle('active', idx === activeIndex);
+      });
+      dots.forEach((d, idx) => {
+        if (d) d.classList.toggle('active', idx === activeIndex);
+      });
+    }
 
+    // Auto-rotate every 9 seconds
     setInterval(() => {
-      currentCampaignIndex = (currentCampaignIndex + 1) % campaigns.length;
-      const c = campaigns[currentCampaignIndex];
-      const scriptEl = document.getElementById('attractSubScript');
-      const headlineEl = document.getElementById('attractMainHeadline');
-      
-      if (scriptEl && headlineEl) {
-        scriptEl.style.opacity = '0';
-        headlineEl.style.opacity = '0';
-        
+      showSlide(activeIndex + 1);
+    }, 9000);
+
+    function nudgeSubAds(offset) {
+      const track = document.getElementById('ad2TickerTrack');
+      if (track) {
+        track.style.animationPlayState = 'paused';
+        const currentTransform = new WebKitCSSMatrix(window.getComputedStyle(track).transform).m41;
+        track.style.transform = `translateX(${currentTransform - offset}px)`;
         setTimeout(() => {
-          scriptEl.textContent = c.script;
-          headlineEl.innerHTML = c.headline;
-          scriptEl.style.opacity = '1';
-          headlineEl.style.opacity = '1';
-        }, 400);
+          track.style.animationPlayState = 'running';
+        }, 3000);
       }
-    }, 8000);
+    }
 
     function navigateToHome() {
       window.location.href = 'home.html';
