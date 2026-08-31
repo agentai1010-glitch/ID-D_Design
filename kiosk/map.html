@@ -3,419 +3,4037 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Grand Metro Mall · Mall Map & Navigation</title>
+  <title>Mall Map & Navigation · Grand Metro Mall Kiosk</title>
   <!-- Google Fonts & Font Awesome -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700;800;900&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700;800;900&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Playfair+Display:ital,wght@0,600;0,700;1,400;1,600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
   <link rel="stylesheet" href="kiosk.css">
+  <style id="kiosk-embedded-css">
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700;800&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Playfair+Display:ital,wght@0,600;0,700;1,400;1,600&display=swap');
+
+:root {
+  --bg-kiosk: #070b12;
+  --bg-gradient: radial-gradient(circle at 50% 0%, #111a2e 0%, #080c14 60%, #04060a 100%);
+  --bg-panel: rgba(18, 25, 38, 0.75);
+  --bg-panel-solid: #0f1624;
+  --border-gold: rgba(229, 185, 126, 0.35);
+  --border-gold-glow: rgba(229, 185, 126, 0.7);
+  --border-subtle: rgba(255, 255, 255, 0.08);
+  
+  --gold-100: #fef5e7;
+  --gold-200: #f7dfb8;
+  --gold-300: #eec88c;
+  --gold-400: #e2b062;
+  --gold-500: #cca052;
+  --gold-600: #b0823b;
+  --gold-gradient: linear-gradient(135deg, #f7dfb8 0%, #e2b062 50%, #b0823b 100%);
+  --gold-gradient-btn: linear-gradient(135deg, #eed29e 0%, #d8a858 50%, #b58537 100%);
+  
+  --text-main: #ffffff;
+  --text-muted: #94a3b8;
+  --text-gold: #e2b062;
+  
+  --shadow-gold: 0 0 25px rgba(226, 176, 98, 0.25);
+  --shadow-card: 0 16px 36px rgba(0, 0, 0, 0.45);
+  --glass-blur: blur(16px);
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+body {
+  font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+  background-color: #020408;
+  color: var(--text-main);
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow-x: hidden;
+  background-image: 
+    radial-gradient(rgba(226, 176, 98, 0.05) 1px, transparent 1px),
+    radial-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+  background-size: 36px 36px, 18px 18px;
+  background-position: 0 0, 9px 9px;
+}
+
+/* Kiosk Physical Frame Simulator */
+.kiosk-viewport-wrapper {
+  width: 100%;
+  max-width: 900px;
+  min-height: 100vh;
+  padding: 12px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.kiosk-frame {
+  width: 100%;
+  max-width: 860px;
+  background: #0d1117;
+  border-radius: 36px;
+  padding: 16px 16px 20px 16px;
+  box-shadow: 
+    0 0 0 4px #1f2735,
+    0 0 0 8px #080a0f,
+    0 30px 90px rgba(0, 0, 0, 0.9),
+    0 0 60px rgba(17, 24, 39, 0.6);
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.kiosk-screen {
+  background: var(--bg-gradient);
+  border-radius: 26px;
+  overflow: hidden;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  height: 1120px;
+  max-height: 1120px;
+  box-shadow: inset 0 0 40px rgba(0, 0, 0, 0.6);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+/* Kiosk Bezel Bottom Logo */
+.kiosk-bezel-bottom {
+  text-align: center;
+  padding-top: 14px;
+  color: #717e94;
+  font-size: 13px;
+  letter-spacing: 4px;
+  font-weight: 700;
+  text-transform: uppercase;
+  font-family: 'Cinzel', serif;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+
+.kiosk-bezel-bottom::before,
+.kiosk-bezel-bottom::after {
+  content: '';
+  display: inline-block;
+  width: 24px;
+  height: 1px;
+  background: rgba(255, 255, 255, 0.15);
+}
+
+/* ==========================================================================
+   KIOSK TOP HEADER BAR
+   ========================================================================== */
+.kiosk-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 22px 32px 14px 32px;
+  border-bottom: 1px solid rgba(226, 176, 98, 0.12);
+  position: relative;
+  z-index: 20;
+}
+
+.kiosk-header-left {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-width: 140px;
+}
+
+.weather-icon-sun {
+  font-size: 26px;
+  color: #f59e0b;
+  filter: drop-shadow(0 0 10px rgba(245, 158, 11, 0.5));
+  animation: pulse-sun 4s ease-in-out infinite;
+}
+
+@keyframes pulse-sun {
+  0%, 100% { transform: scale(1); opacity: 0.95; }
+  50% { transform: scale(1.1); opacity: 1; filter: drop-shadow(0 0 14px rgba(245, 158, 11, 0.8)); }
+}
+
+.weather-text {
+  display: flex;
+  flex-direction: column;
+}
+
+.weather-temp {
+  font-size: 16px;
+  font-weight: 700;
+  color: #ffffff;
+  line-height: 1.1;
+}
+
+.weather-desc {
+  font-size: 11px;
+  color: var(--text-muted);
+  font-weight: 500;
+}
+
+/* Mall Brand Center */
+.kiosk-brand {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-decoration: none;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+}
+
+.kiosk-brand:hover {
+  transform: translateY(-1px);
+}
+
+.brand-emblem-svg {
+  width: 32px;
+  height: 32px;
+  margin-bottom: 3px;
+  color: var(--gold-400);
+}
+
+.brand-name-grand {
+  font-family: 'Cinzel', serif;
+  font-size: 15px;
+  font-weight: 700;
+  letter-spacing: 4px;
+  color: #f7dfb8;
+  line-height: 1.1;
+  text-align: center;
+}
+
+.brand-name-sub {
+  font-family: 'Cinzel', serif;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 3px;
+  color: var(--gold-400);
+  text-align: center;
+}
+
+/* Header Right - Clock */
+.kiosk-header-right {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  min-width: 140px;
+}
+
+.kiosk-time {
+  font-size: 16px;
+  font-weight: 700;
+  color: #ffffff;
+  letter-spacing: 0.5px;
+  line-height: 1.1;
+}
+
+.kiosk-date {
+  font-size: 11px;
+  color: var(--text-muted);
+  font-weight: 500;
+}
+
+/* Back to Home Button (Sub-pages) */
+.btn-back-home {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  color: #ffffff;
+  padding: 8px 18px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  text-decoration: none;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  backdrop-filter: blur(10px);
+}
+
+.btn-back-home:hover {
+  background: rgba(226, 176, 98, 0.18);
+  border-color: var(--gold-400);
+  color: var(--gold-200);
+  transform: translateX(-2px);
+  box-shadow: 0 0 15px rgba(226, 176, 98, 0.3);
+}
+
+/* ==========================================================================
+   KIOSK PAGE BODY & SECTIONS
+   ========================================================================== */
+.kiosk-main-content {
+  flex: 1;
+  padding: 24px 32px 32px 32px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  position: relative;
+  overflow-y: auto;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(226, 176, 98, 0.3) transparent;
+}
+
+.kiosk-main-content::-webkit-scrollbar {
+  width: 5px;
+}
+
+.kiosk-main-content::-webkit-scrollbar-thumb {
+  background: rgba(226, 176, 98, 0.35);
+  border-radius: 999px;
+}
+
+.kiosk-main-content::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+/* Page Section Title with Ornaments */
+.section-title-wrap {
+  text-align: center;
+  margin-bottom: 6px;
+}
+
+.section-title-ornate {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  font-family: 'Cinzel', serif;
+  font-size: 26px;
+  font-weight: 700;
+  letter-spacing: 3px;
+  color: #ffffff;
+  text-transform: uppercase;
+}
+
+.ornate-line {
+  display: flex;
+  align-items: center;
+  color: var(--gold-400);
+  font-size: 14px;
+  opacity: 0.7;
+}
+
+.section-subtitle {
+  font-size: 13.5px;
+  color: var(--text-muted);
+  margin-top: 4px;
+  font-weight: 400;
+}
+
+/* Segmented Toggles (Dine In / Food Court, Floor Selector) */
+.kiosk-segmented-tabs {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(15, 23, 42, 0.8);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 5px;
+  border-radius: 999px;
+  width: fit-content;
+  margin: 0 auto;
+  gap: 6px;
+  backdrop-filter: blur(12px);
+}
+
+.kiosk-segmented-btn {
+  background: transparent;
+  border: none;
+  color: var(--text-muted);
+  font-size: 12.5px;
+  font-weight: 700;
+  padding: 8px 24px;
+  border-radius: 999px;
+  cursor: pointer;
+  letter-spacing: 0.8px;
+  text-transform: uppercase;
+  transition: all 0.25s ease;
+}
+
+.kiosk-segmented-btn.active {
+  background: var(--gold-gradient-btn);
+  color: #1a1205;
+  box-shadow: 0 4px 16px rgba(216, 168, 88, 0.4);
+}
+
+.kiosk-segmented-btn:hover:not(.active) {
+  color: #ffffff;
+  background: rgba(255, 255, 255, 0.06);
+}
+
+/* ==========================================================================
+   PAGE 1: HOME SCREEN SPECIFIC STYLES
+   ========================================================================== */
+.home-hero-ad-card {
+  position: relative;
+  background: linear-gradient(135deg, #0b1528 0%, #060b14 60%, #03060a 100%);
+  border-radius: 24px;
+  padding: 32px 36px;
+  border: 1px solid rgba(226, 176, 98, 0.25);
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.5), inset 0 0 60px rgba(11, 25, 48, 0.4);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  overflow: hidden;
+  min-height: 280px;
+}
+
+.home-hero-ad-card::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  right: -20%;
+  width: 400px;
+  height: 400px;
+  background: radial-gradient(circle, rgba(30, 64, 175, 0.35) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+.hero-ad-content {
+  max-width: 55%;
+  z-index: 2;
+}
+
+.badge-new-arrival {
+  display: inline-block;
+  background: rgba(0, 0, 0, 0.5);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: #cbd5e1;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  padding: 4px 12px;
+  border-radius: 999px;
+  margin-bottom: 16px;
+}
+
+.hero-ad-title {
+  font-family: 'Cinzel', serif;
+  font-size: 30px;
+  font-weight: 700;
+  line-height: 1.15;
+  letter-spacing: 1.5px;
+  color: #ffffff;
+  margin-bottom: 10px;
+}
+
+.hero-ad-desc {
+  font-size: 13.5px;
+  color: #94a3b8;
+  line-height: 1.4;
+  margin-bottom: 22px;
+}
+
+.btn-shop-now-hero {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0, 0, 0, 0.5);
+  border: 1.5px solid rgba(255, 255, 255, 0.3);
+  color: #ffffff;
+  padding: 10px 28px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  text-decoration: none;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  backdrop-filter: blur(8px);
+}
+
+.btn-shop-now-hero:hover {
+  background: var(--gold-gradient-btn);
+  color: #1a1205;
+  border-color: var(--gold-400);
+  box-shadow: 0 0 20px rgba(226, 176, 98, 0.5);
+  transform: translateY(-2px);
+}
+
+.hero-ad-media-bottle {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 220px;
+  height: 220px;
+}
+
+.chanel-bottle-mockup {
+  width: 170px;
+  height: 200px;
+  background: linear-gradient(145deg, #09172e, #030814);
+  border-radius: 18px;
+  border: 2px solid rgba(147, 197, 253, 0.3);
+  box-shadow: 
+    0 10px 30px rgba(0, 0, 0, 0.8),
+    0 0 35px rgba(30, 58, 138, 0.5),
+    inset 0 0 20px rgba(59, 130, 246, 0.2);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+.bottle-cap {
+  position: absolute;
+  top: -14px;
+  width: 60px;
+  height: 16px;
+  background: #020617;
+  border-radius: 4px 4px 0 0;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.bottle-label-title {
+  font-family: 'Cinzel', serif;
+  font-size: 15px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  color: #e2e8f0;
+  text-align: center;
+}
+
+.bottle-label-de {
+  font-size: 8px;
+  letter-spacing: 3px;
+  color: #94a3b8;
+  margin: 1px 0;
+}
+
+.bottle-label-chanel {
+  font-family: 'Cinzel', serif;
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: 3px;
+  color: #ffffff;
+}
+
+.bottle-label-parfum {
+  font-size: 7.5px;
+  letter-spacing: 3px;
+  color: #94a3b8;
+  margin-top: 36px;
+  text-transform: uppercase;
+}
+
+/* Dots Carousel in Ad */
+.ad-carousel-dots {
+  position: absolute;
+  bottom: 12px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 8px;
+  z-index: 3;
+}
+
+.ad-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.3);
+  transition: all 0.3s ease;
+}
+
+.ad-dot.active {
+  width: 22px;
+  background: #ffffff;
+}
+
+/* Kiosk Global Search Bar */
+.kiosk-search-container {
+  position: relative;
+  width: 100%;
+}
+
+.kiosk-search-input-box {
+  width: 100%;
+  background: rgba(18, 25, 38, 0.85);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 999px;
+  padding: 16px 54px 16px 52px;
+  color: #ffffff;
+  font-size: 14.5px;
+  outline: none;
+  transition: all 0.25s ease;
+  backdrop-filter: blur(12px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+}
+
+.kiosk-search-input-box::placeholder {
+  color: #64748b;
+  font-weight: 400;
+}
+
+.kiosk-search-input-box:focus {
+  border-color: var(--gold-400);
+  box-shadow: 0 0 25px rgba(226, 176, 98, 0.35);
+  background: rgba(18, 25, 38, 0.95);
+}
+
+.search-icon-left {
+  position: absolute;
+  left: 20px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 18px;
+  color: #64748b;
+  pointer-events: none;
+}
+
+.search-mic-right {
+  position: absolute;
+  right: 18px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 18px;
+  color: #94a3b8;
+  cursor: pointer;
+  padding: 6px;
+  border-radius: 50%;
+  transition: all 0.2s ease;
+}
+
+.search-mic-right:hover {
+  color: var(--gold-400);
+  background: rgba(255, 255, 255, 0.08);
+}
+
+/* 8-Grid Category Tiles */
+.home-categories-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 14px;
+}
+
+.category-tile-card {
+  background: rgba(16, 23, 36, 0.7);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 20px;
+  padding: 22px 12px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  text-decoration: none;
+  cursor: pointer;
+  transition: all 0.25s cubic-bezier(0.2, 0.8, 0.2, 1);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
+  backdrop-filter: blur(10px);
+  position: relative;
+  overflow: hidden;
+}
+
+.category-tile-card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at 50% 0%, rgba(226, 176, 98, 0.15), transparent 70%);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.category-tile-card:hover {
+  transform: translateY(-4px);
+  border-color: var(--gold-400);
+  background: rgba(22, 32, 50, 0.85);
+  box-shadow: 0 14px 30px rgba(0, 0, 0, 0.4), 0 0 25px rgba(226, 176, 98, 0.25);
+}
+
+.category-tile-card:hover::before {
+  opacity: 1;
+}
+
+.category-icon-wrap {
+  width: 46px;
+  height: 46px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--gold-400);
+  font-size: 24px;
+  margin-bottom: 12px;
+  transition: transform 0.25s ease;
+}
+
+.category-tile-card:hover .category-icon-wrap {
+  transform: scale(1.15);
+  color: #f7dfb8;
+}
+
+.category-title {
+  font-family: 'Cinzel', serif;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  color: #ffffff;
+  line-height: 1.15;
+  margin-bottom: 2px;
+}
+
+.category-sub {
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.8px;
+  color: #64748b;
+  text-transform: uppercase;
+}
+
+/* Bottom Summer Sale Banner */
+.home-summer-banner {
+  background: linear-gradient(90deg, #fbcfe8 0%, #fecdd3 35%, #fed7aa 100%);
+  border-radius: 20px;
+  padding: 16px 28px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  color: #1e1b4b;
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.3);
+  position: relative;
+  overflow: hidden;
+  cursor: pointer;
+  transition: transform 0.25s ease;
+}
+
+.home-summer-banner:hover {
+  transform: translateY(-2px);
+}
+
+.summer-banner-left {
+  z-index: 2;
+}
+
+.summer-title {
+  font-family: 'Cinzel', serif;
+  font-size: 22px;
+  font-weight: 800;
+  letter-spacing: 2px;
+  color: #1e293b;
+  line-height: 1;
+}
+
+.summer-subtitle {
+  font-size: 12px;
+  font-weight: 700;
+  color: #475569;
+  letter-spacing: 1px;
+  margin: 3px 0 10px 0;
+}
+
+.btn-summer-explore {
+  display: inline-block;
+  background: #0f172a;
+  color: #ffffff;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  padding: 6px 16px;
+  border-radius: 999px;
+  text-decoration: none;
+}
+
+.summer-banner-media {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.summer-couple-img {
+  height: 85px;
+  border-radius: 12px;
+  object-fit: cover;
+}
+
+/* ==========================================================================
+   PAGE 2: MAP PAGE SPECIFIC STYLES
+   ========================================================================== */
+.map-layout-grid {
+  display: grid;
+  grid-template-columns: 1.45fr 1fr;
+  gap: 20px;
+  align-items: stretch;
+}
+
+.map-viewport-card {
+  background: rgba(14, 20, 32, 0.85);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 24px;
+  padding: 20px;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-height: 580px;
+  overflow: hidden;
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.4);
+}
+
+.map-interactive-canvas-wrap {
+  position: relative;
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.floor-plan-img {
+  width: 100%;
+  max-height: 480px;
+  object-fit: contain;
+  filter: drop-shadow(0 15px 30px rgba(0, 0, 0, 0.7));
+}
+
+/* Floating Map Controls */
+.map-floating-zoom-bar {
+  position: absolute;
+  left: 20px;
+  top: 50%;
+  transform: translateY(-50%);
+  display: flex;
+  flex-direction: column;
+  background: rgba(15, 23, 42, 0.85);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 999px;
+  padding: 4px;
+  gap: 4px;
+  backdrop-filter: blur(10px);
+  z-index: 10;
+}
+
+.map-zoom-btn {
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  background: transparent;
+  border: none;
+  color: #ffffff;
+  font-size: 16px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+}
+
+.map-zoom-btn:hover {
+  background: var(--gold-gradient-btn);
+  color: #111827;
+}
+
+/* Map Category Legend */
+.map-category-legend-bar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  padding-top: 14px;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.legend-item {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.8px;
+  color: var(--text-muted);
+  text-transform: uppercase;
+}
+
+.legend-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+}
+
+/* Right Store Detail Card */
+.store-detail-card {
+  background: rgba(14, 20, 32, 0.9);
+  border: 1px solid rgba(226, 176, 98, 0.2);
+  border-radius: 24px;
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.4);
+}
+
+.store-photo-banner {
+  width: 100%;
+  height: 180px;
+  border-radius: 16px;
+  object-fit: cover;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5);
+}
+
+.store-heading-title {
+  font-family: 'Cinzel', serif;
+  font-size: 24px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  color: #ffffff;
+}
+
+.store-category-tag {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  color: var(--gold-400);
+  text-transform: uppercase;
+  margin-top: 2px;
+}
+
+.store-location-text {
+  font-size: 13px;
+  color: var(--text-muted);
+  line-height: 1.4;
+}
+
+.btn-get-directions {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  background: var(--gold-gradient-btn);
+  color: #1a1205;
+  border: none;
+  padding: 14px;
+  border-radius: 14px;
+  font-size: 13px;
+  font-weight: 800;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  box-shadow: 0 8px 20px rgba(216, 168, 88, 0.35);
+}
+
+.btn-get-directions:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 28px rgba(216, 168, 88, 0.5);
+}
+
+.btn-view-store-details {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  color: #ffffff;
+  padding: 12px;
+  border-radius: 14px;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.btn-view-store-details:hover {
+  background: rgba(255, 255, 255, 0.12);
+  border-color: rgba(255, 255, 255, 0.3);
+}
+
+.store-services-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 10px;
+  margin-top: 4px;
+}
+
+.service-icon-tile {
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 12px;
+  padding: 12px 6px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+}
+
+.service-icon-tile i {
+  font-size: 18px;
+  color: var(--gold-400);
+}
+
+.service-label {
+  font-size: 9px;
+  font-weight: 700;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  line-height: 1.1;
+}
+
+/* ==========================================================================
+   PAGE 3: FOOD & DINING SPECIFIC STYLES
+   ========================================================================== */
+.food-luxury-container {
+  background: #f6efe6;
+  border-radius: 28px;
+  padding: 36px 32px;
+  color: #1e1b18;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6);
+  min-height: 600px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.phoenix-watermark-bg {
+  position: absolute;
+  left: 10px;
+  top: 10px;
+  width: 240px;
+  height: 240px;
+  opacity: 0.07;
+  pointer-events: none;
+}
+
+.food-header-callout {
+  text-align: center;
+  margin-bottom: 24px;
+  position: relative;
+  z-index: 2;
+}
+
+.food-headline-text {
+  font-family: 'Playfair Display', serif;
+  font-size: 26px;
+  font-weight: 600;
+  color: #1a1612;
+  line-height: 1.2;
+}
+
+.food-search-dropdown-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: #ffffff;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  color: #4b5563;
+  padding: 8px 20px;
+  border-radius: 999px;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  margin-top: 14px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+  cursor: pointer;
+}
+
+.food-cards-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+  position: relative;
+  z-index: 2;
+}
+
+.restaurant-card {
+  background: #ffffff;
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+  display: flex;
+  flex-direction: column;
+  transition: all 0.25s ease;
+  border: 1px solid rgba(0, 0, 0, 0.04);
+}
+
+.restaurant-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 18px 36px rgba(0, 0, 0, 0.15);
+}
+
+.restaurant-brand-badge-row {
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 8px;
+  background: #ffffff;
+  border-bottom: 1px solid #f1f5f9;
+}
+
+.restaurant-badge-logo {
+  max-height: 28px;
+  max-width: 100px;
+  object-fit: contain;
+}
+
+.restaurant-badge-styled {
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 1px;
+  padding: 4px 10px;
+  border-radius: 4px;
+  text-transform: uppercase;
+}
+
+.restaurant-photo-wrap {
+  width: 100%;
+  height: 160px;
+  overflow: hidden;
+  position: relative;
+}
+
+.restaurant-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.4s ease;
+}
+
+.restaurant-card:hover .restaurant-img {
+  transform: scale(1.08);
+}
+
+.restaurant-info-wrap {
+  padding: 16px 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.restaurant-title {
+  font-size: 13.5px;
+  font-weight: 800;
+  color: #0f172a;
+  line-height: 1.2;
+}
+
+.restaurant-cuisine {
+  font-size: 11px;
+  color: #64748b;
+  font-weight: 500;
+  margin-bottom: 6px;
+}
+
+.restaurant-meta-row {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 10.5px;
+  color: #334155;
+  font-weight: 600;
+}
+
+.restaurant-meta-row i {
+  color: #94a3b8;
+  font-size: 11px;
+}
+
+/* Carousel Navigation Arrows */
+.kiosk-carousel-nav-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  margin-top: 20px;
+  position: relative;
+  z-index: 2;
+}
+
+.carousel-arrow-btn {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  background: #ffffff;
+  color: #1e293b;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  cursor: pointer;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+  transition: all 0.2s ease;
+}
+
+.carousel-arrow-btn:hover {
+  background: #0f172a;
+  color: #ffffff;
+}
+
+.carousel-arrow-btn-dark {
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: #ffffff;
+}
+
+.carousel-arrow-btn-dark:hover {
+  background: var(--gold-gradient-btn);
+  color: #111827;
+  border-color: var(--gold-400);
+}
+
+.carousel-dots-group {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.carousel-dot-circle {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: rgba(0, 0, 0, 0.2);
+  transition: all 0.25s ease;
+}
+
+.carousel-dot-circle.active {
+  background: #cca052;
+  transform: scale(1.25);
+}
+
+.carousel-dot-circle-dark {
+  background: rgba(255, 255, 255, 0.25);
+}
+
+.carousel-dot-circle-dark.active {
+  background: var(--gold-400);
+  transform: scale(1.25);
+}
+
+/* ==========================================================================
+   PAGE 4: EVENTS SECTION SPECIFIC STYLES
+   ========================================================================== */
+.events-top-cta-row {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: -30px;
+  margin-bottom: 12px;
+}
+
+.btn-view-all-events {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  color: #ffffff;
+  padding: 8px 20px;
+  border-radius: 999px;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  text-decoration: none;
+  cursor: pointer;
+  transition: all 0.25s ease;
+}
+
+.btn-view-all-events:hover {
+  background: rgba(226, 176, 98, 0.2);
+  border-color: var(--gold-400);
+  color: var(--gold-200);
+}
+
+.events-stage-carousel {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+  perspective: 1000px;
+  padding: 20px 0;
+}
+
+.event-stage-card {
+  border-radius: 24px;
+  overflow: hidden;
+  position: relative;
+  transition: all 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.6);
+  cursor: pointer;
+}
+
+.event-stage-card.side-card {
+  width: 210px;
+  height: 480px;
+  opacity: 0.65;
+  transform: scale(0.92);
+  filter: brightness(0.8);
+}
+
+.event-stage-card.side-card:hover {
+  opacity: 0.9;
+  transform: scale(0.95);
+  filter: brightness(0.95);
+}
+
+.event-stage-card.featured-center {
+  width: 290px;
+  height: 540px;
+  z-index: 5;
+  transform: scale(1.05);
+  border: 2px solid var(--gold-400);
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.8), 0 0 40px rgba(226, 176, 98, 0.35);
+}
+
+.event-poster-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.event-center-overlay-box {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: linear-gradient(180deg, rgba(16, 23, 36, 0) 0%, rgba(16, 23, 36, 0.95) 40%, #0c121e 100%);
+  padding: 20px 16px 16px 16px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  border-top: 1px solid rgba(226, 176, 98, 0.3);
+}
+
+.event-date-box {
+  background: rgba(226, 176, 98, 0.15);
+  border: 1px solid rgba(226, 176, 98, 0.4);
+  border-radius: 12px;
+  padding: 8px 10px;
+  text-align: center;
+  min-width: 52px;
+}
+
+.event-date-day {
+  font-size: 9px;
+  color: var(--gold-300);
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.event-date-num {
+  font-size: 20px;
+  font-weight: 800;
+  color: #ffffff;
+  line-height: 1;
+}
+
+.event-date-month {
+  font-size: 9px;
+  color: var(--gold-300);
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.event-overlay-info {
+  flex: 1;
+}
+
+.event-overlay-time {
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--gold-300);
+  margin-bottom: 2px;
+}
+
+.event-overlay-venue {
+  font-size: 10px;
+  color: #cbd5e1;
+  line-height: 1.2;
+  margin-bottom: 8px;
+}
+
+.btn-book-now-event {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: var(--gold-gradient-btn);
+  color: #111827;
+  padding: 6px 14px;
+  border-radius: 999px;
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 0.8px;
+  text-transform: uppercase;
+  text-decoration: none;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.btn-book-now-event:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 14px rgba(216, 168, 88, 0.5);
+}
+
+/* ==========================================================================
+   PAGE 5: FEEDBACK FORM SPECIFIC STYLES
+   ========================================================================== */
+.feedback-panel-card {
+  background: rgba(14, 20, 32, 0.85);
+  border: 1px solid rgba(226, 176, 98, 0.25);
+  border-radius: 28px;
+  padding: 32px 36px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(16px);
+}
+
+.feedback-question-title {
+  text-align: center;
+  font-family: 'Cinzel', serif;
+  font-size: 18px;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  color: #ffffff;
+}
+
+.rating-faces-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  padding: 10px 0;
+}
+
+.rating-face-btn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  transition: all 0.25s ease;
+}
+
+.rating-face-circle {
+  width: 68px;
+  height: 68px;
+  border-radius: 50%;
+  border: 2px solid rgba(255, 255, 255, 0.2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 32px;
+  color: #94a3b8;
+  background: rgba(255, 255, 255, 0.03);
+  transition: all 0.25s ease;
+}
+
+.rating-face-label {
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--text-muted);
+  letter-spacing: 0.5px;
+}
+
+.rating-face-btn:hover .rating-face-circle {
+  border-color: var(--gold-400);
+  color: var(--gold-300);
+  transform: translateY(-4px);
+  box-shadow: 0 8px 20px rgba(226, 176, 98, 0.3);
+}
+
+.rating-face-btn.selected .rating-face-circle {
+  border-color: var(--gold-400);
+  color: var(--gold-400);
+  background: rgba(226, 176, 98, 0.15);
+  box-shadow: 0 0 25px rgba(226, 176, 98, 0.5);
+  transform: scale(1.1);
+}
+
+.rating-face-btn.selected .rating-face-label {
+  color: var(--gold-400);
+}
+
+.feedback-section-label {
+  font-size: 11.5px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  color: #cbd5e1;
+  text-transform: uppercase;
+  margin-bottom: 8px;
+}
+
+.feedback-section-label span {
+  color: #64748b;
+  font-weight: 500;
+}
+
+.feedback-textarea-wrap {
+  position: relative;
+}
+
+.feedback-textarea {
+  width: 100%;
+  height: 110px;
+  background: rgba(9, 14, 24, 0.75);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 18px;
+  padding: 16px;
+  color: #ffffff;
+  font-family: inherit;
+  font-size: 13.5px;
+  resize: none;
+  outline: none;
+  transition: all 0.25s ease;
+}
+
+.feedback-textarea:focus {
+  border-color: var(--gold-400);
+  box-shadow: 0 0 20px rgba(226, 176, 98, 0.3);
+}
+
+.feedback-char-count {
+  position: absolute;
+  right: 16px;
+  bottom: 12px;
+  font-size: 11px;
+  color: #64748b;
+}
+
+/* Feedback Category Multi-Select Tiles */
+.feedback-categories-row {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 10px;
+}
+
+.feedback-cat-pill {
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 14px;
+  padding: 12px 6px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.feedback-cat-pill i {
+  font-size: 18px;
+  color: var(--gold-400);
+}
+
+.feedback-cat-pill span {
+  font-size: 10px;
+  font-weight: 700;
+  color: #cbd5e1;
+  text-align: center;
+  line-height: 1.1;
+}
+
+.feedback-cat-pill:hover,
+.feedback-cat-pill.selected {
+  background: rgba(226, 176, 98, 0.15);
+  border-color: var(--gold-400);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 14px rgba(226, 176, 98, 0.25);
+}
+
+.feedback-cat-pill.selected span {
+  color: #ffffff;
+}
+
+.btn-submit-feedback {
+  width: 100%;
+  background: var(--gold-gradient-btn);
+  color: #1a1205;
+  border: none;
+  padding: 16px;
+  border-radius: 16px;
+  font-size: 14px;
+  font-weight: 800;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  box-shadow: 0 10px 25px rgba(216, 168, 88, 0.4);
+}
+
+.btn-submit-feedback:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 14px 35px rgba(216, 168, 88, 0.6);
+}
+
+.feedback-bottom-thankyou {
+  text-align: center;
+  font-size: 12px;
+  color: var(--text-muted);
+}
+
+/* ==========================================================================
+   KIOSK BOTTOM STICKY NAVIGATION BAR
+   ========================================================================== */
+.kiosk-footer-nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 14px 36px 18px 36px;
+  background: rgba(10, 15, 26, 0.95);
+  border-top: 1px solid rgba(226, 176, 98, 0.15);
+  position: relative;
+  z-index: 25;
+  backdrop-filter: blur(16px);
+}
+
+.footer-nav-btn {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: transparent;
+  border: none;
+  color: #94a3b8;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  text-decoration: none;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.footer-nav-btn:hover {
+  color: var(--gold-300);
+}
+
+.footer-nav-btn i {
+  font-size: 16px;
+}
+
+.footer-home-circle-btn {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background: radial-gradient(circle, #1e293b 0%, #0f172a 100%);
+  border: 1.5px solid var(--gold-400);
+  color: var(--gold-400);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 20px;
+  text-decoration: none;
+  cursor: pointer;
+  transition: all 0.25s cubic-bezier(0.2, 0.8, 0.2, 1);
+  box-shadow: 0 0 20px rgba(226, 176, 98, 0.3);
+}
+
+.footer-home-circle-btn:hover,
+.footer-home-circle-btn.active {
+  background: var(--gold-gradient-btn);
+  color: #111827;
+  transform: translateY(-3px) scale(1.08);
+  box-shadow: 0 0 30px rgba(226, 176, 98, 0.6);
+}
+
+/* ==========================================================================
+   MODALS (Help, Language, Directions, Success)
+   ========================================================================== */
+.kiosk-modal-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.85);
+  backdrop-filter: blur(12px);
+  z-index: 1000;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.25s ease;
+  padding: 20px;
+}
+
+.kiosk-modal-backdrop.open {
+  display: flex;
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.kiosk-modal-box {
+  background: #0d1422;
+  border: 1px solid var(--gold-400);
+  border-radius: 28px;
+  padding: 32px;
+  max-width: 500px;
+  width: 100%;
+  box-shadow: 0 25px 60px rgba(0, 0, 0, 0.8), 0 0 50px rgba(226, 176, 98, 0.3);
+  text-align: center;
+  transform: scale(0.92);
+  transition: transform 0.25s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+.kiosk-modal-backdrop.open .kiosk-modal-box {
+  transform: scale(1);
+}
+
+.kiosk-modal-icon {
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  background: rgba(226, 176, 98, 0.15);
+  border: 1.5px solid var(--gold-400);
+  color: var(--gold-400);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 28px;
+  margin: 0 auto 18px auto;
+}
+
+.kiosk-modal-title {
+  font-family: 'Cinzel', serif;
+  font-size: 22px;
+  font-weight: 700;
+  color: #ffffff;
+  margin-bottom: 8px;
+}
+
+.kiosk-modal-text {
+  font-size: 13.5px;
+  color: var(--text-muted);
+  line-height: 1.5;
+  margin-bottom: 24px;
+}
+
+.btn-modal-close {
+  background: var(--gold-gradient-btn);
+  color: #111827;
+  border: none;
+  padding: 12px 32px;
+  border-radius: 999px;
+  font-size: 13px;
+  font-weight: 800;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.btn-modal-close:hover {
+  box-shadow: 0 0 20px rgba(226, 176, 98, 0.5);
+}
+
+/* Quick Navigation Links Drawer */
+.quick-kiosk-switcher {
+  position: fixed;
+  bottom: 20px;
+  left: 20px;
+  background: rgba(15, 23, 42, 0.95);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 999px;
+  padding: 6px 14px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  z-index: 9999;
+  font-size: 12px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
+}
+
+.quick-kiosk-switcher a {
+  color: #94a3b8;
+  text-decoration: none;
+  font-weight: 600;
+  padding: 4px 8px;
+  border-radius: 6px;
+  transition: all 0.2s ease;
+}
+
+.quick-kiosk-switcher a:hover,
+.quick-kiosk-switcher a.active-link {
+  color: var(--gold-400);
+  background: rgba(226, 176, 98, 0.15);
+}
+
+/* =============================================================================
+   HORIZONTAL KIOSK PRESENTATION (16:9 / 1920x1080 WIDESCREEN EXPERIENCE)
+   Domain 01 — Kiosk Home & Entry Anchor Reproduction
+   ============================================================================= */
+
+.horizontal-kiosk-body {
+  margin: 0;
+  padding: 0;
+  background-color: #060910;
+  color: #ffffff;
+  font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow-x: hidden;
+}
+
+.horizontal-kiosk-wrapper {
+  width: 100%;
+  max-width: 1540px;
+  min-height: 100vh;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.kiosk-horizontal-screen {
+  background: radial-gradient(circle at 50% 15%, #121827 0%, #090d16 60%, #04060a 100%);
+  border: 1px solid rgba(229, 185, 126, 0.25);
+  border-radius: 28px;
+  box-shadow: 0 25px 60px rgba(0, 0, 0, 0.9), inset 0 0 40px rgba(0, 0, 0, 0.5);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  position: relative;
+  min-height: 880px;
+}
+
+/* =============================================================================
+   HEADER (Weather, Grand Metro Mall Logo, Clock, Scan to Explore)
+   ============================================================================= */
+.kiosk-horizontal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 36px 12px 36px;
+  border-bottom: 1px solid rgba(229, 185, 126, 0.14);
+  position: relative;
+  z-index: 10;
+}
+
+.header-weather-box {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-width: 180px;
+}
+
+.weather-sun-icon {
+  font-size: 32px;
+  color: #fbbf24;
+  filter: drop-shadow(0 0 12px rgba(251, 191, 36, 0.6));
+}
+
+.weather-meta {
+  display: flex;
+  flex-direction: column;
+}
+
+.weather-temp {
+  font-size: 20px;
+  font-weight: 800;
+  color: #ffffff;
+  line-height: 1.1;
+}
+
+.weather-label {
+  font-size: 11.5px;
+  color: #94a3b8;
+  font-weight: 600;
+}
+
+.kiosk-mall-logo-center {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.mall-emblem-icon {
+  width: 26px;
+  height: 26px;
+  color: #e2b062;
+  margin-bottom: 2px;
+}
+
+.mall-title-grand {
+  font-family: 'Cinzel', serif;
+  font-size: 19px;
+  font-weight: 800;
+  letter-spacing: 4px;
+  color: #ffffff;
+  line-height: 1.1;
+}
+
+.mall-title-sub {
+  font-family: 'Cinzel', serif;
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: 3px;
+  color: #f7dfb8;
+  line-height: 1.1;
+}
+
+.mall-tagline {
+  font-size: 8.5px;
+  letter-spacing: 2px;
+  color: #cca052;
+  font-weight: 700;
+  margin-top: 2px;
+}
+
+.header-right-box {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  min-width: 280px;
+  justify-content: flex-end;
+}
+
+.header-time-date {
+  text-align: right;
+}
+
+.header-time {
+  font-size: 22px;
+  font-weight: 800;
+  color: #ffffff;
+  line-height: 1.1;
+}
+
+.header-date {
+  font-size: 11.5px;
+  color: #94a3b8;
+  font-weight: 600;
+}
+
+.btn-scan-explore {
+  background: rgba(18, 24, 38, 0.85);
+  border: 1px solid rgba(229, 185, 126, 0.35);
+  color: #f7dfb8;
+  padding: 8px 16px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.3);
+}
+
+.btn-scan-explore:hover {
+  background: rgba(226, 176, 98, 0.15);
+  border-color: #e2b062;
+  transform: translateY(-1px);
+  box-shadow: 0 0 16px rgba(226, 176, 98, 0.3);
+}
+
+.btn-scan-explore i {
+  font-size: 14px;
+  color: #e2b062;
+}
+
+/* =============================================================================
+   MAIN 2-COLUMN LAYOUT (~72% Left + ~28% Right)
+   ============================================================================= */
+.kiosk-horizontal-main {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 350px;
+  gap: 20px;
+  padding: 20px 36px;
+  flex: 1;
+}
+
+.kiosk-left-column {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+/* =============================================================================
+   FEATURED PROMOTIONAL CAROUSEL
+   ============================================================================= */
+.featured-promo-carousel {
+  position: relative;
+  height: 230px;
+  border-radius: 20px;
+  overflow: hidden;
+  border: 1px solid rgba(229, 185, 126, 0.25);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.4);
+}
+
+.promo-slide {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  transition: opacity 0.5s ease-in-out;
+  display: flex;
+  align-items: center;
+  padding: 0 40px;
+}
+
+.promo-slide.active {
+  opacity: 1;
+  z-index: 2;
+}
+
+.promo-slide-content {
+  max-width: 440px;
+  z-index: 3;
+}
+
+.promo-elegant-title {
+  font-family: 'Cinzel', serif;
+  font-size: 24px;
+  letter-spacing: 4px;
+  color: #f7dfb8;
+  font-weight: 700;
+  line-height: 1.1;
+}
+
+.promo-huge-sale {
+  font-family: 'Playfair Display', serif;
+  font-size: 42px;
+  font-weight: 900;
+  color: #ffffff;
+  letter-spacing: 2px;
+  line-height: 1.05;
+  margin: 2px 0 6px 0;
+}
+
+.promo-ribbon-badge {
+  background: linear-gradient(135deg, #eed29e 0%, #d8a858 50%, #b58537 100%);
+  color: #111827;
+  display: inline-block;
+  padding: 4px 14px;
+  border-radius: 4px;
+  font-weight: 900;
+  font-size: 12px;
+  letter-spacing: 1px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+.promo-subtext {
+  font-size: 12.5px;
+  color: #cbd5e1;
+  margin: 8px 0 14px 0;
+  font-weight: 500;
+}
+
+.btn-promo-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 9px 22px;
+  border-radius: 999px;
+  border: 1px solid rgba(229, 185, 126, 0.8);
+  background: rgba(18, 24, 38, 0.7);
+  backdrop-filter: blur(8px);
+  color: #ffffff;
+  font-size: 11.5px;
+  font-weight: 800;
+  letter-spacing: 1px;
+  text-decoration: none;
+  transition: all 0.2s ease;
+  cursor: pointer;
+}
+
+.btn-promo-cta:hover {
+  background: var(--gold-gradient-btn);
+  color: #111827;
+  border-color: #e2b062;
+  box-shadow: 0 0 20px rgba(226, 176, 98, 0.4);
+}
+
+.carousel-indicators-bar {
+  position: absolute;
+  bottom: 14px;
+  left: 45%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 8px;
+  z-index: 5;
+}
+
+.carousel-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.3);
+  cursor: pointer;
+  transition: all 0.25s ease;
+}
+
+.carousel-dot.active {
+  background: #e2b062;
+  width: 22px;
+  border-radius: 999px;
+  box-shadow: 0 0 10px rgba(226, 176, 98, 0.8);
+}
+
+/* =============================================================================
+   PROMINENT SEARCH BAR
+   ============================================================================= */
+.horizontal-search-bar {
+  background: rgba(18, 24, 38, 0.8);
+  border: 1px solid rgba(229, 185, 126, 0.3);
+  border-radius: 16px;
+  height: 52px;
+  display: flex;
+  align-items: center;
+  padding: 0 18px;
+  gap: 14px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.3);
+}
+
+.horizontal-search-bar:hover,
+.horizontal-search-bar:focus-within {
+  border-color: rgba(229, 185, 126, 0.7);
+  background: rgba(24, 32, 50, 0.9);
+  box-shadow: 0 0 20px rgba(226, 176, 98, 0.25);
+}
+
+.search-leading-icon {
+  font-size: 18px;
+  color: #94a3b8;
+}
+
+.search-bar-input {
+  flex: 1;
+  background: transparent;
+  border: none;
+  outline: none;
+  color: #ffffff;
+  font-size: 14px;
+  font-family: inherit;
+  font-weight: 500;
+}
+
+.search-bar-input::placeholder {
+  color: #64748b;
+  font-size: 13.5px;
+}
+
+.search-mic-icon {
+  font-size: 17px;
+  color: #e2b062;
+  cursor: pointer;
+  padding: 6px;
+  transition: transform 0.2s ease;
+}
+
+.search-mic-icon:hover {
+  transform: scale(1.2);
+  color: #f7dfb8;
+}
+
+/* =============================================================================
+   8 PRIMARY DESTINATION CARDS (2 Rows x 4 Columns Grid)
+   ============================================================================= */
+.primary-nav-grid-8 {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 14px;
+}
+
+.primary-nav-card {
+  background: rgba(18, 25, 38, 0.65);
+  border: 1px solid rgba(229, 185, 126, 0.2);
+  border-radius: 18px;
+  padding: 18px 12px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  color: #ffffff;
+  cursor: pointer;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+  text-align: center;
+  min-height: 120px;
+}
+
+.primary-nav-card:hover,
+.primary-nav-card:active {
+  background: rgba(26, 36, 56, 0.85);
+  border-color: rgba(229, 185, 126, 0.7);
+  transform: translateY(-3px);
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.5), 0 0 20px rgba(226, 176, 98, 0.25);
+}
+
+.nav-card-icon-wrap {
+  width: 44px;
+  height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 8px;
+  color: #e2b062;
+  font-size: 24px;
+}
+
+.custom-p-icon {
+  width: 32px;
+  height: 32px;
+  background: #e2b062;
+  color: #111827;
+  font-weight: 900;
+  font-size: 20px;
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.nav-card-title {
+  font-size: 13.5px;
+  font-weight: 800;
+  letter-spacing: 0.5px;
+  color: #ffffff;
+  margin-bottom: 3px;
+}
+
+.nav-card-subtitle {
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  color: #94a3b8;
+  text-transform: uppercase;
+}
+
+/* =============================================================================
+   RIGHT COLUMN (Highlights & Stay Connected)
+   ============================================================================= */
+.kiosk-right-column {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.highlights-section-title {
+  font-family: 'Cinzel', serif;
+  font-size: 13.5px;
+  font-weight: 800;
+  letter-spacing: 2px;
+  color: #e2b062;
+}
+
+.highlight-card {
+  border-radius: 16px;
+  border: 1px solid rgba(229, 185, 126, 0.2);
+  overflow: hidden;
+  padding: 14px 18px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.35);
+  min-height: 105px;
+}
+
+.highlight-card:hover {
+  transform: translateY(-2px);
+  border-color: rgba(229, 185, 126, 0.6);
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.5);
+}
+
+.highlight-card-text {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.hl-tag {
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 1px;
+  color: #cbd5e1;
+  text-transform: uppercase;
+}
+
+.hl-tag-gold {
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 1.5px;
+  color: #e2b062;
+  text-transform: uppercase;
+}
+
+.hl-sub {
+  font-size: 12.5px;
+  font-weight: 700;
+  color: #ffffff;
+  line-height: 1.2;
+}
+
+.hl-title-serif {
+  font-family: 'Cinzel', serif;
+  font-size: 13.5px;
+  font-weight: 800;
+  color: #ffffff;
+  line-height: 1.15;
+}
+
+.hl-title-bold {
+  font-size: 14px;
+  font-weight: 800;
+  color: #ffffff;
+  line-height: 1.15;
+}
+
+.hl-title-follow {
+  font-family: 'Cinzel', serif;
+  font-size: 15px;
+  font-weight: 800;
+  color: #ffffff;
+  line-height: 1.1;
+}
+
+.hl-sub-small {
+  font-size: 10.5px;
+  color: #94a3b8;
+}
+
+.hl-sub-connected {
+  font-size: 10.5px;
+  color: #cbd5e1;
+  margin-bottom: 6px;
+}
+
+.btn-hl-action {
+  align-self: flex-start;
+  padding: 4px 12px;
+  border-radius: 999px;
+  font-size: 9.5px;
+  font-weight: 800;
+  letter-spacing: 1px;
+  border: none;
+  cursor: pointer;
+  margin-top: 4px;
+}
+
+.purple-btn {
+  background: #7e22ce;
+  color: #ffffff;
+}
+
+.teal-btn {
+  background: #0d9488;
+  color: #ffffff;
+}
+
+.blue-btn {
+  background: #2563eb;
+  color: #ffffff;
+}
+
+.stay-connected-card {
+  background: rgba(18, 25, 38, 0.75);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.social-icons-row {
+  display: flex;
+  gap: 8px;
+}
+
+.social-icon-circle {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: #1e293b;
+  color: #cbd5e1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 11px;
+  text-decoration: none;
+  transition: all 0.2s ease;
+}
+
+.social-icon-circle.instagram:hover { background: #e1306c; color: #fff; }
+.social-icon-circle.facebook:hover { background: #1877f2; color: #fff; }
+.social-icon-circle.whatsapp:hover { background: #25d366; color: #fff; }
+
+.neon-like-icon {
+  font-size: 42px;
+  color: #e2b062;
+  filter: drop-shadow(0 0 12px rgba(226, 176, 98, 0.8));
+}
+
+/* =============================================================================
+   FOOTER (Language, Center Glow Home Button, Help)
+   ============================================================================= */
+.kiosk-horizontal-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 36px 16px 36px;
+  border-top: 1px solid rgba(229, 185, 126, 0.14);
+  position: relative;
+  z-index: 10;
+}
+
+.footer-action-pill {
+  background: rgba(18, 24, 38, 0.85);
+  border: 1px solid rgba(229, 185, 126, 0.3);
+  color: #f7dfb8;
+  padding: 9px 18px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.footer-action-pill:hover {
+  background: rgba(226, 176, 98, 0.15);
+  border-color: #e2b062;
+  transform: translateY(-1px);
+}
+
+.footer-center-home-btn {
+  width: 58px;
+  height: 58px;
+  border-radius: 50%;
+  background: var(--gold-gradient-btn);
+  color: #111827;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  box-shadow: 0 0 24px rgba(226, 176, 98, 0.6), 0 6px 16px rgba(0, 0, 0, 0.4);
+  cursor: pointer;
+  transition: all 0.2s ease;
+  position: relative;
+  top: -6px;
+}
+
+.footer-center-home-btn:hover,
+.footer-center-home-btn.active {
+  transform: scale(1.08);
+  box-shadow: 0 0 32px rgba(226, 176, 98, 0.9), 0 8px 20px rgba(0, 0, 0, 0.5);
+}
+
+.footer-center-home-btn i {
+  font-size: 20px;
+}
+
+.footer-center-home-btn span {
+  font-size: 8.5px;
+  font-weight: 900;
+  letter-spacing: 0.5px;
+  margin-top: 1px;
+}
+
+/* =============================================================================
+   LUXURY DARK MODALS & OVERLAYS
+   ============================================================================= */
+.luxury-dark-box {
+  background: #0f1624;
+  border: 1px solid rgba(229, 185, 126, 0.4);
+  border-radius: 24px;
+  box-shadow: 0 25px 60px rgba(0, 0, 0, 0.9), 0 0 40px rgba(226, 176, 98, 0.15);
+  padding: 28px 32px;
+  color: #ffffff;
+}
+
+.kiosk-modal-header-luxury {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.modal-gold-emblem {
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  background: rgba(226, 176, 98, 0.15);
+  border: 1px solid rgba(229, 185, 126, 0.4);
+  color: #e2b062;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 22px;
+  margin-bottom: 12px;
+}
+
+.modal-title-gold {
+  font-family: 'Cinzel', serif;
+  font-size: 20px;
+  font-weight: 800;
+  color: #ffffff;
+  letter-spacing: 1px;
+  margin-bottom: 6px;
+}
+
+.modal-subtitle-muted {
+  font-size: 12.5px;
+  color: #94a3b8;
+  line-height: 1.4;
+}
+
+.modal-qr-preview-wrap {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  background: rgba(15, 23, 42, 0.6);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 16px;
+  padding: 18px;
+  margin-bottom: 20px;
+}
+
+.qr-code-display-frame {
+  width: 140px;
+  height: 140px;
+  background: #ffffff;
+  border-radius: 12px;
+  padding: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+  flex-shrink: 0;
+}
+
+.qr-svg-graphic {
+  width: 100%;
+  height: 100%;
+}
+
+.qr-step-instructions {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  font-size: 12px;
+  color: #cbd5e1;
+}
+
+.qr-step-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+}
+
+.step-badge {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: #e2b062;
+  color: #111827;
+  font-size: 11px;
+  font-weight: 800;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.modal-actions-luxury {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+}
+
+.btn-modal-gold {
+  background: var(--gold-gradient-btn);
+  color: #111827;
+  border: none;
+  padding: 10px 22px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 0.5px;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  text-decoration: none;
+  transition: all 0.2s ease;
+}
+
+.btn-modal-gold:hover {
+  box-shadow: 0 0 20px rgba(226, 176, 98, 0.5);
+  transform: translateY(-1px);
+}
+
+.btn-modal-dark {
+  background: rgba(30, 41, 59, 0.8);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  color: #cbd5e1;
+  padding: 10px 22px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.btn-modal-dark:hover {
+  background: rgba(51, 65, 85, 0.9);
+  color: #ffffff;
+}
+
+/* Search Overlay */
+.kiosk-search-overlay-box {
+  background: #0d131f;
+  border: 1px solid rgba(229, 185, 126, 0.4);
+  border-radius: 24px;
+  box-shadow: 0 25px 60px rgba(0, 0, 0, 0.9);
+  padding: 24px 28px;
+  width: 100%;
+  max-width: 640px;
+  max-height: 85vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.search-overlay-input-wrap {
+  background: #1e293b;
+  border: 1px solid rgba(229, 185, 126, 0.4);
+  border-radius: 14px;
+  padding: 0 16px;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.search-overlay-input-wrap input {
+  flex: 1;
+  background: transparent;
+  border: none;
+  outline: none;
+  color: #ffffff;
+  font-size: 14px;
+}
+
+.btn-clear-search {
+  background: transparent;
+  border: none;
+  color: #94a3b8;
+  cursor: pointer;
+}
+
+.search-quick-tags-row {
+  display: flex;
+  gap: 8px;
+  margin: 14px 0;
+  overflow-x: auto;
+}
+
+.search-tag-pill {
+  background: #1e293b;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: #94a3b8;
+  padding: 5px 12px;
+  border-radius: 999px;
+  font-size: 11px;
+  font-weight: 700;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.search-tag-pill.active,
+.search-tag-pill:hover {
+  background: rgba(226, 176, 98, 0.2);
+  border-color: #e2b062;
+  color: #f7dfb8;
+}
+
+.search-results-container {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  max-height: 320px;
+  overflow-y: auto;
+}
+
+.search-res-item {
+  background: #161f30;
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 12px;
+  padding: 10px 14px;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.search-res-item:hover {
+  background: #1e2b42;
+  border-color: rgba(229, 185, 126, 0.4);
+}
+
+.res-item-icon {
+  width: 36px;
+  height: 36px;
+  border-radius: 8px;
+  background: rgba(226, 176, 98, 0.15);
+  color: #e2b062;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+}
+
+.res-item-meta {
+  flex: 1;
+}
+
+.res-item-title {
+  font-size: 13px;
+  font-weight: 700;
+  color: #ffffff;
+}
+
+.res-item-desc {
+  font-size: 11px;
+  color: #94a3b8;
+}
+
+.btn-res-guide {
+  background: #2563eb;
+  color: #ffffff;
+  border: none;
+  padding: 5px 12px;
+  border-radius: 6px;
+  font-size: 11px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+/* Language Selection Grid */
+.language-options-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin-bottom: 20px;
+}
+
+.lang-select-card {
+  background: #161f30;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 14px;
+  padding: 14px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  cursor: pointer;
+  color: #ffffff;
+  transition: all 0.2s ease;
+}
+
+.lang-select-card.active,
+.lang-select-card:hover {
+  background: rgba(226, 176, 98, 0.15);
+  border-color: #e2b062;
+  box-shadow: 0 0 16px rgba(226, 176, 98, 0.25);
+}
+
+.lang-native {
+  font-size: 14px;
+  font-weight: 800;
+  color: #f7dfb8;
+}
+
+.lang-en {
+  font-size: 11px;
+  color: #94a3b8;
+}
+
+/* Help & Assistance */
+.help-info-cards-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.help-contact-row {
+  background: #161f30;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 12px;
+  padding: 12px 16px;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.help-icon {
+  width: 36px;
+  height: 36px;
+  border-radius: 8px;
+  background: rgba(226, 176, 98, 0.15);
+  color: #e2b062;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+}
+
+.help-title {
+  font-size: 12.5px;
+  font-weight: 700;
+  color: #ffffff;
+}
+
+.help-value {
+  font-size: 11.5px;
+  color: #94a3b8;
+}
+
+/* Parking Slots Grid */
+.parking-slots-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin-bottom: 20px;
+}
+
+.parking-bay-card {
+  background: #161f30;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 14px;
+  padding: 14px;
+}
+
+.bay-level {
+  font-size: 11.5px;
+  font-weight: 700;
+  color: #cbd5e1;
+  margin-bottom: 4px;
+}
+
+.bay-count {
+  font-size: 18px;
+  font-weight: 900;
+}
+
+.bay-count.available {
+  color: #10b981;
+}
+
+.bay-count.ev-color {
+  color: #06b6d4;
+}
+
+.bay-status {
+  font-size: 10.5px;
+  color: #94a3b8;
+  margin-top: 2px;
+}
+
+/* Services Amenities Grid */
+.services-amenities-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+  margin-bottom: 20px;
+}
+
+.amenity-item-card {
+  background: #161f30;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 14px;
+  padding: 16px 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  color: #ffffff;
+  text-align: center;
+}
+
+.amenity-item-card:hover {
+  background: rgba(226, 176, 98, 0.15);
+  border-color: #e2b062;
+  transform: translateY(-2px);
+}
+
+.amenity-item-card i {
+  font-size: 22px;
+  color: #e2b062;
+}
+
+.amenity-item-card span {
+  font-size: 11.5px;
+  font-weight: 700;
+}
+
+/* Voice animation */
+.voice-wave-animation {
+  width: 70px;
+  height: 70px;
+  border-radius: 50%;
+  background: rgba(226, 176, 98, 0.2);
+  border: 2px solid #e2b062;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 28px;
+  color: #e2b062;
+  animation: pulse-sun 1.5s infinite;
+}
+
+  </style>
+  <style id="kiosk-map-specific-css">
+    /* =========================================================================
+       MALL MAP & NAVIGATION (DOMAIN 08) SPECIFIC STYLING
+       ========================================================================= */
+    .map-top-header-row {
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      margin-bottom: 10px;
+      padding: 0 4px;
+    }
+
+    .map-main-title {
+      font-family: 'Cinzel', serif;
+      font-size: 22px;
+      font-weight: 800;
+      color: #ffffff;
+      margin: 0 0 2px 0;
+      letter-spacing: 1px;
+    }
+
+    .map-subtitle {
+      font-size: 11.5px;
+      color: #94a3b8;
+      margin: 0;
+    }
+
+    .map-search-wrap {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .map-search-box {
+      background: rgba(18, 24, 38, 0.85);
+      border: 1px solid rgba(229, 185, 126, 0.3);
+      border-radius: 999px;
+      height: 40px;
+      width: 320px;
+      display: flex;
+      align-items: center;
+      padding: 0 18px;
+      gap: 10px;
+      transition: all 0.2s ease;
+    }
+    .map-search-box:focus-within {
+      border-color: #e2b062;
+      box-shadow: 0 0 16px rgba(226, 176, 98, 0.25);
+    }
+    .map-search-input {
+      flex: 1;
+      background: transparent;
+      border: none;
+      outline: none;
+      color: #ffffff;
+      font-size: 13px;
+      font-family: inherit;
+    }
+
+    /* 3-Column Architecture */
+    .map-workspace-3col {
+      display: grid;
+      grid-template-columns: 190px 1fr 310px;
+      gap: 14px;
+      align-items: stretch;
+      flex: 1;
+    }
+
+    /* Left Column: Floor Selector & Legend */
+    .map-left-sidebar {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .floor-selector-panel {
+      background: rgba(18, 25, 38, 0.75);
+      border: 1px solid rgba(229, 185, 126, 0.25);
+      border-radius: 14px;
+      padding: 10px 12px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+    .panel-section-label {
+      font-size: 10.5px;
+      font-weight: 800;
+      color: #e2b062;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+      margin-bottom: 2px;
+    }
+
+    .floor-btn-card {
+      background: rgba(14, 20, 32, 0.85);
+      border: 1px solid rgba(229, 185, 126, 0.2);
+      border-radius: 10px;
+      padding: 7px 10px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      cursor: pointer;
+      color: #cbd5e1;
+      transition: all 0.2s ease;
+    }
+    .floor-btn-card:hover {
+      border-color: #e2b062;
+      color: #fff;
+    }
+    .floor-btn-card.active {
+      background: var(--gold-gradient-btn);
+      border-color: #e2b062;
+      color: #111827;
+      font-weight: 800;
+      box-shadow: 0 0 14px rgba(226, 176, 98, 0.35);
+    }
+    .floor-badge-sq {
+      width: 28px;
+      height: 28px;
+      border-radius: 6px;
+      background: #111827;
+      border: 1px solid rgba(229, 185, 126, 0.4);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 11px;
+      font-weight: 900;
+      color: #e2b062;
+    }
+    .floor-btn-card.active .floor-badge-sq {
+      background: #111827;
+      color: #e2b062;
+    }
+
+    /* Map Legend Panel */
+    .map-legend-panel {
+      background: rgba(18, 25, 38, 0.75);
+      border: 1px solid rgba(229, 185, 126, 0.25);
+      border-radius: 14px;
+      padding: 10px 12px;
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+      flex: 1;
+    }
+    .legend-item-row {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 10.5px;
+      color: #cbd5e1;
+    }
+    .legend-item-row i {
+      font-size: 11px;
+      width: 16px;
+      text-align: center;
+    }
+
+    /* Center Column: Interactive Map Canvas */
+    .map-center-viewport {
+      background: rgba(10, 14, 22, 0.9);
+      border: 1px solid rgba(229, 185, 126, 0.35);
+      border-radius: 18px;
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: inset 0 0 40px rgba(0, 0, 0, 0.6);
+    }
+
+    .mall-map-art-container {
+      width: 100%;
+      height: 100%;
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: transform 0.3s ease;
+    }
+
+    .mall-floorplan-img {
+      max-width: 96%;
+      max-height: 94%;
+      object-fit: contain;
+      filter: drop-shadow(0 15px 30px rgba(0,0,0,0.8));
+    }
+
+    /* Map Controls (Zoom & Recenter) */
+    .map-floating-controls {
+      position: absolute;
+      right: 14px;
+      top: 50%;
+      transform: translateY(-50%);
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      z-index: 10;
+    }
+    .btn-map-control-circle {
+      width: 34px;
+      height: 34px;
+      border-radius: 50%;
+      background: rgba(18, 25, 38, 0.85);
+      border: 1px solid rgba(229, 185, 126, 0.3);
+      color: #e2b062;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 13px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+    .btn-map-control-circle:hover {
+      background: #e2b062;
+      color: #111827;
+      box-shadow: 0 0 12px rgba(226, 176, 98, 0.4);
+    }
+
+    .map-compass-rose {
+      position: absolute;
+      top: 14px;
+      right: 14px;
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      border: 1px solid rgba(229, 185, 126, 0.4);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      color: #e2b062;
+      font-size: 10px;
+      font-weight: 900;
+      background: rgba(14, 20, 32, 0.6);
+      z-index: 10;
+    }
+
+    /* Map Pins Overlay */
+    .map-pin-hotspot {
+      position: absolute;
+      transform: translate(-50%, -50%);
+      cursor: pointer;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      z-index: 5;
+      transition: all 0.2s ease;
+    }
+    .map-pin-hotspot:hover {
+      transform: translate(-50%, -50%) scale(1.2);
+      z-index: 20;
+    }
+    .map-pin-hotspot.active {
+      transform: translate(-50%, -50%) scale(1.25);
+      z-index: 25;
+    }
+
+    .pin-circle-icon {
+      width: 26px;
+      height: 26px;
+      border-radius: 50%;
+      background: #111827;
+      border: 1.5px solid #e2b062;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #e2b062;
+      font-size: 11px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.6);
+    }
+    .pin-label-text {
+      background: rgba(15, 23, 42, 0.9);
+      border: 1px solid rgba(229, 185, 126, 0.3);
+      color: #ffffff;
+      font-size: 9px;
+      font-weight: 800;
+      padding: 2px 6px;
+      border-radius: 4px;
+      margin-top: 2px;
+      white-space: nowrap;
+    }
+
+    .you-are-here-pin {
+      position: absolute;
+      top: 48%;
+      left: 36%;
+      transform: translate(-50%, -50%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      z-index: 15;
+    }
+    .you-are-here-beacon {
+      width: 14px;
+      height: 14px;
+      border-radius: 50%;
+      background: #ef4444;
+      border: 2px solid #ffffff;
+      box-shadow: 0 0 15px #ef4444;
+      animation: pulseBeacon 1.5s infinite;
+    }
+    @keyframes pulseBeacon {
+      0% { box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.7); }
+      70% { box-shadow: 0 0 0 14px rgba(239, 68, 68, 0); }
+      100% { box-shadow: 0 0 0 0 rgba(239, 68, 68, 0); }
+    }
+    .you-are-here-label {
+      background: #ef4444;
+      color: #ffffff;
+      font-size: 8.5px;
+      font-weight: 900;
+      padding: 1px 6px;
+      border-radius: 4px;
+      margin-top: 3px;
+      letter-spacing: 0.5px;
+      white-space: nowrap;
+    }
+
+    /* Route Line SVG */
+    .route-svg-canvas {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 8;
+    }
+    .route-path-line {
+      stroke: #e2b062;
+      stroke-width: 4;
+      stroke-dasharray: 8, 6;
+      stroke-linecap: round;
+      fill: none;
+      animation: dashWalk 1s linear infinite;
+    }
+    @keyframes dashWalk {
+      to { stroke-dashoffset: -28; }
+    }
+
+    /* Right Column: Selected Destination, Quick Categories & Recent Searches */
+    .map-right-panel {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .selected-destination-box {
+      background: rgba(18, 25, 38, 0.8);
+      border: 1px solid rgba(229, 185, 126, 0.35);
+      border-radius: 14px;
+      padding: 12px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .selected-dest-header {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .selected-dest-logo {
+      width: 38px;
+      height: 38px;
+      border-radius: 8px;
+      background: #111827;
+      border: 1px solid rgba(229, 185, 126, 0.4);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #e2b062;
+      font-weight: 900;
+      font-size: 11px;
+      text-align: center;
+      flex-shrink: 0;
+    }
+    .btn-get-directions-gold {
+      background: var(--gold-gradient-btn);
+      color: #111827;
+      border: none;
+      border-radius: 8px;
+      padding: 8px;
+      font-size: 11.5px;
+      font-weight: 800;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      width: 100%;
+      transition: all 0.2s ease;
+    }
+    .btn-get-directions-gold:hover {
+      box-shadow: 0 0 14px rgba(226, 176, 98, 0.4);
+    }
+
+    /* Quick Categories Card */
+    .quick-categories-card {
+      background: rgba(18, 25, 38, 0.8);
+      border: 1px solid rgba(229, 185, 126, 0.25);
+      border-radius: 14px;
+      padding: 10px 12px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .quick-cats-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 6px;
+    }
+    .quick-cat-item-btn {
+      background: rgba(14, 20, 32, 0.85);
+      border: 1px solid rgba(229, 185, 126, 0.2);
+      border-radius: 8px;
+      padding: 6px 8px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      cursor: pointer;
+      color: #cbd5e1;
+      font-size: 10.5px;
+      font-weight: 700;
+      transition: all 0.2s ease;
+    }
+    .quick-cat-item-btn:hover {
+      border-color: #e2b062;
+      color: #fff;
+    }
+    .quick-cat-item-btn i {
+      color: #e2b062;
+      font-size: 11px;
+      width: 14px;
+      text-align: center;
+    }
+
+    /* Recent Searches Card */
+    .recent-searches-card {
+      background: rgba(18, 25, 38, 0.8);
+      border: 1px solid rgba(229, 185, 126, 0.25);
+      border-radius: 14px;
+      padding: 10px 12px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      flex: 1;
+    }
+    .recent-search-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-size: 11px;
+      color: #cbd5e1;
+      padding: 3px 0;
+      cursor: pointer;
+    }
+    .recent-search-row:hover {
+      color: #e2b062;
+    }
+    .recent-search-left {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .recent-search-left i {
+      color: #64748b;
+      font-size: 10px;
+    }
+
+    /* Bottom How to Navigate Guidance */
+    .how-to-navigate-row {
+      background: rgba(18, 25, 38, 0.75);
+      border: 1px solid rgba(229, 185, 126, 0.25);
+      border-radius: 12px;
+      padding: 8px 16px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      margin-top: 10px;
+    }
+    .how-to-step-item {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 11px;
+      color: #cbd5e1;
+      font-weight: 600;
+    }
+    .how-to-step-item i {
+      color: #e2b062;
+      font-size: 12px;
+    }
+  </style>
 </head>
-<body>
+<body class="horizontal-kiosk-body">
 
-  <!-- Kiosk Viewport Wrapper -->
-  <div class="kiosk-viewport-wrapper">
-    <div class="kiosk-frame">
-      <div class="kiosk-screen">
+  <div class="horizontal-kiosk-wrapper">
+    <div class="kiosk-horizontal-screen">
 
-        <!-- Top Header -->
-        <header class="kiosk-header">
-          <!-- Back to Home Left -->
-          <div class="kiosk-header-left">
-            <a href="home.html" class="btn-back-home">
-              <i class="fa-solid fa-arrow-left"></i>
-              <span>BACK TO HOME</span>
-            </a>
+      <!-- =====================================================================
+           1. KIOSK HEADER
+           ===================================================================== -->
+      <header class="kiosk-horizontal-header">
+        <!-- Back Button & Weather Left -->
+        <div style="display:flex;align-items:center;gap:14px;">
+          <a href="home.html" class="btn-header-back" id="btnHeaderBack">
+            <i class="fa-solid fa-arrow-left"></i>
+            <span>Back</span>
+          </a>
+          <div class="header-weather-box" id="headerWeather">
+            <i class="fa-solid fa-sun weather-sun-icon"></i>
+            <div class="weather-meta">
+              <span class="weather-temp">28°C</span>
+              <span class="weather-label">Sunny</span>
+            </div>
           </div>
+        </div>
 
-          <!-- Brand Logo Center -->
-          <a href="home.html" class="kiosk-brand">
-            <svg class="brand-emblem-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+        <!-- Grand Metro Mall Emblem & Logo Center -->
+        <a href="home.html" class="kiosk-mall-logo-center" title="Grand Metro Mall">
+          <div class="mall-emblem-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" style="width:28px;height:28px;color:#e2b062;display:block;">
               <path d="M4 21V9l8-6 8 6v12H4z" />
               <path d="M9 21V12h6v9" />
               <path d="M12 3v4" />
             </svg>
-            <div class="brand-name-grand">GRAND</div>
-            <div class="brand-name-sub">METRO MALL</div>
-          </a>
-
-          <!-- Clock Right -->
-          <div class="kiosk-header-right">
-            <span class="kiosk-time" id="kioskLiveTime">04:25 PM</span>
-            <span class="kiosk-date" id="kioskLiveDate">Tue, 20 May 2025</span>
           </div>
-        </header>
+          <div class="mall-title-grand">GRAND</div>
+          <div class="mall-title-sub">METRO MALL</div>
+          <div class="mall-tagline">CELEBRATE EVERYDAY</div>
+        </a>
 
-        <!-- Main Content Area -->
-        <main class="kiosk-main-content">
+        <!-- Right Header: Time/Date & Scan to Explore -->
+        <div class="header-right-box">
+          <div class="header-time-date">
+            <div class="header-time" id="kioskLiveTime">04:02 PM</div>
+            <div class="header-date" id="kioskLiveDate">Sun, 30 Aug 2026</div>
+          </div>
 
-          <!-- Page Header & Floor Selector Row -->
-          <div style="display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:6px;">
-            <div>
-              <h1 style="font-family:'Cinzel',serif;font-size:26px;font-weight:700;letter-spacing:2px;color:#ffffff;line-height:1.1;">MALL MAP</h1>
-              <p style="font-size:12.5px;color:var(--text-muted);margin-top:2px;">Find stores, services and more</p>
-              
-              <!-- Floor Pills -->
-              <div class="kiosk-segmented-tabs" style="margin:12px 0 0 0;">
-                <button class="kiosk-segmented-btn active" onclick="selectMapFloor(this, 'Ground Floor')">GROUND FLOOR</button>
-                <button class="kiosk-segmented-btn" onclick="selectMapFloor(this, 'First Floor')">FIRST FLOOR</button>
-                <button class="kiosk-segmented-btn" onclick="selectMapFloor(this, 'Second Floor')">SECOND FLOOR</button>
-              </div>
+          <button class="btn-scan-explore" onclick="openKioskModal('scanExploreModal')" id="btnScanToExplore">
+            <span>Scan to Explore</span>
+            <i class="fa-solid fa-qrcode"></i>
+          </button>
+        </div>
+      </header>
+
+      <!-- =====================================================================
+           2. MAIN MALL MAP WORKSPACE
+           ===================================================================== -->
+      <main class="kiosk-horizontal-main" style="display:flex;flex-direction:column;padding:10px 24px 12px 24px;">
+
+        <!-- Top Title Bar & Search -->
+        <div class="map-top-header-row">
+          <div>
+            <h1 class="map-main-title">MALL MAP & NAVIGATION</h1>
+            <p class="map-subtitle">Find stores, services and amenities across the mall</p>
+          </div>
+
+          <div class="map-search-wrap">
+            <div class="map-search-box">
+              <i class="fa-solid fa-magnifying-glass" style="color:#e2b062;font-size:14px;"></i>
+              <input 
+                type="text" 
+                class="map-search-input" 
+                id="mapSearchInput" 
+                placeholder="Search stores, restaurants, services..." 
+                onkeyup="handleMapSearch()"
+                autocomplete="off"
+              >
             </div>
+            <button class="btn-open-filters" style="height:40px;padding:0 16px;" onclick="openKioskModal('mapFilterModal')" id="btnMapFilters">
+              <i class="fa-solid fa-sliders" style="color:#e2b062;"></i>
+              <span>Filters</span>
+            </button>
+          </div>
+        </div>
 
-            <!-- Search & Filter Controls -->
-            <div style="display:flex;gap:10px;align-items:center;">
-              <div style="position:relative;width:240px;">
-                <input 
-                  type="text" 
-                  class="kiosk-search-input-box" 
-                  placeholder="Search for stores..." 
-                  style="padding:10px 38px 10px 18px;font-size:13px;"
-                  id="mapStoreSearch"
-                  oninput="filterMapStores(this.value)"
-                >
-                <i class="fa-solid fa-magnifying-glass" style="position:absolute;right:14px;top:50%;transform:translateY(-50%);color:#64748b;font-size:13px;"></i>
-              </div>
-              <button class="btn-back-home" style="border-radius:999px;padding:10px 18px;" onclick="openKioskModal('filtersModal')">
-                <i class="fa-solid fa-sliders"></i>
-                <span>FILTERS</span>
+        <!-- 3-Column Workspace -->
+        <div class="map-workspace-3col">
+          
+          <!-- LEFT COLUMN: Floor Selector & Legend -->
+          <aside class="map-left-sidebar">
+            
+            <div class="floor-selector-panel">
+              <div class="panel-section-label">Select Floor</div>
+              <button class="floor-btn-card active" onclick="selectMapFloor('GF', this)" id="floorGF">
+                <div class="floor-badge-sq">GF</div>
+                <span style="font-size:11.5px;font-weight:700;">Ground Floor</span>
+              </button>
+
+              <button class="floor-btn-card" onclick="selectMapFloor('F1', this)" id="floorF1">
+                <div class="floor-badge-sq">F1</div>
+                <span style="font-size:11.5px;font-weight:700;">First Floor</span>
+              </button>
+
+              <button class="floor-btn-card" onclick="selectMapFloor('F2', this)" id="floorF2">
+                <div class="floor-badge-sq">F2</div>
+                <span style="font-size:11.5px;font-weight:700;">Second Floor</span>
+              </button>
+
+              <button class="floor-btn-card" onclick="selectMapFloor('ALL', this)" id="floorAll">
+                <div class="floor-badge-sq"><i class="fa-solid fa-layer-group" style="font-size:11px;"></i></div>
+                <span style="font-size:11.5px;font-weight:700;">All Floors</span>
               </button>
             </div>
-          </div>
 
-          <!-- 2-Column Map Layout -->
-          <div class="map-layout-grid">
-
-            <!-- 1. Interactive Map Viewport -->
-            <div class="map-viewport-card">
-              <!-- Floating Zoom Controls -->
-              <div class="map-floating-zoom-bar">
-                <button class="map-zoom-btn" onclick="zoomMap(1)" title="Zoom In"><i class="fa-solid fa-plus"></i></button>
-                <button class="map-zoom-btn" onclick="zoomMap(-1)" title="Zoom Out"><i class="fa-solid fa-minus"></i></button>
-                <button class="map-zoom-btn" onclick="resetMap()" title="Reset View"><i class="fa-solid fa-rotate-right"></i></button>
-              </div>
-
-              <!-- Map Visual Canvas -->
-              <div class="map-interactive-canvas-wrap" id="mapCanvasWrap" style="width:100%;height:100%;min-height:500px;display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden;border-radius:18px;background:#060a12;">
-                <!-- Using high-resolution interactive kiosk floorplan asset -->
-                <img src="../images/kiosk_floor_map_01.png" alt="Grand Metro Mall Interactive Floor Map" class="floor-plan-img" id="mallFloorMapImg" style="width:100%;height:100%;max-height:510px;object-fit:contain;transition:transform 0.3s ease;border-radius:14px;">
-                
-                <!-- Animated Beacon Pin on Selected Store (ZARA / Active Store) -->
-                <div id="activeStorePin" style="position:absolute;top:20%;left:22%;cursor:pointer;z-index:15;transition:all 0.3s ease;" onclick="selectStore('ZARA')">
-                  <div style="position:relative;display:flex;flex-direction:column;align-items:center;">
-                    <div style="background:#ef4444;color:#fff;width:34px;height:34px;border-radius:50% 50% 50% 0;transform:rotate(-45deg);display:flex;align-items:center;justify-content:center;box-shadow:0 0 20px rgba(239, 68, 68, 0.9);border:2px solid #ffffff;animation:bounce-pin 2s infinite;">
-                      <i class="fa-solid fa-location-dot" style="transform:rotate(45deg);font-size:14px;"></i>
-                    </div>
-                    <div style="width:14px;height:6px;background:rgba(0,0,0,0.6);border-radius:50%;filter:blur(2px);margin-top:2px;"></div>
-                  </div>
-                </div>
-
-                <!-- Clickable Interactive Hotspots on Map -->
-                <!-- ZARA Hotspot -->
-                <div style="position:absolute;top:10%;left:16%;width:18%;height:22%;cursor:pointer;border-radius:12px;z-index:10;" onclick="selectStore('ZARA')" title="ZARA"></div>
-                <!-- H&M Hotspot -->
-                <div style="position:absolute;top:10%;right:10%;width:20%;height:22%;cursor:pointer;border-radius:12px;z-index:10;" onclick="selectStore('H&M')" title="H&M"></div>
-                <!-- Lifestyle Hotspot -->
-                <div style="position:absolute;bottom:15%;left:16%;width:22%;height:25%;cursor:pointer;border-radius:12px;z-index:10;" onclick="selectStore('Lifestyle')" title="Lifestyle"></div>
-                <!-- PVR Cinemas Hotspot -->
-                <div style="position:absolute;bottom:15%;right:12%;width:22%;height:25%;cursor:pointer;border-radius:12px;z-index:10;" onclick="selectStore('PVR Cinemas')" title="PVR Cinemas"></div>
-                <!-- Food Court Hotspot -->
-                <div style="position:absolute;top:38%;left:36%;width:28%;height:18%;cursor:pointer;border-radius:12px;z-index:10;" onclick="selectStore('Food Court')" title="Food Court"></div>
-              </div>
-
-              <!-- Category Legend -->
-              <div class="map-category-legend-bar">
-                <div class="legend-item"><span class="legend-dot" style="background:#06b6d4;"></span> Fashion</div>
-                <div class="legend-item"><span class="legend-dot" style="background:#8b5cf6;"></span> Lifestyle</div>
-                <div class="legend-item"><span class="legend-dot" style="background:#3b82f6;"></span> Electronics</div>
-                <div class="legend-item"><span class="legend-dot" style="background:#eab308;"></span> Food & Dining</div>
-                <div class="legend-item"><span class="legend-dot" style="background:#10b981;"></span> Services</div>
-                <div class="legend-item"><span class="legend-dot" style="background:#14b8a6;"></span> Entertainment</div>
-              </div>
+            <!-- Map Legend Panel -->
+            <div class="map-legend-panel">
+              <div class="panel-section-label">Map Legend</div>
+              <div class="legend-item-row"><i class="fa-solid fa-bag-shopping" style="color:#38bdf8;"></i><span>Stores</span></div>
+              <div class="legend-item-row"><i class="fa-solid fa-utensils" style="color:#fb923c;"></i><span>Food & Dining</span></div>
+              <div class="legend-item-row"><i class="fa-solid fa-bell-concierge" style="color:#facc15;"></i><span>Services</span></div>
+              <div class="legend-item-row"><i class="fa-solid fa-ticket" style="color:#c084fc;"></i><span>Events & Entertainment</span></div>
+              <div class="legend-item-row"><i class="fa-solid fa-restroom" style="color:#e879f9;"></i><span>Restrooms</span></div>
+              <div class="legend-item-row"><i class="fa-solid fa-bolt" style="color:#2dd4bf;"></i><span>Escalator</span></div>
+              <div class="legend-item-row"><i class="fa-solid fa-elevator" style="color:#60a5fa;"></i><span>Elevator</span></div>
+              <div class="legend-item-row"><i class="fa-solid fa-square-parking" style="color:#818cf8;"></i><span>Parking</span></div>
+              <div class="legend-item-row"><i class="fa-solid fa-location-dot" style="color:#ef4444;"></i><span>You Are Here</span></div>
             </div>
 
-            <!-- 2. Store Detail Card -->
-            <div class="store-detail-card" id="storeDetailPanel">
+          </aside>
+
+          <!-- CENTER COLUMN: Interactive Mall Map Canvas -->
+          <section class="map-center-viewport" id="mapCenterViewport">
+            
+            <div class="map-compass-rose">
+              <span>N</span>
+              <i class="fa-solid fa-location-arrow" style="font-size:11px;transform:rotate(-45deg);"></i>
+            </div>
+
+            <!-- Floating Controls -->
+            <div class="map-floating-controls">
+              <button class="btn-map-control-circle" onclick="zoomMap(1.15)" title="Zoom In" id="btnZoomIn"><i class="fa-solid fa-plus"></i></button>
+              <button class="btn-map-control-circle" onclick="zoomMap(0.85)" title="Zoom Out" id="btnZoomOut"><i class="fa-solid fa-minus"></i></button>
+              <button class="btn-map-control-circle" onclick="recenterMap()" title="Recenter Map" id="btnRecenter"><i class="fa-solid fa-crosshairs"></i></button>
+            </div>
+
+            <div class="mall-map-art-container" id="mapArtContainer">
+              <img src="../images/floor-map.png" alt="Mall Floor Plan" class="mall-floorplan-img" id="floorPlanImg">
+              
+              <!-- You Are Here Red Pin -->
+              <div class="you-are-here-pin" id="youAreHerePin">
+                <div class="you-are-here-beacon"></div>
+                <div class="you-are-here-label">You Are Here</div>
+              </div>
+
+              <!-- Hotspot Pins Overlay -->
+              <div class="map-pin-hotspot active" style="top:75%;left:75%;" onclick="selectMapDestination('pvr')" id="pinPVR">
+                <div class="pin-circle-icon"><i class="fa-solid fa-film"></i></div>
+                <div class="pin-label-text">PVR Cinemas</div>
+              </div>
+
+              <div class="map-pin-hotspot" style="top:22%;left:22%;" onclick="selectMapDestination('zara')" id="pinZARA">
+                <div class="pin-circle-icon"><i class="fa-solid fa-bag-shopping"></i></div>
+                <div class="pin-label-text">ZARA</div>
+              </div>
+
+              <div class="map-pin-hotspot" style="top:20%;left:78%;" onclick="selectMapDestination('hm')" id="pinHM">
+                <div class="pin-circle-icon"><i class="fa-solid fa-bag-shopping"></i></div>
+                <div class="pin-label-text">H&M</div>
+              </div>
+
+              <div class="map-pin-hotspot" style="top:74%;left:20%;" onclick="selectMapDestination('lifestyle')" id="pinLifestyle">
+                <div class="pin-circle-icon"><i class="fa-solid fa-bag-shopping"></i></div>
+                <div class="pin-label-text">Lifestyle</div>
+              </div>
+
+              <div class="map-pin-hotspot" style="top:48%;left:50%;" onclick="selectMapDestination('foodcourt')" id="pinFoodCourt">
+                <div class="pin-circle-icon" style="color:#fb923c;"><i class="fa-solid fa-utensils"></i></div>
+                <div class="pin-label-text">Food Court</div>
+              </div>
+
+              <!-- Route Line Canvas -->
+              <svg class="route-svg-canvas" id="routeSvgCanvas" style="display:none;">
+                <path class="route-path-line" id="routePathLine" d="M 360 240 Q 520 280, 750 380" />
+              </svg>
+            </div>
+
+          </section>
+
+          <!-- RIGHT COLUMN: Selected Destination & Quick Categories -->
+          <aside class="map-right-panel">
+            
+            <!-- Selected Destination Card -->
+            <div class="selected-destination-box" id="selectedDestinationBox">
+              <div class="panel-section-label">Selected Destination</div>
+              
+              <div class="selected-dest-header">
+                <div class="selected-dest-logo" id="destLogo">PVR</div>
+                <div style="flex:1;">
+                  <div style="font-size:13.5px;font-weight:800;color:#fff;" id="destName">PVR Cinemas</div>
+                  <div style="font-size:10px;color:#94a3b8;" id="destCategory">Entertainment · Multiplex</div>
+                  <div style="font-size:10px;color:#e2b062;margin-top:2px;" id="destLoc"><i class="fa-solid fa-location-dot"></i> Ground Floor, Near Central Court</div>
+                  <div style="font-size:9.5px;color:#10b981;font-weight:700;margin-top:1px;" id="destHours">Open: 10:00 AM – 11:00 PM</div>
+                </div>
+              </div>
+
+              <button class="btn-get-directions-gold" onclick="startMapNavigation()" id="btnGetDirections">
+                <span>Get Directions</span>
+                <i class="fa-solid fa-chevron-right" style="font-size:10px;"></i>
+              </button>
+            </div>
+
+            <!-- Quick Categories Card -->
+            <div class="quick-categories-card">
               <div style="display:flex;align-items:center;justify-content:space-between;">
-                <button class="footer-nav-btn" style="color:var(--gold-400);font-size:11px;" onclick="resetStoreSelection()">
-                  <i class="fa-solid fa-arrow-left"></i>
-                  <span>BACK TO MAP</span>
-                </button>
-                <span class="badge-new-arrival" style="margin:0;font-size:9px;color:var(--gold-300);border-color:var(--gold-400);">G-23</span>
+                <div class="panel-section-label">Quick Categories</div>
+                <span style="font-size:10px;color:#e2b062;font-weight:700;cursor:pointer;" onclick="selectQuickCategory('all')">View All</span>
               </div>
 
-              <!-- Store Banner Photo -->
-              <div style="position:relative;border-radius:16px;overflow:hidden;height:170px;box-shadow:0 10px 25px rgba(0,0,0,0.5);">
-                <!-- Visual fashion store storefront banner -->
-                <div style="width:100%;height:100%;background:linear-gradient(135deg, #1e293b, #0f172a);display:flex;align-items:center;justify-content:center;position:relative;background-image:radial-gradient(#334155 1px, transparent 1px);background-size:16px 16px;">
-                  <div style="text-align:center;padding:20px;background:rgba(0,0,0,0.6);border-radius:14px;backdrop-filter:blur(8px);border:1px solid rgba(255,255,255,0.1);">
-                    <div style="font-family:'Cinzel',serif;font-size:24px;font-weight:800;letter-spacing:3px;color:#ffffff;margin-bottom:4px;">TRENDS</div>
-                    <div style="font-size:11px;color:var(--gold-300);letter-spacing:2px;font-weight:700;">SALE 50% OFF</div>
-                  </div>
-                </div>
-              </div>
-
-              <div>
-                <h2 class="store-heading-title" id="storeNameText">TRENDS</h2>
-                <div class="store-category-tag" id="storeCategoryText">FASHION</div>
-                <div class="store-location-text" style="margin-top:6px;">
-                  <div style="color:#ffffff;font-weight:600;" id="storeLocationPrimary">Ground Floor | Shop G-23</div>
-                  <div style="color:var(--text-muted);font-size:12px;margin-top:2px;">Near Main Atrium, Next to Lifestyle</div>
-                </div>
-              </div>
-
-              <!-- Action CTAs -->
-              <div style="display:flex;flex-direction:column;gap:10px;">
-                <button class="btn-get-directions" onclick="openKioskModal('directionsModal')">
-                  <i class="fa-solid fa-diamond-turn-right"></i>
-                  <span>GET DIRECTIONS</span>
-                </button>
-                <button class="btn-view-store-details" onclick="openKioskModal('storeInfoModal')">
-                  VIEW STORE DETAILS
-                </button>
-              </div>
-
-              <!-- Store Services Badges -->
-              <div>
-                <div style="font-size:10px;font-weight:700;color:var(--gold-400);letter-spacing:1px;text-transform:uppercase;margin-bottom:8px;">STORE SERVICES</div>
-                <div class="store-services-grid">
-                  <div class="service-icon-tile">
-                    <i class="fa-solid fa-shirt"></i>
-                    <span class="service-label">TRIAL ROOM</span>
-                  </div>
-                  <div class="service-icon-tile">
-                    <i class="fa-solid fa-head-side-mask"></i>
-                    <span class="service-label">MASK OPTIONAL</span>
-                  </div>
-                  <div class="service-icon-tile">
-                    <i class="fa-solid fa-credit-card"></i>
-                    <span class="service-label">ACCEPTS CARDS</span>
-                  </div>
-                  <div class="service-icon-tile">
-                    <i class="fa-solid fa-rotate-left"></i>
-                    <span class="service-label">RETURNS</span>
-                  </div>
-                </div>
-              </div>
-
-              <!-- Operating Hours -->
-              <div style="border-top:1px solid rgba(255,255,255,0.08);padding-top:12px;display:flex;justify-content:space-between;align-items:center;">
-                <span style="font-size:11px;color:var(--text-muted);font-weight:700;letter-spacing:0.8px;">HOURS</span>
-                <span style="font-size:12px;color:#ffffff;font-weight:700;">10:00 AM – 10:00 PM</span>
+              <div class="quick-cats-grid">
+                <button class="quick-cat-item-btn" onclick="selectQuickCategory('stores')" id="quickCatStores"><i class="fa-solid fa-bag-shopping"></i><span>Stores</span></button>
+                <button class="quick-cat-item-btn" onclick="selectQuickCategory('food')" id="quickCatFood"><i class="fa-solid fa-utensils"></i><span>Food & Dining</span></button>
+                <button class="quick-cat-item-btn" onclick="selectQuickCategory('services')" id="quickCatServices"><i class="fa-solid fa-bell-concierge"></i><span>Services</span></button>
+                <button class="quick-cat-item-btn" onclick="selectQuickCategory('events')" id="quickCatEvents"><i class="fa-solid fa-calendar-star"></i><span>Events</span></button>
+                <button class="quick-cat-item-btn" onclick="selectQuickCategory('restrooms')" id="quickCatRestrooms"><i class="fa-solid fa-restroom"></i><span>Restrooms</span></button>
+                <button class="quick-cat-item-btn" onclick="selectQuickCategory('parking')" id="quickCatParking"><i class="fa-solid fa-square-parking"></i><span>Parking</span></button>
+                <button class="quick-cat-item-btn" onclick="selectQuickCategory('atm')" id="quickCatATM"><i class="fa-solid fa-money-bill-transfer"></i><span>ATM</span></button>
+                <button class="quick-cat-item-btn" onclick="selectQuickCategory('info')" id="quickCatInfo"><i class="fa-solid fa-circle-info"></i><span>Information</span></button>
               </div>
             </div>
 
+            <!-- Recent Searches Card -->
+            <div class="recent-searches-card">
+              <div style="display:flex;align-items:center;justify-content:space-between;">
+                <div class="panel-section-label">Recent Searches</div>
+                <span style="font-size:10px;color:#94a3b8;cursor:pointer;" onclick="clearRecentSearches()" id="btnClearRecentSearches">Clear All</span>
+              </div>
+
+              <div style="display:flex;flex-direction:column;gap:4px;" id="recentSearchesList">
+                <div class="recent-search-row" onclick="selectMapDestination('pvr')">
+                  <span class="recent-search-left"><i class="fa-regular fa-clock"></i> PVR Cinemas</span>
+                  <i class="fa-solid fa-xmark" style="color:#64748b;font-size:10px;" onclick="event.stopPropagation(); this.parentElement.remove();"></i>
+                </div>
+                <div class="recent-search-row" onclick="selectMapDestination('adidas')">
+                  <span class="recent-search-left"><i class="fa-regular fa-clock"></i> Adidas</span>
+                  <i class="fa-solid fa-xmark" style="color:#64748b;font-size:10px;" onclick="event.stopPropagation(); this.parentElement.remove();"></i>
+                </div>
+                <div class="recent-search-row" onclick="selectMapDestination('starbucks')">
+                  <span class="recent-search-left"><i class="fa-regular fa-clock"></i> Starbucks</span>
+                  <i class="fa-solid fa-xmark" style="color:#64748b;font-size:10px;" onclick="event.stopPropagation(); this.parentElement.remove();"></i>
+                </div>
+                <div class="recent-search-row" onclick="selectMapDestination('prayer')">
+                  <span class="recent-search-left"><i class="fa-regular fa-clock"></i> Prayer Room</span>
+                  <i class="fa-solid fa-xmark" style="color:#64748b;font-size:10px;" onclick="event.stopPropagation(); this.parentElement.remove();"></i>
+                </div>
+              </div>
+            </div>
+
+          </aside>
+
+        </div>
+
+        <!-- Bottom How to Navigate Guidance -->
+        <div class="how-to-navigate-row">
+          <span style="font-size:11px;font-weight:800;color:#e2b062;letter-spacing:0.5px;">How to Navigate</span>
+          <div class="how-to-step-item"><i class="fa-solid fa-magnifying-glass"></i> 1. Search or select destination</div>
+          <div class="how-to-step-item"><i class="fa-solid fa-location-dot"></i> 2. View location on map</div>
+          <div class="how-to-step-item"><i class="fa-solid fa-route"></i> 3. Tap Get Directions</div>
+          <div class="how-to-step-item"><i class="fa-solid fa-person-walking"></i> 4. Follow route on screen</div>
+        </div>
+
+      </main>
+
+      <!-- =====================================================================
+           3. KIOSK FOOTER
+           ===================================================================== -->
+      <footer class="kiosk-horizontal-footer">
+        <!-- Language Selector Left -->
+        <button class="footer-action-pill language-pill" onclick="openKioskModal('languageModal')" id="btnLanguage">
+          <i class="fa-solid fa-globe"></i>
+          <span id="currentLanguageLabel">ENGLISH</span>
+          <i class="fa-solid fa-chevron-down pill-arrow"></i>
+        </button>
+
+        <!-- Persistent Center Home Glow Button -->
+        <a href="home.html" class="footer-center-home-btn" id="btnKioskHome" title="Home Screen">
+          <i class="fa-solid fa-house"></i>
+          <span>HOME</span>
+        </a>
+
+        <!-- Help Control Right -->
+        <button class="footer-action-pill help-pill" onclick="openKioskModal('helpModal')" id="btnHelp">
+          <i class="fa-regular fa-circle-question"></i>
+          <span>HELP</span>
+          <i class="fa-solid fa-chevron-down pill-arrow"></i>
+        </button>
+      </footer>
+
+    </div>
+  </div>
+
+  <!-- =========================================================================
+       MODALS FOR DOMAIN 08 (Navigation Route Modal, Mobile QR Handoff, Filters)
+       ========================================================================= -->
+
+  <!-- 1. Active Navigation Route Modal -->
+  <div class="kiosk-modal-backdrop" id="activeRouteModal">
+    <div class="kiosk-modal-box luxury-dark-box" style="max-width:540px;text-align:left;">
+      <div style="display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid rgba(229, 185, 126, 0.2);padding-bottom:10px;margin-bottom:14px;">
+        <div>
+          <h3 style="font-family:'Cinzel',serif;font-size:18px;font-weight:800;color:#fff;margin:0;" id="routeModalTitle">Route to PVR Cinemas</h3>
+          <div style="font-size:11px;color:#e2b062;">Distance: ~140 meters · Approx 2 mins walk</div>
+        </div>
+        <i class="fa-solid fa-xmark" style="font-size:18px;color:#94a3b8;cursor:pointer;" onclick="closeKioskModal('activeRouteModal')"></i>
+      </div>
+
+      <!-- Turn-by-Turn Guidance -->
+      <div style="display:flex;flex-direction:column;gap:8px;margin-bottom:16px;">
+        <div style="background:#161f30;border-left:3px solid #10b981;padding:8px 12px;border-radius:6px;font-size:11.5px;color:#cbd5e1;">
+          <strong style="color:#fff;">Step 1:</strong> Start from Kiosk Station (Main Atrium) and head towards Central Court.
+        </div>
+        <div style="background:#161f30;border-left:3px solid #e2b062;padding:8px 12px;border-radius:6px;font-size:11.5px;color:#cbd5e1;">
+          <strong style="color:#fff;">Step 2:</strong> Continue straight past Lifestyle and turn right near the East Wing corridor.
+        </div>
+        <div style="background:#161f30;border-left:3px solid #38bdf8;padding:8px 12px;border-radius:6px;font-size:11.5px;color:#cbd5e1;">
+          <strong style="color:#fff;">Step 3:</strong> Arrive at your destination on your left.
+        </div>
+      </div>
+
+      <div style="display:flex;gap:10px;justify-content:flex-end;">
+        <button class="btn-modal-gold" onclick="openKioskModal('scanExploreModal')" id="btnSendRouteMobile">
+          <i class="fa-solid fa-qrcode"></i> Send Route to Mobile
+        </button>
+        <button class="btn-modal-dark" onclick="closeKioskModal('activeRouteModal')">Close</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- 2. Map Filters Modal -->
+  <div class="kiosk-modal-backdrop" id="mapFilterModal">
+    <div class="kiosk-modal-box luxury-dark-box" style="max-width:480px;text-align:left;">
+      <div class="kiosk-modal-header-luxury">
+        <div class="modal-gold-emblem"><i class="fa-solid fa-sliders"></i></div>
+        <div class="modal-title-gold">Filter Map Locations</div>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:12px;margin-bottom:16px;">
+        <div>
+          <label style="font-size:11px;font-weight:700;color:#e2b062;display:block;margin-bottom:4px;">Floor</label>
+          <div style="display:flex;gap:6px;">
+            <button class="search-tag-pill active" onclick="toggleFilterPill(this)">All</button>
+            <button class="search-tag-pill" onclick="toggleFilterPill(this)">Ground</button>
+            <button class="search-tag-pill" onclick="toggleFilterPill(this)">First</button>
+            <button class="search-tag-pill" onclick="toggleFilterPill(this)">Second</button>
           </div>
-
-        </main>
-
-        <!-- Bottom Sticky Navigation Bar -->
-        <footer class="kiosk-footer-nav">
-          <button class="footer-nav-btn" onclick="openKioskModal('languageModal')">
-            <i class="fa-solid fa-globe"></i>
-            <span>ENGLISH</span>
-          </button>
-
-          <a href="home.html" class="footer-home-circle-btn" title="Home Screen">
-            <i class="fa-solid fa-house"></i>
-          </a>
-
-          <button class="footer-nav-btn" onclick="openKioskModal('helpModal')">
-            <span>NEED HELP?</span>
-            <i class="fa-solid fa-headset"></i>
-          </button>
-        </footer>
-
-      </div>
-
-      <!-- Kiosk Bezel Bottom Logo -->
-      <div class="kiosk-bezel-bottom">MALL GUIDE</div>
-    </div>
-  </div>
-
-  <!-- Directions Animated Route Modal -->
-  <div class="kiosk-modal-backdrop" id="directionsModal">
-    <div class="kiosk-modal-box" style="max-width:540px;">
-      <div class="kiosk-modal-icon"><i class="fa-solid fa-diamond-turn-right"></i></div>
-      <div class="kiosk-modal-title">Directions to TRENDS</div>
-      <div class="kiosk-modal-text">Starting from: <strong>Ground Floor Kiosk #01 (You are here)</strong></div>
-      
-      <div style="background:rgba(0,0,0,0.4);border-radius:18px;padding:18px;text-align:left;margin-bottom:20px;border:1px solid rgba(255,255,255,0.08);">
-        <div style="display:flex;gap:12px;margin-bottom:14px;">
-          <div style="width:28px;height:28px;border-radius:50%;background:var(--gold-400);color:#000;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:12px;flex-shrink:0;">1</div>
-          <div style="font-size:13px;color:#ffffff;">Walk straight towards the Central Glass Atrium (approx 20 meters).</div>
-        </div>
-        <div style="display:flex;gap:12px;margin-bottom:14px;">
-          <div style="width:28px;height:28px;border-radius:50%;background:var(--gold-400);color:#000;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:12px;flex-shrink:0;">2</div>
-          <div style="font-size:13px;color:#ffffff;">Take a left turn right after the escalator bank.</div>
-        </div>
-        <div style="display:flex;gap:12px;">
-          <div style="width:28px;height:28px;border-radius:50%;background:var(--gold-400);color:#000;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:12px;flex-shrink:0;">3</div>
-          <div style="font-size:13px;color:#ffffff;"><strong>TRENDS (Shop G-23)</strong> will be on your left side opposite Lifestyle.</div>
         </div>
       </div>
-
-      <div style="display:flex;gap:12px;justify-content:center;">
-        <button class="btn-shop-now-hero" style="background:var(--gold-gradient-btn);color:#1a1205;" onclick="closeKioskModal('directionsModal')">Send to Mobile via QR</button>
-        <button class="btn-modal-close" onclick="closeKioskModal('directionsModal')">Close</button>
+      <div class="modal-actions-luxury">
+        <button class="btn-modal-gold" onclick="closeKioskModal('mapFilterModal')">Apply</button>
+        <button class="btn-modal-dark" onclick="closeKioskModal('mapFilterModal')">Cancel</button>
       </div>
     </div>
   </div>
 
-  <!-- Store Info Details Modal -->
-  <div class="kiosk-modal-backdrop" id="storeInfoModal">
-    <div class="kiosk-modal-box">
-      <div class="kiosk-modal-icon"><i class="fa-solid fa-store"></i></div>
-      <div class="kiosk-modal-title">About TRENDS</div>
-      <div class="kiosk-modal-text">
-        India's largest fashion retail chain offering contemporary apparel, footwear and lifestyle accessories for women, men and kids at accessible prices.
+  <!-- 3. Scan Explore, Language & Help Modals -->
+  <div class="kiosk-modal-backdrop" id="scanExploreModal">
+    <div class="kiosk-modal-box luxury-dark-box">
+      <div class="kiosk-modal-header-luxury">
+        <div class="modal-gold-emblem"><i class="fa-solid fa-qrcode"></i></div>
+        <div class="modal-title-gold">Scan Route on Mobile</div>
       </div>
-      <div style="background:rgba(255,255,255,0.05);padding:14px;border-radius:14px;margin-bottom:20px;text-align:left;font-size:12px;color:#cbd5e1;">
-        <div>📍 <strong>Location:</strong> Ground Floor, Shop G-23</div>
-        <div style="margin:4px 0;">📞 <strong>Contact:</strong> +91 20 4012 3456</div>
-        <div>🏷️ <strong>Current Offers:</strong> Flat 50% Off on Men's & Women's Summer Collection</div>
-      </div>
-      <button class="btn-modal-close" onclick="closeKioskModal('storeInfoModal')">Close</button>
+      <p style="font-size:11.5px;color:#94a3b8;margin:0 0 16px 0;">Scan QR code with your camera to view real-time turn-by-turn wayfinding on your phone.</p>
+      <div class="modal-actions-luxury"><button class="btn-modal-dark" onclick="closeKioskModal('scanExploreModal')">Close</button></div>
     </div>
   </div>
 
-  <!-- Filters Modal -->
-  <div class="kiosk-modal-backdrop" id="filtersModal">
-    <div class="kiosk-modal-box">
-      <div class="kiosk-modal-icon"><i class="fa-solid fa-sliders"></i></div>
-      <div class="kiosk-modal-title">Filter Directory</div>
-      <div class="kiosk-modal-text">Filter by store category or facility</div>
-      <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:20px;">
-        <button class="btn-shop-now-hero" style="background:rgba(6,182,212,0.2);border-color:#06b6d4;" onclick="closeKioskModal('filtersModal')">Fashion (24)</button>
-        <button class="btn-shop-now-hero" style="background:rgba(139,92,246,0.2);border-color:#8b5cf6;" onclick="closeKioskModal('filtersModal')">Lifestyle (18)</button>
-        <button class="btn-shop-now-hero" style="background:rgba(234,179,8,0.2);border-color:#eab308;" onclick="closeKioskModal('filtersModal')">Food & Dining (32)</button>
-        <button class="btn-shop-now-hero" style="background:rgba(59,130,246,0.2);border-color:#3b82f6;" onclick="closeKioskModal('filtersModal')">Electronics (12)</button>
-      </div>
-      <button class="btn-modal-close" onclick="closeKioskModal('filtersModal')">Apply Filters</button>
-    </div>
-  </div>
-
-  <!-- Help & Language Common Modals -->
   <div class="kiosk-modal-backdrop" id="languageModal">
-    <div class="kiosk-modal-box">
-      <div class="kiosk-modal-icon"><i class="fa-solid fa-globe"></i></div>
-      <div class="kiosk-modal-title">Select Language</div>
-      <div class="kiosk-modal-text">Choose your preferred language for the interactive kiosk.</div>
-      <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:20px;">
-        <button class="btn-shop-now-hero" style="background:var(--gold-gradient-btn);color:#1a1205;" onclick="closeKioskModal('languageModal')">English</button>
-        <button class="btn-shop-now-hero" onclick="closeKioskModal('languageModal')">हिंदी (Hindi)</button>
-        <button class="btn-shop-now-hero" onclick="closeKioskModal('languageModal')">मराठी (Marathi)</button>
-        <button class="btn-shop-now-hero" onclick="closeKioskModal('languageModal')">ગુજરાતી (Gujarati)</button>
+    <div class="kiosk-modal-box luxury-dark-box" style="max-width:440px;">
+      <div class="kiosk-modal-header-luxury">
+        <div class="modal-gold-emblem"><i class="fa-solid fa-globe"></i></div>
+        <div class="modal-title-gold">Select Language</div>
       </div>
-      <button class="btn-modal-close" onclick="closeKioskModal('languageModal')">Close</button>
+      <div class="language-options-grid">
+        <button class="lang-select-card active" onclick="selectLanguage('ENGLISH')"><span class="lang-native">English</span></button>
+        <button class="lang-select-card" onclick="selectLanguage('हिंदी (Hindi)')"><span class="lang-native">हिन्दी</span></button>
+        <button class="lang-select-card" onclick="selectLanguage('मराठी (Marathi)')"><span class="lang-native">मराठी</span></button>
+      </div>
+      <div class="modal-actions-luxury"><button class="btn-modal-dark" onclick="closeKioskModal('languageModal')">Close</button></div>
     </div>
   </div>
 
   <div class="kiosk-modal-backdrop" id="helpModal">
-    <div class="kiosk-modal-box">
-      <div class="kiosk-modal-icon"><i class="fa-solid fa-headset"></i></div>
-      <div class="kiosk-modal-title">Need Assistance?</div>
-      <div class="kiosk-modal-text">
-        Visit our Information Desk at Ground Floor Atrium or call concierge.
+    <div class="kiosk-modal-box luxury-dark-box" style="max-width:480px;">
+      <div class="kiosk-modal-header-luxury">
+        <div class="modal-gold-emblem"><i class="fa-solid fa-headset"></i></div>
+        <div class="modal-title-gold">Concierge Assistance</div>
       </div>
-      <div style="margin-bottom:20px;">
-        <div style="font-size:16px;color:#f7dfb8;font-weight:700;margin-bottom:6px;">Helpdesk: +91 20 6645 8888</div>
-        <div style="font-size:12px;color:#94a3b8;">Available: 10:00 AM - 10:00 PM Daily</div>
-      </div>
-      <button class="btn-modal-close" onclick="closeKioskModal('helpModal')">Close</button>
+      <div style="font-size:12px;color:#cbd5e1;margin-bottom:16px;">Visit Ground Floor Central Atrium or call +91 20 6645 8888.</div>
+      <div class="modal-actions-luxury"><button class="btn-modal-dark" onclick="closeKioskModal('helpModal')">Close</button></div>
     </div>
-  </div>
-
-  <!-- Quick Floating Links Switcher -->
-  <div class="quick-kiosk-switcher">
-    <span style="color:#e2b062;font-weight:700;">KIOSK:</span>
-    <a href="home.html">Home</a>
-    <a href="shop.html">Shops</a>
-    <a href="map.html" class="active-link">Map</a>
-    <a href="food.html">Food & Dining</a>
-    <a href="events.html">Events</a>
-    <a href="feedback.html">Feedback</a>
   </div>
 
   <script src="kiosk.js"></script>
   <script>
-    let currentZoom = 1;
-    function zoomMap(delta) {
-      currentZoom += delta * 0.15;
-      if (currentZoom < 0.8) currentZoom = 0.8;
-      if (currentZoom > 1.8) currentZoom = 1.8;
-      document.getElementById('mallFloorMapImg').style.transform = `scale(${currentZoom})`;
-    }
-    function resetMap() {
-      currentZoom = 1;
-      document.getElementById('mallFloorMapImg').style.transform = `scale(1)`;
-    }
-
-    const storesData = {
-      'ZARA': {
+    // Destinations DB
+    const mapDB = {
+      pvr: {
+        id: 'pvr',
+        name: 'PVR Cinemas',
+        logo: 'PVR',
+        cat: 'Entertainment · Multiplex',
+        loc: 'Ground Floor, Near Central Court',
+        hours: 'Open: 10:00 AM – 11:00 PM',
+        pinTop: '75%',
+        pinLeft: '75%',
+        floor: 'GF'
+      },
+      zara: {
+        id: 'zara',
         name: 'ZARA',
-        category: 'FASHION',
-        code: 'G-01',
-        locPrimary: 'Ground Floor | Shop G-01',
-        locSecondary: 'North Wing, Near Main Entrance',
-        pinTop: '18%',
+        logo: 'ZARA',
+        cat: 'Fashion · Menswear & Womenswear',
+        loc: 'Ground Floor, G-01',
+        hours: 'Open: 10:00 AM – 10:00 PM',
+        pinTop: '22%',
         pinLeft: '22%',
-        hours: '10:00 AM – 10:00 PM'
+        floor: 'GF'
       },
-      'H&M': {
+      hm: {
+        id: 'hm',
         name: 'H&M',
-        category: 'FASHION',
-        code: 'G-08',
-        locPrimary: 'Ground Floor | Shop G-08',
-        locSecondary: 'East Wing, Near Escalators',
-        pinTop: '18%',
-        pinLeft: '80%',
-        hours: '10:00 AM – 10:00 PM'
+        logo: 'H&M',
+        cat: 'Fashion · Global Trends',
+        loc: 'Ground Floor, G-12',
+        hours: 'Open: 10:00 AM – 10:00 PM',
+        pinTop: '20%',
+        pinLeft: '78%',
+        floor: 'GF'
       },
-      'Lifestyle': {
-        name: 'LIFESTYLE',
-        category: 'LIFESTYLE & APPAREL',
-        code: 'G-15',
-        locPrimary: 'Ground Floor | Anchor Store 02',
-        locSecondary: 'South-West Wing, Opposite Trends',
-        pinTop: '70%',
-        pinLeft: '24%',
-        hours: '10:00 AM – 10:30 PM'
+      lifestyle: {
+        id: 'lifestyle',
+        name: 'Lifestyle',
+        logo: 'LIFE',
+        cat: 'Department Store · Fashion & Beauty',
+        loc: 'Ground Floor, G-18',
+        hours: 'Open: 10:00 AM – 10:00 PM',
+        pinTop: '74%',
+        pinLeft: '20%',
+        floor: 'GF'
       },
-      'PVR Cinemas': {
-        name: 'PVR CINEMAS',
-        category: 'ENTERTAINMENT',
-        code: 'L2-01',
-        locPrimary: 'Second Floor | Multiplex Area',
-        locSecondary: 'South-East Wing, Near Food Court',
-        pinTop: '70%',
-        pinLeft: '80%',
-        hours: '09:00 AM – 01:00 AM'
-      },
-      'Food Court': {
-        name: 'FOOD COURT',
-        category: 'FOOD & DINING',
-        code: 'FC-ALL',
-        locPrimary: 'Central Atrium | Level 2',
-        locSecondary: 'Over 25+ Gourmet & Quick Service Outlets',
-        pinTop: '45%',
+      foodcourt: {
+        id: 'foodcourt',
+        name: 'Food Court & Dining',
+        logo: 'FOOD',
+        cat: 'Dining · 24+ Food Outlets',
+        loc: 'Central Atrium Wing',
+        hours: 'Open: 11:00 AM – 11:00 PM',
+        pinTop: '48%',
         pinLeft: '50%',
-        hours: '10:00 AM – 11:00 PM'
+        floor: 'GF'
+      },
+      adidas: {
+        id: 'adidas',
+        name: 'Adidas',
+        logo: 'ADI',
+        cat: 'Sportswear & Footwear',
+        loc: 'Ground Floor, G-14',
+        hours: 'Open: 10:00 AM – 10:00 PM',
+        pinTop: '65%',
+        pinLeft: '30%',
+        floor: 'GF'
+      },
+      starbucks: {
+        id: 'starbucks',
+        name: 'Starbucks',
+        logo: 'SBUX',
+        cat: 'Café · Coffee & Snacks',
+        loc: 'Ground Floor, G-15',
+        hours: 'Open: 08:00 AM – 11:00 PM',
+        pinTop: '52%',
+        pinLeft: '62%',
+        floor: 'GF'
+      },
+      copperchimney: {
+        id: 'copperchimney',
+        name: 'Copper Chimney',
+        logo: 'COPPER',
+        cat: 'Dining · North Indian Fine Dine',
+        loc: 'First Floor, F-08',
+        hours: 'Open: 11:00 AM – 11:30 PM',
+        pinTop: '35%',
+        pinLeft: '65%',
+        floor: 'F1'
+      },
+      concierge: {
+        id: 'concierge',
+        name: 'Concierge Desk',
+        logo: 'INFO',
+        cat: 'Guest Services · Information',
+        loc: 'Ground Floor, Central Atrium',
+        hours: 'Open: 10:00 AM – 10:00 PM',
+        pinTop: '45%',
+        pinLeft: '40%',
+        floor: 'GF'
+      },
+      prayer: {
+        id: 'prayer',
+        name: 'Prayer Room',
+        logo: 'PRAY',
+        cat: 'Guest Services · Prayer Hall',
+        loc: 'First Floor, Near Food Court',
+        hours: 'Open: 10:00 AM – 10:00 PM',
+        pinTop: '30%',
+        pinLeft: '50%',
+        floor: 'F1'
+      },
+      parking: {
+        id: 'parking',
+        name: 'Parking Facilities',
+        logo: 'PARK',
+        cat: 'Transport · Smart Parking B1/B2/B3',
+        loc: 'Basement Levels',
+        hours: '24x7 Active',
+        pinTop: '88%',
+        pinLeft: '50%',
+        floor: 'ALL'
+      },
+      atrium: {
+        id: 'atrium',
+        name: 'Main Atrium Event Stage',
+        logo: 'EVENT',
+        cat: 'Events & Cultural Stage',
+        loc: 'Ground Floor, Main Atrium',
+        hours: 'Open: 10:00 AM – 10:00 PM',
+        pinTop: '50%',
+        pinLeft: '50%',
+        floor: 'GF'
       }
     };
 
-    function selectStore(name) {
-      const data = storesData[name];
-      if (!data) return;
-      document.getElementById('storeNameText').textContent = data.name;
-      document.getElementById('storeCategoryText').textContent = data.category;
-      document.getElementById('storeLocationPrimary').textContent = data.locPrimary;
-      
-      const pin = document.getElementById('activeStorePin');
-      if (pin) {
-        pin.style.top = data.pinTop;
-        pin.style.left = data.pinLeft;
+    let currentSelectedDestId = 'pvr';
+    let currentMapZoom = 1;
+
+    // Read URL query params (e.g. map.html?dest=zara)
+    window.addEventListener('DOMContentLoaded', () => {
+      const params = new URLSearchParams(window.location.search);
+      const destParam = params.get('dest');
+      if (destParam && mapDB[destParam]) {
+        selectMapDestination(destParam);
       }
+    });
+
+    function selectMapFloor(floor, btn) {
+      document.querySelectorAll('.floor-btn-card').forEach(b => b.classList.remove('active'));
+      if (btn) btn.classList.add('active');
+    }
+
+    function selectMapDestination(id) {
+      currentSelectedDestId = id;
+      const d = mapDB[id] || mapDB['pvr'];
+      document.getElementById('destLogo').textContent = d.logo;
+      document.getElementById('destName').textContent = d.name;
+      document.getElementById('destCategory').textContent = d.cat;
+      document.getElementById('destLoc').innerHTML = `<i class="fa-solid fa-location-dot"></i> ${d.loc}`;
+      document.getElementById('destHours').textContent = d.hours;
+
+      // Update hotspot pins
+      document.querySelectorAll('.map-pin-hotspot').forEach(p => p.classList.remove('active'));
+      const activePin = document.getElementById(`pin${id.toUpperCase()}`);
+      if (activePin) activePin.classList.add('active');
+
+      // Hide active route line until user taps Get Directions
+      document.getElementById('routeSvgCanvas').style.display = 'none';
+    }
+
+    function startMapNavigation() {
+      const d = mapDB[currentSelectedDestId] || mapDB['pvr'];
+      document.getElementById('routeSvgCanvas').style.display = 'block';
+      document.getElementById('routeModalTitle').textContent = `Route to ${d.name}`;
+      openKioskModal('activeRouteModal');
+    }
+
+    function selectQuickCategory(cat) {
+      if (cat === 'stores') selectMapDestination('zara');
+      else if (cat === 'food') selectMapDestination('foodcourt');
+      else if (cat === 'services') selectMapDestination('concierge');
+      else if (cat === 'events') selectMapDestination('atrium');
+      else if (cat === 'parking') selectMapDestination('parking');
+      else selectMapDestination('pvr');
+    }
+
+    function handleMapSearch() {
+      const query = (document.getElementById('mapSearchInput').value || '').trim().toLowerCase();
+      if (!query) return;
+
+      for (let key in mapDB) {
+        if (mapDB[key].name.toLowerCase().includes(query) || mapDB[key].cat.toLowerCase().includes(query)) {
+          selectMapDestination(key);
+          break;
+        }
+      }
+    }
+
+    function clearRecentSearches() {
+      const list = document.getElementById('recentSearchesList');
+      if (list) list.innerHTML = '<div style="font-size:10.5px;color:#64748b;padding:8px 0;">No recent searches</div>';
+    }
+
+    function zoomMap(factor) {
+      currentMapZoom *= factor;
+      if (currentMapZoom < 0.7) currentMapZoom = 0.7;
+      if (currentMapZoom > 2.2) currentMapZoom = 2.2;
+      document.getElementById('mapArtContainer').style.transform = `scale(${currentMapZoom})`;
+    }
+
+    function recenterMap() {
+      currentMapZoom = 1;
+      document.getElementById('mapArtContainer').style.transform = 'scale(1)';
+    }
+
+    function toggleFilterPill(btn) {
+      btn.parentElement.querySelectorAll('.search-tag-pill').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+    }
+
+    function selectLanguage(lang) {
+      document.getElementById('currentLanguageLabel').textContent = lang.split(' ')[0].toUpperCase();
+      closeKioskModal('languageModal');
     }
   </script>
 </body>

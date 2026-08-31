@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Feedback, Help & Kiosk Session · Grand Metro Mall Kiosk</title>
+  <title>Services & Facilities · Grand Metro Mall Kiosk</title>
   <!-- Google Fonts & Font Awesome -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -2914,304 +2914,391 @@ body {
 }
 
   </style>
-  <style id="kiosk-feedback-specific-css">
+  <style id="kiosk-services-specific-css">
     /* =========================================================================
-       FEEDBACK, HELP & KIOSK SESSION (DOMAIN 10) SPECIFIC STYLING
+       SERVICES & FACILITIES (DOMAIN 07) SPECIFIC STYLING
        ========================================================================= */
-    .feedback-top-header-row {
+    .services-top-header-row {
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
       margin-bottom: 12px;
       padding: 0 4px;
     }
 
-    .feedback-main-title {
+    .services-headline-badge {
+      font-size: 10.5px;
+      font-weight: 800;
+      color: #e2b062;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      margin-bottom: 2px;
+    }
+
+    .services-main-title {
       font-family: 'Cinzel', serif;
-      font-size: 22px;
+      font-size: 23px;
       font-weight: 800;
       color: #ffffff;
       margin: 0 0 2px 0;
-      letter-spacing: 0.5px;
+      letter-spacing: 1px;
     }
 
-    .feedback-subtitle {
+    .services-subtitle {
       font-size: 11.5px;
       color: #94a3b8;
       margin: 0;
     }
 
-    /* 5 Primary Options Navigation Cards (Horizontal Row) */
-    .feedback-options-row {
-      display: grid;
-      grid-template-columns: repeat(5, 1fr);
-      gap: 10px;
-      margin-bottom: 14px;
-    }
-
-    .feedback-nav-card {
-      background: rgba(18, 25, 38, 0.75);
-      border: 1px solid rgba(229, 185, 126, 0.25);
-      border-radius: 12px;
-      padding: 10px 12px;
+    .services-search-wrap {
       display: flex;
       align-items: center;
+      gap: 12px;
+    }
+
+    .services-search-box {
+      background: rgba(18, 24, 38, 0.85);
+      border: 1px solid rgba(229, 185, 126, 0.3);
+      border-radius: 999px;
+      height: 42px;
+      width: 320px;
+      display: flex;
+      align-items: center;
+      padding: 0 18px;
       gap: 10px;
+      transition: all 0.2s ease;
+    }
+    .services-search-box:focus-within {
+      border-color: #e2b062;
+      box-shadow: 0 0 16px rgba(226, 176, 98, 0.25);
+    }
+    .services-search-input {
+      flex: 1;
+      background: transparent;
+      border: none;
+      outline: none;
+      color: #ffffff;
+      font-size: 13px;
+      font-family: inherit;
+    }
+
+    /* Category Navigation Bar */
+    .services-category-bar {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 16px;
+    }
+
+    .service-cat-pill-btn {
+      background: rgba(18, 25, 38, 0.7);
+      border: 1px solid rgba(229, 185, 126, 0.25);
+      border-radius: 12px;
+      padding: 8px 14px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
       cursor: pointer;
       color: #cbd5e1;
       transition: all 0.2s ease;
+      flex: 1;
+      justify-content: center;
+      white-space: nowrap;
     }
-    .feedback-nav-card:hover {
+    .service-cat-pill-btn:hover {
       background: rgba(226, 176, 98, 0.15);
       border-color: #e2b062;
       color: #fff;
     }
-    .feedback-nav-card.active {
-      background: rgba(226, 176, 98, 0.12);
-      border: 1.5px solid #e2b062;
-      box-shadow: 0 0 16px rgba(226, 176, 98, 0.25);
-    }
-    .nav-card-circle-icon {
-      width: 34px;
-      height: 34px;
-      border-radius: 50%;
-      background: #111827;
-      border: 1px solid rgba(229, 185, 126, 0.35);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: #e2b062;
-      font-size: 14px;
-      flex-shrink: 0;
-    }
-    .feedback-nav-card.active .nav-card-circle-icon {
+    .service-cat-pill-btn.active {
       background: var(--gold-gradient-btn);
+      border-color: #e2b062;
+      color: #111827;
+      font-weight: 800;
+      box-shadow: 0 0 16px rgba(226, 176, 98, 0.35);
+    }
+    .service-cat-icon {
+      font-size: 14px;
+      color: #e2b062;
+    }
+    .service-cat-pill-btn.active .service-cat-icon {
       color: #111827;
     }
+    .service-cat-name {
+      font-size: 11.5px;
+      font-weight: 700;
+    }
+    .service-cat-count {
+      font-size: 10px;
+      opacity: 0.85;
+    }
 
-    /* Main 2-Column Split (~75% Left / ~25% Right) */
-    .feedback-main-split {
+    /* Main 2-Column Split */
+    .services-main-split {
       display: grid;
-      grid-template-columns: 1fr 280px;
-      gap: 14px;
+      grid-template-columns: 1fr 340px;
+      gap: 20px;
       align-items: stretch;
       flex: 1;
     }
 
-    /* Left Container (Inner 2-Column: Feedback on left, Immediate Help on right) */
-    .feedback-left-container {
+    /* Left Area: Popular Services (2x4 Grid) */
+    .services-left-section {
       display: flex;
       flex-direction: column;
-      gap: 10px;
-    }
-
-    .feedback-inner-2col {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
       gap: 12px;
-      flex: 1;
     }
 
-    /* Left Inner: We Value Your Feedback */
-    .we-value-feedback-card {
-      background: rgba(18, 25, 38, 0.8);
-      border: 1px solid rgba(229, 185, 126, 0.3);
-      border-radius: 14px;
-      padding: 12px 14px;
+    .services-section-header {
       display: flex;
-      flex-direction: column;
-      gap: 8px;
+      align-items: center;
+      justify-content: space-between;
     }
-    .stars-rating-row {
-      display: flex;
-      gap: 10px;
-      margin: 4px 0;
+    .services-section-title {
+      font-size: 14px;
+      font-weight: 800;
+      color: #ffffff;
     }
-    .star-rate-item {
+    .services-view-all-link {
+      font-size: 11.5px;
+      font-weight: 700;
+      color: #e2b062;
+      cursor: pointer;
+      text-decoration: none;
       display: flex;
-      flex-direction: column;
       align-items: center;
       gap: 4px;
-      cursor: pointer;
-      color: #e2b062;
-      font-size: 20px;
-      transition: transform 0.15s ease;
-    }
-    .star-rate-item:hover {
-      transform: scale(1.15);
-    }
-    .star-rate-label {
-      font-size: 8.5px;
-      color: #94a3b8;
-      font-weight: 700;
     }
 
-    .feedback-textarea-box {
-      width: 100%;
-      background: rgba(11, 16, 26, 0.85);
-      border: 1px solid rgba(229, 185, 126, 0.25);
-      border-radius: 8px;
-      padding: 8px 10px;
-      color: #ffffff;
-      font-family: inherit;
-      font-size: 11.5px;
-      resize: none;
-      height: 54px;
-      box-sizing: border-box;
-      outline: none;
-    }
-    .feedback-textarea-box:focus {
-      border-color: #e2b062;
-    }
-
-    .btn-submit-feedback-gold {
-      background: var(--gold-gradient-btn);
-      color: #111827;
-      border: none;
-      border-radius: 8px;
-      padding: 7px 12px;
-      font-size: 11.5px;
-      font-weight: 800;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 6px;
-      width: 100%;
-      transition: all 0.2s ease;
-      margin-top: auto;
-    }
-    .btn-submit-feedback-gold:hover {
-      box-shadow: 0 0 14px rgba(226, 176, 98, 0.4);
-    }
-
-    /* Right Inner: Need Immediate Assistance */
-    .immediate-assist-inner-card {
-      background: rgba(18, 25, 38, 0.8);
-      border: 1px solid rgba(229, 185, 126, 0.3);
-      border-radius: 14px;
-      padding: 12px 14px;
-      display: flex;
-      flex-direction: column;
-      gap: 8px;
-    }
-
-    .guest-assist-box {
-      background: rgba(14, 20, 32, 0.85);
-      border: 1px solid rgba(229, 185, 126, 0.25);
-      border-radius: 10px;
-      padding: 8px 10px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-    }
-
-    .assist-contact-row {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 5px 8px;
-      background: rgba(14, 20, 32, 0.6);
-      border-radius: 8px;
-      border: 1px solid rgba(255, 255, 255, 0.05);
-      cursor: pointer;
-      transition: all 0.2s ease;
-    }
-    .assist-contact-row:hover {
-      border-color: #e2b062;
-      background: rgba(226, 176, 98, 0.1);
-    }
-
-    /* Bottom Reassurance Strip */
-    .reassurance-strip-row {
-      background: rgba(18, 25, 38, 0.75);
-      border: 1px solid rgba(229, 185, 126, 0.25);
-      border-radius: 12px;
-      padding: 8px 14px;
+    .services-grid-2x4 {
       display: grid;
       grid-template-columns: repeat(4, 1fr);
-      gap: 10px;
+      gap: 12px;
     }
-    .reassurance-item {
+
+    .service-facility-card {
+      background: rgba(18, 25, 38, 0.75);
+      border: 1px solid rgba(229, 185, 126, 0.25);
+      border-radius: 14px;
+      overflow: hidden;
       display: flex;
-      align-items: center;
-      gap: 8px;
+      flex-direction: column;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      box-shadow: 0 6px 18px rgba(0, 0, 0, 0.3);
     }
-    .reassurance-circle {
-      width: 28px;
-      height: 28px;
+    .service-facility-card:hover {
+      border-color: #e2b062;
+      transform: translateY(-2px);
+    }
+
+    .service-thumb-box {
+      height: 90px;
+      position: relative;
+      background: #090e17;
+      overflow: hidden;
+    }
+    .service-thumb-img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    .service-round-badge {
+      position: absolute;
+      bottom: 8px;
+      left: 10px;
+      width: 34px;
+      height: 34px;
       border-radius: 50%;
       background: #111827;
-      border: 1px solid #e2b062;
+      border: 1.5px solid #e2b062;
       display: flex;
       align-items: center;
       justify-content: center;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.5);
       color: #e2b062;
-      font-size: 11px;
-      flex-shrink: 0;
+      font-size: 14px;
     }
-
-    /* Right Column: Quick Help Topics & Kiosk Session */
-    .feedback-right-panel {
+    .service-heart-fav {
+      position: absolute;
+      top: 6px;
+      right: 6px;
+      width: 22px;
+      height: 22px;
+      border-radius: 50%;
+      background: rgba(0, 0, 0, 0.5);
+      color: #e2b062;
       display: flex;
-      flex-direction: column;
-      gap: 10px;
+      align-items: center;
+      justify-content: center;
+      font-size: 11px;
+      cursor: pointer;
     }
 
-    .quick-help-topics-card {
-      background: rgba(18, 25, 38, 0.8);
-      border: 1px solid rgba(229, 185, 126, 0.3);
-      border-radius: 14px;
+    .service-card-body {
       padding: 10px 12px;
       display: flex;
       flex-direction: column;
-      gap: 4px;
+      gap: 3px;
+      flex: 1;
     }
-    .quick-topic-row {
+    .service-name-title {
+      font-size: 13px;
+      font-weight: 800;
+      color: #ffffff;
+    }
+    .service-short-desc {
+      font-size: 10px;
+      color: #94a3b8;
+      line-height: 1.25;
+      min-height: 24px;
+    }
+    .service-loc-row {
       display: flex;
       align-items: center;
-      justify-content: space-between;
-      padding: 5px 6px;
-      border-radius: 6px;
-      cursor: pointer;
-      color: #cbd5e1;
-      font-size: 11px;
-      font-weight: 700;
-      transition: all 0.2s ease;
-    }
-    .quick-topic-row:hover {
-      background: rgba(226, 176, 98, 0.15);
-      color: #fff;
+      gap: 4px;
+      font-size: 10px;
+      color: #e2b062;
+      margin: 4px 0 8px 0;
     }
 
-    /* Kiosk Session Panel */
-    .kiosk-session-card {
-      background: rgba(18, 25, 38, 0.85);
+    .btn-service-view-gold {
+      background: var(--gold-gradient-btn);
+      color: #111827;
+      border: none;
+      border-radius: 6px;
+      padding: 6px 8px;
+      font-size: 10.5px;
+      font-weight: 800;
+      cursor: pointer;
+      text-align: center;
+      width: 100%;
+      margin-top: auto;
+      transition: all 0.2s ease;
+    }
+    .btn-service-view-gold:hover {
+      box-shadow: 0 0 12px rgba(226, 176, 98, 0.4);
+    }
+
+    /* Right Column: Immediate Help, Mall Info & Request Service */
+    .services-right-column {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .need-immediate-help-card {
+      background: rgba(18, 25, 38, 0.8);
       border: 1px solid rgba(229, 185, 126, 0.35);
-      border-radius: 14px;
+      border-radius: 16px;
       padding: 12px 14px;
       display: flex;
       flex-direction: column;
-      align-items: center;
-      text-align: center;
-      gap: 6px;
-      flex: 1;
+      gap: 8px;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
     }
-    .session-clock-ring {
-      width: 44px;
-      height: 44px;
+    .help-card-top-title {
+      font-size: 12px;
+      font-weight: 800;
+      color: #e2b062;
+    }
+    .help-agent-row {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .help-round-emblem {
+      width: 42px;
+      height: 42px;
       border-radius: 50%;
-      border: 2px solid #e2b062;
+      background: #111827;
+      border: 1.5px solid #e2b062;
       display: flex;
       align-items: center;
       justify-content: center;
       color: #e2b062;
       font-size: 18px;
-      margin-top: 4px;
+      flex-shrink: 0;
     }
-    .session-countdown-text {
-      font-family: 'Cinzel', serif;
-      font-size: 20px;
+
+    .btn-connect-now-gold {
+      background: var(--gold-gradient-btn);
+      color: #111827;
+      border: none;
+      border-radius: 8px;
+      padding: 7px;
+      font-size: 11px;
       font-weight: 800;
+      cursor: pointer;
+      text-align: center;
+      width: 100%;
+      transition: all 0.2s ease;
+    }
+    .btn-connect-now-gold:hover {
+      box-shadow: 0 0 14px rgba(226, 176, 98, 0.4);
+    }
+
+    /* Mall Information Shortcuts Card */
+    .mall-info-shortcuts-card {
+      background: rgba(18, 25, 38, 0.8);
+      border: 1px solid rgba(229, 185, 126, 0.3);
+      border-radius: 16px;
+      padding: 12px 14px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+    .mall-info-shortcut-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 6px 8px;
+      border-radius: 8px;
+      cursor: pointer;
+      color: #cbd5e1;
+      font-size: 11.5px;
+      font-weight: 700;
+      transition: all 0.2s ease;
+    }
+    .mall-info-shortcut-item:hover {
+      background: rgba(226, 176, 98, 0.15);
       color: #ffffff;
-      letter-spacing: 1px;
+    }
+    .shortcut-left-label {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .shortcut-left-label i {
+      color: #e2b062;
+      font-size: 13px;
+      width: 16px;
+      text-align: center;
+    }
+
+    /* Request a Service Banner */
+    .request-service-banner-card {
+      background: linear-gradient(135deg, #1c1917, #0c0a09);
+      border: 1px solid rgba(229, 185, 126, 0.3);
+      border-radius: 16px;
+      padding: 12px 14px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+    }
+    .request-banner-emblem {
+      width: 44px;
+      height: 44px;
+      border-radius: 10px;
+      background: #111827;
+      border: 1px solid rgba(229, 185, 126, 0.3);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #e2b062;
+      font-size: 20px;
+      flex-shrink: 0;
     }
   </style>
 </head>
@@ -3268,238 +3355,284 @@ body {
       </header>
 
       <!-- =====================================================================
-           2. MAIN FEEDBACK & HELP WORKSPACE
+           2. MAIN SERVICES & FACILITIES WORKSPACE
            ===================================================================== -->
-      <main class="kiosk-horizontal-main" style="display:flex;flex-direction:column;padding:10px 24px 12px 24px;">
+      <main class="kiosk-horizontal-main" style="display:flex;flex-direction:column;padding:12px 28px 16px 28px;">
 
-        <!-- Top Title Bar -->
-        <div class="feedback-top-header-row">
-          <h1 class="feedback-main-title">FEEDBACK, HELP & KIOSK SESSION</h1>
-          <p class="feedback-subtitle">We value your feedback and are here to help.</p>
+        <!-- Top Title Bar & Search -->
+        <div class="services-top-header-row">
+          <div>
+            <div class="services-headline-badge">SERVICES</div>
+            <h1 class="services-main-title">SERVICES & FACILITIES</h1>
+            <p class="services-subtitle">Everything you need for a comfortable and convenient visit</p>
+          </div>
+
+          <div class="services-search-wrap">
+            <div class="services-search-box">
+              <i class="fa-solid fa-magnifying-glass" style="color:#e2b062;font-size:14px;"></i>
+              <input 
+                type="text" 
+                class="services-search-input" 
+                id="servicesSearchInput" 
+                placeholder="Search for services, facilities..." 
+                onkeyup="handleServicesSearchFilter()"
+                autocomplete="off"
+              >
+            </div>
+            <button class="btn-open-filters" style="height:42px;padding:0 18px;" onclick="openKioskModal('servicesFilterModal')" id="btnServicesFilters">
+              <i class="fa-solid fa-sliders" style="color:#e2b062;"></i>
+              <span>Filters</span>
+            </button>
+          </div>
         </div>
 
-        <!-- 5 Primary Option Cards (Horizontal Row) -->
-        <div class="feedback-options-row">
-          
-          <!-- 1. Feedback -->
-          <div class="feedback-nav-card active" onclick="selectFeedbackTab('feedback', this)" id="tabFeedback">
-            <div class="nav-card-circle-icon"><i class="fa-regular fa-comment-dots"></i></div>
-            <div>
-              <div style="font-size:12px;font-weight:800;color:#fff;">Feedback</div>
-              <div style="font-size:9px;color:#94a3b8;">Share your experience</div>
-            </div>
-          </div>
+        <!-- Horizontal Category Bar (7 Pills) -->
+        <div class="services-category-bar">
+          <button class="service-cat-pill-btn active" onclick="selectServiceCategory('all', this)" id="catAllServices">
+            <i class="fa-solid fa-border-all service-cat-icon"></i>
+            <span class="service-cat-name">All Services</span>
+            <span class="service-cat-count">64</span>
+          </button>
 
-          <!-- 2. Get Help -->
-          <div class="feedback-nav-card" onclick="selectFeedbackTab('gethelp', this)" id="tabGetHelp">
-            <div class="nav-card-circle-icon"><i class="fa-solid fa-headset"></i></div>
-            <div>
-              <div style="font-size:12px;font-weight:800;color:#fff;">Get Help</div>
-              <div style="font-size:9px;color:#94a3b8;">Connect with assistance</div>
-            </div>
-          </div>
+          <button class="service-cat-pill-btn" onclick="selectServiceCategory('guest', this)" id="catGuestServices">
+            <i class="fa-solid fa-headset service-cat-icon"></i>
+            <span class="service-cat-name">Guest Services</span>
+            <span class="service-cat-count">12</span>
+          </button>
 
-          <!-- 3. Report an Issue -->
-          <div class="feedback-nav-card" onclick="openReportIssueModal()" id="tabReportIssue">
-            <div class="nav-card-circle-icon"><i class="fa-solid fa-triangle-exclamation"></i></div>
-            <div>
-              <div style="font-size:12px;font-weight:800;color:#fff;">Report an Issue</div>
-              <div style="font-size:9px;color:#94a3b8;">Report a problem</div>
-            </div>
-          </div>
+          <button class="service-cat-pill-btn" onclick="selectServiceCategory('convenience', this)" id="catConvenience">
+            <i class="fa-solid fa-bag-shopping service-cat-icon"></i>
+            <span class="service-cat-name">Convenience</span>
+            <span class="service-cat-count">10</span>
+          </button>
 
-          <!-- 4. General Enquiry -->
-          <div class="feedback-nav-card" onclick="openGeneralEnquiryModal()" id="tabGeneralEnquiry">
-            <div class="nav-card-circle-icon"><i class="fa-solid fa-circle-info"></i></div>
-            <div>
-              <div style="font-size:12px;font-weight:800;color:#fff;">General Enquiry</div>
-              <div style="font-size:9px;color:#94a3b8;">Ask questions</div>
-            </div>
-          </div>
+          <button class="service-cat-pill-btn" onclick="selectServiceCategory('family', this)" id="catFamilyKids">
+            <i class="fa-solid fa-children service-cat-icon"></i>
+            <span class="service-cat-name">Family & Kids</span>
+            <span class="service-cat-count">8</span>
+          </button>
 
-          <!-- 5. Session Complete -->
-          <div class="feedback-nav-card" onclick="triggerSessionComplete()" id="tabSessionComplete">
-            <div class="nav-card-circle-icon"><i class="fa-solid fa-circle-check"></i></div>
-            <div>
-              <div style="font-size:12px;font-weight:800;color:#fff;">Session Complete</div>
-              <div style="font-size:9px;color:#94a3b8;">Finish & return home</div>
-            </div>
-          </div>
+          <button class="service-cat-pill-btn" onclick="selectServiceCategory('accessibility', this)" id="catAccessibility">
+            <i class="fa-solid fa-wheelchair service-cat-icon"></i>
+            <span class="service-cat-name">Accessibility</span>
+            <span class="service-cat-count">6</span>
+          </button>
 
+          <button class="service-cat-pill-btn" onclick="selectServiceCategory('transport', this)" id="catTransport">
+            <i class="fa-solid fa-car service-cat-icon"></i>
+            <span class="service-cat-name">Transport</span>
+            <span class="service-cat-count">8</span>
+          </button>
+
+          <button class="service-cat-pill-btn" onclick="selectServiceCategory('all', this)" id="catMoreServices">
+            <i class="fa-solid fa-ellipsis service-cat-icon"></i>
+            <span class="service-cat-name">More</span>
+          </button>
         </div>
 
         <!-- 2-Column Split -->
-        <div class="feedback-main-split">
+        <div class="services-main-split">
           
-          <!-- LEFT COLUMN: Feedback & Immediate Assistance -->
-          <div class="feedback-left-container">
-            
-            <div class="feedback-inner-2col">
+          <!-- LEFT COLUMN: Grid of 8 Popular Service Cards -->
+          <section class="services-left-section">
+            <div class="services-section-header">
+              <div class="services-section-title" id="servicesSectionTitle">Popular Services</div>
+              <div class="services-view-all-link" onclick="selectServiceCategory('all', document.getElementById('catAllServices'))">View All <i class="fa-solid fa-chevron-right" style="font-size:9px;"></i></div>
+            </div>
+
+            <div class="services-grid-2x4" id="servicesGridContainer">
               
-              <!-- Left Inner: We Value Your Feedback -->
-              <div class="we-value-feedback-card">
-                <div style="font-size:11px;font-weight:800;color:#e2b062;letter-spacing:0.5px;text-transform:uppercase;">WE VALUE YOUR FEEDBACK</div>
-                <div style="font-size:10px;color:#94a3b8;">Your feedback helps us serve you better.</div>
-
-                <div style="font-size:11px;font-weight:700;color:#fff;margin-top:2px;">Rate your overall experience today</div>
-                
-                <div class="stars-rating-row" id="starsRatingRow">
-                  <div class="star-rate-item" onclick="setStarRating(1, this)"><i class="fa-regular fa-star"></i><span class="star-rate-label">Poor</span></div>
-                  <div class="star-rate-item" onclick="setStarRating(2, this)"><i class="fa-regular fa-star"></i><span class="star-rate-label">Fair</span></div>
-                  <div class="star-rate-item" onclick="setStarRating(3, this)"><i class="fa-regular fa-star"></i><span class="star-rate-label">Good</span></div>
-                  <div class="star-rate-item" onclick="setStarRating(4, this)"><i class="fa-regular fa-star"></i><span class="star-rate-label">Very Good</span></div>
-                  <div class="star-rate-item" onclick="setStarRating(5, this)"><i class="fa-solid fa-star"></i><span class="star-rate-label">Excellent</span></div>
+              <!-- 1. Concierge -->
+              <div class="service-facility-card" data-id="concierge" data-cat="guest" onclick="openServiceDetailsModal('concierge')">
+                <div class="service-thumb-box">
+                  <img src="../images/kiosk_search_adidas_store.jpg" alt="Concierge" class="service-thumb-img">
+                  <div class="service-round-badge"><i class="fa-solid fa-headset"></i></div>
+                  <div class="service-heart-fav" onclick="event.stopPropagation(); toggleHeartFav(this);"><i class="fa-regular fa-heart"></i></div>
                 </div>
-
-                <div style="font-size:10.5px;font-weight:700;color:#cbd5e1;">Tell us more (Optional)</div>
-                <textarea class="feedback-textarea-box" id="feedbackCommentInput" placeholder="Write your feedback here..."></textarea>
-                
-                <button class="btn-submit-feedback-gold" onclick="submitFeedbackForm()" id="btnSubmitFeedback">
-                  <span>Submit Feedback</span>
-                  <i class="fa-solid fa-paper-plane" style="font-size:10px;"></i>
-                </button>
+                <div class="service-card-body">
+                  <div class="service-name-title">Concierge</div>
+                  <div class="service-short-desc">Information, assistance and guest support</div>
+                  <div class="service-loc-row"><i class="fa-solid fa-location-dot"></i> Ground Floor, Near Main Atrium</div>
+                  <button class="btn-service-view-gold" onclick="event.stopPropagation(); openServiceDetailsModal('concierge')">View Details</button>
+                </div>
               </div>
 
-              <!-- Right Inner: Need Immediate Assistance? -->
-              <div class="immediate-assist-inner-card">
-                <div style="font-size:11px;font-weight:800;color:#e2b062;letter-spacing:0.5px;text-transform:uppercase;">NEED IMMEDIATE ASSISTANCE?</div>
-                <div style="font-size:10px;color:#94a3b8;">Our team is ready to help you.</div>
-
-                <div class="guest-assist-box">
-                  <div style="display:flex;align-items:center;gap:8px;">
-                    <div class="nav-card-circle-icon" style="width:30px;height:30px;font-size:12px;"><i class="fa-solid fa-headset"></i></div>
-                    <div>
-                      <div style="font-size:11px;font-weight:800;color:#fff;">Guest Assistance</div>
-                      <div style="font-size:9px;color:#94a3b8;">We are here to help!</div>
-                    </div>
-                  </div>
-                  <button class="btn-info-action-gold" style="padding:4px 10px;font-size:10px;width:auto;" onclick="openImmediateAssistanceModal()" id="btnConnectConcierge">Connect Now</button>
+              <!-- 2. Mall Wi-Fi -->
+              <div class="service-facility-card" data-id="wifi" data-cat="convenience" onclick="openServiceDetailsModal('wifi')">
+                <div class="service-thumb-box">
+                  <img src="../images/mall_atrium_hero_1787351821606.jpg" alt="Mall Wi-Fi" class="service-thumb-img">
+                  <div class="service-round-badge"><i class="fa-solid fa-wifi"></i></div>
+                  <div class="service-heart-fav" onclick="event.stopPropagation(); toggleHeartFav(this);"><i class="fa-regular fa-heart"></i></div>
                 </div>
-
-                <div class="assist-contact-row" onclick="openImmediateAssistanceModal()">
-                  <div style="display:flex;align-items:center;gap:8px;">
-                    <i class="fa-solid fa-phone" style="color:#e2b062;font-size:11px;"></i>
-                    <div>
-                      <div style="font-size:10.5px;font-weight:800;color:#fff;">Call Us</div>
-                      <div style="font-size:9px;color:#94a3b8;">+91 123 456 7890</div>
-                    </div>
-                  </div>
-                  <i class="fa-solid fa-chevron-right" style="color:#64748b;font-size:9px;"></i>
+                <div class="service-card-body">
+                  <div class="service-name-title">Mall Wi-Fi</div>
+                  <div class="service-short-desc">Stay connected with free high-speed Wi-Fi</div>
+                  <div class="service-loc-row"><i class="fa-solid fa-location-dot"></i> Available Throughout Mall</div>
+                  <button class="btn-service-view-gold" onclick="event.stopPropagation(); openServiceDetailsModal('wifi')">View Details</button>
                 </div>
+              </div>
 
-                <div class="assist-contact-row" onclick="openImmediateAssistanceModal()">
-                  <div style="display:flex;align-items:center;gap:8px;">
-                    <i class="fa-regular fa-envelope" style="color:#e2b062;font-size:11px;"></i>
-                    <div>
-                      <div style="font-size:10.5px;font-weight:800;color:#fff;">Email Us</div>
-                      <div style="font-size:9px;color:#94a3b8;">help@grandmetromall.com</div>
-                    </div>
-                  </div>
-                  <i class="fa-solid fa-chevron-right" style="color:#64748b;font-size:9px;"></i>
+              <!-- 3. Prayer Room -->
+              <div class="service-facility-card" data-id="prayer" data-cat="guest" onclick="openServiceDetailsModal('prayer')">
+                <div class="service-thumb-box">
+                  <img src="../images/kiosk_store_zara.jpg" alt="Prayer Room" class="service-thumb-img" style="filter:brightness(0.6);">
+                  <div class="service-round-badge"><i class="fa-solid fa-mosque"></i></div>
+                  <div class="service-heart-fav" onclick="event.stopPropagation(); toggleHeartFav(this);"><i class="fa-regular fa-heart"></i></div>
                 </div>
-
-                <div class="assist-contact-row" onclick="window.location.href='map.html?dest=concierge'">
-                  <div style="display:flex;align-items:center;gap:8px;">
-                    <i class="fa-solid fa-building-user" style="color:#e2b062;font-size:11px;"></i>
-                    <div>
-                      <div style="font-size:10.5px;font-weight:800;color:#fff;">Visit Guest Services Desk</div>
-                      <div style="font-size:9px;color:#94a3b8;">Ground Floor, Near Main Atrium</div>
-                    </div>
-                  </div>
-                  <i class="fa-solid fa-chevron-right" style="color:#64748b;font-size:9px;"></i>
+                <div class="service-card-body">
+                  <div class="service-name-title">Prayer Room</div>
+                  <div class="service-short-desc">Quiet and peaceful space for prayers</div>
+                  <div class="service-loc-row"><i class="fa-solid fa-location-dot"></i> First Floor, Near Food Court</div>
+                  <button class="btn-service-view-gold" onclick="event.stopPropagation(); openServiceDetailsModal('prayer')">View Details</button>
                 </div>
+              </div>
 
+              <!-- 4. Baby Care Room -->
+              <div class="service-facility-card" data-id="babycare" data-cat="family" onclick="openServiceDetailsModal('babycare')">
+                <div class="service-thumb-box">
+                  <img src="../images/kiosk_store_hm.jpg" alt="Baby Care Room" class="service-thumb-img" style="filter:brightness(0.7);">
+                  <div class="service-round-badge"><i class="fa-solid fa-baby"></i></div>
+                  <div class="service-heart-fav" onclick="event.stopPropagation(); toggleHeartFav(this);"><i class="fa-regular fa-heart"></i></div>
+                </div>
+                <div class="service-card-body">
+                  <div class="service-name-title">Baby Care Room</div>
+                  <div class="service-short-desc">Private space for nursing and baby care</div>
+                  <div class="service-loc-row"><i class="fa-solid fa-location-dot"></i> Ground Floor, Near H&M</div>
+                  <button class="btn-service-view-gold" onclick="event.stopPropagation(); openServiceDetailsModal('babycare')">View Details</button>
+                </div>
+              </div>
+
+              <!-- 5. Locker Services -->
+              <div class="service-facility-card" data-id="lockers" data-cat="convenience" onclick="openServiceDetailsModal('lockers')">
+                <div class="service-thumb-box">
+                  <img src="../images/kiosk_store_sephora.jpg" alt="Locker Services" class="service-thumb-img" style="filter:brightness(0.5);">
+                  <div class="service-round-badge"><i class="fa-solid fa-lock"></i></div>
+                  <div class="service-heart-fav" onclick="event.stopPropagation(); toggleHeartFav(this);"><i class="fa-regular fa-heart"></i></div>
+                </div>
+                <div class="service-card-body">
+                  <div class="service-name-title">Locker Services</div>
+                  <div class="service-short-desc">Secure lockers for your belongings</div>
+                  <div class="service-loc-row"><i class="fa-solid fa-location-dot"></i> Ground Floor, Near Entrance 2</div>
+                  <button class="btn-service-view-gold" onclick="event.stopPropagation(); openServiceDetailsModal('lockers')">View Details</button>
+                </div>
+              </div>
+
+              <!-- 6. Mobile Charging -->
+              <div class="service-facility-card" data-id="charging" data-cat="convenience" onclick="openServiceDetailsModal('charging')">
+                <div class="service-thumb-box">
+                  <img src="../images/kiosk_search_adidas_cafe.jpg" alt="Mobile Charging" class="service-thumb-img" style="filter:brightness(0.6);">
+                  <div class="service-round-badge"><i class="fa-solid fa-bolt"></i></div>
+                  <div class="service-heart-fav" onclick="event.stopPropagation(); toggleHeartFav(this);"><i class="fa-regular fa-heart"></i></div>
+                </div>
+                <div class="service-card-body">
+                  <div class="service-name-title">Mobile Charging</div>
+                  <div class="service-short-desc">Charge your devices on the go</div>
+                  <div class="service-loc-row"><i class="fa-solid fa-location-dot"></i> Ground Floor, Near Food Court</div>
+                  <button class="btn-service-view-gold" onclick="event.stopPropagation(); openServiceDetailsModal('charging')">View Details</button>
+                </div>
+              </div>
+
+              <!-- 7. Wheelchair -->
+              <div class="service-facility-card" data-id="wheelchair" data-cat="accessibility" onclick="openServiceDetailsModal('wheelchair')">
+                <div class="service-thumb-box">
+                  <img src="../images/kiosk_search_adidas_event.jpg" alt="Wheelchair" class="service-thumb-img" style="filter:brightness(0.5);">
+                  <div class="service-round-badge"><i class="fa-solid fa-wheelchair"></i></div>
+                  <div class="service-heart-fav" onclick="event.stopPropagation(); toggleHeartFav(this);"><i class="fa-regular fa-heart"></i></div>
+                </div>
+                <div class="service-card-body">
+                  <div class="service-name-title">Wheelchair</div>
+                  <div class="service-short-desc">Complimentary wheelchair assistance</div>
+                  <div class="service-loc-row"><i class="fa-solid fa-location-dot"></i> Available at Concierge Desk</div>
+                  <button class="btn-service-view-gold" onclick="event.stopPropagation(); openServiceDetailsModal('wheelchair')">View Details</button>
+                </div>
+              </div>
+
+              <!-- 8. Lost & Found -->
+              <div class="service-facility-card" data-id="lostfound" data-cat="guest" onclick="openServiceDetailsModal('lostfound')">
+                <div class="service-thumb-box">
+                  <img src="../images/kiosk_food_starbucks.jpg" alt="Lost & Found" class="service-thumb-img" style="filter:brightness(0.5);">
+                  <div class="service-round-badge"><i class="fa-solid fa-box-open"></i></div>
+                  <div class="service-heart-fav" onclick="event.stopPropagation(); toggleHeartFav(this);"><i class="fa-regular fa-heart"></i></div>
+                </div>
+                <div class="service-card-body">
+                  <div class="service-name-title">Lost & Found</div>
+                  <div class="service-short-desc">Lost something? We can help.</div>
+                  <div class="service-loc-row"><i class="fa-solid fa-location-dot"></i> Ground Floor, Concierge</div>
+                  <button class="btn-service-view-gold" onclick="event.stopPropagation(); openServiceDetailsModal('lostfound')">View Details</button>
+                </div>
               </div>
 
             </div>
 
-            <!-- Bottom Reassurance Strip -->
-            <div class="reassurance-strip-row">
-              <div class="reassurance-item">
-                <div class="reassurance-circle"><i class="fa-solid fa-hands-holding-child"></i></div>
-                <div>
-                  <div style="font-size:10px;font-weight:800;color:#fff;">We're here to help</div>
-                  <div style="font-size:8.5px;color:#94a3b8;">Your comfort is our priority</div>
-                </div>
-              </div>
-
-              <div class="reassurance-item">
-                <div class="reassurance-circle"><i class="fa-solid fa-heart"></i></div>
-                <div>
-                  <div style="font-size:10px;font-weight:800;color:#fff;">Thank you!</div>
-                  <div style="font-size:8.5px;color:#94a3b8;">Your feedback makes us better</div>
-                </div>
-              </div>
-
-              <div class="reassurance-item">
-                <div class="reassurance-circle"><i class="fa-solid fa-shield-halved"></i></div>
-                <div>
-                  <div style="font-size:10px;font-weight:800;color:#fff;">Safe & Secure</div>
-                  <div style="font-size:8.5px;color:#94a3b8;">Your information is always private</div>
-                </div>
-              </div>
-
-              <div class="reassurance-item" style="cursor:pointer;" onclick="window.location.href='home.html'">
-                <div class="reassurance-circle"><i class="fa-solid fa-house"></i></div>
-                <div>
-                  <div style="font-size:10px;font-weight:800;color:#fff;">Return to Home</div>
-                  <div style="font-size:8.5px;color:#94a3b8;">Explore more from home screen</div>
-                </div>
-              </div>
+            <!-- Empty Notice -->
+            <div class="empty-search-state-wrap" id="emptyServicesNotice" style="display:none;margin-top:16px;">
+              <i class="fa-solid fa-bell-concierge" style="font-size:36px;color:#e2b062;margin-bottom:8px;"></i>
+              <div style="font-size:15px;font-weight:800;color:#fff;">No Services Found</div>
+              <div style="font-size:11.5px;color:#94a3b8;margin:4px 0 12px 0;">No matching mall services or amenities found.</div>
+              <button class="btn-promo-cta" onclick="resetServicesFilters()" style="background:var(--gold-gradient-btn);color:#111827;padding:6px 14px;font-size:11px;">Reset Filters</button>
             </div>
 
-          </div>
+          </section>
 
-          <!-- RIGHT COLUMN: Quick Help Topics & Kiosk Session -->
-          <aside class="feedback-right-panel">
+          <!-- RIGHT COLUMN: Immediate Help, Mall Info & Request Service -->
+          <aside class="services-right-column">
             
-            <!-- Quick Help Topics Card -->
-            <div class="quick-help-topics-card">
-              <div style="font-size:10.5px;font-weight:800;color:#e2b062;letter-spacing:0.5px;text-transform:uppercase;margin-bottom:2px;">QUICK HELP TOPICS</div>
+            <!-- Top Card: Need Immediate Help? -->
+            <div class="need-immediate-help-card">
+              <div class="help-card-top-title">Need Immediate Help?</div>
+              <div class="help-agent-row">
+                <div class="help-round-emblem"><i class="fa-solid fa-headset"></i></div>
+                <div>
+                  <div style="font-size:13px;font-weight:800;color:#fff;">Guest Assistance</div>
+                  <div style="font-size:10.5px;color:#94a3b8;">We are here to help you!</div>
+                </div>
+              </div>
+              <button class="btn-connect-now-gold" onclick="openImmediateAssistanceModal()" id="btnConnectNow">Connect Now</button>
+            </div>
 
-              <div class="quick-topic-row" onclick="window.location.href='map.html'" id="topicNavigate">
-                <span>🗺️ How to Navigate the Mall</span>
-                <i class="fa-solid fa-chevron-right" style="color:#64748b;font-size:9px;"></i>
+            <!-- Middle Card: Mall Information Shortcuts -->
+            <div class="mall-info-shortcuts-card">
+              <div style="font-size:13px;font-weight:800;color:#fff;margin-bottom:4px;">Mall Information</div>
+              
+              <div class="mall-info-shortcut-item" style="cursor:default;">
+                <span class="shortcut-left-label"><i class="fa-regular fa-clock"></i> Mall Timings</span>
+                <span style="color:#e2b062;font-size:10.5px;">10:00 AM – 10:00 PM</span>
               </div>
 
-              <div class="quick-topic-row" onclick="window.location.href='map.html?dest=parking'" id="topicParking">
-                <span>🅿️ Parking Assistance</span>
-                <i class="fa-solid fa-chevron-right" style="color:#64748b;font-size:9px;"></i>
+              <div class="mall-info-shortcut-item" onclick="openServiceDetailsModal('parking')" id="shortcutParking">
+                <span class="shortcut-left-label"><i class="fa-solid fa-square-parking"></i> Parking Information</span>
+                <i class="fa-solid fa-chevron-right" style="color:#64748b;font-size:10px;"></i>
               </div>
 
-              <div class="quick-topic-row" onclick="window.location.href='services.html'" id="topicLostFound">
-                <span>💼 Lost & Found</span>
-                <i class="fa-solid fa-chevron-right" style="color:#64748b;font-size:9px;"></i>
+              <div class="mall-info-shortcut-item" onclick="openServiceDetailsModal('atm')" id="shortcutATM">
+                <span class="shortcut-left-label"><i class="fa-solid fa-money-bill-transfer"></i> ATM & Banking</span>
+                <i class="fa-solid fa-chevron-right" style="color:#64748b;font-size:10px;"></i>
               </div>
 
-              <div class="quick-topic-row" onclick="window.location.href='services.html'" id="topicWheelchair">
-                <span>♿ Wheelchair Assistance</span>
-                <i class="fa-solid fa-chevron-right" style="color:#64748b;font-size:9px;"></i>
+              <div class="mall-info-shortcut-item" onclick="openServiceDetailsModal('restrooms')" id="shortcutRestrooms">
+                <span class="shortcut-left-label"><i class="fa-solid fa-restroom"></i> Restrooms</span>
+                <i class="fa-solid fa-chevron-right" style="color:#64748b;font-size:10px;"></i>
               </div>
 
-              <div class="quick-topic-row" onclick="window.location.href='services.html'" id="topicBabyCare">
-                <span>🍼 Baby Care Room</span>
-                <i class="fa-solid fa-chevron-right" style="color:#64748b;font-size:9px;"></i>
+              <div class="mall-info-shortcut-item" onclick="openServiceDetailsModal('firstaid')" id="shortcutFirstAid">
+                <span class="shortcut-left-label"><i class="fa-solid fa-notes-medical"></i> First Aid</span>
+                <i class="fa-solid fa-chevron-right" style="color:#64748b;font-size:10px;"></i>
               </div>
 
-              <div class="quick-topic-row" onclick="window.location.href='info.html'" id="topicTimings">
-                <span>⏰ Mall Timings</span>
-                <i class="fa-solid fa-chevron-right" style="color:#64748b;font-size:9px;"></i>
+              <div class="mall-info-shortcut-item" onclick="openServiceDetailsModal('petrelief')" id="shortcutPetRelief">
+                <span class="shortcut-left-label"><i class="fa-solid fa-paw"></i> Pet Relief Area</span>
+                <i class="fa-solid fa-chevron-right" style="color:#64748b;font-size:10px;"></i>
               </div>
             </div>
 
-            <!-- Kiosk Session Card -->
-            <div class="kiosk-session-card">
-              <div style="font-size:10.5px;font-weight:800;color:#e2b062;letter-spacing:0.5px;text-transform:uppercase;">KIOSK SESSION</div>
-
-              <div class="session-clock-ring"><i class="fa-regular fa-clock"></i></div>
-              <div style="font-size:9.5px;color:#94a3b8;">Session will timeout in</div>
-              <div class="session-countdown-text" id="sessionCountdownDisplay">01:45</div>
-              <div style="font-size:8.5px;color:#64748b;margin:0 4px 6px 4px;">For your privacy, the session will end automatically.</div>
-
-              <button class="btn-submit-feedback-gold" onclick="triggerSessionComplete()" id="btnEndSessionNow" style="padding:6px 10px;font-size:10.5px;">
-                <span>End Session Now</span>
-              </button>
+            <!-- Bottom Card: Request a Service -->
+            <div class="request-service-banner-card">
+              <div class="request-banner-emblem"><i class="fa-solid fa-bell-concierge"></i></div>
+              <div style="flex:1;">
+                <div style="font-size:12.5px;font-weight:800;color:#f7dfb8;">Request a Service</div>
+                <div style="font-size:10px;color:#94a3b8;margin-bottom:6px;">Let us assist you better</div>
+                <button class="btn-service-view-gold" style="padding:5px 12px;font-size:10.5px;width:auto;" onclick="openServiceRequestModal()" id="btnRequestServiceNow">Request Now</button>
+              </div>
             </div>
 
           </aside>
@@ -3537,90 +3670,128 @@ body {
   </div>
 
   <!-- =========================================================================
-       MODALS FOR DOMAIN 10 (Feedback Thanks, Report Issue, General Enquiry, Session Done)
+       MODALS FOR DOMAIN 07 (Service Details, Assistance, Request Form, Filters)
        ========================================================================= -->
 
-  <!-- 1. Feedback Thanks Modal -->
-  <div class="kiosk-modal-backdrop" id="feedbackThanksModal">
-    <div class="kiosk-modal-box luxury-dark-box" style="max-width:460px;text-align:center;">
-      <div class="modal-gold-emblem" style="margin:0 auto 10px auto;color:#10b981;"><i class="fa-solid fa-circle-check"></i></div>
-      <h3 style="font-family:'Cinzel',serif;font-size:18px;font-weight:800;color:#fff;margin:0 0 4px 0;">Thank You for Your Feedback!</h3>
-      <p style="font-size:11.5px;color:#94a3b8;margin:0 0 16px 0;">Your ratings and comments help us continuously improve your experience at Grand Metro Mall.</p>
-      <button class="btn-modal-gold" onclick="closeKioskModal('feedbackThanksModal')">Done</button>
+  <!-- 1. Service Details Modal -->
+  <div class="kiosk-modal-backdrop" id="serviceDetailsModal">
+    <div class="kiosk-modal-box luxury-dark-box" style="max-width:540px;text-align:left;">
+      <div style="display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid rgba(229, 185, 126, 0.2);padding-bottom:12px;margin-bottom:14px;">
+        <div>
+          <h3 style="font-family:'Cinzel',serif;font-size:19px;font-weight:800;color:#fff;margin:0;" id="modalServiceName">Concierge Desk</h3>
+          <div style="font-size:11px;color:#e2b062;" id="modalServiceCategory">Guest Services · Information & Assistance</div>
+        </div>
+        <i class="fa-solid fa-xmark" style="font-size:18px;color:#94a3b8;cursor:pointer;" onclick="closeKioskModal('serviceDetailsModal')"></i>
+      </div>
+
+      <div style="display:grid;grid-template-columns:repeat(3, 1fr);gap:10px;font-size:11px;margin-bottom:14px;">
+        <div style="background:#161f30;padding:8px 10px;border-radius:8px;">
+          <span style="color:#94a3b8;display:block;">Location</span>
+          <strong style="color:#e2b062;" id="modalServiceLoc">Ground Floor, Atrium</strong>
+        </div>
+        <div style="background:#161f30;padding:8px 10px;border-radius:8px;">
+          <span style="color:#94a3b8;display:block;">Availability</span>
+          <strong style="color:#10b981;" id="modalServiceStatus">Available Now</strong>
+        </div>
+        <div style="background:#161f30;padding:8px 10px;border-radius:8px;">
+          <span style="color:#94a3b8;display:block;">Charge</span>
+          <strong style="color:#fff;">Complimentary</strong>
+        </div>
+      </div>
+
+      <div style="font-size:11.5px;color:#cbd5e1;line-height:1.4;margin-bottom:18px;" id="modalServiceDesc">
+        Our dedicated guest concierge officers are available to assist with store inquiries, stroller/wheelchair checkout, gift cards, and lost item claims.
+      </div>
+
+      <div style="display:flex;gap:10px;justify-content:flex-end;">
+        <button class="btn-modal-dark" onclick="openServiceRequestModal()" id="btnModalRequestAssistance">
+          <i class="fa-solid fa-bell-concierge"></i> Request Assistance
+        </button>
+        <button class="btn-modal-gold" onclick="handoffServiceToMap()" id="btnServiceTakeMeThere">
+          <i class="fa-solid fa-location-arrow"></i> Take Me There
+        </button>
+      </div>
     </div>
   </div>
 
-  <!-- 2. Immediate Help Modal -->
+  <!-- 2. Immediate Assistance Modal -->
   <div class="kiosk-modal-backdrop" id="immediateHelpModal">
-    <div class="kiosk-modal-box luxury-dark-box" style="max-width:460px;text-align:center;">
-      <div class="modal-gold-emblem" style="margin:0 auto 10px auto;"><i class="fa-solid fa-headset"></i></div>
-      <h3 style="font-family:'Cinzel',serif;font-size:18px;font-weight:800;color:#fff;margin:0 0 4px 0;">Guest Concierge Connected</h3>
-      <p style="font-size:11.5px;color:#94a3b8;margin:0 0 14px 0;">A representative at the Ground Floor Atrium desk is available or contact <strong>+91 123 456 7890</strong>.</p>
+    <div class="kiosk-modal-box luxury-dark-box" style="max-width:480px;text-align:center;">
+      <div class="modal-gold-emblem" style="margin:0 auto 12px auto;width:56px;height:56px;font-size:24px;"><i class="fa-solid fa-headset"></i></div>
+      <h3 style="font-family:'Cinzel',serif;font-size:18px;font-weight:800;color:#fff;margin:0 0 6px 0;">Connecting to Guest Concierge</h3>
+      <p style="font-size:12px;color:#94a3b8;margin:0 0 16px 0;">Kiosk Station #104 · Ground Floor Central Wing</p>
+      <div style="background:rgba(16, 185, 129, 0.1);border:1px solid #10b981;border-radius:10px;padding:12px;margin-bottom:16px;">
+        <div style="font-size:12px;color:#10b981;font-weight:800;">● Concierge Officer Notified</div>
+        <div style="font-size:11px;color:#cbd5e1;margin-top:2px;">An assistance executive is on their way or you can speak via the kiosk mic.</div>
+      </div>
       <button class="btn-modal-gold" onclick="closeKioskModal('immediateHelpModal')">Dismiss</button>
     </div>
   </div>
 
-  <!-- 3. Report an Issue Modal -->
-  <div class="kiosk-modal-backdrop" id="reportIssueModal">
-    <div class="kiosk-modal-box luxury-dark-box" style="max-width:480px;text-align:left;">
+  <!-- 3. Service Request Form Modal -->
+  <div class="kiosk-modal-backdrop" id="serviceRequestModal">
+    <div class="kiosk-modal-box luxury-dark-box" style="max-width:500px;text-align:left;">
       <div style="display:flex;justify-content:space-between;border-bottom:1px solid rgba(229, 185, 126, 0.2);padding-bottom:10px;margin-bottom:14px;">
-        <h3 style="font-size:17px;font-weight:800;color:#fff;margin:0;">Report an Issue</h3>
-        <i class="fa-solid fa-xmark" style="font-size:16px;color:#94a3b8;cursor:pointer;" onclick="closeKioskModal('reportIssueModal')"></i>
+        <h3 style="font-size:17px;font-weight:800;color:#fff;margin:0;">Request Assistance</h3>
+        <i class="fa-solid fa-xmark" style="font-size:16px;color:#94a3b8;cursor:pointer;" onclick="closeKioskModal('serviceRequestModal')"></i>
       </div>
-      <div style="display:flex;flex-direction:column;gap:10px;margin-bottom:16px;">
+      <div style="display:flex;flex-direction:column;gap:12px;margin-bottom:16px;">
         <div>
-          <label style="font-size:11px;font-weight:700;color:#e2b062;display:block;margin-bottom:4px;">Issue Type</label>
-          <select id="issueTypeSelect" style="width:100%;background:#161f30;border:1px solid rgba(229, 185, 126, 0.3);color:#fff;border-radius:8px;padding:8px;outline:none;">
-            <option value="kiosk">Kiosk Screen / Display Issue</option>
-            <option value="navigation">Wayfinding / Navigation Difficulty</option>
-            <option value="cleanliness">Mall Cleanliness & Facilities</option>
-            <option value="store">Store / Outlet Issue</option>
-            <option value="other">Other Inquiry</option>
+          <label style="font-size:11px;font-weight:700;color:#e2b062;display:block;margin-bottom:4px;">Service Type</label>
+          <select id="requestServiceSelect" style="width:100%;background:#161f30;border:1px solid rgba(229, 185, 126, 0.3);color:#fff;border-radius:8px;padding:8px;outline:none;">
+            <option value="Wheelchair Assistance">Wheelchair Assistance</option>
+            <option value="Baby Stroller Checkout">Baby Stroller Checkout</option>
+            <option value="Lost & Found Inquiry">Lost & Found Inquiry</option>
+            <option value="Porter & Luggage Help">Porter & Luggage Help</option>
           </select>
         </div>
         <div>
-          <label style="font-size:11px;font-weight:700;color:#e2b062;display:block;margin-bottom:4px;">Describe the issue</label>
-          <textarea id="issueNotesInput" placeholder="Briefly describe what happened..." style="width:100%;height:60px;background:#161f30;border:1px solid rgba(229, 185, 126, 0.3);color:#fff;border-radius:8px;padding:8px;outline:none;box-sizing:border-box;resize:none;"></textarea>
+          <label style="font-size:11px;font-weight:700;color:#e2b062;display:block;margin-bottom:4px;">Contact Number / Notes (Optional)</label>
+          <input type="text" id="requestNotesInput" placeholder="+91 98765 43210 / Kiosk #104" style="width:100%;background:#161f30;border:1px solid rgba(229, 185, 126, 0.3);color:#fff;border-radius:8px;padding:8px;outline:none;box-sizing:border-box;">
         </div>
       </div>
       <div style="display:flex;gap:10px;justify-content:flex-end;">
-        <button class="btn-modal-gold" onclick="submitIssueReport()" id="btnSubmitIssue">Submit Report</button>
-        <button class="btn-modal-dark" onclick="closeKioskModal('reportIssueModal')">Cancel</button>
+        <button class="btn-modal-gold" onclick="submitServiceRequest()" id="btnSubmitServiceRequest">Submit Request</button>
+        <button class="btn-modal-dark" onclick="closeKioskModal('serviceRequestModal')">Cancel</button>
       </div>
     </div>
   </div>
 
-  <!-- 4. General Enquiry Modal -->
-  <div class="kiosk-modal-backdrop" id="generalEnquiryModal">
-    <div class="kiosk-modal-box luxury-dark-box" style="max-width:480px;text-align:left;">
-      <div style="display:flex;justify-content:space-between;border-bottom:1px solid rgba(229, 185, 126, 0.2);padding-bottom:10px;margin-bottom:14px;">
-        <h3 style="font-size:17px;font-weight:800;color:#fff;margin:0;">General Enquiry</h3>
-        <i class="fa-solid fa-xmark" style="font-size:16px;color:#94a3b8;cursor:pointer;" onclick="closeKioskModal('generalEnquiryModal')"></i>
+  <!-- 4. Service Request Confirmation Modal -->
+  <div class="kiosk-modal-backdrop" id="serviceConfirmModal">
+    <div class="kiosk-modal-box luxury-dark-box" style="max-width:460px;text-align:center;">
+      <div class="modal-gold-emblem" style="margin:0 auto 12px auto;color:#10b981;"><i class="fa-solid fa-circle-check"></i></div>
+      <h3 style="font-family:'Cinzel',serif;font-size:18px;font-weight:800;color:#fff;margin:0 0 6px 0;">Request Confirmed!</h3>
+      <div style="font-size:13px;font-weight:800;color:#f7dfb8;margin-bottom:4px;" id="confirmServiceTicket">Ticket #SR-8921</div>
+      <p style="font-size:11.5px;color:#94a3b8;margin:0 0 16px 0;">A concierge representative has been dispatched to your current location.</p>
+      <button class="btn-modal-gold" onclick="closeKioskModal('serviceConfirmModal')">Done</button>
+    </div>
+  </div>
+
+  <!-- 5. Filters, Scan Explore, Language & Help Modals -->
+  <div class="kiosk-modal-backdrop" id="servicesFilterModal">
+    <div class="kiosk-modal-box luxury-dark-box" style="max-width:500px;text-align:left;">
+      <div class="kiosk-modal-header-luxury">
+        <div class="modal-gold-emblem"><i class="fa-solid fa-sliders"></i></div>
+        <div class="modal-title-gold">Filter Services</div>
       </div>
-      <div style="display:flex;flex-direction:column;gap:10px;margin-bottom:16px;">
+      <div style="display:flex;flex-direction:column;gap:14px;margin-bottom:20px;">
         <div>
-          <label style="font-size:11px;font-weight:700;color:#e2b062;display:block;margin-bottom:4px;">Your Question / Enquiry</label>
-          <textarea id="enquiryTextInput" placeholder="Type your query here..." style="width:100%;height:60px;background:#161f30;border:1px solid rgba(229, 185, 126, 0.3);color:#fff;border-radius:8px;padding:8px;outline:none;box-sizing:border-box;resize:none;"></textarea>
+          <label style="font-size:11px;font-weight:700;color:#e2b062;text-transform:uppercase;display:block;margin-bottom:6px;">Floor</label>
+          <div style="display:flex;gap:6px;flex-wrap:wrap;">
+            <button class="search-tag-pill active" onclick="toggleFilterPill(this)">All Floors</button>
+            <button class="search-tag-pill" onclick="toggleFilterPill(this)">Ground Floor</button>
+            <button class="search-tag-pill" onclick="toggleFilterPill(this)">First Floor</button>
+          </div>
         </div>
       </div>
-      <div style="display:flex;gap:10px;justify-content:flex-end;">
-        <button class="btn-modal-gold" onclick="submitGeneralEnquiry()" id="btnSubmitEnquiry">Submit Enquiry</button>
-        <button class="btn-modal-dark" onclick="closeKioskModal('generalEnquiryModal')">Cancel</button>
+      <div class="modal-actions-luxury">
+        <button class="btn-modal-gold" onclick="closeKioskModal('servicesFilterModal')">Apply Filters</button>
+        <button class="btn-modal-dark" onclick="closeKioskModal('servicesFilterModal')">Cancel</button>
       </div>
     </div>
   </div>
 
-  <!-- 5. Session Done Modal -->
-  <div class="kiosk-modal-backdrop" id="sessionDoneModal">
-    <div class="kiosk-modal-box luxury-dark-box" style="max-width:440px;text-align:center;">
-      <div class="modal-gold-emblem" style="margin:0 auto 10px auto;color:#10b981;"><i class="fa-solid fa-circle-check"></i></div>
-      <h3 style="font-family:'Cinzel',serif;font-size:18px;font-weight:800;color:#fff;margin:0 0 4px 0;">Session Completed</h3>
-      <p style="font-size:11.5px;color:#94a3b8;margin:0 0 16px 0;">Your session data has been cleared. Thank you for visiting Grand Metro Mall!</p>
-      <button class="btn-modal-gold" onclick="window.location.href='home.html'" id="btnSessionReturnHome">Return to Home</button>
-    </div>
-  </div>
-
-  <!-- 6. Scan Explore, Language & Help Modals -->
   <div class="kiosk-modal-backdrop" id="scanExploreModal">
     <div class="kiosk-modal-box luxury-dark-box">
       <div class="kiosk-modal-header-luxury">
@@ -3659,72 +3830,240 @@ body {
 
   <script src="kiosk.js"></script>
   <script>
-    let currentRating = 5;
+    // Services Mock DB
+    const servicesDB = {
+      concierge: {
+        id: 'concierge',
+        name: 'Concierge Desk',
+        category: 'Guest Services · Information & Assistance',
+        loc: 'Ground Floor, Near Main Atrium',
+        destId: 'concierge',
+        status: 'Available Now',
+        catKey: 'guest',
+        desc: 'Our dedicated guest concierge officers are available to assist with store inquiries, stroller/wheelchair checkout, gift cards, and lost item claims.'
+      },
+      wifi: {
+        id: 'wifi',
+        name: 'Mall Free Wi-Fi',
+        category: 'Convenience · High-Speed Connectivity',
+        loc: 'Available Throughout Mall',
+        destId: 'atrium',
+        status: 'Online · 100 Mbps',
+        catKey: 'convenience',
+        desc: 'Enjoy complimentary high-speed internet across all floors. Simply connect to "GrandMetro_FreeWiFi" and enter your mobile number for OTP verification.'
+      },
+      prayer: {
+        id: 'prayer',
+        name: 'Prayer Room',
+        category: 'Guest Services · Multi-faith Prayer Hall',
+        loc: 'First Floor, Near Food Court',
+        destId: 'prayerroom',
+        status: 'Open 10 AM – 10 PM',
+        catKey: 'guest',
+        desc: 'Quiet, serene, and clean multi-faith prayer rooms with dedicated ablution facilities for men and women.'
+      },
+      babycare: {
+        id: 'babycare',
+        name: 'Baby Care Room',
+        category: 'Family & Kids · Nursery & Changing',
+        loc: 'Ground Floor, Near H&M',
+        destId: 'babycare',
+        status: 'Available Now',
+        catKey: 'family',
+        desc: 'Private, sanitized nursing pods equipped with cushioned diaper changing stations, bottle warmers, and child seating.'
+      },
+      lockers: {
+        id: 'lockers',
+        name: 'Locker Services',
+        category: 'Convenience · Secure Luggage Storage',
+        loc: 'Ground Floor, Near Entrance 2',
+        destId: 'lockers',
+        status: 'Bays Available',
+        catKey: 'convenience',
+        desc: 'Smart electronic lockers with PIN and RFID access for secure temporary storage of shopping bags and luggage.'
+      },
+      charging: {
+        id: 'charging',
+        name: 'Mobile Charging Stations',
+        category: 'Convenience · Rapid Device Power',
+        loc: 'Ground Floor, Near Food Court',
+        destId: 'charging',
+        status: 'Stations Free',
+        catKey: 'convenience',
+        desc: 'Complimentary rapid-charging kiosks with Lightning, USB-C, and wireless charging pads for smartphones.'
+      },
+      wheelchair: {
+        id: 'wheelchair',
+        name: 'Wheelchair Assistance',
+        category: 'Accessibility · Mobility Support',
+        loc: 'Available at Concierge Desk',
+        destId: 'concierge',
+        status: 'Available Now',
+        catKey: 'accessibility',
+        desc: 'Complimentary sanitized wheelchairs and dedicated mobility assistants available for senior citizens and persons with disabilities.'
+      },
+      lostfound: {
+        id: 'lostfound',
+        name: 'Lost & Found',
+        category: 'Guest Services · Item Claim Desk',
+        loc: 'Ground Floor, Concierge',
+        destId: 'concierge',
+        status: 'Open 10 AM – 10 PM',
+        catKey: 'guest',
+        desc: 'Safely log lost belongings or claim retrieved items verified by security officers and mall concierge staff.'
+      },
+      parking: {
+        id: 'parking',
+        name: 'Parking Facilities',
+        category: 'Transport · Multi-Level Smart Parking',
+        loc: 'Basements B1, B2 & B3',
+        destId: 'parking',
+        status: '840 Slots Available',
+        catKey: 'transport',
+        desc: 'Multi-level smart sensor parking with automated license plate recognition, EV fast charging bays, and valet drop-off.'
+      },
+      atm: {
+        id: 'atm',
+        name: 'ATM & Banking Center',
+        category: 'Convenience · Cash Dispenser & Forex',
+        loc: 'Ground Floor, West Wing',
+        destId: 'atm',
+        status: '24x7 Active',
+        catKey: 'convenience',
+        desc: 'Multi-bank ATMs (HDFC, ICICI, SBI) along with currency exchange counters.'
+      },
+      restrooms: {
+        id: 'restrooms',
+        name: 'Restrooms & Facilities',
+        category: 'Convenience · Clean Washrooms',
+        loc: 'All Floors (East & West Wings)',
+        destId: 'restrooms',
+        status: 'Sanitized Hourly',
+        catKey: 'convenience',
+        desc: 'Touchless, hygienic executive washrooms equipped with disability-friendly stalls and baby changing tables.'
+      },
+      firstaid: {
+        id: 'firstaid',
+        name: 'First Aid & Medical Station',
+        category: 'Guest Services · Emergency Aid',
+        loc: 'Ground Floor, Medical Room G-40',
+        destId: 'medical',
+        status: 'Paramedic on Duty',
+        catKey: 'guest',
+        desc: 'Certified medical station equipped with emergency first aid, automated external defibrillator (AED), and ambulance coordination.'
+      },
+      petrelief: {
+        id: 'petrelief',
+        name: 'Pet Relief Area',
+        category: 'Family & Convenience · Pet Friendly',
+        loc: 'Outer Courtyard, Gate 3',
+        destId: 'petzone',
+        status: 'Open 10 AM – 10 PM',
+        catKey: 'convenience',
+        desc: 'Dedicated landscaped green zone with clean waste disposal and fresh water fountains for visiting pets.'
+      }
+    };
 
-    function selectFeedbackTab(tab, btn) {
-      document.querySelectorAll('.feedback-nav-card').forEach(b => b.classList.remove('active'));
+    let currentSelectedServiceId = 'concierge';
+    let currentServiceCategory = 'all';
+
+    function selectServiceCategory(cat, btn) {
+      currentServiceCategory = cat;
+      document.querySelectorAll('.service-cat-pill-btn').forEach(b => b.classList.remove('active'));
       if (btn) btn.classList.add('active');
+      applyServicesFilters();
     }
 
-    function setStarRating(rating, el) {
-      currentRating = rating;
-      const items = document.querySelectorAll('.star-rate-item');
-      items.forEach((item, idx) => {
-        const icon = item.querySelector('i');
-        if (idx < rating) {
-          icon.classList.remove('fa-regular');
-          icon.classList.add('fa-solid');
+    function handleServicesSearchFilter() {
+      applyServicesFilters();
+    }
+
+    function applyServicesFilters() {
+      const searchVal = (document.getElementById('servicesSearchInput').value || '').trim().toLowerCase();
+      const allCards = document.querySelectorAll('.service-facility-card');
+      let visibleCount = 0;
+
+      allCards.forEach(card => {
+        const id = card.getAttribute('data-id');
+        const s = servicesDB[id];
+        if (!s) return;
+
+        const matchCat = (currentServiceCategory === 'all' || s.catKey === currentServiceCategory);
+        const matchSearch = (!searchVal || s.name.toLowerCase().includes(searchVal) || s.category.toLowerCase().includes(searchVal));
+
+        if (matchCat && matchSearch) {
+          card.style.display = 'flex';
+          visibleCount++;
         } else {
-          icon.classList.remove('fa-solid');
-          icon.classList.add('fa-regular');
+          card.style.display = 'none';
         }
       });
+
+      const emptyNotice = document.getElementById('emptyServicesNotice');
+      if (visibleCount === 0) {
+        emptyNotice.style.display = 'flex';
+      } else {
+        emptyNotice.style.display = 'none';
+      }
     }
 
-    function submitFeedbackForm() {
-      document.getElementById('feedbackCommentInput').value = '';
-      openKioskModal('feedbackThanksModal');
+    function resetServicesFilters() {
+      currentServiceCategory = 'all';
+      document.getElementById('servicesSearchInput').value = '';
+      document.querySelectorAll('.service-cat-pill-btn').forEach(b => b.classList.remove('active'));
+      document.getElementById('catAllServices')?.classList.add('active');
+      applyServicesFilters();
+    }
+
+    function openServiceDetailsModal(id) {
+      currentSelectedServiceId = id;
+      const s = servicesDB[id] || servicesDB['concierge'];
+      document.getElementById('modalServiceName').textContent = s.name;
+      document.getElementById('modalServiceCategory').textContent = s.category;
+      document.getElementById('modalServiceLoc').textContent = s.loc;
+      document.getElementById('modalServiceStatus').textContent = s.status;
+      document.getElementById('modalServiceDesc').textContent = s.desc;
+      openKioskModal('serviceDetailsModal');
     }
 
     function openImmediateAssistanceModal() {
       openKioskModal('immediateHelpModal');
     }
 
-    function openReportIssueModal() {
-      openKioskModal('reportIssueModal');
+    function openServiceRequestModal() {
+      closeKioskModal('serviceDetailsModal');
+      openKioskModal('serviceRequestModal');
     }
 
-    function submitIssueReport() {
-      closeKioskModal('reportIssueModal');
-      openKioskModal('feedbackThanksModal');
+    function submitServiceRequest() {
+      closeKioskModal('serviceRequestModal');
+      const ticketNum = Math.floor(1000 + Math.random() * 9000);
+      document.getElementById('confirmServiceTicket').textContent = `Ticket #SR-${ticketNum}`;
+      openKioskModal('serviceConfirmModal');
     }
 
-    function openGeneralEnquiryModal() {
-      openKioskModal('generalEnquiryModal');
+    function handoffServiceToMap() {
+      const s = servicesDB[currentSelectedServiceId] || servicesDB['concierge'];
+      window.location.href = `map.html?dest=${s.destId || 'concierge'}`;
     }
 
-    function submitGeneralEnquiry() {
-      closeKioskModal('generalEnquiryModal');
-      openKioskModal('feedbackThanksModal');
-    }
-
-    function triggerSessionComplete() {
-      openKioskModal('sessionDoneModal');
-    }
-
-    // Session Countdown (1:45 countdown loop)
-    let sessionSeconds = 105;
-    setInterval(() => {
-      if (sessionSeconds > 0) {
-        sessionSeconds--;
-        const mins = Math.floor(sessionSeconds / 60).toString().padStart(2, '0');
-        const secs = (sessionSeconds % 60).toString().padStart(2, '0');
-        const disp = document.getElementById('sessionCountdownDisplay');
-        if (disp) disp.textContent = `${mins}:${secs}`;
+    function toggleHeartFav(el) {
+      const icon = el.querySelector('i');
+      if (icon.classList.contains('fa-regular')) {
+        icon.classList.remove('fa-regular');
+        icon.classList.add('fa-solid');
+        icon.style.color = '#ef4444';
       } else {
-        sessionSeconds = 105;
+        icon.classList.remove('fa-solid');
+        icon.classList.add('fa-regular');
+        icon.style.color = '#e2b062';
       }
-    }, 1000);
+    }
+
+    function toggleFilterPill(btn) {
+      btn.parentElement.querySelectorAll('.search-tag-pill').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+    }
 
     function selectLanguage(lang) {
       document.getElementById('currentLanguageLabel').textContent = lang.split(' ')[0].toUpperCase();
