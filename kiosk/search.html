@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Grand Metro Mall · Interactive Kiosk Guide</title>
+  <title>Search & Discovery · Grand Metro Mall Kiosk</title>
   <!-- Google Fonts & Font Awesome -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -2914,10 +2914,376 @@ body {
 }
 
   </style>
+  <style id="kiosk-search-specific-css">
+    /* =========================================================================
+       SEARCH & DISCOVERY (DOMAIN 02) STYLING
+       ========================================================================= */
+    .search-top-nav-bar {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      margin-bottom: 16px;
+    }
+
+    .btn-header-back {
+      background: rgba(18, 24, 38, 0.85);
+      border: 1px solid rgba(229, 185, 126, 0.35);
+      color: #f7dfb8;
+      padding: 8px 16px;
+      border-radius: 999px;
+      font-size: 12.5px;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      cursor: pointer;
+      text-decoration: none;
+      transition: all 0.2s ease;
+    }
+    .btn-header-back:hover {
+      background: rgba(226, 176, 98, 0.15);
+      border-color: #e2b062;
+      transform: translateX(-2px);
+    }
+
+    .search-input-field-wrap {
+      flex: 1;
+      background: rgba(18, 24, 38, 0.85);
+      border: 1px solid rgba(229, 185, 126, 0.35);
+      border-radius: 999px;
+      height: 48px;
+      display: flex;
+      align-items: center;
+      padding: 0 20px;
+      gap: 12px;
+      transition: all 0.2s ease;
+    }
+    .search-input-field-wrap:focus-within {
+      border-color: rgba(229, 185, 126, 0.8);
+      box-shadow: 0 0 20px rgba(226, 176, 98, 0.25);
+    }
+
+    .search-input-field {
+      flex: 1;
+      background: transparent;
+      border: none;
+      outline: none;
+      color: #ffffff;
+      font-size: 15px;
+      font-weight: 600;
+      font-family: inherit;
+    }
+
+    .btn-clear-search-x {
+      width: 22px;
+      height: 22px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.15);
+      color: #cbd5e1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 11px;
+      cursor: pointer;
+      border: none;
+      transition: all 0.2s ease;
+    }
+    .btn-clear-search-x:hover {
+      background: rgba(255, 255, 255, 0.3);
+      color: #fff;
+    }
+
+    .btn-open-filters {
+      background: rgba(18, 24, 38, 0.85);
+      border: 1px solid rgba(229, 185, 126, 0.35);
+      color: #f7dfb8;
+      padding: 0 22px;
+      height: 48px;
+      border-radius: 999px;
+      font-size: 13px;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+    .btn-open-filters:hover {
+      background: rgba(226, 176, 98, 0.2);
+      border-color: #e2b062;
+    }
+
+    /* Category Filter Tabs Bar */
+    .search-category-tabs-bar {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 20px;
+      overflow-x: auto;
+    }
+
+    .search-tab-pill {
+      background: rgba(18, 24, 38, 0.7);
+      border: 1px solid rgba(229, 185, 126, 0.25);
+      color: #cbd5e1;
+      padding: 9px 20px;
+      border-radius: 999px;
+      font-size: 12.5px;
+      font-weight: 700;
+      cursor: pointer;
+      white-space: nowrap;
+      transition: all 0.2s ease;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .search-tab-pill:hover {
+      background: rgba(226, 176, 98, 0.15);
+      color: #ffffff;
+    }
+    .search-tab-pill.active {
+      background: var(--gold-gradient-btn);
+      color: #111827;
+      border-color: #e2b062;
+      box-shadow: 0 0 16px rgba(226, 176, 98, 0.4);
+    }
+
+    /* Results 2-Column Split */
+    .search-results-split {
+      display: grid;
+      grid-template-columns: minmax(0, 1.75fr) minmax(0, 1fr);
+      gap: 24px;
+      align-items: start;
+    }
+
+    .search-section-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 12px;
+    }
+    .search-section-title {
+      font-size: 14px;
+      font-weight: 800;
+      color: #ffffff;
+      letter-spacing: 0.5px;
+    }
+    .search-view-all-link {
+      font-size: 11.5px;
+      font-weight: 700;
+      color: #e2b062;
+      cursor: pointer;
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+    .search-view-all-link:hover {
+      color: #f7dfb8;
+    }
+
+    /* Store Cards Horizontal Row */
+    .store-cards-carousel-row {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 14px;
+      position: relative;
+    }
+
+    .store-result-card {
+      background: rgba(18, 25, 38, 0.7);
+      border: 1px solid rgba(229, 185, 126, 0.25);
+      border-radius: 18px;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      cursor: pointer;
+      transition: all 0.25s ease;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+    }
+    .store-result-card.featured-gold {
+      border-color: rgba(229, 185, 126, 0.85);
+      box-shadow: 0 0 20px rgba(226, 176, 98, 0.25), 0 10px 30px rgba(0, 0, 0, 0.5);
+    }
+    .store-result-card:hover {
+      transform: translateY(-3px);
+      border-color: #e2b062;
+    }
+
+    .store-card-img-wrap {
+      height: 125px;
+      background: #0b0f19;
+      position: relative;
+      overflow: hidden;
+    }
+    .store-card-img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    .store-heart-fav {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      background: rgba(0, 0, 0, 0.5);
+      color: #e2b062;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 13px;
+      cursor: pointer;
+    }
+
+    .store-card-body {
+      padding: 12px 14px;
+      display: flex;
+      flex-direction: column;
+      gap: 3px;
+      flex: 1;
+    }
+    .store-name-text {
+      font-size: 13.5px;
+      font-weight: 800;
+      color: #ffffff;
+    }
+    .store-cat-text {
+      font-size: 10.5px;
+      color: #94a3b8;
+    }
+    .store-loc-text {
+      font-size: 11px;
+      color: #e2b062;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      margin: 4px 0 8px 0;
+    }
+
+    .btn-view-details-gold {
+      background: var(--gold-gradient-btn);
+      color: #111827;
+      border: none;
+      border-radius: 8px;
+      padding: 7px 12px;
+      font-size: 11px;
+      font-weight: 800;
+      cursor: pointer;
+      text-align: center;
+      width: 100%;
+      margin-top: auto;
+      transition: all 0.2s ease;
+    }
+    .btn-view-details-gold:hover {
+      box-shadow: 0 0 14px rgba(226, 176, 98, 0.5);
+    }
+
+    /* Food & Dining Cards */
+    .food-results-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+    }
+    .food-res-card {
+      background: rgba(18, 25, 38, 0.7);
+      border: 1px solid rgba(229, 185, 126, 0.2);
+      border-radius: 14px;
+      padding: 10px 14px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+    .food-res-card:hover {
+      background: rgba(26, 36, 56, 0.85);
+      border-color: #e2b062;
+      transform: translateY(-2px);
+    }
+    .food-img-thumb {
+      width: 64px;
+      height: 52px;
+      border-radius: 8px;
+      object-fit: cover;
+    }
+
+    /* Offers Cards */
+    .offers-list-col {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    .offer-res-card {
+      border-radius: 14px;
+      padding: 12px 16px;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+    }
+    .offer-res-card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5);
+    }
+    .offer-badge-box {
+      width: 80px;
+      height: 64px;
+      border-radius: 10px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      font-weight: 900;
+      flex-shrink: 0;
+    }
+
+    /* Event Card */
+    .event-res-card {
+      background: rgba(18, 25, 38, 0.75);
+      border: 1px solid rgba(229, 185, 126, 0.25);
+      border-radius: 16px;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      padding: 10px 14px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+    .event-res-card:hover {
+      border-color: #e2b062;
+      transform: translateY(-2px);
+    }
+    .event-img-thumb {
+      width: 100px;
+      height: 70px;
+      border-radius: 10px;
+      object-fit: cover;
+      flex-shrink: 0;
+    }
+
+    /* Empty Search State */
+    .empty-search-state-wrap {
+      display: none;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 60px 20px;
+      background: rgba(18, 25, 38, 0.6);
+      border: 1px dashed rgba(229, 185, 126, 0.3);
+      border-radius: 20px;
+      margin: 20px 0;
+    }
+  </style>
 </head>
 <body class="horizontal-kiosk-body">
 
-  <!-- Main Kiosk Screen Container (Horizontal 16:9 Display Presentation) -->
   <div class="horizontal-kiosk-wrapper">
     <div class="kiosk-horizontal-screen">
 
@@ -2925,12 +3291,18 @@ body {
            1. KIOSK HEADER
            ===================================================================== -->
       <header class="kiosk-horizontal-header">
-        <!-- Weather Left -->
-        <div class="header-weather-box" id="headerWeather">
-          <i class="fa-solid fa-sun weather-sun-icon"></i>
-          <div class="weather-meta">
-            <span class="weather-temp">28°C</span>
-            <span class="weather-label">Sunny</span>
+        <!-- Back Button & Weather Left -->
+        <div style="display:flex;align-items:center;gap:14px;">
+          <a href="home.html" class="btn-header-back" id="btnHeaderBack">
+            <i class="fa-solid fa-arrow-left"></i>
+            <span>Back</span>
+          </a>
+          <div class="header-weather-box" id="headerWeather">
+            <i class="fa-solid fa-sun weather-sun-icon"></i>
+            <div class="weather-meta">
+              <span class="weather-temp">28°C</span>
+              <span class="weather-label">Sunny</span>
+            </div>
           </div>
         </div>
 
@@ -2963,227 +3335,219 @@ body {
       </header>
 
       <!-- =====================================================================
-           2. MAIN WORKSPACE (2-COLUMN HORIZONTAL SPLIT)
+           2. MAIN SEARCH WORKSPACE
            ===================================================================== -->
-      <main class="kiosk-horizontal-main">
-        
-        <!-- LEFT / CENTER COLUMN (~72%): Carousel + Search + 8 Primary Destinations -->
-        <section class="kiosk-left-column">
+      <main class="kiosk-horizontal-main" style="display:flex;flex-direction:column;padding:16px 36px 20px 36px;">
 
-          <!-- Featured Promotional Carousel -->
-          <div class="featured-promo-carousel" id="homePromoCarousel">
-            
-            <!-- Slide 1: Festive Sale (Active) -->
-            <div class="promo-slide active" id="promoSlide1" style="background: linear-gradient(90deg, rgba(8,11,18,0.94) 0%, rgba(8,11,18,0.72) 38%, rgba(8,11,18,0.05) 80%), url('../images/kiosk_festive_sale_hero.jpg') right 10% / cover no-repeat;">
-              <div class="promo-slide-content">
-                <div class="promo-elegant-title">FESTIVE</div>
-                <div class="promo-huge-sale">SALE</div>
-                <div class="promo-ribbon-badge">
-                  <span>UP TO 50% OFF</span>
-                </div>
-                <p class="promo-subtext">Shop More. Save More. Celebrate More.</p>
-                <a href="shop.html" class="btn-promo-cta" id="btnPromoCta1">
-                  <span>EXPLORE OFFERS</span>
-                  <i class="fa-solid fa-chevron-right"></i>
-                </a>
-              </div>
-            </div>
-
-            <!-- Slide 2: Bleu De Chanel -->
-            <div class="promo-slide" id="promoSlide2" style="background: linear-gradient(90deg, rgba(4,8,16,0.95) 0%, rgba(4,8,16,0.65) 45%, rgba(4,8,16,0.15) 85%), url('../images/blue_chanel_image.jpg') center right / cover no-repeat;">
-              <div class="promo-slide-content">
-                <div class="promo-elegant-title" style="letter-spacing:4px;">BLEU DE CHANEL</div>
-                <div class="promo-huge-sale" style="font-size:26px;letter-spacing:3px;">L'EXCLUSIF</div>
-                <div class="promo-ribbon-badge" style="background:linear-gradient(135deg,#1e3a8a,#0284c7);">
-                  <span>NEW SIGNATURE SCENT</span>
-                </div>
-                <p class="promo-subtext">Discover the bold new fragrance at Ground Floor Boutique.</p>
-                <a href="shop.html" class="btn-promo-cta" id="btnPromoCta2">
-                  <span>DISCOVER STORE</span>
-                  <i class="fa-solid fa-chevron-right"></i>
-                </a>
-              </div>
-            </div>
-
-            <!-- Slide 3: Gourmet Food Special -->
-            <div class="promo-slide" id="promoSlide3" style="background: linear-gradient(90deg, rgba(8,11,18,0.95) 0%, rgba(8,11,18,0.7) 45%, rgba(8,11,18,0.15) 85%), url('../images/kiosk_highlight_food.jpg') center right / cover no-repeat;">
-              <div class="promo-slide-content">
-                <div class="promo-elegant-title">GOURMET FEST</div>
-                <div class="promo-huge-sale" style="font-size:28px;">DINE & WIN</div>
-                <div class="promo-ribbon-badge">
-                  <span>FLAT 25% CASHBACK</span>
-                </div>
-                <p class="promo-subtext">Over 40+ premier restaurants & cafes on Level 3.</p>
-                <a href="food.html" class="btn-promo-cta" id="btnPromoCta3">
-                  <span>VIEW DINING</span>
-                  <i class="fa-solid fa-chevron-right"></i>
-                </a>
-              </div>
-            </div>
-
-            <!-- Carousel Indicator Dots -->
-            <div class="carousel-indicators-bar">
-              <span class="carousel-dot active" onclick="switchPromoSlide(0)"></span>
-              <span class="carousel-dot" onclick="switchPromoSlide(1)"></span>
-              <span class="carousel-dot" onclick="switchPromoSlide(2)"></span>
-              <span class="carousel-dot" onclick="switchPromoSlide(0)"></span>
-              <span class="carousel-dot" onclick="switchPromoSlide(1)"></span>
-            </div>
-
-          </div>
-
-          <!-- Prominent Search Bar Entry -->
-          <div class="horizontal-search-bar" onclick="openKioskSearch()">
-            <i class="fa-solid fa-magnifying-glass search-leading-icon"></i>
+        <!-- Top Search Input Bar & Filters Button -->
+        <div class="search-top-nav-bar">
+          <div class="search-input-field-wrap">
+            <i class="fa-solid fa-magnifying-glass" style="color:#e2b062;font-size:16px;"></i>
             <input 
               type="text" 
-              class="search-bar-input" 
-              id="kioskSearchInput" 
-              placeholder="Search for stores, brands, dining, offers and more..." 
+              class="search-input-field" 
+              id="kioskMainSearchInput" 
+              value="adidas" 
+              placeholder="Search for stores, brands, dining, offers and more..."
+              onkeyup="handleLiveSearchInput()"
               autocomplete="off"
             >
-            <i class="fa-solid fa-microphone search-mic-icon" onclick="event.stopPropagation(); simulateVoiceSearch();" title="Voice Search"></i>
+            <button class="btn-clear-search-x" onclick="clearSearchInput()" id="btnClearSearch">
+              <i class="fa-solid fa-xmark"></i>
+            </button>
           </div>
 
-          <!-- Primary Navigation — 8 Core Destination Cards (2 Rows x 4 Columns) -->
-          <div class="primary-nav-grid-8">
-            
-            <!-- 1. SHOP -->
-            <a href="shop.html" class="primary-nav-card" id="cardShop">
-              <div class="nav-card-icon-wrap">
-                <i class="fa-solid fa-bag-shopping"></i>
-              </div>
-              <div class="nav-card-title">SHOP</div>
-              <div class="nav-card-subtitle">STORES & BRANDS</div>
-            </a>
+          <button class="btn-open-filters" onclick="openKioskModal('searchFilterModal')" id="btnOpenFilters">
+            <i class="fa-solid fa-sliders" style="color:#e2b062;"></i>
+            <span>Filters</span>
+          </button>
+        </div>
 
-            <!-- 2. FOOD & DINING -->
-            <a href="food.html" class="primary-nav-card" id="cardFood">
-              <div class="nav-card-icon-wrap">
-                <i class="fa-solid fa-utensils"></i>
-              </div>
-              <div class="nav-card-title">FOOD & DINING</div>
-              <div class="nav-card-subtitle">CAFES, RESTAURANTS</div>
-            </a>
+        <!-- Result Category Tabs Bar -->
+        <div class="search-category-tabs-bar">
+          <div class="search-tab-pill active" onclick="switchSearchCategory('all')" id="tabAllResults">All Results (12)</div>
+          <div class="search-tab-pill" onclick="switchSearchCategory('stores')" id="tabStores">Stores (6)</div>
+          <div class="search-tab-pill" onclick="switchSearchCategory('food')" id="tabFood">Food & Dining (2)</div>
+          <div class="search-tab-pill" onclick="switchSearchCategory('offers')" id="tabOffers">Offers (2)</div>
+          <div class="search-tab-pill" onclick="switchSearchCategory('events')" id="tabEvents">Events (1)</div>
+          <div class="search-tab-pill" onclick="switchSearchCategory('services')" id="tabServices">Services (1)</div>
+        </div>
 
-            <!-- 3. OFFERS & DEALS -->
-            <a href="shop.html?filter=offers" class="primary-nav-card" id="cardOffers">
-              <div class="nav-card-icon-wrap">
-                <i class="fa-solid fa-tag"></i>
-              </div>
-              <div class="nav-card-title">OFFERS & DEALS</div>
-              <div class="nav-card-subtitle">DISCOUNTS & MORE</div>
-            </a>
-
-            <!-- 4. EVENTS -->
-            <a href="events.html" class="primary-nav-card" id="cardEvents">
-              <div class="nav-card-icon-wrap">
-                <i class="fa-solid fa-calendar-days"></i>
-              </div>
-              <div class="nav-card-title">EVENTS</div>
-              <div class="nav-card-subtitle">WHAT'S HAPPENING</div>
-            </a>
-
-            <!-- 5. MALL MAP -->
-            <a href="map.html" class="primary-nav-card" id="cardMap">
-              <div class="nav-card-icon-wrap">
-                <i class="fa-solid fa-location-dot"></i>
-              </div>
-              <div class="nav-card-title">MALL MAP</div>
-              <div class="nav-card-subtitle">FIND YOUR WAY</div>
-            </a>
-
-            <!-- 6. MOVIES -->
-            <a href="events.html?view=movies" class="primary-nav-card" id="cardMovies">
-              <div class="nav-card-icon-wrap">
-                <i class="fa-solid fa-film"></i>
-              </div>
-              <div class="nav-card-title">MOVIES</div>
-              <div class="nav-card-subtitle">NOW SHOWING</div>
-            </a>
-
-            <!-- 7. PARKING -->
-            <div class="primary-nav-card" onclick="openKioskModal('parkingModal')" id="cardParking">
-              <div class="nav-card-icon-wrap">
-                <div class="custom-p-icon">P</div>
-              </div>
-              <div class="nav-card-title">PARKING</div>
-              <div class="nav-card-subtitle">INFO & AVAILABILITY</div>
-            </div>
-
-            <!-- 8. SERVICES & FACILITIES -->
-            <div class="primary-nav-card" onclick="openKioskModal('servicesModal')" id="cardServices">
-              <div class="nav-card-icon-wrap">
-                <i class="fa-solid fa-bell-concierge"></i>
-              </div>
-              <div class="nav-card-title">SERVICES & FACILITIES</div>
-              <div class="nav-card-subtitle">AMENITIES & MORE</div>
-            </div>
-
-          </div>
-
-        </section>
-
-        <!-- RIGHT COLUMN (~28%): Highlights Cards + Social Connection -->
-        <aside class="kiosk-right-column">
+        <!-- ===================================================================
+             MAIN RESULTS CONTAINER (2-COLUMN GRID)
+             =================================================================== -->
+        <div class="search-results-split" id="searchResultsMainArea">
           
-          <div class="highlights-section-title">HIGHLIGHTS</div>
+          <!-- LEFT COLUMN: Stores & Food -->
+          <div style="display:flex;flex-direction:column;gap:18px;">
+            
+            <!-- STORES SECTION -->
+            <div id="sectionStores">
+              <div class="search-section-header">
+                <div class="search-section-title">Stores (6)</div>
+                <div class="search-view-all-link" onclick="switchSearchCategory('stores')">View All <i class="fa-solid fa-chevron-right" style="font-size:9px;"></i></div>
+              </div>
 
-          <!-- Highlight Card 1: Style / Fashion -->
-          <div class="highlight-card style-card" style="background: linear-gradient(135deg, rgba(88,28,135,0.7) 0%, rgba(24,10,40,0.85) 100%), url('../images/kiosk_highlight_style.jpg') center right / cover no-repeat;" onclick="location.href='shop.html'">
-            <div class="highlight-card-text">
-              <div class="hl-tag">STYLE. SHOD. SHINE.</div>
-              <div class="hl-sub">New Collection<br>Now In-Store</div>
-              <button class="btn-hl-action purple-btn">SHOP NOW</button>
-            </div>
-          </div>
+              <div class="store-cards-carousel-row">
+                <!-- Store 1: Adidas Flagship -->
+                <div class="store-result-card featured-gold" onclick="openStoreDetailsModal('Adidas', 'Sportswear', 'Ground Floor, G-12', 'ST-0001', '+91 98765 43210')">
+                  <div class="store-card-img-wrap">
+                    <img src="../images/kiosk_search_adidas_store.jpg" alt="Adidas" class="store-card-img">
+                    <div class="store-heart-fav" onclick="event.stopPropagation(); toggleHeartFav(this);"><i class="fa-regular fa-heart"></i></div>
+                  </div>
+                  <div class="store-card-body">
+                    <div class="store-name-text">Adidas</div>
+                    <div class="store-cat-text">Sportswear</div>
+                    <div class="store-loc-text"><i class="fa-solid fa-location-dot"></i> Ground Floor, G-12</div>
+                    <button class="btn-view-details-gold">View Details</button>
+                  </div>
+                </div>
 
-          <!-- Highlight Card 2: Food Court -->
-          <div class="highlight-card food-card" style="background: linear-gradient(135deg, rgba(6,78,59,0.7) 0%, rgba(6,30,25,0.85) 100%), url('../images/kiosk_highlight_food.jpg') center right / cover no-repeat;" onclick="location.href='food.html'">
-            <div class="highlight-card-text">
-              <div class="hl-tag">FOOD COURT</div>
-              <div class="hl-title-serif">DELICIOUS<br>OPTIONS</div>
-              <div class="hl-sub-small">Treat Yourself Today!</div>
-              <button class="btn-hl-action teal-btn">EXPLORE</button>
-            </div>
-          </div>
+                <!-- Store 2: Adidas Originals -->
+                <div class="store-result-card" onclick="openStoreDetailsModal('Adidas Originals', 'Sportswear & Lifestyle', 'First Floor, F-15', 'ST-0002', '+91 98765 43211')">
+                  <div class="store-card-img-wrap">
+                    <img src="../images/kiosk_search_adidas_store.jpg" alt="Adidas Originals" class="store-card-img" style="filter:hue-rotate(15deg);">
+                    <div class="store-heart-fav" onclick="event.stopPropagation(); toggleHeartFav(this);"><i class="fa-regular fa-heart"></i></div>
+                  </div>
+                  <div class="store-card-body">
+                    <div class="store-name-text">Adidas Originals</div>
+                    <div class="store-cat-text">Sportswear</div>
+                    <div class="store-loc-text"><i class="fa-solid fa-location-dot"></i> First Floor, F-15</div>
+                    <button class="btn-view-details-gold">View Details</button>
+                  </div>
+                </div>
 
-          <!-- Highlight Card 3: Family Time / Gaming -->
-          <div class="highlight-card gaming-card" style="background: linear-gradient(135deg, rgba(30,58,138,0.75) 0%, rgba(10,18,45,0.85) 100%), url('../images/kiosk_highlight_gaming.jpg') center right / cover no-repeat;" onclick="location.href='events.html'">
-            <div class="highlight-card-text">
-              <div class="hl-tag">FAMILY TIME</div>
-              <div class="hl-title-bold">FUN & GAMES</div>
-              <div class="hl-sub-small">Enjoy Entertainment For All Ages</div>
-              <button class="btn-hl-action blue-btn">DISCOVER</button>
-            </div>
-          </div>
-
-          <!-- Highlight Card 4: Stay Connected / Social -->
-          <div class="highlight-card stay-connected-card">
-            <div class="connected-left-text">
-              <div class="hl-tag-gold">STAY CONNECTED</div>
-              <div class="hl-title-follow">FOLLOW US</div>
-              <div class="hl-sub-connected">For Latest Updates<br>& Exciting Offers</div>
-              <div class="social-icons-row">
-                <a href="#" class="social-icon-circle instagram"><i class="fa-brands fa-instagram"></i></a>
-                <a href="#" class="social-icon-circle facebook"><i class="fa-brands fa-facebook-f"></i></a>
-                <a href="#" class="social-icon-circle whatsapp"><i class="fa-brands fa-whatsapp"></i></a>
+                <!-- Store 3: Adidas Kids -->
+                <div class="store-result-card" onclick="openStoreDetailsModal('Adidas Kids', 'Kids Wear & Junior Shoes', 'First Floor, F-22', 'ST-0003', '+91 98765 43212')">
+                  <div class="store-card-img-wrap">
+                    <img src="../images/kiosk_search_adidas_store.jpg" alt="Adidas Kids" class="store-card-img" style="filter:brightness(1.1);">
+                    <div class="store-heart-fav" onclick="event.stopPropagation(); toggleHeartFav(this);"><i class="fa-regular fa-heart"></i></div>
+                  </div>
+                  <div class="store-card-body">
+                    <div class="store-name-text">Adidas Kids</div>
+                    <div class="store-cat-text">Kids Wear</div>
+                    <div class="store-loc-text"><i class="fa-solid fa-location-dot"></i> First Floor, F-22</div>
+                    <button class="btn-view-details-gold">View Details</button>
+                  </div>
+                </div>
               </div>
             </div>
-            <div class="connected-right-neon">
-              <i class="fa-solid fa-thumbs-up neon-like-icon"></i>
+
+            <!-- FOOD & DINING SECTION -->
+            <div id="sectionFood">
+              <div class="search-section-header">
+                <div class="search-section-title">Food & Dining (2)</div>
+                <div class="search-view-all-link" onclick="switchSearchCategory('food')">View All <i class="fa-solid fa-chevron-right" style="font-size:9px;"></i></div>
+              </div>
+
+              <div class="food-results-row">
+                <!-- Food 1: Adidas Café -->
+                <div class="food-res-card" onclick="openFoodDetailsModal('Adidas Café', 'Café & Healthy Juices', 'Second Floor, S-08')">
+                  <img src="../images/kiosk_search_adidas_cafe.jpg" alt="Adidas Café" class="food-img-thumb">
+                  <div style="flex:1;">
+                    <div style="font-size:13.5px;font-weight:800;color:#ffffff;">Adidas Café</div>
+                    <div style="font-size:11px;color:#94a3b8;margin-top:1px;">Café</div>
+                    <div style="font-size:11px;color:#e2b062;margin-top:3px;"><i class="fa-solid fa-location-dot"></i> Second Floor, S-08</div>
+                  </div>
+                  <i class="fa-solid fa-chevron-right" style="color:#64748b;font-size:11px;"></i>
+                </div>
+
+                <!-- Food 2: Adidas Treats -->
+                <div class="food-res-card" onclick="openFoodDetailsModal('Adidas Treats', 'Desserts & Shakes', 'Second Floor, S-12')">
+                  <img src="../images/kiosk_highlight_food.jpg" alt="Adidas Treats" class="food-img-thumb">
+                  <div style="flex:1;">
+                    <div style="font-size:13.5px;font-weight:800;color:#ffffff;">Adidas Treats</div>
+                    <div style="font-size:11px;color:#94a3b8;margin-top:1px;">Desserts</div>
+                    <div style="font-size:11px;color:#e2b062;margin-top:3px;"><i class="fa-solid fa-location-dot"></i> Second Floor, S-12</div>
+                  </div>
+                  <i class="fa-solid fa-chevron-right" style="color:#64748b;font-size:11px;"></i>
+                </div>
+              </div>
             </div>
+
           </div>
 
-        </aside>
+          <!-- RIGHT COLUMN: Offers & Events -->
+          <div style="display:flex;flex-direction:column;gap:18px;">
+            
+            <!-- TOP OFFERS SECTION -->
+            <div id="sectionOffers">
+              <div class="search-section-header">
+                <div class="search-section-title">Top Offers (2)</div>
+                <div class="search-view-all-link" onclick="switchSearchCategory('offers')">View All <i class="fa-solid fa-chevron-right" style="font-size:9px;"></i></div>
+              </div>
+
+              <div class="offers-list-col">
+                <!-- Offer 1 -->
+                <div class="offer-res-card" style="background:#0f172a;" onclick="openOfferDetailsModal('Flat 30% Off on Footwear', 'Adidas', '15 Sep 2026')">
+                  <div class="offer-badge-box" style="background:#1e293b;border:1px solid #334155;color:#f8fafc;">
+                    <div style="font-size:8.5px;color:#94a3b8;letter-spacing:1px;">FLAT</div>
+                    <div style="font-size:17px;color:#fff;">30%</div>
+                    <div style="font-size:8.5px;color:#94a3b8;">OFF</div>
+                  </div>
+                  <div style="flex:1;">
+                    <div style="font-size:13px;font-weight:800;color:#ffffff;">Flat 30% Off</div>
+                    <div style="font-size:11px;color:#cbd5e1;margin-top:2px;">on Footwear</div>
+                    <div style="font-size:10.5px;color:#e2b062;margin-top:4px;"><i class="fa-solid fa-location-dot"></i> Adidas</div>
+                    <div style="font-size:10px;color:#94a3b8;margin-top:2px;"><i class="fa-regular fa-calendar"></i> Valid till 15 Sep 2026</div>
+                  </div>
+                </div>
+
+                <!-- Offer 2 -->
+                <div class="offer-res-card" style="background:linear-gradient(135deg,#7f1d1d,#450a0a);" onclick="openOfferDetailsModal('Buy 2 Get 20% Off on Apparel', 'Adidas', '01 Oct 2026')">
+                  <div class="offer-badge-box" style="background:rgba(0,0,0,0.4);border:1px solid rgba(255,255,255,0.1);color:#fef2f2;">
+                    <div style="font-size:8.5px;color:#fca5a5;letter-spacing:1px;">BUY 2 GET</div>
+                    <div style="font-size:17px;color:#fff;">20%</div>
+                    <div style="font-size:8.5px;color:#fca5a5;">OFF</div>
+                  </div>
+                  <div style="flex:1;">
+                    <div style="font-size:13px;font-weight:800;color:#ffffff;">Buy 2 Get 20% Off</div>
+                    <div style="font-size:11px;color:#fee2e2;margin-top:2px;">on Apparel</div>
+                    <div style="font-size:10.5px;color:#fcd34d;margin-top:4px;"><i class="fa-solid fa-location-dot"></i> Adidas</div>
+                    <div style="font-size:10px;color:#fca5a5;margin-top:2px;"><i class="fa-regular fa-calendar"></i> Valid till 01 Oct 2026</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- EVENTS SECTION -->
+            <div id="sectionEvents">
+              <div class="search-section-header">
+                <div class="search-section-title">Events (1)</div>
+                <div class="search-view-all-link" onclick="switchSearchCategory('events')">View All <i class="fa-solid fa-chevron-right" style="font-size:9px;"></i></div>
+              </div>
+
+              <div class="event-res-card" onclick="openEventDetailsModal('Adidas Run Club', '12 Sep 2026', '6:00 PM Onwards', 'Main Atrium')">
+                <img src="../images/kiosk_search_adidas_event.jpg" alt="Adidas Run Club" class="event-img-thumb">
+                <div style="flex:1;">
+                  <div style="font-size:13.5px;font-weight:800;color:#ffffff;">Adidas Run Club</div>
+                  <div style="font-size:11px;color:#cbd5e1;margin-top:3px;"><i class="fa-regular fa-calendar"></i> 12 Sep 2026</div>
+                  <div style="font-size:11px;color:#94a3b8;margin-top:2px;"><i class="fa-regular fa-clock"></i> 6:00 PM Onwards</div>
+                  <div style="font-size:11px;color:#e2b062;margin-top:2px;"><i class="fa-solid fa-location-dot"></i> Main Atrium</div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+
+        </div>
+
+        <!-- EMPTY NO-RESULTS STATE -->
+        <div class="empty-search-state-wrap" id="emptySearchResults">
+          <i class="fa-solid fa-magnifying-glass" style="font-size:42px;color:#e2b062;margin-bottom:12px;opacity:0.6;"></i>
+          <div style="font-size:17px;font-weight:800;color:#fff;margin-bottom:6px;">No Results Found</div>
+          <div style="font-size:12.5px;color:#94a3b8;max-width:380px;line-height:1.4;margin-bottom:16px;">
+            We couldn't find matches for "<span id="emptyQueryTerm" style="color:#e2b062;font-weight:700;"></span>". Try searching for Zara, Food Court, Parking or Cinema.
+          </div>
+          <button class="btn-promo-cta" onclick="clearSearchInput()" style="background:var(--gold-gradient-btn);color:#111827;">Clear Search</button>
+        </div>
 
       </main>
 
       <!-- =====================================================================
-           3. KIOSK FOOTER (LANGUAGE + PERSISTENT HOME + HELP)
+           3. KIOSK FOOTER
            ===================================================================== -->
       <footer class="kiosk-horizontal-footer">
-        
         <!-- Language Selector Left -->
         <button class="footer-action-pill language-pill" onclick="openKioskModal('languageModal')" id="btnLanguage">
           <i class="fa-solid fa-globe"></i>
@@ -3192,7 +3556,7 @@ body {
         </button>
 
         <!-- Persistent Center Home Glow Button -->
-        <a href="home.html" class="footer-center-home-btn active" id="btnKioskHome" title="Home Screen">
+        <a href="home.html" class="footer-center-home-btn" id="btnKioskHome" title="Home Screen">
           <i class="fa-solid fa-house"></i>
           <span>HOME</span>
         </a>
@@ -3203,17 +3567,148 @@ body {
           <span>HELP</span>
           <i class="fa-solid fa-chevron-down pill-arrow"></i>
         </button>
-
       </footer>
 
     </div>
   </div>
 
   <!-- =========================================================================
-       MODALS & CHILD INTERACTION STATES
+       MODALS FOR DOMAIN 02 (Filter, Store Details, Offer Details, Event Details)
        ========================================================================= -->
 
-  <!-- 1. Scan to Explore QR Modal -->
+  <!-- 1. Search Filter Modal -->
+  <div class="kiosk-modal-backdrop" id="searchFilterModal">
+    <div class="kiosk-modal-box luxury-dark-box" style="max-width:540px;">
+      <div class="kiosk-modal-header-luxury">
+        <div class="modal-gold-emblem"><i class="fa-solid fa-sliders"></i></div>
+        <div class="modal-title-gold">Filter Search Results</div>
+        <div class="modal-subtitle-muted">Refine search discovery across mall categories and floors.</div>
+      </div>
+
+      <div style="display:flex;flex-direction:column;gap:14px;text-align:left;margin-bottom:20px;">
+        <!-- Filter Category -->
+        <div>
+          <label style="font-size:11px;font-weight:700;color:#e2b062;text-transform:uppercase;letter-spacing:1px;display:block;margin-bottom:6px;">Category</label>
+          <div style="display:flex;gap:6px;flex-wrap:wrap;">
+            <button class="search-tag-pill active" onclick="toggleFilterPill(this)">All</button>
+            <button class="search-tag-pill" onclick="toggleFilterPill(this)">Fashion</button>
+            <button class="search-tag-pill" onclick="toggleFilterPill(this)">Sports</button>
+            <button class="search-tag-pill" onclick="toggleFilterPill(this)">Dining</button>
+            <button class="search-tag-pill" onclick="toggleFilterPill(this)">Electronics</button>
+          </div>
+        </div>
+
+        <!-- Filter Floor -->
+        <div>
+          <label style="font-size:11px;font-weight:700;color:#e2b062;text-transform:uppercase;letter-spacing:1px;display:block;margin-bottom:6px;">Floor</label>
+          <div style="display:flex;gap:6px;flex-wrap:wrap;">
+            <button class="search-tag-pill active" onclick="toggleFilterPill(this)">All Floors</button>
+            <button class="search-tag-pill" onclick="toggleFilterPill(this)">Ground Floor</button>
+            <button class="search-tag-pill" onclick="toggleFilterPill(this)">First Floor</button>
+            <button class="search-tag-pill" onclick="toggleFilterPill(this)">Second Floor</button>
+            <button class="search-tag-pill" onclick="toggleFilterPill(this)">Level 3</button>
+          </div>
+        </div>
+
+        <!-- Availability -->
+        <div>
+          <label style="font-size:11px;font-weight:700;color:#e2b062;text-transform:uppercase;letter-spacing:1px;display:block;margin-bottom:6px;">Status</label>
+          <div style="display:flex;gap:6px;">
+            <button class="search-tag-pill active" onclick="toggleFilterPill(this)">Open Now</button>
+            <button class="search-tag-pill" onclick="toggleFilterPill(this)">Offers Available</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="modal-actions-luxury">
+        <button class="btn-modal-gold" onclick="applySearchFilters()"><i class="fa-solid fa-check"></i> Apply Filters</button>
+        <button class="btn-modal-dark" onclick="closeKioskModal('searchFilterModal')">Cancel</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- 2. Store Details Modal with Navigation Handoff -->
+  <div class="kiosk-modal-backdrop" id="storeDetailsModal">
+    <div class="kiosk-modal-box luxury-dark-box" style="max-width:540px;text-align:left;">
+      <div style="display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid rgba(229, 185, 126, 0.2);padding-bottom:12px;margin-bottom:14px;">
+        <div>
+          <h3 style="font-family:'Cinzel',serif;font-size:18px;font-weight:800;color:#fff;margin:0;" id="detailModalStoreName">Adidas</h3>
+          <div style="font-size:11px;color:#94a3b8;" id="detailModalStoreCat">Sportswear & Athletic Gear</div>
+        </div>
+        <i class="fa-solid fa-xmark" style="font-size:16px;color:#94a3b8;cursor:pointer;" onclick="closeKioskModal('storeDetailsModal')"></i>
+      </div>
+
+      <div style="height:140px;border-radius:12px;overflow:hidden;margin-bottom:14px;">
+        <img src="../images/kiosk_search_adidas_store.jpg" alt="Store Front" style="width:100%;height:100%;object-fit:cover;">
+      </div>
+
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;font-size:11.5px;margin-bottom:14px;">
+        <div style="background:#161f30;padding:8px 12px;border-radius:8px;">
+          <span style="color:#94a3b8;display:block;">Location</span>
+          <strong style="color:#e2b062;" id="detailModalStoreLoc">Ground Floor, G-12</strong>
+        </div>
+        <div style="background:#161f30;padding:8px 12px;border-radius:8px;">
+          <span style="color:#94a3b8;display:block;">Operating Hours</span>
+          <strong style="color:#fff;">10:00 AM – 10:00 PM</strong>
+        </div>
+      </div>
+
+      <div style="font-size:11.5px;color:#cbd5e1;line-height:1.4;margin-bottom:18px;">
+        Discover premier sports footwear, performance apparel, tracksuits, running trainers and lifestyle accessories.
+      </div>
+
+      <!-- Navigation Handoff CTA -->
+      <div style="display:flex;gap:10px;justify-content:flex-end;">
+        <button class="btn-modal-gold" onclick="navigateToStoreOnMap()" id="btnTakeMeThere">
+          <i class="fa-solid fa-location-arrow"></i> Take Me There
+        </button>
+        <button class="btn-modal-dark" onclick="closeKioskModal('storeDetailsModal')">Close</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- 3. Offer Details Modal -->
+  <div class="kiosk-modal-backdrop" id="offerDetailsModal">
+    <div class="kiosk-modal-box luxury-dark-box" style="max-width:480px;text-align:left;">
+      <div style="display:flex;justify-content:space-between;border-bottom:1px solid rgba(229, 185, 126, 0.2);padding-bottom:12px;margin-bottom:14px;">
+        <h3 style="font-size:17px;font-weight:800;color:#fff;margin:0;" id="offerModalTitle">Flat 30% Off</h3>
+        <i class="fa-solid fa-xmark" style="font-size:16px;color:#94a3b8;cursor:pointer;" onclick="closeKioskModal('offerDetailsModal')"></i>
+      </div>
+      <div style="background:rgba(226, 176, 98, 0.15);border:1px solid #e2b062;padding:12px;border-radius:10px;margin-bottom:14px;">
+        <div style="font-size:12px;color:#f7dfb8;font-weight:700;" id="offerModalStore">Applicable at: Adidas (Ground Floor)</div>
+        <div style="font-size:11px;color:#cbd5e1;margin-top:3px;" id="offerModalValidity">Valid till: 15 Sep 2026</div>
+      </div>
+      <div style="font-size:11.5px;color:#cbd5e1;line-height:1.4;margin-bottom:18px;">
+        Show this offer code <strong>ADI30MALL</strong> at billing checkout to claim instant 30% savings on selected footwear.
+      </div>
+      <div style="display:flex;gap:10px;justify-content:flex-end;">
+        <button class="btn-modal-gold" onclick="navigateToStoreOnMap()"><i class="fa-solid fa-location-arrow"></i> Navigate to Store</button>
+        <button class="btn-modal-dark" onclick="closeKioskModal('offerDetailsModal')">Close</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- 4. Event Details Modal -->
+  <div class="kiosk-modal-backdrop" id="eventDetailsModal">
+    <div class="kiosk-modal-box luxury-dark-box" style="max-width:500px;text-align:left;">
+      <div style="display:flex;justify-content:space-between;border-bottom:1px solid rgba(229, 185, 126, 0.2);padding-bottom:12px;margin-bottom:14px;">
+        <h3 style="font-size:17px;font-weight:800;color:#fff;margin:0;" id="eventModalTitle">Adidas Run Club</h3>
+        <i class="fa-solid fa-xmark" style="font-size:16px;color:#94a3b8;cursor:pointer;" onclick="closeKioskModal('eventDetailsModal')"></i>
+      </div>
+      <div style="height:140px;border-radius:10px;overflow:hidden;margin-bottom:14px;">
+        <img src="../images/kiosk_search_adidas_event.jpg" alt="Event" style="width:100%;height:100%;object-fit:cover;">
+      </div>
+      <div style="font-size:11.5px;color:#cbd5e1;margin-bottom:14px;">
+        Join community runners for an evening 5K fitness run starting from the Central Atrium. Complimentary hydration and finisher badges provided.
+      </div>
+      <div style="display:flex;gap:10px;justify-content:flex-end;">
+        <button class="btn-modal-gold" onclick="navigateToStoreOnMap()"><i class="fa-solid fa-location-arrow"></i> Take Me to Atrium</button>
+        <button class="btn-modal-dark" onclick="closeKioskModal('eventDetailsModal')">Close</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- 5. Scan to Explore QR Modal -->
   <div class="kiosk-modal-backdrop" id="scanExploreModal">
     <div class="kiosk-modal-box luxury-dark-box">
       <div class="kiosk-modal-header-luxury">
@@ -3221,353 +3716,200 @@ body {
         <div class="modal-title-gold">Scan to Explore on Mobile</div>
         <div class="modal-subtitle-muted">Take turn-by-turn indoor wayfinding and mall offers right on your smartphone.</div>
       </div>
-
       <div class="modal-qr-preview-wrap">
         <div class="qr-code-display-frame">
           <svg viewBox="0 0 160 160" class="qr-svg-graphic">
             <rect width="160" height="160" fill="#ffffff" rx="12"/>
-            <!-- Outer positioning squares -->
             <rect x="15" y="15" width="40" height="40" fill="#0b0f19" rx="4"/>
             <rect x="23" y="23" width="24" height="24" fill="#ffffff" rx="2"/>
             <rect x="29" y="29" width="12" height="12" fill="#d4af37" rx="1"/>
-
             <rect x="105" y="15" width="40" height="40" fill="#0b0f19" rx="4"/>
             <rect x="113" y="23" width="24" height="24" fill="#ffffff" rx="2"/>
             <rect x="119" y="29" width="12" height="12" fill="#d4af37" rx="1"/>
-
             <rect x="15" y="105" width="40" height="40" fill="#0b0f19" rx="4"/>
             <rect x="23" y="113" width="24" height="24" fill="#ffffff" rx="2"/>
             <rect x="29" y="119" width="12" height="12" fill="#d4af37" rx="1"/>
-
-            <!-- Simulated data pattern dots -->
             <rect x="65" y="20" width="8" height="8" fill="#0b0f19"/>
             <rect x="80" y="25" width="12" height="6" fill="#0b0f19"/>
             <rect x="65" y="35" width="16" height="8" fill="#d4af37"/>
             <rect x="70" y="55" width="20" height="10" fill="#0b0f19"/>
-            <rect x="20" y="65" width="10" height="15" fill="#0b0f19"/>
-            <rect x="40" y="70" width="15" height="8" fill="#0b0f19"/>
-            <rect x="110" y="65" width="15" height="10" fill="#0b0f19"/>
-            <rect x="130" y="80" width="10" height="15" fill="#d4af37"/>
-            <rect x="65" y="75" width="30" height="10" fill="#0b0f19"/>
-            <rect x="65" y="95" width="12" height="18" fill="#0b0f19"/>
-            <rect x="85" y="95" width="15" height="10" fill="#d4af37"/>
-            <rect x="110" y="105" width="18" height="12" fill="#0b0f19"/>
-            <rect x="135" y="125" width="10" height="15" fill="#0b0f19"/>
-            <rect x="105" y="125" width="20" height="10" fill="#0b0f19"/>
           </svg>
         </div>
         <div class="qr-step-instructions">
-          <div class="qr-step-item">
-            <span class="step-badge">1</span>
-            <span>Open your smartphone Camera or Google Lens.</span>
-          </div>
-          <div class="qr-step-item">
-            <span class="step-badge">2</span>
-            <span>Point camera at the QR code above.</span>
-          </div>
-          <div class="qr-step-item">
-            <span class="step-badge">3</span>
-            <span>Tap the notification banner to launch live map.</span>
-          </div>
+          <div class="qr-step-item"><span class="step-badge">1</span><span>Open camera on your smartphone.</span></div>
+          <div class="qr-step-item"><span class="step-badge">2</span><span>Scan the QR code to open mobile map.</span></div>
         </div>
       </div>
-
       <div class="modal-actions-luxury">
-        <button class="btn-modal-gold" onclick="alert('Simulated SMS link sent to your mobile phone!'); closeKioskModal('scanExploreModal');">
-          <i class="fa-solid fa-paper-plane"></i> Send SMS Link
-        </button>
         <button class="btn-modal-dark" onclick="closeKioskModal('scanExploreModal')">Close</button>
       </div>
     </div>
   </div>
 
-  <!-- 2. Search Overlay Modal -->
-  <div class="kiosk-modal-backdrop" id="searchModal">
-    <div class="kiosk-search-overlay-box">
-      <div class="search-overlay-input-wrap">
-        <i class="fa-solid fa-magnifying-glass search-modal-icon"></i>
-        <input 
-          type="text" 
-          id="modalSearchInput" 
-          placeholder="Type store name, category, brand or keyword..." 
-          onkeyup="filterKioskSearchResults()"
-          autocomplete="off"
-        >
-        <button class="btn-clear-search" onclick="clearKioskSearch()"><i class="fa-solid fa-xmark"></i></button>
-      </div>
-
-      <!-- Quick Search Categories -->
-      <div class="search-quick-tags-row">
-        <span class="search-tag-pill active" onclick="applySearchTag('All')">All</span>
-        <span class="search-tag-pill" onclick="applySearchTag('Fashion')">Fashion</span>
-        <span class="search-tag-pill" onclick="applySearchTag('Dining')">Dining</span>
-        <span class="search-tag-pill" onclick="applySearchTag('Electronics')">Electronics</span>
-        <span class="search-tag-pill" onclick="applySearchTag('Cinema')">Cinema</span>
-        <span class="search-tag-pill" onclick="applySearchTag('Services')">Services</span>
-      </div>
-
-      <!-- Instant Results List -->
-      <div class="search-results-container" id="searchResultsContainer">
-        <div class="search-res-item" onclick="location.href='shop.html'">
-          <div class="res-item-icon"><i class="fa-solid fa-store"></i></div>
-          <div class="res-item-meta">
-            <div class="res-item-title">Zara · Ground Floor (GF-04)</div>
-            <div class="res-item-desc">International runway fashion, apparel & accessories</div>
-          </div>
-          <button class="btn-res-guide"><i class="fa-solid fa-location-arrow"></i> Navigate</button>
-        </div>
-
-        <div class="search-res-item" onclick="location.href='shop.html'">
-          <div class="res-item-icon"><i class="fa-solid fa-shoe-prints"></i></div>
-          <div class="res-item-meta">
-            <div class="res-item-title">Adidas · Ground Floor (GF-12)</div>
-            <div class="res-item-desc">Sportswear, footwear, running shoes & athlete gear</div>
-          </div>
-          <button class="btn-res-guide"><i class="fa-solid fa-location-arrow"></i> Navigate</button>
-        </div>
-
-        <div class="search-res-item" onclick="location.href='food.html'">
-          <div class="res-item-icon"><i class="fa-solid fa-burger"></i></div>
-          <div class="res-item-meta">
-            <div class="res-item-title">Food Court · Level 3 (L3-FC)</div>
-            <div class="res-item-desc">McDonald's, KFC, Subway, Pizza Hut, Burger King & more</div>
-          </div>
-          <button class="btn-res-guide"><i class="fa-solid fa-location-arrow"></i> Navigate</button>
-        </div>
-
-        <div class="search-res-item" onclick="location.href='events.html'">
-          <div class="res-item-icon"><i class="fa-solid fa-film"></i></div>
-          <div class="res-item-meta">
-            <div class="res-item-title">PVR INOX Cinemas · Level 4</div>
-            <div class="res-item-desc">IMAX, 4DX, Gold Class luxury theater screens</div>
-          </div>
-          <button class="btn-res-guide"><i class="fa-solid fa-location-arrow"></i> Navigate</button>
-        </div>
-      </div>
-
-      <div class="modal-actions-luxury" style="margin-top:14px;">
-        <button class="btn-modal-dark" onclick="closeKioskModal('searchModal')">Close Search</button>
-      </div>
-    </div>
-  </div>
-
-  <!-- 3. Language Selection Modal -->
+  <!-- 6. Language Modal -->
   <div class="kiosk-modal-backdrop" id="languageModal">
     <div class="kiosk-modal-box luxury-dark-box" style="max-width:440px;">
       <div class="kiosk-modal-header-luxury">
         <div class="modal-gold-emblem"><i class="fa-solid fa-globe"></i></div>
         <div class="modal-title-gold">Select Language</div>
-        <div class="modal-subtitle-muted">Choose your preferred language for the interactive kiosk.</div>
       </div>
-
       <div class="language-options-grid">
-        <button class="lang-select-card active" onclick="selectLanguage('ENGLISH')">
-          <span class="lang-native">English</span>
-          <span class="lang-en">Default</span>
-        </button>
-        <button class="lang-select-card" onclick="selectLanguage('हिंदी (Hindi)')">
-          <span class="lang-native">हिन्दी</span>
-          <span class="lang-en">Hindi</span>
-        </button>
-        <button class="lang-select-card" onclick="selectLanguage('मराठी (Marathi)')">
-          <span class="lang-native">मराठी</span>
-          <span class="lang-en">Marathi</span>
-        </button>
-        <button class="lang-select-card" onclick="selectLanguage('ગુજરાતી (Gujarati)')">
-          <span class="lang-native">ગુજરાતી</span>
-          <span class="lang-en">Gujarati</span>
-        </button>
+        <button class="lang-select-card active" onclick="selectLanguage('ENGLISH')"><span class="lang-native">English</span></button>
+        <button class="lang-select-card" onclick="selectLanguage('हिंदी (Hindi)')"><span class="lang-native">हिन्दी</span></button>
+        <button class="lang-select-card" onclick="selectLanguage('मराठी (Marathi)')"><span class="lang-native">मराठी</span></button>
       </div>
-
-      <div class="modal-actions-luxury">
-        <button class="btn-modal-dark" onclick="closeKioskModal('languageModal')">Close</button>
-      </div>
+      <div class="modal-actions-luxury"><button class="btn-modal-dark" onclick="closeKioskModal('languageModal')">Close</button></div>
     </div>
   </div>
 
-  <!-- 4. Help & Information Modal -->
+  <!-- 7. Help Modal -->
   <div class="kiosk-modal-backdrop" id="helpModal">
-    <div class="kiosk-modal-box luxury-dark-box" style="max-width:500px;">
+    <div class="kiosk-modal-box luxury-dark-box" style="max-width:480px;">
       <div class="kiosk-modal-header-luxury">
         <div class="modal-gold-emblem"><i class="fa-solid fa-headset"></i></div>
-        <div class="modal-title-gold">Need Assistance?</div>
-        <div class="modal-subtitle-muted">Our Concierge & Help Desk team is available to assist you.</div>
+        <div class="modal-title-gold">Concierge Assistance</div>
       </div>
-
-      <div class="help-info-cards-list">
-        <div class="help-contact-row">
-          <div class="help-icon"><i class="fa-solid fa-phone"></i></div>
-          <div class="help-meta">
-            <div class="help-title">Concierge Helpline</div>
-            <div class="help-value">+91 20 6645 8888 (10:00 AM – 10:00 PM)</div>
-          </div>
-        </div>
-
-        <div class="help-contact-row">
-          <div class="help-icon"><i class="fa-solid fa-location-dot"></i></div>
-          <div class="help-meta">
-            <div class="help-title">Main Information Desk</div>
-            <div class="help-value">Ground Floor, Central Atrium near Entry Gate 1</div>
-          </div>
-        </div>
-
-        <div class="help-contact-row">
-          <div class="help-icon"><i class="fa-solid fa-wheelchair"></i></div>
-          <div class="help-meta">
-            <div class="help-title">Wheelchair & Baby Pram Assistance</div>
-            <div class="help-value">Complimentary service available at all Valet & Entry Desks</div>
-          </div>
-        </div>
+      <div style="font-size:12.5px;color:#cbd5e1;line-height:1.5;margin-bottom:16px;text-align:left;">
+        Visit our Help Desk at Ground Floor Central Atrium or call helpline <strong>+91 20 6645 8888</strong>.
       </div>
-
       <div class="modal-actions-luxury">
-        <a href="feedback.html" class="btn-modal-gold"><i class="fa-solid fa-comment-dots"></i> Give Feedback</a>
+        <a href="feedback.html" class="btn-modal-gold">Feedback</a>
         <button class="btn-modal-dark" onclick="closeKioskModal('helpModal')">Close</button>
       </div>
     </div>
   </div>
 
-  <!-- 5. Parking Availability Modal -->
-  <div class="kiosk-modal-backdrop" id="parkingModal">
-    <div class="kiosk-modal-box luxury-dark-box" style="max-width:520px;">
-      <div class="kiosk-modal-header-luxury">
-        <div class="modal-gold-emblem"><div class="custom-p-icon" style="font-size:22px;">P</div></div>
-        <div class="modal-title-gold">Live Parking Availability</div>
-        <div class="modal-subtitle-muted">Real-time parking slots and EV charging bays at Grand Metro Mall.</div>
-      </div>
-
-      <div class="parking-slots-grid">
-        <div class="parking-bay-card">
-          <div class="bay-level">Basement Level 1 (B1)</div>
-          <div class="bay-count available">240 Slots</div>
-          <div class="bay-status">Plenty of space</div>
-        </div>
-        <div class="parking-bay-card">
-          <div class="bay-level">Basement Level 2 (B2)</div>
-          <div class="bay-count available">410 Slots</div>
-          <div class="bay-status">Recommended</div>
-        </div>
-        <div class="parking-bay-card">
-          <div class="bay-level">EV Fast Charging (B1)</div>
-          <div class="bay-count ev-color">18 Bays Available</div>
-          <div class="bay-status">60kW Fast Chargers</div>
-        </div>
-        <div class="parking-bay-card">
-          <div class="bay-level">Valet Parking</div>
-          <div class="bay-count available">Active</div>
-          <div class="bay-status">Entry Gate 1 & 3</div>
-        </div>
-      </div>
-
-      <div class="modal-actions-luxury">
-        <a href="map.html?target=parking" class="btn-modal-gold"><i class="fa-solid fa-location-arrow"></i> View Parking on Map</a>
-        <button class="btn-modal-dark" onclick="closeKioskModal('parkingModal')">Close</button>
-      </div>
-    </div>
-  </div>
-
-  <!-- 6. Services & Facilities Modal -->
-  <div class="kiosk-modal-backdrop" id="servicesModal">
-    <div class="kiosk-modal-box luxury-dark-box" style="max-width:520px;">
-      <div class="kiosk-modal-header-luxury">
-        <div class="modal-gold-emblem"><i class="fa-solid fa-bell-concierge"></i></div>
-        <div class="modal-title-gold">Services & Facilities</div>
-        <div class="modal-subtitle-muted">Explore amenities, customer services, and visitor facilities.</div>
-      </div>
-
-      <div class="services-amenities-grid">
-        <div class="amenity-item-card" onclick="location.href='map.html?target=washrooms'">
-          <i class="fa-solid fa-restroom"></i>
-          <span>Washrooms</span>
-        </div>
-        <div class="amenity-item-card" onclick="location.href='map.html?target=atms'">
-          <i class="fa-solid fa-money-bill-transfer"></i>
-          <span>ATMs & Banking</span>
-        </div>
-        <div class="amenity-item-card" onclick="location.href='map.html?target=babycare'">
-          <i class="fa-solid fa-baby"></i>
-          <span>Baby Care Rooms</span>
-        </div>
-        <div class="amenity-item-card" onclick="location.href='map.html?target=firstaid'">
-          <i class="fa-solid fa-kit-medical"></i>
-          <span>First Aid Station</span>
-        </div>
-        <div class="amenity-item-card" onclick="location.href='map.html?target=wheelchair'">
-          <i class="fa-solid fa-wheelchair"></i>
-          <span>Wheelchair Access</span>
-        </div>
-        <div class="amenity-item-card" onclick="location.href='map.html?target=prayer'">
-          <i class="fa-solid fa-hands-praying"></i>
-          <span>Prayer Rooms</span>
-        </div>
-      </div>
-
-      <div class="modal-actions-luxury">
-        <button class="btn-modal-dark" onclick="closeKioskModal('servicesModal')">Close</button>
-      </div>
-    </div>
-  </div>
-
-  <!-- 7. Voice Search Simulator Modal -->
-  <div class="kiosk-modal-backdrop" id="voiceSearchModal">
-    <div class="kiosk-modal-box luxury-dark-box" style="max-width:420px;text-align:center;">
-      <div class="voice-wave-animation">
-        <i class="fa-solid fa-microphone"></i>
-      </div>
-      <div class="modal-title-gold" style="margin-top:14px;">Voice Assistant</div>
-      <div class="modal-subtitle-muted" id="voiceStatusText">Listening... Speak now (e.g. "Find Zara", "Show Food Court", "Parking Slots")</div>
-      <div class="modal-actions-luxury" style="justify-content:center;margin-top:16px;">
-        <button class="btn-modal-dark" onclick="closeKioskModal('voiceSearchModal')">Cancel</button>
-      </div>
-    </div>
-  </div>
-
-  <!-- Kiosk Controller Script -->
   <script src="kiosk.js"></script>
   <script>
-    // Search Navigation Helper
-    function openKioskSearch() {
-      window.location.href = 'search.html';
-    }
+    // Search Interaction Logic
+    let currentCategory = 'all';
 
-    function clearKioskSearch() {
-      const inp = document.getElementById('modalSearchInput');
-      if (inp) {
-        inp.value = '';
-        filterKioskSearchResults();
-      }
-    }
+    function switchSearchCategory(cat) {
+      currentCategory = cat;
+      document.querySelectorAll('.search-category-tabs-bar .search-tab-pill').forEach(el => el.classList.remove('active'));
 
-    function applySearchTag(tag) {
-      document.querySelectorAll('.search-tag-pill').forEach(el => el.classList.remove('active'));
-      event.target.classList.add('active');
-      const inp = document.getElementById('modalSearchInput');
-      if (tag === 'All') {
-        if (inp) inp.value = '';
+      const tabMap = {
+        all: 'tabAllResults',
+        stores: 'tabStores',
+        food: 'tabFood',
+        offers: 'tabOffers',
+        events: 'tabEvents',
+        services: 'tabServices'
+      };
+      if (tabMap[cat]) document.getElementById(tabMap[cat])?.classList.add('active');
+
+      const secStores = document.getElementById('sectionStores');
+      const secFood = document.getElementById('sectionFood');
+      const secOffers = document.getElementById('sectionOffers');
+      const secEvents = document.getElementById('sectionEvents');
+
+      if (cat === 'all') {
+        secStores.style.display = 'block';
+        secFood.style.display = 'block';
+        secOffers.style.display = 'block';
+        secEvents.style.display = 'block';
+      } else if (cat === 'stores') {
+        secStores.style.display = 'block';
+        secFood.style.display = 'none';
+        secOffers.style.display = 'none';
+        secEvents.style.display = 'none';
+      } else if (cat === 'food') {
+        secStores.style.display = 'none';
+        secFood.style.display = 'block';
+        secOffers.style.display = 'none';
+        secEvents.style.display = 'none';
+      } else if (cat === 'offers') {
+        secStores.style.display = 'none';
+        secFood.style.display = 'none';
+        secOffers.style.display = 'block';
+        secEvents.style.display = 'none';
+      } else if (cat === 'events') {
+        secStores.style.display = 'none';
+        secFood.style.display = 'none';
+        secOffers.style.display = 'none';
+        secEvents.style.display = 'block';
       } else {
-        if (inp) inp.value = tag;
+        secStores.style.display = 'block';
+        secFood.style.display = 'block';
+        secOffers.style.display = 'block';
+        secEvents.style.display = 'block';
       }
-      filterKioskSearchResults();
     }
 
-    function filterKioskSearchResults() {
-      const query = (document.getElementById('modalSearchInput').value || '').toLowerCase();
-      const items = document.querySelectorAll('.search-res-item');
-      items.forEach(item => {
-        const text = item.textContent.toLowerCase();
-        if (!query || text.includes(query)) {
-          item.style.display = 'flex';
-        } else {
-          item.style.display = 'none';
-        }
-      });
+    function handleLiveSearchInput() {
+      const query = (document.getElementById('kioskMainSearchInput').value || '').trim().toLowerCase();
+      const mainArea = document.getElementById('searchResultsMainArea');
+      const emptyState = document.getElementById('emptySearchResults');
+      const emptyQueryTerm = document.getElementById('emptyQueryTerm');
+
+      if (query === 'xyz123' || query === 'notfound') {
+        mainArea.style.display = 'none';
+        emptyState.style.display = 'flex';
+        emptyQueryTerm.textContent = query;
+      } else {
+        mainArea.style.display = 'grid';
+        emptyState.style.display = 'none';
+      }
+    }
+
+    function clearSearchInput() {
+      document.getElementById('kioskMainSearchInput').value = '';
+      document.getElementById('kioskMainSearchInput').focus();
+      handleLiveSearchInput();
+    }
+
+    function toggleFilterPill(btn) {
+      btn.parentElement.querySelectorAll('.search-tag-pill').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+    }
+
+    function applySearchFilters() {
+      closeKioskModal('searchFilterModal');
+      alert('Search filters applied to discovery results!');
+    }
+
+    function toggleHeartFav(el) {
+      const icon = el.querySelector('i');
+      if (icon.classList.contains('fa-regular')) {
+        icon.classList.remove('fa-regular');
+        icon.classList.add('fa-solid');
+        icon.style.color = '#ef4444';
+      } else {
+        icon.classList.remove('fa-solid');
+        icon.classList.add('fa-regular');
+        icon.style.color = '#e2b062';
+      }
+    }
+
+    function openStoreDetailsModal(name, cat, loc, id, phone) {
+      document.getElementById('detailModalStoreName').textContent = name;
+      document.getElementById('detailModalStoreCat').textContent = cat;
+      document.getElementById('detailModalStoreLoc').textContent = loc;
+      openKioskModal('storeDetailsModal');
+    }
+
+    function openFoodDetailsModal(name, cat, loc) {
+      openStoreDetailsModal(name, cat, loc, 'FD-01', '+91 20 6645 8800');
+    }
+
+    function openOfferDetailsModal(title, store, valid) {
+      document.getElementById('offerModalTitle').textContent = title;
+      document.getElementById('offerModalStore').textContent = `Applicable at: ${store}`;
+      document.getElementById('offerModalValidity').textContent = `Valid till: ${valid}`;
+      openKioskModal('offerDetailsModal');
+    }
+
+    function openEventDetailsModal(name, date, time, loc) {
+      document.getElementById('eventModalTitle').textContent = name;
+      openKioskModal('eventDetailsModal');
+    }
+
+    function navigateToStoreOnMap() {
+      window.location.href = 'map.html?dest=adidas';
     }
 
     function selectLanguage(lang) {
       document.getElementById('currentLanguageLabel').textContent = lang.split(' ')[0].toUpperCase();
-      document.querySelectorAll('.lang-select-card').forEach(c => c.classList.remove('active'));
-      event.currentTarget.classList.add('active');
-      alert(`Language changed to ${lang}. Kiosk interface updated.`);
       closeKioskModal('languageModal');
     }
   </script>

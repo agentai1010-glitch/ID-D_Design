@@ -77,26 +77,13 @@ def test_search_entry_and_overlay(driver, base_url):
     driver.get(f"{base_url}/kiosk/home.html")
     time.sleep(0.3)
 
-    # Click search bar to open overlay
+    # Click search bar to navigate to Search & Discovery
     search_bar = driver.find_element(By.CSS_SELECTOR, ".horizontal-search-bar")
     search_bar.click()
-    time.sleep(0.3)
+    time.sleep(0.4)
 
-    modal = driver.find_element(By.ID, "searchModal")
-    assert modal.is_displayed()
-
-    # Type query in search
-    inp = driver.find_element(By.ID, "modalSearchInput")
-    inp.send_keys("Zara")
-    time.sleep(0.3)
-
-    results = driver.find_element(By.ID, "searchResultsContainer")
-    assert "Zara" in results.text
-
-    # Close search
-    driver.find_element(By.XPATH, "//button[contains(., 'Close Search')]").click()
-    time.sleep(0.3)
-    assert not modal.is_displayed()
+    assert "search.html" in driver.current_url
+    assert "Search & Discovery" in driver.title
 
 def test_scan_to_explore_modal(driver, base_url):
     driver.get(f"{base_url}/kiosk/home.html")
