@@ -64,84 +64,70 @@ body {
   background-position: 0 0, 9px 9px;
 }
 
-/* Kiosk Physical Frame Simulator */
+/* ==========================================================================
+   KIOSK FULL-SCREEN 16:9 LANDSCAPE VIEWPORT ARCHITECTURE
+   ========================================================================== */
 .kiosk-viewport-wrapper {
-  width: 100%;
-  max-width: 900px;
+  width: 100vw;
+  height: 100vh;
+  max-width: 100%;
   min-height: 100vh;
-  padding: 12px;
+  margin: 0;
+  padding: 0;
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  align-items: center;
+  justify-content: stretch;
+  align-items: stretch;
+  overflow: hidden;
 }
 
 .kiosk-frame {
   width: 100%;
-  max-width: 860px;
-  background: #0d1117;
-  border-radius: 36px;
-  padding: 16px 16px 20px 16px;
-  box-shadow: 
-    0 0 0 4px #1f2735,
-    0 0 0 8px #080a0f,
-    0 30px 90px rgba(0, 0, 0, 0.9),
-    0 0 60px rgba(17, 24, 39, 0.6);
+  height: 100%;
+  max-width: 100%;
+  background: transparent;
+  border-radius: 0;
+  padding: 0;
+  box-shadow: none;
   display: flex;
   flex-direction: column;
   position: relative;
-  border: 1px solid rgba(255, 255, 255, 0.08);
+  border: none;
+  overflow: hidden;
 }
 
 .kiosk-screen {
   background: var(--bg-gradient);
-  border-radius: 26px;
+  border-radius: 0;
   overflow: hidden;
   position: relative;
   display: flex;
   flex-direction: column;
-  height: 1120px;
-  max-height: 1120px;
-  box-shadow: inset 0 0 40px rgba(0, 0, 0, 0.6);
-  border: 1px solid rgba(255, 255, 255, 0.05);
+  width: 100%;
+  height: 100vh;
+  max-height: 100vh;
+  box-shadow: none;
+  border: none;
 }
 
-/* Kiosk Bezel Bottom Logo */
+/* Hide simulated physical bezel logo in edge-to-edge mode */
 .kiosk-bezel-bottom {
-  text-align: center;
-  padding-top: 14px;
-  color: #717e94;
-  font-size: 13px;
-  letter-spacing: 4px;
-  font-weight: 700;
-  text-transform: uppercase;
-  font-family: 'Cinzel', serif;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 10px;
-}
-
-.kiosk-bezel-bottom::before,
-.kiosk-bezel-bottom::after {
-  content: '';
-  display: inline-block;
-  width: 24px;
-  height: 1px;
-  background: rgba(255, 255, 255, 0.15);
+  display: none !important;
 }
 
 /* ==========================================================================
-   KIOSK TOP HEADER BAR
+   KIOSK TOP HEADER BAR (Full Widescreen)
    ========================================================================== */
 .kiosk-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 22px 32px 14px 32px;
-  border-bottom: 1px solid rgba(226, 176, 98, 0.12);
+  padding: 16px 44px;
+  border-bottom: 1px solid rgba(226, 176, 98, 0.15);
   position: relative;
   z-index: 20;
+  background: rgba(8, 12, 20, 0.85);
+  backdrop-filter: blur(14px);
 }
 
 .kiosk-header-left {
@@ -1780,39 +1766,49 @@ body {
    Domain 01 — Kiosk Home & Entry Anchor Reproduction
    ============================================================================= */
 
+/* =============================================================================
+   TRUE FULL-SCREEN 16:9 EDGE-TO-EDGE KIOSK PRESENTATION (NO BEZEL / NO PADDING)
+   ============================================================================= */
 .horizontal-kiosk-body {
   margin: 0;
   padding: 0;
-  background-color: #060910;
+  background-color: #04060a;
   color: #ffffff;
   font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+  width: 100vw;
+  height: 100vh;
   min-height: 100vh;
+  overflow: hidden;
   display: flex;
-  justify-content: center;
-  align-items: center;
-  overflow-x: hidden;
+  flex-direction: column;
 }
 
 .horizontal-kiosk-wrapper {
-  width: 100%;
-  max-width: 1540px;
+  width: 100vw;
+  height: 100vh;
+  max-width: 100vw;
   min-height: 100vh;
-  padding: 16px;
+  margin: 0;
+  padding: 0;
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: stretch;
+  align-items: stretch;
+  overflow: hidden;
 }
 
 .kiosk-horizontal-screen {
   background: radial-gradient(circle at 50% 15%, #121827 0%, #090d16 60%, #04060a 100%);
-  border: 1px solid rgba(229, 185, 126, 0.25);
-  border-radius: 28px;
-  box-shadow: 0 25px 60px rgba(0, 0, 0, 0.9), inset 0 0 40px rgba(0, 0, 0, 0.5);
+  border: none !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
   display: flex;
   flex-direction: column;
   overflow: hidden;
   position: relative;
-  min-height: 880px;
+  width: 100vw;
+  height: 100vh;
+  min-height: 100vh;
 }
 
 /* =============================================================================
@@ -2913,7 +2909,7 @@ body {
   animation: pulse-sun 1.5s infinite;
 }
 
-  </style>
+</style>
   <style id="kiosk-shop-specific-css">
     /* =========================================================================
        SHOPPING & STORES (DOMAIN 03) SPECIFIC STYLING
