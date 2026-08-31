@@ -141,5 +141,27 @@ document.addEventListener('DOMContentLoaded', () => {
       switchPromoSlide((currentPromoIndex + 1) % promoSlides.length);
     }, 6000);
   }
+
+  // 13. Global Inactivity Idle Timer (Attract Mode Trigger)
+  // Configurable idle timeout (set to 15 seconds for live client presentation)
+  const KIOSK_IDLE_TIMEOUT_SECONDS = 15;
+  let idleTimer = null;
+
+  function resetIdleTimer() {
+    if (idleTimer) clearTimeout(idleTimer);
+    // Only start idle countdown if not already on the attract screen
+    if (!window.location.pathname.endsWith('attract.html')) {
+      idleTimer = setTimeout(() => {
+        window.location.href = 'attract.html';
+      }, KIOSK_IDLE_TIMEOUT_SECONDS * 1000);
+    }
+  }
+
+  // Listen for any user interaction (touch, click, mousemove, keypress)
+  ['touchstart', 'touchend', 'click', 'mousemove', 'keypress', 'scroll'].forEach(evt => {
+    window.addEventListener(evt, resetIdleTimer, { passive: true });
+  });
+
+  resetIdleTimer();
 });
 
