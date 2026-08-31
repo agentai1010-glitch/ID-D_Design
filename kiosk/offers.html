@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Shopping & Stores · Grand Metro Mall Kiosk</title>
+  <title>Offers & Deals · Grand Metro Mall Kiosk</title>
   <!-- Google Fonts & Font Awesome -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -2914,65 +2914,56 @@ body {
 }
 
   </style>
-  <style id="kiosk-shop-specific-css">
+  <style id="kiosk-offers-specific-css">
     /* =========================================================================
-       SHOPPING & STORES (DOMAIN 03) SPECIFIC STYLING
+       OFFERS & DEALS (DOMAIN 05) SPECIFIC STYLING
        ========================================================================= */
-    .shop-top-header-row {
+    .offers-top-header-row {
       display: flex;
       align-items: flex-end;
       justify-content: space-between;
-      margin-bottom: 14px;
+      margin-bottom: 12px;
       padding: 0 4px;
     }
 
-    .shop-headline-badge {
-      font-size: 11px;
-      font-weight: 800;
-      color: #e2b062;
-      letter-spacing: 2px;
-      text-transform: uppercase;
-      margin-bottom: 2px;
-    }
-
-    .shop-main-title {
+    .offers-main-title {
       font-family: 'Cinzel', serif;
-      font-size: 22px;
+      font-size: 23px;
       font-weight: 800;
       color: #ffffff;
-      letter-spacing: 1px;
       margin: 0 0 2px 0;
+      letter-spacing: 1px;
     }
 
-    .shop-subtitle {
+    .offers-subtitle {
       font-size: 11.5px;
       color: #94a3b8;
       margin: 0;
     }
 
-    .shop-header-search-wrap {
+    .offers-search-wrap {
       display: flex;
       align-items: center;
       gap: 12px;
     }
 
-    .shop-search-box {
+    .offers-search-box {
       background: rgba(18, 24, 38, 0.85);
       border: 1px solid rgba(229, 185, 126, 0.3);
       border-radius: 999px;
       height: 42px;
-      width: 280px;
+      width: 320px;
       display: flex;
       align-items: center;
-      padding: 0 16px;
+      padding: 0 18px;
       gap: 10px;
       transition: all 0.2s ease;
     }
-    .shop-search-box:focus-within {
+    .offers-search-box:focus-within {
       border-color: #e2b062;
       box-shadow: 0 0 16px rgba(226, 176, 98, 0.25);
     }
-    .shop-search-input {
+    .offers-search-input {
       flex: 1;
       background: transparent;
       border: none;
@@ -2982,147 +2973,101 @@ body {
       font-family: inherit;
     }
 
-    /* 3-Column Split Layout */
-    .shop-3col-layout {
+    /* Horizontal Category Bar */
+    .offers-category-bar {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 16px;
+    }
+
+    .offer-cat-pill-btn {
+      background: rgba(18, 25, 38, 0.7);
+      border: 1px solid rgba(229, 185, 126, 0.25);
+      border-radius: 12px;
+      padding: 8px 14px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      cursor: pointer;
+      color: #cbd5e1;
+      transition: all 0.2s ease;
+      flex: 1;
+      justify-content: center;
+    }
+    .offer-cat-pill-btn:hover {
+      background: rgba(226, 176, 98, 0.15);
+      border-color: #e2b062;
+      color: #fff;
+    }
+    .offer-cat-pill-btn.active {
+      background: var(--gold-gradient-btn);
+      border-color: #e2b062;
+      color: #111827;
+      font-weight: 800;
+      box-shadow: 0 0 16px rgba(226, 176, 98, 0.35);
+    }
+    .offer-cat-icon {
+      font-size: 14px;
+      color: #e2b062;
+    }
+    .offer-cat-pill-btn.active .offer-cat-icon {
+      color: #111827;
+    }
+    .offer-cat-name {
+      font-size: 11.5px;
+      font-weight: 700;
+    }
+    .offer-cat-count {
+      font-size: 10.5px;
+      opacity: 0.8;
+    }
+
+    /* Main 2-Column Split */
+    .offers-main-split {
       display: grid;
-      grid-template-columns: 210px 1fr 340px;
-      gap: 18px;
+      grid-template-columns: 1fr 340px;
+      gap: 20px;
       align-items: stretch;
       flex: 1;
     }
 
-    /* Left Sidebar: Categories */
-    .shop-categories-sidebar {
-      background: rgba(18, 25, 38, 0.6);
-      border: 1px solid rgba(229, 185, 126, 0.2);
-      border-radius: 20px;
-      padding: 12px;
+    /* Left Area: Grid of 8 Cards */
+    .offers-left-section {
       display: flex;
       flex-direction: column;
-      gap: 4px;
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+      gap: 12px;
     }
 
-    .shop-category-item {
+    .offers-section-header {
       display: flex;
       align-items: center;
       justify-content: space-between;
-      padding: 8px 12px;
-      border-radius: 10px;
-      color: #cbd5e1;
-      font-size: 11.5px;
-      font-weight: 600;
-      cursor: pointer;
-      transition: all 0.2s ease;
-      background: transparent;
-      border: none;
-      width: 100%;
-      text-align: left;
     }
-    .shop-category-item:hover {
-      background: rgba(226, 176, 98, 0.1);
-      color: #fff;
-    }
-    .shop-category-item.active {
-      background: rgba(226, 176, 98, 0.2);
-      color: #f7dfb8;
-      border: 1px solid rgba(229, 185, 126, 0.4);
+    .offers-section-title {
+      font-size: 14px;
       font-weight: 800;
+      color: #ffffff;
     }
-
-    .cat-item-left {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
-    .cat-item-icon {
-      color: #e2b062;
-      font-size: 13px;
-      width: 16px;
-      text-align: center;
-    }
-    .cat-count-badge {
-      font-size: 10.5px;
-      color: #94a3b8;
-      font-weight: 700;
-    }
-    .shop-category-item.active .cat-count-badge {
-      color: #e2b062;
-    }
-
-    .btn-clear-filters-side {
-      margin-top: auto;
-      background: rgba(226, 176, 98, 0.1);
-      border: 1px solid rgba(229, 185, 126, 0.3);
-      color: #f7dfb8;
-      padding: 8px 12px;
-      border-radius: 10px;
-      font-size: 11px;
-      font-weight: 700;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 6px;
-      transition: all 0.2s ease;
-    }
-    .btn-clear-filters-side:hover {
-      background: rgba(226, 176, 98, 0.25);
-      border-color: #e2b062;
-    }
-
-    /* Center Section: Floor Pills & Grid */
-    .shop-center-content {
-      display: flex;
-      flex-direction: column;
-      gap: 12px;
-    }
-
-    .shop-floor-bar {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
-    .floor-bar-label {
-      font-size: 10.5px;
-      font-weight: 800;
-      color: #e2b062;
-      text-transform: uppercase;
-      letter-spacing: 1px;
-      margin-right: 4px;
-    }
-
-    .floor-pill-btn {
-      background: rgba(18, 24, 38, 0.7);
-      border: 1px solid rgba(229, 185, 126, 0.25);
-      color: #cbd5e1;
-      padding: 6px 16px;
-      border-radius: 999px;
+    .offers-view-all-link {
       font-size: 11.5px;
       font-weight: 700;
+      color: #e2b062;
       cursor: pointer;
-      transition: all 0.2s ease;
-    }
-    .floor-pill-btn:hover {
-      background: rgba(226, 176, 98, 0.15);
-      color: #fff;
-    }
-    .floor-pill-btn.active {
-      background: var(--gold-gradient-btn);
-      color: #111827;
-      border-color: #e2b062;
-      box-shadow: 0 0 14px rgba(226, 176, 98, 0.35);
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 4px;
     }
 
-    .shop-stores-grid-2x4 {
+    .offers-grid-2x4 {
       display: grid;
       grid-template-columns: repeat(4, 1fr);
       gap: 12px;
-      flex: 1;
     }
 
-    .store-grid-card {
-      background: rgba(18, 25, 38, 0.7);
+    .offer-dual-card {
+      background: rgba(18, 25, 38, 0.75);
       border: 1px solid rgba(229, 185, 126, 0.25);
       border-radius: 14px;
       overflow: hidden;
@@ -3132,84 +3077,92 @@ body {
       transition: all 0.2s ease;
       box-shadow: 0 6px 18px rgba(0, 0, 0, 0.3);
     }
-    .store-grid-card:hover {
+    .offer-dual-card:hover {
       border-color: #e2b062;
       transform: translateY(-2px);
     }
-    .store-grid-card.selected-active {
-      border-color: #e2b062;
-      box-shadow: 0 0 16px rgba(226, 176, 98, 0.3);
-      background: rgba(26, 36, 56, 0.85);
+
+    .offer-dual-header-split {
+      display: grid;
+      grid-template-columns: 1fr 1.2fr;
+      height: 90px;
     }
 
-    .store-grid-thumb-wrap {
-      height: 85px;
+    .offer-brand-logo-pane {
       background: #090e17;
-      position: relative;
-      overflow: hidden;
-    }
-    .store-grid-thumb {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-    }
-    .store-grid-logo-badge {
-      position: absolute;
-      top: 6px;
-      left: 8px;
-      font-family: 'Cinzel', serif;
-      font-size: 13px;
-      font-weight: 800;
-      color: #fff;
-      text-shadow: 0 2px 4px rgba(0,0,0,0.8);
-    }
-    .store-grid-heart {
-      position: absolute;
-      top: 6px;
-      right: 6px;
-      width: 22px;
-      height: 22px;
-      border-radius: 50%;
-      background: rgba(0, 0, 0, 0.5);
-      color: #e2b062;
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 11px;
-      cursor: pointer;
+      padding: 10px;
+      font-family: 'Cinzel', serif;
+      font-size: 14px;
+      font-weight: 800;
+      color: #ffffff;
+      text-align: center;
     }
 
-    .store-grid-body {
+    .offer-badge-value-pane {
+      background: #f8fafc;
+      color: #0f172a;
       padding: 8px 10px;
       display: flex;
       flex-direction: column;
-      gap: 2px;
+      justify-content: center;
+      position: relative;
+    }
+    .offer-badge-prefix {
+      font-size: 8.5px;
+      font-weight: 800;
+      color: #64748b;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+    }
+    .offer-badge-pct {
+      font-size: 18px;
+      font-weight: 900;
+      color: #0f172a;
+      line-height: 1;
+      margin: 2px 0;
+    }
+    .offer-badge-suffix {
+      font-size: 8.5px;
+      font-weight: 700;
+      color: #64748b;
+      line-height: 1.1;
+    }
+    .offer-card-heart-fav {
+      position: absolute;
+      top: 6px;
+      right: 6px;
+      font-size: 11px;
+      color: #94a3b8;
+      cursor: pointer;
+    }
+
+    .offer-dual-body {
+      padding: 10px 12px;
+      display: flex;
+      flex-direction: column;
+      gap: 3px;
       flex: 1;
     }
-    .store-grid-name {
-      font-size: 12px;
+    .offer-store-name {
+      font-size: 12.5px;
       font-weight: 800;
       color: #ffffff;
     }
-    .store-grid-cat {
-      font-size: 9.5px;
+    .offer-validity-text {
+      font-size: 10px;
       color: #94a3b8;
+      margin-bottom: 6px;
     }
-    .store-grid-loc {
-      font-size: 9.5px;
-      color: #e2b062;
-      display: flex;
-      align-items: center;
-      gap: 4px;
-      margin: 2px 0 6px 0;
-    }
-    .btn-store-card-view {
+    .btn-offer-view-gold {
       background: var(--gold-gradient-btn);
       color: #111827;
       border: none;
       border-radius: 6px;
-      padding: 5px 8px;
-      font-size: 10px;
+      padding: 6px 8px;
+      font-size: 10.5px;
       font-weight: 800;
       cursor: pointer;
       text-align: center;
@@ -3217,156 +3170,131 @@ body {
       margin-top: auto;
       transition: all 0.2s ease;
     }
+    .btn-offer-view-gold:hover {
+      box-shadow: 0 0 12px rgba(226, 176, 98, 0.4);
+    }
 
-    /* Right Preview Panel */
-    .shop-right-preview-panel {
+    /* Right Column: Featured Deal & Offers Near You */
+    .offers-right-column {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .featured-deal-card {
+      background: linear-gradient(135deg, rgba(20, 15, 10, 0.95), rgba(10, 8, 6, 0.95));
+      border: 1px solid rgba(229, 185, 126, 0.4);
+      border-radius: 18px;
+      padding: 14px;
+      display: flex;
+      flex-direction: column;
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+    }
+    .featured-deal-tag {
+      font-size: 11.5px;
+      font-weight: 800;
+      color: #e2b062;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .featured-deal-bg-content {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-top: 8px;
+    }
+    .featured-deal-title {
+      font-family: 'Cinzel', serif;
+      font-size: 15px;
+      font-weight: 900;
+      color: #ffffff;
+      letter-spacing: 1px;
+    }
+    .featured-deal-subtitle {
+      font-size: 10.5px;
+      color: #f7dfb8;
+      margin: 4px 0 10px 0;
+    }
+
+    .btn-explore-featured-deal {
+      background: rgba(18, 24, 38, 0.9);
+      border: 1px solid #e2b062;
+      color: #f7dfb8;
+      border-radius: 8px;
+      padding: 6px 14px;
+      font-size: 11px;
+      font-weight: 800;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      display: inline-block;
+    }
+    .btn-explore-featured-deal:hover {
+      background: #e2b062;
+      color: #111827;
+    }
+
+    /* Offers Near You Card */
+    .offers-near-you-card {
       background: rgba(18, 25, 38, 0.8);
-      border: 1px solid rgba(229, 185, 126, 0.35);
-      border-radius: 20px;
-      padding: 16px;
+      border: 1px solid rgba(229, 185, 126, 0.3);
+      border-radius: 18px;
+      padding: 14px;
       display: flex;
       flex-direction: column;
       gap: 10px;
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
     }
-
-    .preview-header-bar {
+    .near-you-header {
       display: flex;
       align-items: center;
       justify-content: space-between;
     }
-    .preview-store-logo-big {
-      font-family: 'Cinzel', serif;
-      font-size: 24px;
-      font-weight: 900;
-      color: #ffffff;
-      letter-spacing: 2px;
-    }
 
-    .preview-hero-img-wrap {
-      height: 140px;
-      border-radius: 12px;
-      overflow: hidden;
-      background: #090e17;
+    .near-you-item-row {
+      background: rgba(14, 20, 32, 0.85);
+      border: 1px solid rgba(229, 185, 126, 0.2);
+      border-radius: 10px;
+      padding: 8px 10px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      cursor: pointer;
+      transition: all 0.2s ease;
     }
-    .preview-hero-img {
-      width: 100%;
-      height: 100%;
+    .near-you-item-row:hover {
+      border-color: #e2b062;
+      transform: translateY(-2px);
+    }
+    .near-you-thumb {
+      width: 42px;
+      height: 42px;
+      border-radius: 8px;
       object-fit: cover;
     }
 
-    .preview-meta-box {
-      display: flex;
-      flex-direction: column;
-      gap: 2px;
-    }
-    .preview-meta-title {
-      font-size: 16px;
-      font-weight: 800;
-      color: #ffffff;
-    }
-    .preview-meta-cat {
-      font-size: 11px;
-      color: #94a3b8;
-    }
-    .preview-meta-loc {
-      font-size: 11.5px;
-      color: #e2b062;
-      display: flex;
-      align-items: center;
-      gap: 5px;
-      margin-top: 2px;
-    }
-    .preview-meta-desc {
-      font-size: 11px;
-      color: #cbd5e1;
-      line-height: 1.35;
-      margin-top: 4px;
-    }
-
-    /* 4 Interactive Quick Action Tiles */
-    .preview-actions-quad {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 8px;
-      margin: 4px 0;
-    }
-    .preview-action-tile {
-      background: rgba(14, 20, 32, 0.85);
-      border: 1px solid rgba(229, 185, 126, 0.25);
+    .btn-view-all-offers-bottom {
+      background: rgba(18, 24, 38, 0.9);
+      border: 1px solid rgba(229, 185, 126, 0.35);
+      color: #f7dfb8;
       border-radius: 10px;
-      padding: 8px 4px;
+      padding: 9px;
+      font-size: 11.5px;
+      font-weight: 800;
       display: flex;
-      flex-direction: column;
       align-items: center;
       justify-content: center;
-      gap: 4px;
-      cursor: pointer;
-      transition: all 0.2s ease;
-      color: #cbd5e1;
-    }
-    .preview-action-tile:hover {
-      background: rgba(226, 176, 98, 0.2);
-      border-color: #e2b062;
-      color: #fff;
-    }
-    .preview-action-tile i {
-      font-size: 14px;
-      color: #e2b062;
-    }
-    .preview-action-tile span {
-      font-size: 9.5px;
-      font-weight: 700;
-      white-space: nowrap;
-    }
-
-    .preview-timings-row {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      border-top: 1px solid rgba(229, 185, 126, 0.15);
-      padding-top: 8px;
-      margin-top: auto;
-    }
-    .timings-label {
-      font-size: 9px;
-      font-weight: 800;
-      color: #e2b062;
-      letter-spacing: 1px;
-      text-transform: uppercase;
-      display: block;
-    }
-    .timings-val {
-      font-size: 11.5px;
-      font-weight: 700;
-      color: #ffffff;
-    }
-    .badge-open-now {
-      font-size: 10.5px;
-      font-weight: 800;
-      color: #10b981;
-      display: flex;
-      align-items: center;
-      gap: 4px;
-    }
-
-    .btn-view-full-store-details {
-      background: var(--gold-gradient-btn);
-      color: #111827;
-      border: none;
-      border-radius: 10px;
-      padding: 10px 16px;
-      font-size: 12.5px;
-      font-weight: 800;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
+      gap: 8px;
       cursor: pointer;
       width: 100%;
+      margin-top: 4px;
       transition: all 0.2s ease;
     }
-    .btn-view-full-store-details:hover {
-      box-shadow: 0 0 16px rgba(226, 176, 98, 0.5);
+    .btn-view-all-offers-bottom:hover {
+      background: rgba(226, 176, 98, 0.2);
+      border-color: #e2b062;
     }
   </style>
 </head>
@@ -3423,294 +3351,340 @@ body {
       </header>
 
       <!-- =====================================================================
-           2. MAIN SHOPPING WORKSPACE
+           2. MAIN OFFERS & DEALS WORKSPACE
            ===================================================================== -->
       <main class="kiosk-horizontal-main" style="display:flex;flex-direction:column;padding:12px 28px 16px 28px;">
 
         <!-- Top Title Bar & Search -->
-        <div class="shop-top-header-row">
+        <div class="offers-top-header-row">
           <div>
-            <div class="shop-headline-badge">SHOP</div>
-            <h1 class="shop-main-title">STORES & BRANDS</h1>
-            <p class="shop-subtitle">Explore 200+ brands across the mall</p>
+            <h1 class="offers-main-title">OFFERS & DEALS</h1>
+            <p class="offers-subtitle">Exciting offers, discounts and promotions across the mall</p>
           </div>
 
-          <div class="shop-header-search-wrap">
-            <div class="shop-search-box">
+          <div class="offers-search-wrap">
+            <div class="offers-search-box">
               <i class="fa-solid fa-magnifying-glass" style="color:#e2b062;font-size:14px;"></i>
               <input 
                 type="text" 
-                class="shop-search-input" 
-                id="shopStoreSearchInput" 
-                placeholder="Search stores or brands..." 
-                onkeyup="handleStoreSearchFilter()"
+                class="offers-search-input" 
+                id="offersSearchInput" 
+                placeholder="Search for offers, stores, brands..." 
+                onkeyup="handleOffersSearchFilter()"
                 autocomplete="off"
               >
             </div>
-            <button class="btn-open-filters" style="height:42px;padding:0 18px;" onclick="openKioskModal('shopFilterModal')" id="btnShopFilters">
+            <button class="btn-open-filters" style="height:42px;padding:0 18px;" onclick="openKioskModal('offersFilterModal')" id="btnOffersFilters">
               <i class="fa-solid fa-sliders" style="color:#e2b062;"></i>
               <span>Filters</span>
             </button>
           </div>
         </div>
 
-        <!-- 3-Column Layout -->
-        <div class="shop-3col-layout">
+        <!-- Horizontal Category Bar -->
+        <div class="offers-category-bar">
+          <button class="offer-cat-pill-btn active" onclick="selectOffersCategory('all', this)" id="catAllOffers">
+            <i class="fa-solid fa-tag offer-cat-icon"></i>
+            <span class="offer-cat-name">All Offers</span>
+            <span class="offer-cat-count">124</span>
+          </button>
+
+          <button class="offer-cat-pill-btn" onclick="selectOffersCategory('fashion', this)" id="catFashionOffers">
+            <i class="fa-solid fa-bag-shopping offer-cat-icon"></i>
+            <span class="offer-cat-name">Fashion</span>
+            <span class="offer-cat-count">36</span>
+          </button>
+
+          <button class="offer-cat-pill-btn" onclick="selectOffersCategory('food', this)" id="catFoodOffers">
+            <i class="fa-solid fa-utensils offer-cat-icon"></i>
+            <span class="offer-cat-name">Food & Dining</span>
+            <span class="offer-cat-count">28</span>
+          </button>
+
+          <button class="offer-cat-pill-btn" onclick="selectOffersCategory('lifestyle', this)" id="catLifestyleOffers">
+            <i class="fa-solid fa-gift offer-cat-icon"></i>
+            <span class="offer-cat-name">Lifestyle</span>
+            <span class="offer-cat-count">22</span>
+          </button>
+
+          <button class="offer-cat-pill-btn" onclick="selectOffersCategory('electronics', this)" id="catElectronicsOffers">
+            <i class="fa-solid fa-mobile-screen-button offer-cat-icon"></i>
+            <span class="offer-cat-name">Electronics</span>
+            <span class="offer-cat-count">16</span>
+          </button>
+
+          <button class="offer-cat-pill-btn" onclick="selectOffersCategory('entertainment', this)" id="catEntertainmentOffers">
+            <i class="fa-solid fa-ticket offer-cat-icon"></i>
+            <span class="offer-cat-name">Entertainment</span>
+            <span class="offer-cat-count">12</span>
+          </button>
+
+          <button class="offer-cat-pill-btn" onclick="selectOffersCategory('all', this)" id="catMoreOffers">
+            <i class="fa-solid fa-border-all offer-cat-icon"></i>
+            <span class="offer-cat-name">More</span>
+          </button>
+        </div>
+
+        <!-- 2-Column Split -->
+        <div class="offers-main-split">
           
-          <!-- LEFT COLUMN: Categories Navigation -->
-          <aside class="shop-categories-sidebar" id="categoriesSidebar">
-            <button class="shop-category-item active" onclick="selectStoreCategory('all', this)" id="catItemAll">
-              <span class="cat-item-left"><i class="fa-solid fa-store cat-item-icon"></i><span>All Stores</span></span>
-              <span class="cat-count-badge">214</span>
-            </button>
-            <button class="shop-category-item" onclick="selectStoreCategory('fashion', this)" id="catItemFashion">
-              <span class="cat-item-left"><i class="fa-solid fa-shirt cat-item-icon"></i><span>Fashion</span></span>
-              <span class="cat-count-badge">68</span>
-            </button>
-            <button class="shop-category-item" onclick="selectStoreCategory('footwear', this)" id="catItemFootwear">
-              <span class="cat-item-left"><i class="fa-solid fa-shoe-prints cat-item-icon"></i><span>Footwear</span></span>
-              <span class="cat-count-badge">32</span>
-            </button>
-            <button class="shop-category-item" onclick="selectStoreCategory('accessories', this)" id="catItemAccessories">
-              <span class="cat-item-left"><i class="fa-solid fa-bag-shopping cat-item-icon"></i><span>Accessories</span></span>
-              <span class="cat-count-badge">24</span>
-            </button>
-            <button class="shop-category-item" onclick="selectStoreCategory('electronics', this)" id="catItemElectronics">
-              <span class="cat-item-left"><i class="fa-solid fa-mobile-screen-button cat-item-icon"></i><span>Electronics</span></span>
-              <span class="cat-count-badge">18</span>
-            </button>
-            <button class="shop-category-item" onclick="selectStoreCategory('beauty', this)" id="catItemBeauty">
-              <span class="cat-item-left"><i class="fa-solid fa-wand-magic-sparkles cat-item-icon"></i><span>Beauty & Health</span></span>
-              <span class="cat-count-badge">20</span>
-            </button>
-            <button class="shop-category-item" onclick="selectStoreCategory('lifestyle', this)" id="catItemLifestyle">
-              <span class="cat-item-left"><i class="fa-solid fa-couch cat-item-icon"></i><span>Home & Lifestyle</span></span>
-              <span class="cat-count-badge">16</span>
-            </button>
-            <button class="shop-category-item" onclick="selectStoreCategory('sports', this)" id="catItemSports">
-              <span class="cat-item-left"><i class="fa-solid fa-futbol cat-item-icon"></i><span>Sports & Fitness</span></span>
-              <span class="cat-count-badge">14</span>
-            </button>
-            <button class="shop-category-item" onclick="selectStoreCategory('books', this)" id="catItemBooks">
-              <span class="cat-item-left"><i class="fa-solid fa-book-open cat-item-icon"></i><span>Books & Gifts</span></span>
-              <span class="cat-count-badge">12</span>
-            </button>
-            <button class="shop-category-item" onclick="selectStoreCategory('others', this)" id="catItemOthers">
-              <span class="cat-item-left"><i class="fa-solid fa-boxes-stacked cat-item-icon"></i><span>Others</span></span>
-              <span class="cat-count-badge">10</span>
-            </button>
-
-            <button class="btn-clear-filters-side" onclick="resetAllShopFilters()" id="btnClearAllFilters">
-              <i class="fa-solid fa-rotate-left"></i>
-              <span>Clear Filters</span>
-            </button>
-          </aside>
-
-          <!-- CENTER COLUMN: Floor Filters & Store Grid -->
-          <section class="shop-center-content">
-            <!-- Floor Filter Bar -->
-            <div class="shop-floor-bar">
-              <span class="floor-bar-label">Floor</span>
-              <button class="floor-pill-btn active" onclick="selectFloorFilter('all', this)" id="floorAll">All Floors</button>
-              <button class="floor-pill-btn" onclick="selectFloorFilter('ground', this)" id="floorGround">Ground Floor</button>
-              <button class="floor-pill-btn" onclick="selectFloorFilter('first', this)" id="floorFirst">First Floor</button>
-              <button class="floor-pill-btn" onclick="selectFloorFilter('second', this)" id="floorSecond">Second Floor</button>
-              <i class="fa-solid fa-layer-group" style="color:#e2b062;font-size:13px;margin-left:auto;"></i>
+          <!-- LEFT COLUMN: Grid of 8 Offers -->
+          <section class="offers-left-section">
+            <div class="offers-section-header">
+              <div class="offers-section-title" id="offersSectionTitle">Top Offers For You</div>
+              <div class="offers-view-all-link" onclick="selectOffersCategory('all', document.getElementById('catAllOffers'))">View All <i class="fa-solid fa-chevron-right" style="font-size:9px;"></i></div>
             </div>
 
-            <div style="font-size:12px;font-weight:800;color:#ffffff;letter-spacing:0.5px;" id="gridSectionTitle">POPULAR STORES</div>
-
-            <!-- Stores 2x4 Grid -->
-            <div class="shop-stores-grid-2x4" id="storesGridContainer">
+            <div class="offers-grid-2x4" id="offersGridContainer">
               
-              <!-- 1. ZARA -->
-              <div class="store-grid-card selected-active" data-id="zara" data-cat="fashion" data-floor="ground" onclick="selectStorePreview('zara')">
-                <div class="store-grid-thumb-wrap">
-                  <img src="../images/kiosk_store_zara.jpg" alt="ZARA" class="store-grid-thumb">
-                  <div class="store-grid-logo-badge">ZARA</div>
-                  <div class="store-grid-heart" onclick="event.stopPropagation(); toggleHeartFav(this);"><i class="fa-regular fa-heart"></i></div>
+              <!-- 1. Adidas -->
+              <div class="offer-dual-card" data-id="adidas" data-cat="fashion" onclick="openOfferDetailsModal('adidas')">
+                <div class="offer-dual-header-split">
+                  <div class="offer-brand-logo-pane" style="background:#090e17;">
+                    <span style="letter-spacing:1px;">adidas</span>
+                  </div>
+                  <div class="offer-badge-value-pane">
+                    <div class="offer-badge-prefix">FLAT</div>
+                    <div class="offer-badge-pct">30%</div>
+                    <div class="offer-badge-suffix">OFF on Footwear</div>
+                    <div class="offer-card-heart-fav" onclick="event.stopPropagation(); toggleHeartFav(this);"><i class="fa-regular fa-heart"></i></div>
+                  </div>
                 </div>
-                <div class="store-grid-body">
-                  <div class="store-grid-name">ZARA</div>
-                  <div class="store-grid-cat">Fashion</div>
-                  <div class="store-grid-loc"><i class="fa-solid fa-location-dot"></i> Ground Floor, G-01</div>
-                  <button class="btn-store-card-view" onclick="event.stopPropagation(); openFullStoreDetails('zara')">View Details</button>
-                </div>
-              </div>
-
-              <!-- 2. H&M -->
-              <div class="store-grid-card" data-id="hm" data-cat="fashion" data-floor="ground" onclick="selectStorePreview('hm')">
-                <div class="store-grid-thumb-wrap">
-                  <img src="../images/kiosk_store_hm.jpg" alt="H&M" class="store-grid-thumb">
-                  <div class="store-grid-logo-badge" style="color:#ef4444;">H&M</div>
-                  <div class="store-grid-heart" onclick="event.stopPropagation(); toggleHeartFav(this);"><i class="fa-regular fa-heart"></i></div>
-                </div>
-                <div class="store-grid-body">
-                  <div class="store-grid-name">H&M</div>
-                  <div class="store-grid-cat">Fashion</div>
-                  <div class="store-grid-loc"><i class="fa-solid fa-location-dot"></i> Ground Floor, G-12</div>
-                  <button class="btn-store-card-view" onclick="event.stopPropagation(); openFullStoreDetails('hm')">View Details</button>
+                <div class="offer-dual-body">
+                  <div class="offer-store-name">Adidas</div>
+                  <div class="offer-validity-text">Valid till 15 Sep 2026</div>
+                  <button class="btn-offer-view-gold" onclick="event.stopPropagation(); openOfferDetailsModal('adidas')">View Details</button>
                 </div>
               </div>
 
-              <!-- 3. TRENDS -->
-              <div class="store-grid-card" data-id="trends" data-cat="fashion" data-floor="first" onclick="selectStorePreview('trends')">
-                <div class="store-grid-thumb-wrap">
-                  <img src="../images/kiosk_store_zara.jpg" alt="TRENDS" class="store-grid-thumb" style="filter:hue-rotate(30deg);">
-                  <div class="store-grid-logo-badge">TRENDS</div>
-                  <div class="store-grid-heart" onclick="event.stopPropagation(); toggleHeartFav(this);"><i class="fa-regular fa-heart"></i></div>
+              <!-- 2. Levi's -->
+              <div class="offer-dual-card" data-id="levis" data-cat="fashion" onclick="openOfferDetailsModal('levis')">
+                <div class="offer-dual-header-split">
+                  <div class="offer-brand-logo-pane" style="background:#b91c1c;">
+                    <span style="font-family:sans-serif;font-weight:900;letter-spacing:1px;">Levi's</span>
+                  </div>
+                  <div class="offer-badge-value-pane">
+                    <div class="offer-badge-prefix">UP TO</div>
+                    <div class="offer-badge-pct">40%</div>
+                    <div class="offer-badge-suffix">OFF on Select Items</div>
+                    <div class="offer-card-heart-fav" onclick="event.stopPropagation(); toggleHeartFav(this);"><i class="fa-regular fa-heart"></i></div>
+                  </div>
                 </div>
-                <div class="store-grid-body">
-                  <div class="store-grid-name">TRENDS</div>
-                  <div class="store-grid-cat">Fashion</div>
-                  <div class="store-grid-loc"><i class="fa-solid fa-location-dot"></i> First Floor, F-06</div>
-                  <button class="btn-store-card-view" onclick="event.stopPropagation(); openFullStoreDetails('trends')">View Details</button>
-                </div>
-              </div>
-
-              <!-- 4. Lifestyle -->
-              <div class="store-grid-card" data-id="lifestyle" data-cat="lifestyle" data-floor="ground" onclick="selectStorePreview('lifestyle')">
-                <div class="store-grid-thumb-wrap">
-                  <img src="../images/kiosk_store_hm.jpg" alt="lifestyle" class="store-grid-thumb" style="filter:saturate(0.8);">
-                  <div class="store-grid-logo-badge" style="font-family:sans-serif;font-weight:700;">lifestyle</div>
-                  <div class="store-grid-heart" onclick="event.stopPropagation(); toggleHeartFav(this);"><i class="fa-regular fa-heart"></i></div>
-                </div>
-                <div class="store-grid-body">
-                  <div class="store-grid-name">Lifestyle</div>
-                  <div class="store-grid-cat">Lifestyle</div>
-                  <div class="store-grid-loc"><i class="fa-solid fa-location-dot"></i> Ground Floor, G-18</div>
-                  <button class="btn-store-card-view" onclick="event.stopPropagation(); openFullStoreDetails('lifestyle')">View Details</button>
+                <div class="offer-dual-body">
+                  <div class="offer-store-name">Levi's</div>
+                  <div class="offer-validity-text">Valid till 20 Sep 2026</div>
+                  <button class="btn-offer-view-gold" onclick="event.stopPropagation(); openOfferDetailsModal('levis')">View Details</button>
                 </div>
               </div>
 
-              <!-- 5. SEPHORA -->
-              <div class="store-grid-card" data-id="sephora" data-cat="beauty" data-floor="ground" onclick="selectStorePreview('sephora')">
-                <div class="store-grid-thumb-wrap">
-                  <img src="../images/kiosk_store_sephora.jpg" alt="SEPHORA" class="store-grid-thumb">
-                  <div class="store-grid-logo-badge">SEPHORA</div>
-                  <div class="store-grid-heart" onclick="event.stopPropagation(); toggleHeartFav(this);"><i class="fa-regular fa-heart"></i></div>
+              <!-- 3. PVR Cinemas -->
+              <div class="offer-dual-card" data-id="pvr" data-cat="entertainment" onclick="openOfferDetailsModal('pvr')">
+                <div class="offer-dual-header-split">
+                  <div class="offer-brand-logo-pane" style="background:#18181b;color:#f59e0b;">
+                    <span>PVR<br><small style="font-size:8px;">CINEMAS</small></span>
+                  </div>
+                  <div class="offer-badge-value-pane" style="background:#fef3c7;">
+                    <div class="offer-badge-prefix">BUY 1</div>
+                    <div class="offer-badge-pct" style="font-size:14px;line-height:1.2;">GET 1 FREE</div>
+                    <div class="offer-badge-suffix">on Movie Tickets</div>
+                    <div class="offer-card-heart-fav" onclick="event.stopPropagation(); toggleHeartFav(this);"><i class="fa-regular fa-heart"></i></div>
+                  </div>
                 </div>
-                <div class="store-grid-body">
-                  <div class="store-grid-name">SEPHORA</div>
-                  <div class="store-grid-cat">Beauty</div>
-                  <div class="store-grid-loc"><i class="fa-solid fa-location-dot"></i> Ground Floor, G-22</div>
-                  <button class="btn-store-card-view" onclick="event.stopPropagation(); openFullStoreDetails('sephora')">View Details</button>
-                </div>
-              </div>
-
-              <!-- 6. SKECHERS -->
-              <div class="store-grid-card" data-id="skechers" data-cat="footwear" data-floor="first" onclick="selectStorePreview('skechers')">
-                <div class="store-grid-thumb-wrap">
-                  <img src="../images/kiosk_search_adidas_store.jpg" alt="SKECHERS" class="store-grid-thumb">
-                  <div class="store-grid-logo-badge" style="font-style:italic;">SKECHERS</div>
-                  <div class="store-grid-heart" onclick="event.stopPropagation(); toggleHeartFav(this);"><i class="fa-regular fa-heart"></i></div>
-                </div>
-                <div class="store-grid-body">
-                  <div class="store-grid-name">SKECHERS</div>
-                  <div class="store-grid-cat">Footwear</div>
-                  <div class="store-grid-loc"><i class="fa-solid fa-location-dot"></i> First Floor, F-20</div>
-                  <button class="btn-store-card-view" onclick="event.stopPropagation(); openFullStoreDetails('skechers')">View Details</button>
+                <div class="offer-dual-body">
+                  <div class="offer-store-name">PVR Cinemas</div>
+                  <div class="offer-validity-text">Valid till 31 Aug 2026</div>
+                  <button class="btn-offer-view-gold" onclick="event.stopPropagation(); openOfferDetailsModal('pvr')">View Details</button>
                 </div>
               </div>
 
-              <!-- 7. PVR CINEMAS -->
-              <div class="store-grid-card" data-id="pvr" data-cat="others" data-floor="second" onclick="selectStorePreview('pvr')">
-                <div class="store-grid-thumb-wrap">
-                  <img src="../images/kiosk_highlight_gaming.jpg" alt="PVR CINEMAS" class="store-grid-thumb">
-                  <div class="store-grid-logo-badge" style="color:#f59e0b;">PVR CINEMAS</div>
-                  <div class="store-grid-heart" onclick="event.stopPropagation(); toggleHeartFav(this);"><i class="fa-regular fa-heart"></i></div>
+              <!-- 4. Haldiram's -->
+              <div class="offer-dual-card" data-id="haldirams" data-cat="food" onclick="openOfferDetailsModal('haldirams')">
+                <div class="offer-dual-header-split">
+                  <div class="offer-brand-logo-pane" style="background:#7f1d1d;">
+                    <span style="font-size:11px;">Haldiram's</span>
+                  </div>
+                  <div class="offer-badge-value-pane">
+                    <div class="offer-badge-pct" style="font-size:22px;margin:0;">20%</div>
+                    <div class="offer-badge-suffix">OFF on Total Bill</div>
+                    <div class="offer-card-heart-fav" onclick="event.stopPropagation(); toggleHeartFav(this);"><i class="fa-regular fa-heart"></i></div>
+                  </div>
                 </div>
-                <div class="store-grid-body">
-                  <div class="store-grid-name">PVR Cinemas</div>
-                  <div class="store-grid-cat">Entertainment</div>
-                  <div class="store-grid-loc"><i class="fa-solid fa-location-dot"></i> Second Floor, S-01</div>
-                  <button class="btn-store-card-view" onclick="event.stopPropagation(); openFullStoreDetails('pvr')">View Details</button>
+                <div class="offer-dual-body">
+                  <div class="offer-store-name">Haldiram's</div>
+                  <div class="offer-validity-text">Valid till 10 Sep 2026</div>
+                  <button class="btn-offer-view-gold" onclick="event.stopPropagation(); openOfferDetailsModal('haldirams')">View Details</button>
                 </div>
               </div>
 
-              <!-- 8. JACK & JONES -->
-              <div class="store-grid-card" data-id="jackjones" data-cat="fashion" data-floor="first" onclick="selectStorePreview('jackjones')">
-                <div class="store-grid-thumb-wrap">
-                  <img src="../images/kiosk_store_zara.jpg" alt="JACK & JONES" class="store-grid-thumb" style="filter:contrast(1.2);">
-                  <div class="store-grid-logo-badge">JACK & JONES</div>
-                  <div class="store-grid-heart" onclick="event.stopPropagation(); toggleHeartFav(this);"><i class="fa-regular fa-heart"></i></div>
+              <!-- 5. Lifestyle -->
+              <div class="offer-dual-card" data-id="lifestyle" data-cat="lifestyle" onclick="openOfferDetailsModal('lifestyle')">
+                <div class="offer-dual-header-split">
+                  <div class="offer-brand-logo-pane" style="background:#ffffff;color:#111827;">
+                    <span style="font-family:sans-serif;font-size:12px;font-weight:700;">lifestyle</span>
+                  </div>
+                  <div class="offer-badge-value-pane">
+                    <div class="offer-badge-prefix">FLAT</div>
+                    <div class="offer-badge-pct">25%</div>
+                    <div class="offer-badge-suffix">OFF on New Arrivals</div>
+                    <div class="offer-card-heart-fav" onclick="event.stopPropagation(); toggleHeartFav(this);"><i class="fa-regular fa-heart"></i></div>
+                  </div>
                 </div>
-                <div class="store-grid-body">
-                  <div class="store-grid-name">JACK & JONES</div>
-                  <div class="store-grid-cat">Fashion</div>
-                  <div class="store-grid-loc"><i class="fa-solid fa-location-dot"></i> First Floor, F-14</div>
-                  <button class="btn-store-card-view" onclick="event.stopPropagation(); openFullStoreDetails('jackjones')">View Details</button>
+                <div class="offer-dual-body">
+                  <div class="offer-store-name">Lifestyle</div>
+                  <div class="offer-validity-text">Valid till 18 Sep 2026</div>
+                  <button class="btn-offer-view-gold" onclick="event.stopPropagation(); openOfferDetailsModal('lifestyle')">View Details</button>
+                </div>
+              </div>
+
+              <!-- 6. Starbucks -->
+              <div class="offer-dual-card" data-id="starbucks" data-cat="food" onclick="openOfferDetailsModal('starbucks')">
+                <div class="offer-dual-header-split">
+                  <div class="offer-brand-logo-pane" style="background:#064e3b;">
+                    <i class="fa-solid fa-mug-hot" style="color:#6ee7b7;font-size:22px;"></i>
+                  </div>
+                  <div class="offer-badge-value-pane" style="background:#ecfdf5;">
+                    <div class="offer-badge-prefix">GET</div>
+                    <div class="offer-badge-pct">20%</div>
+                    <div class="offer-badge-suffix">OFF on Beverages</div>
+                    <div class="offer-card-heart-fav" onclick="event.stopPropagation(); toggleHeartFav(this);"><i class="fa-regular fa-heart"></i></div>
+                  </div>
+                </div>
+                <div class="offer-dual-body">
+                  <div class="offer-store-name">Starbucks</div>
+                  <div class="offer-validity-text">Valid till 31 Aug 2026</div>
+                  <button class="btn-offer-view-gold" onclick="event.stopPropagation(); openOfferDetailsModal('starbucks')">View Details</button>
+                </div>
+              </div>
+
+              <!-- 7. Max Fashion -->
+              <div class="offer-dual-card" data-id="maxfashion" data-cat="fashion" onclick="openOfferDetailsModal('maxfashion')">
+                <div class="offer-dual-header-split">
+                  <div class="offer-brand-logo-pane" style="background:#1e3a8a;">
+                    <span style="font-family:sans-serif;font-weight:900;font-size:16px;">max</span>
+                  </div>
+                  <div class="offer-badge-value-pane">
+                    <div class="offer-badge-prefix">UP TO</div>
+                    <div class="offer-badge-pct">50%</div>
+                    <div class="offer-badge-suffix">OFF on Select Styles</div>
+                    <div class="offer-card-heart-fav" onclick="event.stopPropagation(); toggleHeartFav(this);"><i class="fa-regular fa-heart"></i></div>
+                  </div>
+                </div>
+                <div class="offer-dual-body">
+                  <div class="offer-store-name">Max Fashion</div>
+                  <div class="offer-validity-text">Valid till 25 Sep 2026</div>
+                  <button class="btn-offer-view-gold" onclick="event.stopPropagation(); openOfferDetailsModal('maxfashion')">View Details</button>
+                </div>
+              </div>
+
+              <!-- 8. Skechers -->
+              <div class="offer-dual-card" data-id="skechers" data-cat="fashion" onclick="openOfferDetailsModal('skechers')">
+                <div class="offer-dual-header-split">
+                  <div class="offer-brand-logo-pane" style="background:#0f172a;">
+                    <span style="font-style:italic;font-size:11px;">SKECHERS</span>
+                  </div>
+                  <div class="offer-badge-value-pane">
+                    <div class="offer-badge-prefix">FLAT</div>
+                    <div class="offer-badge-pct">30%</div>
+                    <div class="offer-badge-suffix">OFF on Footwear</div>
+                    <div class="offer-card-heart-fav" onclick="event.stopPropagation(); toggleHeartFav(this);"><i class="fa-regular fa-heart"></i></div>
+                  </div>
+                </div>
+                <div class="offer-dual-body">
+                  <div class="offer-store-name">Skechers</div>
+                  <div class="offer-validity-text">Valid till 15 Sep 2026</div>
+                  <button class="btn-offer-view-gold" onclick="event.stopPropagation(); openOfferDetailsModal('skechers')">View Details</button>
                 </div>
               </div>
 
             </div>
 
-            <!-- Empty Store Results -->
-            <div class="empty-search-state-wrap" id="emptyStoresNotice" style="display:none;margin-top:20px;">
-              <i class="fa-solid fa-store" style="font-size:36px;color:#e2b062;margin-bottom:8px;"></i>
-              <div style="font-size:15px;font-weight:800;color:#fff;">No Stores Found</div>
-              <div style="font-size:11.5px;color:#94a3b8;margin:4px 0 12px 0;">No matching stores found for selected filters.</div>
-              <button class="btn-promo-cta" onclick="resetAllShopFilters()" style="background:var(--gold-gradient-btn);color:#111827;padding:6px 14px;font-size:11px;">Reset Filters</button>
+            <!-- Empty Notice -->
+            <div class="empty-search-state-wrap" id="emptyOffersNotice" style="display:none;margin-top:16px;">
+              <i class="fa-solid fa-tag" style="font-size:36px;color:#e2b062;margin-bottom:8px;"></i>
+              <div style="font-size:15px;font-weight:800;color:#fff;">No Offers Found</div>
+              <div style="font-size:11.5px;color:#94a3b8;margin:4px 0 12px 0;">No matching deals or discounts found for your query.</div>
+              <button class="btn-promo-cta" onclick="resetOffersFilters()" style="background:var(--gold-gradient-btn);color:#111827;padding:6px 14px;font-size:11px;">Reset Filters</button>
             </div>
 
           </section>
 
-          <!-- RIGHT COLUMN: Selected Store Preview Panel -->
-          <aside class="shop-right-preview-panel" id="storePreviewPanel">
+          <!-- RIGHT COLUMN: Featured Deal & Offers Near You -->
+          <aside class="offers-right-column">
             
-            <div class="preview-header-bar">
-              <div class="preview-store-logo-big" id="prevLogoText">ZARA</div>
-              <div class="store-heart-fav" onclick="toggleHeartFav(this)" style="position:static;"><i class="fa-regular fa-heart"></i></div>
-            </div>
-
-            <div class="preview-hero-img-wrap">
-              <img src="../images/kiosk_store_zara.jpg" alt="Store Hero" class="preview-hero-img" id="prevHeroImg">
-            </div>
-
-            <div class="preview-meta-box">
-              <div class="preview-meta-title" id="prevStoreName">ZARA</div>
-              <div class="preview-meta-cat" id="prevStoreCat">Fashion</div>
-              <div class="preview-meta-loc" id="prevStoreLoc"><i class="fa-solid fa-location-dot"></i> Ground Floor, G-01</div>
-              <p class="preview-meta-desc" id="prevStoreDesc">
-                Discover the latest in fashion for men, women and kids. Trendy styles, premium quality and timeless designs.
-              </p>
-            </div>
-
-            <!-- 4 Interactive Quick Actions -->
-            <div class="preview-actions-quad">
-              <button class="preview-action-tile" onclick="openStoreInfoModal()" id="tileStoreInfo">
-                <i class="fa-solid fa-circle-info"></i>
-                <span>Store Info</span>
-              </button>
-              <button class="preview-action-tile" onclick="openStoreOffersModal()" id="tileStoreOffers">
-                <i class="fa-solid fa-tag"></i>
-                <span id="prevOffersCount">Offers (3)</span>
-              </button>
-              <button class="preview-action-tile" onclick="openStorePhotosModal()" id="tileStorePhotos">
-                <i class="fa-solid fa-images"></i>
-                <span>Photos</span>
-              </button>
-              <button class="preview-action-tile" onclick="triggerTakeMeThereHandoff()" id="tileTakeMeThere">
-                <i class="fa-solid fa-location-arrow"></i>
-                <span>Take Me There</span>
-              </button>
-            </div>
-
-            <div class="preview-timings-row">
-              <div>
-                <span class="timings-label">TIMINGS</span>
-                <span class="timings-val" id="prevStoreTimings">10:00 AM – 10:00 PM</span>
+            <!-- Featured Deal Card -->
+            <div class="featured-deal-card">
+              <div class="featured-deal-tag">
+                <span>Featured Deal</span>
+                <div class="store-heart-fav" onclick="toggleHeartFav(this)" style="position:static;"><i class="fa-regular fa-heart"></i></div>
               </div>
-              <div class="badge-open-now">
-                <i class="fa-solid fa-circle" style="font-size:7px;"></i>
-                <span>Open Now</span>
+
+              <div class="featured-deal-bg-content">
+                <div style="flex:1;">
+                  <div style="font-size:9px;font-weight:800;color:#e2b062;letter-spacing:1.5px;text-transform:uppercase;">END OF SEASON</div>
+                  <div class="featured-deal-title">SALE</div>
+                  <div class="featured-deal-subtitle">UP TO <strong>60% OFF</strong><br><small style="color:#94a3b8;">Across Top Brands</small></div>
+                  <button class="btn-explore-featured-deal" onclick="openOfferDetailsModal('zara')" id="btnExploreFeaturedDeal">Explore Now</button>
+                </div>
+                <img src="../images/kiosk_festive_sale_hero.jpg" alt="Model" style="width:115px;height:120px;border-radius:10px;object-fit:cover;">
               </div>
             </div>
 
-            <button class="btn-view-full-store-details" onclick="openFullStoreDetails()" id="btnViewStoreDetailsFull">
-              <span>View Store Details</span>
-              <i class="fa-solid fa-chevron-right"></i>
-            </button>
+            <!-- Offers Near You Card -->
+            <div class="offers-near-you-card">
+              <div class="near-you-header">
+                <div style="font-size:13px;font-weight:800;color:#fff;">Offers Near You</div>
+                <div class="offers-view-all-link" onclick="selectOffersCategory('all', document.getElementById('catAllOffers'))">View All <i class="fa-solid fa-chevron-right" style="font-size:9px;"></i></div>
+              </div>
+
+              <div style="display:flex;flex-direction:column;gap:8px;">
+                <!-- 1. ZARA -->
+                <div class="near-you-item-row" onclick="openOfferDetailsModal('zara')">
+                  <img src="../images/kiosk_store_zara.jpg" alt="ZARA" class="near-you-thumb">
+                  <div style="flex:1;">
+                    <div style="font-size:12px;font-weight:800;color:#fff;">ZARA</div>
+                    <div style="font-size:10.5px;color:#f7dfb8;">Flat 20% Off</div>
+                    <div style="font-size:9.5px;color:#94a3b8;display:flex;gap:8px;margin-top:1px;">
+                      <span><i class="fa-solid fa-location-dot" style="color:#e2b062;"></i> Ground Floor, G-01</span>
+                      <span style="color:#10b981;"><i class="fa-solid fa-person-walking"></i> 120 m</span>
+                    </div>
+                  </div>
+                  <i class="fa-solid fa-chevron-right" style="color:#64748b;font-size:10px;"></i>
+                </div>
+
+                <!-- 2. H&M -->
+                <div class="near-you-item-row" onclick="openOfferDetailsModal('hm')">
+                  <img src="../images/kiosk_store_hm.jpg" alt="H&M" class="near-you-thumb">
+                  <div style="flex:1;">
+                    <div style="font-size:12px;font-weight:800;color:#fff;">H&M</div>
+                    <div style="font-size:10.5px;color:#f7dfb8;">Up to 30% Off</div>
+                    <div style="font-size:9.5px;color:#94a3b8;display:flex;gap:8px;margin-top:1px;">
+                      <span><i class="fa-solid fa-location-dot" style="color:#e2b062;"></i> Ground Floor, G-12</span>
+                      <span style="color:#10b981;"><i class="fa-solid fa-person-walking"></i> 140 m</span>
+                    </div>
+                  </div>
+                  <i class="fa-solid fa-chevron-right" style="color:#64748b;font-size:10px;"></i>
+                </div>
+
+                <!-- 3. Pantaloons -->
+                <div class="near-you-item-row" onclick="openOfferDetailsModal('pantaloons')">
+                  <img src="../images/kiosk_store_zara.jpg" alt="Pantaloons" class="near-you-thumb" style="filter:hue-rotate(60deg);">
+                  <div style="flex:1;">
+                    <div style="font-size:12px;font-weight:800;color:#fff;">Pantaloons</div>
+                    <div style="font-size:10.5px;color:#f7dfb8;">Flat 25% Off</div>
+                    <div style="font-size:9.5px;color:#94a3b8;display:flex;gap:8px;margin-top:1px;">
+                      <span><i class="fa-solid fa-location-dot" style="color:#e2b062;"></i> First Floor, F-07</span>
+                      <span style="color:#10b981;"><i class="fa-solid fa-person-walking"></i> 180 m</span>
+                    </div>
+                  </div>
+                  <i class="fa-solid fa-chevron-right" style="color:#64748b;font-size:10px;"></i>
+                </div>
+              </div>
+
+              <button class="btn-view-all-offers-bottom" onclick="selectOffersCategory('all', document.getElementById('catAllOffers'))" id="btnViewAllOffersBottom">
+                <i class="fa-solid fa-tags"></i>
+                <span>View All Offers</span>
+              </button>
+            </div>
 
           </aside>
 
@@ -3747,135 +3721,91 @@ body {
   </div>
 
   <!-- =========================================================================
-       MODALS FOR DOMAIN 03 (Full Store Details, Offers, Photos, Filters)
+       MODALS FOR DOMAIN 05 (Offer Details, Filters, Scan Explore, Language, Help)
        ========================================================================= -->
 
-  <!-- 1. Full Store Details Modal -->
-  <div class="kiosk-modal-backdrop" id="fullStoreDetailsModal">
-    <div class="kiosk-modal-box luxury-dark-box" style="max-width:580px;text-align:left;">
+  <!-- 1. Offer Details Modal -->
+  <div class="kiosk-modal-backdrop" id="offerDetailsModal">
+    <div class="kiosk-modal-box luxury-dark-box" style="max-width:540px;text-align:left;">
       <div style="display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid rgba(229, 185, 126, 0.2);padding-bottom:12px;margin-bottom:14px;">
         <div>
-          <h3 style="font-family:'Cinzel',serif;font-size:20px;font-weight:800;color:#fff;margin:0;" id="modalFullStoreName">ZARA Flagship</h3>
-          <div style="font-size:11.5px;color:#94a3b8;" id="modalFullStoreCat">International Fashion & Runway Apparel</div>
+          <h3 style="font-family:'Cinzel',serif;font-size:19px;font-weight:800;color:#fff;margin:0;" id="modalOfferTitle">Flat 30% Off on Footwear</h3>
+          <div style="font-size:11px;color:#e2b062;" id="modalOfferStoreName">Applicable at: Adidas (Ground Floor, G-12)</div>
         </div>
-        <i class="fa-solid fa-xmark" style="font-size:18px;color:#94a3b8;cursor:pointer;" onclick="closeKioskModal('fullStoreDetailsModal')"></i>
+        <i class="fa-solid fa-xmark" style="font-size:18px;color:#94a3b8;cursor:pointer;" onclick="closeKioskModal('offerDetailsModal')"></i>
       </div>
 
-      <div style="height:150px;border-radius:12px;overflow:hidden;margin-bottom:14px;">
-        <img src="../images/kiosk_store_zara.jpg" alt="Store Facade" id="modalFullStoreImg" style="width:100%;height:100%;object-fit:cover;">
-      </div>
-
-      <div style="display:grid;grid-template-columns:repeat(3, 1fr);gap:10px;font-size:11px;margin-bottom:14px;">
-        <div style="background:#161f30;padding:8px 10px;border-radius:8px;">
-          <span style="color:#94a3b8;display:block;">Location</span>
-          <strong style="color:#e2b062;" id="modalFullStoreLoc">Ground Floor, G-01</strong>
-        </div>
-        <div style="background:#161f30;padding:8px 10px;border-radius:8px;">
-          <span style="color:#94a3b8;display:block;">Hours</span>
-          <strong style="color:#fff;">10 AM – 10 PM</strong>
-        </div>
-        <div style="background:#161f30;padding:8px 10px;border-radius:8px;">
-          <span style="color:#94a3b8;display:block;">Contact</span>
-          <strong style="color:#fff;">+91 20 6645 8810</strong>
+      <div style="background:rgba(226, 176, 98, 0.12);border:1px solid #e2b062;padding:12px 14px;border-radius:10px;margin-bottom:14px;">
+        <div style="display:flex;justify-content:space-between;align-items:center;">
+          <div>
+            <span style="font-size:10px;color:#94a3b8;text-transform:uppercase;letter-spacing:1px;">PROMO VOUCHER CODE</span>
+            <div style="font-size:17px;font-weight:900;color:#f7dfb8;letter-spacing:2px;" id="modalOfferCode">ADIDAS30</div>
+          </div>
+          <div style="font-size:11px;color:#10b981;font-weight:700;">● Active Now</div>
         </div>
       </div>
 
-      <!-- Similar Stores Row -->
-      <div style="margin-bottom:14px;">
-        <label style="font-size:10px;font-weight:800;color:#e2b062;text-transform:uppercase;letter-spacing:1px;display:block;margin-bottom:6px;">Similar Stores Nearby</label>
-        <div style="display:flex;gap:8px;">
-          <button class="search-tag-pill" onclick="switchModalToStore('hm')">H&M (G-12)</button>
-          <button class="search-tag-pill" onclick="switchModalToStore('trends')">Trends (F-06)</button>
-          <button class="search-tag-pill" onclick="switchModalToStore('jackjones')">Jack & Jones (F-14)</button>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;font-size:11px;margin-bottom:14px;">
+        <div style="background:#161f30;padding:8px 12px;border-radius:8px;">
+          <span style="color:#94a3b8;display:block;">Validity</span>
+          <strong style="color:#fff;" id="modalOfferValidity">Valid till 15 Sep 2026</strong>
+        </div>
+        <div style="background:#161f30;padding:8px 12px;border-radius:8px;">
+          <span style="color:#94a3b8;display:block;">Terms</span>
+          <strong style="color:#fff;">On select models</strong>
         </div>
       </div>
 
-      <!-- Navigation Handoff -->
+      <div style="font-size:11.5px;color:#cbd5e1;line-height:1.4;margin-bottom:18px;" id="modalOfferDesc">
+        Present this voucher code on the kiosk or show your QR code during store checkout to claim instant 30% savings on footwear.
+      </div>
+
+      <!-- Navigation & Store Handoff -->
       <div style="display:flex;gap:10px;justify-content:flex-end;">
-        <button class="btn-modal-gold" onclick="triggerTakeMeThereHandoff()" id="btnModalTakeMeThere">
+        <button class="btn-modal-dark" onclick="handoffToStoreScreen()" id="btnOfferHandoffStore">
+          <i class="fa-solid fa-store"></i> View Store
+        </button>
+        <button class="btn-modal-gold" onclick="handoffToMallMap()" id="btnOfferTakeMeThere">
           <i class="fa-solid fa-location-arrow"></i> Take Me There
         </button>
-        <button class="btn-modal-dark" onclick="closeKioskModal('fullStoreDetailsModal')">Close</button>
       </div>
     </div>
   </div>
 
-  <!-- 2. Store Offers Modal -->
-  <div class="kiosk-modal-backdrop" id="storeOffersModal">
+  <!-- 2. Offers Filter Modal -->
+  <div class="kiosk-modal-backdrop" id="offersFilterModal">
     <div class="kiosk-modal-box luxury-dark-box" style="max-width:500px;text-align:left;">
-      <div style="display:flex;justify-content:space-between;border-bottom:1px solid rgba(229, 185, 126, 0.2);padding-bottom:12px;margin-bottom:14px;">
-        <h3 style="font-size:17px;font-weight:800;color:#fff;margin:0;" id="offersModalStoreTitle">Active Offers at ZARA</h3>
-        <i class="fa-solid fa-xmark" style="font-size:16px;color:#94a3b8;cursor:pointer;" onclick="closeKioskModal('storeOffersModal')"></i>
-      </div>
-      
-      <div style="display:flex;flex-direction:column;gap:10px;margin-bottom:16px;">
-        <div style="background:#161f30;border:1px solid rgba(229, 185, 126, 0.3);padding:10px 14px;border-radius:10px;">
-          <div style="font-size:13px;font-weight:800;color:#f7dfb8;">Flat 40% Off on Autumn Collection</div>
-          <div style="font-size:10.5px;color:#94a3b8;margin-top:2px;">Valid till 15 Sep 2026 · Promo Code: <strong>AUTUMN40</strong></div>
-        </div>
-        <div style="background:#161f30;border:1px solid rgba(229, 185, 126, 0.3);padding:10px 14px;border-radius:10px;">
-          <div style="font-size:13px;font-weight:800;color:#f7dfb8;">Buy 2 Get 1 Free on Select Accessories</div>
-          <div style="font-size:10.5px;color:#94a3b8;margin-top:2px;">Valid till 30 Sep 2026 · In-store checkout</div>
-        </div>
-      </div>
-
-      <div style="display:flex;gap:10px;justify-content:flex-end;">
-        <button class="btn-modal-gold" onclick="triggerTakeMeThereHandoff()"><i class="fa-solid fa-location-arrow"></i> Navigate to Store</button>
-        <button class="btn-modal-dark" onclick="closeKioskModal('storeOffersModal')">Close</button>
-      </div>
-    </div>
-  </div>
-
-  <!-- 3. Store Photos Modal -->
-  <div class="kiosk-modal-backdrop" id="storePhotosModal">
-    <div class="kiosk-modal-box luxury-dark-box" style="max-width:540px;text-align:left;">
-      <div style="display:flex;justify-content:space-between;border-bottom:1px solid rgba(229, 185, 126, 0.2);padding-bottom:12px;margin-bottom:14px;">
-        <h3 style="font-size:17px;font-weight:800;color:#fff;margin:0;" id="photosModalTitle">Store Photo Gallery</h3>
-        <i class="fa-solid fa-xmark" style="font-size:16px;color:#94a3b8;cursor:pointer;" onclick="closeKioskModal('storePhotosModal')"></i>
-      </div>
-      <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:16px;">
-        <img src="../images/kiosk_store_zara.jpg" alt="Interior 1" style="width:100%;height:120px;object-fit:cover;border-radius:8px;">
-        <img src="../images/kiosk_store_hm.jpg" alt="Interior 2" style="width:100%;height:120px;object-fit:cover;border-radius:8px;">
-      </div>
-      <div style="display:flex;gap:10px;justify-content:flex-end;">
-        <button class="btn-modal-dark" onclick="closeKioskModal('storePhotosModal')">Close</button>
-      </div>
-    </div>
-  </div>
-
-  <!-- 4. Shop Filters Modal -->
-  <div class="kiosk-modal-backdrop" id="shopFilterModal">
-    <div class="kiosk-modal-box luxury-dark-box" style="max-width:520px;text-align:left;">
       <div class="kiosk-modal-header-luxury">
         <div class="modal-gold-emblem"><i class="fa-solid fa-sliders"></i></div>
-        <div class="modal-title-gold">Filter Stores & Brands</div>
+        <div class="modal-title-gold">Filter Offers & Deals</div>
       </div>
       <div style="display:flex;flex-direction:column;gap:14px;margin-bottom:20px;">
         <div>
-          <label style="font-size:11px;font-weight:700;color:#e2b062;text-transform:uppercase;display:block;margin-bottom:6px;">Floor</label>
+          <label style="font-size:11px;font-weight:700;color:#e2b062;text-transform:uppercase;display:block;margin-bottom:6px;">Category</label>
           <div style="display:flex;gap:6px;flex-wrap:wrap;">
-            <button class="search-tag-pill active" onclick="toggleFilterPill(this)">All Floors</button>
-            <button class="search-tag-pill" onclick="toggleFilterPill(this)">Ground Floor</button>
-            <button class="search-tag-pill" onclick="toggleFilterPill(this)">First Floor</button>
-            <button class="search-tag-pill" onclick="toggleFilterPill(this)">Second Floor</button>
+            <button class="search-tag-pill active" onclick="toggleFilterPill(this)">All</button>
+            <button class="search-tag-pill" onclick="toggleFilterPill(this)">Fashion</button>
+            <button class="search-tag-pill" onclick="toggleFilterPill(this)">Food</button>
+            <button class="search-tag-pill" onclick="toggleFilterPill(this)">Entertainment</button>
           </div>
         </div>
         <div>
-          <label style="font-size:11px;font-weight:700;color:#e2b062;text-transform:uppercase;display:block;margin-bottom:6px;">Status</label>
+          <label style="font-size:11px;font-weight:700;color:#e2b062;text-transform:uppercase;display:block;margin-bottom:6px;">Discount Range</label>
           <div style="display:flex;gap:6px;">
-            <button class="search-tag-pill active" onclick="toggleFilterPill(this)">Open Now</button>
-            <button class="search-tag-pill" onclick="toggleFilterPill(this)">Offers Available</button>
+            <button class="search-tag-pill active" onclick="toggleFilterPill(this)">All Deals</button>
+            <button class="search-tag-pill" onclick="toggleFilterPill(this)">30% & Above</button>
+            <button class="search-tag-pill" onclick="toggleFilterPill(this)">Buy 1 Get 1</button>
           </div>
         </div>
       </div>
       <div class="modal-actions-luxury">
-        <button class="btn-modal-gold" onclick="closeKioskModal('shopFilterModal')">Apply Filters</button>
-        <button class="btn-modal-dark" onclick="closeKioskModal('shopFilterModal')">Cancel</button>
+        <button class="btn-modal-gold" onclick="closeKioskModal('offersFilterModal')">Apply Filters</button>
+        <button class="btn-modal-dark" onclick="closeKioskModal('offersFilterModal')">Cancel</button>
       </div>
     </div>
   </div>
 
-  <!-- 5. Scan Explore, Language & Help Modals -->
+  <!-- 3. Scan Explore, Language & Help Modals -->
   <div class="kiosk-modal-backdrop" id="scanExploreModal">
     <div class="kiosk-modal-box luxury-dark-box">
       <div class="kiosk-modal-header-luxury">
@@ -3914,170 +3844,148 @@ body {
 
   <script src="kiosk.js"></script>
   <script>
-    // Store Mock Database
-    const storeDB = {
-      zara: {
-        id: 'zara',
-        name: 'ZARA',
-        logo: 'ZARA',
-        cat: 'Fashion',
+    // Offers Mock DB
+    const offersDB = {
+      adidas: {
+        id: 'adidas',
+        title: 'Flat 30% Off on Footwear',
+        store: 'Adidas',
+        loc: 'Ground Floor, G-12',
+        validity: 'Valid till 15 Sep 2026',
+        code: 'ADIDAS30',
         catKey: 'fashion',
-        floor: 'Ground Floor, G-01',
-        floorKey: 'ground',
-        desc: 'Discover the latest in fashion for men, women and kids. Trendy styles, premium quality and timeless designs.',
-        img: '../images/kiosk_store_zara.jpg',
-        offers: 3,
-        timings: '10:00 AM – 10:00 PM'
+        desc: 'Enjoy flat 30% savings on top athletic trainers, running shoes, and sports sneakers at the Adidas flagship store.'
       },
-      hm: {
-        id: 'hm',
-        name: 'H&M',
-        logo: 'H&M',
-        cat: 'Fashion',
+      levis: {
+        id: 'levis',
+        title: 'Up to 40% Off on Select Items',
+        store: "Levi's",
+        loc: 'Ground Floor, G-08',
+        validity: 'Valid till 20 Sep 2026',
+        code: 'LEVIS40',
         catKey: 'fashion',
-        floor: 'Ground Floor, G-12',
-        floorKey: 'ground',
-        desc: 'High street contemporary fashion and conscious organic collections at unbeatable value for the whole family.',
-        img: '../images/kiosk_store_hm.jpg',
-        offers: 2,
-        timings: '10:00 AM – 10:00 PM'
-      },
-      trends: {
-        id: 'trends',
-        name: 'TRENDS',
-        logo: 'TRENDS',
-        cat: 'Fashion',
-        catKey: 'fashion',
-        floor: 'First Floor, F-06',
-        floorKey: 'first',
-        desc: 'India largest fashion destination bringing trendy ethnic and western collections with great festive deals.',
-        img: '../images/kiosk_store_zara.jpg',
-        offers: 4,
-        timings: '10:30 AM – 09:30 PM'
-      },
-      lifestyle: {
-        id: 'lifestyle',
-        name: 'Lifestyle',
-        logo: 'lifestyle',
-        cat: 'Lifestyle',
-        catKey: 'lifestyle',
-        floor: 'Ground Floor, G-18',
-        floorKey: 'ground',
-        desc: 'Multi-brand luxury fashion, bags, footwear, watches and beauty essentials under one prestigious roof.',
-        img: '../images/kiosk_store_hm.jpg',
-        offers: 1,
-        timings: '10:00 AM – 10:00 PM'
-      },
-      sephora: {
-        id: 'sephora',
-        name: 'SEPHORA',
-        logo: 'SEPHORA',
-        cat: 'Beauty',
-        catKey: 'beauty',
-        floor: 'Ground Floor, G-22',
-        floorKey: 'ground',
-        desc: 'World leading cosmetic boutique with makeup artistry, skincare consultations and international perfume collections.',
-        img: '../images/kiosk_store_sephora.jpg',
-        offers: 2,
-        timings: '10:00 AM – 10:00 PM'
-      },
-      skechers: {
-        id: 'skechers',
-        name: 'SKECHERS',
-        logo: 'SKECHERS',
-        cat: 'Footwear',
-        catKey: 'footwear',
-        floor: 'First Floor, F-20',
-        floorKey: 'first',
-        desc: 'Comfort footwear innovator featuring memory foam running sneakers, slip-ins and athletic performance gear.',
-        img: '../images/kiosk_search_adidas_store.jpg',
-        offers: 2,
-        timings: '10:00 AM – 09:30 PM'
+        desc: 'Upgrade your denim wardrobe with authentic Levi 501 jeans, denim jackets and casual shirts at up to 40% discount.'
       },
       pvr: {
         id: 'pvr',
-        name: 'PVR Cinemas',
-        logo: 'PVR CINEMAS',
-        cat: 'Entertainment',
-        catKey: 'others',
-        floor: 'Second Floor, S-01',
-        floorKey: 'second',
-        desc: 'Premier multi-screen cinema entertainment with 4DX, IMAX, and gourmet Gold Class lounge experiences.',
-        img: '../images/kiosk_highlight_gaming.jpg',
-        offers: 1,
-        timings: '09:00 AM – 01:00 AM'
+        title: 'Buy 1 Get 1 Free on Movie Tickets',
+        store: 'PVR Cinemas',
+        loc: 'Second Floor, S-01',
+        validity: 'Valid till 31 Aug 2026',
+        code: 'PVRBOGO',
+        catKey: 'entertainment',
+        desc: 'Book your movie experience for weekday screenings and get a complimentary second ticket on all Standard and Recliner seats.'
       },
-      jackjones: {
-        id: 'jackjones',
-        name: 'JACK & JONES',
-        logo: 'JACK & JONES',
-        cat: 'Fashion',
+      haldirams: {
+        id: 'haldirams',
+        title: '20% Off on Total Bill',
+        store: "Haldiram's",
+        loc: 'Food Court, FC-03',
+        validity: 'Valid till 10 Sep 2026',
+        code: 'HALDI20',
+        catKey: 'food',
+        desc: 'Relish authentic North Indian thalis, Raj Kachori and sweets with a 20% discount on orders above ₹500.'
+      },
+      lifestyle: {
+        id: 'lifestyle',
+        title: 'Flat 25% Off on New Arrivals',
+        store: 'Lifestyle',
+        loc: 'Ground Floor, G-18',
+        validity: 'Valid till 18 Sep 2026',
+        code: 'LIFE25',
+        catKey: 'lifestyle',
+        desc: 'Explore fresh seasonal styles in fashion, cosmetics, perfumes and footwear with an instant 25% bill markdown.'
+      },
+      starbucks: {
+        id: 'starbucks',
+        title: 'Get 20% Off on Beverages',
+        store: 'Starbucks',
+        loc: 'Ground Floor, G-15',
+        validity: 'Valid till 31 Aug 2026',
+        code: 'STAR20',
+        catKey: 'food',
+        desc: 'Enjoy 20% savings on handcrafted Frappuccinos, cold brews, and seasonal specialty lattes during happy hours.'
+      },
+      maxfashion: {
+        id: 'maxfashion',
+        title: 'Up to 50% Off on Select Styles',
+        store: 'Max Fashion',
+        loc: 'First Floor, F-04',
+        validity: 'Valid till 25 Sep 2026',
+        code: 'MAX50',
         catKey: 'fashion',
-        floor: 'First Floor, F-14',
-        floorKey: 'first',
-        desc: 'Premium urban menswear, tailored denim jeans, casual jackets and leather accessories.',
-        img: '../images/kiosk_store_zara.jpg',
-        offers: 3,
-        timings: '10:00 AM – 10:00 PM'
+        desc: 'Family fashion sale with up to 50% discount on casual wear, kids wear, and accessories.'
+      },
+      skechers: {
+        id: 'skechers',
+        title: 'Flat 30% Off on Footwear',
+        store: 'Skechers',
+        loc: 'First Floor, F-20',
+        validity: 'Valid till 15 Sep 2026',
+        code: 'SKECH30',
+        catKey: 'fashion',
+        desc: 'Experience ultimate memory foam walking and athletic performance comfort with 30% off selected styles.'
+      },
+      zara: {
+        id: 'zara',
+        title: 'Flat 20% Off on Fashion',
+        store: 'ZARA',
+        loc: 'Ground Floor, G-01',
+        validity: 'Valid till 30 Sep 2026',
+        code: 'ZARA20',
+        catKey: 'fashion',
+        desc: 'Exclusive end of season savings across designer womenswear, menswear and kids collections.'
+      },
+      hm: {
+        id: 'hm',
+        title: 'Up to 30% Off Conscious Collection',
+        store: 'H&M',
+        loc: 'Ground Floor, G-12',
+        validity: 'Valid till 30 Sep 2026',
+        code: 'HM30',
+        catKey: 'fashion',
+        desc: 'Sustainable fashion and everyday basics at up to 30% savings for the whole family.'
+      },
+      pantaloons: {
+        id: 'pantaloons',
+        title: 'Flat 25% Off on Ethnic Wear',
+        store: 'Pantaloons',
+        loc: 'First Floor, F-07',
+        validity: 'Valid till 28 Sep 2026',
+        code: 'PANT25',
+        catKey: 'fashion',
+        desc: 'Celebrate festivals in style with flat 25% discount on kurtas, sarees, lehengas and ethnic accessories.'
       }
     };
 
-    let selectedStoreId = 'zara';
-    let currentCategoryFilter = 'all';
-    let currentFloorFilter = 'all';
+    let currentSelectedOfferId = 'adidas';
+    let currentOffersCategory = 'all';
 
-    function selectStorePreview(id) {
-      selectedStoreId = id;
-      const store = storeDB[id];
-      if (!store) return;
-
-      document.querySelectorAll('.store-grid-card').forEach(c => c.classList.remove('selected-active'));
-      const activeCard = document.querySelector(`.store-grid-card[data-id="${id}"]`);
-      if (activeCard) activeCard.classList.add('selected-active');
-
-      document.getElementById('prevLogoText').textContent = store.logo;
-      document.getElementById('prevHeroImg').src = store.img;
-      document.getElementById('prevStoreName').textContent = store.name;
-      document.getElementById('prevStoreCat').textContent = store.cat;
-      document.getElementById('prevStoreLoc').innerHTML = `<i class="fa-solid fa-location-dot"></i> ${store.floor}`;
-      document.getElementById('prevStoreDesc').textContent = store.desc;
-      document.getElementById('prevOffersCount').textContent = `Offers (${store.offers})`;
-      document.getElementById('prevStoreTimings').textContent = store.timings;
-    }
-
-    function selectStoreCategory(cat, btn) {
-      currentCategoryFilter = cat;
-      document.querySelectorAll('.shop-category-item').forEach(b => b.classList.remove('active'));
+    function selectOffersCategory(cat, btn) {
+      currentOffersCategory = cat;
+      document.querySelectorAll('.offer-cat-pill-btn').forEach(b => b.classList.remove('active'));
       if (btn) btn.classList.add('active');
-      applyFiltering();
+      applyOffersFilters();
     }
 
-    function selectFloorFilter(floor, btn) {
-      currentFloorFilter = floor;
-      document.querySelectorAll('.floor-pill-btn').forEach(b => b.classList.remove('active'));
-      if (btn) btn.classList.add('active');
-      applyFiltering();
+    function handleOffersSearchFilter() {
+      applyOffersFilters();
     }
 
-    function handleStoreSearchFilter() {
-      applyFiltering();
-    }
-
-    function applyFiltering() {
-      const searchVal = (document.getElementById('shopStoreSearchInput').value || '').trim().toLowerCase();
-      const cards = document.querySelectorAll('.store-grid-card');
+    function applyOffersFilters() {
+      const searchVal = (document.getElementById('offersSearchInput').value || '').trim().toLowerCase();
+      const allCards = document.querySelectorAll('.offer-dual-card');
       let visibleCount = 0;
 
-      cards.forEach(card => {
+      allCards.forEach(card => {
         const id = card.getAttribute('data-id');
-        const store = storeDB[id];
-        if (!store) return;
+        const offer = offersDB[id];
+        if (!offer) return;
 
-        const matchCat = (currentCategoryFilter === 'all' || store.catKey === currentCategoryFilter);
-        const matchFloor = (currentFloorFilter === 'all' || store.floorKey === currentFloorFilter);
-        const matchSearch = (!searchVal || store.name.toLowerCase().includes(searchVal) || store.cat.toLowerCase().includes(searchVal));
+        const matchCat = (currentOffersCategory === 'all' || offer.catKey === currentOffersCategory);
+        const matchSearch = (!searchVal || offer.store.toLowerCase().includes(searchVal) || offer.title.toLowerCase().includes(searchVal));
 
-        if (matchCat && matchFloor && matchSearch) {
+        if (matchCat && matchSearch) {
           card.style.display = 'flex';
           visibleCount++;
         } else {
@@ -4085,7 +3993,7 @@ body {
         }
       });
 
-      const emptyNotice = document.getElementById('emptyStoresNotice');
+      const emptyNotice = document.getElementById('emptyOffersNotice');
       if (visibleCount === 0) {
         emptyNotice.style.display = 'flex';
       } else {
@@ -4093,57 +4001,33 @@ body {
       }
     }
 
-    function resetAllShopFilters() {
-      currentCategoryFilter = 'all';
-      currentFloorFilter = 'all';
-      document.getElementById('shopStoreSearchInput').value = '';
-
-      document.querySelectorAll('.shop-category-item').forEach(b => b.classList.remove('active'));
-      document.getElementById('catItemAll')?.classList.add('active');
-
-      document.querySelectorAll('.floor-pill-btn').forEach(b => b.classList.remove('active'));
-      document.getElementById('floorAll')?.classList.add('active');
-
-      applyFiltering();
-      selectStorePreview('zara');
+    function resetOffersFilters() {
+      currentOffersCategory = 'all';
+      document.getElementById('offersSearchInput').value = '';
+      document.querySelectorAll('.offer-cat-pill-btn').forEach(b => b.classList.remove('active'));
+      document.getElementById('catAllOffers')?.classList.add('active');
+      applyOffersFilters();
     }
 
-    function openFullStoreDetails(id) {
-      if (id) selectStorePreview(id);
-      const store = storeDB[selectedStoreId];
-      if (!store) return;
-
-      document.getElementById('modalFullStoreName').textContent = store.name;
-      document.getElementById('modalFullStoreCat').textContent = `${store.cat} · ${store.desc.split('.')[0]}`;
-      document.getElementById('modalFullStoreLoc').textContent = store.floor;
-      document.getElementById('modalFullStoreImg').src = store.img;
-      openKioskModal('fullStoreDetailsModal');
+    function openOfferDetailsModal(id) {
+      currentSelectedOfferId = id;
+      const offer = offersDB[id] || offersDB['adidas'];
+      document.getElementById('modalOfferTitle').textContent = offer.title;
+      document.getElementById('modalOfferStoreName').textContent = `Applicable at: ${offer.store} (${offer.loc})`;
+      document.getElementById('modalOfferCode').textContent = offer.code;
+      document.getElementById('modalOfferValidity').textContent = offer.validity;
+      document.getElementById('modalOfferDesc').textContent = offer.desc;
+      openKioskModal('offerDetailsModal');
     }
 
-    function switchModalToStore(id) {
-      closeKioskModal('fullStoreDetailsModal');
-      selectStorePreview(id);
-      setTimeout(() => openFullStoreDetails(id), 200);
+    function handoffToStoreScreen() {
+      const offer = offersDB[currentSelectedOfferId] || offersDB['adidas'];
+      window.location.href = `shop.html?store=${offer.id}`;
     }
 
-    function openStoreInfoModal() {
-      openFullStoreDetails(selectedStoreId);
-    }
-
-    function openStoreOffersModal() {
-      const store = storeDB[selectedStoreId];
-      document.getElementById('offersModalStoreTitle').textContent = `Active Offers at ${store.name}`;
-      openKioskModal('storeOffersModal');
-    }
-
-    function openStorePhotosModal() {
-      const store = storeDB[selectedStoreId];
-      document.getElementById('photosModalTitle').textContent = `${store.name} Photo Gallery`;
-      openKioskModal('storePhotosModal');
-    }
-
-    function triggerTakeMeThereHandoff() {
-      window.location.href = `map.html?dest=${selectedStoreId}`;
+    function handoffToMallMap() {
+      const offer = offersDB[currentSelectedOfferId] || offersDB['adidas'];
+      window.location.href = `map.html?dest=${offer.id}`;
     }
 
     function toggleHeartFav(el) {

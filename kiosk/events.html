@@ -3,273 +3,4032 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Grand Metro Mall · Events & Entertainment</title>
+  <title>Events & Entertainment · Grand Metro Mall Kiosk</title>
   <!-- Google Fonts & Font Awesome -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700;800;900&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700;800;900&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Playfair+Display:ital,wght@0,600;0,700;1,400;1,600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
   <link rel="stylesheet" href="kiosk.css">
+  <style id="kiosk-embedded-css">
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700;800&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Playfair+Display:ital,wght@0,600;0,700;1,400;1,600&display=swap');
+
+:root {
+  --bg-kiosk: #070b12;
+  --bg-gradient: radial-gradient(circle at 50% 0%, #111a2e 0%, #080c14 60%, #04060a 100%);
+  --bg-panel: rgba(18, 25, 38, 0.75);
+  --bg-panel-solid: #0f1624;
+  --border-gold: rgba(229, 185, 126, 0.35);
+  --border-gold-glow: rgba(229, 185, 126, 0.7);
+  --border-subtle: rgba(255, 255, 255, 0.08);
+  
+  --gold-100: #fef5e7;
+  --gold-200: #f7dfb8;
+  --gold-300: #eec88c;
+  --gold-400: #e2b062;
+  --gold-500: #cca052;
+  --gold-600: #b0823b;
+  --gold-gradient: linear-gradient(135deg, #f7dfb8 0%, #e2b062 50%, #b0823b 100%);
+  --gold-gradient-btn: linear-gradient(135deg, #eed29e 0%, #d8a858 50%, #b58537 100%);
+  
+  --text-main: #ffffff;
+  --text-muted: #94a3b8;
+  --text-gold: #e2b062;
+  
+  --shadow-gold: 0 0 25px rgba(226, 176, 98, 0.25);
+  --shadow-card: 0 16px 36px rgba(0, 0, 0, 0.45);
+  --glass-blur: blur(16px);
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+body {
+  font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+  background-color: #020408;
+  color: var(--text-main);
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow-x: hidden;
+  background-image: 
+    radial-gradient(rgba(226, 176, 98, 0.05) 1px, transparent 1px),
+    radial-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+  background-size: 36px 36px, 18px 18px;
+  background-position: 0 0, 9px 9px;
+}
+
+/* Kiosk Physical Frame Simulator */
+.kiosk-viewport-wrapper {
+  width: 100%;
+  max-width: 900px;
+  min-height: 100vh;
+  padding: 12px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.kiosk-frame {
+  width: 100%;
+  max-width: 860px;
+  background: #0d1117;
+  border-radius: 36px;
+  padding: 16px 16px 20px 16px;
+  box-shadow: 
+    0 0 0 4px #1f2735,
+    0 0 0 8px #080a0f,
+    0 30px 90px rgba(0, 0, 0, 0.9),
+    0 0 60px rgba(17, 24, 39, 0.6);
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.kiosk-screen {
+  background: var(--bg-gradient);
+  border-radius: 26px;
+  overflow: hidden;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  height: 1120px;
+  max-height: 1120px;
+  box-shadow: inset 0 0 40px rgba(0, 0, 0, 0.6);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+/* Kiosk Bezel Bottom Logo */
+.kiosk-bezel-bottom {
+  text-align: center;
+  padding-top: 14px;
+  color: #717e94;
+  font-size: 13px;
+  letter-spacing: 4px;
+  font-weight: 700;
+  text-transform: uppercase;
+  font-family: 'Cinzel', serif;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+
+.kiosk-bezel-bottom::before,
+.kiosk-bezel-bottom::after {
+  content: '';
+  display: inline-block;
+  width: 24px;
+  height: 1px;
+  background: rgba(255, 255, 255, 0.15);
+}
+
+/* ==========================================================================
+   KIOSK TOP HEADER BAR
+   ========================================================================== */
+.kiosk-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 22px 32px 14px 32px;
+  border-bottom: 1px solid rgba(226, 176, 98, 0.12);
+  position: relative;
+  z-index: 20;
+}
+
+.kiosk-header-left {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-width: 140px;
+}
+
+.weather-icon-sun {
+  font-size: 26px;
+  color: #f59e0b;
+  filter: drop-shadow(0 0 10px rgba(245, 158, 11, 0.5));
+  animation: pulse-sun 4s ease-in-out infinite;
+}
+
+@keyframes pulse-sun {
+  0%, 100% { transform: scale(1); opacity: 0.95; }
+  50% { transform: scale(1.1); opacity: 1; filter: drop-shadow(0 0 14px rgba(245, 158, 11, 0.8)); }
+}
+
+.weather-text {
+  display: flex;
+  flex-direction: column;
+}
+
+.weather-temp {
+  font-size: 16px;
+  font-weight: 700;
+  color: #ffffff;
+  line-height: 1.1;
+}
+
+.weather-desc {
+  font-size: 11px;
+  color: var(--text-muted);
+  font-weight: 500;
+}
+
+/* Mall Brand Center */
+.kiosk-brand {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-decoration: none;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+}
+
+.kiosk-brand:hover {
+  transform: translateY(-1px);
+}
+
+.brand-emblem-svg {
+  width: 32px;
+  height: 32px;
+  margin-bottom: 3px;
+  color: var(--gold-400);
+}
+
+.brand-name-grand {
+  font-family: 'Cinzel', serif;
+  font-size: 15px;
+  font-weight: 700;
+  letter-spacing: 4px;
+  color: #f7dfb8;
+  line-height: 1.1;
+  text-align: center;
+}
+
+.brand-name-sub {
+  font-family: 'Cinzel', serif;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 3px;
+  color: var(--gold-400);
+  text-align: center;
+}
+
+/* Header Right - Clock */
+.kiosk-header-right {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  min-width: 140px;
+}
+
+.kiosk-time {
+  font-size: 16px;
+  font-weight: 700;
+  color: #ffffff;
+  letter-spacing: 0.5px;
+  line-height: 1.1;
+}
+
+.kiosk-date {
+  font-size: 11px;
+  color: var(--text-muted);
+  font-weight: 500;
+}
+
+/* Back to Home Button (Sub-pages) */
+.btn-back-home {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  color: #ffffff;
+  padding: 8px 18px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  text-decoration: none;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  backdrop-filter: blur(10px);
+}
+
+.btn-back-home:hover {
+  background: rgba(226, 176, 98, 0.18);
+  border-color: var(--gold-400);
+  color: var(--gold-200);
+  transform: translateX(-2px);
+  box-shadow: 0 0 15px rgba(226, 176, 98, 0.3);
+}
+
+/* ==========================================================================
+   KIOSK PAGE BODY & SECTIONS
+   ========================================================================== */
+.kiosk-main-content {
+  flex: 1;
+  padding: 24px 32px 32px 32px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  position: relative;
+  overflow-y: auto;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(226, 176, 98, 0.3) transparent;
+}
+
+.kiosk-main-content::-webkit-scrollbar {
+  width: 5px;
+}
+
+.kiosk-main-content::-webkit-scrollbar-thumb {
+  background: rgba(226, 176, 98, 0.35);
+  border-radius: 999px;
+}
+
+.kiosk-main-content::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+/* Page Section Title with Ornaments */
+.section-title-wrap {
+  text-align: center;
+  margin-bottom: 6px;
+}
+
+.section-title-ornate {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  font-family: 'Cinzel', serif;
+  font-size: 26px;
+  font-weight: 700;
+  letter-spacing: 3px;
+  color: #ffffff;
+  text-transform: uppercase;
+}
+
+.ornate-line {
+  display: flex;
+  align-items: center;
+  color: var(--gold-400);
+  font-size: 14px;
+  opacity: 0.7;
+}
+
+.section-subtitle {
+  font-size: 13.5px;
+  color: var(--text-muted);
+  margin-top: 4px;
+  font-weight: 400;
+}
+
+/* Segmented Toggles (Dine In / Food Court, Floor Selector) */
+.kiosk-segmented-tabs {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(15, 23, 42, 0.8);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 5px;
+  border-radius: 999px;
+  width: fit-content;
+  margin: 0 auto;
+  gap: 6px;
+  backdrop-filter: blur(12px);
+}
+
+.kiosk-segmented-btn {
+  background: transparent;
+  border: none;
+  color: var(--text-muted);
+  font-size: 12.5px;
+  font-weight: 700;
+  padding: 8px 24px;
+  border-radius: 999px;
+  cursor: pointer;
+  letter-spacing: 0.8px;
+  text-transform: uppercase;
+  transition: all 0.25s ease;
+}
+
+.kiosk-segmented-btn.active {
+  background: var(--gold-gradient-btn);
+  color: #1a1205;
+  box-shadow: 0 4px 16px rgba(216, 168, 88, 0.4);
+}
+
+.kiosk-segmented-btn:hover:not(.active) {
+  color: #ffffff;
+  background: rgba(255, 255, 255, 0.06);
+}
+
+/* ==========================================================================
+   PAGE 1: HOME SCREEN SPECIFIC STYLES
+   ========================================================================== */
+.home-hero-ad-card {
+  position: relative;
+  background: linear-gradient(135deg, #0b1528 0%, #060b14 60%, #03060a 100%);
+  border-radius: 24px;
+  padding: 32px 36px;
+  border: 1px solid rgba(226, 176, 98, 0.25);
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.5), inset 0 0 60px rgba(11, 25, 48, 0.4);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  overflow: hidden;
+  min-height: 280px;
+}
+
+.home-hero-ad-card::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  right: -20%;
+  width: 400px;
+  height: 400px;
+  background: radial-gradient(circle, rgba(30, 64, 175, 0.35) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+.hero-ad-content {
+  max-width: 55%;
+  z-index: 2;
+}
+
+.badge-new-arrival {
+  display: inline-block;
+  background: rgba(0, 0, 0, 0.5);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: #cbd5e1;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  padding: 4px 12px;
+  border-radius: 999px;
+  margin-bottom: 16px;
+}
+
+.hero-ad-title {
+  font-family: 'Cinzel', serif;
+  font-size: 30px;
+  font-weight: 700;
+  line-height: 1.15;
+  letter-spacing: 1.5px;
+  color: #ffffff;
+  margin-bottom: 10px;
+}
+
+.hero-ad-desc {
+  font-size: 13.5px;
+  color: #94a3b8;
+  line-height: 1.4;
+  margin-bottom: 22px;
+}
+
+.btn-shop-now-hero {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0, 0, 0, 0.5);
+  border: 1.5px solid rgba(255, 255, 255, 0.3);
+  color: #ffffff;
+  padding: 10px 28px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  text-decoration: none;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  backdrop-filter: blur(8px);
+}
+
+.btn-shop-now-hero:hover {
+  background: var(--gold-gradient-btn);
+  color: #1a1205;
+  border-color: var(--gold-400);
+  box-shadow: 0 0 20px rgba(226, 176, 98, 0.5);
+  transform: translateY(-2px);
+}
+
+.hero-ad-media-bottle {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 220px;
+  height: 220px;
+}
+
+.chanel-bottle-mockup {
+  width: 170px;
+  height: 200px;
+  background: linear-gradient(145deg, #09172e, #030814);
+  border-radius: 18px;
+  border: 2px solid rgba(147, 197, 253, 0.3);
+  box-shadow: 
+    0 10px 30px rgba(0, 0, 0, 0.8),
+    0 0 35px rgba(30, 58, 138, 0.5),
+    inset 0 0 20px rgba(59, 130, 246, 0.2);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+.bottle-cap {
+  position: absolute;
+  top: -14px;
+  width: 60px;
+  height: 16px;
+  background: #020617;
+  border-radius: 4px 4px 0 0;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.bottle-label-title {
+  font-family: 'Cinzel', serif;
+  font-size: 15px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  color: #e2e8f0;
+  text-align: center;
+}
+
+.bottle-label-de {
+  font-size: 8px;
+  letter-spacing: 3px;
+  color: #94a3b8;
+  margin: 1px 0;
+}
+
+.bottle-label-chanel {
+  font-family: 'Cinzel', serif;
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: 3px;
+  color: #ffffff;
+}
+
+.bottle-label-parfum {
+  font-size: 7.5px;
+  letter-spacing: 3px;
+  color: #94a3b8;
+  margin-top: 36px;
+  text-transform: uppercase;
+}
+
+/* Dots Carousel in Ad */
+.ad-carousel-dots {
+  position: absolute;
+  bottom: 12px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 8px;
+  z-index: 3;
+}
+
+.ad-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.3);
+  transition: all 0.3s ease;
+}
+
+.ad-dot.active {
+  width: 22px;
+  background: #ffffff;
+}
+
+/* Kiosk Global Search Bar */
+.kiosk-search-container {
+  position: relative;
+  width: 100%;
+}
+
+.kiosk-search-input-box {
+  width: 100%;
+  background: rgba(18, 25, 38, 0.85);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 999px;
+  padding: 16px 54px 16px 52px;
+  color: #ffffff;
+  font-size: 14.5px;
+  outline: none;
+  transition: all 0.25s ease;
+  backdrop-filter: blur(12px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+}
+
+.kiosk-search-input-box::placeholder {
+  color: #64748b;
+  font-weight: 400;
+}
+
+.kiosk-search-input-box:focus {
+  border-color: var(--gold-400);
+  box-shadow: 0 0 25px rgba(226, 176, 98, 0.35);
+  background: rgba(18, 25, 38, 0.95);
+}
+
+.search-icon-left {
+  position: absolute;
+  left: 20px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 18px;
+  color: #64748b;
+  pointer-events: none;
+}
+
+.search-mic-right {
+  position: absolute;
+  right: 18px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 18px;
+  color: #94a3b8;
+  cursor: pointer;
+  padding: 6px;
+  border-radius: 50%;
+  transition: all 0.2s ease;
+}
+
+.search-mic-right:hover {
+  color: var(--gold-400);
+  background: rgba(255, 255, 255, 0.08);
+}
+
+/* 8-Grid Category Tiles */
+.home-categories-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 14px;
+}
+
+.category-tile-card {
+  background: rgba(16, 23, 36, 0.7);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 20px;
+  padding: 22px 12px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  text-decoration: none;
+  cursor: pointer;
+  transition: all 0.25s cubic-bezier(0.2, 0.8, 0.2, 1);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
+  backdrop-filter: blur(10px);
+  position: relative;
+  overflow: hidden;
+}
+
+.category-tile-card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at 50% 0%, rgba(226, 176, 98, 0.15), transparent 70%);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.category-tile-card:hover {
+  transform: translateY(-4px);
+  border-color: var(--gold-400);
+  background: rgba(22, 32, 50, 0.85);
+  box-shadow: 0 14px 30px rgba(0, 0, 0, 0.4), 0 0 25px rgba(226, 176, 98, 0.25);
+}
+
+.category-tile-card:hover::before {
+  opacity: 1;
+}
+
+.category-icon-wrap {
+  width: 46px;
+  height: 46px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--gold-400);
+  font-size: 24px;
+  margin-bottom: 12px;
+  transition: transform 0.25s ease;
+}
+
+.category-tile-card:hover .category-icon-wrap {
+  transform: scale(1.15);
+  color: #f7dfb8;
+}
+
+.category-title {
+  font-family: 'Cinzel', serif;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  color: #ffffff;
+  line-height: 1.15;
+  margin-bottom: 2px;
+}
+
+.category-sub {
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.8px;
+  color: #64748b;
+  text-transform: uppercase;
+}
+
+/* Bottom Summer Sale Banner */
+.home-summer-banner {
+  background: linear-gradient(90deg, #fbcfe8 0%, #fecdd3 35%, #fed7aa 100%);
+  border-radius: 20px;
+  padding: 16px 28px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  color: #1e1b4b;
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.3);
+  position: relative;
+  overflow: hidden;
+  cursor: pointer;
+  transition: transform 0.25s ease;
+}
+
+.home-summer-banner:hover {
+  transform: translateY(-2px);
+}
+
+.summer-banner-left {
+  z-index: 2;
+}
+
+.summer-title {
+  font-family: 'Cinzel', serif;
+  font-size: 22px;
+  font-weight: 800;
+  letter-spacing: 2px;
+  color: #1e293b;
+  line-height: 1;
+}
+
+.summer-subtitle {
+  font-size: 12px;
+  font-weight: 700;
+  color: #475569;
+  letter-spacing: 1px;
+  margin: 3px 0 10px 0;
+}
+
+.btn-summer-explore {
+  display: inline-block;
+  background: #0f172a;
+  color: #ffffff;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  padding: 6px 16px;
+  border-radius: 999px;
+  text-decoration: none;
+}
+
+.summer-banner-media {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.summer-couple-img {
+  height: 85px;
+  border-radius: 12px;
+  object-fit: cover;
+}
+
+/* ==========================================================================
+   PAGE 2: MAP PAGE SPECIFIC STYLES
+   ========================================================================== */
+.map-layout-grid {
+  display: grid;
+  grid-template-columns: 1.45fr 1fr;
+  gap: 20px;
+  align-items: stretch;
+}
+
+.map-viewport-card {
+  background: rgba(14, 20, 32, 0.85);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 24px;
+  padding: 20px;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-height: 580px;
+  overflow: hidden;
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.4);
+}
+
+.map-interactive-canvas-wrap {
+  position: relative;
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.floor-plan-img {
+  width: 100%;
+  max-height: 480px;
+  object-fit: contain;
+  filter: drop-shadow(0 15px 30px rgba(0, 0, 0, 0.7));
+}
+
+/* Floating Map Controls */
+.map-floating-zoom-bar {
+  position: absolute;
+  left: 20px;
+  top: 50%;
+  transform: translateY(-50%);
+  display: flex;
+  flex-direction: column;
+  background: rgba(15, 23, 42, 0.85);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 999px;
+  padding: 4px;
+  gap: 4px;
+  backdrop-filter: blur(10px);
+  z-index: 10;
+}
+
+.map-zoom-btn {
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  background: transparent;
+  border: none;
+  color: #ffffff;
+  font-size: 16px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+}
+
+.map-zoom-btn:hover {
+  background: var(--gold-gradient-btn);
+  color: #111827;
+}
+
+/* Map Category Legend */
+.map-category-legend-bar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  padding-top: 14px;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.legend-item {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.8px;
+  color: var(--text-muted);
+  text-transform: uppercase;
+}
+
+.legend-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+}
+
+/* Right Store Detail Card */
+.store-detail-card {
+  background: rgba(14, 20, 32, 0.9);
+  border: 1px solid rgba(226, 176, 98, 0.2);
+  border-radius: 24px;
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.4);
+}
+
+.store-photo-banner {
+  width: 100%;
+  height: 180px;
+  border-radius: 16px;
+  object-fit: cover;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5);
+}
+
+.store-heading-title {
+  font-family: 'Cinzel', serif;
+  font-size: 24px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  color: #ffffff;
+}
+
+.store-category-tag {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  color: var(--gold-400);
+  text-transform: uppercase;
+  margin-top: 2px;
+}
+
+.store-location-text {
+  font-size: 13px;
+  color: var(--text-muted);
+  line-height: 1.4;
+}
+
+.btn-get-directions {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  background: var(--gold-gradient-btn);
+  color: #1a1205;
+  border: none;
+  padding: 14px;
+  border-radius: 14px;
+  font-size: 13px;
+  font-weight: 800;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  box-shadow: 0 8px 20px rgba(216, 168, 88, 0.35);
+}
+
+.btn-get-directions:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 28px rgba(216, 168, 88, 0.5);
+}
+
+.btn-view-store-details {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  color: #ffffff;
+  padding: 12px;
+  border-radius: 14px;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.btn-view-store-details:hover {
+  background: rgba(255, 255, 255, 0.12);
+  border-color: rgba(255, 255, 255, 0.3);
+}
+
+.store-services-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 10px;
+  margin-top: 4px;
+}
+
+.service-icon-tile {
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 12px;
+  padding: 12px 6px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+}
+
+.service-icon-tile i {
+  font-size: 18px;
+  color: var(--gold-400);
+}
+
+.service-label {
+  font-size: 9px;
+  font-weight: 700;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  line-height: 1.1;
+}
+
+/* ==========================================================================
+   PAGE 3: FOOD & DINING SPECIFIC STYLES
+   ========================================================================== */
+.food-luxury-container {
+  background: #f6efe6;
+  border-radius: 28px;
+  padding: 36px 32px;
+  color: #1e1b18;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6);
+  min-height: 600px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.phoenix-watermark-bg {
+  position: absolute;
+  left: 10px;
+  top: 10px;
+  width: 240px;
+  height: 240px;
+  opacity: 0.07;
+  pointer-events: none;
+}
+
+.food-header-callout {
+  text-align: center;
+  margin-bottom: 24px;
+  position: relative;
+  z-index: 2;
+}
+
+.food-headline-text {
+  font-family: 'Playfair Display', serif;
+  font-size: 26px;
+  font-weight: 600;
+  color: #1a1612;
+  line-height: 1.2;
+}
+
+.food-search-dropdown-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: #ffffff;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  color: #4b5563;
+  padding: 8px 20px;
+  border-radius: 999px;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  margin-top: 14px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+  cursor: pointer;
+}
+
+.food-cards-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+  position: relative;
+  z-index: 2;
+}
+
+.restaurant-card {
+  background: #ffffff;
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+  display: flex;
+  flex-direction: column;
+  transition: all 0.25s ease;
+  border: 1px solid rgba(0, 0, 0, 0.04);
+}
+
+.restaurant-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 18px 36px rgba(0, 0, 0, 0.15);
+}
+
+.restaurant-brand-badge-row {
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 8px;
+  background: #ffffff;
+  border-bottom: 1px solid #f1f5f9;
+}
+
+.restaurant-badge-logo {
+  max-height: 28px;
+  max-width: 100px;
+  object-fit: contain;
+}
+
+.restaurant-badge-styled {
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 1px;
+  padding: 4px 10px;
+  border-radius: 4px;
+  text-transform: uppercase;
+}
+
+.restaurant-photo-wrap {
+  width: 100%;
+  height: 160px;
+  overflow: hidden;
+  position: relative;
+}
+
+.restaurant-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.4s ease;
+}
+
+.restaurant-card:hover .restaurant-img {
+  transform: scale(1.08);
+}
+
+.restaurant-info-wrap {
+  padding: 16px 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.restaurant-title {
+  font-size: 13.5px;
+  font-weight: 800;
+  color: #0f172a;
+  line-height: 1.2;
+}
+
+.restaurant-cuisine {
+  font-size: 11px;
+  color: #64748b;
+  font-weight: 500;
+  margin-bottom: 6px;
+}
+
+.restaurant-meta-row {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 10.5px;
+  color: #334155;
+  font-weight: 600;
+}
+
+.restaurant-meta-row i {
+  color: #94a3b8;
+  font-size: 11px;
+}
+
+/* Carousel Navigation Arrows */
+.kiosk-carousel-nav-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  margin-top: 20px;
+  position: relative;
+  z-index: 2;
+}
+
+.carousel-arrow-btn {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  background: #ffffff;
+  color: #1e293b;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  cursor: pointer;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+  transition: all 0.2s ease;
+}
+
+.carousel-arrow-btn:hover {
+  background: #0f172a;
+  color: #ffffff;
+}
+
+.carousel-arrow-btn-dark {
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: #ffffff;
+}
+
+.carousel-arrow-btn-dark:hover {
+  background: var(--gold-gradient-btn);
+  color: #111827;
+  border-color: var(--gold-400);
+}
+
+.carousel-dots-group {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.carousel-dot-circle {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: rgba(0, 0, 0, 0.2);
+  transition: all 0.25s ease;
+}
+
+.carousel-dot-circle.active {
+  background: #cca052;
+  transform: scale(1.25);
+}
+
+.carousel-dot-circle-dark {
+  background: rgba(255, 255, 255, 0.25);
+}
+
+.carousel-dot-circle-dark.active {
+  background: var(--gold-400);
+  transform: scale(1.25);
+}
+
+/* ==========================================================================
+   PAGE 4: EVENTS SECTION SPECIFIC STYLES
+   ========================================================================== */
+.events-top-cta-row {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: -30px;
+  margin-bottom: 12px;
+}
+
+.btn-view-all-events {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  color: #ffffff;
+  padding: 8px 20px;
+  border-radius: 999px;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  text-decoration: none;
+  cursor: pointer;
+  transition: all 0.25s ease;
+}
+
+.btn-view-all-events:hover {
+  background: rgba(226, 176, 98, 0.2);
+  border-color: var(--gold-400);
+  color: var(--gold-200);
+}
+
+.events-stage-carousel {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+  perspective: 1000px;
+  padding: 20px 0;
+}
+
+.event-stage-card {
+  border-radius: 24px;
+  overflow: hidden;
+  position: relative;
+  transition: all 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.6);
+  cursor: pointer;
+}
+
+.event-stage-card.side-card {
+  width: 210px;
+  height: 480px;
+  opacity: 0.65;
+  transform: scale(0.92);
+  filter: brightness(0.8);
+}
+
+.event-stage-card.side-card:hover {
+  opacity: 0.9;
+  transform: scale(0.95);
+  filter: brightness(0.95);
+}
+
+.event-stage-card.featured-center {
+  width: 290px;
+  height: 540px;
+  z-index: 5;
+  transform: scale(1.05);
+  border: 2px solid var(--gold-400);
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.8), 0 0 40px rgba(226, 176, 98, 0.35);
+}
+
+.event-poster-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.event-center-overlay-box {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: linear-gradient(180deg, rgba(16, 23, 36, 0) 0%, rgba(16, 23, 36, 0.95) 40%, #0c121e 100%);
+  padding: 20px 16px 16px 16px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  border-top: 1px solid rgba(226, 176, 98, 0.3);
+}
+
+.event-date-box {
+  background: rgba(226, 176, 98, 0.15);
+  border: 1px solid rgba(226, 176, 98, 0.4);
+  border-radius: 12px;
+  padding: 8px 10px;
+  text-align: center;
+  min-width: 52px;
+}
+
+.event-date-day {
+  font-size: 9px;
+  color: var(--gold-300);
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.event-date-num {
+  font-size: 20px;
+  font-weight: 800;
+  color: #ffffff;
+  line-height: 1;
+}
+
+.event-date-month {
+  font-size: 9px;
+  color: var(--gold-300);
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.event-overlay-info {
+  flex: 1;
+}
+
+.event-overlay-time {
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--gold-300);
+  margin-bottom: 2px;
+}
+
+.event-overlay-venue {
+  font-size: 10px;
+  color: #cbd5e1;
+  line-height: 1.2;
+  margin-bottom: 8px;
+}
+
+.btn-book-now-event {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: var(--gold-gradient-btn);
+  color: #111827;
+  padding: 6px 14px;
+  border-radius: 999px;
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 0.8px;
+  text-transform: uppercase;
+  text-decoration: none;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.btn-book-now-event:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 14px rgba(216, 168, 88, 0.5);
+}
+
+/* ==========================================================================
+   PAGE 5: FEEDBACK FORM SPECIFIC STYLES
+   ========================================================================== */
+.feedback-panel-card {
+  background: rgba(14, 20, 32, 0.85);
+  border: 1px solid rgba(226, 176, 98, 0.25);
+  border-radius: 28px;
+  padding: 32px 36px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(16px);
+}
+
+.feedback-question-title {
+  text-align: center;
+  font-family: 'Cinzel', serif;
+  font-size: 18px;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  color: #ffffff;
+}
+
+.rating-faces-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  padding: 10px 0;
+}
+
+.rating-face-btn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  transition: all 0.25s ease;
+}
+
+.rating-face-circle {
+  width: 68px;
+  height: 68px;
+  border-radius: 50%;
+  border: 2px solid rgba(255, 255, 255, 0.2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 32px;
+  color: #94a3b8;
+  background: rgba(255, 255, 255, 0.03);
+  transition: all 0.25s ease;
+}
+
+.rating-face-label {
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--text-muted);
+  letter-spacing: 0.5px;
+}
+
+.rating-face-btn:hover .rating-face-circle {
+  border-color: var(--gold-400);
+  color: var(--gold-300);
+  transform: translateY(-4px);
+  box-shadow: 0 8px 20px rgba(226, 176, 98, 0.3);
+}
+
+.rating-face-btn.selected .rating-face-circle {
+  border-color: var(--gold-400);
+  color: var(--gold-400);
+  background: rgba(226, 176, 98, 0.15);
+  box-shadow: 0 0 25px rgba(226, 176, 98, 0.5);
+  transform: scale(1.1);
+}
+
+.rating-face-btn.selected .rating-face-label {
+  color: var(--gold-400);
+}
+
+.feedback-section-label {
+  font-size: 11.5px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  color: #cbd5e1;
+  text-transform: uppercase;
+  margin-bottom: 8px;
+}
+
+.feedback-section-label span {
+  color: #64748b;
+  font-weight: 500;
+}
+
+.feedback-textarea-wrap {
+  position: relative;
+}
+
+.feedback-textarea {
+  width: 100%;
+  height: 110px;
+  background: rgba(9, 14, 24, 0.75);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 18px;
+  padding: 16px;
+  color: #ffffff;
+  font-family: inherit;
+  font-size: 13.5px;
+  resize: none;
+  outline: none;
+  transition: all 0.25s ease;
+}
+
+.feedback-textarea:focus {
+  border-color: var(--gold-400);
+  box-shadow: 0 0 20px rgba(226, 176, 98, 0.3);
+}
+
+.feedback-char-count {
+  position: absolute;
+  right: 16px;
+  bottom: 12px;
+  font-size: 11px;
+  color: #64748b;
+}
+
+/* Feedback Category Multi-Select Tiles */
+.feedback-categories-row {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 10px;
+}
+
+.feedback-cat-pill {
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 14px;
+  padding: 12px 6px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.feedback-cat-pill i {
+  font-size: 18px;
+  color: var(--gold-400);
+}
+
+.feedback-cat-pill span {
+  font-size: 10px;
+  font-weight: 700;
+  color: #cbd5e1;
+  text-align: center;
+  line-height: 1.1;
+}
+
+.feedback-cat-pill:hover,
+.feedback-cat-pill.selected {
+  background: rgba(226, 176, 98, 0.15);
+  border-color: var(--gold-400);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 14px rgba(226, 176, 98, 0.25);
+}
+
+.feedback-cat-pill.selected span {
+  color: #ffffff;
+}
+
+.btn-submit-feedback {
+  width: 100%;
+  background: var(--gold-gradient-btn);
+  color: #1a1205;
+  border: none;
+  padding: 16px;
+  border-radius: 16px;
+  font-size: 14px;
+  font-weight: 800;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  box-shadow: 0 10px 25px rgba(216, 168, 88, 0.4);
+}
+
+.btn-submit-feedback:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 14px 35px rgba(216, 168, 88, 0.6);
+}
+
+.feedback-bottom-thankyou {
+  text-align: center;
+  font-size: 12px;
+  color: var(--text-muted);
+}
+
+/* ==========================================================================
+   KIOSK BOTTOM STICKY NAVIGATION BAR
+   ========================================================================== */
+.kiosk-footer-nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 14px 36px 18px 36px;
+  background: rgba(10, 15, 26, 0.95);
+  border-top: 1px solid rgba(226, 176, 98, 0.15);
+  position: relative;
+  z-index: 25;
+  backdrop-filter: blur(16px);
+}
+
+.footer-nav-btn {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: transparent;
+  border: none;
+  color: #94a3b8;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  text-decoration: none;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.footer-nav-btn:hover {
+  color: var(--gold-300);
+}
+
+.footer-nav-btn i {
+  font-size: 16px;
+}
+
+.footer-home-circle-btn {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background: radial-gradient(circle, #1e293b 0%, #0f172a 100%);
+  border: 1.5px solid var(--gold-400);
+  color: var(--gold-400);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 20px;
+  text-decoration: none;
+  cursor: pointer;
+  transition: all 0.25s cubic-bezier(0.2, 0.8, 0.2, 1);
+  box-shadow: 0 0 20px rgba(226, 176, 98, 0.3);
+}
+
+.footer-home-circle-btn:hover,
+.footer-home-circle-btn.active {
+  background: var(--gold-gradient-btn);
+  color: #111827;
+  transform: translateY(-3px) scale(1.08);
+  box-shadow: 0 0 30px rgba(226, 176, 98, 0.6);
+}
+
+/* ==========================================================================
+   MODALS (Help, Language, Directions, Success)
+   ========================================================================== */
+.kiosk-modal-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.85);
+  backdrop-filter: blur(12px);
+  z-index: 1000;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.25s ease;
+  padding: 20px;
+}
+
+.kiosk-modal-backdrop.open {
+  display: flex;
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.kiosk-modal-box {
+  background: #0d1422;
+  border: 1px solid var(--gold-400);
+  border-radius: 28px;
+  padding: 32px;
+  max-width: 500px;
+  width: 100%;
+  box-shadow: 0 25px 60px rgba(0, 0, 0, 0.8), 0 0 50px rgba(226, 176, 98, 0.3);
+  text-align: center;
+  transform: scale(0.92);
+  transition: transform 0.25s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+.kiosk-modal-backdrop.open .kiosk-modal-box {
+  transform: scale(1);
+}
+
+.kiosk-modal-icon {
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  background: rgba(226, 176, 98, 0.15);
+  border: 1.5px solid var(--gold-400);
+  color: var(--gold-400);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 28px;
+  margin: 0 auto 18px auto;
+}
+
+.kiosk-modal-title {
+  font-family: 'Cinzel', serif;
+  font-size: 22px;
+  font-weight: 700;
+  color: #ffffff;
+  margin-bottom: 8px;
+}
+
+.kiosk-modal-text {
+  font-size: 13.5px;
+  color: var(--text-muted);
+  line-height: 1.5;
+  margin-bottom: 24px;
+}
+
+.btn-modal-close {
+  background: var(--gold-gradient-btn);
+  color: #111827;
+  border: none;
+  padding: 12px 32px;
+  border-radius: 999px;
+  font-size: 13px;
+  font-weight: 800;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.btn-modal-close:hover {
+  box-shadow: 0 0 20px rgba(226, 176, 98, 0.5);
+}
+
+/* Quick Navigation Links Drawer */
+.quick-kiosk-switcher {
+  position: fixed;
+  bottom: 20px;
+  left: 20px;
+  background: rgba(15, 23, 42, 0.95);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 999px;
+  padding: 6px 14px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  z-index: 9999;
+  font-size: 12px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
+}
+
+.quick-kiosk-switcher a {
+  color: #94a3b8;
+  text-decoration: none;
+  font-weight: 600;
+  padding: 4px 8px;
+  border-radius: 6px;
+  transition: all 0.2s ease;
+}
+
+.quick-kiosk-switcher a:hover,
+.quick-kiosk-switcher a.active-link {
+  color: var(--gold-400);
+  background: rgba(226, 176, 98, 0.15);
+}
+
+/* =============================================================================
+   HORIZONTAL KIOSK PRESENTATION (16:9 / 1920x1080 WIDESCREEN EXPERIENCE)
+   Domain 01 — Kiosk Home & Entry Anchor Reproduction
+   ============================================================================= */
+
+.horizontal-kiosk-body {
+  margin: 0;
+  padding: 0;
+  background-color: #060910;
+  color: #ffffff;
+  font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow-x: hidden;
+}
+
+.horizontal-kiosk-wrapper {
+  width: 100%;
+  max-width: 1540px;
+  min-height: 100vh;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.kiosk-horizontal-screen {
+  background: radial-gradient(circle at 50% 15%, #121827 0%, #090d16 60%, #04060a 100%);
+  border: 1px solid rgba(229, 185, 126, 0.25);
+  border-radius: 28px;
+  box-shadow: 0 25px 60px rgba(0, 0, 0, 0.9), inset 0 0 40px rgba(0, 0, 0, 0.5);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  position: relative;
+  min-height: 880px;
+}
+
+/* =============================================================================
+   HEADER (Weather, Grand Metro Mall Logo, Clock, Scan to Explore)
+   ============================================================================= */
+.kiosk-horizontal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 36px 12px 36px;
+  border-bottom: 1px solid rgba(229, 185, 126, 0.14);
+  position: relative;
+  z-index: 10;
+}
+
+.header-weather-box {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-width: 180px;
+}
+
+.weather-sun-icon {
+  font-size: 32px;
+  color: #fbbf24;
+  filter: drop-shadow(0 0 12px rgba(251, 191, 36, 0.6));
+}
+
+.weather-meta {
+  display: flex;
+  flex-direction: column;
+}
+
+.weather-temp {
+  font-size: 20px;
+  font-weight: 800;
+  color: #ffffff;
+  line-height: 1.1;
+}
+
+.weather-label {
+  font-size: 11.5px;
+  color: #94a3b8;
+  font-weight: 600;
+}
+
+.kiosk-mall-logo-center {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.mall-emblem-icon {
+  width: 26px;
+  height: 26px;
+  color: #e2b062;
+  margin-bottom: 2px;
+}
+
+.mall-title-grand {
+  font-family: 'Cinzel', serif;
+  font-size: 19px;
+  font-weight: 800;
+  letter-spacing: 4px;
+  color: #ffffff;
+  line-height: 1.1;
+}
+
+.mall-title-sub {
+  font-family: 'Cinzel', serif;
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: 3px;
+  color: #f7dfb8;
+  line-height: 1.1;
+}
+
+.mall-tagline {
+  font-size: 8.5px;
+  letter-spacing: 2px;
+  color: #cca052;
+  font-weight: 700;
+  margin-top: 2px;
+}
+
+.header-right-box {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  min-width: 280px;
+  justify-content: flex-end;
+}
+
+.header-time-date {
+  text-align: right;
+}
+
+.header-time {
+  font-size: 22px;
+  font-weight: 800;
+  color: #ffffff;
+  line-height: 1.1;
+}
+
+.header-date {
+  font-size: 11.5px;
+  color: #94a3b8;
+  font-weight: 600;
+}
+
+.btn-scan-explore {
+  background: rgba(18, 24, 38, 0.85);
+  border: 1px solid rgba(229, 185, 126, 0.35);
+  color: #f7dfb8;
+  padding: 8px 16px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.3);
+}
+
+.btn-scan-explore:hover {
+  background: rgba(226, 176, 98, 0.15);
+  border-color: #e2b062;
+  transform: translateY(-1px);
+  box-shadow: 0 0 16px rgba(226, 176, 98, 0.3);
+}
+
+.btn-scan-explore i {
+  font-size: 14px;
+  color: #e2b062;
+}
+
+/* =============================================================================
+   MAIN 2-COLUMN LAYOUT (~72% Left + ~28% Right)
+   ============================================================================= */
+.kiosk-horizontal-main {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 350px;
+  gap: 20px;
+  padding: 20px 36px;
+  flex: 1;
+}
+
+.kiosk-left-column {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+/* =============================================================================
+   FEATURED PROMOTIONAL CAROUSEL
+   ============================================================================= */
+.featured-promo-carousel {
+  position: relative;
+  height: 230px;
+  border-radius: 20px;
+  overflow: hidden;
+  border: 1px solid rgba(229, 185, 126, 0.25);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.4);
+}
+
+.promo-slide {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  transition: opacity 0.5s ease-in-out;
+  display: flex;
+  align-items: center;
+  padding: 0 40px;
+}
+
+.promo-slide.active {
+  opacity: 1;
+  z-index: 2;
+}
+
+.promo-slide-content {
+  max-width: 440px;
+  z-index: 3;
+}
+
+.promo-elegant-title {
+  font-family: 'Cinzel', serif;
+  font-size: 24px;
+  letter-spacing: 4px;
+  color: #f7dfb8;
+  font-weight: 700;
+  line-height: 1.1;
+}
+
+.promo-huge-sale {
+  font-family: 'Playfair Display', serif;
+  font-size: 42px;
+  font-weight: 900;
+  color: #ffffff;
+  letter-spacing: 2px;
+  line-height: 1.05;
+  margin: 2px 0 6px 0;
+}
+
+.promo-ribbon-badge {
+  background: linear-gradient(135deg, #eed29e 0%, #d8a858 50%, #b58537 100%);
+  color: #111827;
+  display: inline-block;
+  padding: 4px 14px;
+  border-radius: 4px;
+  font-weight: 900;
+  font-size: 12px;
+  letter-spacing: 1px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+.promo-subtext {
+  font-size: 12.5px;
+  color: #cbd5e1;
+  margin: 8px 0 14px 0;
+  font-weight: 500;
+}
+
+.btn-promo-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 9px 22px;
+  border-radius: 999px;
+  border: 1px solid rgba(229, 185, 126, 0.8);
+  background: rgba(18, 24, 38, 0.7);
+  backdrop-filter: blur(8px);
+  color: #ffffff;
+  font-size: 11.5px;
+  font-weight: 800;
+  letter-spacing: 1px;
+  text-decoration: none;
+  transition: all 0.2s ease;
+  cursor: pointer;
+}
+
+.btn-promo-cta:hover {
+  background: var(--gold-gradient-btn);
+  color: #111827;
+  border-color: #e2b062;
+  box-shadow: 0 0 20px rgba(226, 176, 98, 0.4);
+}
+
+.carousel-indicators-bar {
+  position: absolute;
+  bottom: 14px;
+  left: 45%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 8px;
+  z-index: 5;
+}
+
+.carousel-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.3);
+  cursor: pointer;
+  transition: all 0.25s ease;
+}
+
+.carousel-dot.active {
+  background: #e2b062;
+  width: 22px;
+  border-radius: 999px;
+  box-shadow: 0 0 10px rgba(226, 176, 98, 0.8);
+}
+
+/* =============================================================================
+   PROMINENT SEARCH BAR
+   ============================================================================= */
+.horizontal-search-bar {
+  background: rgba(18, 24, 38, 0.8);
+  border: 1px solid rgba(229, 185, 126, 0.3);
+  border-radius: 16px;
+  height: 52px;
+  display: flex;
+  align-items: center;
+  padding: 0 18px;
+  gap: 14px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.3);
+}
+
+.horizontal-search-bar:hover,
+.horizontal-search-bar:focus-within {
+  border-color: rgba(229, 185, 126, 0.7);
+  background: rgba(24, 32, 50, 0.9);
+  box-shadow: 0 0 20px rgba(226, 176, 98, 0.25);
+}
+
+.search-leading-icon {
+  font-size: 18px;
+  color: #94a3b8;
+}
+
+.search-bar-input {
+  flex: 1;
+  background: transparent;
+  border: none;
+  outline: none;
+  color: #ffffff;
+  font-size: 14px;
+  font-family: inherit;
+  font-weight: 500;
+}
+
+.search-bar-input::placeholder {
+  color: #64748b;
+  font-size: 13.5px;
+}
+
+.search-mic-icon {
+  font-size: 17px;
+  color: #e2b062;
+  cursor: pointer;
+  padding: 6px;
+  transition: transform 0.2s ease;
+}
+
+.search-mic-icon:hover {
+  transform: scale(1.2);
+  color: #f7dfb8;
+}
+
+/* =============================================================================
+   8 PRIMARY DESTINATION CARDS (2 Rows x 4 Columns Grid)
+   ============================================================================= */
+.primary-nav-grid-8 {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 14px;
+}
+
+.primary-nav-card {
+  background: rgba(18, 25, 38, 0.65);
+  border: 1px solid rgba(229, 185, 126, 0.2);
+  border-radius: 18px;
+  padding: 18px 12px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  color: #ffffff;
+  cursor: pointer;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+  text-align: center;
+  min-height: 120px;
+}
+
+.primary-nav-card:hover,
+.primary-nav-card:active {
+  background: rgba(26, 36, 56, 0.85);
+  border-color: rgba(229, 185, 126, 0.7);
+  transform: translateY(-3px);
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.5), 0 0 20px rgba(226, 176, 98, 0.25);
+}
+
+.nav-card-icon-wrap {
+  width: 44px;
+  height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 8px;
+  color: #e2b062;
+  font-size: 24px;
+}
+
+.custom-p-icon {
+  width: 32px;
+  height: 32px;
+  background: #e2b062;
+  color: #111827;
+  font-weight: 900;
+  font-size: 20px;
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.nav-card-title {
+  font-size: 13.5px;
+  font-weight: 800;
+  letter-spacing: 0.5px;
+  color: #ffffff;
+  margin-bottom: 3px;
+}
+
+.nav-card-subtitle {
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  color: #94a3b8;
+  text-transform: uppercase;
+}
+
+/* =============================================================================
+   RIGHT COLUMN (Highlights & Stay Connected)
+   ============================================================================= */
+.kiosk-right-column {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.highlights-section-title {
+  font-family: 'Cinzel', serif;
+  font-size: 13.5px;
+  font-weight: 800;
+  letter-spacing: 2px;
+  color: #e2b062;
+}
+
+.highlight-card {
+  border-radius: 16px;
+  border: 1px solid rgba(229, 185, 126, 0.2);
+  overflow: hidden;
+  padding: 14px 18px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.35);
+  min-height: 105px;
+}
+
+.highlight-card:hover {
+  transform: translateY(-2px);
+  border-color: rgba(229, 185, 126, 0.6);
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.5);
+}
+
+.highlight-card-text {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.hl-tag {
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 1px;
+  color: #cbd5e1;
+  text-transform: uppercase;
+}
+
+.hl-tag-gold {
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 1.5px;
+  color: #e2b062;
+  text-transform: uppercase;
+}
+
+.hl-sub {
+  font-size: 12.5px;
+  font-weight: 700;
+  color: #ffffff;
+  line-height: 1.2;
+}
+
+.hl-title-serif {
+  font-family: 'Cinzel', serif;
+  font-size: 13.5px;
+  font-weight: 800;
+  color: #ffffff;
+  line-height: 1.15;
+}
+
+.hl-title-bold {
+  font-size: 14px;
+  font-weight: 800;
+  color: #ffffff;
+  line-height: 1.15;
+}
+
+.hl-title-follow {
+  font-family: 'Cinzel', serif;
+  font-size: 15px;
+  font-weight: 800;
+  color: #ffffff;
+  line-height: 1.1;
+}
+
+.hl-sub-small {
+  font-size: 10.5px;
+  color: #94a3b8;
+}
+
+.hl-sub-connected {
+  font-size: 10.5px;
+  color: #cbd5e1;
+  margin-bottom: 6px;
+}
+
+.btn-hl-action {
+  align-self: flex-start;
+  padding: 4px 12px;
+  border-radius: 999px;
+  font-size: 9.5px;
+  font-weight: 800;
+  letter-spacing: 1px;
+  border: none;
+  cursor: pointer;
+  margin-top: 4px;
+}
+
+.purple-btn {
+  background: #7e22ce;
+  color: #ffffff;
+}
+
+.teal-btn {
+  background: #0d9488;
+  color: #ffffff;
+}
+
+.blue-btn {
+  background: #2563eb;
+  color: #ffffff;
+}
+
+.stay-connected-card {
+  background: rgba(18, 25, 38, 0.75);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.social-icons-row {
+  display: flex;
+  gap: 8px;
+}
+
+.social-icon-circle {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: #1e293b;
+  color: #cbd5e1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 11px;
+  text-decoration: none;
+  transition: all 0.2s ease;
+}
+
+.social-icon-circle.instagram:hover { background: #e1306c; color: #fff; }
+.social-icon-circle.facebook:hover { background: #1877f2; color: #fff; }
+.social-icon-circle.whatsapp:hover { background: #25d366; color: #fff; }
+
+.neon-like-icon {
+  font-size: 42px;
+  color: #e2b062;
+  filter: drop-shadow(0 0 12px rgba(226, 176, 98, 0.8));
+}
+
+/* =============================================================================
+   FOOTER (Language, Center Glow Home Button, Help)
+   ============================================================================= */
+.kiosk-horizontal-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 36px 16px 36px;
+  border-top: 1px solid rgba(229, 185, 126, 0.14);
+  position: relative;
+  z-index: 10;
+}
+
+.footer-action-pill {
+  background: rgba(18, 24, 38, 0.85);
+  border: 1px solid rgba(229, 185, 126, 0.3);
+  color: #f7dfb8;
+  padding: 9px 18px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.footer-action-pill:hover {
+  background: rgba(226, 176, 98, 0.15);
+  border-color: #e2b062;
+  transform: translateY(-1px);
+}
+
+.footer-center-home-btn {
+  width: 58px;
+  height: 58px;
+  border-radius: 50%;
+  background: var(--gold-gradient-btn);
+  color: #111827;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  box-shadow: 0 0 24px rgba(226, 176, 98, 0.6), 0 6px 16px rgba(0, 0, 0, 0.4);
+  cursor: pointer;
+  transition: all 0.2s ease;
+  position: relative;
+  top: -6px;
+}
+
+.footer-center-home-btn:hover,
+.footer-center-home-btn.active {
+  transform: scale(1.08);
+  box-shadow: 0 0 32px rgba(226, 176, 98, 0.9), 0 8px 20px rgba(0, 0, 0, 0.5);
+}
+
+.footer-center-home-btn i {
+  font-size: 20px;
+}
+
+.footer-center-home-btn span {
+  font-size: 8.5px;
+  font-weight: 900;
+  letter-spacing: 0.5px;
+  margin-top: 1px;
+}
+
+/* =============================================================================
+   LUXURY DARK MODALS & OVERLAYS
+   ============================================================================= */
+.luxury-dark-box {
+  background: #0f1624;
+  border: 1px solid rgba(229, 185, 126, 0.4);
+  border-radius: 24px;
+  box-shadow: 0 25px 60px rgba(0, 0, 0, 0.9), 0 0 40px rgba(226, 176, 98, 0.15);
+  padding: 28px 32px;
+  color: #ffffff;
+}
+
+.kiosk-modal-header-luxury {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.modal-gold-emblem {
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  background: rgba(226, 176, 98, 0.15);
+  border: 1px solid rgba(229, 185, 126, 0.4);
+  color: #e2b062;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 22px;
+  margin-bottom: 12px;
+}
+
+.modal-title-gold {
+  font-family: 'Cinzel', serif;
+  font-size: 20px;
+  font-weight: 800;
+  color: #ffffff;
+  letter-spacing: 1px;
+  margin-bottom: 6px;
+}
+
+.modal-subtitle-muted {
+  font-size: 12.5px;
+  color: #94a3b8;
+  line-height: 1.4;
+}
+
+.modal-qr-preview-wrap {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  background: rgba(15, 23, 42, 0.6);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 16px;
+  padding: 18px;
+  margin-bottom: 20px;
+}
+
+.qr-code-display-frame {
+  width: 140px;
+  height: 140px;
+  background: #ffffff;
+  border-radius: 12px;
+  padding: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+  flex-shrink: 0;
+}
+
+.qr-svg-graphic {
+  width: 100%;
+  height: 100%;
+}
+
+.qr-step-instructions {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  font-size: 12px;
+  color: #cbd5e1;
+}
+
+.qr-step-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+}
+
+.step-badge {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: #e2b062;
+  color: #111827;
+  font-size: 11px;
+  font-weight: 800;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.modal-actions-luxury {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+}
+
+.btn-modal-gold {
+  background: var(--gold-gradient-btn);
+  color: #111827;
+  border: none;
+  padding: 10px 22px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 0.5px;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  text-decoration: none;
+  transition: all 0.2s ease;
+}
+
+.btn-modal-gold:hover {
+  box-shadow: 0 0 20px rgba(226, 176, 98, 0.5);
+  transform: translateY(-1px);
+}
+
+.btn-modal-dark {
+  background: rgba(30, 41, 59, 0.8);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  color: #cbd5e1;
+  padding: 10px 22px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.btn-modal-dark:hover {
+  background: rgba(51, 65, 85, 0.9);
+  color: #ffffff;
+}
+
+/* Search Overlay */
+.kiosk-search-overlay-box {
+  background: #0d131f;
+  border: 1px solid rgba(229, 185, 126, 0.4);
+  border-radius: 24px;
+  box-shadow: 0 25px 60px rgba(0, 0, 0, 0.9);
+  padding: 24px 28px;
+  width: 100%;
+  max-width: 640px;
+  max-height: 85vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.search-overlay-input-wrap {
+  background: #1e293b;
+  border: 1px solid rgba(229, 185, 126, 0.4);
+  border-radius: 14px;
+  padding: 0 16px;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.search-overlay-input-wrap input {
+  flex: 1;
+  background: transparent;
+  border: none;
+  outline: none;
+  color: #ffffff;
+  font-size: 14px;
+}
+
+.btn-clear-search {
+  background: transparent;
+  border: none;
+  color: #94a3b8;
+  cursor: pointer;
+}
+
+.search-quick-tags-row {
+  display: flex;
+  gap: 8px;
+  margin: 14px 0;
+  overflow-x: auto;
+}
+
+.search-tag-pill {
+  background: #1e293b;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: #94a3b8;
+  padding: 5px 12px;
+  border-radius: 999px;
+  font-size: 11px;
+  font-weight: 700;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.search-tag-pill.active,
+.search-tag-pill:hover {
+  background: rgba(226, 176, 98, 0.2);
+  border-color: #e2b062;
+  color: #f7dfb8;
+}
+
+.search-results-container {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  max-height: 320px;
+  overflow-y: auto;
+}
+
+.search-res-item {
+  background: #161f30;
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 12px;
+  padding: 10px 14px;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.search-res-item:hover {
+  background: #1e2b42;
+  border-color: rgba(229, 185, 126, 0.4);
+}
+
+.res-item-icon {
+  width: 36px;
+  height: 36px;
+  border-radius: 8px;
+  background: rgba(226, 176, 98, 0.15);
+  color: #e2b062;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+}
+
+.res-item-meta {
+  flex: 1;
+}
+
+.res-item-title {
+  font-size: 13px;
+  font-weight: 700;
+  color: #ffffff;
+}
+
+.res-item-desc {
+  font-size: 11px;
+  color: #94a3b8;
+}
+
+.btn-res-guide {
+  background: #2563eb;
+  color: #ffffff;
+  border: none;
+  padding: 5px 12px;
+  border-radius: 6px;
+  font-size: 11px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+/* Language Selection Grid */
+.language-options-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin-bottom: 20px;
+}
+
+.lang-select-card {
+  background: #161f30;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 14px;
+  padding: 14px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  cursor: pointer;
+  color: #ffffff;
+  transition: all 0.2s ease;
+}
+
+.lang-select-card.active,
+.lang-select-card:hover {
+  background: rgba(226, 176, 98, 0.15);
+  border-color: #e2b062;
+  box-shadow: 0 0 16px rgba(226, 176, 98, 0.25);
+}
+
+.lang-native {
+  font-size: 14px;
+  font-weight: 800;
+  color: #f7dfb8;
+}
+
+.lang-en {
+  font-size: 11px;
+  color: #94a3b8;
+}
+
+/* Help & Assistance */
+.help-info-cards-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.help-contact-row {
+  background: #161f30;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 12px;
+  padding: 12px 16px;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.help-icon {
+  width: 36px;
+  height: 36px;
+  border-radius: 8px;
+  background: rgba(226, 176, 98, 0.15);
+  color: #e2b062;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+}
+
+.help-title {
+  font-size: 12.5px;
+  font-weight: 700;
+  color: #ffffff;
+}
+
+.help-value {
+  font-size: 11.5px;
+  color: #94a3b8;
+}
+
+/* Parking Slots Grid */
+.parking-slots-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin-bottom: 20px;
+}
+
+.parking-bay-card {
+  background: #161f30;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 14px;
+  padding: 14px;
+}
+
+.bay-level {
+  font-size: 11.5px;
+  font-weight: 700;
+  color: #cbd5e1;
+  margin-bottom: 4px;
+}
+
+.bay-count {
+  font-size: 18px;
+  font-weight: 900;
+}
+
+.bay-count.available {
+  color: #10b981;
+}
+
+.bay-count.ev-color {
+  color: #06b6d4;
+}
+
+.bay-status {
+  font-size: 10.5px;
+  color: #94a3b8;
+  margin-top: 2px;
+}
+
+/* Services Amenities Grid */
+.services-amenities-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+  margin-bottom: 20px;
+}
+
+.amenity-item-card {
+  background: #161f30;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 14px;
+  padding: 16px 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  color: #ffffff;
+  text-align: center;
+}
+
+.amenity-item-card:hover {
+  background: rgba(226, 176, 98, 0.15);
+  border-color: #e2b062;
+  transform: translateY(-2px);
+}
+
+.amenity-item-card i {
+  font-size: 22px;
+  color: #e2b062;
+}
+
+.amenity-item-card span {
+  font-size: 11.5px;
+  font-weight: 700;
+}
+
+/* Voice animation */
+.voice-wave-animation {
+  width: 70px;
+  height: 70px;
+  border-radius: 50%;
+  background: rgba(226, 176, 98, 0.2);
+  border: 2px solid #e2b062;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 28px;
+  color: #e2b062;
+  animation: pulse-sun 1.5s infinite;
+}
+
+  </style>
+  <style id="kiosk-events-specific-css">
+    /* =========================================================================
+       EVENTS & ENTERTAINMENT (DOMAIN 06) SPECIFIC STYLING
+       ========================================================================= */
+    .events-top-header-row {
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      margin-bottom: 12px;
+      padding: 0 4px;
+    }
+
+    .events-main-title {
+      font-family: 'Cinzel', serif;
+      font-size: 24px;
+      font-weight: 800;
+      color: #ffffff;
+      margin: 0 0 2px 0;
+      letter-spacing: 1.5px;
+    }
+
+    .events-subtitle {
+      font-size: 11.5px;
+      color: #94a3b8;
+      margin: 0;
+    }
+
+    .events-search-wrap {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .events-search-box {
+      background: rgba(18, 24, 38, 0.85);
+      border: 1px solid rgba(229, 185, 126, 0.3);
+      border-radius: 999px;
+      height: 42px;
+      width: 320px;
+      display: flex;
+      align-items: center;
+      padding: 0 18px;
+      gap: 10px;
+      transition: all 0.2s ease;
+    }
+    .events-search-box:focus-within {
+      border-color: #e2b062;
+      box-shadow: 0 0 16px rgba(226, 176, 98, 0.25);
+    }
+    .events-search-input {
+      flex: 1;
+      background: transparent;
+      border: none;
+      outline: none;
+      color: #ffffff;
+      font-size: 13px;
+      font-family: inherit;
+    }
+
+    /* Category Navigation Bar */
+    .events-category-bar {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 16px;
+    }
+
+    .event-cat-pill-btn {
+      background: rgba(18, 25, 38, 0.7);
+      border: 1px solid rgba(229, 185, 126, 0.25);
+      border-radius: 12px;
+      padding: 8px 12px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      cursor: pointer;
+      color: #cbd5e1;
+      transition: all 0.2s ease;
+      flex: 1;
+      justify-content: center;
+      white-space: nowrap;
+    }
+    .event-cat-pill-btn:hover {
+      background: rgba(226, 176, 98, 0.15);
+      border-color: #e2b062;
+      color: #fff;
+    }
+    .event-cat-pill-btn.active {
+      background: var(--gold-gradient-btn);
+      border-color: #e2b062;
+      color: #111827;
+      font-weight: 800;
+      box-shadow: 0 0 16px rgba(226, 176, 98, 0.35);
+    }
+    .event-cat-name {
+      font-size: 11px;
+      font-weight: 700;
+    }
+    .event-cat-count {
+      font-size: 10px;
+      opacity: 0.85;
+    }
+
+    /* Main 2-Column Split */
+    .events-main-split {
+      display: grid;
+      grid-template-columns: 1fr 340px;
+      gap: 20px;
+      align-items: stretch;
+      flex: 1;
+    }
+
+    /* Left Area: Featured Events & Today's Highlights */
+    .events-left-section {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    .events-section-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .events-section-title {
+      font-size: 14px;
+      font-weight: 800;
+      color: #ffffff;
+    }
+    .events-view-all-link {
+      font-size: 11.5px;
+      font-weight: 700;
+      color: #e2b062;
+      cursor: pointer;
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    /* Top Row: 4 Large Featured Cards Grid */
+    .events-grid-top-row {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 12px;
+      position: relative;
+    }
+
+    .event-featured-card {
+      background: rgba(18, 25, 38, 0.75);
+      border: 1px solid rgba(229, 185, 126, 0.25);
+      border-radius: 14px;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      box-shadow: 0 6px 18px rgba(0, 0, 0, 0.3);
+    }
+    .event-featured-card:hover {
+      border-color: #e2b062;
+      transform: translateY(-2px);
+    }
+
+    .event-thumb-banner-box {
+      height: 95px;
+      position: relative;
+      background: #090e17;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .event-thumb-banner-img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    .event-heart-fav {
+      position: absolute;
+      top: 6px;
+      right: 6px;
+      width: 22px;
+      height: 22px;
+      border-radius: 50%;
+      background: rgba(0, 0, 0, 0.5);
+      color: #e2b062;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 11px;
+      cursor: pointer;
+    }
+
+    .event-card-body {
+      padding: 10px 12px;
+      display: flex;
+      flex-direction: column;
+      gap: 3px;
+      flex: 1;
+    }
+    .event-card-title {
+      font-size: 12.5px;
+      font-weight: 800;
+      color: #ffffff;
+    }
+    .event-card-type {
+      font-size: 10px;
+      color: #94a3b8;
+    }
+    .event-card-meta {
+      font-size: 9.5px;
+      color: #cbd5e1;
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+      margin: 4px 0 8px 0;
+    }
+    .event-meta-row {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+    .event-meta-row i {
+      color: #e2b062;
+      font-size: 9px;
+    }
+
+    .btn-event-view-gold {
+      background: var(--gold-gradient-btn);
+      color: #111827;
+      border: none;
+      border-radius: 6px;
+      padding: 6px 8px;
+      font-size: 10.5px;
+      font-weight: 800;
+      cursor: pointer;
+      text-align: center;
+      width: 100%;
+      margin-top: auto;
+      transition: all 0.2s ease;
+    }
+    .btn-event-view-gold:hover {
+      box-shadow: 0 0 12px rgba(226, 176, 98, 0.4);
+    }
+
+    /* Bottom Row: Today's Highlights (4 Activity Tiles) */
+    .highlights-grid-row {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 12px;
+    }
+
+    .highlight-activity-tile {
+      background: rgba(18, 25, 38, 0.75);
+      border: 1px solid rgba(229, 185, 126, 0.2);
+      border-radius: 12px;
+      padding: 10px 12px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+    .highlight-activity-tile:hover {
+      background: rgba(26, 36, 56, 0.85);
+      border-color: #e2b062;
+      transform: translateY(-2px);
+    }
+    .highlight-icon-box {
+      width: 38px;
+      height: 38px;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+      flex-shrink: 0;
+    }
+
+    /* Right Column: Featured Event & Upcoming Events */
+    .events-right-column {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .featured-event-side-card {
+      background: rgba(18, 25, 38, 0.8);
+      border: 1px solid rgba(229, 185, 126, 0.35);
+      border-radius: 18px;
+      padding: 14px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+    }
+    .featured-side-top-bar {
+      font-size: 12px;
+      font-weight: 800;
+      color: #e2b062;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .featured-side-hero-img-box {
+      height: 110px;
+      border-radius: 10px;
+      overflow: hidden;
+      background: #090e17;
+      position: relative;
+    }
+    .featured-side-hero-img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .featured-event-meta-split {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .event-date-block-badge {
+      background: #111827;
+      border: 1.5px solid #e2b062;
+      border-radius: 8px;
+      padding: 6px 10px;
+      text-align: center;
+      flex-shrink: 0;
+    }
+    .date-badge-num {
+      font-size: 18px;
+      font-weight: 900;
+      color: #ffffff;
+      line-height: 1;
+    }
+    .date-badge-month {
+      font-size: 8px;
+      font-weight: 800;
+      color: #e2b062;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+    .date-badge-year {
+      font-size: 7.5px;
+      color: #94a3b8;
+    }
+
+    .btn-view-event-details-full {
+      background: var(--gold-gradient-btn);
+      color: #111827;
+      border: none;
+      border-radius: 8px;
+      padding: 9px;
+      font-size: 11.5px;
+      font-weight: 800;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      width: 100%;
+      transition: all 0.2s ease;
+    }
+    .btn-view-event-details-full:hover {
+      box-shadow: 0 0 16px rgba(226, 176, 98, 0.4);
+    }
+
+    /* Upcoming Events Card */
+    .upcoming-events-side-card {
+      background: rgba(18, 25, 38, 0.8);
+      border: 1px solid rgba(229, 185, 126, 0.3);
+      border-radius: 18px;
+      padding: 14px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .upcoming-side-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .upcoming-event-row {
+      background: rgba(14, 20, 32, 0.85);
+      border: 1px solid rgba(229, 185, 126, 0.2);
+      border-radius: 10px;
+      padding: 8px 10px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+    .upcoming-event-row:hover {
+      border-color: #e2b062;
+      transform: translateY(-2px);
+    }
+    .upcoming-event-thumb {
+      width: 44px;
+      height: 44px;
+      border-radius: 8px;
+      object-fit: cover;
+    }
+  </style>
 </head>
-<body>
+<body class="horizontal-kiosk-body">
 
-  <!-- Kiosk Viewport Wrapper -->
-  <div class="kiosk-viewport-wrapper">
-    <div class="kiosk-frame">
-      <div class="kiosk-screen">
+  <div class="horizontal-kiosk-wrapper">
+    <div class="kiosk-horizontal-screen">
 
-        <!-- Top Header -->
-        <header class="kiosk-header">
-          <!-- Back to Home Left -->
-          <div class="kiosk-header-left">
-            <a href="home.html" class="btn-back-home">
-              <i class="fa-solid fa-arrow-left"></i>
-              <span>BACK TO HOME</span>
-            </a>
+      <!-- =====================================================================
+           1. KIOSK HEADER
+           ===================================================================== -->
+      <header class="kiosk-horizontal-header">
+        <!-- Back Button & Weather Left -->
+        <div style="display:flex;align-items:center;gap:14px;">
+          <a href="home.html" class="btn-header-back" id="btnHeaderBack">
+            <i class="fa-solid fa-arrow-left"></i>
+            <span>Back</span>
+          </a>
+          <div class="header-weather-box" id="headerWeather">
+            <i class="fa-solid fa-sun weather-sun-icon"></i>
+            <div class="weather-meta">
+              <span class="weather-temp">28°C</span>
+              <span class="weather-label">Sunny</span>
+            </div>
           </div>
+        </div>
 
-          <!-- Brand Logo Center -->
-          <a href="home.html" class="kiosk-brand">
-            <svg class="brand-emblem-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+        <!-- Grand Metro Mall Emblem & Logo Center -->
+        <a href="home.html" class="kiosk-mall-logo-center" title="Grand Metro Mall">
+          <div class="mall-emblem-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" style="width:28px;height:28px;color:#e2b062;display:block;">
               <path d="M4 21V9l8-6 8 6v12H4z" />
               <path d="M9 21V12h6v9" />
               <path d="M12 3v4" />
             </svg>
-            <div class="brand-name-grand">GRAND</div>
-            <div class="brand-name-sub">METRO MALL</div>
-          </a>
-
-          <!-- Clock Right -->
-          <div class="kiosk-header-right">
-            <span class="kiosk-time" id="kioskLiveTime">04:25 PM</span>
-            <span class="kiosk-date" id="kioskLiveDate">Tue, 20 May 2025</span>
           </div>
-        </header>
+          <div class="mall-title-grand">GRAND</div>
+          <div class="mall-title-sub">METRO MALL</div>
+          <div class="mall-tagline">CELEBRATE EVERYDAY</div>
+        </a>
 
-        <!-- Main Content Area -->
-        <main class="kiosk-main-content">
+        <!-- Right Header: Time/Date & Scan to Explore -->
+        <div class="header-right-box">
+          <div class="header-time-date">
+            <div class="header-time" id="kioskLiveTime">04:02 PM</div>
+            <div class="header-date" id="kioskLiveDate">Sun, 30 Aug 2026</div>
+          </div>
 
-          <!-- Section Title Ornate -->
-          <div class="section-title-wrap">
-            <div class="section-title-ornate">
-              <span class="ornate-line">✦ ───</span>
-              <span>EVENTS</span>
-              <span class="ornate-line">─── ✦</span>
+          <button class="btn-scan-explore" onclick="openKioskModal('scanExploreModal')" id="btnScanToExplore">
+            <span>Scan to Explore</span>
+            <i class="fa-solid fa-qrcode"></i>
+          </button>
+        </div>
+      </header>
+
+      <!-- =====================================================================
+           2. MAIN EVENTS & ENTERTAINMENT WORKSPACE
+           ===================================================================== -->
+      <main class="kiosk-horizontal-main" style="display:flex;flex-direction:column;padding:12px 28px 16px 28px;">
+
+        <!-- Top Title Bar & Search -->
+        <div class="events-top-header-row">
+          <div>
+            <h1 class="events-main-title">EVENTS</h1>
+            <p class="events-subtitle">Discover exciting events, activities and experiences at the mall</p>
+          </div>
+
+          <div class="events-search-wrap">
+            <div class="events-search-box">
+              <i class="fa-solid fa-magnifying-glass" style="color:#e2b062;font-size:14px;"></i>
+              <input 
+                type="text" 
+                class="events-search-input" 
+                id="eventsSearchInput" 
+                placeholder="Search events, activities, concerts..." 
+                onkeyup="handleEventsSearchFilter()"
+                autocomplete="off"
+              >
             </div>
-            <p class="section-subtitle">Exciting events. Unforgettable experiences.</p>
-          </div>
-
-          <!-- Top CTA View All Events -->
-          <div class="events-top-cta-row">
-            <button class="btn-view-all-events" onclick="openKioskModal('allEventsModal')">
-              <span>VIEW ALL EVENTS</span>
-              <i class="fa-solid fa-arrow-right"></i>
+            <button class="btn-open-filters" style="height:42px;padding:0 18px;" onclick="openKioskModal('eventsFilterModal')" id="btnEventsFilters">
+              <i class="fa-solid fa-sliders" style="color:#e2b062;"></i>
+              <span>Filters</span>
             </button>
           </div>
+        </div>
 
-          <!-- 3-Card Stage Carousel -->
-          <div class="events-stage-carousel" id="eventsStage">
+        <!-- Horizontal Category Bar (8 Pill Cards) -->
+        <div class="events-category-bar">
+          <button class="event-cat-pill-btn active" onclick="selectEventCategory('all', this)" id="catAllEvents">
+            <span class="event-cat-name">All Events</span>
+            <span class="event-cat-count">64</span>
+          </button>
+
+          <button class="event-cat-pill-btn" onclick="selectEventCategory('live', this)" id="catLiveShows">
+            <span class="event-cat-name">Live Shows</span>
+            <span class="event-cat-count">12</span>
+          </button>
+
+          <button class="event-cat-pill-btn" onclick="selectEventCategory('music', this)" id="catMusicConcerts">
+            <span class="event-cat-name">Music & Concerts</span>
+            <span class="event-cat-count">10</span>
+          </button>
+
+          <button class="event-cat-pill-btn" onclick="selectEventCategory('kids', this)" id="catKidsFamily">
+            <span class="event-cat-name">Kids & Family</span>
+            <span class="event-cat-count">14</span>
+          </button>
+
+          <button class="event-cat-pill-btn" onclick="selectEventCategory('workshops', this)" id="catWorkshops">
+            <span class="event-cat-name">Workshops</span>
+            <span class="event-cat-count">8</span>
+          </button>
+
+          <button class="event-cat-pill-btn" onclick="selectEventCategory('festivals', this)" id="catFestivals">
+            <span class="event-cat-name">Festivals</span>
+            <span class="event-cat-count">9</span>
+          </button>
+
+          <button class="event-cat-pill-btn" onclick="selectEventCategory('exhibitions', this)" id="catExhibitions">
+            <span class="event-cat-name">Exhibitions</span>
+            <span class="event-cat-count">11</span>
+          </button>
+
+          <button class="event-cat-pill-btn" onclick="selectEventCategory('movies', this)" id="catMoreMovies">
+            <i class="fa-solid fa-film" style="font-size:11px;color:#e2b062;"></i>
+            <span class="event-cat-name">Movies & More</span>
+          </button>
+        </div>
+
+        <!-- 2-Column Split -->
+        <div class="events-main-split">
+          
+          <!-- LEFT COLUMN: Featured Events & Today's Highlights -->
+          <section class="events-left-section">
             
-            <!-- 1. Left Card: Bhajjan Therapy -->
-            <div class="event-stage-card side-card" id="eventCardLeft" onclick="shiftEvent(0)">
-              <img src="../images/event_,image_03.jpg" alt="Bhajjan Therapy Event" class="event-poster-img">
+            <!-- Top Section: Featured Events -->
+            <div class="events-section-header">
+              <div class="events-section-title" id="eventsSectionTitle">Featured Events</div>
+              <div class="events-view-all-link" onclick="selectEventCategory('all', document.getElementById('catAllEvents'))">View All <i class="fa-solid fa-chevron-right" style="font-size:9px;"></i></div>
             </div>
 
-            <!-- 2. Center Card: Altaf Raja LIVE (Hero) -->
-            <div class="event-stage-card featured-center" id="eventCardCenter">
-              <img src="../images/event imahe _01.jpg" alt="Altaf Raja Live Concert" class="event-poster-img">
+            <div class="events-grid-top-row" id="eventsGridContainer">
               
-              <!-- Center Overlay Info Box -->
-              <div class="event-center-overlay-box">
-                <div class="event-date-box">
-                  <div class="event-date-day">SAT</div>
-                  <div class="event-date-num">12</div>
-                  <div class="event-date-month">SEP</div>
+              <!-- 1. Armaan Malik Live -->
+              <div class="event-featured-card" data-id="armaan" data-cat="music" onclick="openEventDetailsModal('armaan')">
+                <div class="event-thumb-banner-box" style="background:linear-gradient(135deg, #1e1b4b, #312e81);">
+                  <div style="font-family:'Playfair Display',serif;font-size:15px;font-weight:900;color:#fbcfe8;text-align:center;line-height:1.1;">
+                    Armaan<br><span style="font-size:17px;color:#fcd34d;">Malik</span>
+                    <div style="font-size:7px;letter-spacing:1.5px;color:#cbd5e1;text-transform:uppercase;margin-top:2px;">LIVE IN CONCERT</div>
+                  </div>
+                  <div class="event-heart-fav" onclick="event.stopPropagation(); toggleHeartFav(this);"><i class="fa-regular fa-heart"></i></div>
                 </div>
-                <div class="event-overlay-info">
-                  <div class="event-overlay-time">08:00 PM Onwards</div>
-                  <div class="event-overlay-venue">Liberty Square, Phoenix Avenue of Stars</div>
-                  <button class="btn-book-now-event" onclick="bookEvent('Altaf Raja - LIVE')">
-                    <span>BOOK NOW</span>
-                    <i class="fa-solid fa-arrow-right"></i>
-                  </button>
+                <div class="event-card-body">
+                  <div class="event-card-title">Armaan Malik Live</div>
+                  <div class="event-card-type">Music Concert</div>
+                  <div class="event-card-meta">
+                    <div class="event-meta-row"><i class="fa-regular fa-calendar"></i> 12 Sep 2026</div>
+                    <div class="event-meta-row"><i class="fa-solid fa-location-dot"></i> Main Atrium</div>
+                  </div>
+                  <button class="btn-event-view-gold" onclick="event.stopPropagation(); openEventDetailsModal('armaan')">View Details</button>
                 </div>
               </div>
+
+              <!-- 2. Comedy Night -->
+              <div class="event-featured-card" data-id="comedy" data-cat="live" onclick="openEventDetailsModal('comedy')">
+                <div class="event-thumb-banner-box" style="background:linear-gradient(135deg, #450a0a, #7f1d1d);">
+                  <div style="font-family:'Cinzel',serif;font-size:14px;font-weight:900;color:#fef08a;text-align:center;letter-spacing:1px;">
+                    COMEDY<br><span style="color:#ef4444;font-size:16px;">NIGHT</span>
+                  </div>
+                  <div class="event-heart-fav" onclick="event.stopPropagation(); toggleHeartFav(this);"><i class="fa-regular fa-heart"></i></div>
+                </div>
+                <div class="event-card-body">
+                  <div class="event-card-title">Comedy Night</div>
+                  <div class="event-card-type">Live Stand-up Show</div>
+                  <div class="event-card-meta">
+                    <div class="event-meta-row"><i class="fa-regular fa-calendar"></i> 15 Sep 2026</div>
+                    <div class="event-meta-row"><i class="fa-solid fa-location-dot"></i> Central Court</div>
+                  </div>
+                  <button class="btn-event-view-gold" onclick="event.stopPropagation(); openEventDetailsModal('comedy')">View Details</button>
+                </div>
+              </div>
+
+              <!-- 3. Kids Art Workshop -->
+              <div class="event-featured-card" data-id="kidsart" data-cat="kids" onclick="openEventDetailsModal('kidsart')">
+                <div class="event-thumb-banner-box" style="background:linear-gradient(135deg, #064e3b, #0f766e);">
+                  <div style="font-size:13px;font-weight:900;color:#a7f3d0;text-align:center;line-height:1.2;">
+                    KIDS ART<br><span style="font-size:15px;color:#fef08a;">WORKSHOP</span>
+                  </div>
+                  <div class="event-heart-fav" onclick="event.stopPropagation(); toggleHeartFav(this);"><i class="fa-regular fa-heart"></i></div>
+                </div>
+                <div class="event-card-body">
+                  <div class="event-card-title">Kids Art Workshop</div>
+                  <div class="event-card-type">Creative Workshop</div>
+                  <div class="event-card-meta">
+                    <div class="event-meta-row"><i class="fa-regular fa-calendar"></i> 18 Sep 2026</div>
+                    <div class="event-meta-row"><i class="fa-solid fa-location-dot"></i> Activity Zone, Level 1</div>
+                  </div>
+                  <button class="btn-event-view-gold" onclick="event.stopPropagation(); openEventDetailsModal('kidsart')">View Details</button>
+                </div>
+              </div>
+
+              <!-- 4. Festive Celebration 2026 -->
+              <div class="event-featured-card" data-id="festive" data-cat="festivals" onclick="openEventDetailsModal('festive')">
+                <div class="event-thumb-banner-box" style="background:linear-gradient(135deg, #3b0764, #581c87);">
+                  <div style="font-family:'Cinzel',serif;font-size:12.5px;font-weight:900;color:#fef08a;text-align:center;letter-spacing:1px;">
+                    FESTIVE<br>CELEBRATION<br><small style="color:#e9d5ff;font-size:9px;">2026</small>
+                  </div>
+                  <div class="event-heart-fav" onclick="event.stopPropagation(); toggleHeartFav(this);"><i class="fa-regular fa-heart"></i></div>
+                </div>
+                <div class="event-card-body">
+                  <div class="event-card-title">Festive Celebration 2026</div>
+                  <div class="event-card-type">Grand Cultural Festival</div>
+                  <div class="event-card-meta">
+                    <div class="event-meta-row"><i class="fa-regular fa-calendar"></i> 20 Sep – 05 Oct 2026</div>
+                    <div class="event-meta-row"><i class="fa-solid fa-location-dot"></i> Main Atrium</div>
+                  </div>
+                  <button class="btn-event-view-gold" onclick="event.stopPropagation(); openEventDetailsModal('festive')">View Details</button>
+                </div>
+              </div>
+
             </div>
 
-            <!-- 3. Right Card: Mehfil-e-Mir -->
-            <div class="event-stage-card side-card" id="eventCardRight" onclick="shiftEvent(2)">
-              <img src="../images/event_image_02.jpg" alt="Mehfil-e-Mir Sufi Night" class="event-poster-img">
+            <!-- Empty Notice -->
+            <div class="empty-search-state-wrap" id="emptyEventsNotice" style="display:none;margin-top:16px;">
+              <i class="fa-solid fa-calendar-xmark" style="font-size:36px;color:#e2b062;margin-bottom:8px;"></i>
+              <div style="font-size:15px;font-weight:800;color:#fff;">No Events Found</div>
+              <div style="font-size:11.5px;color:#94a3b8;margin:4px 0 12px 0;">No matching mall events found for your search query.</div>
+              <button class="btn-promo-cta" onclick="resetEventsFilters()" style="background:var(--gold-gradient-btn);color:#111827;padding:6px 14px;font-size:11px;">Reset Filters</button>
             </div>
 
-          </div>
-
-          <!-- Carousel Controls Bottom -->
-          <div class="kiosk-carousel-nav-row" style="margin-top:10px;">
-            <button class="carousel-arrow-btn carousel-arrow-btn-dark" onclick="cycleEvents(-1)"><i class="fa-solid fa-arrow-left"></i></button>
-            <div class="carousel-dots-group">
-              <span class="carousel-dot-circle carousel-dot-circle-dark"></span>
-              <span class="carousel-dot-circle carousel-dot-circle-dark active"></span>
-              <span class="carousel-dot-circle carousel-dot-circle-dark"></span>
-              <span class="carousel-dot-circle carousel-dot-circle-dark"></span>
+            <!-- Bottom Section: Today's Highlights -->
+            <div class="events-section-header" style="margin-top:4px;">
+              <div class="events-section-title">Today's Highlights</div>
+              <div class="events-view-all-link" onclick="openHighlightDetailsModal('acoustic')">View All <i class="fa-solid fa-chevron-right" style="font-size:9px;"></i></div>
             </div>
-            <button class="carousel-arrow-btn carousel-arrow-btn-dark" onclick="cycleEvents(1)"><i class="fa-solid fa-arrow-right"></i></button>
-          </div>
 
-        </main>
+            <div class="highlights-grid-row">
+              
+              <!-- 1. Live Acoustic Session -->
+              <div class="highlight-activity-tile" onclick="openHighlightDetailsModal('acoustic')">
+                <div class="highlight-icon-box" style="background:#3b0764;color:#d8b4fe;"><i class="fa-solid fa-music"></i></div>
+                <div style="flex:1;">
+                  <div style="font-size:11.5px;font-weight:800;color:#fff;">Live Acoustic Session</div>
+                  <div style="font-size:9px;color:#94a3b8;margin-top:2px;">5:00 PM · <span style="color:#e2b062;">Main Atrium</span></div>
+                </div>
+                <i class="fa-solid fa-chevron-right" style="color:#64748b;font-size:10px;"></i>
+              </div>
 
-        <!-- Bottom Sticky Navigation Bar -->
-        <footer class="kiosk-footer-nav">
-          <button class="footer-nav-btn" onclick="openKioskModal('languageModal')">
-            <i class="fa-solid fa-globe"></i>
-            <span>ENGLISH</span>
-          </button>
+              <!-- 2. Street Play Performance -->
+              <div class="highlight-activity-tile" onclick="openHighlightDetailsModal('streetplay')">
+                <div class="highlight-icon-box" style="background:#7c2d12;color:#fdba74;"><i class="fa-solid fa-masks-theater"></i></div>
+                <div style="flex:1;">
+                  <div style="font-size:11.5px;font-weight:800;color:#fff;">Street Play Performance</div>
+                  <div style="font-size:9px;color:#94a3b8;margin-top:2px;">6:00 PM · <span style="color:#e2b062;">Central Court</span></div>
+                </div>
+                <i class="fa-solid fa-chevron-right" style="color:#64748b;font-size:10px;"></i>
+              </div>
 
-          <a href="home.html" class="footer-home-circle-btn" title="Home Screen">
-            <i class="fa-solid fa-house"></i>
-          </a>
+              <!-- 3. Dance Showcase -->
+              <div class="highlight-activity-tile" onclick="openHighlightDetailsModal('dance')">
+                <div class="highlight-icon-box" style="background:#1e3a8a;color:#93c5fd;"><i class="fa-solid fa-person-walking"></i></div>
+                <div style="flex:1;">
+                  <div style="font-size:11.5px;font-weight:800;color:#fff;">Dance Showcase</div>
+                  <div style="font-size:9px;color:#94a3b8;margin-top:2px;">7:00 PM · <span style="color:#e2b062;">Main Stage</span></div>
+                </div>
+                <i class="fa-solid fa-chevron-right" style="color:#64748b;font-size:10px;"></i>
+              </div>
 
-          <button class="footer-nav-btn" onclick="openKioskModal('helpModal')">
-            <span>NEED HELP?</span>
-            <i class="fa-solid fa-circle-question"></i>
-          </button>
-        </footer>
+              <!-- 4. Magic Show for Kids -->
+              <div class="highlight-activity-tile" onclick="openHighlightDetailsModal('magic')">
+                <div class="highlight-icon-box" style="background:#064e3b;color:#6ee7b7;"><i class="fa-solid fa-wand-magic-sparkles"></i></div>
+                <div style="flex:1;">
+                  <div style="font-size:11.5px;font-weight:800;color:#fff;">Magic Show for Kids</div>
+                  <div style="font-size:9px;color:#94a3b8;margin-top:2px;">8:00 PM · <span style="color:#e2b062;">Activity Zone</span></div>
+                </div>
+                <i class="fa-solid fa-chevron-right" style="color:#64748b;font-size:10px;"></i>
+              </div>
 
-      </div>
+            </div>
 
-      <!-- Kiosk Bezel Bottom Logo -->
-      <div class="kiosk-bezel-bottom">MALL GUIDE</div>
+          </section>
+
+          <!-- RIGHT COLUMN: Featured Event & Upcoming Events -->
+          <aside class="events-right-column">
+            
+            <!-- Top Card: Featured Event (Armaan Malik) -->
+            <div class="featured-event-side-card">
+              <div class="featured-side-top-bar">
+                <span>Featured Event</span>
+                <div class="store-heart-fav" onclick="toggleHeartFav(this)" style="position:static;"><i class="fa-regular fa-heart"></i></div>
+              </div>
+
+              <div class="featured-side-hero-img-box" onclick="openEventDetailsModal('armaan')">
+                <img src="../images/kiosk_search_adidas_event.jpg" alt="Armaan Malik" class="featured-side-hero-img">
+              </div>
+
+              <div class="featured-event-meta-split">
+                <div class="event-date-block-badge">
+                  <div class="date-badge-num">12</div>
+                  <div class="date-badge-month">SEP</div>
+                  <div class="date-badge-year">2026</div>
+                </div>
+                <div style="flex:1;">
+                  <div style="font-size:14px;font-weight:800;color:#fff;">Armaan Malik Live</div>
+                  <div style="font-size:10.5px;color:#94a3b8;">Music Concert</div>
+                  <div style="font-size:10px;color:#cbd5e1;margin-top:2px;"><i class="fa-regular fa-clock" style="color:#e2b062;"></i> 7:30 PM Onwards</div>
+                  <div style="font-size:10px;color:#e2b062;margin-top:1px;"><i class="fa-solid fa-location-dot"></i> Main Atrium</div>
+                </div>
+              </div>
+
+              <button class="btn-view-event-details-full" onclick="openEventDetailsModal('armaan')" id="btnViewFeaturedEventFull">
+                <span>View Event Details</span>
+                <i class="fa-solid fa-chevron-right" style="font-size:10px;"></i>
+              </button>
+            </div>
+
+            <!-- Bottom Card: Upcoming Events -->
+            <div class="upcoming-events-side-card">
+              <div class="upcoming-side-header">
+                <div style="font-size:13px;font-weight:800;color:#fff;">Upcoming Events</div>
+                <div class="events-view-all-link" onclick="selectEventCategory('all', document.getElementById('catAllEvents'))">View All <i class="fa-solid fa-chevron-right" style="font-size:9px;"></i></div>
+              </div>
+
+              <div style="display:flex;flex-direction:column;gap:8px;">
+                <!-- 1. Food Festival -->
+                <div class="upcoming-event-row" onclick="openEventDetailsModal('foodfest')">
+                  <div style="width:42px;height:42px;background:#ea580c;border-radius:8px;display:flex;align-items:center;justify-content:center;color:#fff;font-size:14px;flex-shrink:0;">
+                    <i class="fa-solid fa-utensils"></i>
+                  </div>
+                  <div style="flex:1;">
+                    <div style="font-size:12px;font-weight:800;color:#fff;">Food Festival</div>
+                    <div style="font-size:9.5px;color:#cbd5e1;"><i class="fa-regular fa-calendar" style="color:#e2b062;"></i> 19 – 27 Sep 2026</div>
+                    <div style="font-size:9px;color:#94a3b8;"><i class="fa-solid fa-location-dot" style="color:#e2b062;"></i> Central Court</div>
+                  </div>
+                  <i class="fa-solid fa-chevron-right" style="color:#64748b;font-size:10px;"></i>
+                </div>
+
+                <!-- 2. Fashion Showcase -->
+                <div class="upcoming-event-row" onclick="openEventDetailsModal('fashion')">
+                  <div style="width:42px;height:42px;background:#4f46e5;border-radius:8px;display:flex;align-items:center;justify-content:center;color:#fff;font-size:14px;flex-shrink:0;">
+                    <i class="fa-solid fa-vest"></i>
+                  </div>
+                  <div style="flex:1;">
+                    <div style="font-size:12px;font-weight:800;color:#fff;">Fashion Showcase</div>
+                    <div style="font-size:9.5px;color:#cbd5e1;"><i class="fa-regular fa-calendar" style="color:#e2b062;"></i> 25 Sep 2026</div>
+                    <div style="font-size:9px;color:#94a3b8;"><i class="fa-solid fa-location-dot" style="color:#e2b062;"></i> Main Atrium</div>
+                  </div>
+                  <i class="fa-solid fa-chevron-right" style="color:#64748b;font-size:10px;"></i>
+                </div>
+              </div>
+
+            </div>
+
+          </aside>
+
+        </div>
+
+      </main>
+
+      <!-- =====================================================================
+           3. KIOSK FOOTER
+           ===================================================================== -->
+      <footer class="kiosk-horizontal-footer">
+        <!-- Language Selector Left -->
+        <button class="footer-action-pill language-pill" onclick="openKioskModal('languageModal')" id="btnLanguage">
+          <i class="fa-solid fa-globe"></i>
+          <span id="currentLanguageLabel">ENGLISH</span>
+          <i class="fa-solid fa-chevron-down pill-arrow"></i>
+        </button>
+
+        <!-- Persistent Center Home Glow Button -->
+        <a href="home.html" class="footer-center-home-btn" id="btnKioskHome" title="Home Screen">
+          <i class="fa-solid fa-house"></i>
+          <span>HOME</span>
+        </a>
+
+        <!-- Help Control Right -->
+        <button class="footer-action-pill help-pill" onclick="openKioskModal('helpModal')" id="btnHelp">
+          <i class="fa-regular fa-circle-question"></i>
+          <span>HELP</span>
+          <i class="fa-solid fa-chevron-down pill-arrow"></i>
+        </button>
+      </footer>
+
     </div>
   </div>
 
-  <!-- Event Booking QR Modal -->
-  <div class="kiosk-modal-backdrop" id="eventBookingModal">
-    <div class="kiosk-modal-box" style="max-width:480px;">
-      <div class="kiosk-modal-icon"><i class="fa-solid fa-ticket"></i></div>
-      <div class="kiosk-modal-title" id="eventModalTitle">Altaf Raja - LIVE</div>
-      <div class="kiosk-modal-text">Scan the QR code on your mobile phone to book tickets via BookMyShow.</div>
-      
-      <!-- Mockup QR Box -->
-      <div style="background:#ffffff;padding:16px;border-radius:16px;display:inline-block;margin-bottom:18px;">
-        <svg viewBox="0 0 100 100" style="width:140px;height:140px;">
-          <!-- QR pattern -->
-          <rect width="100" height="100" fill="#ffffff"/>
-          <rect x="10" y="10" width="28" height="28" fill="#000000"/>
-          <rect x="14" y="14" width="20" height="20" fill="#ffffff"/>
-          <rect x="18" y="18" width="12" height="12" fill="#000000"/>
-          <rect x="62" y="10" width="28" height="28" fill="#000000"/>
-          <rect x="66" y="14" width="20" height="20" fill="#ffffff"/>
-          <rect x="70" y="18" width="12" height="12" fill="#000000"/>
-          <rect x="10" y="62" width="28" height="28" fill="#000000"/>
-          <rect x="14" y="66" width="20" height="20" fill="#ffffff"/>
-          <rect x="18" y="70" width="12" height="12" fill="#000000"/>
-          <!-- Random blocks -->
-          <rect x="44" y="12" width="10" height="6" fill="#000"/>
-          <rect x="44" y="24" width="8" height="8" fill="#000"/>
-          <rect x="12" y="44" width="16" height="8" fill="#000"/>
-          <rect x="36" y="40" width="28" height="24" fill="#000"/>
-          <rect x="70" y="44" width="18" height="12" fill="#000"/>
-          <rect x="44" y="70" width="12" height="18" fill="#000"/>
-          <rect x="64" y="66" width="24" height="22" fill="#000"/>
-        </svg>
+  <!-- =========================================================================
+       MODALS FOR DOMAIN 06 (Event Details, Filters, Scan Explore, Language, Help)
+       ========================================================================= -->
+
+  <!-- 1. Event Details Modal -->
+  <div class="kiosk-modal-backdrop" id="eventDetailsModal">
+    <div class="kiosk-modal-box luxury-dark-box" style="max-width:540px;text-align:left;">
+      <div style="display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid rgba(229, 185, 126, 0.2);padding-bottom:12px;margin-bottom:14px;">
+        <div>
+          <h3 style="font-family:'Cinzel',serif;font-size:19px;font-weight:800;color:#fff;margin:0;" id="modalEventTitle">Armaan Malik Live in Concert</h3>
+          <div style="font-size:11px;color:#e2b062;" id="modalEventType">Music Concert · Grand Live Performance</div>
+        </div>
+        <i class="fa-solid fa-xmark" style="font-size:18px;color:#94a3b8;cursor:pointer;" onclick="closeKioskModal('eventDetailsModal')"></i>
       </div>
 
-      <div style="font-size:12px;color:var(--gold-300);font-weight:700;margin-bottom:16px;">
-        📍 Venue: Liberty Square, Ground Floor
+      <div style="display:grid;grid-template-columns:repeat(3, 1fr);gap:10px;font-size:11px;margin-bottom:14px;">
+        <div style="background:#161f30;padding:8px 10px;border-radius:8px;">
+          <span style="color:#94a3b8;display:block;">Date</span>
+          <strong style="color:#fff;" id="modalEventDate">12 Sep 2026</strong>
+        </div>
+        <div style="background:#161f30;padding:8px 10px;border-radius:8px;">
+          <span style="color:#94a3b8;display:block;">Time</span>
+          <strong style="color:#fff;" id="modalEventTime">7:30 PM Onwards</strong>
+        </div>
+        <div style="background:#161f30;padding:8px 10px;border-radius:8px;">
+          <span style="color:#94a3b8;display:block;">Venue</span>
+          <strong style="color:#e2b062;" id="modalEventVenue">Main Atrium, Ground Floor</strong>
+        </div>
       </div>
 
-      <button class="btn-modal-close" onclick="closeKioskModal('eventBookingModal')">Done</button>
+      <div style="font-size:11.5px;color:#cbd5e1;line-height:1.4;margin-bottom:18px;" id="modalEventDesc">
+        Join Bollywood sensation Armaan Malik live on stage at Grand Metro Mall's central atrium for an unforgettable evening of top chartbusters, romantic melodies and high-energy music.
+      </div>
+
+      <div style="display:flex;gap:10px;justify-content:flex-end;">
+        <button class="btn-modal-gold" onclick="handoffToMallMap()" id="btnEventTakeMeThere">
+          <i class="fa-solid fa-location-arrow"></i> Take Me There
+        </button>
+        <button class="btn-modal-dark" onclick="closeKioskModal('eventDetailsModal')">Close</button>
+      </div>
     </div>
   </div>
 
-  <!-- All Events Modal List -->
-  <div class="kiosk-modal-backdrop" id="allEventsModal">
-    <div class="kiosk-modal-box" style="max-width:540px;">
-      <div class="kiosk-modal-icon"><i class="fa-solid fa-calendar-star"></i></div>
-      <div class="kiosk-modal-title">Upcoming Mall Events</div>
-      <div class="kiosk-modal-text">Select any event for details and ticket bookings:</div>
-      
-      <div style="display:flex;flex-direction:column;gap:10px;text-align:left;margin-bottom:20px;max-height:280px;overflow-y:auto;padding-right:4px;">
-        <div style="background:rgba(255,255,255,0.06);padding:12px 16px;border-radius:14px;display:flex;align-items:center;justify-content:space-between;border:1px solid rgba(226,176,98,0.3);">
-          <div>
-            <div style="font-weight:700;color:#ffffff;font-size:13px;">Altaf Raja - LIVE Concert</div>
-            <div style="font-size:11px;color:var(--gold-300);">Sat, 12 Sep · 08:00 PM · Liberty Square</div>
+  <!-- 2. Events Filter Modal -->
+  <div class="kiosk-modal-backdrop" id="eventsFilterModal">
+    <div class="kiosk-modal-box luxury-dark-box" style="max-width:500px;text-align:left;">
+      <div class="kiosk-modal-header-luxury">
+        <div class="modal-gold-emblem"><i class="fa-solid fa-sliders"></i></div>
+        <div class="modal-title-gold">Filter Events</div>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:14px;margin-bottom:20px;">
+        <div>
+          <label style="font-size:11px;font-weight:700;color:#e2b062;text-transform:uppercase;display:block;margin-bottom:6px;">Category</label>
+          <div style="display:flex;gap:6px;flex-wrap:wrap;">
+            <button class="search-tag-pill active" onclick="toggleFilterPill(this)">All</button>
+            <button class="search-tag-pill" onclick="toggleFilterPill(this)">Music</button>
+            <button class="search-tag-pill" onclick="toggleFilterPill(this)">Shows</button>
+            <button class="search-tag-pill" onclick="toggleFilterPill(this)">Kids</button>
           </div>
-          <button class="btn-shop-now-hero" style="padding:6px 14px;font-size:10px;background:var(--gold-gradient-btn);color:#1a1205;" onclick="closeKioskModal('allEventsModal'); bookEvent('Altaf Raja - LIVE')">Book</button>
         </div>
-
-        <div style="background:rgba(255,255,255,0.04);padding:12px 16px;border-radius:14px;display:flex;align-items:center;justify-content:space-between;">
-          <div>
-            <div style="font-weight:700;color:#ffffff;font-size:13px;">Mehfil-e-Mir (Sufi & Ghazal Night)</div>
-            <div style="font-size:11px;color:var(--text-muted);">Sun, 06 Sep · 07:30 PM · Liberty Square</div>
+        <div>
+          <label style="font-size:11px;font-weight:700;color:#e2b062;text-transform:uppercase;display:block;margin-bottom:6px;">Venue</label>
+          <div style="display:flex;gap:6px;">
+            <button class="search-tag-pill active" onclick="toggleFilterPill(this)">All Venues</button>
+            <button class="search-tag-pill" onclick="toggleFilterPill(this)">Main Atrium</button>
+            <button class="search-tag-pill" onclick="toggleFilterPill(this)">Central Court</button>
           </div>
-          <button class="btn-shop-now-hero" style="padding:6px 14px;font-size:10px;" onclick="closeKioskModal('allEventsModal'); bookEvent('Mehfil-e-Mir')">Book</button>
-        </div>
-
-        <div style="background:rgba(255,255,255,0.04);padding:12px 16px;border-radius:14px;display:flex;align-items:center;justify-content:space-between;">
-          <div>
-            <div style="font-weight:700;color:#ffffff;font-size:13px;">Bhajjan Therapy & Jamming</div>
-            <div style="font-size:11px;color:var(--text-muted);">Sun, 27 Sep · 07:00 PM · Liberty Square</div>
-          </div>
-          <button class="btn-shop-now-hero" style="padding:6px 14px;font-size:10px;" onclick="closeKioskModal('allEventsModal'); bookEvent('Bhajjan Therapy')">Book</button>
         </div>
       </div>
-
-      <button class="btn-modal-close" onclick="closeKioskModal('allEventsModal')">Close</button>
+      <div class="modal-actions-luxury">
+        <button class="btn-modal-gold" onclick="closeKioskModal('eventsFilterModal')">Apply Filters</button>
+        <button class="btn-modal-dark" onclick="closeKioskModal('eventsFilterModal')">Cancel</button>
+      </div>
     </div>
   </div>
 
-  <!-- Help & Language Modals -->
+  <!-- 3. Scan Explore, Language & Help Modals -->
+  <div class="kiosk-modal-backdrop" id="scanExploreModal">
+    <div class="kiosk-modal-box luxury-dark-box">
+      <div class="kiosk-modal-header-luxury">
+        <div class="modal-gold-emblem"><i class="fa-solid fa-qrcode"></i></div>
+        <div class="modal-title-gold">Scan to Explore on Mobile</div>
+      </div>
+      <div class="modal-actions-luxury"><button class="btn-modal-dark" onclick="closeKioskModal('scanExploreModal')">Close</button></div>
+    </div>
+  </div>
+
   <div class="kiosk-modal-backdrop" id="languageModal">
-    <div class="kiosk-modal-box">
-      <div class="kiosk-modal-icon"><i class="fa-solid fa-globe"></i></div>
-      <div class="kiosk-modal-title">Select Language</div>
-      <div class="kiosk-modal-text">Choose your preferred language for the interactive kiosk.</div>
-      <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:20px;">
-        <button class="btn-shop-now-hero" style="background:var(--gold-gradient-btn);color:#1a1205;" onclick="closeKioskModal('languageModal')">English</button>
-        <button class="btn-shop-now-hero" onclick="closeKioskModal('languageModal')">हिंदी (Hindi)</button>
-        <button class="btn-shop-now-hero" onclick="closeKioskModal('languageModal')">मराठी (Marathi)</button>
-        <button class="btn-shop-now-hero" onclick="closeKioskModal('languageModal')">ગુજરાતી (Gujarati)</button>
+    <div class="kiosk-modal-box luxury-dark-box" style="max-width:440px;">
+      <div class="kiosk-modal-header-luxury">
+        <div class="modal-gold-emblem"><i class="fa-solid fa-globe"></i></div>
+        <div class="modal-title-gold">Select Language</div>
       </div>
-      <button class="btn-modal-close" onclick="closeKioskModal('languageModal')">Close</button>
+      <div class="language-options-grid">
+        <button class="lang-select-card active" onclick="selectLanguage('ENGLISH')"><span class="lang-native">English</span></button>
+        <button class="lang-select-card" onclick="selectLanguage('हिंदी (Hindi)')"><span class="lang-native">हिन्दी</span></button>
+        <button class="lang-select-card" onclick="selectLanguage('मराठी (Marathi)')"><span class="lang-native">मराठी</span></button>
+      </div>
+      <div class="modal-actions-luxury"><button class="btn-modal-dark" onclick="closeKioskModal('languageModal')">Close</button></div>
     </div>
   </div>
 
   <div class="kiosk-modal-backdrop" id="helpModal">
-    <div class="kiosk-modal-box">
-      <div class="kiosk-modal-icon"><i class="fa-solid fa-circle-question"></i></div>
-      <div class="kiosk-modal-title">Need Help?</div>
-      <div class="kiosk-modal-text">
-        Visit our Information Desk at Ground Floor Atrium or call concierge.
+    <div class="kiosk-modal-box luxury-dark-box" style="max-width:480px;">
+      <div class="kiosk-modal-header-luxury">
+        <div class="modal-gold-emblem"><i class="fa-solid fa-headset"></i></div>
+        <div class="modal-title-gold">Concierge Assistance</div>
       </div>
-      <div style="margin-bottom:20px;">
-        <div style="font-size:16px;color:#f7dfb8;font-weight:700;margin-bottom:6px;">Concierge: +91 20 6645 8888</div>
-        <div style="font-size:12px;color:#94a3b8;">Available: 10:00 AM - 10:00 PM Daily</div>
-      </div>
-      <button class="btn-modal-close" onclick="closeKioskModal('helpModal')">Close</button>
+      <div style="font-size:12px;color:#cbd5e1;margin-bottom:16px;">Visit Ground Floor Central Atrium or call +91 20 6645 8888.</div>
+      <div class="modal-actions-luxury"><button class="btn-modal-dark" onclick="closeKioskModal('helpModal')">Close</button></div>
     </div>
-  </div>
-
-  <!-- Quick Floating Links Switcher -->
-  <div class="quick-kiosk-switcher">
-    <span style="color:#e2b062;font-weight:700;">KIOSK:</span>
-    <a href="home.html">Home</a>
-    <a href="shop.html">Shops</a>
-    <a href="map.html">Map</a>
-    <a href="food.html">Food & Dining</a>
-    <a href="events.html" class="active-link">Events</a>
-    <a href="feedback.html">Feedback</a>
   </div>
 
   <script src="kiosk.js"></script>
   <script>
-    function cycleEvents(direction) {
-      const dots = document.querySelectorAll('.carousel-dot-circle-dark');
-      let activeIndex = 0;
-      dots.forEach((d, i) => { if(d.classList.contains('active')) activeIndex = i; });
-      dots[activeIndex].classList.remove('active');
-      let nextIndex = (activeIndex + direction + dots.length) % dots.length;
-      dots[nextIndex].classList.add('active');
+    // Events Mock DB
+    const eventsDB = {
+      armaan: {
+        id: 'armaan',
+        title: 'Armaan Malik Live in Concert',
+        type: 'Music Concert · Live Performance',
+        date: '12 Sep 2026',
+        time: '7:30 PM Onwards',
+        venue: 'Main Atrium, Ground Floor',
+        destId: 'atrium',
+        catKey: 'music',
+        desc: 'Join Bollywood sensation Armaan Malik live on stage at the central atrium for an unforgettable evening of top chartbusters and soulful melodies.'
+      },
+      comedy: {
+        id: 'comedy',
+        title: 'Comedy Night Live',
+        type: 'Live Show · Stand-up Comedy',
+        date: '15 Sep 2026',
+        time: '8:00 PM Onwards',
+        venue: 'Central Court, Ground Floor',
+        destId: 'centralcourt',
+        catKey: 'live',
+        desc: 'An evening of non-stop laughs with top touring stand-up comedians performing live in the open amphitheater.'
+      },
+      kidsart: {
+        id: 'kidsart',
+        title: 'Kids Art & Craft Workshop',
+        type: 'Creative Workshop · Family Fun',
+        date: '18 Sep 2026',
+        time: '11:00 AM – 2:00 PM',
+        venue: 'Activity Zone, Level 1',
+        destId: 'activityzone',
+        catKey: 'kids',
+        desc: 'Hands-on interactive pottery, canvas painting, and papercraft workshops for children aged 5 to 14 years.'
+      },
+      festive: {
+        id: 'festive',
+        title: 'Festive Celebration 2026',
+        type: 'Grand Cultural Festival',
+        date: '20 Sep – 05 Oct 2026',
+        time: 'All Day (10 AM – 10 PM)',
+        venue: 'Main Atrium, Ground Floor',
+        destId: 'atrium',
+        catKey: 'festivals',
+        desc: 'Grand festive mall decorations, traditional Dandiya & Garba nights, live folk music, and celebratory cultural performances.'
+      },
+      foodfest: {
+        id: 'foodfest',
+        title: 'Grand Food & Taste Carnival',
+        type: 'Food Carnival · Culinary Pop-ups',
+        date: '19 – 27 Sep 2026',
+        time: '12:00 PM – 10:00 PM',
+        venue: 'Central Court, Ground Floor',
+        destId: 'centralcourt',
+        catKey: 'festivals',
+        desc: 'Over 30 artisan food trucks, celebrity chef masterclasses, and international gourmet tasting counters.'
+      },
+      fashion: {
+        id: 'fashion',
+        title: 'Autumn Fashion Showcase',
+        type: 'Fashion Runway Showcase',
+        date: '25 Sep 2026',
+        time: '6:30 PM Onwards',
+        venue: 'Main Atrium, Ground Floor',
+        destId: 'atrium',
+        catKey: 'live',
+        desc: 'Top national & international brands present their latest autumn collections on a glamorous mall runway.'
+      },
+      acoustic: {
+        id: 'acoustic',
+        title: 'Live Acoustic Session',
+        type: 'Live Music Performance',
+        date: 'Today',
+        time: '5:00 PM',
+        venue: 'Main Atrium',
+        destId: 'atrium',
+        catKey: 'music',
+        desc: 'Unplugged guitar and vocal performances featuring soothing classical, jazz and pop indie covers.'
+      },
+      streetplay: {
+        id: 'streetplay',
+        title: 'Street Play Performance',
+        type: 'Nukkad Natak Drama',
+        date: 'Today',
+        time: '6:00 PM',
+        venue: 'Central Court',
+        destId: 'centralcourt',
+        catKey: 'live',
+        desc: 'Energetic street theater performance depicting contemporary social themes and inspiring stories.'
+      },
+      dance: {
+        id: 'dance',
+        title: 'Contemporary Dance Showcase',
+        type: 'Dance Troupe Performance',
+        date: 'Today',
+        time: '7:00 PM',
+        venue: 'Main Stage',
+        destId: 'mainstage',
+        catKey: 'live',
+        desc: 'High energy synchronized dance routines by renowned state dance troupes and choreography artists.'
+      },
+      magic: {
+        id: 'magic',
+        title: 'Grand Magic Show for Kids',
+        type: 'Illusion & Magic Show',
+        date: 'Today',
+        time: '8:00 PM',
+        venue: 'Activity Zone',
+        destId: 'activityzone',
+        catKey: 'kids',
+        desc: 'Mind-boggling illusions, card tricks, and interactive magic entertainment designed for children and families.'
+      }
+    };
+
+    let currentSelectedEventId = 'armaan';
+    let currentEventCategory = 'all';
+
+    function selectEventCategory(cat, btn) {
+      currentEventCategory = cat;
+      document.querySelectorAll('.event-cat-pill-btn').forEach(b => b.classList.remove('active'));
+      if (btn) btn.classList.add('active');
+      applyEventsFilters();
+    }
+
+    function handleEventsSearchFilter() {
+      applyEventsFilters();
+    }
+
+    function applyEventsFilters() {
+      const searchVal = (document.getElementById('eventsSearchInput').value || '').trim().toLowerCase();
+      const allCards = document.querySelectorAll('.event-featured-card');
+      let visibleCount = 0;
+
+      allCards.forEach(card => {
+        const id = card.getAttribute('data-id');
+        const eventItem = eventsDB[id];
+        if (!eventItem) return;
+
+        const matchCat = (currentEventCategory === 'all' || eventItem.catKey === currentEventCategory);
+        const matchSearch = (!searchVal || eventItem.title.toLowerCase().includes(searchVal) || eventItem.type.toLowerCase().includes(searchVal) || eventItem.venue.toLowerCase().includes(searchVal));
+
+        if (matchCat && matchSearch) {
+          card.style.display = 'flex';
+          visibleCount++;
+        } else {
+          card.style.display = 'none';
+        }
+      });
+
+      const emptyNotice = document.getElementById('emptyEventsNotice');
+      if (visibleCount === 0) {
+        emptyNotice.style.display = 'flex';
+      } else {
+        emptyNotice.style.display = 'none';
+      }
+    }
+
+    function resetEventsFilters() {
+      currentEventCategory = 'all';
+      document.getElementById('eventsSearchInput').value = '';
+      document.querySelectorAll('.event-cat-pill-btn').forEach(b => b.classList.remove('active'));
+      document.getElementById('catAllEvents')?.classList.add('active');
+      applyEventsFilters();
+    }
+
+    function openEventDetailsModal(id) {
+      currentSelectedEventId = id;
+      const eventItem = eventsDB[id] || eventsDB['armaan'];
+      document.getElementById('modalEventTitle').textContent = eventItem.title;
+      document.getElementById('modalEventType').textContent = eventItem.type;
+      document.getElementById('modalEventDate').textContent = eventItem.date;
+      document.getElementById('modalEventTime').textContent = eventItem.time;
+      document.getElementById('modalEventVenue').textContent = eventItem.venue;
+      document.getElementById('modalEventDesc').textContent = eventItem.desc;
+      openKioskModal('eventDetailsModal');
+    }
+
+    function openHighlightDetailsModal(id) {
+      openEventDetailsModal(id);
+    }
+
+    function handoffToMallMap() {
+      const eventItem = eventsDB[currentSelectedEventId] || eventsDB['armaan'];
+      window.location.href = `map.html?dest=${eventItem.destId || 'atrium'}`;
+    }
+
+    function toggleHeartFav(el) {
+      const icon = el.querySelector('i');
+      if (icon.classList.contains('fa-regular')) {
+        icon.classList.remove('fa-regular');
+        icon.classList.add('fa-solid');
+        icon.style.color = '#ef4444';
+      } else {
+        icon.classList.remove('fa-solid');
+        icon.classList.add('fa-regular');
+        icon.style.color = '#e2b062';
+      }
+    }
+
+    function toggleFilterPill(btn) {
+      btn.parentElement.querySelectorAll('.search-tag-pill').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+    }
+
+    function selectLanguage(lang) {
+      document.getElementById('currentLanguageLabel').textContent = lang.split(' ')[0].toUpperCase();
+      closeKioskModal('languageModal');
     }
   </script>
 </body>
