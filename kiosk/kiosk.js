@@ -119,4 +119,27 @@ document.addEventListener('DOMContentLoaded', () => {
     document.querySelectorAll('.kiosk-segmented-btn').forEach(b => b.classList.remove('active'));
     btn.classList.add('active');
   };
+
+  // 12. Promotional Carousel Switcher & Auto-rotation
+  let currentPromoIndex = 0;
+  const promoSlides = document.querySelectorAll('.promo-slide');
+  const promoDots = document.querySelectorAll('.carousel-dot');
+
+  window.switchPromoSlide = function(index) {
+    if (!promoSlides.length) return;
+    currentPromoIndex = index % promoSlides.length;
+    promoSlides.forEach((s, idx) => {
+      s.classList.toggle('active', idx === currentPromoIndex);
+    });
+    promoDots.forEach((d, idx) => {
+      d.classList.toggle('active', idx === currentPromoIndex);
+    });
+  };
+
+  if (promoSlides.length > 1) {
+    setInterval(() => {
+      switchPromoSlide((currentPromoIndex + 1) % promoSlides.length);
+    }, 6000);
+  }
 });
+
