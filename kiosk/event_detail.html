@@ -1,0 +1,1131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Event Details · Grand Metro Mall Kiosk</title>
+  <!-- Google Fonts & Font Awesome -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700;800;900&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Playfair+Display:ital,wght@0,600;0,700;1,400;1,600&family=Alex+Brush&family=Montserrat:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="stylesheet" href="kiosk.css">
+  
+  <style>
+    /* =========================================================================
+       EVENT DETAIL SCREEN SPECIFIC LAYOUT
+       ========================================================================= */
+    .event-detail-master-layout {
+      display: grid;
+      grid-template-columns: 320px 1fr;
+      gap: 20px;
+      padding: 12px 32px 18px 32px;
+      flex: 1;
+      height: calc(100vh - 150px);
+      overflow: hidden;
+    }
+
+    /* -------------------------------------------------------------------------
+       LEFT SIDEBAR: Upcoming Events Directory
+       ------------------------------------------------------------------------- */
+    .event-left-sidebar {
+      background: rgba(14, 20, 32, 0.85);
+      border: 1px solid rgba(229, 185, 126, 0.25);
+      border-radius: 20px;
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      backdrop-filter: blur(14px);
+      overflow: hidden;
+    }
+
+    .event-left-title {
+      font-family: 'Cinzel', serif;
+      font-size: 15px;
+      font-weight: 800;
+      color: #ffffff;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .event-left-search {
+      position: relative;
+      width: 100%;
+    }
+    .event-left-search input {
+      width: 100%;
+      background: rgba(8, 12, 20, 0.8);
+      border: 1px solid rgba(229, 185, 126, 0.3);
+      border-radius: 999px;
+      padding: 8px 14px 8px 36px;
+      color: #ffffff;
+      font-size: 11.5px;
+      outline: none;
+      transition: all 0.2s ease;
+    }
+    .event-left-search input:focus {
+      border-color: #e2b062;
+      box-shadow: 0 0 12px rgba(226, 176, 98, 0.3);
+    }
+    .event-left-search i {
+      position: absolute;
+      left: 14px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: #94a3b8;
+      font-size: 12px;
+    }
+
+    .event-filter-pills {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      overflow-x: auto;
+      scrollbar-width: none;
+      padding-bottom: 2px;
+    }
+    .event-filter-pills::-webkit-scrollbar { display: none; }
+    
+    .event-pill {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      border-radius: 999px;
+      padding: 4px 12px;
+      font-size: 10px;
+      font-weight: 700;
+      color: #cbd5e1;
+      cursor: pointer;
+      white-space: nowrap;
+      transition: all 0.2s ease;
+    }
+    .event-pill.active {
+      background: linear-gradient(135deg, #eed29e 0%, #d8a858 50%, #b58537 100%);
+      color: #04060a;
+      border-color: #e2b062;
+      font-weight: 800;
+    }
+
+    .event-entity-list {
+      flex: 1;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      padding-right: 4px;
+      scrollbar-width: thin;
+      scrollbar-color: rgba(226, 176, 98, 0.3) transparent;
+    }
+    .event-entity-list::-webkit-scrollbar { width: 4px; }
+    .event-entity-list::-webkit-scrollbar-thumb { background: rgba(226, 176, 98, 0.3); border-radius: 999px; }
+
+    .event-list-card {
+      background: rgba(18, 25, 38, 0.65);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 14px;
+      padding: 10px 12px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+    .event-list-card:hover {
+      background: rgba(226, 176, 98, 0.15);
+      border-color: rgba(229, 185, 126, 0.5);
+      transform: translateX(2px);
+    }
+    .event-list-card.active {
+      background: linear-gradient(135deg, rgba(226, 176, 98, 0.9) 0%, rgba(181, 133, 55, 0.9) 100%);
+      border: 1.5px solid #f7dfb8;
+      box-shadow: 0 4px 18px rgba(226, 176, 98, 0.35);
+    }
+    .event-list-card.active .event-card-type { color: #04060a; font-weight: 900; }
+    .event-list-card.active .event-card-title { color: #1c1305; font-weight: 800; }
+    .event-list-card.active .event-card-date { background: #04060a; color: #f7dfb8; }
+
+    .event-card-left {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+      flex: 1;
+      overflow: hidden;
+    }
+    .event-card-type {
+      font-size: 9.5px;
+      font-weight: 800;
+      color: #e2b062;
+      text-transform: uppercase;
+    }
+    .event-card-title {
+      font-size: 11px;
+      font-weight: 700;
+      color: #ffffff;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .event-card-venue {
+      font-size: 9px;
+      color: #94a3b8;
+    }
+    .event-card-date {
+      background: rgba(226, 176, 98, 0.2);
+      border: 1px solid #e2b062;
+      border-radius: 6px;
+      padding: 4px 8px;
+      font-size: 8.5px;
+      font-weight: 800;
+      color: #e2b062;
+      text-align: center;
+      flex-shrink: 0;
+    }
+
+    /* -------------------------------------------------------------------------
+       CENTER MAIN WORKSPACE: Hero + Metadata + Schedule + Guidelines
+       ------------------------------------------------------------------------- */
+    .event-main-workspace {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      overflow-y: auto;
+      scrollbar-width: none;
+      padding-right: 4px;
+    }
+    .event-main-workspace::-webkit-scrollbar { display: none; }
+
+    /* 1. Hero Event Banner */
+    .event-hero-banner {
+      position: relative;
+      width: 100%;
+      height: 200px;
+      border-radius: 20px;
+      overflow: hidden;
+      border: 1px solid rgba(229, 185, 126, 0.35);
+      background: #0d121c;
+      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.6);
+    }
+    .event-hero-img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    .event-hero-overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, rgba(6, 9, 14, 0.92) 0%, rgba(6, 9, 14, 0.45) 60%, rgba(6, 9, 14, 0.85) 100%);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 0 36px;
+      gap: 6px;
+    }
+    .event-hero-status-tag {
+      align-self: flex-start;
+      background: #e2b062;
+      color: #04060a;
+      font-size: 10.5px;
+      font-weight: 900;
+      letter-spacing: 1.5px;
+      padding: 4px 12px;
+      border-radius: 999px;
+      text-transform: uppercase;
+    }
+    .event-hero-title {
+      font-family: 'Cinzel', serif;
+      font-size: 32px;
+      font-weight: 900;
+      color: #ffffff;
+      letter-spacing: 1px;
+      text-shadow: 0 4px 20px rgba(0,0,0,0.9);
+      margin: 0;
+    }
+    .event-hero-meta-subtitle {
+      font-size: 13px;
+      color: #f7dfb8;
+      font-weight: 600;
+    }
+
+    /* 2. Event Metadata Card */
+    .event-meta-card {
+      background: rgba(14, 20, 32, 0.85);
+      border: 1px solid rgba(229, 185, 126, 0.3);
+      border-radius: 18px;
+      padding: 16px 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+      backdrop-filter: blur(12px);
+    }
+    .event-meta-left {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      flex: 1;
+    }
+    .event-title-main {
+      font-family: 'Cinzel', serif;
+      font-size: 20px;
+      font-weight: 800;
+      color: #ffffff;
+    }
+    .event-specs-row {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      font-size: 11px;
+      color: #cbd5e1;
+      flex-wrap: wrap;
+    }
+    .event-spec-tag {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .event-spec-tag i { color: #e2b062; }
+    .event-entry-badge {
+      background: rgba(16, 185, 129, 0.15);
+      border: 1px solid #10b981;
+      color: #10b981;
+      border-radius: 999px;
+      padding: 2px 10px;
+      font-size: 9.5px;
+      font-weight: 800;
+      text-transform: uppercase;
+    }
+
+    .event-actions-col {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      min-width: 190px;
+    }
+    .btn-event-take-venue {
+      background: linear-gradient(135deg, #eed29e 0%, #d8a858 50%, #b58537 100%);
+      border: 1.5px solid #f7dfb8;
+      border-radius: 999px;
+      padding: 10px 18px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      color: #04060a;
+      font-family: 'Cinzel', serif;
+      font-size: 11.5px;
+      font-weight: 900;
+      letter-spacing: 1.5px;
+      cursor: pointer;
+      box-shadow: 0 4px 20px rgba(226, 176, 98, 0.45);
+      transition: all 0.2s ease;
+    }
+    .btn-event-take-venue:hover {
+      transform: scale(1.03);
+      box-shadow: 0 6px 25px rgba(226, 176, 98, 0.7);
+    }
+    .btn-event-rsvp {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(229, 185, 126, 0.4);
+      border-radius: 999px;
+      padding: 8px 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      color: #e2b062;
+      font-size: 10.5px;
+      font-weight: 700;
+      letter-spacing: 1px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+    .btn-event-rsvp:hover {
+      background: rgba(226, 176, 98, 0.15);
+      border-color: #e2b062;
+    }
+
+    /* 3. Detailed Schedule, Agenda & Guidelines Card */
+    .event-details-card {
+      background: rgba(14, 20, 32, 0.85);
+      border: 1px solid rgba(229, 185, 126, 0.25);
+      border-radius: 18px;
+      padding: 18px 22px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      backdrop-filter: blur(14px);
+    }
+    .event-section-title {
+      font-family: 'Cinzel', serif;
+      font-size: 13px;
+      font-weight: 800;
+      color: #e2b062;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .event-bio-text {
+      font-size: 12px;
+      color: #cbd5e1;
+      line-height: 1.5;
+    }
+    .event-schedule-timeline {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      margin: 4px 0;
+    }
+    .timeline-item-row {
+      display: flex;
+      align-items: flex-start;
+      gap: 14px;
+      background: rgba(18, 25, 38, 0.8);
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      border-radius: 12px;
+      padding: 10px 14px;
+    }
+    .timeline-time-badge {
+      background: rgba(226, 176, 98, 0.15);
+      border: 1px solid #e2b062;
+      border-radius: 8px;
+      padding: 3px 8px;
+      font-size: 10px;
+      font-weight: 800;
+      color: #f7dfb8;
+      flex-shrink: 0;
+    }
+    .timeline-content {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+    .timeline-title {
+      font-size: 11.5px;
+      font-weight: 800;
+      color: #ffffff;
+    }
+    .timeline-desc {
+      font-size: 10.5px;
+      color: #94a3b8;
+    }
+    .guidelines-bullet-list {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      padding-left: 16px;
+      margin: 0;
+    }
+    .guidelines-bullet-list li {
+      font-size: 11px;
+      color: #94a3b8;
+      line-height: 1.4;
+    }
+
+    /* 4. Bottom 3 Widgets (Venue Details, Artist Bio, Similar Events) */
+    .event-bottom-widgets-row {
+      display: grid;
+      grid-template-columns: 260px 1fr 1fr;
+      gap: 14px;
+    }
+    .event-widget-card {
+      background: rgba(14, 20, 32, 0.85);
+      border: 1px solid rgba(229, 185, 126, 0.25);
+      border-radius: 16px;
+      padding: 14px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: 10px;
+      backdrop-filter: blur(12px);
+    }
+    .widget-header-title {
+      font-family: 'Cinzel', serif;
+      font-size: 11px;
+      font-weight: 800;
+      color: #ffffff;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+      padding-bottom: 4px;
+    }
+
+    /* Similar Events List */
+    .similar-events-stack {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      overflow-y: auto;
+    }
+    .similar-event-item {
+      background: rgba(18, 25, 38, 0.65);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 8px;
+      padding: 6px 10px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+    .similar-event-item:hover {
+      background: rgba(226, 176, 98, 0.15);
+      border-color: #e2b062;
+      transform: translateX(2px);
+    }
+    .similar-event-title {
+      font-size: 10px;
+      font-weight: 700;
+      color: #ffffff;
+    }
+    .similar-event-badge {
+      font-size: 8.5px;
+      font-weight: 800;
+      color: #e2b062;
+    }
+
+    /* Bottom Universal Navigation Bar */
+    .kiosk-nav-bottom {
+      height: 68px;
+      background: rgba(8, 12, 20, 0.95);
+      border-top: 1px solid rgba(229, 185, 126, 0.3);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 28px;
+      position: relative;
+      z-index: 50;
+      backdrop-filter: blur(16px);
+    }
+    .kiosk-nav-left, .kiosk-nav-right {
+      display: flex;
+      align-items: center;
+      min-width: 150px;
+    }
+    .kiosk-nav-right {
+      justify-content: flex-end;
+    }
+    .kiosk-nav-center {
+      display: flex;
+      align-items: center;
+      gap: 22px;
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+    }
+    .nav-btn-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 4px;
+      color: #94a3b8;
+      text-decoration: none;
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+      transition: all 0.2s ease;
+      cursor: pointer;
+    }
+    .nav-btn-item i {
+      font-size: 16px;
+      transition: all 0.2s ease;
+    }
+    .nav-btn-item:hover, .nav-btn-item.active {
+      color: #e2b062;
+      transform: translateY(-2px);
+    }
+    .nav-btn-attract {
+      width: 58px;
+      height: 58px;
+      border-radius: 50%;
+      background: radial-gradient(circle at 35% 35%, #fff 0%, #f7dfb8 20%, #e2b062 60%, #b0823b 100%);
+      color: #04060a;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 0 25px rgba(226, 176, 98, 0.65);
+      margin-top: -24px;
+      text-decoration: none;
+      cursor: pointer;
+      transition: all 0.25s ease;
+      border: 2px solid #ffffff;
+    }
+    .nav-btn-attract:hover {
+      transform: scale(1.08) translateY(-2px);
+      box-shadow: 0 0 35px rgba(226, 176, 98, 0.9);
+    }
+    .nav-btn-attract i {
+      font-size: 18px;
+      margin-bottom: 1px;
+    }
+    .nav-btn-attract span {
+      font-size: 8px;
+      font-weight: 900;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+    .nav-lang-btn {
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid rgba(229, 185, 126, 0.3);
+      border-radius: 999px;
+      padding: 6px 14px;
+      color: #cbd5e1;
+      font-size: 11px;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      cursor: pointer;
+    }
+    .kiosk-accessibility-pill {
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid rgba(229, 185, 126, 0.3);
+      border-radius: 999px;
+      padding: 4px 10px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .access-text-btn {
+      background: transparent;
+      border: none;
+      color: #e2b062;
+      font-size: 12px;
+      font-weight: 800;
+      cursor: pointer;
+    }
+    .access-label {
+      font-size: 10px;
+      color: #94a3b8;
+      font-weight: 600;
+    }
+
+    /* Modal Backdrop */
+    .kiosk-modal-backdrop {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background: rgba(0, 0, 0, 0.85);
+      backdrop-filter: blur(16px);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 9999;
+    }
+    .kiosk-modal-backdrop.open { display: flex; }
+    .kiosk-modal-box {
+      background: #0d121c;
+      border: 1.5px solid #e2b062;
+      border-radius: 24px;
+      padding: 28px 36px;
+      width: 480px;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.9);
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      position: relative;
+    }
+    .modal-close-btn {
+      position: absolute;
+      top: 18px;
+      right: 20px;
+      background: transparent;
+      border: none;
+      color: #94a3b8;
+      font-size: 20px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="kiosk-viewport-wrapper">
+    <div class="kiosk-frame">
+      <div class="kiosk-screen">
+
+        <!-- 1. KIOSK TOP HEADER BAR -->
+        <header class="kiosk-header">
+          <div class="kiosk-header-left">
+            <button class="btn-back-home" id="btnEventBack" onclick="goBackToContext()">
+              <i class="fa-solid fa-chevron-left"></i>
+              <span id="backButtonLabel">BACK TO EVENTS</span>
+            </button>
+            <div style="display:flex;align-items:center;gap:8px;margin-left:12px;">
+              <i class="fa-solid fa-sun weather-icon-sun"></i>
+              <div class="weather-text">
+                <span class="weather-temp">28°C</span>
+                <span class="weather-desc">Sunny</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Mall Brand Emblem -->
+          <a href="home.html" class="kiosk-brand">
+            <svg class="brand-emblem-svg" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M12 2L15 8L21 9L16.5 14L18 20L12 17L6 20L7.5 14L3 9L9 8L12 2Z"/>
+            </svg>
+            <div class="brand-name-grand">GRAND METRO MALL</div>
+            <div class="brand-name-sub">CELEBRATE EVERYDAY</div>
+          </a>
+
+          <!-- Header Right - Clock & Scan to Explore -->
+          <div style="display:flex;align-items:center;gap:16px;">
+            <div class="kiosk-header-right">
+              <div class="kiosk-time" id="kioskLiveTime">04:02 PM</div>
+              <div class="kiosk-date" id="kioskLiveDate">Sun, 30 Aug 2026</div>
+            </div>
+
+            <button class="kiosk-segmented-btn" onclick="openKioskModal('qrPassModal')" style="padding:6px 14px;font-size:11px;display:flex;align-items:center;gap:6px;">
+              <i class="fa-solid fa-qrcode" style="color:#e2b062;"></i>
+              <span>Save Pass</span>
+            </button>
+          </div>
+        </header>
+
+        <!-- 2. MAIN EVENT DETAIL MASTER 2-COLUMN WORKSPACE -->
+        <main class="event-detail-master-layout">
+          
+          <!-- LEFT SIDEBAR: Upcoming Events Directory -->
+          <aside class="event-left-sidebar">
+            <div class="event-left-title">
+              <span>MALL EVENTS</span>
+              <i class="fa-solid fa-calendar-star" style="color:#e2b062;font-size:13px;"></i>
+            </div>
+
+            <div class="event-left-search">
+              <i class="fa-solid fa-magnifying-glass"></i>
+              <input type="text" id="leftEventSearch" placeholder="Search Events & Shows..." oninput="filterLeftEvents()">
+            </div>
+
+            <div class="event-filter-pills">
+              <button class="event-pill active" onclick="filterEventPill('all', this)">All</button>
+              <button class="event-pill" onclick="filterEventPill('music', this)">Concerts</button>
+              <button class="event-pill" onclick="filterEventPill('festivals', this)">Festivals</button>
+              <button class="event-pill" onclick="filterEventPill('kids', this)">Kids</button>
+              <button class="event-pill" onclick="filterEventPill('fashion', this)">Fashion</button>
+            </div>
+
+            <div class="event-entity-list" id="leftEventsContainer">
+              <!-- Dynamically populated -->
+            </div>
+          </aside>
+
+          <!-- CENTER WORKSPACE: Hero + Metadata + Schedule + Guidelines -->
+          <section class="event-main-workspace">
+            
+            <!-- Hero Event Banner -->
+            <div class="event-hero-banner">
+              <img src="../images/kiosk_search_adidas_event.jpg" alt="Event Banner" class="event-hero-img" id="eventHeroImg">
+              <div class="event-hero-overlay">
+                <div class="event-hero-status-tag" id="eventStatusBadge">Upcoming Mega Event</div>
+                <h1 class="event-hero-title" id="eventHeroTitle">Armaan Malik Live In Concert</h1>
+                <div class="event-hero-meta-subtitle" id="eventHeroSubtitle">Main Atrium Stage · Sat, 12 Sep 2026</div>
+              </div>
+            </div>
+
+            <!-- Key Metadata Card -->
+            <div class="event-meta-card">
+              <div class="event-meta-left">
+                <div style="display:flex;align-items:center;gap:10px;">
+                  <span class="event-title-main" id="eventMetaTitle">Armaan Malik Live In Concert</span>
+                  <span class="event-entry-badge" id="eventEntryBadge">Free Entry / RSVP</span>
+                </div>
+                <div class="event-specs-row">
+                  <div class="event-spec-tag"><i class="fa-solid fa-location-dot"></i> <span id="eventVenue">Main Atrium Stage, Ground Floor</span></div>
+                  <div class="event-spec-tag"><i class="fa-regular fa-calendar"></i> <span id="eventDate">Sat, 12 Sep 2026</span></div>
+                  <div class="event-spec-tag"><i class="fa-regular fa-clock"></i> <span id="eventTime">7:00 PM – 10:30 PM</span></div>
+                  <div class="event-spec-tag"><i class="fa-solid fa-user-group"></i> <span id="eventOrganizer">Grand Metro Live</span></div>
+                </div>
+              </div>
+
+              <!-- Action CTAs -->
+              <div class="event-actions-col">
+                <button class="btn-event-take-venue" id="btnTakeMeToVenue" onclick="handleTakeMeToVenue()">
+                  <i class="fa-solid fa-diamond-turn-right"></i>
+                  <span>TAKE ME TO VENUE</span>
+                </button>
+                <button class="btn-event-rsvp" onclick="openKioskModal('rsvpBookingModal')">
+                  <i class="fa-solid fa-ticket"></i>
+                  <span>RSVP / BOOK PASS</span>
+                </button>
+              </div>
+            </div>
+
+            <!-- Comprehensive Schedule & Guidelines Card -->
+            <div class="event-details-card">
+              <div class="event-section-title">
+                <i class="fa-solid fa-circle-info"></i>
+                <span>EVENT OVERVIEW & ARTIST PROFILE</span>
+              </div>
+              
+              <div class="event-bio-text" id="eventSummary">
+                Experience an electrifying musical evening featuring Bollywood chartbusters, soulful acoustic ballads, and live interactive crowd sessions under the Grand Metro central atrium dome.
+              </div>
+
+              <div class="event-section-title" style="font-size:11.5px;margin-top:4px;">
+                <i class="fa-solid fa-clock"></i>
+                <span>EVENT SCHEDULE & AGENDA</span>
+              </div>
+
+              <div class="event-schedule-timeline" id="eventScheduleList">
+                <!-- Dynamically populated -->
+              </div>
+
+              <div class="event-section-title" style="font-size:11.5px;margin-top:6px;">
+                <i class="fa-solid fa-shield-halved"></i>
+                <span>VISITOR GUIDELINES & ENTRY PROTOCOLS</span>
+              </div>
+
+              <ul class="guidelines-bullet-list" id="eventGuidelinesList">
+                <!-- Dynamically populated -->
+              </ul>
+            </div>
+
+            <!-- Bottom 3 Widgets (Venue Details, Artist Bio, Similar Events) -->
+            <div class="event-bottom-widgets-row">
+              
+              <!-- Widget 1: Venue Details & Accessibility -->
+              <div class="event-widget-card">
+                <div class="widget-header-title">VENUE INFORMATION</div>
+                <div style="display:flex;flex-direction:column;gap:4px;font-size:11px;color:#cbd5e1;">
+                  <strong style="color:#ffffff;" id="widgetVenueName">Main Atrium Stage</strong>
+                  <span id="widgetVenueFloor">Ground Floor (Central Zone)</span>
+                  <span style="color:#e2b062;font-size:10px;"><i class="fa-solid fa-wheelchair"></i> Dedicated Wheelchair Ramp</span>
+                  <span style="color:#94a3b8;font-size:9.5px;">Nearest Entrance: Gate 1</span>
+                </div>
+                <button class="btn-event-take-venue" onclick="handleTakeMeToVenue()" style="padding:6px;font-size:10px;">VIEW ON MAP</button>
+              </div>
+
+              <!-- Widget 2: Artist / Performer Bio -->
+              <div class="event-widget-card">
+                <div class="widget-header-title">PERFORMER / HOST</div>
+                <div style="font-size:10.5px;color:#cbd5e1;line-height:1.4;" id="widgetArtistBio">
+                  Armaan Malik is an internationally acclaimed singer and songwriter with over 10 billion streams worldwide.
+                </div>
+                <div style="font-size:9.5px;color:#e2b062;font-weight:700;"><i class="fa-solid fa-music"></i> Multi-Platinum Recording Artist</div>
+              </div>
+
+              <!-- Widget 3: Similar Upcoming Events -->
+              <div class="event-widget-card">
+                <div class="widget-header-title">OTHER UPCOMING EVENTS</div>
+                <div class="similar-events-stack" id="widgetSimilarEvents">
+                  <!-- Dynamically populated -->
+                </div>
+              </div>
+
+            </div>
+
+          </section>
+
+        </main>
+
+        <!-- 3. UNIVERSAL BOTTOM KIOSK NAVIGATION BAR -->
+        <nav class="kiosk-nav-bottom">
+          <div class="kiosk-nav-left">
+            <button class="nav-lang-btn" onclick="openKioskModal('langModal')">
+              <i class="fa-solid fa-globe"></i>
+              <span>English</span>
+              <i class="fa-solid fa-chevron-down" style="font-size:10px;"></i>
+            </button>
+          </div>
+
+          <div class="kiosk-nav-center">
+            <a href="home.html" class="nav-btn-item">
+              <i class="fa-solid fa-house"></i>
+              <span>Home</span>
+            </a>
+
+            <a href="map.html" class="nav-btn-item">
+              <i class="fa-solid fa-map-location-dot"></i>
+              <span>Map</span>
+            </a>
+
+            <a href="services.html" class="nav-btn-item">
+              <i class="fa-solid fa-grid-2"></i>
+              <span>Amenities</span>
+            </a>
+
+            <a href="attract.html" class="nav-btn-attract">
+              <i class="fa-solid fa-star"></i>
+              <span>Attractions</span>
+            </a>
+
+            <a href="search.html" class="nav-btn-item">
+              <i class="fa-solid fa-magnifying-glass"></i>
+              <span>Search</span>
+            </a>
+
+            <a href="feedback.html" class="nav-btn-item">
+              <i class="fa-solid fa-comment-dots"></i>
+              <span>Feedback</span>
+            </a>
+
+            <a href="info.html" class="nav-btn-item">
+              <i class="fa-solid fa-circle-question"></i>
+              <span>Help</span>
+            </a>
+          </div>
+
+          <div class="kiosk-nav-right">
+            <div class="kiosk-accessibility-pill">
+              <button class="access-text-btn" onclick="adjustTextSize(-1)">A-</button>
+              <span class="access-label">Text Size</span>
+              <button class="access-text-btn" onclick="adjustTextSize(1)">A+</button>
+            </div>
+          </div>
+        </nav>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- RSVP BOOKING MODAL -->
+  <div class="kiosk-modal-backdrop" id="rsvpBookingModal">
+    <div class="kiosk-modal-box">
+      <button class="modal-close-btn" onclick="closeKioskModal('rsvpBookingModal')"><i class="fa-solid fa-xmark"></i></button>
+      
+      <div style="text-align:center;">
+        <h2 style="font-family:'Cinzel',serif;font-size:20px;color:#fff;margin-bottom:4px;" id="modalBookingTitle">Event RSVP & Pass</h2>
+        <p style="font-size:11.5px;color:#e2b062;font-weight:700;" id="modalBookingVenue">Main Atrium Stage · Sat, 12 Sep 2026</p>
+      </div>
+
+      <div style="display:flex;flex-direction:column;gap:10px;margin-top:8px;">
+        <div>
+          <label style="font-size:10.5px;color:#94a3b8;font-weight:700;text-transform:uppercase;">Number of Attendees</label>
+          <div style="display:flex;gap:8px;margin-top:4px;">
+            <button class="event-pill active" onclick="this.parentElement.querySelectorAll('button').forEach(b=>b.classList.remove('active'));this.classList.add('active');">1 Guest</button>
+            <button class="event-pill" onclick="this.parentElement.querySelectorAll('button').forEach(b=>b.classList.remove('active'));this.classList.add('active');">2 Guests</button>
+            <button class="event-pill" onclick="this.parentElement.querySelectorAll('button').forEach(b=>b.classList.remove('active'));this.classList.add('active');">Family (4)</button>
+          </div>
+        </div>
+
+        <input type="text" id="rsvpMobileInput" placeholder="Enter Mobile Number for SMS Pass (Optional)" style="width:100%;background:rgba(8,12,20,0.8);border:1px solid rgba(229,185,126,0.3);border-radius:10px;padding:8px 12px;color:#fff;font-size:11.5px;outline:none;">
+      </div>
+
+      <button class="btn-event-take-venue" id="btnConfirmRSVP" onclick="confirmRSVPPass()" style="padding:10px;font-size:12px;margin-top:6px;">
+        <span>CONFIRM RSVP PASS</span>
+      </button>
+
+      <div id="rsvpSuccessState" style="display:none;text-align:center;padding:10px 0;">
+        <i class="fa-solid fa-circle-check" style="color:#10b981;font-size:36px;margin-bottom:8px;"></i>
+        <h3 style="font-family:'Cinzel',serif;color:#fff;font-size:16px;">RSVP Confirmed!</h3>
+        <p style="font-size:11px;color:#cbd5e1;">Your digital entry pass has been issued. Show at entry gate.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- QR PASS MODAL -->
+  <div class="kiosk-modal-backdrop" id="qrPassModal">
+    <div class="kiosk-modal-box" style="text-align:center;">
+      <button class="modal-close-btn" onclick="closeKioskModal('qrPassModal')"><i class="fa-solid fa-xmark"></i></button>
+      <h2 style="font-family:'Cinzel',serif;font-size:20px;color:#fff;">Save Event Pass on Phone</h2>
+      <p style="font-size:11px;color:#94a3b8;">Scan the QR code to add event reminder and directions to your calendar.</p>
+      <div style="background:#fff;padding:16px;border-radius:16px;display:inline-block;margin:12px auto;">
+        <i class="fa-solid fa-qrcode" style="font-size:110px;color:#04060a;"></i>
+      </div>
+      <button class="btn-event-take-venue" onclick="closeKioskModal('qrPassModal')" style="padding:8px 20px;font-size:11px;">DONE</button>
+    </div>
+  </div>
+
+  <!-- Scripts -->
+  <script src="kiosk_entities_data.js"></script>
+  <script src="kiosk.js"></script>
+  <script>
+    let currentEvent = null;
+    let sourceContext = 'events';
+
+    function getQueryParam(name) {
+      const urlParams = new URLSearchParams(window.location.search);
+      return urlParams.get(name);
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+      const eventId = getQueryParam('id') || 'armaan';
+      sourceContext = getQueryParam('from') || 'events';
+
+      // Set Back button label
+      const backLabelMap = {
+        'events': 'BACK TO EVENTS',
+        'home': 'BACK TO HOME',
+        'attract': 'BACK TO ATTRACT',
+        'search': 'BACK TO SEARCH'
+      };
+      const labelEl = document.getElementById('backButtonLabel');
+      if (labelEl) labelEl.textContent = backLabelMap[sourceContext] || 'BACK';
+
+      // Populate Left Sidebar List
+      populateLeftEventsList();
+
+      // Load Event
+      loadEventDetail(eventId);
+    });
+
+    function goBackToContext() {
+      if (sourceContext === 'home') {
+        window.location.href = 'home.html';
+      } else if (sourceContext === 'attract') {
+        window.location.href = 'attract.html';
+      } else if (sourceContext === 'search') {
+        window.location.href = 'search.html';
+      } else {
+        window.location.href = 'events.html';
+      }
+    }
+
+    function populateLeftEventsList(filterCat = 'all', searchQuery = '') {
+      const container = document.getElementById('leftEventsContainer');
+      if (!container) return;
+
+      container.innerHTML = '';
+      const events = Object.values(window.KIOSK_EVENTS || {});
+
+      events.forEach(ev => {
+        if (filterCat !== 'all' && ev.categoryType !== filterCat) return;
+        if (searchQuery && !ev.title.toLowerCase().includes(searchQuery.toLowerCase()) && !ev.type.toLowerCase().includes(searchQuery.toLowerCase())) return;
+
+        const isActive = currentEvent && currentEvent.id === ev.id;
+        const card = document.createElement('div');
+        card.className = `event-list-card ${isActive ? 'active' : ''}`;
+        card.id = `left-event-${ev.id}`;
+        card.onclick = () => loadEventDetail(ev.id);
+
+        card.innerHTML = `
+          <div class="event-card-left">
+            <span class="event-card-type">${ev.type}</span>
+            <span class="event-card-title">${ev.title}</span>
+            <span class="event-card-venue">${ev.venue}</span>
+          </div>
+          <div class="event-card-date">${ev.dateBadge.split(' ')[0]}</div>
+        `;
+        container.appendChild(card);
+      });
+    }
+
+    function filterLeftEvents() {
+      const q = document.getElementById('leftEventSearch').value.trim();
+      populateLeftEventsList('all', q);
+    }
+
+    function filterEventPill(cat, btn) {
+      document.querySelectorAll('.event-pill').forEach(p => p.classList.remove('active'));
+      if (btn) btn.classList.add('active');
+      populateLeftEventsList(cat);
+    }
+
+    function loadEventDetail(id) {
+      const ev = window.KIOSK_EVENTS[id] || window.KIOSK_EVENTS['armaan'];
+      currentEvent = ev;
+
+      // Update URL
+      const newUrl = `${window.location.pathname}?id=${ev.id}&from=${sourceContext}`;
+      window.history.replaceState({ path: newUrl }, '', newUrl);
+
+      // Highlight active in Left Sidebar
+      document.querySelectorAll('.event-list-card').forEach(el => el.classList.remove('active'));
+      const activeEl = document.getElementById(`left-event-${ev.id}`);
+      if (activeEl) activeEl.classList.add('active');
+
+      // 1. Hero Banner
+      document.getElementById('eventHeroImg').src = ev.heroImage;
+      document.getElementById('eventStatusBadge').textContent = ev.statusBadge;
+      document.getElementById('eventHeroTitle').textContent = ev.title;
+      document.getElementById('eventHeroSubtitle').textContent = `${ev.venue} · ${ev.dateBadge}`;
+
+      // 2. Metadata Card
+      document.getElementById('eventMetaTitle').textContent = ev.title;
+      document.getElementById('eventEntryBadge').textContent = ev.entryType;
+      document.getElementById('eventVenue').textContent = ev.venue;
+      document.getElementById('eventDate').textContent = ev.dateBadge;
+      document.getElementById('eventTime').textContent = ev.timeBadge;
+      document.getElementById('eventOrganizer').textContent = ev.organizer;
+
+      // Modal info
+      document.getElementById('modalBookingTitle').textContent = `${ev.title} · Pass`;
+      document.getElementById('modalBookingVenue').textContent = `${ev.venue} · ${ev.dateBadge}`;
+
+      // 3. Schedule & Guidelines
+      document.getElementById('eventSummary').textContent = ev.summary;
+
+      const scheduleContainer = document.getElementById('eventScheduleList');
+      scheduleContainer.innerHTML = '';
+      if (ev.schedule && ev.schedule.length > 0) {
+        ev.schedule.forEach(item => {
+          const row = document.createElement('div');
+          row.className = 'timeline-item-row';
+          row.innerHTML = `
+            <div class="timeline-time-badge">${item.time}</div>
+            <div class="timeline-content">
+              <span class="timeline-title">${item.title}</span>
+              <span class="timeline-desc">${item.desc}</span>
+            </div>
+          `;
+          scheduleContainer.appendChild(row);
+        });
+      }
+
+      const guidelinesList = document.getElementById('eventGuidelinesList');
+      guidelinesList.innerHTML = '';
+      if (ev.guidelines && ev.guidelines.length > 0) {
+        ev.guidelines.forEach(g => {
+          const li = document.createElement('li');
+          li.textContent = g;
+          guidelinesList.appendChild(li);
+        });
+      }
+
+      // 4. Venue Widget
+      document.getElementById('widgetVenueName').textContent = ev.venue.split(',')[0] || ev.venue;
+      document.getElementById('widgetVenueFloor').textContent = ev.venue.split(',')[1] || 'Central Zone';
+
+      // 5. Artist Bio Widget
+      document.getElementById('widgetArtistBio').textContent = ev.artistBio;
+
+      // 6. Similar Events
+      const simContainer = document.getElementById('widgetSimilarEvents');
+      simContainer.innerHTML = '';
+      const allEvents = Object.values(window.KIOSK_EVENTS);
+      const similar = allEvents.filter(e => e.id !== ev.id);
+      if (similar.length > 0) {
+        similar.slice(0, 3).forEach(se => {
+          const item = document.createElement('div');
+          item.className = 'similar-event-item';
+          item.onclick = () => loadEventDetail(se.id);
+          item.innerHTML = `
+            <span class="similar-event-title">${se.title}</span>
+            <span class="similar-event-badge">${se.dateBadge.split(' ')[0]}</span>
+          `;
+          simContainer.appendChild(item);
+        });
+      }
+    }
+
+    function handleTakeMeToVenue() {
+      if (!currentEvent) return;
+      window.location.href = `map.html?dest=${encodeURIComponent(currentEvent.venueCode || 'atrium')}&name=${encodeURIComponent(currentEvent.venue)}`;
+    }
+
+    function confirmRSVPPass() {
+      const btn = document.getElementById('btnConfirmRSVP');
+      const success = document.getElementById('rsvpSuccessState');
+      btn.style.display = 'none';
+      success.style.display = 'block';
+      setTimeout(() => {
+        closeKioskModal('rsvpBookingModal');
+        btn.style.display = 'flex';
+        success.style.display = 'none';
+      }, 2000);
+    }
+  </script>
+</body>
+</html>

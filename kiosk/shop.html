@@ -4105,15 +4105,8 @@ body {
     }
 
     function openFullStoreDetails(id) {
-      if (id) selectStorePreview(id);
-      const store = storeDB[selectedStoreId];
-      if (!store) return;
-
-      document.getElementById('modalFullStoreName').textContent = store.name;
-      document.getElementById('modalFullStoreCat').textContent = `${store.cat} · ${store.desc.split('.')[0]}`;
-      document.getElementById('modalFullStoreLoc').textContent = store.floor;
-      document.getElementById('modalFullStoreImg').src = store.img;
-      openKioskModal('fullStoreDetailsModal');
+      const targetId = id || selectedStoreId;
+      window.location.href = `detail.html?id=${encodeURIComponent(targetId)}&from=shop`;
     }
 
     function switchModalToStore(id) {

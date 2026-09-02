@@ -4012,14 +4012,8 @@ body {
     }
 
     function openServiceDetailsModal(id) {
-      currentSelectedServiceId = id;
-      const s = servicesDB[id] || servicesDB['concierge'];
-      document.getElementById('modalServiceName').textContent = s.name;
-      document.getElementById('modalServiceCategory').textContent = s.category;
-      document.getElementById('modalServiceLoc').textContent = s.loc;
-      document.getElementById('modalServiceStatus').textContent = s.status;
-      document.getElementById('modalServiceDesc').textContent = s.desc;
-      openKioskModal('serviceDetailsModal');
+      const targetId = id || currentSelectedServiceId || 'atm';
+      window.location.href = `detail.html?id=${encodeURIComponent(targetId)}&from=services`;
     }
 
     function openImmediateAssistanceModal() {

@@ -1,0 +1,1192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Offer Details · Grand Metro Mall Kiosk</title>
+  <!-- Google Fonts & Font Awesome -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700;800;900&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Playfair+Display:ital,wght@0,600;0,700;1,400;1,600&family=Alex+Brush&family=Montserrat:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="stylesheet" href="kiosk.css">
+  
+  <style>
+    /* =========================================================================
+       OFFER DETAIL SCREEN SPECIFIC LAYOUT (2-Column Focus on Deep Content)
+       ========================================================================= */
+    .offer-detail-master-layout {
+      display: grid;
+      grid-template-columns: 320px 1fr;
+      gap: 20px;
+      padding: 12px 32px 18px 32px;
+      flex: 1;
+      height: calc(100vh - 150px);
+      overflow: hidden;
+    }
+
+    /* -------------------------------------------------------------------------
+       LEFT SIDEBAR: Offers Directory & Filter
+       ------------------------------------------------------------------------- */
+    .offer-left-sidebar {
+      background: rgba(14, 20, 32, 0.85);
+      border: 1px solid rgba(229, 185, 126, 0.25);
+      border-radius: 20px;
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      backdrop-filter: blur(14px);
+      overflow: hidden;
+    }
+
+    .offer-left-title {
+      font-family: 'Cinzel', serif;
+      font-size: 15px;
+      font-weight: 800;
+      color: #ffffff;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .offer-left-search {
+      position: relative;
+      width: 100%;
+    }
+    .offer-left-search input {
+      width: 100%;
+      background: rgba(8, 12, 20, 0.8);
+      border: 1px solid rgba(229, 185, 126, 0.3);
+      border-radius: 999px;
+      padding: 8px 14px 8px 36px;
+      color: #ffffff;
+      font-size: 11.5px;
+      outline: none;
+      transition: all 0.2s ease;
+    }
+    .offer-left-search input:focus {
+      border-color: #e2b062;
+      box-shadow: 0 0 12px rgba(226, 176, 98, 0.3);
+    }
+    .offer-left-search i {
+      position: absolute;
+      left: 14px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: #94a3b8;
+      font-size: 12px;
+    }
+
+    .offer-filter-pills {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      overflow-x: auto;
+      scrollbar-width: none;
+      padding-bottom: 2px;
+    }
+    .offer-filter-pills::-webkit-scrollbar { display: none; }
+    
+    .offer-pill {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      border-radius: 999px;
+      padding: 4px 12px;
+      font-size: 10px;
+      font-weight: 700;
+      color: #cbd5e1;
+      cursor: pointer;
+      white-space: nowrap;
+      transition: all 0.2s ease;
+    }
+    .offer-pill.active {
+      background: linear-gradient(135deg, #eed29e 0%, #d8a858 50%, #b58537 100%);
+      color: #04060a;
+      border-color: #e2b062;
+      font-weight: 800;
+    }
+
+    .offer-entity-list {
+      flex: 1;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      padding-right: 4px;
+      scrollbar-width: thin;
+      scrollbar-color: rgba(226, 176, 98, 0.3) transparent;
+    }
+    .offer-entity-list::-webkit-scrollbar { width: 4px; }
+    .offer-entity-list::-webkit-scrollbar-thumb { background: rgba(226, 176, 98, 0.3); border-radius: 999px; }
+
+    .offer-list-card {
+      background: rgba(18, 25, 38, 0.65);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 14px;
+      padding: 10px 12px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+    .offer-list-card:hover {
+      background: rgba(226, 176, 98, 0.15);
+      border-color: rgba(229, 185, 126, 0.5);
+      transform: translateX(2px);
+    }
+    .offer-list-card.active {
+      background: linear-gradient(135deg, rgba(226, 176, 98, 0.9) 0%, rgba(181, 133, 55, 0.9) 100%);
+      border: 1.5px solid #f7dfb8;
+      box-shadow: 0 4px 18px rgba(226, 176, 98, 0.35);
+    }
+    .offer-list-card.active .offer-card-store { color: #04060a; font-weight: 900; }
+    .offer-list-card.active .offer-card-title { color: #1c1305; font-weight: 800; }
+    .offer-list-card.active .offer-card-badge { background: #04060a; color: #f7dfb8; }
+
+    .offer-card-left {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex: 1;
+    }
+    .offer-card-logo {
+      width: 34px;
+      height: 34px;
+      border-radius: 8px;
+      background: #ffffff;
+      padding: 3px;
+      object-fit: contain;
+      flex-shrink: 0;
+    }
+    .offer-card-meta {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+      overflow: hidden;
+    }
+    .offer-card-store {
+      font-size: 11px;
+      font-weight: 800;
+      color: #e2b062;
+    }
+    .offer-card-title {
+      font-size: 10.5px;
+      color: #ffffff;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      font-weight: 600;
+    }
+    .offer-card-badge {
+      background: rgba(226, 176, 98, 0.2);
+      border: 1px solid #e2b062;
+      border-radius: 6px;
+      padding: 3px 8px;
+      font-size: 9px;
+      font-weight: 800;
+      color: #e2b062;
+      flex-shrink: 0;
+    }
+
+    /* -------------------------------------------------------------------------
+       CENTER MAIN WORKSPACE: Hero + Metadata + Regulations + Widgets
+       ------------------------------------------------------------------------- */
+    .offer-main-workspace {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      overflow-y: auto;
+      scrollbar-width: none;
+      padding-right: 4px;
+    }
+    .offer-main-workspace::-webkit-scrollbar { display: none; }
+
+    /* 1. Hero Campaign Banner */
+    .offer-hero-banner {
+      position: relative;
+      width: 100%;
+      height: 190px;
+      border-radius: 20px;
+      overflow: hidden;
+      border: 1px solid rgba(229, 185, 126, 0.35);
+      background: #0d121c;
+      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.6);
+    }
+    .offer-hero-img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    .offer-hero-overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, rgba(6, 9, 14, 0.9) 0%, rgba(6, 9, 14, 0.4) 60%, rgba(6, 9, 14, 0.8) 100%);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 0 36px;
+      gap: 6px;
+    }
+    .offer-hero-tag {
+      align-self: flex-start;
+      background: #e2b062;
+      color: #04060a;
+      font-size: 11px;
+      font-weight: 900;
+      letter-spacing: 1.5px;
+      padding: 4px 12px;
+      border-radius: 999px;
+      text-transform: uppercase;
+    }
+    .offer-hero-headline {
+      font-family: 'Cinzel', serif;
+      font-size: 32px;
+      font-weight: 900;
+      color: #ffffff;
+      letter-spacing: 1px;
+      text-shadow: 0 4px 20px rgba(0,0,0,0.9);
+      margin: 0;
+    }
+    .offer-hero-sub {
+      font-size: 13px;
+      color: #f7dfb8;
+      font-weight: 600;
+    }
+
+    /* 2. Offer Meta Card */
+    .offer-meta-card {
+      background: rgba(14, 20, 32, 0.85);
+      border: 1px solid rgba(229, 185, 126, 0.3);
+      border-radius: 18px;
+      padding: 16px 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+      backdrop-filter: blur(12px);
+    }
+    .offer-meta-left {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      flex: 1;
+    }
+    .offer-store-logo {
+      width: 60px;
+      height: 60px;
+      border-radius: 12px;
+      background: #ffffff;
+      padding: 6px;
+      object-fit: contain;
+      border: 1.5px solid rgba(229, 185, 126, 0.4);
+    }
+    .offer-store-details {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+    .offer-title-main {
+      font-family: 'Cinzel', serif;
+      font-size: 20px;
+      font-weight: 800;
+      color: #ffffff;
+    }
+    .offer-specs-row {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      font-size: 11px;
+      color: #cbd5e1;
+    }
+    .offer-spec-tag {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .offer-spec-tag i { color: #e2b062; }
+    .offer-promo-code-box {
+      background: rgba(226, 176, 98, 0.15);
+      border: 1.5px dashed #e2b062;
+      border-radius: 8px;
+      padding: 3px 10px;
+      font-family: 'Montserrat', sans-serif;
+      font-size: 12px;
+      font-weight: 900;
+      color: #f7dfb8;
+      letter-spacing: 2px;
+    }
+
+    .offer-actions-col {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      min-width: 190px;
+    }
+    .btn-offer-take-store {
+      background: linear-gradient(135deg, #eed29e 0%, #d8a858 50%, #b58537 100%);
+      border: 1.5px solid #f7dfb8;
+      border-radius: 999px;
+      padding: 10px 18px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      color: #04060a;
+      font-family: 'Cinzel', serif;
+      font-size: 11.5px;
+      font-weight: 900;
+      letter-spacing: 1.5px;
+      cursor: pointer;
+      box-shadow: 0 4px 20px rgba(226, 176, 98, 0.45);
+      transition: all 0.2s ease;
+    }
+    .btn-offer-take-store:hover {
+      transform: scale(1.03);
+      box-shadow: 0 6px 25px rgba(226, 176, 98, 0.7);
+    }
+    .btn-offer-save-mobile {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(229, 185, 126, 0.4);
+      border-radius: 999px;
+      padding: 8px 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      color: #e2b062;
+      font-size: 10.5px;
+      font-weight: 700;
+      letter-spacing: 1px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+    .btn-offer-save-mobile:hover {
+      background: rgba(226, 176, 98, 0.15);
+      border-color: #e2b062;
+    }
+
+    /* 3. Detailed Terms & Conditions / Regulations Section */
+    .offer-terms-card {
+      background: rgba(14, 20, 32, 0.85);
+      border: 1px solid rgba(229, 185, 126, 0.25);
+      border-radius: 18px;
+      padding: 18px 22px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      backdrop-filter: blur(14px);
+    }
+    .terms-section-title {
+      font-family: 'Cinzel', serif;
+      font-size: 13px;
+      font-weight: 800;
+      color: #e2b062;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .terms-desc-text {
+      font-size: 12px;
+      color: #cbd5e1;
+      line-height: 1.5;
+    }
+    .redeem-steps-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+      margin: 4px 0;
+    }
+    .redeem-step-box {
+      background: rgba(18, 25, 38, 0.8);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 12px;
+      padding: 10px 12px;
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+    }
+    .redeem-step-num {
+      width: 22px;
+      height: 22px;
+      border-radius: 50%;
+      background: #e2b062;
+      color: #04060a;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 900;
+      font-size: 11px;
+      flex-shrink: 0;
+    }
+    .redeem-step-text {
+      font-size: 11px;
+      color: #cbd5e1;
+      line-height: 1.35;
+    }
+    .terms-bullet-list {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      padding-left: 16px;
+      margin: 0;
+    }
+    .terms-bullet-list li {
+      font-size: 11px;
+      color: #94a3b8;
+      line-height: 1.4;
+    }
+
+    /* 4. Bottom 3 Widgets (Host Store, More Deals, Similar Offers) */
+    .offer-bottom-widgets-row {
+      display: grid;
+      grid-template-columns: 260px 1fr 1fr;
+      gap: 14px;
+    }
+    .offer-widget-card {
+      background: rgba(14, 20, 32, 0.85);
+      border: 1px solid rgba(229, 185, 126, 0.25);
+      border-radius: 16px;
+      padding: 14px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: 10px;
+      backdrop-filter: blur(12px);
+    }
+    .widget-header-title {
+      font-family: 'Cinzel', serif;
+      font-size: 11px;
+      font-weight: 800;
+      color: #ffffff;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+      padding-bottom: 4px;
+    }
+
+    /* Host Store Widget */
+    .host-store-box {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .host-store-logo {
+      width: 42px;
+      height: 42px;
+      border-radius: 10px;
+      background: #ffffff;
+      padding: 4px;
+      object-fit: contain;
+    }
+    .host-store-meta {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+    .host-store-name {
+      font-size: 12px;
+      font-weight: 800;
+      color: #ffffff;
+    }
+    .host-store-rating {
+      font-size: 10px;
+      color: #f59e0b;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+    .btn-view-store-profile {
+      background: rgba(226, 176, 98, 0.15);
+      border: 1px solid #e2b062;
+      border-radius: 8px;
+      padding: 6px;
+      text-align: center;
+      font-size: 10px;
+      font-weight: 800;
+      color: #e2b062;
+      text-transform: uppercase;
+      cursor: pointer;
+      text-decoration: none;
+      transition: all 0.2s ease;
+    }
+    .btn-view-store-profile:hover {
+      background: #e2b062;
+      color: #04060a;
+    }
+
+    /* Similar Offers List */
+    .similar-offers-stack {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      overflow-y: auto;
+    }
+    .similar-offer-item {
+      background: rgba(18, 25, 38, 0.65);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 8px;
+      padding: 6px 10px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+    .similar-offer-item:hover {
+      background: rgba(226, 176, 98, 0.15);
+      border-color: #e2b062;
+      transform: translateX(2px);
+    }
+    .similar-offer-title {
+      font-size: 10px;
+      font-weight: 700;
+      color: #ffffff;
+    }
+    .similar-offer-badge {
+      font-size: 8.5px;
+      font-weight: 800;
+      color: #e2b062;
+    }
+
+    /* -------------------------------------------------------------------------
+       BOTTOM UNIVERSAL KIOSK NAVIGATION BAR
+       ------------------------------------------------------------------------- */
+    .kiosk-nav-bottom {
+      height: 68px;
+      background: rgba(8, 12, 20, 0.95);
+      border-top: 1px solid rgba(229, 185, 126, 0.3);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 28px;
+      position: relative;
+      z-index: 50;
+      backdrop-filter: blur(16px);
+    }
+    .kiosk-nav-left, .kiosk-nav-right {
+      display: flex;
+      align-items: center;
+      min-width: 150px;
+    }
+    .kiosk-nav-right {
+      justify-content: flex-end;
+    }
+    .kiosk-nav-center {
+      display: flex;
+      align-items: center;
+      gap: 22px;
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+    }
+    .nav-btn-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 4px;
+      color: #94a3b8;
+      text-decoration: none;
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+      transition: all 0.2s ease;
+      cursor: pointer;
+    }
+    .nav-btn-item i {
+      font-size: 16px;
+      transition: all 0.2s ease;
+    }
+    .nav-btn-item:hover, .nav-btn-item.active {
+      color: #e2b062;
+      transform: translateY(-2px);
+    }
+    .nav-btn-attract {
+      width: 58px;
+      height: 58px;
+      border-radius: 50%;
+      background: radial-gradient(circle at 35% 35%, #fff 0%, #f7dfb8 20%, #e2b062 60%, #b0823b 100%);
+      color: #04060a;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 0 25px rgba(226, 176, 98, 0.65);
+      margin-top: -24px;
+      text-decoration: none;
+      cursor: pointer;
+      transition: all 0.25s ease;
+      border: 2px solid #ffffff;
+    }
+    .nav-btn-attract:hover {
+      transform: scale(1.08) translateY(-2px);
+      box-shadow: 0 0 35px rgba(226, 176, 98, 0.9);
+    }
+    .nav-btn-attract i {
+      font-size: 18px;
+      margin-bottom: 1px;
+    }
+    .nav-btn-attract span {
+      font-size: 8px;
+      font-weight: 900;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+    .nav-lang-btn {
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid rgba(229, 185, 126, 0.3);
+      border-radius: 999px;
+      padding: 6px 14px;
+      color: #cbd5e1;
+      font-size: 11px;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      cursor: pointer;
+    }
+    .kiosk-accessibility-pill {
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid rgba(229, 185, 126, 0.3);
+      border-radius: 999px;
+      padding: 4px 10px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .access-text-btn {
+      background: transparent;
+      border: none;
+      color: #e2b062;
+      font-size: 12px;
+      font-weight: 800;
+      cursor: pointer;
+    }
+    .access-label {
+      font-size: 10px;
+      color: #94a3b8;
+      font-weight: 600;
+    }
+
+    /* Modal Backdrop */
+    .kiosk-modal-backdrop {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background: rgba(0, 0, 0, 0.85);
+      backdrop-filter: blur(16px);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 9999;
+    }
+    .kiosk-modal-backdrop.open { display: flex; }
+    .kiosk-modal-box {
+      background: #0d121c;
+      border: 1.5px solid #e2b062;
+      border-radius: 24px;
+      padding: 28px 36px;
+      width: 480px;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.9);
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      position: relative;
+    }
+    .modal-close-btn {
+      position: absolute;
+      top: 18px;
+      right: 20px;
+      background: transparent;
+      border: none;
+      color: #94a3b8;
+      font-size: 20px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="kiosk-viewport-wrapper">
+    <div class="kiosk-frame">
+      <div class="kiosk-screen">
+
+        <!-- 1. KIOSK TOP HEADER BAR -->
+        <header class="kiosk-header">
+          <div class="kiosk-header-left">
+            <button class="btn-back-home" id="btnOfferBack" onclick="goBackToContext()">
+              <i class="fa-solid fa-chevron-left"></i>
+              <span id="backButtonLabel">BACK TO OFFERS</span>
+            </button>
+            <div style="display:flex;align-items:center;gap:8px;margin-left:12px;">
+              <i class="fa-solid fa-sun weather-icon-sun"></i>
+              <div class="weather-text">
+                <span class="weather-temp">28°C</span>
+                <span class="weather-desc">Sunny</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Mall Brand Emblem -->
+          <a href="home.html" class="kiosk-brand">
+            <svg class="brand-emblem-svg" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M12 2L15 8L21 9L16.5 14L18 20L12 17L6 20L7.5 14L3 9L9 8L12 2Z"/>
+            </svg>
+            <div class="brand-name-grand">GRAND METRO MALL</div>
+            <div class="brand-name-sub">CELEBRATE EVERYDAY</div>
+          </a>
+
+          <!-- Header Right - Clock & Scan to Explore -->
+          <div style="display:flex;align-items:center;gap:16px;">
+            <div class="kiosk-header-right">
+              <div class="kiosk-time" id="kioskLiveTime">04:02 PM</div>
+              <div class="kiosk-date" id="kioskLiveDate">Sun, 30 Aug 2026</div>
+            </div>
+
+            <button class="kiosk-segmented-btn" onclick="openKioskModal('qrOfferModal')" style="padding:6px 14px;font-size:11px;display:flex;align-items:center;gap:6px;">
+              <i class="fa-solid fa-qrcode" style="color:#e2b062;"></i>
+              <span>Save on Mobile</span>
+            </button>
+          </div>
+        </header>
+
+        <!-- 2. MAIN OFFER DETAIL MASTER 2-COLUMN WORKSPACE -->
+        <main class="offer-detail-master-layout">
+          
+          <!-- LEFT SIDEBAR: Active Offers Directory -->
+          <aside class="offer-left-sidebar">
+            <div class="offer-left-title">
+              <span>ALL ACTIVE OFFERS</span>
+              <i class="fa-solid fa-tags" style="color:#e2b062;font-size:13px;"></i>
+            </div>
+
+            <div class="offer-left-search">
+              <i class="fa-solid fa-magnifying-glass"></i>
+              <input type="text" id="leftOfferSearch" placeholder="Search Offers & Brands..." oninput="filterLeftOffers()">
+            </div>
+
+            <div class="offer-filter-pills">
+              <button class="offer-pill active" onclick="filterOfferPill('all', this)">All</button>
+              <button class="offer-pill" onclick="filterOfferPill('sports', this)">Sports</button>
+              <button class="offer-pill" onclick="filterOfferPill('fashion', this)">Fashion</button>
+              <button class="offer-pill" onclick="filterOfferPill('food', this)">Food</button>
+              <button class="offer-pill" onclick="filterOfferPill('entertainment', this)">Cinema</button>
+            </div>
+
+            <div class="offer-entity-list" id="leftOffersContainer">
+              <!-- Dynamically populated -->
+            </div>
+          </aside>
+
+          <!-- CENTER WORKSPACE: Hero + Metadata + Regulations + 3-Widgets -->
+          <section class="offer-main-workspace">
+            
+            <!-- Hero Promotional Banner -->
+            <div class="offer-hero-banner">
+              <img src="../images/kiosk_search_adidas_store.jpg" alt="Offer Banner" class="offer-hero-img" id="offerHeroImg">
+              <div class="offer-hero-overlay">
+                <div class="offer-hero-tag" id="offerHeroDiscountBadge">40% OFF</div>
+                <h1 class="offer-hero-headline" id="offerHeroHeadline">FLAT 40% OFF On Running Shoes</h1>
+                <div class="offer-hero-sub" id="offerHeroSub">Pegasus, Infinity Run & Zoom Fly Series</div>
+              </div>
+            </div>
+
+            <!-- Key Metadata Card -->
+            <div class="offer-meta-card">
+              <div class="offer-meta-left">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/a/a6/Logo_NIKE.svg" alt="Store Logo" class="offer-store-logo" id="offerStoreLogo">
+                <div class="offer-store-details">
+                  <div style="display:flex;align-items:center;gap:8px;">
+                    <span class="offer-title-main" id="offerStoreName">Nike Flagship Store</span>
+                    <span class="offer-promo-code-box" id="offerPromoCode">CODE: RUNFAST40</span>
+                  </div>
+                  <div class="offer-specs-row">
+                    <div class="offer-spec-tag"><i class="fa-solid fa-location-dot"></i> <span id="offerStoreFloor">Ground Floor (GF-12)</span></div>
+                    <div class="offer-spec-tag"><i class="fa-regular fa-calendar-check"></i> <span id="offerValidity">Valid till 31 Aug 2026</span></div>
+                    <div class="offer-spec-tag"><i class="fa-solid fa-hourglass-half"></i> <span id="offerDaysLeft" style="color:#e2b062;font-weight:700;">Ends in 4 Days</span></div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Action CTAs -->
+              <div class="offer-actions-col">
+                <button class="btn-offer-take-store" id="btnTakeMeToStore" onclick="handleTakeMeToStore()">
+                  <i class="fa-solid fa-diamond-turn-right"></i>
+                  <span>TAKE ME TO STORE</span>
+                </button>
+                <button class="btn-offer-save-mobile" onclick="openKioskModal('qrOfferModal')">
+                  <i class="fa-solid fa-mobile-screen-button"></i>
+                  <span>SAVE TO MOBILE</span>
+                </button>
+              </div>
+            </div>
+
+            <!-- Comprehensive Terms & Regulations Card -->
+            <div class="offer-terms-card">
+              <div class="terms-section-title">
+                <i class="fa-solid fa-circle-info"></i>
+                <span>OFFER DETAILS & REDEMPTION GUIDELINES</span>
+              </div>
+              
+              <div class="terms-desc-text" id="offerSummary">
+                Upgrade your fitness routine with authentic Nike premium road and trail running footwear at an unprecedented 40% discount.
+              </div>
+
+              <div class="terms-section-title" style="font-size:11.5px;margin-top:4px;">
+                <i class="fa-solid fa-list-ol"></i>
+                <span>HOW TO REDEEM AT STORE CASHIER</span>
+              </div>
+
+              <div class="redeem-steps-grid" id="offerRedeemSteps">
+                <!-- Dynamically populated -->
+              </div>
+
+              <div class="terms-section-title" style="font-size:11.5px;margin-top:6px;">
+                <i class="fa-solid fa-shield-halved"></i>
+                <span>TERMS, CONDITIONS & CONSTRAINTS</span>
+              </div>
+
+              <ul class="terms-bullet-list" id="offerTermsList">
+                <!-- Dynamically populated -->
+              </ul>
+            </div>
+
+            <!-- Bottom 3 Widgets (Host Store, More Deals, Similar Offers) -->
+            <div class="offer-bottom-widgets-row">
+              
+              <!-- Widget 1: Host Store Profile & Rating -->
+              <div class="offer-widget-card">
+                <div class="widget-header-title">HOST STORE INFO</div>
+                <div class="host-store-box">
+                  <img src="https://upload.wikimedia.org/wikipedia/commons/a/a6/Logo_NIKE.svg" alt="Host Store" class="host-store-logo" id="widgetStoreLogo">
+                  <div class="host-store-meta">
+                    <span class="host-store-name" id="widgetStoreName">Nike</span>
+                    <span style="font-size:9.5px;color:#94a3b8;" id="widgetStoreLoc">Ground Floor (GF-12)</span>
+                    <div class="host-store-rating">
+                      <i class="fa-solid fa-star"></i>
+                      <strong id="widgetStoreRating">4.6 ★</strong>
+                      <span style="font-size:8.5px;color:#cbd5e1;" id="widgetStoreReviews">(128 Reviews)</span>
+                    </div>
+                  </div>
+                </div>
+                <a href="#" id="linkViewStoreDetails" class="btn-view-store-profile">VIEW FULL STORE PROFILE</a>
+              </div>
+
+              <!-- Widget 2: More Deals at this Store -->
+              <div class="offer-widget-card">
+                <div class="widget-header-title" id="widgetStoreDealsTitle">MORE DEALS AT THIS STORE</div>
+                <div class="similar-offers-stack" id="widgetStoreOtherDeals">
+                  <!-- Dynamically populated -->
+                </div>
+              </div>
+
+              <!-- Widget 3: Similar Category Offers -->
+              <div class="offer-widget-card">
+                <div class="widget-header-title">SIMILAR OFFERS NEARBY</div>
+                <div class="similar-offers-stack" id="widgetSimilarOffers">
+                  <!-- Dynamically populated -->
+                </div>
+              </div>
+
+            </div>
+
+          </section>
+
+        </main>
+
+        <!-- 3. UNIVERSAL BOTTOM KIOSK NAVIGATION BAR -->
+        <nav class="kiosk-nav-bottom">
+          <div class="kiosk-nav-left">
+            <button class="nav-lang-btn" onclick="openKioskModal('langModal')">
+              <i class="fa-solid fa-globe"></i>
+              <span>English</span>
+              <i class="fa-solid fa-chevron-down" style="font-size:10px;"></i>
+            </button>
+          </div>
+
+          <div class="kiosk-nav-center">
+            <a href="home.html" class="nav-btn-item">
+              <i class="fa-solid fa-house"></i>
+              <span>Home</span>
+            </a>
+
+            <a href="map.html" class="nav-btn-item">
+              <i class="fa-solid fa-map-location-dot"></i>
+              <span>Map</span>
+            </a>
+
+            <a href="services.html" class="nav-btn-item">
+              <i class="fa-solid fa-grid-2"></i>
+              <span>Amenities</span>
+            </a>
+
+            <a href="attract.html" class="nav-btn-attract">
+              <i class="fa-solid fa-star"></i>
+              <span>Attractions</span>
+            </a>
+
+            <a href="search.html" class="nav-btn-item">
+              <i class="fa-solid fa-magnifying-glass"></i>
+              <span>Search</span>
+            </a>
+
+            <a href="feedback.html" class="nav-btn-item">
+              <i class="fa-solid fa-comment-dots"></i>
+              <span>Feedback</span>
+            </a>
+
+            <a href="info.html" class="nav-btn-item">
+              <i class="fa-solid fa-circle-question"></i>
+              <span>Help</span>
+            </a>
+          </div>
+
+          <div class="kiosk-nav-right">
+            <div class="kiosk-accessibility-pill">
+              <button class="access-text-btn" onclick="adjustTextSize(-1)">A-</button>
+              <span class="access-label">Text Size</span>
+              <button class="access-text-btn" onclick="adjustTextSize(1)">A+</button>
+            </div>
+          </div>
+        </nav>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- QR SAVE TO MOBILE MODAL -->
+  <div class="kiosk-modal-backdrop" id="qrOfferModal">
+    <div class="kiosk-modal-box" style="text-align:center;">
+      <button class="modal-close-btn" onclick="closeKioskModal('qrOfferModal')"><i class="fa-solid fa-xmark"></i></button>
+      <h2 style="font-family:'Cinzel',serif;font-size:20px;color:#fff;" id="qrOfferModalTitle">Save Offer to Mobile</h2>
+      <p style="font-size:12px;color:#e2b062;font-weight:700;" id="qrOfferModalCode">PROMO CODE: RUNFAST40</p>
+      <p style="font-size:11px;color:#94a3b8;">Scan the QR code to save this coupon directly into your phone wallet.</p>
+      <div style="background:#fff;padding:16px;border-radius:16px;display:inline-block;margin:12px auto;">
+        <i class="fa-solid fa-qrcode" style="font-size:110px;color:#04060a;"></i>
+      </div>
+      <button class="btn-offer-take-store" onclick="closeKioskModal('qrOfferModal')" style="padding:8px 20px;font-size:11px;">DONE</button>
+    </div>
+  </div>
+
+  <!-- Scripts -->
+  <script src="kiosk_entities_data.js"></script>
+  <script src="kiosk.js"></script>
+  <script>
+    let currentOffer = null;
+    let sourceContext = 'offers';
+    let originatingStoreId = null;
+
+    function getQueryParam(name) {
+      const urlParams = new URLSearchParams(window.location.search);
+      return urlParams.get(name);
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+      const offerId = getQueryParam('id') || 'deal-nike-1';
+      sourceContext = getQueryParam('from') || 'offers';
+      originatingStoreId = getQueryParam('storeId');
+
+      // Set Back button label
+      const backLabelMap = {
+        'offers': 'BACK TO OFFERS',
+        'store': 'BACK TO STORE',
+        'home': 'BACK TO HOME',
+        'attract': 'BACK TO ATTRACT',
+        'search': 'BACK TO SEARCH'
+      };
+      const labelEl = document.getElementById('backButtonLabel');
+      if (labelEl) labelEl.textContent = backLabelMap[sourceContext] || 'BACK';
+
+      // Populate Left Sidebar List
+      populateLeftOffersList();
+
+      // Load Offer
+      loadOfferDetail(offerId);
+    });
+
+    function goBackToContext() {
+      if (sourceContext === 'store') {
+        const sid = originatingStoreId || (currentOffer ? currentOffer.storeId : 'nike');
+        window.location.href = `detail.html?id=${encodeURIComponent(sid)}&from=shop`;
+      } else if (sourceContext === 'home') {
+        window.location.href = 'home.html';
+      } else if (sourceContext === 'attract') {
+        window.location.href = 'attract.html';
+      } else if (sourceContext === 'search') {
+        window.location.href = 'search.html';
+      } else {
+        window.location.href = 'offers.html';
+      }
+    }
+
+    function populateLeftOffersList(filterCat = 'all', searchQuery = '') {
+      const container = document.getElementById('leftOffersContainer');
+      if (!container) return;
+
+      container.innerHTML = '';
+      const offers = Object.values(window.KIOSK_OFFERS || {});
+
+      offers.forEach(off => {
+        if (filterCat !== 'all' && off.categoryType !== filterCat) return;
+        if (searchQuery && !off.title.toLowerCase().includes(searchQuery.toLowerCase()) && !off.storeName.toLowerCase().includes(searchQuery.toLowerCase())) return;
+
+        const isActive = currentOffer && currentOffer.id === off.id;
+        const card = document.createElement('div');
+        card.className = `offer-list-card ${isActive ? 'active' : ''}`;
+        card.id = `left-offer-${off.id}`;
+        card.onclick = () => loadOfferDetail(off.id);
+
+        card.innerHTML = `
+          <div class="offer-card-left">
+            <img src="${off.storeLogo}" alt="${off.storeName}" class="offer-card-logo">
+            <div class="offer-card-meta">
+              <span class="offer-card-store">${off.storeName}</span>
+              <span class="offer-card-title">${off.title}</span>
+            </div>
+          </div>
+          <div class="offer-card-badge">${off.discountBadge}</div>
+        `;
+        container.appendChild(card);
+      });
+    }
+
+    function filterLeftOffers() {
+      const q = document.getElementById('leftOfferSearch').value.trim();
+      populateLeftOffersList('all', q);
+    }
+
+    function filterOfferPill(cat, btn) {
+      document.querySelectorAll('.offer-pill').forEach(p => p.classList.remove('active'));
+      if (btn) btn.classList.add('active');
+      populateLeftOffersList(cat);
+    }
+
+    function loadOfferDetail(id) {
+      const offer = window.KIOSK_OFFERS[id] || window.KIOSK_OFFERS['deal-nike-1'];
+      currentOffer = offer;
+
+      // Update URL
+      const newUrl = `${window.location.pathname}?id=${offer.id}&from=${sourceContext}${originatingStoreId ? '&storeId=' + originatingStoreId : ''}`;
+      window.history.replaceState({ path: newUrl }, '', newUrl);
+
+      // Highlight active in Left Sidebar
+      document.querySelectorAll('.offer-list-card').forEach(el => el.classList.remove('active'));
+      const activeEl = document.getElementById(`left-offer-${offer.id}`);
+      if (activeEl) activeEl.classList.add('active');
+
+      // 1. Hero Banner
+      document.getElementById('offerHeroImg').src = offer.heroImage;
+      document.getElementById('offerHeroDiscountBadge').textContent = offer.discountBadge;
+      document.getElementById('offerHeroHeadline').textContent = offer.title;
+      document.getElementById('offerHeroSub').textContent = offer.subtitle;
+
+      // 2. Metadata Card
+      document.getElementById('offerStoreLogo').src = offer.storeLogo;
+      document.getElementById('offerStoreName').textContent = offer.storeName;
+      document.getElementById('offerPromoCode').textContent = `CODE: ${offer.promoCode}`;
+      document.getElementById('offerStoreFloor').textContent = offer.storeFloor;
+      document.getElementById('offerValidity').textContent = offer.validity;
+      document.getElementById('offerDaysLeft').textContent = offer.daysLeft;
+
+      // Modal info
+      document.getElementById('qrOfferModalTitle').textContent = offer.title;
+      document.getElementById('qrOfferModalCode').textContent = `PROMO CODE: ${offer.promoCode}`;
+
+      // 3. Terms & Regulations
+      document.getElementById('offerSummary').textContent = offer.summary;
+
+      const redeemContainer = document.getElementById('offerRedeemSteps');
+      redeemContainer.innerHTML = '';
+      if (offer.howToRedeem && offer.howToRedeem.length > 0) {
+        offer.howToRedeem.forEach((step, idx) => {
+          const stepBox = document.createElement('div');
+          stepBox.className = 'redeem-step-box';
+          stepBox.innerHTML = `
+            <div class="redeem-step-num">${idx + 1}</div>
+            <div class="redeem-step-text">${step}</div>
+          `;
+          redeemContainer.appendChild(stepBox);
+        });
+      }
+
+      const termsList = document.getElementById('offerTermsList');
+      termsList.innerHTML = '';
+      if (offer.terms && offer.terms.length > 0) {
+        offer.terms.forEach(t => {
+          const li = document.createElement('li');
+          li.textContent = t;
+          termsList.appendChild(li);
+        });
+      }
+
+      // 4. Host Store Widget
+      const storeData = (window.KIOSK_ENTITIES && window.KIOSK_ENTITIES[offer.storeId]) || null;
+      document.getElementById('widgetStoreLogo').src = offer.storeLogo;
+      document.getElementById('widgetStoreName').textContent = storeData ? storeData.name : offer.storeName;
+      document.getElementById('widgetStoreLoc').textContent = offer.storeFloor;
+      if (storeData) {
+        document.getElementById('widgetStoreRating').textContent = `${storeData.rating.toFixed(1)} ★`;
+        document.getElementById('widgetStoreReviews').textContent = `(${storeData.reviewCount} Reviews)`;
+      }
+      document.getElementById('linkViewStoreDetails').href = `detail.html?id=${offer.storeId}&from=offers`;
+
+      // 5. More Deals from this Store
+      const storeDealsContainer = document.getElementById('widgetStoreOtherDeals');
+      storeDealsContainer.innerHTML = '';
+      document.getElementById('widgetStoreDealsTitle').textContent = `MORE DEALS AT ${offer.storeName.toUpperCase()}`;
+      
+      const allOffers = Object.values(window.KIOSK_OFFERS);
+      const otherDeals = allOffers.filter(o => o.storeId === offer.storeId && o.id !== offer.id);
+      if (otherDeals.length > 0) {
+        otherDeals.forEach(od => {
+          const item = document.createElement('div');
+          item.className = 'similar-offer-item';
+          item.onclick = () => loadOfferDetail(od.id);
+          item.innerHTML = `
+            <span class="similar-offer-title">${od.title}</span>
+            <span class="similar-offer-badge">${od.discountBadge}</span>
+          `;
+          storeDealsContainer.appendChild(item);
+        });
+      } else {
+        storeDealsContainer.innerHTML = `<div style="font-size:10px;color:#94a3b8;padding:6px 0;">No other deals for this store currently.</div>`;
+      }
+
+      // 6. Similar Offers
+      const simContainer = document.getElementById('widgetSimilarOffers');
+      simContainer.innerHTML = '';
+      const similar = allOffers.filter(o => o.categoryType === offer.categoryType && o.id !== offer.id);
+      if (similar.length > 0) {
+        similar.slice(0, 3).forEach(so => {
+          const item = document.createElement('div');
+          item.className = 'similar-offer-item';
+          item.onclick = () => loadOfferDetail(so.id);
+          item.innerHTML = `
+            <span class="similar-offer-title">${so.storeName} · ${so.title}</span>
+            <span class="similar-offer-badge">${so.discountBadge}</span>
+          `;
+          simContainer.appendChild(item);
+        });
+      } else {
+        simContainer.innerHTML = `<div style="font-size:10px;color:#94a3b8;padding:6px 0;">Check back soon for more category deals!</div>`;
+      }
+    }
+
+    function handleTakeMeToStore() {
+      if (!currentOffer) return;
+      window.location.href = `map.html?store=${encodeURIComponent(currentOffer.storeFloor.split('(')[1]?.replace(')', '') || currentOffer.storeId)}&name=${encodeURIComponent(currentOffer.storeName)}`;
+    }
+  </script>
+</body>
+</html>

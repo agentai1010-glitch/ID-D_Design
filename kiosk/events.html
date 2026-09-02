@@ -3984,15 +3984,8 @@ body {
     }
 
     function openEventDetailsModal(id) {
-      currentSelectedEventId = id;
-      const eventItem = eventsDB[id] || eventsDB['armaan'];
-      document.getElementById('modalEventTitle').textContent = eventItem.title;
-      document.getElementById('modalEventType').textContent = eventItem.type;
-      document.getElementById('modalEventDate').textContent = eventItem.date;
-      document.getElementById('modalEventTime').textContent = eventItem.time;
-      document.getElementById('modalEventVenue').textContent = eventItem.venue;
-      document.getElementById('modalEventDesc').textContent = eventItem.desc;
-      openKioskModal('eventDetailsModal');
+      const targetId = id || currentSelectedEventId || 'armaan';
+      window.location.href = `event_detail.html?id=${encodeURIComponent(targetId)}&from=events`;
     }
 
     function openHighlightDetailsModal(id) {

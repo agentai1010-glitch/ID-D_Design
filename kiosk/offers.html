@@ -4006,19 +4006,13 @@ body {
     }
 
     function openOfferDetailsModal(id) {
-      currentSelectedOfferId = id;
-      const offer = offersDB[id] || offersDB['adidas'];
-      document.getElementById('modalOfferTitle').textContent = offer.title;
-      document.getElementById('modalOfferStoreName').textContent = `Applicable at: ${offer.store} (${offer.loc})`;
-      document.getElementById('modalOfferCode').textContent = offer.code;
-      document.getElementById('modalOfferValidity').textContent = offer.validity;
-      document.getElementById('modalOfferDesc').textContent = offer.desc;
-      openKioskModal('offerDetailsModal');
+      const targetId = id || currentSelectedOfferId || 'deal-adidas-1';
+      window.location.href = `offer_detail.html?id=${encodeURIComponent(targetId)}&from=offers`;
     }
 
     function handoffToStoreScreen() {
       const offer = offersDB[currentSelectedOfferId] || offersDB['adidas'];
-      window.location.href = `shop.html?store=${offer.id}`;
+      window.location.href = `detail.html?id=${offer.id}&from=offers`;
     }
 
     function handoffToMallMap() {

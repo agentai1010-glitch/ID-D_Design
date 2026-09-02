@@ -4073,15 +4073,8 @@ body {
     }
 
     function openDiningDetailsModal(id) {
-      currentSelectedOutlet = id;
-      const outlet = diningDB[id] || diningDB['copperchimney'];
-      document.getElementById('diningModalName').textContent = outlet.name;
-      document.getElementById('diningModalCuisine').textContent = outlet.cuisine;
-      document.getElementById('diningModalLoc').textContent = outlet.loc;
-      document.getElementById('diningModalTimings').textContent = outlet.timings;
-      document.getElementById('diningModalDesc').textContent = outlet.desc;
-      document.getElementById('diningModalHeroImg').src = outlet.img;
-      openKioskModal('diningDetailsModal');
+      const targetId = id || currentSelectedOutlet || 'copperchimney';
+      window.location.href = `detail.html?id=${encodeURIComponent(targetId)}&from=food`;
     }
 
     function openDiningMenuModal(id) {

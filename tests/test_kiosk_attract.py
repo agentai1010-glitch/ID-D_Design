@@ -135,7 +135,7 @@ def test_attract_dual_campaign_carousel_rotation(driver, base_url):
     assert "Brands" in driver.page_source
     assert "Brighter" in driver.page_source
     assert "Moments" in driver.page_source
-    assert "A BRIGHTER YOU" in driver.page_source
+    assert "DISCOVER THE BEST" in driver.page_source
 
     # Verify Persistent Sub-Ads Cards
     assert "FASHION THAT MOVES YOU" in driver.page_source
@@ -149,6 +149,49 @@ def test_attract_dual_campaign_carousel_rotation(driver, base_url):
     btn_explore.click()
     time.sleep(0.5)
     assert "home.html" in driver.current_url
+
+def test_attract_slide1_interactive_brand_showcase(driver, base_url):
+    driver.get(f"{base_url}/kiosk/attract.html")
+    time.sleep(0.5)
+
+    # Verify Slide 1 Interactive Brand Cards
+    assert "FEATURED FLAGSHIPS" in driver.page_source
+    assert "ZARA" in driver.page_source
+    assert "GF-14" in driver.page_source
+    assert "UP TO 50% OFF" in driver.page_source
+
+    assert "H&M" in driver.page_source
+    assert "GF-02" in driver.page_source
+    assert "FLAT 20% OFF" in driver.page_source
+
+    assert "ADIDAS" in driver.page_source
+    assert "LG-08" in driver.page_source
+    assert "FLAT 35% OFF" in driver.page_source
+
+    assert "STARBUCKS" in driver.page_source
+    assert "LG-10" in driver.page_source
+    assert "BUY 1 GET 1 BEV" in driver.page_source
+
+    assert "PVR CINEMAS" in driver.page_source
+    assert "L3" in driver.page_source
+    assert "IMAX 3D" in driver.page_source
+    assert "4DX" in driver.page_source
+
+def test_attract_slide2_visual_experience_pillars(driver, base_url):
+    driver.get(f"{base_url}/kiosk/attract.html")
+    time.sleep(0.5)
+
+    # Switch to Slide 2
+    driver.execute_script("showSlide(1);")
+    time.sleep(0.5)
+
+    # Verify Visual Experience Pillars
+    assert "CURATED EXPERIENCES" in driver.page_source
+    assert "DISCOVER THE BEST" in driver.page_source
+    assert "FASHION FOR EVERY YOU" in driver.page_source
+    assert "GREAT FOOD BRINGS PEOPLE TOGETHER" in driver.page_source
+    assert "LIVE EVENTS BIGGER THAN EVER" in driver.page_source
+    assert "GOOD TIMES STAY LONGER" in driver.page_source
 
 def test_strict_kiosk_attract_boundaries(driver, base_url):
     driver.get(f"{base_url}/kiosk/attract.html")

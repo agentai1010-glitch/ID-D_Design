@@ -3878,10 +3878,8 @@ body {
     }
 
     function openStoreDetailsModal(name, cat, loc, id, phone) {
-      document.getElementById('detailModalStoreName').textContent = name;
-      document.getElementById('detailModalStoreCat').textContent = cat;
-      document.getElementById('detailModalStoreLoc').textContent = loc;
-      openKioskModal('storeDetailsModal');
+      const targetId = (id || name || 'nike').toLowerCase().replace(/\s+/g, '-');
+      window.location.href = `detail.html?id=${encodeURIComponent(targetId)}&from=search`;
     }
 
     function openFoodDetailsModal(name, cat, loc) {

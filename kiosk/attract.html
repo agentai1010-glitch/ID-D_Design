@@ -3030,7 +3030,7 @@ body {
       position: relative;
       z-index: 5;
       display: grid;
-      grid-template-columns: 820px 1fr 280px;
+      grid-template-columns: 780px 1fr 340px;
       gap: 20px;
       padding: 0 48px;
       align-items: center;
@@ -3114,19 +3114,149 @@ body {
       text-transform: uppercase;
     }
 
-    /* Right Glass Pillar for Ad 1 */
+    /* Right Glass Pillar for Ad 1 (Interactive Brand Showcase) */
     .ad1-right-billboard {
-      background: linear-gradient(180deg, rgba(14, 20, 32, 0.85) 0%, rgba(6, 9, 14, 0.92) 100%), url('../images/mall_atrium_hero_1787351821606.jpg') center/cover;
-      border: 1px solid rgba(229, 185, 126, 0.4);
-      border-radius: 16px;
-      padding: 22px 24px;
+      background: linear-gradient(180deg, rgba(14, 20, 32, 0.94) 0%, rgba(6, 9, 14, 0.96) 100%);
+      border: 1.5px solid rgba(229, 185, 126, 0.45);
+      border-radius: 20px;
+      padding: 18px 20px;
       display: flex;
       flex-direction: column;
-      gap: 6px;
-      backdrop-filter: blur(14px);
+      gap: 10px;
+      backdrop-filter: blur(18px);
       text-align: left;
-      min-width: 260px;
-      box-shadow: 0 16px 36px rgba(0, 0, 0, 0.6);
+      min-width: 320px;
+      max-width: 340px;
+      box-shadow: 0 20px 48px rgba(0, 0, 0, 0.75), 0 0 20px rgba(226, 176, 98, 0.1);
+      position: relative;
+      z-index: 10;
+    }
+    .billboard-header {
+      border-bottom: 1px solid rgba(229, 185, 126, 0.2);
+      padding-bottom: 8px;
+      display: flex;
+      flex-direction: column;
+      gap: 3px;
+    }
+    .billboard-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(226, 176, 98, 0.18);
+      border: 1px solid rgba(226, 176, 98, 0.5);
+      padding: 3px 10px;
+      border-radius: 999px;
+      font-size: 8.5px;
+      font-weight: 800;
+      color: #f7dfb8;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      width: fit-content;
+    }
+    .billboard-title {
+      font-family: 'Cinzel', serif;
+      font-size: 18px;
+      font-weight: 800;
+      color: #ffffff;
+      letter-spacing: 1.5px;
+      margin-top: 2px;
+    }
+    .billboard-sub {
+      font-size: 9.5px;
+      font-weight: 700;
+      color: #e2b062;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+    }
+    .billboard-brand-cards {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .brand-item-card {
+      background: rgba(20, 29, 46, 0.75);
+      border: 1px solid rgba(229, 185, 126, 0.25);
+      border-radius: 12px;
+      padding: 8px 12px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      cursor: pointer;
+      transition: all 0.22s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .brand-item-card:hover {
+      background: rgba(30, 44, 70, 0.95);
+      border-color: #e2b062;
+      transform: translateX(4px);
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.6), 0 0 14px rgba(226, 176, 98, 0.3);
+    }
+    .brand-item-logo-box {
+      width: 34px;
+      height: 34px;
+      border-radius: 10px;
+      background: rgba(226, 176, 98, 0.12);
+      border: 1px solid rgba(226, 176, 98, 0.3);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #f7dfb8;
+      font-size: 14px;
+      flex-shrink: 0;
+      transition: all 0.2s ease;
+    }
+    .brand-item-card:hover .brand-item-logo-box {
+      background: #e2b062;
+      color: #04060a;
+      border-color: #f7dfb8;
+      box-shadow: 0 0 10px rgba(226, 176, 98, 0.6);
+    }
+    .brand-item-info {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+      flex: 1;
+      min-width: 0;
+    }
+    .brand-item-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 6px;
+    }
+    .brand-item-name {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 13px;
+      font-weight: 800;
+      color: #ffffff;
+      letter-spacing: 1px;
+    }
+    .brand-unit-pill {
+      font-size: 8px;
+      font-weight: 800;
+      padding: 2px 6px;
+      border-radius: 6px;
+      background: rgba(255, 255, 255, 0.08);
+      color: #cbd5e1;
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      letter-spacing: 0.5px;
+    }
+    .brand-item-promo {
+      font-size: 9.5px;
+      font-weight: 700;
+      color: #e2b062;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      letter-spacing: 0.5px;
+    }
+    .brand-item-arrow {
+      color: rgba(229, 185, 126, 0.5);
+      font-size: 11px;
+      transition: all 0.2s ease;
+    }
+    .brand-item-card:hover .brand-item-arrow {
+      color: #e2b062;
+      transform: translateX(3px);
     }
 
     /* =========================================================================
@@ -3193,45 +3323,145 @@ body {
       margin-top: 20px;
     }
 
-    /* Right Glass Billboard in Ad 2 */
+    /* Right Glass Billboard in Ad 2 (Visual Experience Pillars) */
     .ad2-right-billboard {
-      background: linear-gradient(180deg, rgba(14, 20, 32, 0.82) 0%, rgba(6, 9, 14, 0.92) 100%), url('../images/kiosk_store_zara.jpg') center/cover;
-      border: 1px solid rgba(229, 185, 126, 0.4);
-      border-radius: 16px;
-      padding: 24px 28px;
+      background: linear-gradient(180deg, rgba(14, 20, 32, 0.94) 0%, rgba(6, 9, 14, 0.96) 100%);
+      border: 1.5px solid rgba(229, 185, 126, 0.45);
+      border-radius: 20px;
+      padding: 18px 20px;
       display: flex;
       flex-direction: column;
-      gap: 6px;
-      backdrop-filter: blur(14px);
+      gap: 10px;
+      backdrop-filter: blur(18px);
       text-align: left;
-      min-width: 260px;
-      box-shadow: 0 16px 36px rgba(0, 0, 0, 0.6);
+      min-width: 360px;
+      max-width: 380px;
+      box-shadow: 0 20px 48px rgba(0, 0, 0, 0.75), 0 0 20px rgba(226, 176, 98, 0.1);
+      position: relative;
+      z-index: 10;
     }
-    .billboard-title {
+    .experience-pillars-header {
+      border-bottom: 1px solid rgba(229, 185, 126, 0.2);
+      padding-bottom: 8px;
+      display: flex;
+      flex-direction: column;
+      gap: 3px;
+    }
+    .exp-header-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      background: rgba(226, 176, 98, 0.18);
+      border: 1px solid rgba(226, 176, 98, 0.5);
+      padding: 2px 8px;
+      border-radius: 999px;
+      font-size: 8.5px;
+      font-weight: 800;
+      color: #f7dfb8;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      width: fit-content;
+    }
+    .exp-header-title {
       font-family: 'Cinzel', serif;
-      font-size: 18px;
+      font-size: 16px;
       font-weight: 800;
       color: #ffffff;
       letter-spacing: 1.5px;
     }
-    .billboard-sub {
-      font-size: 10px;
-      font-weight: 800;
-      color: #e2b062;
-      letter-spacing: 2px;
-      text-transform: uppercase;
-    }
-    .billboard-brands {
+    .experience-pillars-grid {
       display: flex;
       flex-direction: column;
-      gap: 5px;
-      margin-top: 14px;
-      font-family: 'Montserrat', sans-serif;
-      font-weight: 900;
-      font-size: 15px;
-      letter-spacing: 2.5px;
+      gap: 8px;
+    }
+    .exp-pillar-card {
+      position: relative;
+      height: 68px;
+      border-radius: 14px;
+      overflow: hidden;
+      border: 1px solid rgba(229, 185, 126, 0.35);
+      cursor: pointer;
+      transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+      display: flex;
+      align-items: center;
+    }
+    .exp-pillar-card:hover {
+      border-color: #e2b062;
+      transform: translateY(-2px) scale(1.02);
+      box-shadow: 0 10px 24px rgba(0, 0, 0, 0.7), 0 0 16px rgba(226, 176, 98, 0.35);
+    }
+    .exp-pillar-bg {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-size: cover;
+      background-position: center;
+      transition: transform 0.4s ease;
+    }
+    .exp-pillar-card:hover .exp-pillar-bg {
+      transform: scale(1.08);
+    }
+    .exp-pillar-overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, rgba(6, 9, 14, 0.92) 0%, rgba(6, 9, 14, 0.72) 65%, rgba(6, 9, 14, 0.3) 100%);
+    }
+    .exp-pillar-content {
+      position: relative;
+      z-index: 2;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      width: 100%;
+      padding: 0 14px;
+      gap: 10px;
+    }
+    .exp-pillar-text {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+      flex: 1;
+    }
+    .exp-pillar-headline {
+      font-family: 'Cinzel', serif;
+      font-size: 11px;
+      font-weight: 800;
       color: #ffffff;
-      opacity: 0.95;
+      letter-spacing: 0.8px;
+      line-height: 1.2;
+      text-transform: uppercase;
+      text-shadow: 0 2px 6px rgba(0, 0, 0, 0.9);
+    }
+    .exp-pillar-sub {
+      font-size: 9px;
+      font-weight: 700;
+      color: #e2b062;
+      letter-spacing: 0.5px;
+    }
+    .exp-pillar-action-circle {
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #f7dfb8, #e2b062);
+      color: #04060a;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 11px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5), 0 0 10px rgba(226, 176, 98, 0.5);
+      flex-shrink: 0;
+      transition: all 0.2s ease;
+    }
+    .exp-pillar-card:hover .exp-pillar-action-circle {
+      transform: scale(1.15) rotate(-15deg);
+      box-shadow: 0 0 18px rgba(226, 176, 98, 0.9);
+      background: #ffffff;
+      color: #b37e2a;
     }
 
     /* =========================================================================
@@ -3557,16 +3787,89 @@ body {
             </div>
           </div>
 
-          <!-- Right Glass Showcase Pillar for Ad 1 -->
+          <!-- Right Glass Showcase Pillar for Ad 1 (Interactive Brand Showcase) -->
           <div class="ad1-right-billboard">
-            <div class="billboard-title">GRAND METRO</div>
-            <div class="billboard-sub">Luxury · Entertainment · Style</div>
-            <div class="billboard-brands">
-              <span>ZARA</span>
-              <span>H&M</span>
-              <span>ADIDAS</span>
-              <span>STARBUCKS</span>
-              <span>PVR CINEMAS</span>
+            <div class="billboard-header">
+              <div class="billboard-badge"><i class="fa-solid fa-crown"></i> FEATURED FLAGSHIPS</div>
+              <div class="billboard-title">GRAND METRO</div>
+              <div class="billboard-sub">Luxury · Entertainment · Style</div>
+            </div>
+            
+            <div class="billboard-brand-cards">
+              <!-- Zara -->
+              <div class="brand-item-card" onclick="event.stopPropagation(); window.location.href='detail.html?id=zara';">
+                <div class="brand-item-logo-box">
+                  <i class="fa-solid fa-bag-shopping"></i>
+                </div>
+                <div class="brand-item-info">
+                  <div class="brand-item-top">
+                    <span class="brand-item-name">ZARA</span>
+                    <span class="brand-unit-pill">GF-14</span>
+                  </div>
+                  <div class="brand-item-promo"><i class="fa-solid fa-tag"></i> UP TO 50% OFF</div>
+                </div>
+                <div class="brand-item-arrow"><i class="fa-solid fa-chevron-right"></i></div>
+              </div>
+
+              <!-- H&M -->
+              <div class="brand-item-card" onclick="event.stopPropagation(); window.location.href='detail.html?id=hm';">
+                <div class="brand-item-logo-box">
+                  <i class="fa-solid fa-shirt"></i>
+                </div>
+                <div class="brand-item-info">
+                  <div class="brand-item-top">
+                    <span class="brand-item-name">H&M</span>
+                    <span class="brand-unit-pill">GF-02</span>
+                  </div>
+                  <div class="brand-item-promo"><i class="fa-solid fa-tag"></i> FLAT 20% OFF</div>
+                </div>
+                <div class="brand-item-arrow"><i class="fa-solid fa-chevron-right"></i></div>
+              </div>
+
+              <!-- Adidas -->
+              <div class="brand-item-card" onclick="event.stopPropagation(); window.location.href='detail.html?id=adidas';">
+                <div class="brand-item-logo-box">
+                  <i class="fa-solid fa-person-running"></i>
+                </div>
+                <div class="brand-item-info">
+                  <div class="brand-item-top">
+                    <span class="brand-item-name">ADIDAS</span>
+                    <span class="brand-unit-pill">LG-08</span>
+                  </div>
+                  <div class="brand-item-promo"><i class="fa-solid fa-fire"></i> FLAT 35% OFF</div>
+                </div>
+                <div class="brand-item-arrow"><i class="fa-solid fa-chevron-right"></i></div>
+              </div>
+
+              <!-- Starbucks -->
+              <div class="brand-item-card" onclick="event.stopPropagation(); window.location.href='detail.html?id=starbucks';">
+                <div class="brand-item-logo-box">
+                  <i class="fa-solid fa-mug-hot"></i>
+                </div>
+                <div class="brand-item-info">
+                  <div class="brand-item-top">
+                    <span class="brand-item-name">STARBUCKS</span>
+                    <span class="brand-unit-pill">LG-10</span>
+                  </div>
+                  <div class="brand-item-promo"><i class="fa-solid fa-star"></i> BUY 1 GET 1 BEV</div>
+                </div>
+                <div class="brand-item-arrow"><i class="fa-solid fa-chevron-right"></i></div>
+              </div>
+
+              <!-- PVR Cinemas -->
+              <div class="brand-item-card" onclick="event.stopPropagation(); window.location.href='detail.html?id=pvr';">
+                <div class="brand-item-logo-box">
+                  <i class="fa-solid fa-film"></i>
+                </div>
+                <div class="brand-item-info">
+                  <div class="brand-item-top">
+                    <span class="brand-item-name">PVR CINEMAS</span>
+                    <span class="brand-unit-pill">L3</span>
+                  </div>
+                  <div class="brand-item-promo"><i class="fa-solid fa-clapperboard"></i> IMAX 3D & 4DX</div>
+                </div>
+                <div class="brand-item-arrow"><i class="fa-solid fa-chevron-right"></i></div>
+              </div>
             </div>
           </div>
 
@@ -3639,14 +3942,73 @@ body {
               </div>
             </div>
 
-            <!-- Right Glass Billboard -->
+            <!-- Right Glass Billboard in Slide 2 (Visual Experience Pillars) -->
             <div class="ad2-right-billboard">
-              <div class="billboard-title">A BRIGHTER YOU</div>
-              <div class="billboard-sub">Fashion · Lifestyle · Together</div>
-              <div class="billboard-brands">
-                <span>ZARA</span>
-                <span>H&M</span>
-                <span>SEPHORA</span>
+              <div class="experience-pillars-header">
+                <div class="exp-header-tag"><i class="fa-solid fa-sparkles"></i> CURATED EXPERIENCES</div>
+                <div class="exp-header-title">DISCOVER THE BEST</div>
+              </div>
+
+              <div class="experience-pillars-grid">
+                <!-- Pillar 1: Fashion -->
+                <div class="exp-pillar-card" onclick="event.stopPropagation(); window.location.href='shop.html';">
+                  <div class="exp-pillar-bg" style="background-image: url('../images/kiosk_highlight_style.jpg');"></div>
+                  <div class="exp-pillar-overlay"></div>
+                  <div class="exp-pillar-content">
+                    <div class="exp-pillar-text">
+                      <div class="exp-pillar-headline">FASHION FOR EVERY YOU</div>
+                      <div class="exp-pillar-sub">120+ International Brands</div>
+                    </div>
+                    <div class="exp-pillar-action-circle">
+                      <i class="fa-solid fa-arrow-right"></i>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Pillar 2: Dining -->
+                <div class="exp-pillar-card" onclick="event.stopPropagation(); window.location.href='food.html';">
+                  <div class="exp-pillar-bg" style="background-image: url('../images/kiosk_highlight_food.jpg');"></div>
+                  <div class="exp-pillar-overlay"></div>
+                  <div class="exp-pillar-content">
+                    <div class="exp-pillar-text">
+                      <div class="exp-pillar-headline">GREAT FOOD BRINGS PEOPLE TOGETHER</div>
+                      <div class="exp-pillar-sub">45+ Dining Venues & Cafes</div>
+                    </div>
+                    <div class="exp-pillar-action-circle">
+                      <i class="fa-solid fa-arrow-right"></i>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Pillar 3: Live Events -->
+                <div class="exp-pillar-card" onclick="event.stopPropagation(); window.location.href='events.html';">
+                  <div class="exp-pillar-bg" style="background-image: url('../images/kiosk_search_adidas_event.jpg');"></div>
+                  <div class="exp-pillar-overlay"></div>
+                  <div class="exp-pillar-content">
+                    <div class="exp-pillar-text">
+                      <div class="exp-pillar-headline">LIVE EVENTS BIGGER THAN EVER</div>
+                      <div class="exp-pillar-sub">Concerts, Festivals & Shows</div>
+                    </div>
+                    <div class="exp-pillar-action-circle">
+                      <i class="fa-solid fa-arrow-right"></i>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Pillar 4: Entertainment / Good Times -->
+                <div class="exp-pillar-card" onclick="event.stopPropagation(); window.location.href='services.html';">
+                  <div class="exp-pillar-bg" style="background-image: url('../images/kiosk_highlight_gaming.jpg');"></div>
+                  <div class="exp-pillar-overlay"></div>
+                  <div class="exp-pillar-content">
+                    <div class="exp-pillar-text">
+                      <div class="exp-pillar-headline">GOOD TIMES STAY LONGER</div>
+                      <div class="exp-pillar-sub">Arcade, VR & Family Fun</div>
+                    </div>
+                    <div class="exp-pillar-action-circle">
+                      <i class="fa-solid fa-arrow-right"></i>
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
 
